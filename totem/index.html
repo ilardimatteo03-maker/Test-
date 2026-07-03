@@ -50,6 +50,11 @@
 
   <div class="grain" aria-hidden="true"></div>
 
+  <!-- Barre de progression de lecture, calée sur la hauteur totale de page -->
+  <div class="scroll-progress" aria-hidden="true">
+    <div class="scroll-progress__bar" id="scrollProgressBar"></div>
+  </div>
+
   <a class="skip-link" href="#contenu">Aller au contenu</a>
 
   <header class="nav" id="nav">
@@ -87,27 +92,30 @@
 
   <main id="contenu">
 
-    <!-- HERO -->
+    <!-- Sentinelle 1px : sert uniquement à détecter le passage sous la nav (via IntersectionObserver) -->
+    <div class="scroll-sentinel" aria-hidden="true"></div>
+
+    <!-- HERO — choréographie d'entrée au chargement (indépendante du scroll-reveal) -->
     <section class="hero" id="top">
       <div class="hero__inner">
-        <div class="hero__copy reveal">
-          <h1 class="hero__title">Plus de visibilité.<br>Plus de clients.</h1>
-          <p class="hero__sub">Création de site internet, référencement SEO, publicité en ligne et stratégie digitale pour développer votre activité.</p>
-          <div class="hero__ctas">
+        <div class="hero__copy">
+          <h1 class="hero__title hero-in" style="--d:0s">Plus de visibilité.<br>Plus de clients.</h1>
+          <p class="hero__sub hero-in" style="--d:0.12s">Création de site internet, référencement SEO, publicité en ligne et stratégie digitale pour développer votre activité.</p>
+          <div class="hero__ctas hero-in" style="--d:0.24s">
             <a href="#contact" class="btn btn--primary">Demander un devis</a>
             <a href="#modules" class="btn btn--ghost">Voir nos services</a>
           </div>
         </div>
 
-        <div class="hero__visual reveal" aria-hidden="true">
-          <div class="monolith">
+        <div class="hero__visual hero-in" style="--d:0.16s" aria-hidden="true">
+          <div class="monolith" id="monolith">
             <div class="monolith__face"></div>
             <div class="monolith__sheen"></div>
           </div>
         </div>
       </div>
 
-      <p class="hero__strap font-mono">AGENCE DIGITALE. SITE WEB, SEO &amp; PUBLICITÉ EN LIGNE.</p>
+      <p class="hero__strap font-mono hero-in" style="--d:0.36s">AGENCE DIGITALE. SITE WEB, SEO &amp; PUBLICITÉ EN LIGNE.</p>
     </section>
 
     <!-- PRESENTATION AGENCE -->
@@ -226,12 +234,14 @@
       </div>
     </section>
 
-    <!-- METHODE -->
+    <!-- METHODE — colonne de gauche sticky, étapes qui s'activent au scroll -->
     <section class="method" id="methode">
-      <div class="wrap">
-        <p class="eyebrow font-mono reveal">Notre méthode</p>
-        <h2 class="method__title reveal">Comment nous travaillons.</h2>
-        <p class="method__body reveal">Une méthode simple et transparente, du premier échange à l'optimisation continue de vos résultats.</p>
+      <div class="wrap method__layout">
+        <div class="method__intro">
+          <p class="eyebrow font-mono reveal">Notre méthode</p>
+          <h2 class="method__title reveal">Comment nous travaillons.</h2>
+          <p class="method__body reveal">Une méthode simple et transparente, du premier échange à l'optimisation continue de vos résultats.</p>
+        </div>
 
         <ol class="method__list">
           <li class="reveal">
