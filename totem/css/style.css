@@ -388,39 +388,6 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ==========================================================================
-   Audience
-   ========================================================================== */
-
-.audience { padding: clamp(3rem, 7vw, 5rem) 0; border-top: 1px solid var(--onyx-line); }
-
-.audience__intro {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(1.3rem, 2.4vw, 1.75rem);
-  max-width: 32ch;
-  margin: 0 0 2rem;
-}
-
-.audience__chips {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-.audience__chips li {
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  border: 1px solid var(--onyx-line);
-  padding: 0.6rem 1rem;
-  color: var(--craie-dim);
-}
-
-/* ==========================================================================
    Direction artistique — bento
    ========================================================================== */
 
