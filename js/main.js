@@ -1,7 +1,7 @@
 'use strict';
 
 /* ============================================================
-   ASM STUDIO — interactions & animations
+   ASM — interactions & animations
    Charte V 2.0 : sobre, transform/opacity uniquement, 60 fps.
    Zéro dépendance : IntersectionObserver + rAF + CSS.
    Tout est désactivé si prefers-reduced-motion est actif.
