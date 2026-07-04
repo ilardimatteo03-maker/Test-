@@ -459,14 +459,106 @@ a.card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0
 }
 
 /* ============================================================
-   REVEAL
+   REVEAL — apparition au scroll
+   Le stagger (délai en cascade) est calculé par js/main.js
+   via transition-delay inline sur les .reveal frères.
    ============================================================ */
 .reveal {
   opacity: 0; transform: translateY(22px);
   transition: opacity 550ms cubic-bezier(0.25, 0.1, 0.25, 1), transform 550ms cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 .reveal.visible { opacity: 1; transform: none; }
+
+/* Variante zoom discret — sections décisives (CTA encre) */
+.reveal--zoom { transform: translateY(14px) scale(0.985); }
+.reveal--zoom.visible { transform: none; }
+
+/* ============================================================
+   ENTRÉE DU HERO — effet signature de la landing
+   Les mots du H1 montent depuis un masque (reveal typographique),
+   puis sous-titre et CTA suivent en cascade. Les classes .has-anim
+   ne sont posées que par JS : sans JS, le hero est statique.
+   ============================================================ */
+.hero-word-mask { display: inline-block; overflow: hidden; vertical-align: bottom; }
+.hero.has-anim .hero-word {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: hero-rise 750ms cubic-bezier(0.22, 0.9, 0.3, 1) forwards;
+  animation-delay: calc(80ms * var(--word-i, 0));
+}
+@keyframes hero-rise { to { transform: translateY(0); } }
+
+.hero.has-anim .hero-sub,
+.hero.has-anim .hero-actions {
+  opacity: 0; transform: translateY(16px);
+  animation: hero-fade 650ms cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+.hero.has-anim .hero-sub { animation-delay: 480ms; }
+.hero.has-anim .hero-actions { animation-delay: 620ms; }
+@keyframes hero-fade { to { opacity: 1; transform: none; } }
+
+/* Halo décoratif du hero — dérive lente, transform uniquement */
+.hero { position: relative; overflow: hidden; }
+.hero::before {
+  content: ""; position: absolute; z-index: -1;
+  width: 720px; height: 720px; left: 50%; top: -280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 102, 204, 0.055) 0%, rgba(0, 102, 204, 0) 65%);
+  transform: translateX(-50%);
+  animation: halo-drift 14s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes halo-drift {
+  from { transform: translateX(-58%) translateY(0); }
+  to   { transform: translateX(-42%) translateY(36px); }
+}
+
+/* ============================================================
+   NAV — état "scrollé" (ombre + fond raffermi)
+   ============================================================ */
+.topbar { transition: box-shadow 300ms ease, background-color 300ms ease; }
+.topbar.is-scrolled {
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* ============================================================
+   MICRO-INTERACTIONS
+   ============================================================ */
+/* Boutons : légère lévitation au survol (transform + ombre) */
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0, 102, 204, 0.28); }
+.btn-primary:active { transform: scale(0.97); box-shadow: none; }
+.btn-secondary:hover { transform: translateY(-1px); }
+.btn-secondary:active { transform: scale(0.97); }
+
+/* Icône de carte : respire quand la carte est survolée */
+.card-icon { transition: transform 300ms cubic-bezier(0.34, 1.4, 0.64, 1); }
+a.card:hover .card-icon { transform: scale(1.12) rotate(-3deg); }
+
+/* Visuels d'étude de cas : le SVG est déplacé par la parallaxe JS */
+.case-visual svg { transition: none; }
+.case-visual.is-parallax svg { will-change: transform; }
+
+/* Liens footer : soulignement animé */
+.footer ul a { position: relative; }
+.footer ul a::after {
+  content: ""; position: absolute; left: 0; bottom: 2px;
+  width: 100%; height: 1px; background: var(--ink);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 250ms ease;
+}
+.footer ul a:hover::after { transform: scaleX(1); }
+
+/* ============================================================
+   ACCESSIBILITÉ — mouvement réduit : tout est désactivé
+   ============================================================ */
 @media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
-  .btn, .btn-link .arrow, .nav-toggle span, a.card, .faq summary::after { transition: none; }
+  .reveal, .reveal--zoom { opacity: 1; transform: none; transition: none; }
+  .hero.has-anim .hero-word,
+  .hero.has-anim .hero-sub,
+  .hero.has-anim .hero-actions { animation: none; opacity: 1; transform: none; }
+  .hero::before { animation: none; }
+  .btn, .btn-link .arrow, .nav-toggle span, a.card, .card-icon,
+  .faq summary::after, .footer ul a::after, .topbar { transition: none; }
+  .btn-primary:hover, .btn-secondary:hover { transform: none; }
 }
