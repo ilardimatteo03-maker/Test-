@@ -1,0 +1,74 @@
+[
+  {
+    "id": "seiko-5-srpd55",
+    "brand": "Seiko",
+    "name": "Seiko 5 Sports SRPD55",
+    "asin": "REMPLACER_PAR_ASIN_REEL",
+    "category": "automatique",
+    "priceRangeEur": "180-220",
+    "image": "/products/placeholder-watch.svg",
+    "pros": ["Mouvement automatique fiable (calibre 4R36)", "Bonne étanchéité 100m", "Excellent rapport qualité-prix"],
+    "cons": ["Réserve de marche courte (41h)", "Bracelet acier d'entrée de gamme"],
+    "bestFor": "Premiere montre automatique, usage quotidien"
+  },
+  {
+    "id": "seiko-presage-srpb77",
+    "brand": "Seiko",
+    "name": "Seiko Presage SRPB77",
+    "asin": "REMPLACER_PAR_ASIN_REEL",
+    "category": "habillee",
+    "priceRangeEur": "350-420",
+    "image": "/products/placeholder-watch.svg",
+    "pros": ["Cadran laque japonais", "Finitions haut de gamme pour le prix", "Verre saphir"],
+    "cons": ["Boitier fin peu adapte au sport", "Disponibilite variable selon revendeurs"],
+    "bestFor": "Montre habillee, occasions professionnelles"
+  },
+  {
+    "id": "longines-master-collection",
+    "brand": "Longines",
+    "name": "Longines Master Collection",
+    "asin": "REMPLACER_PAR_ASIN_REEL",
+    "category": "habillee",
+    "priceRangeEur": "2200-2800",
+    "image": "/products/placeholder-watch.svg",
+    "pros": ["Mouvement automatique COSC-like maison", "Guichet date a 3h discret", "Image de marque premium accessible"],
+    "cons": ["Prix d'entree eleve", "Reseau apres-vente moins etendu que Seiko"],
+    "bestFor": "Montre suisse d'entree de gamme, transmission familiale"
+  },
+  {
+    "id": "timex-weekender",
+    "brand": "Timex",
+    "name": "Timex Weekender",
+    "asin": "REMPLACER_PAR_ASIN_REEL",
+    "category": "casual",
+    "priceRangeEur": "35-50",
+    "image": "/products/placeholder-watch.svg",
+    "pros": ["Tres bon marche", "Bracelet NATO interchangeable", "Indiglo (retro-eclairage)"],
+    "cons": ["Mouvement quartz basique", "Etancheite limitee (30m)"],
+    "bestFor": "Montre de tous les jours, petit budget, premier achat"
+  },
+  {
+    "id": "citizen-eco-drive-promaster",
+    "brand": "Citizen",
+    "name": "Citizen Eco-Drive Promaster Diver",
+    "asin": "REMPLACER_PAR_ASIN_REEL",
+    "category": "plongee",
+    "priceRangeEur": "220-280",
+    "image": "/products/placeholder-watch.svg",
+    "pros": ["Eco-Drive : jamais de pile a changer", "Etancheite 200m ISO 6425", "Lunette unidirectionnelle plongee"],
+    "cons": ["Look tres outil, peu polyvalent", "Boitier epais (44mm+)"],
+    "bestFor": "Plongee, sports nautiques, montre outil increvable"
+  },
+  {
+    "id": "seiko-prospex-solar",
+    "brand": "Seiko",
+    "name": "Seiko Prospex Solar Diver",
+    "asin": "REMPLACER_PAR_ASIN_REEL",
+    "category": "plongee",
+    "priceRangeEur": "300-380",
+    "image": "/products/placeholder-watch.svg",
+    "pros": ["Charge solaire", "Etancheite 200m", "Look Prospex reconnaissable"],
+    "cons": ["Prix superieur a l'automatique equivalent", "Bracelet caoutchouc parfois raide"],
+    "bestFor": "Plongee et usage quotidien sans entretien de pile"
+  }
+]

@@ -1,0 +1,38 @@
+{
+  "name": "montres-blog",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Blog d'affiliation automatise sur les montres (Seiko, Longines, Timex, Citizen...)",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "generate:article": "node --env-file=.env scripts/generate-article.mjs",
+    "generate:dry-run": "node --env-file=.env scripts/generate-article.mjs --dry-run"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.1",
+    "gray-matter": "^4.0.3",
+    "next": "^14.2.15",
+    "next-mdx-remote": "^6.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "reading-time": "^1.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.16.11",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "@tailwindcss/typography": "^0.5.15",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.15",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.13",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

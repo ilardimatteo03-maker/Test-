@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: theme("colors.paper");
+  color: theme("colors.ink");
+}
+
+.affiliate-disclosure {
+  font-size: 0.8rem;
+  color: #6b7280;
+  border-left: 3px solid theme("colors.brass");
+  padding: 0.6rem 1rem;
+  background: #fdf8f0;
+  border-radius: 0.25rem;
+}
