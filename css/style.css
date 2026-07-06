@@ -472,6 +472,31 @@ a.card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0
 .section--ink .quote figcaption { color: rgba(255,255,255,0.6); }
 .section--ink .quote figcaption strong { color: var(--blanc); }
 
+/* ---- Témoignage 2 colonnes (photo équipe + citation) ---- */
+.testimonial {
+  max-width: 980px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; align-items: stretch;
+  background: var(--blanc); border-radius: var(--r-card); overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.testimonial-photo { min-height: 340px; }
+.testimonial-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.testimonial-body {
+  padding: clamp(28px, 3.5vw, 52px);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.testimonial-body blockquote {
+  font-weight: 600;
+  font-size: clamp(19px, 2.2vw, 25px);
+  line-height: 1.4; letter-spacing: -0.02em;
+}
+.testimonial-body figcaption { margin-top: var(--s-3); color: var(--gris); font-size: 15px; }
+.testimonial-body figcaption strong { color: var(--ink); font-weight: 600; display: block; }
+@media (max-width: 760px) {
+  .testimonial { grid-template-columns: 1fr; }
+  .testimonial-photo { min-height: 0; aspect-ratio: 16 / 10; }
+}
+
 /* ============================================================
    MÉTHODE (étapes numérotées)
    ============================================================ */
@@ -574,6 +599,7 @@ a.card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0
    ============================================================ */
 .footer {
   background: var(--nuage);
+  border-top: 1px solid var(--hairline);
   padding-top: var(--s-5); padding-bottom: var(--s-4);
 }
 .footer-grid {
