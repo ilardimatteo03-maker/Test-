@@ -4,6 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- Google Consent Mode v2 — refus par défaut (avant tout traceur) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+      personalization_storage: 'denied',
+      functionality_storage: 'denied',
+      security_storage: 'granted',
+      wait_for_update: 500
+    });
+  </script>
+
   <!-- SEO -->
   <title>ASM — Agence digitale premium : sites web, SEO, automatisation</title>
   <meta name="description" content="ASM conçoit l'infrastructure digitale des entreprises ambitieuses : sites web qui convertissent, acquisition SEO/SEA, paiement et automatisation. Chaque livrable est relié à un indicateur business." />
@@ -43,6 +59,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231D1D1F'/><text x='8' y='22' font-family='-apple-system,sans-serif' font-weight='700' font-size='16' fill='%23FFFFFF'>A</text><circle cx='24' cy='20' r='2.5' fill='%230066CC'/></svg>" />
 
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/cookies.css" />
 </head>
 <body>
 
@@ -226,11 +243,16 @@
     </div>
     <div class="footer-bottom">
       <span>© 2026 ASM. Tous droits réservés.</span>
+      <span class="footer-cc">
+        <a href="politique-cookies.html">Politique de cookies</a>
+        <button type="button" class="cc-manage" data-cc-open>Gérer mes cookies</button>
+      </span>
       <span>La croissance, par la précision.</span>
     </div>
   </div>
 </footer>
 
 <script src="js/main.js" defer></script>
+<script src="js/cookies.js" defer></script>
 </body>
 </html>
