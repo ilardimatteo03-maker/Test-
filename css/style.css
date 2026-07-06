@@ -8,10 +8,13 @@
   --ink:      #1D1D1F;
   --blanc:    #FFFFFF;
   --nuage:    #F5F5F7;
-  --gris:     #6E6E73;
-  --hairline: #D2D2D7;
+  --gris:     #52525A;   /* texte secondaire — 7:1 (AAA), assombri depuis #6E6E73 */
+  --gris-muted: #6E6E73; /* méta décorative (labels uppercase) où AAA non requis */
+  --hairline: #D2D2D7;   /* séparateurs décoratifs */
+  --border-strong: #86868B; /* bordures interactives — 3,3:1 (WCAG 1.4.11 non-texte) */
   --bleu:     #0066CC;
   --bleu-hover: #0055B8;
+  --bleu-clair: #5AA0FF; /* accent sur fond sombre (hero image) — 6,9:1 */
 
   --font-sans: "Inter", -apple-system, "SF Pro Text", "Helvetica Neue", sans-serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, monospace;
@@ -91,12 +94,12 @@ select:focus-visible, textarea:focus-visible, summary:focus-visible {
 }
 .topbar-inner {
   display: flex; align-items: center; justify-content: space-between;
-  height: 56px; gap: var(--s-3);
+  height: 60px; gap: var(--s-3);
 }
 .brand-logo {
   text-decoration: none;
   font-weight: 700;
-  font-size: 17px;
+  font-size: 21px;
   letter-spacing: -0.02em;
   white-space: nowrap;
 }
@@ -136,7 +139,7 @@ select:focus-visible, textarea:focus-visible, summary:focus-visible {
 @media (max-width: 899px) {
   .nav-toggle { display: flex; }
   .nav-menu {
-    position: absolute; top: 56px; left: 0; right: 0;
+    position: absolute; top: 60px; left: 0; right: 0;
     flex-direction: column; align-items: stretch; gap: 2px;
     background: var(--blanc);
     padding: var(--s-2) var(--s-3) var(--s-3);
@@ -163,8 +166,8 @@ select:focus-visible, textarea:focus-visible, summary:focus-visible {
 .btn:active { transform: scale(0.97); }
 .btn-primary { background: var(--bleu); color: #FFFFFF; }
 .btn-primary:hover { background: var(--bleu-hover); }
-.btn-secondary { background: transparent; color: var(--ink); border-color: var(--hairline); }
-.btn-secondary:hover { border-color: var(--ink); }
+.btn-secondary { background: transparent; color: var(--ink); border-color: var(--border-strong); border-width: 1.5px; }
+.btn-secondary:hover { border-color: var(--ink); background: var(--ink); color: var(--blanc); }
 .btn-link {
   background: none; border: none; padding: 13px 6px;
   font-weight: 500; color: var(--bleu); cursor: pointer; font-size: 15.5px;
@@ -277,6 +280,75 @@ a.card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0
   margin-top: var(--s-4);
   display: flex; flex-wrap: wrap; gap: var(--s-2);
   justify-content: center;
+}
+
+/* ============================================================
+   HERO IMAGE PLEIN CADRE (accueil) — photo + overlay + texte
+   ============================================================ */
+.hero--image {
+  position: relative;
+  min-height: clamp(560px, 86vh, 820px);
+  padding: 0;
+  align-items: stretch; justify-content: flex-end;
+  text-align: left;
+  overflow: hidden;
+  color: var(--blanc);
+}
+.hero--image::before { content: none; } /* neutralise le halo de .hero */
+
+.hero-media { position: absolute; inset: 0; z-index: 0; }
+.hero-img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  display: block;
+}
+/* Overlay dégradé : plus sombre à gauche/bas (zone du texte) pour garantir
+   le contraste du texte blanc même si la photo remplacée est claire. */
+.hero-overlay {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(15,17,21,0.82) 0%, rgba(15,17,21,0.55) 45%, rgba(15,17,21,0.22) 100%),
+    linear-gradient(0deg, rgba(15,17,21,0.72) 0%, rgba(15,17,21,0.18) 55%, rgba(15,17,21,0.28) 100%);
+}
+.hero-content {
+  position: relative; z-index: 1;
+  width: 100%;
+  padding-top: var(--s-6); padding-bottom: var(--s-6);
+}
+.hero--image h1 {
+  max-width: 15ch; margin: 0;
+  text-wrap: balance;
+}
+.hero--image h1 .accent { color: var(--bleu-clair); }
+.hero--image .hero-sub {
+  color: rgba(255,255,255,0.92);
+  max-width: 50ch;
+  margin-left: 0; margin-right: 0;
+}
+.hero--image .hero-actions { justify-content: flex-start; }
+/* CTA secondaire lisible sur la photo (verre + contour blanc) */
+.hero--image .btn-secondary {
+  color: var(--blanc);
+  border-color: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.hero--image .btn-secondary:hover {
+  background: var(--blanc); color: var(--ink); border-color: var(--blanc);
+}
+
+@media (max-width: 640px) {
+  .hero--image { min-height: clamp(520px, 82vh, 680px); }
+  /* En mobile : dégradé bas-lourd, texte centré */
+  .hero-overlay {
+    background:
+      linear-gradient(0deg, rgba(15,17,21,0.85) 0%, rgba(15,17,21,0.45) 45%, rgba(15,17,21,0.35) 100%);
+  }
+  .hero--image { text-align: center; }
+  .hero--image h1 { max-width: 100%; }
+  .hero--image .hero-sub { margin-left: auto; margin-right: auto; }
+  .hero--image .hero-actions { justify-content: center; }
 }
 
 /* Hero pages internes */
@@ -417,14 +489,14 @@ a.card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0
 .form-field input, .form-field select, .form-field textarea {
   font-family: var(--font-sans); font-size: 16px; color: var(--ink);
   background: var(--blanc);
-  border: 1px solid var(--hairline);
+  border: 1px solid var(--border-strong);
   border-radius: 12px;
   padding: 14px 16px;
   transition: border-color 200ms ease;
   width: 100%;
 }
 .form-field textarea { resize: vertical; min-height: 140px; }
-.form-field input:hover, .form-field select:hover, .form-field textarea:hover { border-color: var(--gris); }
+.form-field input:hover, .form-field select:hover, .form-field textarea:hover { border-color: var(--ink); }
 .form-field input:focus, .form-field select:focus, .form-field textarea:focus {
   border-color: var(--bleu); outline: 2px solid var(--bleu); outline-offset: 0;
 }
