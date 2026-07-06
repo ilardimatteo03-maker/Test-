@@ -66,15 +66,19 @@
 
 <main id="main">
 
-  <!-- ============ HERO (photo plein cadre) ============ -->
-  <section class="hero hero--image">
-    <div class="hero-media">
-      <!-- PLACEHOLDER: remplacer assets/hero.jpg par votre photo (2000×1200, < 300 Ko).
-           alt vide car l'image est décorative (le titre porte le sens). -->
-      <img class="hero-img" src="assets/hero.jpg" alt="" fetchpriority="high" width="2000" height="1200" />
-      <div class="hero-overlay"></div>
+  <!-- ============ HERO (scène portable animée — CSS pur, pas de vidéo) ============ -->
+  <section class="hero hero--image hero--laptop">
+    <div class="hero-media" aria-hidden="true">
+      <!-- Le site (formulaire de contact) est incrusté sur l'écran du portable.
+           Le paysage café est animé : léger travelling + bokeh qui dérivent.
+           100 % CSS (transform/opacity, 60 fps) — figé si prefers-reduced-motion. -->
+      <img class="hero-photo" src="assets/hero-laptop.jpg" alt="" fetchpriority="high" width="1224" height="720" />
+      <span class="hero-bokeh bk1"></span>
+      <span class="hero-bokeh bk2"></span>
+      <span class="hero-bokeh bk3"></span>
+      <div class="hero-scrim"></div>
     </div>
-    <div class="wrap hero-content">
+    <div class="hero-content">
       <h1>La croissance, par la <span class="accent">précision</span>.</h1>
       <p class="hero-sub">
         ASM conçoit l'infrastructure digitale des entreprises qui jouent pour
