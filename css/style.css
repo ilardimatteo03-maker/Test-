@@ -352,8 +352,8 @@ a.card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0
   will-change: transform;
 }
 @keyframes heroKenburns {
-  from { transform: scale(1.06) translate(0, 0); }
-  to   { transform: scale(1.14) translate(-1.5%, -1%); }
+  from { transform: scale(1.03) translate(0, 0); }
+  to   { transform: scale(1.08) translate(-1.2%, -0.8%); }
 }
 /* Bokeh qui dérivent au-dessus du décor (lumières du café qui vivent) */
 .hero-bokeh {
