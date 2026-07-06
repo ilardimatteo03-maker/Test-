@@ -48,6 +48,31 @@
     .about-col p:last-child { margin-bottom: 0; }
     .about-lead { font-size: 20px !important; line-height: 1.6 !important; color: var(--ink) !important; font-weight: 500; }
     .about-col strong { color: var(--ink); font-weight: 600; }
+
+    /* Bloc « Les fondateurs » */
+    .founders-photo { margin: 0 0 var(--s-5); }
+    .founders-photo img { width: 100%; height: auto; border-radius: var(--r-card); display: block; }
+    .founders-photo-ph {
+      aspect-ratio: 16 / 9; border-radius: var(--r-card);
+      background: var(--nuage); border: 2px dashed var(--border-strong);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 10px; text-align: center; color: var(--gris); padding: 24px;
+    }
+    .founders-photo-ph svg { color: var(--border-strong); }
+    .founders-photo-ph .ph-title { font-weight: 600; font-size: 16px; color: var(--ink); }
+    .founders-photo-ph .ph-hint { font-size: 13px; color: var(--gris); }
+    .founders-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+    @media (min-width: 640px) { .founders-grid { grid-template-columns: repeat(3, 1fr); } }
+    .founder { text-align: center; }
+    .founder-avatar {
+      width: 84px; height: 84px; border-radius: 24px;
+      background: var(--ink); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 34px; letter-spacing: -0.02em; margin: 0 auto 14px;
+    }
+    .founder-avatar .dot { color: var(--bleu-clair); }
+    .founder-name { font-weight: 600; font-size: 18px; letter-spacing: -0.015em; }
+    .founder-role { color: var(--gris); font-size: 14.5px; margin-top: 3px; }
   </style>
 </head>
 <body>
@@ -114,6 +139,52 @@
           au service des entreprises locales et internationales, avec l'ambition de
           devenir un acteur clé du digital en Belgique.
         </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LES FONDATEURS ============ -->
+  <section class="section" aria-labelledby="h-fondateurs">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="label label--bleu kicker">Les fondateurs</p>
+        <h2 id="h-fondateurs">Trois prénoms, trois initiales&nbsp;: <span class="accent">ASM</span></h2>
+        <p class="section-intro">
+          Angelo, Simon et Matteo — trois jeunes fondateurs de la région de
+          La Louvière. Nos initiales font le nom de l'agence.
+        </p>
+      </div>
+
+      <!-- ESPACE PHOTO ÉQUIPE :
+           remplacez tout le bloc .founders-photo-ph ci-dessous par votre photo :
+           <img src="assets/founders.jpg" alt="Angelo, Simon et Matteo, fondateurs d'ASM" /> -->
+      <figure class="founders-photo reveal">
+        <div class="founders-photo-ph">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+            <circle cx="12" cy="13" r="4"/>
+          </svg>
+          <span class="ph-title">Ajoutez votre photo d'équipe</span>
+          <span class="ph-hint">assets/founders.jpg — idéalement 1600×900, &lt; 400&nbsp;Ko</span>
+        </div>
+      </figure>
+
+      <div class="founders-grid reveal">
+        <div class="founder">
+          <div class="founder-avatar" aria-hidden="true">A</div>
+          <p class="founder-name">Angelo Frieri</p>
+          <p class="founder-role">Co-fondateur</p>
+        </div>
+        <div class="founder">
+          <div class="founder-avatar" aria-hidden="true">S</div>
+          <p class="founder-name">Simon Duray</p>
+          <p class="founder-role">Co-fondateur</p>
+        </div>
+        <div class="founder">
+          <div class="founder-avatar" aria-hidden="true">M</div>
+          <p class="founder-name">Matteo Ilardi</p>
+          <p class="founder-role">Co-fondateur</p>
+        </div>
       </div>
     </div>
   </section>
