@@ -741,3 +741,58 @@ a.card:hover .card-icon { transform: scale(1.12) rotate(-3deg); }
   .faq summary::after, .footer ul a::after, .topbar { transition: none; }
   .btn-primary:hover, .btn-secondary:hover { transform: none; }
 }
+
+/* ============================================================
+   PRÉLOADER — intro animée « ASM. » (joue une fois par session)
+   Le point bleu tombe du haut, rebondit (élastique), se cale en
+   point final, puis l'écran blanc se fond pour révéler le site.
+   ============================================================ */
+.asm-preloader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #FDFDFE;
+  display: flex; align-items: center; justify-content: center;
+  animation: asmPlOut 500ms ease 2050ms forwards;
+}
+html.intro-seen .asm-preloader { display: none; }
+@keyframes asmPlOut {
+  to { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+.asm-pl-logo {
+  display: inline-flex; align-items: baseline; line-height: 1;
+  font-family: var(--font-sans); font-weight: 700;
+  font-size: clamp(52px, 13vw, 108px);
+  letter-spacing: -0.045em; color: #0B0B0C;
+  filter: drop-shadow(0 10px 26px rgba(0, 0, 0, 0.10));  /* ombre douce */
+  animation: asmPlLogoIn 550ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+@keyframes asmPlLogoIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.985); }
+  to   { opacity: 1; transform: none; }
+}
+.asm-pl-dot {
+  width: 0.16em; height: 0.16em; border-radius: 50%;
+  background: #0066CC; margin-left: 0.07em; margin-bottom: 0.11em;
+  align-self: flex-end;
+  box-shadow: 0 6px 14px rgba(0, 102, 204, 0.40);
+  transform-origin: 50% 100%; will-change: transform, filter;
+  animation: asmPlDrop 1150ms cubic-bezier(0.5, 0.02, 0.5, 1) 300ms both;
+}
+@keyframes asmPlDrop {
+  0%   { transform: translateY(-92vh) scaleY(1.25); opacity: 0; }
+  6%   { opacity: 1; }
+  /* chute rapide + étirement vertical = flou de mouvement */
+  38%  { transform: translateY(0) scaleY(1.7); filter: blur(1px);
+         animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.4); }
+  /* écrasement souple à l'impact */
+  46%  { transform: translateY(0) scale(1.45, 0.5); filter: blur(0); }
+  /* rebond élastique */
+  62%  { transform: translateY(-0.36em) scaleY(1.12); }
+  76%  { transform: translateY(0) scale(1.16, 0.88); }
+  /* petit rebond, puis stabilisation */
+  86%  { transform: translateY(-0.13em) scaleY(1.05); }
+  94%  { transform: translateY(0) scale(1.05, 0.97); }
+  100% { transform: translateY(0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .asm-preloader { display: none; }   /* sécurité en plus du script d'en-tête */
+}

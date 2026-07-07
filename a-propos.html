@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Préloader : joue l'intro une fois par session, respecte reduced-motion -->
+  <script>(function(){try{var m=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;if(m||sessionStorage.getItem('asmIntro')){document.documentElement.className+=' intro-seen';}else{sessionStorage.setItem('asmIntro','1');}}catch(e){}})();</script>
 
   <!-- Google Consent Mode v2 — refus par défaut (avant tout traceur) -->
   <script>
@@ -76,6 +78,9 @@
   </style>
 </head>
 <body>
+<div class="asm-preloader" aria-hidden="true">
+  <div class="asm-pl-logo">ASM<span class="asm-pl-dot"></span></div>
+</div>
 
 <a class="skip-link" href="#main">Aller au contenu</a>
 
