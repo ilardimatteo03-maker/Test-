@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 export default function MentionsLegalesPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 sm:px-6 py-16 prose prose-neutral">
+    <div className="mx-auto max-w-3xl px-4 sm:px-6 py-16 prose prose-editorial">
       <h1>Mentions légales</h1>
 
       <p className="affiliate-disclosure not-prose">

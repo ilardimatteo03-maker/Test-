@@ -18,37 +18,49 @@ export function ComparisonTable({ ids }: { ids: string }) {
   if (!products.length) return null;
 
   return (
-    <div className="not-prose my-10 overflow-x-auto">
+    <div className="not-prose my-12 overflow-x-auto">
       <table className="w-full border-collapse text-sm">
         <thead>
-          <tr className="border-b border-ink/15 text-left">
-            <th className="py-3 pr-4 font-semibold">Modèle</th>
-            <th className="py-3 pr-4 font-semibold">Idéal pour</th>
-            <th className="py-3 pr-4 font-semibold">Prix indicatif</th>
-            <th className="py-3 pr-4 font-semibold">Lien</th>
+          <tr className="border-b border-ink text-left">
+            <th className="py-3 pr-4 font-semibold uppercase tracking-[0.12em] text-[0.68rem] text-steel">
+              Modèle
+            </th>
+            <th className="py-3 pr-4 font-semibold uppercase tracking-[0.12em] text-[0.68rem] text-steel">
+              Idéal pour
+            </th>
+            <th className="py-3 pr-4 font-semibold uppercase tracking-[0.12em] text-[0.68rem] text-steel">
+              Prix
+            </th>
+            <th className="py-3 pr-4"></th>
           </tr>
         </thead>
         <tbody>
           {products.map((product) => (
-            <tr key={product.id} className="border-b border-ink/10 align-top">
-              <td className="py-4 pr-4">
+            <tr key={product.id} className="border-b border-ink/10 align-middle">
+              <td className="py-5 pr-4">
                 <div className="flex items-center gap-3">
                   <Image
                     src={product.image}
                     alt={product.name}
-                    width={48}
-                    height={48}
-                    className="rounded border border-ink/10"
+                    width={52}
+                    height={52}
+                    className="border border-ink/10"
                   />
                   <div>
-                    <p className="font-medium">{product.name}</p>
-                    <p className="text-xs text-ink/50">{product.brand}</p>
+                    <p className="font-serif text-base font-medium leading-tight">
+                      {product.name}
+                    </p>
+                    <p className="text-[0.7rem] uppercase tracking-[0.14em] text-steel mt-0.5">
+                      {product.brand}
+                    </p>
                   </div>
                 </div>
               </td>
-              <td className="py-4 pr-4 text-ink/70">{product.bestFor}</td>
-              <td className="py-4 pr-4 whitespace-nowrap">{product.priceRangeEur} €</td>
-              <td className="py-4 pr-4">
+              <td className="py-5 pr-4 text-ink/70">{product.bestFor}</td>
+              <td className="py-5 pr-4 whitespace-nowrap font-serif">
+                {product.priceRangeEur} €
+              </td>
+              <td className="py-5 pr-4">
                 <AffiliateButton
                   href={buildAffiliateLinkForProduct(product)}
                   label="Voir le prix"

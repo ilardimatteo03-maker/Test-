@@ -4,22 +4,83 @@
 
 :root {
   color-scheme: light;
+  --ink: #0e0e0f;
+  --paper: #f7f4ef;
+  --gold: #c9a24b;
+  --steel: #8a8f98;
+  --line: rgba(14, 14, 15, 0.14);
+  --line-light: rgba(247, 244, 239, 0.18);
 }
 
 html {
   scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
 body {
-  background: theme("colors.paper");
-  color: theme("colors.ink");
+  background: var(--paper);
+  color: var(--ink);
+  font-feature-settings: "kern";
+}
+
+/* Sur-titre editorial : petites capitales tres espacees, accent champagne. */
+.eyebrow {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-weight: 600;
+  color: var(--gold);
+}
+
+/* Chiffre de section en Bodoni italique surdimensionne (effet magazine). */
+.section-num {
+  font-family: var(--font-display), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+  line-height: 0.8;
+}
+
+/* Filet fin de separation. */
+.rule-gold {
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.5;
 }
 
 .affiliate-disclosure {
   font-size: 0.8rem;
-  color: #6b7280;
-  border-left: 3px solid theme("colors.brass");
-  padding: 0.6rem 1rem;
-  background: #fdf8f0;
-  border-radius: 0.25rem;
+  color: var(--steel);
+  border-left: 2px solid var(--gold);
+  padding: 0.6rem 0 0.6rem 1rem;
+  background: transparent;
+}
+
+/* Prose editoriale pour le corps des articles. */
+.prose-editorial {
+  --tw-prose-body: #2a2b2e;
+  --tw-prose-headings: var(--ink);
+  --tw-prose-links: var(--gold);
+  --tw-prose-bold: var(--ink);
+  --tw-prose-quotes: var(--ink);
+  --tw-prose-hr: var(--line);
+}
+.prose-editorial :is(h2, h3) {
+  font-family: var(--font-display), Georgia, serif;
+  letter-spacing: -0.01em;
+}
+.prose-editorial h2 {
+  font-size: 1.9rem;
+  margin-top: 2.6em;
+  margin-bottom: 0.7em;
+}
+.prose-editorial h3 {
+  font-size: 1.35rem;
+}
+.prose-editorial a {
+  text-decoration: none;
+  border-bottom: 1px solid var(--gold);
 }

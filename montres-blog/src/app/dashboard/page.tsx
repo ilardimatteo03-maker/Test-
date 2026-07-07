@@ -63,7 +63,7 @@ export default function DashboardPage() {
                 <td className="py-2 pr-4">
                   <a
                     href={`/blog/${a.category}/${a.slug}`}
-                    className="hover:text-brass"
+                    className="hover:text-gold"
                   >
                     {a.title}
                   </a>

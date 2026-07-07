@@ -54,17 +54,23 @@ export default function ArticlePage({ params }: Props) {
     Boolean
   );
 
+  const category = siteConfig.categories.find((c) => c.slug === article.category);
+
   return (
-    <article className="mx-auto max-w-3xl px-4 sm:px-6 py-16">
+    <article className="mx-auto max-w-3xl px-4 sm:px-6 py-16 sm:py-20">
       <JsonLd data={schemas as Record<string, unknown>[]} />
 
-      <p className="text-xs uppercase tracking-wide text-brass font-medium mb-3">
-        {siteConfig.categories.find((c) => c.slug === article.category)?.label}
-      </p>
-      <h1 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight">
+      <p className="eyebrow mb-4">{category?.label}</p>
+      <h1 className="font-serif text-4xl sm:text-5xl font-bold tracking-tight leading-[1.02] text-balance">
         {article.title}
       </h1>
-      <div className="mt-4 flex items-center gap-4 text-sm text-ink/50">
+
+      {/* Chapo en Bodoni italique (signature editoriale) */}
+      <p className="font-serif italic text-xl sm:text-2xl text-ink/75 leading-snug mt-6 max-w-2xl">
+        {article.description}
+      </p>
+
+      <div className="mt-6 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.16em] text-steel">
         <time dateTime={article.publishedAt}>
           {new Date(article.publishedAt).toLocaleDateString("fr-FR", {
             day: "numeric",
@@ -72,25 +78,30 @@ export default function ArticlePage({ params }: Props) {
             year: "numeric",
           })}
         </time>
-        <span>·</span>
+        <span className="text-gold">·</span>
         <span>{Math.round(article.wordCount / 200)} min de lecture</span>
       </div>
+
+      <div className="rule-gold mt-8" />
 
       <p className="affiliate-disclosure mt-8 mb-2">
         Cet article contient des liens affiliés Amazon. Nous pouvons percevoir une
         commission sur les achats effectués via ces liens, sans surcoût pour vous.
       </p>
 
-      <div className="prose prose-neutral max-w-none mt-10 prose-headings:font-serif prose-a:text-brass">
+      <div className="prose prose-editorial max-w-none mt-10 leading-relaxed">
         <MDXRemote source={article.content} components={mdxComponents} />
       </div>
 
       <FaqSection faq={article.faq} />
 
       {related.length > 0 && (
-        <section className="mt-16 border-t border-ink/10 pt-10">
-          <h2 className="font-serif text-xl font-semibold mb-6">À lire aussi</h2>
-          <div className="grid sm:grid-cols-2 gap-4">
+        <section className="mt-20 border-t border-ink pt-10">
+          <div className="flex items-baseline gap-3 mb-8">
+            <span className="section-num text-3xl">→</span>
+            <h2 className="font-serif text-2xl font-bold">À lire aussi</h2>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-x-8 gap-y-8">
             {related.map((item) => (
               <ArticleCard key={item.slug} article={item} />
             ))}

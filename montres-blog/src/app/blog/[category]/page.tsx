@@ -31,18 +31,25 @@ export default function CategoryPage({ params }: Props) {
   const articles = getArticlesByCategory(params.category as CategorySlug);
 
   return (
-    <div className="mx-auto max-w-5xl px-4 sm:px-6 py-16">
-      <h1 className="font-serif text-3xl font-semibold mb-2">{category.label}</h1>
-      <p className="text-ink/60 mb-10 max-w-xl">{category.description}</p>
+    <div className="mx-auto max-w-5xl px-4 sm:px-6 py-16 sm:py-20">
+      <p className="eyebrow mb-4">Catégorie</p>
+      <h1 className="font-serif text-4xl sm:text-5xl font-bold tracking-tight">
+        {category.label}
+      </h1>
+      <p className="font-serif italic text-lg text-ink/70 mt-4 mb-12 max-w-xl">
+        {category.description}
+      </p>
 
       {articles.length ? (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
           {articles.map((article) => (
             <ArticleCard key={article.slug} article={article} />
           ))}
         </div>
       ) : (
-        <p className="text-ink/60 text-sm">Aucun article dans cette catégorie pour le moment.</p>
+        <p className="text-steel text-sm">
+          Aucun article dans cette catégorie pour le moment.
+        </p>
       )}
     </div>
   );

@@ -9,23 +9,27 @@ export default function HomePage() {
 
   return (
     <div>
-      <section className="border-b border-ink/10">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 py-16 sm:py-24 grid lg:grid-cols-2 gap-10 items-center">
-          {/* Texte : rendu serveur, indexable normalement */}
+      {/* HERO — bande encre, montre 3D en piece maitresse */}
+      <section className="bg-ink text-paper overflow-hidden">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 py-16 sm:py-20 grid lg:grid-cols-2 gap-10 items-center">
+          {/* Texte : rendu serveur, indexable */}
           <div>
-            <h1 className="font-serif text-4xl sm:text-5xl font-semibold tracking-tight">
-              Trouvez la montre qu&apos;il vous faut, sans le blabla marketing.
+            <p className="eyebrow">Horlogerie · Éditorial</p>
+            <h1 className="font-serif text-5xl sm:text-6xl font-bold tracking-tight leading-[0.98] mt-5 text-balance">
+              Le temps,
+              <br />
+              <span className="italic font-normal">mis en scène.</span>
             </h1>
-            <p className="mt-5 text-lg text-ink/70 max-w-xl">
-              Guides d&apos;achat, comparatifs et reviews sur Seiko, Longines, Timex,
-              Citizen et les autres grandes marques accessibles.
+            <p className="mt-6 text-lg text-paper/70 max-w-md leading-relaxed">
+              Guides d&apos;achat, comparatifs et reviews sur Seiko, Longines, Timex
+              et Citizen. Le média horloger pensé comme un magazine.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-[0.72rem] uppercase tracking-[0.18em]">
               {siteConfig.categories.map((cat) => (
                 <Link
                   key={cat.slug}
                   href={`/blog/${cat.slug}`}
-                  className="rounded-full border border-ink/15 px-4 py-2 text-sm hover:border-brass hover:text-brass transition-colors"
+                  className="text-paper/70 hover:text-gold transition-colors border-b border-transparent hover:border-gold pb-1"
                 >
                   {cat.label}
                 </Link>
@@ -38,16 +42,25 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-5xl px-4 sm:px-6 py-16">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="font-serif text-2xl font-semibold">Derniers articles</h2>
-          <Link href="/blog" className="text-sm text-brass hover:underline">
-            Voir tout le blog →
+      {/* DERNIERS ARTICLES — bande papier */}
+      <section className="mx-auto max-w-5xl px-4 sm:px-6 py-16 sm:py-20">
+        <div className="flex items-end justify-between mb-10">
+          <div className="flex items-baseline gap-4">
+            <span className="section-num text-4xl sm:text-5xl">01</span>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold">
+              À la une
+            </h2>
+          </div>
+          <Link
+            href="/blog"
+            className="text-[0.72rem] uppercase tracking-[0.16em] text-gold hover:opacity-70 shrink-0"
+          >
+            Tout le blog →
           </Link>
         </div>
 
         {latest.length ? (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
             {latest.map((article) => (
               <ArticleCard key={article.slug} article={article} />
             ))}
@@ -55,7 +68,7 @@ export default function HomePage() {
         ) : (
           <p className="text-ink/60 text-sm">
             Aucun article publié pour le moment. Lancez{" "}
-            <code className="bg-ink/5 px-1.5 py-0.5 rounded">npm run generate:article</code>{" "}
+            <code className="bg-ink/5 px-1.5 py-0.5">npm run generate:article</code>{" "}
             pour créer le premier.
           </p>
         )}

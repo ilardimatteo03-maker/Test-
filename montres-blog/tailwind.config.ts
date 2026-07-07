@@ -5,21 +5,24 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#14181f",
-        paper: "#faf9f6",
-        brass: "#a9762f",
-        steel: "#3c5a76",
+        // Palette de la direction artistique "Chrono Guide".
+        ink: "#0e0e0f",
+        paper: "#f7f4ef",
+        gold: "#c9a24b",
+        steel: "#8a8f98",
+        midnight: "#161e2b",
+      },
+      fontFamily: {
+        // Wirées aux variables next/font (cf. layout.tsx).
+        serif: ["var(--font-display)", "Georgia", "serif"],
+        sans: ["var(--font-body)", "system-ui", "sans-serif"],
       },
       typography: {
         DEFAULT: {
           css: {
-            maxWidth: "68ch",
+            maxWidth: "66ch",
           },
         },
-      },
-      fontFamily: {
-        serif: ["Source Serif 4", "Georgia", "serif"],
-        sans: ["Inter", "system-ui", "sans-serif"],
       },
     },
   },

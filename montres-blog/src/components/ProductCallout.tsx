@@ -4,35 +4,35 @@ import { buildAffiliateLinkForProduct } from "@/lib/affiliate";
 import { AffiliateButton } from "./AffiliateButton";
 
 /**
- * Bloc produit inséré dans le corps d'un article (remplace les
- * placeholders {{product:ID}} générés par le script de génération).
+ * Bloc produit insere dans le corps d'un article (au fil du texte).
  */
 export function ProductCallout({ id }: { id: string }) {
   const product = getProductById(id);
   if (!product) return null;
 
   return (
-    <div className="not-prose my-8 flex flex-col sm:flex-row gap-5 rounded-lg border border-ink/10 p-5 bg-white/60">
+    <div className="not-prose my-10 flex flex-col sm:flex-row gap-6 border-t border-b border-ink/15 py-6">
       <Image
         src={product.image}
         alt={product.name}
-        width={96}
-        height={96}
-        className="rounded border border-ink/10 self-start"
+        width={104}
+        height={104}
+        className="border border-ink/10 self-start"
       />
       <div className="flex-1">
-        <p className="text-xs uppercase tracking-wide text-brass font-medium">
-          {product.brand}
-        </p>
-        <h4 className="font-serif text-lg font-semibold mt-1">{product.name}</h4>
-        <ul className="mt-2 text-sm text-ink/70 space-y-1">
+        <p className="eyebrow">{product.brand}</p>
+        <h4 className="font-serif text-xl font-bold mt-1.5">{product.name}</h4>
+        <ul className="mt-3 text-sm text-ink/70 space-y-1">
           {product.pros.slice(0, 2).map((pro, i) => (
-            <li key={i}>+ {pro}</li>
+            <li key={i} className="flex gap-2">
+              <span className="text-gold">—</span>
+              <span>{pro}</span>
+            </li>
           ))}
         </ul>
-        <div className="mt-4 flex items-center gap-4">
+        <div className="mt-5 flex items-center gap-4">
           <AffiliateButton href={buildAffiliateLinkForProduct(product)} />
-          <span className="text-sm text-ink/50">{product.priceRangeEur} €</span>
+          <span className="font-serif text-ink/60">{product.priceRangeEur} €</span>
         </div>
       </div>
     </div>

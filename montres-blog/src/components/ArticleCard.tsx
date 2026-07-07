@@ -8,18 +8,21 @@ export function ArticleCard({ article }: { article: Article }) {
   return (
     <Link
       href={`/blog/${article.category}/${article.slug}`}
-      className="group block border border-ink/10 rounded-lg p-5 hover:border-brass/60 transition-colors bg-white/60"
+      className="group block border-t border-ink/15 pt-5 transition-colors"
     >
       {category && (
-        <span className="text-xs uppercase tracking-wide text-brass font-medium">
-          {category.label}
-        </span>
+        <span className="eyebrow">{category.label}</span>
       )}
-      <h3 className="font-serif text-lg font-semibold mt-2 mb-2 group-hover:text-brass transition-colors">
+      <h3 className="font-serif text-xl font-bold leading-snug mt-3 mb-2 group-hover:text-gold transition-colors text-balance">
         {article.title}
       </h3>
-      <p className="text-sm text-ink/70 line-clamp-3">{article.description}</p>
-      <time className="block mt-3 text-xs text-ink/50" dateTime={article.publishedAt}>
+      <p className="text-sm text-ink/65 line-clamp-3 leading-relaxed">
+        {article.description}
+      </p>
+      <time
+        className="block mt-4 text-[0.7rem] uppercase tracking-[0.16em] text-steel"
+        dateTime={article.publishedAt}
+      >
         {new Date(article.publishedAt).toLocaleDateString("fr-FR", {
           day: "numeric",
           month: "long",
