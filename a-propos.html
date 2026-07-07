@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Préloader : joue l'intro une fois par session, respecte reduced-motion -->
+  <script>(function(){try{var m=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;if(m||sessionStorage.getItem('asmIntro')){document.documentElement.className+=' intro-seen';}else{sessionStorage.setItem('asmIntro','1');}}catch(e){}})();</script>
+
+  <!-- Google Consent Mode v2 — refus par défaut (avant tout traceur) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+      personalization_storage: 'denied',
+      functionality_storage: 'denied',
+      security_storage: 'granted',
+      wait_for_update: 500
+    });
+  </script>
+
+  <!-- SEO -->
+  <title>À propos — Un partenaire de croissance, pas une agence web | ASM</title>
+  <meta name="description" content="ASM intègre stratégie, construction et croissance sous un même toit. Nos trois engagements : tout mesurer, répondre de bout en bout, rester sobres." />
+  <link rel="canonical" href="https://asm-digital.com/a-propos.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://asm-digital.com/a-propos.html" />
+  <meta property="og:title" content="À propos — ASM" />
+  <meta property="og:description" content="Un partenaire de croissance, pas une agence web. L'exigence d'un cabinet de conseil, l'exécution d'un studio d'élite." />
+  <meta property="og:locale" content="fr_FR" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231D1D1F'/><text x='8' y='22' font-family='-apple-system,sans-serif' font-weight='700' font-size='16' fill='%23FFFFFF'>A</text><circle cx='24' cy='20' r='2.5' fill='%230066CC'/></svg>" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/cookies.css" />
+
+  <style>
+    /* Colonne de lecture « À propos » (spécifique à cette page) */
+    .about-col { max-width: 720px; margin: 0 auto; }
+    .about-col p { color: var(--gris); font-size: 17px; line-height: 1.7; margin-bottom: 22px; }
+    .about-col p:last-child { margin-bottom: 0; }
+    .about-lead { font-size: 20px !important; line-height: 1.6 !important; color: var(--ink) !important; font-weight: 500; }
+    .about-col strong { color: var(--ink); font-weight: 600; }
+
+    /* Bloc « Les fondateurs » */
+    .founders-photo { margin: 0 0 var(--s-5); }
+    .founders-photo img { width: 100%; height: auto; border-radius: var(--r-card); display: block; }
+    .founders-photo-ph {
+      aspect-ratio: 16 / 9; border-radius: var(--r-card);
+      background: var(--nuage); border: 2px dashed var(--border-strong);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 10px; text-align: center; color: var(--gris); padding: 24px;
+    }
+    .founders-photo-ph svg { color: var(--border-strong); }
+    .founders-photo-ph .ph-title { font-weight: 600; font-size: 16px; color: var(--ink); }
+    .founders-photo-ph .ph-hint { font-size: 13px; color: var(--gris); }
+    .founders-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+    @media (min-width: 640px) { .founders-grid { grid-template-columns: repeat(3, 1fr); } }
+    .founder { text-align: center; }
+    .founder-avatar {
+      width: 84px; height: 84px; border-radius: 24px;
+      background: var(--ink); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 34px; letter-spacing: -0.02em; margin: 0 auto 14px;
+    }
+    .founder-avatar .dot { color: var(--bleu-clair); }
+    .founder-name { font-weight: 600; font-size: 18px; letter-spacing: -0.015em; }
+    .founder-role { color: var(--gris); font-size: 14.5px; margin-top: 3px; }
+  </style>
+</head>
+<body>
+<div class="asm-preloader" aria-hidden="true">
+  <div class="asm-pl-logo">ASM<span class="asm-pl-dot"></span></div>
+</div>
+
+<a class="skip-link" href="#main">Aller au contenu</a>
+
+<header class="topbar">
+  <nav class="wrap topbar-inner" aria-label="Navigation principale">
+    <a class="brand-logo" href="index.html">ASM<span class="dot">.</span></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="a-propos.html" aria-current="page">À propos</a></li>
+      <li class="nav-cta"><a class="btn btn-primary" href="contact.html">Planifier un diagnostic</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="wrap page-hero">
+    <p class="label label--bleu kicker">À propos</p>
+    <h1>Qui sommes-nous&nbsp;?</h1>
+    <p class="section-intro">
+      Notre histoire, notre vision et les valeurs qui guident chacun de nos projets.
+    </p>
+  </section>
+
+  <!-- ============ À PROPOS (texte) ============ -->
+  <section class="section section--alt" aria-label="À propos d'ASM">
+    <div class="wrap">
+      <div class="about-col reveal">
+        <p class="about-lead">
+          Basée à La Louvière, en Belgique, notre agence digitale est née de la
+          rencontre de trois jeunes entrepreneurs passionnés, animés par une ambition
+          commune : accompagner les entreprises dans leur transformation digitale avec
+          créativité, rigueur et performance.
+        </p>
+        <p>
+          Notre vision repose sur une approche moderne et humaine du digital. Nous
+          croyons fermement que chaque projet est unique et mérite une stratégie sur
+          mesure, pensée en fonction des objectifs, du marché et de l'identité de nos
+          clients. Notre mission est de créer des solutions digitales innovantes,
+          efficaces et durables, permettant à nos partenaires de se démarquer dans un
+          environnement en constante évolution.
+        </p>
+        <p>
+          Nos valeurs constituent le socle de notre engagement au quotidien.
+          <strong>L'excellence</strong> guide chacune de nos actions, avec une attention
+          particulière portée à la qualité et aux résultats. <strong>La transparence</strong>
+          est au cœur de notre relation client, favorisant une collaboration basée sur la
+          confiance et la communication. <strong>L'innovation</strong> nous pousse à rester
+          à la pointe des tendances et des technologies, afin de proposer des solutions
+          toujours plus performantes. Enfin, <strong>l'esprit d'équipe et la passion</strong>
+          nous permettent de relever chaque défi avec énergie et détermination.
+        </p>
+        <p>
+          En tant que jeunes entrepreneurs, nous apportons un regard neuf, une grande
+          adaptabilité et une forte capacité d'innovation. Nous mettons notre expertise
+          au service des entreprises locales et internationales, avec l'ambition de
+          devenir un acteur clé du digital en Belgique.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LES FONDATEURS ============ -->
+  <section class="section" aria-labelledby="h-fondateurs">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="label label--bleu kicker">Les fondateurs</p>
+        <h2 id="h-fondateurs">Trois prénoms, trois initiales&nbsp;: <span class="accent">ASM</span></h2>
+        <p class="section-intro">
+          Angelo, Simon et Matteo — trois jeunes fondateurs de la région de
+          La Louvière. Nos initiales font le nom de l'agence.
+        </p>
+      </div>
+
+      <!-- ESPACE PHOTO ÉQUIPE :
+           remplacez tout le bloc .founders-photo-ph ci-dessous par votre photo :
+           <img src="assets/founders.jpg" alt="Angelo, Simon et Matteo, fondateurs d'ASM" /> -->
+      <figure class="founders-photo reveal">
+        <div class="founders-photo-ph">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+            <circle cx="12" cy="13" r="4"/>
+          </svg>
+          <span class="ph-title">Ajoutez votre photo d'équipe</span>
+          <span class="ph-hint">assets/founders.jpg — idéalement 1600×900, &lt; 400&nbsp;Ko</span>
+        </div>
+      </figure>
+
+      <div class="founders-grid reveal">
+        <div class="founder">
+          <div class="founder-avatar" aria-hidden="true">A</div>
+          <p class="founder-name">Angelo Frieri</p>
+          <p class="founder-role">Co-fondateur</p>
+        </div>
+        <div class="founder">
+          <div class="founder-avatar" aria-hidden="true">S</div>
+          <p class="founder-name">Simon Duray</p>
+          <p class="founder-role">Co-fondateur</p>
+        </div>
+        <div class="founder">
+          <div class="founder-avatar" aria-hidden="true">M</div>
+          <p class="founder-name">Matteo Ilardi</p>
+          <p class="founder-role">Co-fondateur</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand-logo" href="index.html">ASM<span class="dot">.</span></a>
+        <p>L'infrastructure digitale des entreprises ambitieuses. Sites, acquisition, paiement, automatisation.</p>
+      </div>
+      <nav aria-label="Plan du site">
+        <h4>Plan du site</h4>
+        <ul>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="a-propos.html">À propos</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <!-- PLACEHOLDER: coordonnées à remplacer avant mise en ligne -->
+          <li><a href="mailto:contact@asm-digital.com">contact@asm-digital.com</a></li>
+          <li><a href="tel:+33100000000">+33 1 00 00 00 00</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ASM. Tous droits réservés.</span>
+      <span class="footer-cc">
+        <a href="politique-cookies.html">Politique de cookies</a>
+        <button type="button" class="cc-manage" data-cc-open>Gérer mes cookies</button>
+      </span>
+      <span>La croissance, par la précision.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js" defer></script>
+<script src="js/cookies.js" defer></script>
+</body>
+</html>

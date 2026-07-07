@@ -1,0 +1,165 @@
+/* ============================================================
+   ASM — Consentement cookies (bandeau + modale)
+   Aligné sur la charte (Inter, encre/bleu, pilules, radius).
+   S'appuie sur les tokens de css/style.css ; fallback si absents.
+   ============================================================ */
+
+:root {
+  --cc-ink: var(--ink, #1D1D1F);
+  --cc-blanc: var(--blanc, #FFFFFF);
+  --cc-nuage: var(--nuage, #F5F5F7);
+  --cc-gris: var(--gris, #52525A);
+  --cc-hairline: var(--hairline, #D2D2D7);
+  --cc-border-strong: var(--border-strong, #86868B);
+  --cc-bleu: var(--bleu, #0066CC);
+  --cc-bleu-hover: var(--bleu-hover, #0055B8);
+  --cc-font: var(--font-sans, "Inter", -apple-system, "Helvetica Neue", sans-serif);
+}
+
+/* ---------- Bandeau ---------- */
+.cc-banner {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 1000;
+  background: var(--cc-blanc);
+  border-top: 1px solid var(--cc-hairline);
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.10);
+  font-family: var(--cc-font);
+  animation: cc-rise 400ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+@keyframes cc-rise { from { transform: translateY(100%); } to { transform: none; } }
+
+.cc-banner-inner {
+  max-width: 1100px; margin: 0 auto;
+  padding: 22px 24px;
+  display: flex; flex-direction: column; gap: 18px;
+}
+@media (min-width: 900px) {
+  .cc-banner-inner { flex-direction: row; align-items: center; justify-content: space-between; gap: 32px; padding: 22px 40px; }
+  .cc-banner-copy { flex: 1; }
+}
+
+.cc-title {
+  font-size: 17px; font-weight: 600; letter-spacing: -0.015em;
+  color: var(--cc-ink); margin: 0 0 6px;
+}
+.cc-text {
+  font-size: 14px; line-height: 1.55; color: var(--cc-gris); margin: 0;
+  max-width: 68ch;
+}
+.cc-link { color: var(--cc-bleu); text-decoration: underline; }
+.cc-link:hover { color: var(--cc-bleu-hover); }
+
+.cc-banner-actions {
+  display: flex; flex-wrap: wrap; gap: 10px;
+}
+@media (max-width: 480px) {
+  .cc-banner-actions { flex-direction: column; }
+  .cc-banner-actions .cc-btn { width: 100%; }
+}
+
+/* ---------- Boutons (poids visuel équivalent = pas de dark pattern) ---------- */
+.cc-btn {
+  appearance: none; cursor: pointer;
+  font-family: var(--cc-font); font-size: 14.5px; font-weight: 500;
+  padding: 12px 22px; border-radius: 980px; border: 1.5px solid transparent;
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease, transform 150ms ease;
+  white-space: nowrap;
+}
+.cc-btn:active { transform: scale(0.97); }
+.cc-btn-primary { background: var(--cc-bleu); color: #fff; }
+.cc-btn-primary:hover { background: var(--cc-bleu-hover); }
+.cc-btn-outline { background: transparent; color: var(--cc-ink); border-color: var(--cc-border-strong); }
+.cc-btn-outline:hover { border-color: var(--cc-ink); background: var(--cc-ink); color: #fff; }
+.cc-btn-ghost { background: transparent; color: var(--cc-ink); border-color: transparent; text-decoration: underline; text-underline-offset: 3px; padding-left: 12px; padding-right: 12px; }
+.cc-btn-ghost:hover { color: var(--cc-bleu); }
+
+.cc-btn:focus-visible, .cc-close:focus-visible, .cc-switch input:focus-visible + .cc-slider {
+  outline: 2px solid var(--cc-bleu); outline-offset: 2px;
+}
+
+/* ---------- Modale ---------- */
+.cc-overlay {
+  position: fixed; inset: 0; z-index: 1001;
+  background: rgba(15, 17, 21, 0.55);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  animation: cc-fade 200ms ease;
+}
+@keyframes cc-fade { from { opacity: 0; } to { opacity: 1; } }
+.cc-overlay[hidden] { display: none; }
+
+.cc-modal {
+  background: var(--cc-blanc);
+  width: 100%; max-width: 620px; max-height: 88vh; overflow-y: auto;
+  border-radius: 20px; padding: 28px;
+  font-family: var(--cc-font);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.24);
+}
+.cc-modal-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 6px; }
+.cc-modal-head .cc-title { font-size: 22px; }
+.cc-close {
+  appearance: none; background: none; border: none; cursor: pointer;
+  font-size: 30px; line-height: 1; color: var(--cc-gris); padding: 4px 8px;
+  border-radius: 8px; flex-shrink: 0;
+}
+.cc-close:hover { color: var(--cc-ink); }
+
+.cc-cats { margin: 22px 0; display: flex; flex-direction: column; gap: 2px; }
+.cc-cat { padding: 18px 0; border-top: 1px solid var(--cc-hairline); }
+.cc-cat:first-child { border-top: none; }
+.cc-cat-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.cc-cat-name { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; color: var(--cc-ink); margin: 0; }
+.cc-cat-desc { margin: 8px 0 0; font-size: 14px; line-height: 1.55; color: var(--cc-gris); max-width: 56ch; }
+.cc-always { font-size: 13px; font-weight: 600; color: var(--cc-bleu); white-space: nowrap; }
+
+.cc-modal-actions { display: flex; flex-wrap: wrap; gap: 10px; padding-top: 8px; }
+.cc-modal-actions .cc-btn { flex: 1; min-width: 140px; text-align: center; }
+
+/* ---------- Interrupteur accessible (vraie checkbox) ---------- */
+.cc-switch { position: relative; display: inline-flex; align-items: center; cursor: pointer; flex-shrink: 0; }
+.cc-switch input { position: absolute; opacity: 0; width: 44px; height: 26px; margin: 0; cursor: pointer; }
+.cc-slider {
+  width: 44px; height: 26px; border-radius: 980px;
+  background: var(--cc-border-strong); position: relative;
+  transition: background-color 200ms ease;
+}
+.cc-slider::after {
+  content: ""; position: absolute; top: 3px; left: 3px;
+  width: 20px; height: 20px; border-radius: 50%; background: #fff;
+  transition: transform 200ms ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+.cc-switch input:checked + .cc-slider { background: var(--cc-bleu); }
+.cc-switch input:checked + .cc-slider::after { transform: translateX(18px); }
+.cc-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- Liens légaux dans le footer ---------- */
+.footer-cc { display: inline-flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; }
+.footer-cc a, .cc-manage {
+  color: var(--cc-gris); font-size: 13px; text-decoration: none;
+  background: none; border: none; padding: 0; cursor: pointer; font-family: inherit;
+}
+.footer-cc a:hover, .cc-manage:hover { color: var(--cc-ink); text-decoration: underline; }
+.cc-manage:focus-visible, .footer-cc a:focus-visible { outline: 2px solid var(--cc-bleu); outline-offset: 2px; border-radius: 3px; }
+
+/* ---------- Tableaux de la politique de cookies ---------- */
+.cookie-table-wrap { overflow-x: auto; margin-top: 16px; }
+.cookie-table { width: 100%; border-collapse: collapse; font-size: 14.5px; min-width: 560px; }
+.cookie-table caption { text-align: left; font-weight: 600; color: var(--cc-ink); margin-bottom: 10px; font-size: 16px; }
+.cookie-table th, .cookie-table td {
+  text-align: left; padding: 12px 14px; vertical-align: top;
+  border-bottom: 1px solid var(--cc-hairline);
+}
+.cookie-table th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--cc-gris); font-weight: 600; }
+.cookie-table td { color: var(--cc-gris); line-height: 1.5; }
+.cookie-table td strong { color: var(--cc-ink); font-weight: 600; }
+.cc-badge {
+  display: inline-block; font-size: 11.5px; font-weight: 600;
+  padding: 3px 10px; border-radius: 980px; background: var(--cc-nuage); color: var(--cc-ink);
+}
+.cc-badge--on { background: rgba(0,102,204,0.1); color: var(--cc-bleu); }
+
+/* ---------- Mouvement réduit ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .cc-banner, .cc-overlay { animation: none; }
+  .cc-btn, .cc-slider, .cc-slider::after { transition: none; }
+}

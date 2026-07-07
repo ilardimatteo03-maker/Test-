@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ASM — Charte de marque</title>
+  <meta name="description" content="Charte de marque officielle d'ASM : positionnement, identité, palette, typographie, direction artistique." />
+  <meta name="robots" content="noindex" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231D1D1F'/><text x='8' y='22' font-family='-apple-system,sans-serif' font-weight='700' font-size='16' fill='%23FFFFFF'>A</text><circle cx='24' cy='20' r='2.5' fill='%230066CC'/></svg>" />
+
+  <style>
+    /* ============================================================
+       ASM — CHARTE DE MARQUE · V 2.0
+       Système : minimalisme moderne — blanc, encre, bleu de précision
+       ============================================================ */
+    :root {
+      --ink:      #1D1D1F;
+      --blanc:    #FFFFFF;
+      --nuage:    #F5F5F7;
+      --gris:     #6E6E73;
+      --hairline: #D2D2D7;
+      --bleu:     #0066CC;
+
+      --font-sans: "Inter", -apple-system, "SF Pro Text", "Helvetica Neue", sans-serif;
+      --font-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, monospace;
+
+      --s-1: 8px;  --s-2: 16px; --s-3: 24px; --s-4: 40px;
+      --s-5: 64px; --s-6: 96px; --s-7: 140px;
+
+      --r-card: 20px;
+      --r-pill: 980px;
+
+      --max-w: 1100px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+
+    body {
+      background: var(--blanc);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 17px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    ::selection { background: var(--ink); color: var(--blanc); }
+
+    .skip-link {
+      position: absolute; left: -9999px; top: 0;
+      background: var(--ink); color: var(--blanc);
+      padding: 12px 20px; z-index: 100; font-size: 14px;
+    }
+    .skip-link:focus { left: 0; }
+
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--bleu);
+      outline-offset: 3px;
+    }
+
+    .wrap {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding-left: var(--s-3);
+      padding-right: var(--s-3);
+    }
+    @media (min-width: 768px) {
+      .wrap { padding-left: var(--s-4); padding-right: var(--s-4); }
+    }
+
+    /* ---------- Labels ---------- */
+    .label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gris);
+    }
+    .label--bleu { color: var(--bleu); }
+    .mono { font-family: var(--font-mono); font-size: 12.5px; letter-spacing: 0; }
+
+    /* ---------- Top bar ---------- */
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    .topbar-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 52px;
+    }
+    .topbar-logo {
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: -0.02em;
+    }
+    .topbar-logo .dot { color: var(--bleu); }
+    .topbar-meta { display: flex; align-items: center; gap: var(--s-3); }
+
+    /* ---------- Cover ---------- */
+    .cover {
+      min-height: 86vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding-top: var(--s-6); padding-bottom: var(--s-6);
+    }
+    .cover h1 {
+      font-weight: 700;
+      font-size: clamp(46px, 8vw, 96px);
+      line-height: 1.03;
+      letter-spacing: -0.035em;
+      max-width: 14ch;
+    }
+    .cover h1 .accent { color: var(--bleu); }
+    .cover-sub {
+      margin-top: var(--s-3);
+      max-width: 54ch;
+      color: var(--gris);
+      font-size: clamp(18px, 2.2vw, 21px);
+      line-height: 1.5;
+      font-weight: 400;
+    }
+    .cover-mark { margin-bottom: var(--s-4); }
+    .cover-meta {
+      margin-top: var(--s-5);
+      display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-4);
+      justify-content: center;
+    }
+
+    /* ---------- Sommaire ---------- */
+    .toc {
+      padding-top: var(--s-5); padding-bottom: var(--s-6);
+    }
+    .toc-grid {
+      margin-top: var(--s-4);
+      display: grid; grid-template-columns: 1fr; gap: var(--s-2);
+    }
+    @media (min-width: 768px) { .toc-grid { grid-template-columns: repeat(2, 1fr); } }
+    .toc-item {
+      display: flex; align-items: center; gap: var(--s-3);
+      padding: 22px var(--s-3);
+      background: var(--nuage);
+      border-radius: 14px;
+      text-decoration: none;
+      transition: transform 250ms ease, background-color 250ms ease;
+    }
+    .toc-item:hover { transform: scale(1.015); background: #EFEFF2; }
+    .toc-item .num { font-size: 12px; font-weight: 600; color: var(--bleu); font-variant-numeric: tabular-nums; }
+    .toc-item .name { font-size: 18px; font-weight: 600; letter-spacing: -0.015em; }
+    .toc-item .arrow { margin-left: auto; color: var(--gris); transition: transform 250ms ease; }
+    .toc-item:hover .arrow { transform: translateX(4px); color: var(--ink); }
+
+    /* ---------- Sections ---------- */
+    .section {
+      padding-top: var(--s-7); padding-bottom: var(--s-7);
+    }
+    .section--alt { background: var(--nuage); }
+    .section-head { text-align: center; margin-bottom: var(--s-5); }
+    .section-head .kicker { margin-bottom: var(--s-2); }
+    .section-head h2 {
+      font-weight: 700;
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+    }
+    .section-intro {
+      margin: var(--s-3) auto 0;
+      max-width: 58ch;
+      color: var(--gris);
+      font-size: 19px;
+      line-height: 1.55;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr; gap: var(--s-3); }
+    .grid-3 { display: grid; grid-template-columns: 1fr; gap: var(--s-3); }
+    @media (min-width: 768px) {
+      .grid-2 { grid-template-columns: 1fr 1fr; }
+      .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .card {
+      background: var(--nuage);
+      border-radius: var(--r-card);
+      padding: var(--s-4);
+    }
+    .section--alt .card { background: var(--blanc); }
+    .card h3 {
+      font-weight: 600;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+      margin: var(--s-2) 0 12px;
+    }
+    .card p { color: var(--gris); font-size: 16px; line-height: 1.6; }
+
+    .statement {
+      font-weight: 600;
+      font-size: clamp(26px, 4vw, 40px);
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+      text-align: center;
+      max-width: 24ch;
+      margin: var(--s-6) auto 0;
+    }
+    .statement .accent { color: var(--bleu); }
+
+    /* ---------- 02 · Adjectifs ---------- */
+    .adjectives { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: var(--s-4); }
+    .adjective {
+      font-size: 17px; font-weight: 500; letter-spacing: -0.01em;
+      padding: 12px 26px;
+      background: var(--nuage);
+      border-radius: var(--r-pill);
+      transition: background-color 200ms ease, color 200ms ease, transform 200ms ease;
+      cursor: default;
+    }
+    .adjective:hover { background: var(--ink); color: var(--blanc); transform: scale(1.04); }
+    .section--alt .adjective { background: var(--blanc); }
+
+    .say-table { width: 100%; border-collapse: collapse; margin-top: var(--s-3); }
+    .say-table th, .say-table td {
+      text-align: left; vertical-align: top;
+      padding: var(--s-2) var(--s-2) var(--s-2) 0;
+      border-bottom: 1px solid var(--hairline);
+      font-size: 15.5px;
+    }
+    .say-table th { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; color: var(--gris); }
+    .say-table td.no { color: var(--gris); text-decoration: line-through; }
+    .say-table td.yes { color: var(--ink); font-weight: 500; }
+
+    /* ---------- 03 · Palette ---------- */
+    .swatch-row { display: grid; grid-template-columns: 1fr; gap: var(--s-3); margin-top: var(--s-4); }
+    @media (min-width: 768px) { .swatch-row { grid-template-columns: repeat(3, 1fr); } }
+    .swatch { background: var(--blanc); border-radius: var(--r-card); overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+    .swatch-color { height: 170px; position: relative; }
+    .swatch--tall .swatch-color { height: 220px; }
+    .swatch-color .hex {
+      position: absolute; bottom: 14px; left: 18px;
+      font-family: var(--font-mono); font-size: 12.5px;
+    }
+    .swatch-info { padding: var(--s-3); }
+    .swatch-info .name { font-size: 19px; font-weight: 600; letter-spacing: -0.015em; }
+    .swatch-info .role { margin-top: 6px; font-size: 14.5px; color: var(--gris); line-height: 1.55; }
+
+    .ratio-bar {
+      display: flex; height: 52px; margin-top: var(--s-4);
+      border-radius: 12px; overflow: hidden;
+      box-shadow: inset 0 0 0 1px var(--hairline);
+    }
+    .ratio-legend { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-4); margin-top: var(--s-2); justify-content: center; }
+    .ratio-legend span { font-size: 13px; font-weight: 500; color: var(--gris); display: inline-flex; align-items: center; gap: 8px; }
+    .ratio-legend i { width: 12px; height: 12px; display: inline-block; border-radius: 4px; box-shadow: inset 0 0 0 1px var(--hairline); }
+
+    .contrast-grid { display: grid; grid-template-columns: 1fr; gap: var(--s-2); margin-top: var(--s-3); }
+    @media (min-width: 768px) { .contrast-grid { grid-template-columns: repeat(3, 1fr); } }
+    .contrast-chip { padding: var(--s-3); border-radius: 16px; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05); }
+    .contrast-chip .sample { font-size: 19px; font-weight: 600; letter-spacing: -0.015em; }
+    .contrast-chip .score { font-family: var(--font-mono); font-size: 12px; margin-top: 8px; opacity: .72; }
+
+    /* ---------- 04 · Typographie ---------- */
+    .specimen { background: var(--blanc); border-radius: var(--r-card); padding: var(--s-4); margin-top: var(--s-3); box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+    .specimen-display {
+      font-weight: 700;
+      font-size: clamp(38px, 6.5vw, 80px); line-height: 1.04; letter-spacing: -0.035em;
+      margin-top: var(--s-2);
+    }
+    .specimen-display .accent { color: var(--bleu); }
+    .specimen-body { max-width: 62ch; margin-top: var(--s-2); font-size: 17px; }
+    .specimen-mono { font-family: var(--font-mono); font-size: 13px; margin-top: var(--s-2); color: var(--gris); }
+
+    .type-scale { width: 100%; border-collapse: collapse; margin-top: var(--s-3); }
+    .type-scale td {
+      padding: var(--s-2) var(--s-2) var(--s-2) 0;
+      border-bottom: 1px solid var(--hairline);
+      vertical-align: baseline;
+    }
+    .type-scale tr:last-child td { border-bottom: none; }
+    .type-scale .t-label { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; font-weight: 600; color: var(--gris); white-space: nowrap; }
+    .type-scale .t-spec  { font-family: var(--font-mono); font-size: 12px; color: var(--gris); }
+    @media (min-width: 768px) { .type-scale .t-spec { white-space: nowrap; } }
+
+    /* ---------- 05 · Charte site / boutons ---------- */
+    .btn-demo {
+      display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: center; justify-content: center;
+      padding: var(--s-4); background: var(--blanc); border-radius: var(--r-card);
+      margin-top: var(--s-3); box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .btn {
+      appearance: none; border: 1px solid transparent; cursor: pointer;
+      font-family: var(--font-sans); font-size: 15.5px; font-weight: 500;
+      padding: 13px 28px; border-radius: var(--r-pill);
+      transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease, transform 220ms ease;
+      text-decoration: none; display: inline-block;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary { background: var(--bleu); color: #FFFFFF; }
+    .btn-primary:hover { background: #0055B8; }
+    .btn-secondary { background: transparent; color: var(--ink); border-color: var(--hairline); }
+    .btn-secondary:hover { border-color: var(--ink); }
+    .btn-link {
+      background: none; border: none; padding: 13px 6px;
+      font-weight: 500; color: var(--bleu); cursor: pointer; font-size: 15.5px;
+      border-radius: 8px;
+    }
+    .btn-link .arrow { display: inline-block; transition: transform 220ms ease; margin-left: 4px; }
+    .btn-link:hover .arrow { transform: translateX(4px); }
+
+    .spacing-demo { margin-top: var(--s-3); }
+    .spacing-demo .bar {
+      background: var(--blanc); border-radius: 8px;
+      margin-bottom: 10px; display: flex; align-items: center;
+      padding-left: 14px; height: 34px;
+      font-family: var(--font-mono); font-size: 11.5px; color: var(--gris);
+      box-shadow: inset 0 0 0 1px var(--hairline);
+    }
+
+    /* ---------- 06 · DA / mood ---------- */
+    .mood-grid { display: grid; grid-template-columns: 1fr; gap: var(--s-3); margin-top: var(--s-4); }
+    @media (min-width: 768px) { .mood-grid { grid-template-columns: repeat(2, 1fr); } }
+    .mood-cell { background: var(--nuage); border-radius: var(--r-card); padding: var(--s-4); }
+    .mood-cell .ref { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; margin-top: var(--s-2); }
+    .mood-cell .takes { margin-top: 10px; color: var(--gris); font-size: 15.5px; line-height: 1.6; }
+
+    /* ---------- 07 · Taglines ---------- */
+    .tagline-list { margin-top: var(--s-4); display: flex; flex-direction: column; gap: var(--s-2); }
+    .tagline {
+      display: flex; align-items: baseline; gap: var(--s-3);
+      padding: var(--s-3) var(--s-4);
+      background: var(--blanc);
+      border-radius: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .tagline .idx { font-family: var(--font-mono); font-size: 12px; color: var(--gris); min-width: 34px; }
+    .tagline .txt { font-size: clamp(20px, 2.8vw, 28px); font-weight: 600; letter-spacing: -0.025em; }
+    .tagline--reco { background: var(--ink); color: var(--blanc); }
+    .tagline--reco .idx { color: var(--bleu); }
+    .tagline--reco .badge {
+      font-size: 11px; letter-spacing: .08em; text-transform: uppercase; font-weight: 600;
+      color: #6EA8E8; margin-left: auto; white-space: nowrap;
+    }
+
+    /* ---------- 08 · Logo ---------- */
+    .logo-stage {
+      display: grid; grid-template-columns: 1fr; gap: var(--s-3); margin-top: var(--s-4);
+    }
+    @media (min-width: 768px) { .logo-stage { grid-template-columns: 1fr 1fr; } }
+    .logo-cell {
+      border-radius: var(--r-card);
+      display: flex; align-items: center; justify-content: center;
+      min-height: 250px; padding: var(--s-4);
+    }
+    .logo-cell svg { max-width: 100%; height: auto; }
+    .logo-cell--light { background: var(--nuage); }
+    .logo-cell--dark  { background: var(--ink); }
+    .section--alt .logo-cell--light { background: var(--blanc); box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+    .logo-caption { padding: var(--s-2) var(--s-1) 0; }
+
+    /* ---------- Footer ---------- */
+    .footer { padding: var(--s-5) 0; background: var(--nuage); }
+    .footer-inner { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-3); justify-content: space-between; align-items: baseline; }
+
+    /* ---------- Reveal ---------- */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 550ms cubic-bezier(0.25, 0.1, 0.25, 1), transform 550ms cubic-bezier(0.25, 0.1, 0.25, 1); }
+    .reveal.visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .btn, .toc-item, .adjective, .btn-link .arrow, .toc-item .arrow { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Aller au contenu</a>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="topbar-logo" href="#top">ASM<span class="dot">.</span></a>
+    <div class="topbar-meta">
+      <span class="label">Charte de marque</span>
+      <span class="label" aria-hidden="true">V 2.0</span>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ COVER ============ -->
+  <section class="wrap cover" id="top">
+    <div class="cover-mark" aria-hidden="true">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" role="img" aria-label="Monogramme ASM">
+        <rect width="64" height="64" rx="15" fill="#1D1D1F"/>
+        <text x="15" y="43" font-family="Inter, -apple-system, sans-serif" font-weight="700" font-size="30" letter-spacing="-1" fill="#FFFFFF">A</text>
+        <circle cx="46" cy="40" r="4.5" fill="#0066CC"/>
+      </svg>
+    </div>
+    <p class="label label--bleu">Charte de marque · Édition 02 · 2026</p>
+    <h1 style="margin-top: 20px;">La croissance, par la <span class="accent">précision</span>.</h1>
+    <p class="cover-sub">
+      ASM conçoit des infrastructures digitales pour les entreprises qui jouent
+      pour gagner : sites web, acquisition, paiement, automatisation. Ce document définit
+      ce que la marque dit, montre et fait ressentir.
+    </p>
+    <div class="cover-meta">
+      <span class="label">ASM — Digital Consultancy</span>
+      <span class="label">Document de référence</span>
+    </div>
+  </section>
+
+  <!-- ============ SOMMAIRE ============ -->
+  <nav class="wrap toc reveal" aria-label="Sommaire">
+    <p class="label" style="text-align: center;">Sommaire</p>
+    <div class="toc-grid">
+      <a class="toc-item" href="#positionnement"><span class="num">01</span><span class="name">Positionnement de marque</span><span class="arrow" aria-hidden="true">→</span></a>
+      <a class="toc-item" href="#identite"><span class="num">02</span><span class="name">Identité de marque</span><span class="arrow" aria-hidden="true">→</span></a>
+      <a class="toc-item" href="#palette"><span class="num">03</span><span class="name">Palette de couleurs</span><span class="arrow" aria-hidden="true">→</span></a>
+      <a class="toc-item" href="#typographie"><span class="num">04</span><span class="name">Typographie</span><span class="arrow" aria-hidden="true">→</span></a>
+      <a class="toc-item" href="#charte-site"><span class="num">05</span><span class="name">Charte graphique du site</span><span class="arrow" aria-hidden="true">→</span></a>
+      <a class="toc-item" href="#direction-artistique"><span class="num">06</span><span class="name">Direction artistique</span><span class="arrow" aria-hidden="true">→</span></a>
+      <a class="toc-item" href="#taglines"><span class="num">07</span><span class="name">Slogan &amp; taglines</span><span class="arrow" aria-hidden="true">→</span></a>
+      <a class="toc-item" href="#logo"><span class="num">08</span><span class="name">Logo</span><span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+  </nav>
+
+  <!-- ============ 01 POSITIONNEMENT ============ -->
+  <section class="section section--alt" id="positionnement">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="label label--bleu kicker">01 — Positionnement</p>
+        <h2>Un partenaire de croissance.<br />Pas une agence web.</h2>
+        <p class="section-intro">
+          ASM construit l'infrastructure digitale des entreprises ambitieuses —
+          et en répond sur les chiffres.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card reveal">
+          <p class="label">Vision</p>
+          <h3>Le digital comme actif, pas comme dépense</h3>
+          <p>
+            Un monde où chaque entreprise ambitieuse — de la PME en croissance au grand
+            compte — dispose d'une infrastructure digitale au niveau des meilleures
+            multinationales : mesurable, évolutive, rentable.
+          </p>
+        </div>
+        <div class="card reveal">
+          <p class="label">Mission</p>
+          <h3>Des systèmes qui produisent des résultats</h3>
+          <p>
+            Concevoir, déployer et optimiser les systèmes digitaux de nos clients — sites,
+            acquisition (SEO/SEA), paiement, automatisation — avec l'exigence d'un cabinet
+            de conseil et l'exécution d'un studio d'élite.
+          </p>
+        </div>
+        <div class="card reveal">
+          <p class="label">Promesse</p>
+          <h3>Chaque livrable est relié à un indicateur</h3>
+          <p>
+            Nous ne vendons jamais « un site » ou « une campagne ». Nous livrons une
+            performance : trafic qualifié, taux de conversion, revenu par visiteur,
+            heures économisées. Ce qui ne se mesure pas ne se facture pas.
+          </p>
+        </div>
+        <div class="card reveal">
+          <p class="label">Proposition de valeur unique</p>
+          <h3>Stratégie, build et croissance sous un même toit</h3>
+          <p>
+            Là où le marché sépare le conseil (qui recommande sans construire) et
+            l'exécution (qui construit sans stratégie), ASM intègre les deux :
+            une seule équipe responsable de la chaîne complète, de l'audit au revenu.
+          </p>
+        </div>
+      </div>
+
+      <p class="statement reveal">Nous ne livrons pas des sites web.<br />Nous livrons des <span class="accent">systèmes de revenus</span>.</p>
+    </div>
+  </section>
+
+  <!-- ============ 02 IDENTITÉ ============ -->
+  <section class="section" id="identite">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="label label--bleu kicker">02 — Identité</p>
+        <h2>La voix d'un associé senior</h2>
+        <p class="section-intro">
+          Calme, précis, direct. Jamais vendeur, jamais approximatif.
+          L'enthousiasme s'exprime par la maîtrise, pas par l'exclamation.
+        </p>
+      </div>
+
+      <div class="reveal">
+        <div class="adjectives" role="list">
+          <span class="adjective" role="listitem">Précis</span>
+          <span class="adjective" role="listitem">Épuré</span>
+          <span class="adjective" role="listitem">Stratégique</span>
+          <span class="adjective" role="listitem">Fluide</span>
+          <span class="adjective" role="listitem">Fiable</span>
+          <span class="adjective" role="listitem">Ambitieux</span>
+          <span class="adjective" role="listitem">Sobre</span>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top: 64px;">
+        <div class="card reveal">
+          <p class="label">Ton de communication</p>
+          <h3>Expert, direct, rassurant</h3>
+          <p>
+            On affirme, on ne suppose pas. Phrases courtes, verbes actifs, chiffres à
+            l'appui. Le ton d'un partenaire qui a déjà résolu ce problème — pas d'un
+            prestataire qui espère décrocher le contrat.
+          </p>
+        </div>
+        <div class="card reveal">
+          <p class="label">Style rédactionnel</p>
+          <h3>Le mot juste, une seule fois</h3>
+          <p>
+            Vocabulaire business sans jargon creux. Pas de superlatifs gratuits, pas de
+            points d'exclamation, pas d'emojis. On préfère un chiffre vérifiable à trois
+            adjectifs. Chaque paragraphe doit pouvoir être lu par un directeur général
+            en huit secondes.
+          </p>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-top: 48px;">
+        <p class="label">En pratique</p>
+        <table class="say-table">
+          <thead>
+            <tr><th scope="col" style="width: 50%;">On ne dit pas</th><th scope="col">On dit</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="no">« Nous créons des sites web magnifiques ! 🚀 »</td>
+              <td class="yes">« Nous concevons des sites qui convertissent. Le design en est la conséquence. »</td>
+            </tr>
+            <tr>
+              <td class="no">« Des solutions digitales innovantes à petits prix »</td>
+              <td class="yes">« Une infrastructure digitale dimensionnée pour votre prochaine étape de croissance. »</td>
+            </tr>
+            <tr>
+              <td class="no">« Contactez-nous vite pour un devis gratuit !! »</td>
+              <td class="yes">« Planifier un diagnostic. 30 minutes, trois recommandations actionnables. »</td>
+            </tr>
+            <tr>
+              <td class="no">« Nous sommes passionnés par le web »</td>
+              <td class="yes">« +38 % de conversion en moyenne sur nos douze derniers déploiements. »</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 03 PALETTE ============ -->
+  <section class="section section--alt" id="palette">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="label label--bleu kicker">03 — Couleurs</p>
+        <h2>Le blanc est la couleur.<br />Le bleu est le geste.</h2>
+        <p class="section-intro">
+          Un système presque incolore — blanc, gris nuage, encre — traversé par un seul
+          bleu de précision. La retenue chromatique est le signal de prestige : le produit
+          et le contenu portent la couleur, jamais le décor.
+        </p>
+      </div>
+
+      <div class="reveal">
+        <p class="label" style="text-align: center;">Palette principale</p>
+        <div class="swatch-row">
+          <div class="swatch swatch--tall">
+            <div class="swatch-color" style="background: #FFFFFF; box-shadow: inset 0 -1px 0 #E8E8ED;"><span class="hex" style="color: #6E6E73;">#FFFFFF</span></div>
+            <div class="swatch-info">
+              <p class="name">Blanc</p>
+              <p class="role">L'espace et la lumière. Fond principal de tous les supports. Le blanc pur est un choix, pas une absence : il met le contenu seul en scène.</p>
+            </div>
+          </div>
+          <div class="swatch swatch--tall">
+            <div class="swatch-color" style="background: #1D1D1F;"><span class="hex" style="color: #F5F5F7;">#1D1D1F</span></div>
+            <div class="swatch-info">
+              <p class="name">Encre</p>
+              <p class="role">L'autorité. Textes, titres, fonds inversés des moments décisifs. Un quasi-noir adouci — jamais un #000 brut d'écran.</p>
+            </div>
+          </div>
+          <div class="swatch swatch--tall">
+            <div class="swatch-color" style="background: #0066CC;"><span class="hex" style="color: #FFFFFF;">#0066CC</span></div>
+            <div class="swatch-info">
+              <p class="name">Bleu de précision</p>
+              <p class="role">Le geste rare. Actions, liens, donnée clé, point du logo. Le bleu de la confiance et de l'ingénierie — jamais en décoration.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-top: 56px;">
+        <p class="label" style="text-align: center;">Palette secondaire</p>
+        <div class="swatch-row">
+          <div class="swatch">
+            <div class="swatch-color" style="background: #F5F5F7;"><span class="hex" style="color: #6E6E73;">#F5F5F7</span></div>
+            <div class="swatch-info">
+              <p class="name">Nuage</p>
+              <p class="role">Surfaces secondaires : sections alternées, cartes, champs de formulaire.</p>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: #6E6E73;"><span class="hex" style="color: #FFFFFF;">#6E6E73</span></div>
+            <div class="swatch-info">
+              <p class="name">Gris</p>
+              <p class="role">Texte secondaire, sous-titres, légendes. Jamais en dessous de 15 px.</p>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: #D2D2D7;"><span class="hex" style="color: #1D1D1F;">#D2D2D7</span></div>
+            <div class="swatch-info">
+              <p class="name">Filet</p>
+              <p class="role">Bordures, séparateurs, contours de champs. Toujours 1 px, jamais plus sombre.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-top: 56px;">
+        <p class="label" style="text-align: center;">Ratios d'usage — la règle 70 / 20 / 8 / 2</p>
+        <div class="ratio-bar" role="img" aria-label="Répartition des couleurs : 70 % blanc, 20 % nuage, 8 % encre et gris, 2 % bleu">
+          <div style="width: 70%; background: #FFFFFF;"></div>
+          <div style="width: 20%; background: #F5F5F7; box-shadow: inset 1px 0 0 #E8E8ED;"></div>
+          <div style="width: 8%; background: #1D1D1F;"></div>
+          <div style="width: 2%; background: #0066CC;"></div>
+        </div>
+        <div class="ratio-legend">
+          <span><i style="background:#FFFFFF;"></i>70 % Blanc</span>
+          <span><i style="background:#F5F5F7;"></i>20 % Nuage</span>
+          <span><i style="background:#1D1D1F;"></i>8 % Encre / Gris</span>
+          <span><i style="background:#0066CC;"></i>2 % Bleu</span>
+        </div>
+        <p style="max-width: 58ch; margin: 24px auto 0; color: var(--gris); font-size: 16px; text-align: center;">
+          Le bleu est plafonné à 2 % de toute surface : c'est cette rareté qui lui donne
+          son pouvoir. Interdits absolus : dégradés multicolores, ors et cuivres, verts
+          fluo, plus d'une couleur d'accent par écran.
+        </p>
+      </div>
+
+      <div class="reveal" style="margin-top: 56px;">
+        <p class="label" style="text-align: center;">Paires de contraste validées — WCAG 2.1</p>
+        <div class="contrast-grid">
+          <div class="contrast-chip" style="background: #FFFFFF; color: #1D1D1F;">
+            <p class="sample">Encre sur Blanc</p>
+            <p class="score">16.8 : 1 — AAA</p>
+          </div>
+          <div class="contrast-chip" style="background: #1D1D1F; color: #FFFFFF;">
+            <p class="sample">Blanc sur Encre</p>
+            <p class="score">16.8 : 1 — AAA</p>
+          </div>
+          <div class="contrast-chip" style="background: #FFFFFF; color: #0066CC;">
+            <p class="sample">Bleu sur Blanc</p>
+            <p class="score">5.6 : 1 — AA (AAA en grand)</p>
+          </div>
+          <div class="contrast-chip" style="background: #0066CC; color: #FFFFFF;">
+            <p class="sample">Blanc sur Bleu</p>
+            <p class="score">5.6 : 1 — AA (AAA en grand)</p>
+          </div>
+          <div class="contrast-chip" style="background: #FFFFFF; color: #6E6E73;">
+            <p class="sample">Gris sur Blanc</p>
+            <p class="score">5.1 : 1 — AA</p>
+          </div>
+          <div class="contrast-chip" style="background: #F5F5F7; color: #1D1D1F;">
+            <p class="sample">Encre sur Nuage</p>
+            <p class="score">15.5 : 1 — AAA</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 04 TYPOGRAPHIE ============ -->
+  <section class="section" id="typographie">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="label label--bleu kicker">04 — Typographie</p>
+        <h2>Une seule voix : Inter</h2>
+        <p class="section-intro">
+          Une famille unique, du titre au bouton — comme San Francisco chez Apple.
+          La hiérarchie se construit par la graisse et le tracking, pas par le mélange
+          de polices. La mono système est tolérée pour les données techniques.
+        </p>
+      </div>
+
+      <div class="specimen reveal" style="background: var(--nuage); box-shadow: none;">
+        <p class="label">Display — Inter 700 · tracking −3.5 %</p>
+        <p class="specimen-display">Ambition &amp; <span class="accent">précision</span></p>
+        <p class="specimen-mono">Titres H1–H2 · letter-spacing −0.035em · line-height 1.04 · Le mot pivot de la phrase peut porter le bleu.</p>
+      </div>
+
+      <div class="specimen reveal" style="background: var(--nuage); box-shadow: none;">
+        <p class="label">Texte — Inter 400 / 500</p>
+        <p class="specimen-body">
+          Inter porte tout le corps de texte, les interfaces et la navigation. Taille de
+          base 17 px, interlignage 1.6, paragraphes limités à 60–65 caractères par ligne.
+          La graisse 500 est réservée aux mises en évidence, la 600 aux boutons et
+          sous-titres — jamais de gras sur des paragraphes entiers.
+        </p>
+      </div>
+
+      <div class="specimen reveal" style="background: var(--nuage); box-shadow: none;">
+        <p class="label">Données — mono système (SF Mono / équivalent)</p>
+        <p class="specimen-mono" style="font-size: 15px; color: var(--ink);">
+          KPI +38 % · #0066CC · 2026-01 — la mono système signe les chiffres, les codes
+          et les métadonnées techniques. Jamais chargée en webfont : elle vient de l'OS.
+        </p>
+      </div>
+
+      <div class="reveal" style="margin-top: 40px;">
+        <p class="label">Échelle typographique</p>
+        <table class="type-scale">
+          <tbody>
+            <tr>
+              <td class="t-label">Display</td>
+              <td style="font-weight: 700; font-size: 54px; line-height: 1.04; letter-spacing: -0.035em;">Aa</td>
+              <td class="t-spec">Inter 700 · 64–96 px · lh 1.04 · ls −0.035em</td>
+            </tr>
+            <tr>
+              <td class="t-label">H1</td>
+              <td style="font-weight: 700; font-size: 42px; line-height: 1.06; letter-spacing: -0.03em;">Aa</td>
+              <td class="t-spec">Inter 700 · 44–56 px · lh 1.06 · ls −0.03em</td>
+            </tr>
+            <tr>
+              <td class="t-label">H2</td>
+              <td style="font-weight: 600; font-size: 32px; line-height: 1.12; letter-spacing: -0.025em;">Aa</td>
+              <td class="t-spec">Inter 600 · 32–40 px · lh 1.12 · ls −0.025em</td>
+            </tr>
+            <tr>
+              <td class="t-label">H3</td>
+              <td style="font-weight: 600; font-size: 22px; line-height: 1.25; letter-spacing: -0.02em;">Aa</td>
+              <td class="t-spec">Inter 600 · 20–24 px · lh 1.25 · ls −0.02em</td>
+            </tr>
+            <tr>
+              <td class="t-label">Body</td>
+              <td style="font-weight: 400; font-size: 17px;">Aa</td>
+              <td class="t-spec">Inter 400 · 16–18 px · lh 1.6</td>
+            </tr>
+            <tr>
+              <td class="t-label">Label</td>
+              <td style="font-weight: 600; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;">AA</td>
+              <td class="t-spec">Inter 600 · 12 px · caps · ls 0.08em</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 05 CHARTE SITE ============ -->
+  <section class="section section--alt" id="charte-site">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="label label--bleu kicker">05 — Site</p>
+        <h2>Le calme comme preuve<br />de compétence</h2>
+        <p class="section-intro">
+          Style global : minimalisme produit — la rigueur d'un keynote, la fluidité d'un
+          système d'exploitation. Le site doit donner la même sensation qu'un produit
+          Apple : tout est évident, rien ne dépasse.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card reveal">
+          <p class="label">Structure visuelle</p>
+          <h3>Une idée par écran</h3>
+          <p>
+            Grille 12 colonnes, largeur utile 1100 px. Sections pleines alternant blanc et
+            gris nuage — jamais de filets pour séparer, la couleur de fond suffit. Titres
+            centrés pour les moments d'affirmation, contenu aligné à gauche pour la lecture.
+          </p>
+        </div>
+        <div class="card reveal">
+          <p class="label">Usage des couleurs</p>
+          <h3>Blanc dominant, encre en ponctuation</h3>
+          <p>
+            Blanc sur 70 % du parcours. Les sections encre sont réservées aux moments
+            décisifs : manifeste, chiffres clés, CTA final. Le bleu n'apparaît que sur
+            l'interactif et la donnée-héros.
+          </p>
+        </div>
+        <div class="card reveal">
+          <p class="label">Visuels</p>
+          <h3>Le produit est le héros</h3>
+          <p>
+            Mockups d'interfaces sur fonds neutres, captures produit impeccables, ombres
+            douces et diffuses (jamais dures), photographie épurée à lumière naturelle.
+            Interdits : illustrations 3D génériques, personnages « corporate Memphis »,
+            photos de stock avec poignées de main.
+          </p>
+        </div>
+        <div class="card reveal">
+          <p class="label">Expérience ressentie</p>
+          <h3>Fluide, évident, inévitable</h3>
+          <p>
+            Navigation évidente, chargements irréprochables, micro-interactions 200–300 ms
+            avec courbes douces. Aucun carrousel automatique, aucune pop-up d'entrée.
+            Le visiteur doit ressentir en trois secondes : « ces gens sont chers,
+            et ils le valent ».
+          </p>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-top: 48px;">
+        <p class="label" style="text-align: center;">Boutons &amp; CTA — spécimens interactifs</p>
+        <div class="btn-demo">
+          <button class="btn btn-primary" type="button">Planifier un diagnostic</button>
+          <button class="btn btn-secondary" type="button">Voir nos résultats</button>
+          <button class="btn btn-link" type="button">Étude de cas<span class="arrow" aria-hidden="true">→</span></button>
+        </div>
+        <p style="max-width: 58ch; margin: 20px auto 0; color: var(--gris); font-size: 15.5px; text-align: center;">
+          Pilule intégrale (rayon 980 px), le geste Apple. Primaire : bleu, survol assombri,
+          pression à 97 %. Secondaire : contour filet, survol encre. Tertiaire : lien bleu
+          à flèche. Verbes d'action précis, jamais « En savoir plus ».
+        </p>
+      </div>
+
+      <div class="reveal" style="margin-top: 48px;">
+        <p class="label">Échelle d'espacement — base 8 px</p>
+        <div class="spacing-demo" aria-hidden="true">
+          <div class="bar" style="width: 8%;">8</div>
+          <div class="bar" style="width: 16%;">16</div>
+          <div class="bar" style="width: 24%;">24</div>
+          <div class="bar" style="width: 40%;">40</div>
+          <div class="bar" style="width: 64%;">64</div>
+          <div class="bar" style="width: 96%;">96 — sections</div>
+        </div>
+        <p style="max-width: 58ch; margin-top: 20px; color: var(--gris); font-size: 15.5px;">
+          En cas de doute sur un espacement : prendre la valeur supérieure. Le vide est
+          un matériau premium — c'est lui qui met le contenu en scène.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 06 DIRECTION ARTISTIQUE ============ -->
+  <section class="section" id="direction-artistique">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="label label--bleu kicker">06 — Direction artistique</p>
+        <h2>Le showroom, pas le salon</h2>
+        <p class="section-intro">
+          Mood : un espace d'exposition baigné de lumière naturelle — surfaces claires,
+          objets parfaits, silence. Sûr de soi, sans un mot de trop.
+        </p>
+      </div>
+
+      <div class="mood-grid reveal">
+        <div class="mood-cell">
+          <p class="label">Référence</p>
+          <p class="ref">Apple</p>
+          <p class="takes">La référence centrale : discipline du vide, une idée par écran, la typographie comme seul décor, le produit comme héros absolu.</p>
+        </div>
+        <div class="mood-cell">
+          <p class="label">Référence</p>
+          <p class="ref">Linear</p>
+          <p class="takes">Ce qu'on emprunte : la précision des interfaces, les détails réglés au pixel, le sentiment qu'un outil rapide ne peut être que sérieux.</p>
+        </div>
+        <div class="mood-cell">
+          <p class="label">Référence</p>
+          <p class="ref">Stripe</p>
+          <p class="takes">Ce qu'on emprunte : la clarté technique, la documentation impeccable, la confiance construite par l'exactitude plutôt que par la promesse.</p>
+        </div>
+        <div class="mood-cell">
+          <p class="label">Référence</p>
+          <p class="ref">Vercel</p>
+          <p class="takes">Ce qu'on emprunte : le radicalisme noir et blanc, la vitesse comme argument esthétique, la sobriété qui signale l'expertise.</p>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <p class="statement">« Ils sont plus rigoureux que les autres.<br />Et ils sont probablement <span class="accent">déjà complets</span>. »</p>
+        <p style="max-width: 58ch; margin: 24px auto 0; color: var(--gris); font-size: 16px; text-align: center;">
+          Ce que la marque doit faire ressentir en trois secondes : confiance (rien ne
+          déborde), compétence (chaque détail est réglé), rareté (l'esthétique dit :
+          nous choisissons nos clients). Si un visuel provoque de l'excitation plutôt
+          que du respect, il est hors charte.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 07 TAGLINES ============ -->
+  <section class="section section--alt" id="taglines">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="label label--bleu kicker">07 — Slogan</p>
+        <h2>Cinq directions,<br />une recommandation</h2>
+        <p class="section-intro">
+          Le critère : la phrase doit pouvoir être prononcée dans un conseil
+          d'administration sans faire sourire.
+        </p>
+      </div>
+
+      <div class="tagline-list reveal">
+        <div class="tagline tagline--reco">
+          <span class="idx">T-01</span>
+          <span class="txt">La croissance, par la précision.</span>
+          <span class="badge">Recommandée</span>
+        </div>
+        <div class="tagline">
+          <span class="idx">T-02</span>
+          <span class="txt">Nous construisons ce que votre ambition exige.</span>
+        </div>
+        <div class="tagline">
+          <span class="idx">T-03</span>
+          <span class="txt">Digital de précision. Résultats de référence.</span>
+        </div>
+        <div class="tagline">
+          <span class="idx">T-04</span>
+          <span class="txt">L'infrastructure de votre prochaine décennie.</span>
+        </div>
+        <div class="tagline">
+          <span class="idx">T-05</span>
+          <span class="txt">Moins de promesses. Plus de preuves.</span>
+        </div>
+      </div>
+
+      <p style="max-width: 58ch; margin: 32px auto 0; color: var(--gris); font-size: 15.5px; text-align: center;" class="reveal">
+        T-01 est recommandée : elle relie la promesse business (croissance) à la signature
+        esthétique de la marque (précision), fonctionne en français comme à l'international
+        (<em>Growth, engineered.</em>) et se décline naturellement en manifeste.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ 08 LOGO ============ -->
+  <section class="section" id="logo">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="label label--bleu kicker">08 — Logo</p>
+        <h2>La typographie est le logo</h2>
+        <p class="section-intro">
+          Concept : « le point de précision ». Un wordmark sans-serif d'une confiance
+          absolue, signé d'un point bleu — le point final de celui qui n'a plus rien à
+          prouver. Aucun pictogramme décoratif.
+        </p>
+      </div>
+
+      <div class="logo-stage reveal">
+        <div>
+          <div class="logo-cell logo-cell--light">
+            <svg width="280" height="80" viewBox="0 0 280 80" role="img" aria-label="Logo ASM — version principale sur fond clair">
+              <text x="134" y="46" text-anchor="middle" font-family="Inter, -apple-system, sans-serif" font-weight="700" font-size="42" letter-spacing="-1.5" fill="#1D1D1F">ASM</text>
+              <circle cx="188" cy="42" r="5" fill="#0066CC"/>
+              <text x="140" y="69" text-anchor="middle" font-family="Inter, -apple-system, sans-serif" font-weight="600" font-size="10" letter-spacing="2.6" fill="#6E6E73">DIGITAL CONSULTANCY</text>
+            </svg>
+          </div>
+          <div class="logo-caption">
+            <p class="label">Direction A — Wordmark signature</p>
+            <p style="color: var(--gris); font-size: 15px; margin-top: 8px;">
+              Usage principal : site, documents, signatures. Le point bleu est solidaire
+              du wordmark — il ne se déplace pas, ne change jamais de couleur.
+            </p>
+          </div>
+        </div>
+        <div>
+          <div class="logo-cell logo-cell--dark">
+            <svg width="130" height="130" viewBox="0 0 130 130" role="img" aria-label="Monogramme ASM — version compacte sur fond encre">
+              <rect x="5" y="5" width="120" height="120" rx="28" fill="#2A2A2D"/>
+              <text x="30" y="83" font-family="Inter, -apple-system, sans-serif" font-weight="700" font-size="52" letter-spacing="-2.5" fill="#FFFFFF">A</text>
+              <circle cx="88" cy="77" r="7" fill="#0066CC"/>
+            </svg>
+          </div>
+          <div class="logo-caption">
+            <p class="label">Direction B — Monogramme app</p>
+            <p style="color: var(--gris); font-size: 15px; margin-top: 8px;">
+              Usage compact : favicon, avatars, icône d'app. Le carré arrondi (rayon 22 %)
+              reprend le langage des icônes d'applications modernes.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top: 40px;">
+        <div class="card reveal">
+          <p class="label">Règles d'usage</p>
+          <h3>Zone de protection &amp; fonds</h3>
+          <p>
+            Zone de protection : la hauteur du « A » sur tout le périmètre. Fonds
+            autorisés : blanc, nuage, encre, photo sombre et calme. Interdits : fonds
+            colorés, dégradés, photos chargées. Taille minimale : 120 px de large
+            (wordmark), 24 px (monogramme).
+          </p>
+        </div>
+        <div class="card reveal">
+          <p class="label">Interdits absolus</p>
+          <h3>Ce qui tue le logo</h3>
+          <p>
+            Ne jamais : incliner, étirer, ombrer, contourer, recolorer le point en autre
+            chose que bleu, ajouter un dégradé, animer en rotation. Le logo ne « bouge »
+            qu'en fondu (opacity, 300 ms), jamais en déformation.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <span class="topbar-logo" style="font-size: 16px;">ASM<span class="dot">.</span></span>
+      <span class="label">Charte de marque · V 2.0 · 2026 — Document confidentiel</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var items = document.querySelectorAll(".reveal");
+    if (reduced || !("IntersectionObserver" in window)) {
+      items.forEach(function (el) { el.classList.add("visible"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    items.forEach(function (el) { io.observe(el); });
+  })();
+</script>
+
+</body>
+</html>
