@@ -142,7 +142,7 @@ h1, h2, h3, h4 { font-family: var(--display); font-weight: 700; line-height: 1.0
   border-bottom: 1px solid var(--accent); padding-bottom: 0.25rem;
   transition: gap 0.2s var(--ease);
 }
-.link-arrow::after { content: "→"; }
+.link-arrow::after { content: "\2192"; }
 .link-arrow:hover { gap: 0.85rem; }
 
 /* ==========================================================================
@@ -253,7 +253,7 @@ h1, h2, h3, h4 { font-family: var(--display); font-weight: 700; line-height: 1.0
 .about { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
 .checklist { list-style: none; padding: 0; margin: 1.6rem 0 0; display: grid; gap: 0.7rem; }
 .checklist li { position: relative; padding-left: 1.8rem; }
-.checklist li::before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+.checklist li::before { content: "\2713"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
 @media (max-width: 780px) { .about { grid-template-columns: 1fr; } }
 
 /* Placeholders images */

@@ -7,6 +7,19 @@
 
   var root = document.documentElement;
 
+  /* ---- Thème initial (filet de sécurité si l'attribut n'a pas été posé
+     par le script inline du <head>) ---- */
+  if (!root.getAttribute("data-theme")) {
+    var initial;
+    try { initial = localStorage.getItem("theme"); } catch (e) {}
+    if (!initial) {
+      initial = window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+    }
+    root.setAttribute("data-theme", initial);
+  }
+
   /* ---- Année du footer ---- */
   var yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
