@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO de base -->
+  <title>Chrono Guide — Maison horlogère & sélection d'exception</title>
+  <meta name="description" content="Chrono Guide, maison horlogère : sélection experte, guides d'achat et conciergerie autour des plus belles montres. Design éditorial, conseil sur mesure." />
+  <meta name="keywords" content="montres, horlogerie, maison horlogère, guide d'achat, conciergerie horlogère, Seiko, Longines" />
+  <meta name="author" content="Chrono Guide" />
+  <link rel="canonical" href="https://exemple.fr/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Chrono Guide — Maison horlogère" />
+  <meta property="og:description" content="Sélection experte, guides d'achat et conciergerie autour des plus belles montres." />
+  <meta property="og:locale" content="fr_FR" />
+
+  <!-- Empeche le flash de theme au chargement -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("theme");
+        if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230e0e0f'/%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%23c9a24b' stroke-width='2'/%3E%3Cline x1='16' y1='16' x2='16' y2='8' stroke='%23f7f4ef' stroke-width='2'/%3E%3Cline x1='16' y1='16' x2='21' y2='16' stroke='%23f7f4ef' stroke-width='2'/%3E%3C/svg%3E" />
+
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Donnees structurees -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Chrono Guide",
+    "description": "Maison horlogère : sélection experte, guides d'achat et conciergerie.",
+    "url": "https://exemple.fr"
+  }
+  </script>
+</head>
+
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="#accueil" class="brand" aria-label="Accueil Chrono Guide">
+        <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
+          <circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="16" y1="16" x2="16" y2="7" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="16" y1="16" x2="22" y2="16" stroke="var(--accent)" stroke-width="1.5"/>
+        </svg>
+        <span>Chrono Guide</span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Navigation principale">
+        <a href="#apropos">À propos</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Collection</a>
+        <a href="#temoignages">Avis</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="header__actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème" type="button">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="23"/><line x1="4.2" y1="4.2" x2="6.3" y2="6.3"/><line x1="17.7" y1="17.7" x2="19.8" y2="19.8"/><line x1="1" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="23" y2="12"/><line x1="4.2" y1="19.8" x2="6.3" y2="17.7"/><line x1="17.7" y1="6.3" x2="19.8" y2="4.2"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <a href="#contact" class="btn btn--sm">Prendre rendez-vous</a>
+        <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav" type="button">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="contenu">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="accueil">
+      <div class="container hero__inner">
+        <div class="hero__copy reveal">
+          <p class="eyebrow">Maison horlogère · depuis 2016</p>
+          <h1 class="hero__title">L&apos;heure,<br><em>sublimée.</em></h1>
+          <p class="hero__sub">Une sélection d&apos;exception, des conseils d&apos;expert et une conciergerie sur mesure pour trouver la montre qui vous ressemble.</p>
+          <div class="hero__cta">
+            <a href="#portfolio" class="btn btn--primary">Découvrir la collection</a>
+            <a href="#contact" class="btn btn--ghost">Nous contacter</a>
+          </div>
+          <ul class="hero__stats">
+            <li><b>+1 200</b><span>Pièces conseillées</span></li>
+            <li><b>98%</b><span>Clients satisfaits</span></li>
+            <li><b>8 ans</b><span>D&apos;expertise</span></li>
+          </ul>
+        </div>
+
+        <div class="hero__visual reveal" aria-hidden="true">
+          <div class="dial">
+            <div class="dial__brand">CHRONO<span>GUIDE</span></div>
+            <span class="dial__hand dial__hand--h"></span>
+            <span class="dial__hand dial__hand--m"></span>
+            <span class="dial__hand dial__hand--s"></span>
+            <span class="dial__pin"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LOGOS / CONFIANCE ============ -->
+    <section class="marquee" aria-label="Marques partenaires">
+      <div class="marquee__track">
+        <span>Seiko</span><span>Longines</span><span>Citizen</span><span>Timex</span>
+        <span>Tissot</span><span>Hamilton</span><span>Seiko</span><span>Longines</span>
+        <span>Citizen</span><span>Timex</span><span>Tissot</span><span>Hamilton</span>
+      </div>
+    </section>
+
+    <!-- ============ A PROPOS ============ -->
+    <section class="section" id="apropos">
+      <div class="container about">
+        <div class="about__media reveal">
+          <div class="ph ph--portrait" role="img" aria-label="Atelier de la maison">
+            <span>Photo · atelier</span>
+          </div>
+        </div>
+        <div class="about__copy reveal">
+          <div class="section-head">
+            <span class="section-num">01</span>
+            <h2 class="section-title">La maison</h2>
+          </div>
+          <p class="lede">Nous ne vendons pas des montres. Nous aidons chacun à trouver la sienne, celle qu&apos;il gardera vingt ans.</p>
+          <p>Fondée par deux passionnés, Chrono Guide conjugue la rigueur d&apos;un horloger et le regard d&apos;un magazine. Chaque recommandation part de la culture horlogère, jamais du simple argument commercial.</p>
+          <ul class="checklist">
+            <li>Conseil indépendant, sans pression commerciale</li>
+            <li>Sélection vérifiée pièce par pièce</li>
+            <li>Accompagnement du premier achat à la collection</li>
+          </ul>
+          <a href="#contact" class="link-arrow">Faire connaissance</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SERVICES ============ -->
+    <section class="section section--ink" id="services">
+      <div class="container">
+        <div class="section-head section-head--center">
+          <span class="section-num">02</span>
+          <h2 class="section-title">Nos services</h2>
+        </div>
+        <p class="section-intro">Quatre façons de vous accompagner, du conseil ponctuel à la conciergerie complète.</p>
+
+        <div class="cards">
+          <article class="card reveal">
+            <span class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16" y1="16" x2="21" y2="21"/></svg>
+            </span>
+            <h3>Sélection experte</h3>
+            <p>Nous identifions les pièces qui correspondent à votre budget, votre poignet et votre usage réel.</p>
+          </article>
+          <article class="card reveal">
+            <span class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 19V5a1 1 0 0 1 1-1h11l4 4v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><line x1="8" y1="9" x2="14" y2="9"/><line x1="8" y1="13" x2="16" y2="13"/></svg>
+            </span>
+            <h3>Guides d&apos;achat</h3>
+            <p>Des dossiers clairs et documentés pour comprendre les marques, les mouvements et les vrais différenciateurs.</p>
+          </article>
+          <article class="card reveal">
+            <span class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="12" y1="12" x2="12" y2="7"/><line x1="12" y1="12" x2="15" y2="14"/></svg>
+            </span>
+            <h3>Conciergerie</h3>
+            <p>Recherche de pièces rares, négociation et suivi de commande. Vous cherchez, nous trouvons.</p>
+          </article>
+          <article class="card reveal">
+            <span class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7z"/><path d="M9 12l2 2 4-4"/></svg>
+            </span>
+            <h3>Estimation &amp; authenticité</h3>
+            <p>Évaluation de valeur et vérification d&apos;authenticité avant achat ou revente.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PORTFOLIO / COLLECTION ============ -->
+    <section class="section" id="portfolio">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-num">03</span>
+          <h2 class="section-title">La collection</h2>
+        </div>
+        <p class="section-intro">Un aperçu des pièces sélectionnées ce trimestre. Survolez pour les détails.</p>
+
+        <div class="gallery">
+          <figure class="tile reveal"><div class="ph" role="img" aria-label="Montre 1"></div><figcaption><b>Seiko Presage</b><span>Habillée · dès 350 €</span></figcaption></figure>
+          <figure class="tile tile--wide reveal"><div class="ph" role="img" aria-label="Montre 2"></div><figcaption><b>Longines Master</b><span>Suisse · dès 2 200 €</span></figcaption></figure>
+          <figure class="tile reveal"><div class="ph" role="img" aria-label="Montre 3"></div><figcaption><b>Citizen Promaster</b><span>Plongée · dès 280 €</span></figcaption></figure>
+          <figure class="tile reveal"><div class="ph" role="img" aria-label="Montre 4"></div><figcaption><b>Timex Weekender</b><span>Casual · dès 45 €</span></figcaption></figure>
+          <figure class="tile tile--wide reveal"><div class="ph" role="img" aria-label="Montre 5"></div><figcaption><b>Seiko Prospex</b><span>Solaire · dès 320 €</span></figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TEMOIGNAGES ============ -->
+    <section class="section section--muted" id="temoignages">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-num">04</span>
+          <h2 class="section-title">Ils nous font confiance</h2>
+        </div>
+        <div class="quotes">
+          <blockquote class="quote reveal">
+            <p>Un conseil d&apos;une honnêteté rare. J&apos;ai enfin acheté la bonne montre du premier coup.</p>
+            <footer><b>Camille Restout</b><span>Première acheteuse</span></footer>
+          </blockquote>
+          <blockquote class="quote reveal">
+            <p>Ils ont déniché un modèle introuvable en trois semaines. Service impeccable.</p>
+            <footer><b>Karim Belhaj</b><span>Collectionneur</span></footer>
+          </blockquote>
+          <blockquote class="quote reveal">
+            <p>Le regard d&apos;un magazine, la rigueur d&apos;un horloger. On revient pour ça.</p>
+            <footer><b>Élodie Vasseur</b><span>Cliente fidèle</span></footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section section--ink" id="contact">
+      <div class="container contact">
+        <div class="contact__copy reveal">
+          <div class="section-head">
+            <span class="section-num">05</span>
+            <h2 class="section-title">Parlons montres</h2>
+          </div>
+          <p class="lede">Un projet d&apos;achat, une pièce à dénicher, une simple question ? On vous répond sous 24 h.</p>
+          <ul class="contact__info">
+            <li><span>Email</span><a href="mailto:bonjour@chrono-guide.fr">bonjour@chrono-guide.fr</a></li>
+            <li><span>Téléphone</span><a href="tel:+33123456789">+33 1 23 45 67 89</a></li>
+            <li><span>Atelier</span><address>12 rue des Horlogers, 75002 Paris</address></li>
+          </ul>
+        </div>
+
+        <!-- Formulaire : validation JS legere, prevu pour un backend / service (Formspree, etc.) -->
+        <form class="form reveal" id="contactForm" novalidate>
+          <div class="field">
+            <label for="name">Nom</label>
+            <input type="text" id="name" name="name" autocomplete="name" required />
+            <small class="error" data-for="name"></small>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" required />
+            <small class="error" data-for="email"></small>
+          </div>
+          <div class="field">
+            <label for="message">Votre projet</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+            <small class="error" data-for="message"></small>
+          </div>
+          <button type="submit" class="btn btn--primary btn--block">Envoyer la demande</button>
+          <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <span class="brand__name">Chrono Guide</span>
+        <p>La maison horlogère pensée comme un magazine. Sélection, conseil et conciergerie.</p>
+        <div class="socials" aria-label="Réseaux sociaux">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="7" y1="10" x2="7" y2="17"/><circle cx="7" cy="7" r="1"/><path d="M11 17v-4a2 2 0 0 1 4 0v4"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="3"/><polygon points="11,9.5 15,12 11,14.5"/></svg></a>
+        </div>
+      </div>
+
+      <nav class="footer__col" aria-label="Pages">
+        <h4>Explorer</h4>
+        <a href="#apropos">À propos</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Collection</a>
+        <a href="#temoignages">Avis</a>
+      </nav>
+
+      <nav class="footer__col" aria-label="Informations">
+        <h4>Maison</h4>
+        <a href="#contact">Contact</a>
+        <a href="#">Mentions légales</a>
+        <a href="#">Confidentialité</a>
+        <a href="#">CGV</a>
+      </nav>
+
+      <div class="footer__col">
+        <h4>Newsletter</h4>
+        <p>Une sélection par mois, zéro spam.</p>
+        <form class="newsletter" onsubmit="return false">
+          <input type="email" aria-label="Votre email" placeholder="Votre email" />
+          <button type="submit" aria-label="S'inscrire">→</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="container footer__bottom">
+      <span>&copy; <span id="year"></span> Chrono Guide. Tous droits réservés.</span>
+      <span>Fait avec soin à Paris.</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
