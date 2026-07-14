@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import { Check, Gift } from "lucide-react";
 import { Button, Card, Input, PageHeading } from "@/components/ui";
+import { Reveal } from "@/components/Reveal";
 import { StampCard } from "@/components/StampCard";
 import { useToast } from "@/components/Toast";
 import { currentMerchant, updateMerchant } from "@/lib/store";
@@ -38,7 +39,8 @@ export default function RewardsPage() {
 
       <div className="grid gap-6 lg:grid-cols-5">
         {/* Formulaire */}
-        <Card className="p-6 lg:col-span-3">
+        <Reveal className="lg:col-span-3">
+        <Card bezel className="p-6">
           <form onSubmit={onSave} className="space-y-5">
             <Input
               name="shopName"
@@ -63,10 +65,10 @@ export default function RewardsPage() {
                     key={n}
                     type="button"
                     onClick={() => setGoal(n)}
-                    className={`grid h-12 w-12 place-items-center rounded-xl border text-sm font-semibold transition-all ${
+                    className={`grid h-12 w-12 place-items-center rounded-xl border text-sm font-semibold transition-all duration-300 ease-spring ${
                       goal === n
-                        ? "border-brand-600 bg-brand-600 text-white shadow-glow"
-                        : "border-slate-200 bg-white text-slate-600 hover:border-slate-300"
+                        ? "border-brand-500 bg-brand-500 text-white shadow-glow"
+                        : "border-slate-200 bg-white text-slate-600 hover:border-brand-300"
                     }`}
                   >
                     {n}
@@ -80,9 +82,10 @@ export default function RewardsPage() {
             </Button>
           </form>
         </Card>
+        </Reveal>
 
         {/* Aperçu en direct */}
-        <div className="lg:col-span-2">
+        <Reveal delay={100} className="lg:col-span-2">
           <div className="mb-3 flex items-center gap-2 text-sm font-medium text-slate-500">
             <Gift className="h-4 w-4" />
             Aperçu de la carte
@@ -97,7 +100,7 @@ export default function RewardsPage() {
           <p className="mt-3 text-center text-xs text-slate-400">
             C'est exactement ce que verront vos clients.
           </p>
-        </div>
+        </Reveal>
       </div>
     </div>
   );

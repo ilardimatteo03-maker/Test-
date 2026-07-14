@@ -109,7 +109,7 @@ export default function OnboardingPage() {
           Étape {step + 1} sur 3 · {steps[step]}
         </p>
 
-        <Card className="mt-6 p-6 sm:p-8">
+        <Card bezel outerClassName="mt-6" className="p-6 sm:p-8">
           {/* Étape 1 : type de commerce */}
           {step === 0 && (
             <div className="animate-fade-up">

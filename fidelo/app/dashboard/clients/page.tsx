@@ -19,6 +19,7 @@ import {
   PageHeading,
 } from "@/components/ui";
 import { StampCard } from "@/components/StampCard";
+import { Reveal } from "@/components/Reveal";
 import { useToast } from "@/components/Toast";
 import {
   addClient,
@@ -106,18 +107,19 @@ export default function ClientsPage() {
       />
 
       {/* Recherche */}
-      <div className="relative mb-4">
+      <Reveal className="relative mb-4">
         <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Rechercher un client..."
-          className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-[15px] focus:border-brand-400 focus:outline-none focus:ring-4 focus:ring-brand-100"
+          className="w-full rounded-full border border-slate-200 bg-white py-3 pl-11 pr-4 text-[15px] transition-all focus:border-brand-400 focus:outline-none focus:ring-4 focus:ring-brand-100"
         />
-      </div>
+      </Reveal>
 
       {/* Liste */}
-      <Card className="divide-y divide-slate-100">
+      <Reveal delay={80}>
+      <Card bezel className="divide-y divide-slate-100 overflow-hidden">
         {filtered.map((c) => (
           <div
             key={c.id}
@@ -157,6 +159,7 @@ export default function ClientsPage() {
           </div>
         )}
       </Card>
+      </Reveal>
 
       {/* Modal ajout client */}
       <Modal open={addOpen} onClose={() => setAddOpen(false)} title="Nouveau client">

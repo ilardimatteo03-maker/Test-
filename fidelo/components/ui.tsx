@@ -120,16 +120,37 @@ export function Button({
 
 export function Card({
   className,
+  outerClassName,
+  bezel,
   children,
 }: {
   className?: string;
+  /** Classes de layout (grid span, marges) appliquées à la coquille externe. */
+  outerClassName?: string;
+  /** Architecture « double-bezel » : coquille + cœur (soft-skill). */
+  bezel?: boolean;
   children: ReactNode;
 }) {
+  if (bezel) {
+    return (
+      <div
+        className={clsx(
+          "rounded-[1.5rem] border border-slate-200/60 bg-white/50 p-1.5 shadow-soft",
+          outerClassName
+        )}
+      >
+        <div className={clsx("rounded-[1.15rem] bg-white shadow-inset", className)}>
+          {children}
+        </div>
+      </div>
+    );
+  }
   return (
     <div
       className={clsx(
         "rounded-2xl border border-slate-200/80 bg-white shadow-soft",
-        className
+        className,
+        outerClassName
       )}
     >
       {children}
