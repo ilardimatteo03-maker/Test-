@@ -14,22 +14,23 @@ import {
 type ButtonVariant = "primary" | "secondary" | "ghost" | "dark";
 type ButtonSize = "sm" | "md" | "lg";
 
+// Boutons pill à bord 2px, hover translateY + ombre bleue — signature ASM.
 const btnBase =
-  "inline-flex items-center justify-center gap-2 font-semibold rounded-xl transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none whitespace-nowrap";
+  "inline-flex items-center justify-center gap-2 font-semibold rounded-full border-2 border-transparent transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none whitespace-nowrap";
 
 const btnVariants: Record<ButtonVariant, string> = {
   primary:
-    "bg-brand-600 text-white hover:bg-brand-700 shadow-soft hover:shadow-glow active:scale-[0.98]",
+    "bg-brand-500 text-white border-brand-500 hover:bg-brand-600 hover:border-brand-600 hover:-translate-y-0.5 hover:shadow-glow active:translate-y-0",
   secondary:
-    "bg-white text-ink border border-slate-200 hover:border-slate-300 hover:bg-slate-50 shadow-soft active:scale-[0.98]",
+    "bg-white text-ink border-slate-200 hover:border-brand-300 hover:-translate-y-0.5 hover:shadow-soft active:translate-y-0",
   ghost: "bg-transparent text-slate-600 hover:bg-slate-100 hover:text-ink",
-  dark: "bg-ink text-white hover:bg-ink-soft shadow-soft active:scale-[0.98]",
+  dark: "bg-ink text-white border-ink hover:bg-ink-soft hover:border-ink-soft hover:-translate-y-0.5 hover:shadow-soft active:translate-y-0",
 };
 
 const btnSizes: Record<ButtonSize, string> = {
-  sm: "text-sm px-3.5 py-2",
-  md: "text-sm px-5 py-2.5",
-  lg: "text-base px-6 py-3.5",
+  sm: "text-sm px-4 py-2",
+  md: "text-[15px] px-5 py-2.5",
+  lg: "text-base px-7 py-3.5",
 };
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -211,6 +212,12 @@ export function Modal({
   );
 }
 
+/* ---------------- Eyebrow (label de section ASM) ---------------- */
+
+export function Eyebrow({ children }: { children: ReactNode }) {
+  return <span className="eyebrow">{children}</span>;
+}
+
 /* ---------------- Section heading ---------------- */
 
 export function PageHeading({
@@ -225,7 +232,7 @@ export function PageHeading({
   return (
     <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-ink">{title}</h1>
+        <h1 className="font-display text-2xl font-extrabold text-ink">{title}</h1>
         {subtitle && <p className="mt-1 text-slate-500">{subtitle}</p>}
       </div>
       {action}

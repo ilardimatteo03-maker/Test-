@@ -29,20 +29,20 @@ export default function LandingPage() {
           <div className="animate-fade-up">
             <span className="inline-flex items-center gap-2 rounded-full border border-brand-100 bg-brand-50 px-3.5 py-1.5 text-sm font-medium text-brand-700">
               <Sparkles className="h-4 w-4" />
-              Fini les cartes en carton qu'on perd
+              Un service signé ASM
             </span>
-            <h1 className="mt-5 text-4xl font-bold leading-[1.1] tracking-tight text-ink sm:text-5xl lg:text-6xl">
-              Fidélisez vos clients{" "}
-              <span className="text-gradient">en 2 clics</span>
+            <h1 className="mt-5 font-display text-4xl font-extrabold leading-[1.05] text-ink sm:text-5xl lg:text-6xl">
+              La fidélité de vos clients,{" "}
+              <span className="text-gradient">gérée par ASM</span>
             </h1>
             <p className="mt-5 max-w-lg text-lg leading-relaxed text-slate-600">
-              Fidélo remplace votre carte de fidélité en carton par une carte
-              digitale. Vos clients cumulent des tampons, reviennent plus
-              souvent. Vous, vous appuyez juste sur un bouton.
+              Fidélo remplace la carte de fidélité en carton par une carte
+              digitale. ASM l'installe, la configure et vous accompagne. Vous,
+              vous ajoutez un tampon d'un simple bouton. Vos clients reviennent.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button href="/signup" size="lg">
-                Créer ma carte gratuitement
+                Démarrer avec ASM
                 <ArrowRight className="h-5 w-5" />
               </Button>
               <Button href="/login" variant="secondary" size="lg">
@@ -50,7 +50,7 @@ export default function LandingPage() {
               </Button>
             </div>
             <p className="mt-4 text-sm text-slate-500">
-              Gratuit jusqu'à 30 clients · Sans carte bancaire · Prêt en 3 minutes
+              Essai gratuit jusqu'à 30 clients · Installé par ASM · Prêt en 48h
             </p>
           </div>
 
@@ -64,11 +64,13 @@ export default function LandingPage() {
             />
             <div className="absolute -bottom-5 -left-5 hidden rounded-2xl border border-slate-100 bg-white p-4 shadow-card sm:block">
               <div className="flex items-center gap-3">
-                <span className="grid h-10 w-10 place-items-center rounded-xl bg-emerald-50 text-emerald-600">
+                <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-50 text-brand-600">
                   <TrendingUp className="h-5 w-5" />
                 </span>
                 <div>
-                  <p className="text-lg font-bold leading-none text-ink">+38%</p>
+                  <p className="font-display text-lg font-extrabold leading-none text-brand-600">
+                    +38%
+                  </p>
                   <p className="text-xs text-slate-500">de clients qui reviennent</p>
                 </div>
               </div>
@@ -80,7 +82,7 @@ export default function LandingPage() {
       {/* SOCIAL PROOF */}
       <section className="border-y border-slate-100 bg-slate-50/60">
         <div className="container-page flex flex-wrap items-center justify-center gap-x-10 gap-y-3 py-6 text-sm text-slate-500">
-          <span className="font-medium">Ils fidélisent déjà avec Fidélo :</span>
+          <span className="font-medium">Des commerces accompagnés par ASM :</span>
           {["Le Petit Bistrot", "Coiffure Éclat", "Snack O'Coin", "Boutique Lila", "Chez Marco"].map(
             (n) => (
               <span key={n} className="font-semibold text-slate-400">
@@ -94,11 +96,13 @@ export default function LandingPage() {
       {/* COMMENT ÇA MARCHE */}
       <section id="fonctionnement" className="container-page py-20">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-            Simple comme bonjour
+          <span className="eyebrow">Comment ça marche</span>
+          <h2 className="mt-3 font-display text-3xl font-extrabold text-ink sm:text-4xl">
+            ASM s'occupe de tout
           </h2>
           <p className="mt-3 text-lg text-slate-600">
-            Pas besoin d'être à l'aise avec la technologie. Trois étapes, c'est tout.
+            Pas besoin d'être à l'aise avec la technologie. On installe, vous
+            profitez.
           </p>
         </div>
         <div className="mt-14 grid gap-6 md:grid-cols-3">
@@ -106,13 +110,13 @@ export default function LandingPage() {
             {
               icon: Stamp,
               step: "1",
-              title: "Créez votre carte",
-              text: "Choisissez votre récompense (ex : la 10ᵉ boisson offerte). C'est prêt.",
+              title: "ASM crée votre carte",
+              text: "On configure votre récompense (ex : la 10ᵉ boisson offerte) à vos couleurs.",
             },
             {
               icon: Users,
               step: "2",
-              title: "Ajoutez vos clients",
+              title: "Vous ajoutez vos clients",
               text: "Un prénom, un numéro. Chaque client a sa carte digitale automatiquement.",
             },
             {
@@ -136,14 +140,18 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* AVANTAGES */}
-      <section id="avantages" className="bg-ink py-20 text-white">
+      {/* AVANTAGES — section sombre signature ASM */}
+      <section
+        id="avantages"
+        className="bg-gradient-to-b from-night to-night-deep py-20 text-white"
+      >
         <div className="container-page grid items-center gap-14 lg:grid-cols-2">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            <span className="eyebrow">Résultats</span>
+            <h2 className="mt-3 font-display text-3xl font-extrabold sm:text-4xl">
               Vos clients reviennent.
               <br />
-              <span className="text-brand-300">Votre caisse le ressent.</span>
+              <span className="text-brand-400">Votre caisse le ressent.</span>
             </h2>
             <p className="mt-4 text-lg text-white/70">
               Un client fidèle dépense en moyenne 3 fois plus qu'un nouveau. Fidélo
@@ -182,8 +190,10 @@ export default function LandingPage() {
                 key={c.label}
                 className="rounded-2xl border border-white/10 bg-white/5 p-6"
               >
-                <c.icon className="h-6 w-6 text-brand-300" />
-                <p className="mt-4 text-3xl font-bold">{c.stat}</p>
+                <c.icon className="h-6 w-6 text-brand-400" />
+                <p className="mt-4 font-display text-4xl font-extrabold text-brand-400">
+                  {c.stat}
+                </p>
                 <p className="mt-1 text-sm text-white/60">{c.label}</p>
               </div>
             ))}
@@ -194,11 +204,13 @@ export default function LandingPage() {
       {/* TARIFS */}
       <section id="tarifs" className="container-page py-20">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-            Un prix simple, sans surprise
+          <span className="eyebrow">Tarifs</span>
+          <h2 className="mt-3 font-display text-3xl font-extrabold text-ink sm:text-4xl">
+            Un abonnement simple, sans surprise
           </h2>
           <p className="mt-3 text-lg text-slate-600">
-            Commencez gratuitement. Passez au Pro quand vous êtes prêt.
+            Testez gratuitement. Passez à Fidélo Pro, installé et géré par ASM,
+            quand vous êtes prêt.
           </p>
         </div>
         <div className="mx-auto mt-12 grid max-w-4xl gap-6 md:grid-cols-2">
@@ -218,7 +230,9 @@ export default function LandingPage() {
               )}
               <h3 className="text-lg font-bold text-ink">{plan.name}</h3>
               <div className="mt-3 flex items-baseline gap-1">
-                <span className="text-4xl font-bold text-ink">{plan.price}€</span>
+                <span className="font-display text-4xl font-extrabold text-ink">
+                  {plan.price}€
+                </span>
                 <span className="text-slate-500">/mois</span>
               </div>
               <Button
@@ -227,7 +241,7 @@ export default function LandingPage() {
                 full
                 className="mt-6"
               >
-                {plan.price === 0 ? "Commencer gratuitement" : "Passer au Pro"}
+                {plan.price === 0 ? "Tester gratuitement" : "Être installé par ASM"}
               </Button>
               <ul className="mt-7 space-y-3">
                 {plan.features.map((f) => (
@@ -247,16 +261,16 @@ export default function LandingPage() {
         <div className="relative overflow-hidden rounded-3xl bg-brand-600 px-8 py-14 text-center text-white shadow-glow sm:px-16">
           <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-brand-400/40 blur-3xl" />
           <div className="relative">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Votre programme de fidélité, prêt aujourd'hui
+            <h2 className="font-display text-3xl font-extrabold sm:text-4xl">
+              Votre fidélité, installée par ASM
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-lg text-white/80">
               Rejoignez les commerces qui font revenir leurs clients avec Fidélo.
-              Gratuit pour commencer.
+              On s'occupe de la mise en place, vous gardez le sourire.
             </p>
             <div className="mt-8 flex justify-center">
               <Button href="/signup" variant="dark" size="lg">
-                Créer ma carte gratuitement
+                Démarrer avec ASM
                 <ArrowRight className="h-5 w-5" />
               </Button>
             </div>
@@ -269,7 +283,8 @@ export default function LandingPage() {
         <div className="container-page flex flex-col items-center justify-between gap-4 py-10 sm:flex-row">
           <Logo />
           <p className="text-sm text-slate-500">
-            © {new Date().getFullYear()} Fidélo. Fait pour les commerces de quartier.
+            © {new Date().getFullYear()} Fidélo by ASM<span className="asm-dot">.</span>{" "}
+            Fait pour les commerces de quartier.
           </p>
           <div className="flex gap-6 text-sm text-slate-500">
             <Link href="/login" className="hover:text-ink">

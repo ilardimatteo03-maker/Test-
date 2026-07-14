@@ -3,20 +3,22 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ToastProvider } from "@/components/Toast";
 
+// DA ASM : Inter en poids lourds (grotesque neutre) pour titres et corps.
 const inter = Inter({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
   variable: "--font-inter",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Fidélo — La carte de fidélité digitale pour votre commerce",
+  title: "Fidélo by ASM — La fidélité digitale pour votre commerce",
   description:
-    "Fidélisez vos clients sans carton ni tampon. Fidélo transforme votre programme de fidélité en une carte digitale simple, en 2 clics.",
+    "Fidélo by ASM : le programme de fidélité digital installé, configuré et géré par ASM pour votre commerce de quartier. Vos clients reviennent, sans carton ni tampon.",
 };
 
 export const viewport: Viewport = {
-  themeColor: "#7C3AED",
+  themeColor: "#2F6BFF",
   width: "device-width",
   initialScale: 1,
 };

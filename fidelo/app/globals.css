@@ -16,12 +16,32 @@
   }
 }
 
+@layer base {
+  /* DA ASM : titres grotesque très gras, tracking serré */
+  h1, h2, h3 {
+    font-family: var(--font-inter), system-ui, sans-serif;
+    letter-spacing: -0.03em;
+  }
+}
+
 @layer utilities {
   .container-page {
     @apply mx-auto w-full max-w-6xl px-5 sm:px-6;
   }
+  .font-display {
+    font-family: var(--font-inter), system-ui, sans-serif;
+    letter-spacing: -0.03em;
+  }
+  /* Eyebrow / label de section (signature ASM, bleu majuscules) */
+  .eyebrow {
+    @apply inline-block text-xs font-bold uppercase tracking-[0.16em] text-brand-500;
+  }
+  /* Le point bleu ASM après un mot */
+  .asm-dot {
+    @apply text-brand-500;
+  }
   .text-gradient {
-    @apply bg-gradient-to-br from-brand-500 to-brand-800 bg-clip-text text-transparent;
+    @apply bg-gradient-to-br from-brand-500 to-brand-700 bg-clip-text text-transparent;
   }
   /* masque discret des barres de scroll horizontales sur mobile */
   .no-scrollbar::-webkit-scrollbar {

@@ -25,13 +25,13 @@ export function StampCard({
   return (
     <div
       className={clsx(
-        "relative overflow-hidden rounded-3xl bg-ink text-white shadow-card",
+        "relative overflow-hidden rounded-3xl bg-gradient-to-br from-night to-night-deep text-white shadow-card",
         compact ? "p-5" : "p-6 sm:p-8"
       )}
     >
-      {/* halo violet */}
-      <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-brand-600/40 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-20 -left-10 h-52 w-52 rounded-full bg-brand-500/20 blur-3xl" />
+      {/* halo bleu ASM */}
+      <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-brand-500/40 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-20 -left-10 h-52 w-52 rounded-full bg-brand-400/20 blur-3xl" />
 
       <div className="relative">
         <div className="flex items-start justify-between">

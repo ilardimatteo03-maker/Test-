@@ -10,25 +10,34 @@ const config: Config = {
     extend: {
       colors: {
         // Palette premium : noir / blanc / violet
+        // Aligné sur la DA ASM. — noir / blanc / bleu électrique
         ink: {
-          DEFAULT: "#0B0B0F",
-          soft: "#16161D",
+          DEFAULT: "#0A0A0A",
+          soft: "#111111",
         },
+        // Bleu-nuit des sections sombres ASM
+        night: {
+          DEFAULT: "#0D1526",
+          deep: "#070A12",
+        },
+        // Bleu électrique ASM (accent, boutons, chiffres)
         brand: {
-          50: "#F5F3FF",
-          100: "#EDE9FE",
-          200: "#DDD6FE",
-          300: "#C4B5FD",
-          400: "#A78BFA",
-          500: "#8B5CF6",
-          600: "#7C3AED",
-          700: "#6D28D9",
-          800: "#5B21B6",
-          900: "#4C1D95",
+          50: "#EEF4FF",
+          100: "#DBE6FF",
+          200: "#BFD3FF",
+          300: "#93B4FF",
+          400: "#6E9BFF",
+          500: "#2F6BFF",
+          600: "#1E56E8",
+          700: "#1A47C2",
+          800: "#17399B",
+          900: "#16337F",
         },
       },
       fontFamily: {
+        // DA ASM : grotesque neutre, gras et serré (Inter en poids lourds)
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        display: ["var(--font-inter)", "system-ui", "sans-serif"],
       },
       borderRadius: {
         "2xl": "1rem",
@@ -37,7 +46,7 @@ const config: Config = {
       boxShadow: {
         soft: "0 1px 2px rgba(16,16,24,0.04), 0 8px 24px rgba(16,16,24,0.06)",
         card: "0 1px 3px rgba(16,16,24,0.06), 0 12px 40px rgba(16,16,24,0.08)",
-        glow: "0 8px 40px rgba(124,58,237,0.35)",
+        glow: "0 10px 34px rgba(47,107,255,0.38)",
       },
       keyframes: {
         "fade-up": {

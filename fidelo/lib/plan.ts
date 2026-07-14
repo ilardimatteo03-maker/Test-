@@ -13,7 +13,7 @@ export interface PlanConfig {
 export const PLANS: Record<PlanId, PlanConfig> = {
   free: {
     id: "free",
-    name: "Gratuit",
+    name: "Découverte",
     price: 0,
     clientLimit: 30,
     features: [
@@ -21,20 +21,21 @@ export const PLANS: Record<PlanId, PlanConfig> = {
       "1 carte de fidélité",
       "Page carte pour vos clients",
       "Statistiques de base",
+      "Pour tester avant de se lancer",
     ],
   },
   pro: {
     id: "pro",
-    name: "Pro",
-    price: 19,
+    name: "Fidélo Pro",
+    price: 29,
     clientLimit: Infinity,
     highlight: true,
     features: [
+      "Installé et configuré par ASM",
       "Clients illimités",
       "Récompenses personnalisées",
-      "Statistiques avancées",
-      "Export des données",
-      "Support prioritaire",
+      "Statistiques avancées + export",
+      "Accompagnement et support ASM",
     ],
   },
 };

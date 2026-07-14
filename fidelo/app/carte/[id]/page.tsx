@@ -96,7 +96,7 @@ export default function PublicCardPage() {
 
         <p className="mt-8 text-center text-xs text-slate-400">
           Carte de fidélité digitale propulsée par{" "}
-          <span className="font-semibold text-brand-600">Fidélo</span>
+          <span className="font-semibold text-brand-600">Fidélo by ASM.</span>
         </p>
       </div>
     </div>

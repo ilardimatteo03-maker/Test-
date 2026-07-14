@@ -29,15 +29,15 @@ export function AuthShell({
         </div>
       </div>
 
-      {/* Colonne visuelle */}
-      <div className="relative hidden overflow-hidden bg-ink lg:flex lg:flex-col lg:justify-center lg:px-14">
-        <div className="pointer-events-none absolute -right-24 top-10 h-80 w-80 rounded-full bg-brand-600/40 blur-3xl" />
-        <div className="pointer-events-none absolute -left-20 bottom-0 h-72 w-72 rounded-full bg-brand-500/20 blur-3xl" />
+      {/* Colonne visuelle — bleu-nuit ASM */}
+      <div className="relative hidden overflow-hidden bg-gradient-to-br from-night to-night-deep lg:flex lg:flex-col lg:justify-center lg:px-14">
+        <div className="pointer-events-none absolute -right-24 top-10 h-80 w-80 rounded-full bg-brand-500/40 blur-3xl" />
+        <div className="pointer-events-none absolute -left-20 bottom-0 h-72 w-72 rounded-full bg-brand-400/20 blur-3xl" />
         <div className="relative max-w-md">
-          <h2 className="text-3xl font-bold leading-tight text-white">
+          <h2 className="font-display text-3xl font-extrabold leading-tight text-white">
             La fidélité de vos clients,
             <br />
-            <span className="text-brand-300">enfin simple à gérer.</span>
+            <span className="text-brand-400">enfin simple à gérer.</span>
           </h2>
           <p className="mt-4 text-white/60">
             Un tampon par visite, une récompense à la clé. Vos clients reviennent,

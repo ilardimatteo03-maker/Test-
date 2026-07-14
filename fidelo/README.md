@@ -1,12 +1,24 @@
-# Fidélo — La carte de fidélité digitale pour les commerces de quartier
+# Fidélo by ASM — La carte de fidélité digitale pour les commerces de quartier
 
 Fidélo remplace la carte de fidélité en carton (celle qu'on perd toujours) par
 une **carte digitale ultra-simple**. Le commerçant ajoute un tampon en 2 clics,
 le client suit sa carte sur son téléphone, et une récompense l'attend à la fin.
 
+**Fidélo est un produit édité et opéré par l'agence ASM** : c'est un service
+que l'agence **installe, configure et revend** à ses commerces clients, avec un
+**abonnement mensuel** (revenu récurrent pour l'agence).
+
 Pensé pour un commerçant de 40–60 ans : **simple, beau, sans friction**.
 
 > 🎯 **Une seule fonctionnalité, faite parfaitement : la fidélité par tampons.**
+
+### Direction artistique (DA ASM.)
+
+- **Palette** : noir `#0A0A0A` · blanc · gris clair + **bleu électrique `#2F6BFF`**
+- **Sections sombres** : bleu-nuit `#0D1526`
+- **Typographie** : grotesque neutre, très **gras et serré** (Inter 800/900)
+- **Boutons** : gros **pills bleus** pleins · **eyebrows** bleus en majuscules
+- **Signature** : le point bleu après le nom — `Fidélo by ASM.`
 
 ![Fidélo](https://img.shields.io/badge/Next.js-14-black) ![Tailwind](https://img.shields.io/badge/Tailwind-3-38bdf8) ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6)
 
@@ -93,35 +105,40 @@ fidelo/
 │   ├── plan.ts               # Limites Free / Pro (monétisation)
 │   ├── format.ts             # Helpers (dates, avatars)
 │   └── useStore.ts           # Hook de synchronisation React
-└── tailwind.config.ts        # Palette noir / blanc / violet, Inter
+└── tailwind.config.ts        # Palette noir / blanc / bleu ASM, Inter
 ```
 
 ---
 
-## 🎨 Design
+## 🎨 Design (DA ASM.)
 
-- **Palette** : noir (`#0B0B0F`) · blanc · violet (`brand-600 #7C3AED`)
-- **Typographie** : Inter (via `next/font`, auto-hébergée)
-- **Style** : minimaliste, aéré, type Stripe / Notion
+- **Palette** : noir (`#0A0A0A`) · blanc · gris clair + bleu électrique (`brand-500 #2F6BFF`) ; sombre en bleu-nuit (`#0D1526`)
+- **Typographie** : Inter en poids lourds (800/900), tracking serré — grotesque éditorial
+- **Style** : minimaliste, éditorial, gros chiffres bleus, beaucoup d'espace
 - **Responsive** : mobile-first (sidebar → drawer, grilles adaptatives)
-- Micro-interactions : toasts, animation « pop » des tampons, halos violets
+- Micro-interactions : toasts, animation « pop » des tampons, halos bleus
 
 ---
 
-## 💰 Monétisation (intégrée dès le départ)
+## 💰 Monétisation — un service revendu par ASM (revenu récurrent)
 
-| | Gratuit | Pro — 19€/mois |
+Le modèle est **B2B2C** : ASM propose Fidélo comme service additionnel à ses
+commerces clients et facture un **abonnement mensuel**.
+
+| | Découverte (gratuit) | Fidélo Pro — 29€/mois |
 | --- | --- | --- |
 | Clients | 30 max | Illimités |
+| Installé & configuré par ASM | ❌ | ✅ |
 | Récompenses personnalisées | ❌ | ✅ |
 | Statistiques avancées / export | ❌ | ✅ |
-| Support prioritaire | ❌ | ✅ |
+| Accompagnement & support ASM | ❌ | ✅ |
 
 La limite du plan gratuit est **réellement appliquée** (modale d'upgrade quand
 on atteint 30 clients, bandeau à 70 %). Le changement de plan se fait dans
 **Compte** — en production, ce bouton ouvre le paiement Stripe.
 
-Voir `lib/plan.ts` pour ajuster les limites.
+> 💡 **Prix ajustables** dans `lib/plan.ts` (nom, montant mensuel, limites).
+> C'est là que se règle la marge de l'agence sur chaque commerce.
 
 ---
 
