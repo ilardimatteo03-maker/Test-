@@ -1144,6 +1144,23 @@ ul, ol { list-style: none; }
   margin-top: var(--space-4);
 }
 
+/* Form error state */
+.form-error {
+  display: none;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius-md, 8px);
+  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+  margin-top: var(--space-4);
+}
+
+.form-error.is-visible {
+  display: block;
+}
+
 /* Form success state */
 .form-success {
   display: none;

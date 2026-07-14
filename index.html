@@ -441,7 +441,7 @@
 
               <!-- Form body -->
               <div id="formBody">
-                <form id="contactForm" novalidate>
+                <form id="contactForm" method="POST" action="" novalidate>
 
                   <div class="form-row">
                     <div class="form-group">
@@ -511,6 +511,9 @@
 
                   <p class="form-note">Nous vous répondons sous 24&nbsp;heures ouvrables.</p>
                 </form>
+
+                <!-- Error state (hidden by default) -->
+                <p class="form-error" id="formError"></p>
               </div>
 
               <!-- Success state (hidden by default) -->

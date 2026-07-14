@@ -125,8 +125,32 @@ const form        = $('#contactForm');
 const formBody    = $('#formBody');
 const formSuccess = $('#formSuccess');
 
+const formError = $('#formError');
+
+function showFormSuccess() {
+  formBody.style.display = 'none';
+  formSuccess.classList.add('is-visible');
+  formSuccess.setAttribute('role', 'status');
+  formSuccess.setAttribute('aria-live', 'polite');
+  form.reset();
+}
+
+// Post the form to its configured endpoint. Returns a promise that
+// resolves on success and rejects on a network/HTTP error.
+async function sendForm() {
+  const response = await fetch(form.action, {
+    method: (form.method || 'POST').toUpperCase(),
+    headers: { Accept: 'application/json' },
+    body: new FormData(form),
+  });
+  if (!response.ok) {
+    throw new Error(`Request failed with status ${response.status}`);
+  }
+  return response;
+}
+
 if (form) {
-  form.addEventListener('submit', e => {
+  form.addEventListener('submit', async e => {
     e.preventDefault();
 
     if (!form.checkValidity()) {
@@ -134,18 +158,33 @@ if (form) {
       return;
     }
 
+    if (formError) formError.classList.remove('is-visible');
+
     const submitBtn = form.querySelector('[type="submit"]');
+    const submitLabel = submitBtn.textContent;
     submitBtn.disabled = true;
     submitBtn.textContent = 'Envoi en cours…';
 
-    // Simulate async send (replace with real API call)
-    setTimeout(() => {
-      formBody.style.display    = 'none';
-      formSuccess.classList.add('is-visible');
-      formSuccess.setAttribute('role', 'status');
-      formSuccess.setAttribute('aria-live', 'polite');
-      form.reset();
-    }, 1200);
+    try {
+      // If no endpoint is configured yet, simulate the round-trip so the
+      // demo stays functional; otherwise perform the real API call.
+      if (!form.getAttribute('action')) {
+        await new Promise(resolve => setTimeout(resolve, 1200));
+      } else {
+        await sendForm();
+      }
+      showFormSuccess();
+    } catch (err) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = submitLabel;
+      if (formError) {
+        formError.textContent =
+          'Une erreur est survenue lors de l’envoi. Veuillez réessayer.';
+        formError.classList.add('is-visible');
+        formError.setAttribute('role', 'alert');
+        formError.setAttribute('aria-live', 'assertive');
+      }
+    }
   });
 }
 
