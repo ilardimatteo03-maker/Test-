@@ -142,29 +142,38 @@ on atteint 30 clients, bandeau à 70 %). Le changement de plan se fait dans
 
 ---
 
-## 🔌 Passer de la démo à la production
+## 🔌 Passer de la démo à la production — Supabase + Stripe
 
-Toute la logique de données est **isolée dans `lib/store.ts`**. Pour brancher un
-vrai backend, il suffit de réimplémenter ses fonctions (mêmes signatures) avec
-Supabase — les composants n'ont pas à changer.
+**Tout le back-end de production est déjà écrit et compilé.** Il suffit de créer
+les comptes, lancer la migration et coller les clés. Guide complet :
+👉 **[`SUPABASE_STRIPE_SETUP.md`](./SUPABASE_STRIPE_SETUP.md)**
 
-1. **Base de données + Auth → Supabase**
-   - Les types de `lib/types.ts` correspondent au schéma des tables
-     (`merchants`, `clients`, `activity`).
-   - Remplacez `login/signup/logout` par `supabase.auth`, et les fonctions
-     `listClients/addStamp/…` par des requêtes Supabase.
-2. **Paiements → Stripe**
-   - Reliez `setPlan()` à un Checkout Stripe + webhook pour synchroniser le plan.
-3. **Variables d'environnement** : copiez `.env.example` en `.env.local`.
-4. **Déploiement → Vercel** : `vercel` (aucune config particulière requise).
+Ce qui est fourni, prêt à l'emploi :
+
+| Élément | Fichier |
+| --- | --- |
+| Schéma SQL + **RLS** + fonctions (`add_stamp`, `get_public_card`) | `supabase/migrations/0001_init.sql` |
+| Clients Supabase (navigateur / serveur / admin) | `lib/supabase/*.ts` |
+| Couche de données async (même API que la démo) | `lib/supabase/data.ts` |
+| Protection des routes + refresh session | `middleware.ts` |
+| Stripe Checkout / Portail / Webhook | `app/api/stripe/*` |
+| Détection auto démo ↔ production | `lib/config.ts` |
+
+L'app **bascule automatiquement** en mode production dès que les variables
+Supabase sont présentes (sinon elle reste en démo localStorage). Les deux couches
+exposent **la même API** (`listClients`, `addStamp`, `getStats`…), donc la
+bascule des composants en lectures async est mécanique — voir la fin du guide.
+
+**Déploiement → Vercel** : importez le repo, ajoutez les variables d'env, déployez.
 
 ---
 
 ## 🧪 Qualité
 
-- `npm run build` : build de production vérifié (11 routes).
-- Parcours cœur testé de bout en bout (login démo → tampon → récompense →
-  upgrade Pro → carte publique).
+- `npm run build` : build de production vérifié (14 routes + middleware).
+- Parcours cœur testé de bout en bout au navigateur (login démo → tampon →
+  récompense → scan QR → upgrade Pro → carte publique).
+- Back-end Supabase + Stripe vérifié au build (typecheck complet).
 
 ---
 

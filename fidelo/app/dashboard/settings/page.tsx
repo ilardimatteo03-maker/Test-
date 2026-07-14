@@ -8,6 +8,7 @@ import { useToast } from "@/components/Toast";
 import { currentMerchant, resetDemo, setPlan, updateMerchant } from "@/lib/store";
 import { useStoreVersion } from "@/lib/useStore";
 import { PLANS } from "@/lib/plan";
+import { isSupabaseConfigured } from "@/lib/config";
 import type { PlanId } from "@/lib/types";
 
 export default function SettingsPage() {
@@ -26,7 +27,24 @@ export default function SettingsPage() {
     toast("Compte mis à jour ✓");
   }
 
-  function changePlan(plan: PlanId) {
+  async function changePlan(plan: PlanId) {
+    // Production (Supabase + Stripe configurés) : passage par le paiement.
+    if (isSupabaseConfigured) {
+      const endpoint = plan === "pro" ? "/api/stripe/checkout" : "/api/stripe/portal";
+      try {
+        const res = await fetch(endpoint, { method: "POST" });
+        const { url } = await res.json();
+        if (url) {
+          window.location.href = url;
+          return;
+        }
+        toast("Paiement indisponible pour le moment.");
+      } catch {
+        toast("Une erreur est survenue.");
+      }
+      return;
+    }
+    // Mode démo : changement instantané.
     setPlan(plan);
     toast(
       plan === "pro"
