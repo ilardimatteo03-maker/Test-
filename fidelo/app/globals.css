@@ -17,10 +17,10 @@
 }
 
 @layer base {
-  /* DA ASM : titres grotesque très gras, tracking serré */
+  /* DA ASM : titres grotesque très gras, tracking serré (Geist) */
   h1, h2, h3 {
-    font-family: var(--font-inter), system-ui, sans-serif;
-    letter-spacing: -0.03em;
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
+    letter-spacing: -0.035em;
   }
 }
 
@@ -29,12 +29,13 @@
     @apply mx-auto w-full max-w-6xl px-5 sm:px-6;
   }
   .font-display {
-    font-family: var(--font-inter), system-ui, sans-serif;
-    letter-spacing: -0.03em;
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
+    letter-spacing: -0.035em;
   }
-  /* Eyebrow / label de section (signature ASM, bleu majuscules) */
+  /* Eyebrow / micro-badge de section (soft-skill + signature ASM bleu) */
   .eyebrow {
-    @apply inline-block text-xs font-bold uppercase tracking-[0.16em] text-brand-500;
+    @apply inline-flex items-center rounded-full border border-brand-100 bg-brand-50/70 px-3 py-1
+           text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-600;
   }
   /* Le point bleu ASM après un mot */
   .asm-dot {
@@ -43,6 +44,22 @@
   .text-gradient {
     @apply bg-gradient-to-br from-brand-500 to-brand-700 bg-clip-text text-transparent;
   }
+
+  /* Reveal au scroll — GPU-safe (transform/opacity/blur), ressort premium */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    filter: blur(6px);
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, opacity;
+  }
+  .reveal.is-in {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
   /* masque discret des barres de scroll horizontales sur mobile */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -50,5 +67,23 @@
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+}
+
+/* Respect des préférences d'accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }

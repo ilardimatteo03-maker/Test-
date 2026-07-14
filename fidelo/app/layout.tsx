@@ -1,15 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import { ToastProvider } from "@/components/Toast";
 
-// DA ASM : Inter en poids lourds (grotesque neutre) pour titres et corps.
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-  variable: "--font-inter",
-  display: "swap",
-});
+// DA ASM : Geist — grotesque neutre premium (remplace Inter), titres et corps.
 
 export const metadata: Metadata = {
   title: "Fidélo by ASM — La fidélité digitale pour votre commerce",
@@ -29,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" className={inter.variable}>
+    <html lang="fr" className={GeistSans.variable}>
       <body className="font-sans antialiased">
         <ToastProvider>{children}</ToastProvider>
       </body>

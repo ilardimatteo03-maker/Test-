@@ -35,18 +35,26 @@ const config: Config = {
         },
       },
       fontFamily: {
-        // DA ASM : grotesque neutre, gras et serré (Inter en poids lourds)
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-inter)", "system-ui", "sans-serif"],
+        // DA ASM : Geist, grotesque neutre premium
+        sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
+        display: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
       },
       borderRadius: {
         "2xl": "1rem",
         "3xl": "1.5rem",
       },
+      // Ombres ambiantes très diffuses (soft-skill : « floating components »)
       boxShadow: {
-        soft: "0 1px 2px rgba(16,16,24,0.04), 0 8px 24px rgba(16,16,24,0.06)",
-        card: "0 1px 3px rgba(16,16,24,0.06), 0 12px 40px rgba(16,16,24,0.08)",
-        glow: "0 10px 34px rgba(47,107,255,0.38)",
+        soft: "0 2px 4px rgba(13,21,38,0.03), 0 12px 32px -8px rgba(13,21,38,0.08)",
+        card: "0 4px 12px -4px rgba(13,21,38,0.06), 0 24px 60px -20px rgba(13,21,38,0.14)",
+        float: "0 8px 24px -12px rgba(13,21,38,0.10), 0 40px 80px -32px rgba(13,21,38,0.18)",
+        glow: "0 12px 40px -6px rgba(47,107,255,0.45)",
+        inset: "inset 0 1px 1px rgba(255,255,255,0.6)",
+      },
+      transitionTimingFunction: {
+        // Ressort premium (soft-skill)
+        spring: "cubic-bezier(0.32,0.72,0,1)",
+        smooth: "cubic-bezier(0.22,1,0.36,1)",
       },
       keyframes: {
         "fade-up": {
