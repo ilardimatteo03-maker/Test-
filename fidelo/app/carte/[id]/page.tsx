@@ -2,9 +2,10 @@
 
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Gift, MapPin, Sparkles } from "lucide-react";
+import { Gift, MapPin, ScanLine, Sparkles } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { StampCard } from "@/components/StampCard";
+import { QrCode } from "@/components/QrCode";
 import { currentMerchant, getClient } from "@/lib/store";
 import { useStoreVersion } from "@/lib/useStore";
 import { DEMO_MERCHANT } from "@/lib/seed";
@@ -19,12 +20,14 @@ export default function PublicCardPage() {
     { client: null, merchant: null }
   );
   const [loaded, setLoaded] = useState(false);
+  const [origin, setOrigin] = useState("");
 
   useEffect(() => {
     const client = getClient(params.id);
     // On retrouve le commerce : session courante ou compte démo.
     const merchant = currentMerchant() ?? DEMO_MERCHANT;
     setState({ client, merchant });
+    setOrigin(window.location.origin);
     setLoaded(true);
   }, [params.id]);
 
@@ -87,6 +90,23 @@ export default function PublicCardPage() {
               </p>
             </>
           )}
+        </div>
+
+        {/* QR code à présenter au commerçant */}
+        <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-soft">
+          <span className="eyebrow">
+            <ScanLine className="mr-1.5 h-3.5 w-3.5" />
+            À scanner en caisse
+          </span>
+          <div className="mt-4 flex justify-center">
+            <QrCode value={`${origin}/scan/${client.id}`} size={188} />
+          </div>
+          <p className="mt-4 text-sm font-medium text-ink">
+            Montrez ce code au commerçant
+          </p>
+          <p className="mt-1 text-xs text-slate-500">
+            Il le scanne avec son téléphone, votre tampon est ajouté.
+          </p>
         </div>
 
         <div className="mt-4 flex items-center justify-center gap-2 text-sm text-slate-400">

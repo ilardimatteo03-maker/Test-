@@ -1,15 +1,26 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { FormEvent, Suspense, useState } from "react";
 import { ArrowRight, PlayCircle } from "lucide-react";
 import { AuthShell } from "@/components/AuthShell";
 import { Button, Input } from "@/components/ui";
 import { login, loginDemo } from "@/lib/store";
 
 export default function LoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <LoginInner />
+    </Suspense>
+  );
+}
+
+function LoginInner() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  // Redirection après connexion (ex : revenir sur /scan/[id] après un scan).
+  const next = searchParams.get("next");
   const [error, setError] = useState<string | null>(null);
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
@@ -21,12 +32,12 @@ export default function LoginPage() {
       setError("Aucun compte trouvé avec cet email. Essayez la démo ci-dessous.");
       return;
     }
-    router.push(m.onboarded ? "/dashboard" : "/onboarding");
+    router.push(next ?? (m.onboarded ? "/dashboard" : "/onboarding"));
   }
 
   function onDemo() {
     loginDemo();
-    router.push("/dashboard");
+    router.push(next ?? "/dashboard");
   }
 
   return (

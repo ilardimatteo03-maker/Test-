@@ -9,6 +9,7 @@ import {
   LayoutDashboard,
   LogOut,
   Menu,
+  ScanLine,
   Settings,
   Users,
   X,
@@ -22,6 +23,7 @@ import type { Merchant } from "@/lib/types";
 
 const NAV = [
   { href: "/dashboard", label: "Tableau de bord", icon: LayoutDashboard },
+  { href: "/dashboard/scan", label: "Scanner", icon: ScanLine },
   { href: "/dashboard/clients", label: "Clients", icon: Users },
   { href: "/dashboard/rewards", label: "Carte & récompense", icon: Gift },
   { href: "/dashboard/settings", label: "Compte", icon: Settings },
