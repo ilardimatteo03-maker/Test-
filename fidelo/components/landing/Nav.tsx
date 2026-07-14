@@ -35,7 +35,7 @@ export function Nav() {
               : "border border-transparent bg-white/40 backdrop-blur-md"
           )}
         >
-          <Logo />
+          <Logo size="sm" />
           <div className="hidden items-center gap-7 md:flex">
             {links.map((l) => (
               <a
@@ -69,7 +69,7 @@ export function Nav() {
       {open && (
         <div className="pointer-events-auto fixed inset-0 z-50 bg-white/85 backdrop-blur-2xl md:hidden">
           <div className="container-page flex h-16 items-center justify-between pt-4">
-            <Logo />
+            <Logo size="sm" />
             <button
               className="rounded-full p-2 text-slate-700"
               onClick={() => setOpen(false)}

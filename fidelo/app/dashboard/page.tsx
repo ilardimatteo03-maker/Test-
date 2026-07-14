@@ -11,6 +11,7 @@ import {
   Zap,
 } from "lucide-react";
 import { Avatar, Button, Card, PageHeading } from "@/components/ui";
+import { Reveal } from "@/components/Reveal";
 import { useToast } from "@/components/Toast";
 import {
   addStamp,
@@ -68,16 +69,26 @@ export default function DashboardPage() {
         }
       />
 
-      {/* Stats */}
+      {/* Stats — cartes double-bezel (soft-skill) */}
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        {statCards.map((c) => (
-          <Card key={c.label} className="p-5">
-            <span className={`grid h-10 w-10 place-items-center rounded-xl ${c.color}`}>
-              <c.icon className="h-5 w-5" />
-            </span>
-            <p className="mt-4 text-3xl font-bold text-ink">{c.value}</p>
-            <p className="mt-0.5 text-sm text-slate-500">{c.label}</p>
-          </Card>
+        {statCards.map((c, i) => (
+          <Reveal
+            key={c.label}
+            delay={i * 70}
+            className="group rounded-[1.4rem] border border-slate-200/60 bg-white/50 p-1.5 shadow-soft transition-all duration-500 ease-spring hover:-translate-y-1 hover:shadow-float"
+          >
+            <div className="rounded-[1.05rem] bg-white p-5 shadow-inset">
+              <span
+                className={`grid h-10 w-10 place-items-center rounded-xl ${c.color} transition-transform duration-500 ease-spring group-hover:scale-110`}
+              >
+                <c.icon className="h-5 w-5" strokeWidth={1.9} />
+              </span>
+              <p className="mt-4 font-display text-3xl font-extrabold text-ink">
+                {c.value}
+              </p>
+              <p className="mt-0.5 text-sm text-slate-500">{c.label}</p>
+            </div>
+          </Reveal>
         ))}
       </div>
 
@@ -103,7 +114,7 @@ export default function DashboardPage() {
         </Card>
       )}
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-5">
+      <Reveal className="mt-6 grid gap-6 lg:grid-cols-5">
         {/* Action rapide : ajouter un tampon */}
         <Card className="p-6 lg:col-span-3">
           <div className="flex items-center justify-between">
@@ -177,7 +188,7 @@ export default function DashboardPage() {
             )}
           </div>
         </Card>
-      </div>
+      </Reveal>
     </div>
   );
 }

@@ -49,7 +49,10 @@ export function DashboardShell({ children }: { children: ReactNode }) {
   if (!ready || !merchant) {
     return (
       <div className="grid min-h-screen place-items-center bg-slate-50">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-slate-200 border-t-brand-600" />
+        <div className="flex flex-col items-center gap-4">
+          <Logo href={null} />
+          <div className="h-6 w-6 animate-spin rounded-full border-2 border-slate-200 border-t-brand-500" />
+        </div>
       </div>
     );
   }
@@ -62,7 +65,7 @@ export function DashboardShell({ children }: { children: ReactNode }) {
   const sidebar = (
     <div className="flex h-full flex-col">
       <div className="px-5 py-5">
-        <Logo />
+        <Logo size="sm" />
       </div>
       <nav className="flex-1 space-y-1 px-3">
         {NAV.map((item) => {
@@ -122,7 +125,7 @@ export function DashboardShell({ children }: { children: ReactNode }) {
 
       {/* Topbar mobile */}
       <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white px-4 lg:hidden">
-        <Logo />
+        <Logo size="sm" />
         <button
           onClick={() => setMobileOpen(true)}
           className="rounded-lg p-2 text-slate-600"

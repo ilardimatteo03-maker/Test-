@@ -1,7 +1,7 @@
 "use client";
 
 import { clsx } from "clsx";
-import { Check, Gift, Star } from "lucide-react";
+import { Check, Gift } from "lucide-react";
 
 // Représentation visuelle de la carte de fidélité — réutilisée dans le
 // dashboard et sur la page publique du client.
@@ -41,7 +41,10 @@ export function StampCard({
             </p>
             <p className="mt-1 text-lg font-bold">{shopName}</p>
           </div>
-          <Star className="h-6 w-6 text-brand-300" fill="currentColor" />
+          {/* Marque fidélo. sur la carte */}
+          <span className="font-display text-sm font-extrabold lowercase leading-none text-white">
+            fidélo<span className="text-brand-400">.</span>
+          </span>
         </div>
 
         {clientName && (
