@@ -21,8 +21,9 @@ comme aujourd'hui. Les boutons apparaissent sur la page carte quand
    - clé privée → `APPLE_PASS_KEY` (+ `APPLE_PASS_KEY_PASSPHRASE` si protégée)
 4. Téléchargez le **Apple WWDR G4** (PEM) → `APPLE_WWDR_CERT`.
 5. `APPLE_TEAM_ID` = votre Team ID (Membership).
-6. Déposez les visuels de la carte dans **`public/wallet/`** :
-   `icon.png` (obligatoire, 29×29), `icon@2x.png`, `logo.png`, `logo@2x.png`.
+6. Les visuels de la carte sont **déjà fournis** dans **`public/wallet/`**
+   (`icon.png`, `icon@2x/@3x`, `logo.png`, `logo@2x/@3x`, aux couleurs ASM).
+   Remplacez-les si vous voulez votre propre marque.
 
 > Astuce : encodez les PEM en base64 pour les mettre en variable d'env
 > (`base64 -w0 cert.pem`). Le code accepte base64 **ou** PEM brut.

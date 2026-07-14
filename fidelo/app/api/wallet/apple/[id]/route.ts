@@ -44,7 +44,13 @@ export async function GET(
     );
   }
   const buffers: Record<string, Buffer> = { "icon.png": icon };
-  for (const name of ["icon@2x.png", "logo.png", "logo@2x.png"]) {
+  for (const name of [
+    "icon@2x.png",
+    "icon@3x.png",
+    "logo.png",
+    "logo@2x.png",
+    "logo@3x.png",
+  ]) {
     const b = await img(name);
     if (b) buffers[name] = b;
   }
