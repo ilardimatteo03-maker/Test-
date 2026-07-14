@@ -70,8 +70,8 @@ export async function GET(
       description: `Carte de fidélité — ${card.shopName}`,
       serialNumber: params.id,
       foregroundColor: "rgb(255,255,255)",
-      backgroundColor: "rgb(13,21,38)",
-      labelColor: "rgb(147,180,255)",
+      backgroundColor: "rgb(47,107,255)",
+      labelColor: "rgb(219,230,255)",
     }
   );
 
