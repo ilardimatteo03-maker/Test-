@@ -6,6 +6,7 @@ import { Gift, MapPin, ScanLine, Sparkles } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { StampCard } from "@/components/StampCard";
 import { QrCode } from "@/components/QrCode";
+import { WalletButtons } from "@/components/WalletButtons";
 import { currentMerchant, getClient } from "@/lib/store";
 import { useStoreVersion } from "@/lib/useStore";
 import { DEMO_MERCHANT } from "@/lib/seed";
@@ -108,6 +109,9 @@ export default function PublicCardPage() {
             Il le scanne avec son téléphone, votre tampon est ajouté.
           </p>
         </div>
+
+        {/* Ajout au Wallet du téléphone (Apple / Google) */}
+        <WalletButtons clientId={client.id} />
 
         <div className="mt-4 flex items-center justify-center gap-2 text-sm text-slate-400">
           <MapPin className="h-4 w-4" />
