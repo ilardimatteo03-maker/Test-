@@ -1,8 +1,11 @@
 import Link from "next/link";
 import { clsx } from "clsx";
 
-// Wordmark officiel : « fidélo. » (minuscules, point bleu) + « by ASM. »
-// en dessous à droite. Aucune icône — reproduction fidèle de la charte.
+/* eslint-disable @next/next/no-img-element */
+
+// Logo officiel « fidélo. by ASM. » — fichier image utilisé à l'identique
+// (public/brand/fidelo-logo.png, simplement détouré de son fond).
+// Sur fond sombre, il est posé sur une plaque blanche pour rester intact.
 export function Logo({
   className,
   light = false,
@@ -14,38 +17,28 @@ export function Logo({
   href?: string | null;
   size?: "sm" | "md" | "lg";
 }) {
-  const wordSize = {
-    sm: "text-lg",
-    md: "text-2xl",
-    lg: "text-4xl",
-  }[size];
-  const tagSize = {
-    sm: "text-[8px]",
-    md: "text-[10px]",
-    lg: "text-sm",
-  }[size];
+  const height = { sm: 30, md: 40, lg: 56 }[size];
 
-  const inner = (
-    <span className={clsx("inline-flex flex-col leading-none", className)}>
-      <span
-        className={clsx(
-          "font-display font-extrabold lowercase tracking-tight",
-          wordSize,
-          light ? "text-white" : "text-ink"
-        )}
-      >
-        fidélo<span className="text-brand-500">.</span>
-      </span>
-      <span
-        className={clsx(
-          "-mt-0.5 self-end font-semibold tracking-[0.1em]",
-          tagSize,
-          light ? "text-white/60" : "text-slate-500"
-        )}
-      >
-        by ASM<span className="text-brand-500">.</span>
-      </span>
+  const img = (
+    <img
+      src="/brand/fidelo-logo.png"
+      alt="fidélo. by ASM."
+      style={{ height, width: "auto" }}
+      draggable={false}
+    />
+  );
+
+  const inner = light ? (
+    <span
+      className={clsx(
+        "inline-flex items-center rounded-xl bg-white px-2.5 py-1.5 shadow-sm",
+        className
+      )}
+    >
+      {img}
     </span>
+  ) : (
+    <span className={clsx("inline-flex items-center", className)}>{img}</span>
   );
 
   if (href === null) return inner;

@@ -42,15 +42,21 @@ export function StampCard({
       <div className="pointer-events-none absolute -bottom-24 -left-10 h-56 w-56 rounded-full bg-brand-900/40 blur-3xl" />
 
       <div className="relative flex h-full flex-col">
-        {/* Haut : marque + QR / sans-contact */}
+        {/* Haut : logo officiel (plaque blanche, image intacte) + QR / sans-contact */}
         <div className="flex items-start justify-between">
           <span
             className={clsx(
-              "font-display font-extrabold lowercase leading-none",
-              compact ? "text-base" : "text-lg"
+              "inline-flex items-center rounded-lg bg-white shadow-sm",
+              compact ? "px-1.5 py-1" : "px-2 py-1.5"
             )}
           >
-            fidélo<span className="text-white/70">.</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/brand/fidelo-logo.png"
+              alt="fidélo. by ASM."
+              style={{ height: compact ? 16 : 22, width: "auto" }}
+              draggable={false}
+            />
           </span>
 
           {qrValue ? (
