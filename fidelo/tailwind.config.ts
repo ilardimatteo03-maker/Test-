@@ -15,10 +15,10 @@ const config: Config = {
           DEFAULT: "#0A0A0A",
           soft: "#111111",
         },
-        // Bleu-nuit des sections sombres ASM
+        // Bleu-nuit des sections sombres ASM (navy solide premium)
         night: {
-          DEFAULT: "#0D1526",
-          deep: "#070A12",
+          DEFAULT: "#0B1120",
+          deep: "#080C17",
         },
         // Bleu électrique ASM (accent, boutons, chiffres)
         brand: {
@@ -45,10 +45,10 @@ const config: Config = {
       },
       // Ombres ambiantes très diffuses (soft-skill : « floating components »)
       boxShadow: {
-        soft: "0 2px 4px rgba(13,21,38,0.03), 0 12px 32px -8px rgba(13,21,38,0.08)",
-        card: "0 4px 12px -4px rgba(13,21,38,0.06), 0 24px 60px -20px rgba(13,21,38,0.14)",
-        float: "0 8px 24px -12px rgba(13,21,38,0.10), 0 40px 80px -32px rgba(13,21,38,0.18)",
-        glow: "0 12px 40px -6px rgba(47,107,255,0.45)",
+        soft: "0 1px 2px rgba(11,17,32,0.04), 0 4px 12px -6px rgba(11,17,32,0.08)",
+        card: "0 2px 6px -2px rgba(11,17,32,0.06), 0 12px 32px -12px rgba(11,17,32,0.12)",
+        float: "0 8px 24px -12px rgba(11,17,32,0.12), 0 30px 60px -30px rgba(11,17,32,0.20)",
+        glow: "0 8px 30px -8px rgba(47,107,255,0.35)",
         inset: "inset 0 1px 1px rgba(255,255,255,0.6)",
       },
       transitionTimingFunction: {

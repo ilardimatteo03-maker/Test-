@@ -2,7 +2,6 @@
 
 import { clsx } from "clsx";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import {
   ButtonHTMLAttributes,
   InputHTMLAttributes,
@@ -15,44 +14,22 @@ import {
 type ButtonVariant = "primary" | "secondary" | "ghost" | "dark";
 type ButtonSize = "sm" | "md" | "lg";
 
-// Boutons pill, hover magnétique + ressort (soft-skill) — signature ASM.
+// Pills pleins et propres — style ASM : sobre, sans gimmick.
 const btnBase =
-  "group/btn inline-flex items-center justify-center gap-2 font-semibold rounded-full border-2 border-transparent transition-all duration-300 ease-spring focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none whitespace-nowrap active:scale-[0.98]";
+  "inline-flex items-center justify-center gap-2 font-semibold rounded-full border border-transparent transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none whitespace-nowrap";
 
 const btnVariants: Record<ButtonVariant, string> = {
-  primary:
-    "bg-brand-500 text-white border-brand-500 hover:bg-brand-600 hover:border-brand-600 hover:-translate-y-0.5 hover:shadow-glow",
+  primary: "bg-brand-500 text-white hover:bg-brand-600 active:bg-brand-700",
   secondary:
-    "bg-white text-ink border-slate-200 hover:border-brand-300 hover:-translate-y-0.5 hover:shadow-soft",
+    "bg-white text-ink border-slate-200 hover:bg-slate-50 hover:border-slate-300",
   ghost: "bg-transparent text-slate-600 hover:bg-slate-100 hover:text-ink",
-  dark: "bg-ink text-white border-ink hover:bg-ink-soft hover:border-ink-soft hover:-translate-y-0.5 hover:shadow-float",
+  dark: "bg-white text-ink hover:bg-slate-100",
 };
 
-// Taille de texte uniquement — le padding est géré selon `arrow` plus bas.
-const btnText: Record<ButtonSize, string> = {
-  sm: "text-sm",
-  md: "text-[15px]",
-  lg: "text-base",
-};
-
-// Padding sans flèche / avec flèche (l'icône occupe la droite).
-const padPlain: Record<ButtonSize, string> = {
-  sm: "px-4 py-2",
-  md: "px-5 py-2.5",
-  lg: "px-7 py-3.5",
-};
-const padArrow: Record<ButtonSize, string> = {
-  sm: "pl-4 pr-1.5 py-1.5",
-  md: "pl-5 pr-1.5 py-1.5",
-  lg: "pl-7 pr-2 py-2",
-};
-
-// Cercle imbriqué de l'icône (button-in-button) — teinte selon la variante.
-const iconWrap: Record<ButtonVariant, string> = {
-  primary: "bg-white/15 text-white",
-  secondary: "bg-brand-50 text-brand-600",
-  ghost: "bg-slate-100 text-ink",
-  dark: "bg-white/15 text-white",
+const btnSizes: Record<ButtonSize, string> = {
+  sm: "text-sm px-4 py-2",
+  md: "text-[15px] px-5 py-2.5",
+  lg: "text-[15px] px-7 py-3.5",
 };
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -60,7 +37,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: ButtonSize;
   href?: string;
   full?: boolean;
-  /** Affiche une flèche dans un cercle imbriqué (CTA premium). */
+  /** Conservé pour compat ; n'affiche plus de flèche décorative. */
   arrow?: boolean;
 }
 
@@ -69,7 +46,7 @@ export function Button({
   size = "md",
   href,
   full,
-  arrow,
+  arrow: _arrow,
   className,
   children,
   ...props
@@ -77,41 +54,20 @@ export function Button({
   const cls = clsx(
     btnBase,
     btnVariants[variant],
-    btnText[size],
-    arrow ? padArrow[size] : padPlain[size],
+    btnSizes[size],
     full && "w-full",
     className
-  );
-  const content = (
-    <>
-      {arrow ? <span className="pr-0.5">{children}</span> : children}
-      {arrow && (
-        <span
-          className={clsx(
-            "grid shrink-0 place-items-center rounded-full transition-transform duration-300 ease-spring",
-            size === "lg" ? "h-9 w-9" : "h-7 w-7",
-            "group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 group-hover/btn:scale-105",
-            iconWrap[variant]
-          )}
-        >
-          <ArrowUpRight
-            className={size === "lg" ? "h-[18px] w-[18px]" : "h-4 w-4"}
-            strokeWidth={2.25}
-          />
-        </span>
-      )}
-    </>
   );
   if (href) {
     return (
       <Link href={href} className={cls}>
-        {content}
+        {children}
       </Link>
     );
   }
   return (
     <button className={cls} {...props}>
-      {content}
+      {children}
     </button>
   );
 }
@@ -121,34 +77,27 @@ export function Button({
 export function Card({
   className,
   outerClassName,
-  bezel,
+  bezel: _bezel,
+  muted,
   children,
 }: {
   className?: string;
-  /** Classes de layout (grid span, marges) appliquées à la coquille externe. */
+  /** Classes de layout (grid span, marges) — appliquées à la carte. */
   outerClassName?: string;
-  /** Architecture « double-bezel » : coquille + cœur (soft-skill). */
+  /** Déprécié : conservé pour compat, rendu plat désormais. */
   bezel?: boolean;
+  /** Carte gris clair façon ASM (fonctionnalités). */
+  muted?: boolean;
   children: ReactNode;
 }) {
-  if (bezel) {
-    return (
-      <div
-        className={clsx(
-          "rounded-[1.5rem] border border-slate-200/60 bg-white/50 p-1.5 shadow-soft",
-          outerClassName
-        )}
-      >
-        <div className={clsx("rounded-[1.15rem] bg-white shadow-inset", className)}>
-          {children}
-        </div>
-      </div>
-    );
-  }
+  // Cartes plates façon ASM — pas d'ombre lourde ni de double-bord.
   return (
     <div
       className={clsx(
-        "rounded-2xl border border-slate-200/80 bg-white shadow-soft",
+        "rounded-2xl border",
+        muted
+          ? "border-transparent bg-slate-50"
+          : "border-slate-200/80 bg-white",
         className,
         outerClassName
       )}
