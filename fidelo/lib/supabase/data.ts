@@ -21,6 +21,7 @@ function mapMerchant(r: any): Merchant {
     ownerName: r.owner_name,
     category: r.category as ShopCategory,
     plan: r.plan,
+    programType: r.program_type ?? "stamps",
     stampsGoal: r.stamps_goal,
     rewardLabel: r.reward_label,
     onboarded: r.onboarded,
@@ -34,6 +35,7 @@ function mapClient(r: any): Client {
     merchantId: r.merchant_id,
     name: r.name,
     phone: r.phone,
+    email: r.email ?? "",
     stamps: r.stamps,
     rewardsEarned: r.rewards_earned,
     createdAt: r.created_at,
@@ -80,6 +82,7 @@ export async function updateMerchant(
   if (patch.shopName !== undefined) row.shop_name = patch.shopName;
   if (patch.ownerName !== undefined) row.owner_name = patch.ownerName;
   if (patch.category !== undefined) row.category = patch.category;
+  if (patch.programType !== undefined) row.program_type = patch.programType;
   if (patch.stampsGoal !== undefined) row.stamps_goal = patch.stampsGoal;
   if (patch.rewardLabel !== undefined) row.reward_label = patch.rewardLabel;
   if (patch.onboarded !== undefined) row.onboarded = patch.onboarded;
@@ -103,7 +106,11 @@ export async function listClients(): Promise<Client[]> {
   return (data ?? []).map(mapClient);
 }
 
-export async function addClient(name: string, phone: string): Promise<Client | null> {
+export async function addClient(
+  name: string,
+  phone: string,
+  email = ""
+): Promise<Client | null> {
   const supabase = createClient();
   const {
     data: { user },
@@ -111,7 +118,7 @@ export async function addClient(name: string, phone: string): Promise<Client | n
   if (!user) return null;
   const { data } = await supabase
     .from("clients")
-    .insert({ merchant_id: user.id, name, phone })
+    .insert({ merchant_id: user.id, name, phone, email })
     .select("*")
     .single();
   return data ? mapClient(data) : null;

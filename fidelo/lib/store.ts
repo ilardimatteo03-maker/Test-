@@ -91,6 +91,7 @@ export function signup(input: {
     ownerName: input.ownerName || "",
     category: "autre",
     plan: "free",
+    programType: "stamps",
     stampsGoal: 10,
     rewardLabel: "Une récompense offerte",
     createdAt: new Date().toISOString(),
@@ -155,13 +156,19 @@ export function getClient(id: string): Client | null {
   return get().clients.find((c) => c.id === id) ?? null;
 }
 
-export function addClient(merchantId: string, name: string, phone: string): Client {
+export function addClient(
+  merchantId: string,
+  name: string,
+  phone: string,
+  email = ""
+): Client {
   const db = get();
   const client: Client = {
     id: uid("c"),
     merchantId,
     name,
     phone,
+    email,
     stamps: 0,
     rewardsEarned: 0,
     createdAt: new Date().toISOString(),
@@ -223,6 +230,13 @@ export function listActivity(merchantId: string): Activity[] {
   return get()
     .activity.filter((a) => a.merchantId === merchantId)
     .slice(0, 20);
+}
+
+// Historique d'un client (visites + récompenses, du plus récent au plus ancien).
+export function listClientActivity(clientId: string, limit = 6): Activity[] {
+  return get()
+    .activity.filter((a) => a.clientId === clientId)
+    .slice(0, limit);
 }
 
 export function stats(merchantId: string): DashboardStats {

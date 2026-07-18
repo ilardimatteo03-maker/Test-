@@ -28,11 +28,15 @@ Pensé pour un commerçant de 40–60 ans : **simple, beau, sans friction**.
 
 | Pour le commerçant | Pour le client |
 | --- | --- |
-| Tableau de bord clair (clients, tampons, récompenses) | Une page carte digitale, jolie, sur son téléphone |
-| Ajout d'un tampon en **2 clics** | Voit combien de tampons il lui reste |
-| Configuration de la récompense en 1 écran | Message « Plus que X tampons ! » |
-| Onboarding guidé en 3 étapes | Aucune app à installer |
-| Abonnement Gratuit / Pro intégré | |
+| Tableau de bord clair (clients, tampons, récompenses) | Une carte digitale format « carte bancaire », QR intégré |
+| Ajout d'un tampon en **2 clics** ou par **scan QR** (mode caisse) | Voit combien de tampons/points il lui reste |
+| Programme **tampons ou points**, récompense en 1 écran | Message « Plus que X tampons ! » |
+| Fiche client : téléphone, email, **historique des visites** | Ajout à **Apple / Google Wallet** |
+| Onboarding guidé en 3 étapes | **Email automatique** quand la récompense est gagnée |
+| Abonnement Gratuit / Pro intégré (Stripe) | Aucune app à installer |
+
+> 📘 Dossier produit complet (concept, écrans, architecture, plan de
+> lancement) : **[`PRODUCT.md`](./PRODUCT.md)**
 
 ---
 

@@ -12,6 +12,7 @@ export function StampCard({
   goal,
   clientName,
   qrValue,
+  unit = "tampons",
   compact = false,
 }: {
   shopName: string;
@@ -20,6 +21,8 @@ export function StampCard({
   goal: number;
   clientName?: string;
   qrValue?: string;
+  /** Vocabulaire du programme : « tampons » ou « points ». */
+  unit?: string;
   compact?: boolean;
 }) {
   const complete = stamps >= goal;
@@ -76,7 +79,7 @@ export function StampCard({
               {stamps} / {goal}
             </span>
             <span className="text-xs font-medium uppercase tracking-wider text-white/60">
-              tampons
+              {unit}
             </span>
           </div>
           <p className="mt-1 flex items-center gap-1.5 text-sm text-white/70">

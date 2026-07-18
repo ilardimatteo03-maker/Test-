@@ -6,7 +6,8 @@ import { Check, Gift, LogIn, ScanLine, Stamp } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { Avatar, Button } from "@/components/ui";
 import { addStamp, currentMerchant, getClient } from "@/lib/store";
-import { avatarColor } from "@/lib/format";
+import { avatarColor, unitWord } from "@/lib/format";
+import { notifyReward } from "@/lib/notify-client";
 import type { Client, Merchant } from "@/lib/types";
 
 type Status = "loading" | "guest" | "forbidden" | "ready" | "done";
@@ -44,9 +45,13 @@ export default function ScanPage() {
     if (res) {
       setClient(res.client);
       setRewarded(res.rewarded);
+      if (res.rewarded) notifyReward(client.id);
       setStatus("done");
     }
   }
+
+  const unit = unitWord(merchant?.programType);
+  const Unit = unit.charAt(0).toUpperCase() + unit.slice(1);
 
   return (
     <div className="grid min-h-[100dvh] place-items-center bg-gradient-to-b from-slate-50 to-slate-100 px-5 py-10">
@@ -70,7 +75,7 @@ export default function ScanPage() {
               </span>
               <h1 className="mt-4 text-xl font-bold text-ink">Connexion commerçant</h1>
               <p className="mt-2 text-slate-600">
-                Connectez-vous à votre compte Fidélo pour ajouter le tampon
+                Connectez-vous à votre compte Fidélo pour ajouter le passage
                 {client ? ` de ${client.name}` : ""}.
               </p>
               <Button
@@ -113,12 +118,12 @@ export default function ScanPage() {
                 <div>
                   <p className="text-lg font-bold text-ink">{client.name}</p>
                   <p className="text-sm text-slate-500">
-                    {client.stamps} / {merchant.stampsGoal} tampons
+                    {client.stamps} / {merchant.stampsGoal} {unitWord(merchant.programType, 2)}
                   </p>
                 </div>
               </div>
               <Button full size="lg" className="mt-6" onClick={validate} arrow>
-                Valider le passage (+1 tampon)
+                Valider le passage (+1 {unit})
               </Button>
               <Button href="/dashboard" variant="ghost" full className="mt-2">
                 Annuler
@@ -139,12 +144,12 @@ export default function ScanPage() {
                 {rewarded ? <Gift className="h-8 w-8" /> : <Check className="h-8 w-8" strokeWidth={3} />}
               </span>
               <h1 className="mt-4 text-xl font-bold text-ink">
-                {rewarded ? "Récompense gagnée 🎉" : "Tampon ajouté !"}
+                {rewarded ? "Récompense gagnée 🎉" : `${Unit} ajouté !`}
               </h1>
               <p className="mt-2 text-slate-600">
                 {rewarded
                   ? `${client.name} a rempli sa carte : ${merchant.rewardLabel.toLowerCase()}.`
-                  : `${client.name} a maintenant ${client.stamps} / ${merchant.stampsGoal} tampons.`}
+                  : `${client.name} a maintenant ${client.stamps} / ${merchant.stampsGoal} ${unitWord(merchant.programType, 2)}.`}
               </p>
               <Button
                 href="/dashboard/scan"
@@ -170,7 +175,7 @@ export default function ScanPage() {
         {status === "ready" && (
           <p className="mt-4 flex items-center justify-center gap-1.5 text-center text-xs text-slate-400">
             <Stamp className="h-3.5 w-3.5" />
-            Un seul tampon par passage
+            Un seul {unit} par passage
           </p>
         )}
       </div>

@@ -12,6 +12,7 @@ create table if not exists public.merchants (
   owner_name             text not null default '',
   category               text not null default 'autre',
   plan                   text not null default 'free' check (plan in ('free','pro')),
+  program_type           text not null default 'stamps' check (program_type in ('stamps','points')),
   plan_status            text,                       -- statut Stripe (active, past_due…)
   stamps_goal            int  not null default 10 check (stamps_goal between 3 and 20),
   reward_label           text not null default 'Une récompense offerte',
@@ -26,6 +27,7 @@ create table if not exists public.clients (
   merchant_id    uuid not null references public.merchants(id) on delete cascade,
   name           text not null,
   phone          text not null default '',
+  email          text not null default '',
   stamps         int  not null default 0,
   rewards_earned int  not null default 0,
   created_at     timestamptz not null default now(),

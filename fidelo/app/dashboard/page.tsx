@@ -21,8 +21,9 @@ import {
   stats,
 } from "@/lib/store";
 import { useStoreVersion } from "@/lib/useStore";
-import { avatarColor, timeAgo } from "@/lib/format";
+import { avatarColor, timeAgo, unitWord } from "@/lib/format";
 import { PLANS } from "@/lib/plan";
+import { notifyReward } from "@/lib/notify-client";
 
 export default function DashboardPage() {
   useStoreVersion();
@@ -37,18 +38,23 @@ export default function DashboardPage() {
     .sort((a, b) => b.stamps - a.stamps)
     .slice(0, 5);
 
+  const unit = unitWord(merchant.programType);
+  const units = unitWord(merchant.programType, 2);
+  const Unit = unit.charAt(0).toUpperCase() + unit.slice(1);
+
   function handleStamp(clientId: string, name: string) {
     const res = addStamp(clientId);
     if (res?.rewarded) {
       toast(`🎉 ${name} a gagné : ${merchant!.rewardLabel} !`, "reward");
+      notifyReward(clientId);
     } else {
-      toast(`Tampon ajouté pour ${name}`);
+      toast(`${Unit} ajouté pour ${name}`);
     }
   }
 
   const statCards = [
     { label: "Clients", value: s.totalClients, icon: Users, color: "text-brand-600 bg-brand-50" },
-    { label: "Tampons ce mois", value: s.stampsThisMonth, icon: Stamp, color: "text-emerald-600 bg-emerald-50" },
+    { label: `${Unit}s ce mois`, value: s.stampsThisMonth, icon: Stamp, color: "text-emerald-600 bg-emerald-50" },
     { label: "Récompenses offertes", value: s.rewardsRedeemed, icon: Gift, color: "text-amber-600 bg-amber-50" },
     { label: "Clients actifs (30j)", value: s.activeClients, icon: TrendingUp, color: "text-sky-600 bg-sky-50" },
   ];
@@ -118,7 +124,7 @@ export default function DashboardPage() {
         {/* Action rapide : ajouter un tampon */}
         <Card className="p-6 lg:col-span-3">
           <div className="flex items-center justify-between">
-            <h2 className="font-bold text-ink">Ajouter un tampon</h2>
+            <h2 className="font-bold text-ink">Ajouter un {unit}</h2>
             <Link
               href="/dashboard/clients"
               className="inline-flex items-center gap-1 text-sm font-medium text-brand-700 hover:underline"
@@ -136,12 +142,12 @@ export default function DashboardPage() {
                 <div className="min-w-0 flex-1">
                   <p className="truncate font-medium text-ink">{c.name}</p>
                   <p className="text-xs text-slate-400">
-                    {c.stamps}/{merchant.stampsGoal} tampons · {timeAgo(c.lastVisit)}
+                    {c.stamps}/{merchant.stampsGoal} {units} · {timeAgo(c.lastVisit)}
                   </p>
                 </div>
                 <Button size="sm" onClick={() => handleStamp(c.id, c.name)}>
                   <Plus className="h-4 w-4" />
-                  Tampon
+                  {Unit}
                 </Button>
               </div>
             ))}
@@ -175,7 +181,7 @@ export default function DashboardPage() {
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm text-ink">
                     <span className="font-medium">{a.clientName}</span>{" "}
-                    {a.type === "reward" ? "a gagné une récompense" : "a reçu un tampon"}
+                    {a.type === "reward" ? "a gagné une récompense" : `a reçu un ${unit}`}
                   </p>
                   <p className="text-xs text-slate-400">{timeAgo(a.createdAt)}</p>
                 </div>

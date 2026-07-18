@@ -3,6 +3,7 @@
 import { FormEvent, useMemo, useState } from "react";
 import {
   ExternalLink,
+  Gift,
   Plus,
   Search,
   Stamp,
@@ -26,10 +27,12 @@ import {
   addStamp,
   currentMerchant,
   deleteClient,
+  listClientActivity,
   listClients,
 } from "@/lib/store";
 import { useStoreVersion } from "@/lib/useStore";
-import { avatarColor, timeAgo } from "@/lib/format";
+import { avatarColor, timeAgo, unitWord } from "@/lib/format";
+import { notifyReward } from "@/lib/notify-client";
 import { PLANS, planLimitReached } from "@/lib/plan";
 import type { Client } from "@/lib/types";
 
@@ -53,6 +56,8 @@ export default function ClientsPage() {
 
   if (!merchant) return null;
   const limit = PLANS[merchant.plan].clientLimit;
+  const unit = unitWord(merchant.programType);
+  const Unit = unit.charAt(0).toUpperCase() + unit.slice(1);
 
   function openAdd() {
     if (planLimitReached(merchant!.plan, clients.length)) {
@@ -67,8 +72,9 @@ export default function ClientsPage() {
     const form = new FormData(e.currentTarget);
     const name = String(form.get("name") || "").trim();
     const phone = String(form.get("phone") || "").trim();
+    const email = String(form.get("email") || "").trim();
     if (!name) return;
-    addClient(merchant!.id, name, phone);
+    addClient(merchant!.id, name, phone, email);
     setAddOpen(false);
     toast(`${name} a été ajouté 🎉`);
   }
@@ -77,8 +83,9 @@ export default function ClientsPage() {
     const res = addStamp(c.id);
     if (res?.rewarded) {
       toast(`🎉 ${c.name} a gagné : ${merchant!.rewardLabel} !`, "reward");
+      notifyReward(c.id);
     } else {
-      toast(`Tampon ajouté pour ${c.name}`);
+      toast(`${Unit} ajouté pour ${c.name}`);
     }
     if (detail && detail.id === c.id && res) setDetail(res.client);
   }
@@ -147,7 +154,7 @@ export default function ClientsPage() {
             </div>
             <Button size="sm" onClick={() => handleStamp(c)}>
               <Stamp className="h-4 w-4" />
-              <span className="hidden sm:inline">Tampon</span>
+              <span className="hidden sm:inline">{Unit}</span>
             </Button>
           </div>
         ))}
@@ -166,6 +173,13 @@ export default function ClientsPage() {
         <form onSubmit={onAdd} className="space-y-4">
           <Input name="name" label="Prénom et nom" placeholder="Ex : Julien Petit" required autoFocus />
           <Input name="phone" label="Téléphone (optionnel)" placeholder="06 12 34 56 78" />
+          <Input
+            name="email"
+            type="email"
+            label="Email (optionnel)"
+            placeholder="julien@exemple.fr"
+            hint="Pour prévenir le client quand il gagne sa récompense."
+          />
           <div className="flex gap-3 pt-2">
             <Button type="button" variant="secondary" full onClick={() => setAddOpen(false)}>
               Annuler
@@ -209,12 +223,18 @@ export default function ClientsPage() {
               stamps={detail.stamps}
               goal={merchant.stampsGoal}
               clientName={detail.name}
+              unit={unitWord(merchant.programType, 2)}
               compact
             />
-            <div className="mt-5 grid grid-cols-3 gap-3 text-center">
+            {(detail.email || detail.phone) && (
+              <p className="mt-3 truncate text-center text-xs text-slate-400">
+                {[detail.phone, detail.email].filter(Boolean).join(" · ")}
+              </p>
+            )}
+            <div className="mt-4 grid grid-cols-3 gap-3 text-center">
               <div className="rounded-xl bg-slate-50 p-3">
                 <p className="text-lg font-bold text-ink">{detail.stamps}</p>
-                <p className="text-xs text-slate-500">tampons</p>
+                <p className="text-xs text-slate-500">{unitWord(merchant.programType, 2)}</p>
               </div>
               <div className="rounded-xl bg-slate-50 p-3">
                 <p className="text-lg font-bold text-ink">{detail.rewardsEarned}</p>
@@ -225,10 +245,37 @@ export default function ClientsPage() {
                 <p className="text-xs text-slate-500">dernière visite</p>
               </div>
             </div>
+
+            {/* Historique du client */}
+            {listClientActivity(detail.id).length > 0 && (
+              <div className="mt-4 rounded-xl bg-slate-50 p-4">
+                <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                  Historique
+                </p>
+                <ul className="mt-2 space-y-2">
+                  {listClientActivity(detail.id, 5).map((a) => (
+                    <li key={a.id} className="flex items-center gap-2 text-sm">
+                      {a.type === "reward" ? (
+                        <Gift className="h-4 w-4 shrink-0 text-brand-500" />
+                      ) : (
+                        <Stamp className="h-4 w-4 shrink-0 text-emerald-500" />
+                      )}
+                      <span className="flex-1 text-slate-600">
+                        {a.type === "reward"
+                          ? "Récompense gagnée"
+                          : `${Unit} reçu`}
+                      </span>
+                      <span className="text-xs text-slate-400">{timeAgo(a.createdAt)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             <div className="mt-5 flex gap-3">
               <Button full size="lg" onClick={() => handleStamp(detail)}>
                 <Stamp className="h-5 w-5" />
-                Ajouter un tampon
+                Ajouter un {unit}
               </Button>
               <Button
                 href={`/carte/${detail.id}`}

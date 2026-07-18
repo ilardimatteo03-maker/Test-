@@ -1,3 +1,11 @@
+import type { ProgramType } from "./types";
+
+// Vocabulaire du programme : « tampon(s) » ou « point(s) ».
+export function unitWord(type: ProgramType | undefined, n = 1): string {
+  const w = type === "points" ? "point" : "tampon";
+  return n > 1 || n === 0 ? `${w}s` : w;
+}
+
 export function timeAgo(iso: string | null): string {
   if (!iso) return "Jamais";
   const diff = Date.now() - new Date(iso).getTime();

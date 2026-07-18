@@ -4,6 +4,10 @@
 
 export type PlanId = "free" | "pro";
 
+// Type de programme : tampons (visites) ou points — même mécanique,
+// seul le vocabulaire change pour le commerçant et ses clients.
+export type ProgramType = "stamps" | "points";
+
 export interface Merchant {
   id: string;
   email: string;
@@ -11,7 +15,8 @@ export interface Merchant {
   ownerName: string;
   category: ShopCategory;
   plan: PlanId;
-  // Règle de la carte : X tampons = 1 récompense
+  programType: ProgramType;
+  // Règle de la carte : X tampons/points = 1 récompense
   stampsGoal: number;
   rewardLabel: string;
   createdAt: string;
@@ -31,6 +36,7 @@ export interface Client {
   merchantId: string;
   name: string;
   phone: string;
+  email: string;
   stamps: number; // tampons sur la carte en cours
   rewardsEarned: number; // récompenses déjà gagnées au total
   createdAt: string;

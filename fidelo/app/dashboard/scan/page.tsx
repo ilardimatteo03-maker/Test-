@@ -8,6 +8,8 @@ import { Button, Card, PageHeading } from "@/components/ui";
 import { useToast } from "@/components/Toast";
 import { addStamp, currentMerchant, getClient } from "@/lib/store";
 import { useStoreVersion } from "@/lib/useStore";
+import { unitWord } from "@/lib/format";
+import { notifyReward } from "@/lib/notify-client";
 
 type CamState = "idle" | "starting" | "running" | "error";
 
@@ -61,9 +63,10 @@ export default function ScanPage() {
       const res = addStamp(id);
       if (res?.rewarded) {
         toast(`🎉 ${client.name} a gagné : ${merchant.rewardLabel} !`, "reward");
+        notifyReward(id);
         setLast({ name: client.name, rewarded: true });
       } else if (res) {
-        toast(`Tampon ajouté pour ${client.name}`);
+        toast(`${Unit} ajouté pour ${client.name}`);
         setLast({ name: client.name, rewarded: false });
       }
     },
@@ -117,12 +120,14 @@ export default function ScanPage() {
   useEffect(() => () => stop(), [stop]);
 
   if (!merchant) return null;
+  const unit = unitWord(merchant.programType);
+  const Unit = unit.charAt(0).toUpperCase() + unit.slice(1);
 
   return (
     <div>
       <PageHeading
         title="Scanner"
-        subtitle="Scannez le QR code de la carte d'un client pour ajouter son tampon."
+        subtitle={`Scannez le QR code de la carte d'un client pour ajouter son ${unit}.`}
         action={
           <Button href="/dashboard/clients" variant="secondary">
             <Keyboard className="h-4 w-4" />
@@ -187,7 +192,7 @@ export default function ScanPage() {
               {[
                 "Le client ouvre sa carte de fidélité sur son téléphone.",
                 "Vous activez la caméra et visez le QR code.",
-                "Le tampon s'ajoute tout seul. C'est instantané.",
+                `Le ${unit} s'ajoute tout seul. C'est instantané.`,
               ].map((t, i) => (
                 <li key={i} className="flex gap-3">
                   <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-500 text-xs font-bold text-white">
@@ -214,7 +219,7 @@ export default function ScanPage() {
                 <div>
                   <p className="text-sm font-semibold text-ink">{last.name}</p>
                   <p className="text-xs">
-                    {last.rewarded ? "Récompense gagnée 🎉" : "Tampon ajouté"}
+                    {last.rewarded ? "Récompense gagnée 🎉" : `${Unit} ajouté`}
                   </p>
                 </div>
               </div>
@@ -228,7 +233,7 @@ export default function ScanPage() {
               href="/dashboard/clients"
               className="mt-2 inline-block text-sm font-medium text-brand-600 hover:underline"
             >
-              Ou ajouter un tampon manuellement →
+              Ou ajouter un {unit} manuellement →
             </Link>
           </Card>
         </div>

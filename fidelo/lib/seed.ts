@@ -10,6 +10,7 @@ export const DEMO_MERCHANT: Merchant = {
   ownerName: "Sophie Marchand",
   category: "cafe",
   plan: "free",
+  programType: "stamps",
   stampsGoal: 10,
   rewardLabel: "Une boisson offerte",
   createdAt: daysAgo(120),
@@ -29,11 +30,17 @@ export function seedClients(): Client[] {
   return NAMES.map((name, i) => {
     const stamps = Math.floor(Math.random() * 10);
     const lastVisitDays = Math.floor(Math.random() * 45);
+    // Un email plausible pour ~2 clients sur 3 (comme dans la vraie vie).
+    const email =
+      i % 3 === 2
+        ? ""
+        : `${name.toLowerCase().replace(/[^a-z]+/g, ".")}@exemple.fr`;
     return {
       id: `c_${i + 1}`,
       merchantId: DEMO_MERCHANT.id,
       name,
       phone: `06 ${rand2()} ${rand2()} ${rand2()} ${rand2()}`,
+      email,
       stamps,
       rewardsEarned: Math.floor(Math.random() * 4),
       createdAt: daysAgo(30 + Math.floor(Math.random() * 90)),

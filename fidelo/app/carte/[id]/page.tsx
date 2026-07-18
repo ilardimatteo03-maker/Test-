@@ -9,6 +9,7 @@ import { WalletButtons } from "@/components/WalletButtons";
 import { currentMerchant, getClient } from "@/lib/store";
 import { useStoreVersion } from "@/lib/useStore";
 import { DEMO_MERCHANT } from "@/lib/seed";
+import { unitWord } from "@/lib/format";
 import type { Client, Merchant } from "@/lib/types";
 
 // Page publique : ce que le client voit sur son téléphone.
@@ -63,6 +64,7 @@ export default function PublicCardPage() {
             goal={merchant.stampsGoal}
             clientName={client.name}
             qrValue={origin ? `${origin}/scan/${client.id}` : undefined}
+            unit={unitWord(merchant.programType, 2)}
           />
         </div>
 
@@ -89,7 +91,7 @@ export default function PublicCardPage() {
                 <Sparkles className="h-6 w-6" />
               </span>
               <p className="mt-3 font-bold text-ink">
-                Plus que {remaining} {remaining > 1 ? "tampons" : "tampon"} !
+                Plus que {remaining} {unitWord(merchant.programType, remaining)} !
               </p>
               <p className="mt-1 text-sm text-slate-500">
                 Encore un peu et vous gagnez : {merchant.rewardLabel.toLowerCase()}.
