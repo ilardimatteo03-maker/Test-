@@ -1,14 +1,6 @@
 import Link from "next/link";
 import { clsx } from "clsx";
-import {
-  Check,
-  QrCode,
-  Smartphone,
-  Sparkles,
-  Stamp,
-  TrendingUp,
-  Users,
-} from "lucide-react";
+import { Check, Smartphone, Stamp, TrendingUp, Users } from "lucide-react";
 import { Nav } from "@/components/landing/Nav";
 import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui";
@@ -21,29 +13,26 @@ export default function LandingPage() {
     <div className="min-h-screen bg-white">
       <Nav />
 
-      {/* HERO */}
-      <section className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 -z-10">
-          <div className="absolute left-1/2 top-[-14%] h-[480px] w-[820px] -translate-x-1/2 rounded-full bg-brand-100/50 blur-3xl" />
-          <div className="absolute right-[6%] top-[38%] h-72 w-72 rounded-full bg-brand-200/25 blur-3xl" />
+      {/* HERO — sombre bleu-nuit, centré (signature ASM) */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-night to-night-deep text-white">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute left-1/2 top-[-18%] h-[520px] w-[900px] -translate-x-1/2 rounded-full bg-brand-600/25 blur-3xl" />
+          <div className="absolute bottom-0 left-1/2 h-64 w-[700px] -translate-x-1/2 rounded-full bg-brand-500/15 blur-3xl" />
         </div>
-        <div className="container-page grid items-center gap-14 pb-20 pt-14 lg:grid-cols-2 lg:pb-28 lg:pt-24">
-          <div className="animate-fade-up">
-            <span className="eyebrow gap-2">
-              <Sparkles className="h-3.5 w-3.5" />
-              Un service signé ASM<span className="asm-dot">.</span>
-            </span>
-            <h1 className="mt-5 font-display text-[2.6rem] font-extrabold leading-[1.03] text-ink sm:text-6xl">
-              La fidélité de vos clients,{" "}
-              <span className="text-gradient">gérée par ASM</span>
-              <span className="asm-dot">.</span>
+        <div className="container-page relative pb-16 pt-24 text-center sm:pt-28">
+          <div className="mx-auto max-w-3xl animate-fade-up">
+            <span className="eyebrow text-brand-400">Un service signé ASM.</span>
+            <h1 className="mt-5 font-display text-[2.7rem] font-extrabold leading-[1.02] sm:text-6xl lg:text-7xl">
+              La fidélité de vos clients,
+              <br />
+              <span className="text-brand-400">gérée par ASM.</span>
             </h1>
-            <p className="mt-6 max-w-md text-lg leading-relaxed text-slate-600">
-              Fidélo remplace la carte de fidélité en carton par une carte
-              digitale. ASM l'installe, la configure et vous accompagne — vous
-              ajoutez un tampon d'un bouton. Vos clients reviennent.
+            <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/65">
+              Fidélo remplace la carte en carton par une carte digitale. ASM
+              l'installe, la configure et vous accompagne — vous ajoutez un
+              tampon d'un bouton. Vos clients reviennent.
             </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button href="/signup" size="lg" arrow>
                 Démarrer avec ASM
               </Button>
@@ -51,21 +40,22 @@ export default function LandingPage() {
                 Voir la démo
               </Button>
             </div>
-            <p className="mt-5 text-sm text-slate-500">
+            <p className="mt-5 text-sm text-white/40">
               Essai gratuit jusqu'à 30 clients · Installé par ASM · Prêt en 48h
             </p>
           </div>
 
-          <div className="relative mx-auto w-full max-w-sm animate-fade-up [animation-delay:120ms]">
+          {/* Carte en aperçu, sous le titre (à la manière du mockup ASM) */}
+          <div className="relative mx-auto mt-14 w-full max-w-sm animate-fade-up [animation-delay:140ms]">
             <StampCard
               shopName="Café des Halles"
               rewardLabel="Une boisson offerte"
               stamps={7}
               goal={10}
               clientName="Julien P."
+              qrValue="https://fidelo.app/scan/demo"
             />
-            {/* Badge flottant — double-bezel (soft-skill) */}
-            <div className="absolute -bottom-6 -left-6 hidden rounded-[1.4rem] border border-slate-200/60 bg-white/60 p-1.5 shadow-float backdrop-blur-sm sm:block">
+            <div className="absolute -bottom-6 -left-6 hidden rounded-[1.4rem] border border-white/10 bg-white/10 p-1.5 shadow-float backdrop-blur-md sm:block">
               <div className="flex items-center gap-3 rounded-[1.05rem] bg-white p-3.5 shadow-inset">
                 <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-50 text-brand-600">
                   <TrendingUp className="h-5 w-5" />
@@ -83,8 +73,8 @@ export default function LandingPage() {
       </section>
 
       {/* SOCIAL PROOF */}
-      <section className="border-y border-slate-100 bg-slate-50/60">
-        <div className="container-page flex flex-wrap items-center justify-center gap-x-10 gap-y-3 py-6 text-sm text-slate-500">
+      <section className="border-b border-slate-100 bg-white">
+        <div className="container-page flex flex-wrap items-center justify-center gap-x-10 gap-y-3 py-7 text-sm text-slate-500">
           <span className="font-medium">Des commerces accompagnés par ASM :</span>
           {["Le Petit Bistrot", "Coiffure Éclat", "Snack O'Coin", "Boutique Lila", "Chez Marco"].map(
             (n) => (
@@ -152,69 +142,42 @@ export default function LandingPage() {
       </section>
 
       {/* AVANTAGES — section sombre signature ASM */}
-      <section
-        id="avantages"
-        className="relative overflow-hidden bg-gradient-to-b from-night to-night-deep py-24 text-white lg:py-32"
-      >
-        <div className="pointer-events-none absolute -left-24 top-1/3 h-80 w-80 rounded-full bg-brand-500/20 blur-3xl" />
-        <div className="container-page grid items-center gap-16 lg:grid-cols-2">
-          <Reveal>
-            <span className="eyebrow border-white/15 bg-white/5 text-brand-300">
-              Résultats
-            </span>
-            <h2 className="mt-4 font-display text-4xl font-extrabold leading-[1.05] sm:text-5xl">
-              Vos clients reviennent.
-              <br />
-              <span className="text-brand-400">Votre caisse le ressent.</span>
-            </h2>
-            <p className="mt-5 max-w-md text-lg text-white/70">
-              Un client fidèle dépense en moyenne 3 fois plus qu'un nouveau. Fidélo
-              vous aide à les faire revenir sans effort.
-            </p>
-            <ul className="mt-8 space-y-4">
-              {[
-                "Aucune carte à imprimer, rien à perdre pour le client",
-                "Vous voyez d'un coup d'œil qui sont vos meilleurs clients",
-                "Une page carte que vos clients gardent sur leur téléphone",
-                "Fonctionne sur mobile, tablette, ordinateur — partout",
-              ].map((b) => (
-                <li key={b} className="flex items-start gap-3">
-                  <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-500">
-                    <Check className="h-4 w-4" strokeWidth={3} />
-                  </span>
-                  <span className="text-white/85">{b}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-9">
-              <Button href="/signup" variant="primary" size="lg" arrow>
-                Commencer maintenant
-              </Button>
-            </div>
-          </Reveal>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {[
-              { icon: Users, stat: "24", label: "clients fidèles suivis" },
-              { icon: Stamp, stat: "312", label: "tampons ce mois-ci" },
-              { icon: TrendingUp, stat: "+38%", label: "de visites répétées" },
-              { icon: QrCode, stat: "3 min", label: "pour tout configurer" },
-            ].map((c, i) => (
-              <Reveal
-                key={c.label}
-                delay={i * 80}
+      <section id="avantages" className="bg-white py-24 lg:py-32">
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <span className="eyebrow">Résultats</span>
+          <h2 className="mt-4 font-display text-4xl font-extrabold leading-[1.05] text-ink sm:text-5xl">
+            Ce qui fait revenir
+            <br />
+            vos clients.
+          </h2>
+          <p className="mx-auto mt-4 max-w-lg text-lg text-slate-600">
+            Un client fidèle dépense plus et revient plus souvent. Fidélo mesure
+            tout, sans effort de votre part.
+          </p>
+        </Reveal>
+        <div className="mx-auto mt-16 grid max-w-4xl gap-y-14 sm:grid-cols-3">
+          {[
+            { stat: "+38 %", label: "de clients qui reviennent, en moyenne", blue: true },
+            { stat: "×3", label: "dépensé par un client fidèle vs un nouveau", blue: false },
+            { stat: "48 h", label: "pour être installé et formé par ASM", blue: true },
+          ].map((c, i) => (
+            <Reveal key={c.label} delay={i * 90} className="px-4 text-center">
+              <p
                 className={clsx(
-                  "rounded-[1.5rem] border border-white/10 bg-white/[0.06] p-6 backdrop-blur-sm",
-                  i % 2 === 1 && "sm:mt-8"
+                  "font-display text-6xl font-extrabold leading-none tracking-tight sm:text-7xl",
+                  c.blue ? "text-brand-500" : "text-ink"
                 )}
               >
-                <c.icon className="h-6 w-6 text-brand-400" strokeWidth={1.75} />
-                <p className="mt-4 font-display text-[2.75rem] font-extrabold leading-none text-brand-400">
-                  {c.stat}
-                </p>
-                <p className="mt-2 text-sm text-white/60">{c.label}</p>
-              </Reveal>
-            ))}
-          </div>
+                {c.stat}
+              </p>
+              <p className="mx-auto mt-4 max-w-[16rem] text-slate-500">{c.label}</p>
+            </Reveal>
+          ))}
+        </div>
+        <div className="mt-16 flex justify-center">
+          <Button href="/signup" size="lg" arrow>
+            Commencer maintenant
+          </Button>
         </div>
       </section>
 

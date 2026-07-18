@@ -32,10 +32,9 @@
     font-family: var(--font-geist-sans), system-ui, sans-serif;
     letter-spacing: -0.035em;
   }
-  /* Eyebrow / micro-badge de section (soft-skill + signature ASM bleu) */
+  /* Eyebrow de section — signature ASM : texte bleu, majuscules espacées */
   .eyebrow {
-    @apply inline-flex items-center rounded-full border border-brand-100 bg-brand-50/70 px-3 py-1
-           text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-600;
+    @apply inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-brand-500;
   }
   /* Le point bleu ASM après un mot */
   .asm-dot {
