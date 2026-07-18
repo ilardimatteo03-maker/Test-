@@ -69,9 +69,9 @@ export async function GET(
       organizationName: card.shopName,
       description: `Carte de fidélité — ${card.shopName}`,
       serialNumber: params.id,
-      foregroundColor: "rgb(255,255,255)",
-      backgroundColor: "rgb(47,107,255)",
-      labelColor: "rgb(219,230,255)",
+      foregroundColor: "rgb(10,10,10)",
+      backgroundColor: "rgb(255,255,255)",
+      labelColor: "rgb(47,107,255)",
     }
   );
 
