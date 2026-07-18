@@ -80,7 +80,7 @@ export default function PublicCardPage() {
               <span className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-emerald-100 text-emerald-600">
                 <Gift className="h-6 w-6" />
               </span>
-              <p className="mt-3 font-bold text-ink">Votre récompense vous attend 🎉</p>
+              <p className="mt-3 font-bold text-ink">Votre récompense vous attend</p>
               <p className="mt-1 text-sm text-slate-500">
                 Présentez cette carte : {merchant.rewardLabel.toLowerCase()}.
               </p>

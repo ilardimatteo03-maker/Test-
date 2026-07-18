@@ -1,7 +1,7 @@
 "use client";
 
 import { clsx } from "clsx";
-import { Check, Gift } from "lucide-react";
+import { Check, Gift, Sparkles } from "lucide-react";
 import { QrCode } from "./QrCode";
 
 // Carte de fidélité — surface blanche unique (DA fidélo. by ASM).
@@ -31,25 +31,24 @@ export function StampCard({
   const dot = compact ? "h-6 w-6" : "h-7 w-7";
 
   return (
-    <div
-      className={clsx(
-        "w-full overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white text-ink shadow-card",
-        compact ? "p-4" : "p-5"
-      )}
-    >
-      {/* En-tête : logo + commerce */}
-      <div className="flex items-center gap-2.5">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/brand/fidelo-logo.png"
-          alt="fidélo. by ASM."
-          style={{ height: compact ? 18 : 22, width: "auto" }}
-          draggable={false}
-        />
-        <span className="ml-auto truncate text-sm font-bold uppercase tracking-wide text-slate-500">
-          {shopName}
-        </span>
-      </div>
+    <div className="w-full overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white text-ink shadow-card">
+      {/* Liseré bleu très fin */}
+      <div className="h-1 w-full bg-gradient-to-r from-brand-600 via-brand-500 to-brand-400" />
+
+      <div className={compact ? "p-4" : "p-5"}>
+        {/* En-tête : logo + commerce */}
+        <div className="flex items-center gap-2.5">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/brand/fidelo-logo.png"
+            alt="fidélo. by ASM."
+            style={{ height: compact ? 22 : 30, width: "auto" }}
+            draggable={false}
+          />
+          <span className="ml-auto truncate text-sm font-bold uppercase tracking-wide text-slate-500">
+            {shopName}
+          </span>
+        </div>
 
       <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">
         Programme de fidélité
@@ -72,7 +71,10 @@ export function StampCard({
           </div>
           <p className="mt-1 text-sm">
             {complete ? (
-              <span className="font-semibold text-brand-600">Récompense prête 🎉</span>
+              <span className="inline-flex items-center gap-1.5 font-semibold text-brand-600">
+                <Sparkles className="h-4 w-4" />
+                Récompense prête
+              </span>
             ) : (
               <span className="text-slate-600">Récompense : {rewardLabel}</span>
             )}
@@ -101,8 +103,9 @@ export function StampCard({
           return (
             <span
               key={i}
+              style={{ animationDelay: `${i * 45}ms` }}
               className={clsx(
-                "grid aspect-square place-items-center rounded-full border transition-all",
+                "grid aspect-square animate-pop place-items-center rounded-full border transition-colors",
                 dot,
                 filled
                   ? "border-brand-500 bg-brand-500 text-white shadow-[0_4px_12px_-4px_rgba(47,107,255,.5)]"
@@ -119,8 +122,9 @@ export function StampCard({
         })}
         {/* Cellule récompense */}
         <span
+          style={{ animationDelay: `${goal * 45}ms` }}
           className={clsx(
-            "grid aspect-square place-items-center rounded-full transition-all",
+            "grid aspect-square animate-pop place-items-center rounded-full transition-colors",
             dot,
             complete
               ? "bg-brand-500 text-white shadow-[0_4px_12px_-4px_rgba(47,107,255,.5)]"
@@ -129,21 +133,22 @@ export function StampCard({
         >
           <Gift className="h-3.5 w-3.5" />
         </span>
-      </div>
+        </div>
 
-      {/* Pied : titulaire + code */}
-      <div className="mt-4 flex items-end justify-between gap-3 border-t border-slate-100 pt-3.5">
-        <span
-          className={clsx(
-            "truncate font-semibold uppercase tracking-wide text-ink",
-            compact ? "text-xs" : "text-sm"
-          )}
-        >
-          {clientName || shopName}
-        </span>
-        <span className="shrink-0 font-mono text-[11px] tracking-widest text-slate-400">
-          {code}
-        </span>
+        {/* Pied : titulaire + code */}
+        <div className="mt-4 flex items-end justify-between gap-3 border-t border-slate-100 pt-3.5">
+          <span
+            className={clsx(
+              "truncate font-semibold uppercase tracking-wide text-ink",
+              compact ? "text-xs" : "text-sm"
+            )}
+          >
+            {clientName || shopName}
+          </span>
+          <span className="shrink-0 font-mono text-[11px] tracking-widest text-slate-400">
+            {code}
+          </span>
+        </div>
       </div>
     </div>
   );

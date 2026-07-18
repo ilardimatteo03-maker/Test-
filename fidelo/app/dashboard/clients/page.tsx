@@ -76,13 +76,13 @@ export default function ClientsPage() {
     if (!name) return;
     addClient(merchant!.id, name, phone, email);
     setAddOpen(false);
-    toast(`${name} a été ajouté 🎉`);
+    toast(`${name} a été ajouté`);
   }
 
   function handleStamp(c: Client) {
     const res = addStamp(c.id);
     if (res?.rewarded) {
-      toast(`🎉 ${c.name} a gagné : ${merchant!.rewardLabel} !`, "reward");
+      toast(`${c.name} a gagné : ${merchant!.rewardLabel} !`, "reward");
       notifyReward(c.id);
     } else {
       toast(`${Unit} ajouté pour ${c.name}`);

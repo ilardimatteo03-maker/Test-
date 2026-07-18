@@ -42,7 +42,7 @@ function LoginInner() {
 
   return (
     <AuthShell
-      title="Bon retour 👋"
+      title="Bon retour"
       subtitle="Connectez-vous pour gérer vos clients fidèles."
       footer={
         <>

@@ -48,7 +48,7 @@ export default function SettingsPage() {
     setPlan(plan);
     toast(
       plan === "pro"
-        ? "🎉 Bienvenue dans le plan Pro !"
+        ? "Bienvenue dans le plan Pro !"
         : "Vous êtes repassé au plan Gratuit."
     );
   }

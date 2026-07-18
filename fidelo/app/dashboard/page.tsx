@@ -45,7 +45,7 @@ export default function DashboardPage() {
   function handleStamp(clientId: string, name: string) {
     const res = addStamp(clientId);
     if (res?.rewarded) {
-      toast(`🎉 ${name} a gagné : ${merchant!.rewardLabel} !`, "reward");
+      toast(`${name} a gagné : ${merchant!.rewardLabel} !`, "reward");
       notifyReward(clientId);
     } else {
       toast(`${Unit} ajouté pour ${name}`);
@@ -65,7 +65,7 @@ export default function DashboardPage() {
   return (
     <div>
       <PageHeading
-        title={`Bonjour, ${merchant.ownerName?.split(" ")[0] || "à vous"} 👋`}
+        title={`Bonjour, ${merchant.ownerName?.split(" ")[0] || "à vous"}`}
         subtitle="Voici l'activité de votre programme de fidélité."
         action={
           <Button href="/dashboard/clients">

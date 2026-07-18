@@ -58,7 +58,7 @@ export function HeroMockup() {
         {/* Contenu */}
         <div className="min-w-0 flex-1 bg-white p-4 sm:p-5">
           <p className="font-display text-lg font-extrabold text-ink">
-            Bonjour, Sophie 👋
+            Bonjour, Sophie
           </p>
           <p className="text-xs text-slate-400">Activité de votre programme</p>
 

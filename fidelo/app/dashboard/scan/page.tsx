@@ -62,7 +62,7 @@ export default function ScanPage() {
       lastScanRef.current = { id, at: now };
       const res = addStamp(id);
       if (res?.rewarded) {
-        toast(`🎉 ${client.name} a gagné : ${merchant.rewardLabel} !`, "reward");
+        toast(`${client.name} a gagné : ${merchant.rewardLabel} !`, "reward");
         notifyReward(id);
         setLast({ name: client.name, rewarded: true });
       } else if (res) {
@@ -219,7 +219,7 @@ export default function ScanPage() {
                 <div>
                   <p className="text-sm font-semibold text-ink">{last.name}</p>
                   <p className="text-xs">
-                    {last.rewarded ? "Récompense gagnée 🎉" : `${Unit} ajouté`}
+                    {last.rewarded ? "Récompense gagnée" : `${Unit} ajouté`}
                   </p>
                 </div>
               </div>

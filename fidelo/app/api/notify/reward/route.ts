@@ -57,11 +57,11 @@ export async function POST(req: Request) {
     body: JSON.stringify({
       from,
       to: [client.email],
-      subject: `🎉 Votre récompense chez ${merchant.shop_name} !`,
+      subject: `Votre récompense chez ${merchant.shop_name} !`,
       html: `
         <div style="font-family:system-ui,sans-serif;max-width:480px;margin:0 auto;padding:24px">
           <p style="font-size:22px;font-weight:800;margin:0">fidélo<span style="color:#2F6BFF">.</span></p>
-          <h1 style="font-size:20px;margin:24px 0 8px">Bravo ${client.name} 🎉</h1>
+          <h1 style="font-size:20px;margin:24px 0 8px">Bravo ${client.name}</h1>
           <p style="color:#475569;line-height:1.6;margin:0">
             Votre carte de fidélité chez <strong>${merchant.shop_name}</strong> est complète.
             Votre récompense vous attend : <strong>${merchant.reward_label}</strong>.

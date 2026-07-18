@@ -144,7 +144,7 @@ export default function ScanPage() {
                 {rewarded ? <Gift className="h-8 w-8" /> : <Check className="h-8 w-8" strokeWidth={3} />}
               </span>
               <h1 className="mt-4 text-xl font-bold text-ink">
-                {rewarded ? "Récompense gagnée 🎉" : `${Unit} ajouté !`}
+                {rewarded ? "Récompense gagnée" : `${Unit} ajouté !`}
               </h1>
               <p className="mt-2 text-slate-600">
                 {rewarded
