@@ -2047,62 +2047,70 @@ box-shadow:inset 0 1px 0 rgba(255,255,255,<b>.42</b>),
 
     <!-- ── 5.8 Code produit ── -->
     <span class="lbl rv">Code produit</span>
-    <h3 class="mt-s rv" style="font-size:clamp(19px,2vw,26px)">Six SKU, une seule matière</h3>
+    <h3 class="mt-s rv" style="font-size:clamp(19px,2vw,26px)">Il n'y en a pas</h3>
     <p class="mt-s rv" style="color:var(--txt-2);max-width:78ch">
-      Puisque la matière est unique, elle ne peut plus différencier les références.
-      Ce sont deux autres variables, croisées, qui le font :
-      <b style="color:var(--blanc)">la quantité de chrome</b> sur la face, et
-      <b style="color:var(--blanc)">la cote</b>, un filet argent dont la hauteur code la famille.
-      La gamme se lit alors comme un dégagement progressif du chrome, du produit le plus
-      brillant au plus sombre, et se reconnaît à trois mètres sans lire un seul mot.
+      Les six références portent un habillage strictement identique : même matière, même
+      proportion de chrome, même filet à la même hauteur, même encre, même composition.
+      Aucune variable graphique ne code la référence. La seule chose qui change d'un pot
+      à l'autre est le texte imprimé.
     </p>
     <div class="sku-grid mt-s rv">
       <figure class="sku">
         <div class="sku__s"><span class="sku__ch m-poli" style="top:0;height:100%"></span>
           <span class="sku__c" style="top:24%"></span></div>
-        <figcaption><b>Whey Isolate</b><span class="mono">100 % chrome · cote haute</span></figcaption>
+        <figcaption><b>Whey Isolate</b><span class="mono">Habillage commun</span></figcaption>
       </figure>
       <figure class="sku">
-        <div class="sku__s"><span class="sku__ch m-poli" style="top:0;height:56%"></span>
+        <div class="sku__s"><span class="sku__ch m-poli" style="top:0;height:100%"></span>
           <span class="sku__c" style="top:24%"></span></div>
-        <figcaption><b>Protéine Végétale</b><span class="mono">56 % chrome haut · cote haute</span></figcaption>
+        <figcaption><b>Protéine Végétale</b><span class="mono">Habillage commun</span></figcaption>
       </figure>
       <figure class="sku">
-        <div class="sku__s"><span class="sku__ch m-poli" style="top:28%;height:52%"></span>
-          <span class="sku__c" style="top:50%"></span></div>
-        <figcaption><b>Créatine</b><span class="mono">52 % chrome médian · cote médiane</span></figcaption>
+        <div class="sku__s"><span class="sku__ch m-poli" style="top:0;height:100%"></span>
+          <span class="sku__c" style="top:24%"></span></div>
+        <figcaption><b>Créatine</b><span class="mono">Habillage commun</span></figcaption>
       </figure>
       <figure class="sku">
-        <div class="sku__s"><span class="sku__ch m-poli" style="top:28%;height:52%"></span>
-          <span class="sku__c sku__c--sig" style="top:50%"></span></div>
-        <figcaption><b>Pré-Workout</b><span class="mono">52 % chrome médian · cote Signal</span></figcaption>
+        <div class="sku__s"><span class="sku__ch m-poli" style="top:0;height:100%"></span>
+          <span class="sku__c" style="top:24%"></span></div>
+        <figcaption><b>Pré-Workout</b><span class="mono">Habillage commun</span></figcaption>
       </figure>
       <figure class="sku">
-        <div class="sku__s"><span class="sku__ch m-poli" style="top:52%;height:48%"></span>
-          <span class="sku__c" style="top:76%"></span></div>
-        <figcaption><b>Électrolytes</b><span class="mono">48 % chrome bas · cote basse</span></figcaption>
+        <div class="sku__s"><span class="sku__ch m-poli" style="top:0;height:100%"></span>
+          <span class="sku__c" style="top:24%"></span></div>
+        <figcaption><b>Électrolytes</b><span class="mono">Habillage commun</span></figcaption>
       </figure>
       <figure class="sku">
-        <div class="sku__s"><span class="sku__ch m-poli" style="top:70%;height:14%"></span>
-          <span class="sku__c" style="top:76%"></span></div>
-        <figcaption><b>Récupération Nuit</b><span class="mono">14 % chrome · cote basse</span></figcaption>
+        <div class="sku__s"><span class="sku__ch m-poli" style="top:0;height:100%"></span>
+          <span class="sku__c" style="top:24%"></span></div>
+        <figcaption><b>Récupération Nuit</b><span class="mono">Habillage commun</span></figcaption>
       </figure>
     </div>
-    <div class="cart mt-s rv">
-      <div class="cart__t">Lecture du système <span>vérification</span></div>
-      <table>
-        <tr><th>Famille</th><th>Cote</th><th>Références</th><th>Ce qui les sépare</th></tr>
-        <tr><td>Protéines</td><td class="num">Haute · 24 %</td><td>Whey Isolate, Protéine Végétale</td>
-            <td>100 % de chrome contre 56 %. Le héros de la gamme est le seul entièrement chromé.</td></tr>
-        <tr><td>Performance</td><td class="num">Médiane · 50 %</td><td>Créatine, Pré-Workout</td>
-            <td>Bandeau identique. Seul le Pré-Workout porte la cote en Signal, unique dans toute la gamme.</td></tr>
-        <tr><td>Minéraux, nuit</td><td class="num">Basse · 76 %</td><td>Électrolytes, Récupération Nuit</td>
-            <td>48 % de chrome contre 14 %. Le produit du soir est le plus sombre de la gamme.</td></tr>
-        <tr><td colspan="2"><b style="color:var(--blanc)">Contrôle</b></td>
-            <td colspan="2" class="ok">Aucune paire ne partage à la fois la cote et la quantité de
-            chrome. En monochrome, la cote seule sépare encore les trois familles, et la surface
-            chromée devient un aplat argent qui conserve les six proportions.</td></tr>
-      </table>
+    <div class="g2 mt-s rv">
+      <div class="cart">
+        <div class="cart__t">Ce que ce choix produit <span>bénéfice</span></div>
+        <p>Un bloc de marque d'une densité rare en rayon. Six faces identiques alignées se
+           lisent comme une seule surface continue, et les filets forment une ligne unique.
+           La marque devient reconnaissable avant d'être lisible.</p>
+        <p>C'est aussi la traduction exacte du positionnement : si la formule ne contient
+           rien de superflu, l'emballage non plus. Aucune couleur n'a été ajoutée pour
+           « aider à choisir ».</p>
+      </div>
+      <div class="cart" style="border-left:3px solid var(--signal)">
+        <div class="cart__t">Ce que ce choix coûte <span>à assumer</span></div>
+        <p>La sélection en rayon repose entièrement sur la lecture du nom. Un acheteur pressé
+           peut prendre la mauvaise référence, et le rangement en réserve demande plus
+           d'attention.</p>
+        <table class="mt-s">
+          <tr><th style="width:38%">Compensation 1</th><td>Le nom du produit est le plus grand
+              élément de la face après le bloc chromé. Titrage 800, deux lignes maximum.</td></tr>
+          <tr><th>Compensation 2</th><td>Quatre volumes de contenant distincts. C'est la seule
+              variable qui sépare les références à distance.</td></tr>
+          <tr><th class="no">Ce qui reste interdit</th><td class="no">Ajouter une couleur, un
+              pictogramme, une pastille ou déplacer le filet pour faciliter le repérage.
+              La règle prime sur le confort d'achat.</td></tr>
+        </table>
+      </div>
     </div>
   </div>
 </section>
@@ -3075,17 +3083,23 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
     <p class="lede rv">
       Six références, trois structures de contenant, une seule architecture d'information.
       Cette section contient ce qu'il faut pour lancer une fabrication : cotes, dépliages,
-      hiérarchie, mentions réglementaires et procédés d'impression du chrome.
+      hiérarchie, mentions réglementaires et procédés d'impression du chrome. L'habillage est commun aux six références.
     </p>
 
     <!-- ── 8.1 La gamme en volume ── -->
     <span class="lbl rv">Rendus</span>
-    <h3 class="mt-s rv" style="font-size:clamp(19px,2vw,26px)">Six contenants, deux angles</h3>
+    <h3 class="mt-s rv" style="font-size:clamp(19px,2vw,26px)">Six contenants, un seul habillage</h3>
+    <p class="mt-s rv" style="color:var(--txt-2);max-width:74ch">
+      Les six références partagent un habillage strictement identique : face entièrement
+      chromée, filet argent à 24 % de la hauteur, encre noire, même hiérarchie. Aucune
+      différence de matière, de couleur ni de composition. Seuls changent le nom du produit,
+      le dosage et le format du contenant.
+    </p>
     <p class="mt-s rv" style="color:var(--txt-2);max-width:74ch">
       Le corps de chaque pot est un cylindre : sa matière est donc rendue par une rampe
       <b style="color:var(--blanc)">horizontale</b>, sombre aux deux bords et claire au centre,
-      c'est ce qui produit le volume. Le couvercle reçoit une rampe verticale, plus douce, parce
-      qu'il est vu de dessus. Les deux se raccordent sur une arête spéculaire commune.
+      c'est ce qui produit le volume. Le couvercle est en noir mat, non réfléchissant :
+      c'est le seul contraste de surface de tout le packaging.
     </p>
 
     <div class="pk-grid mt rv">
@@ -3094,9 +3108,9 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
             <div class="pot">
               <div class="pot__lid cyl-noir"></div>
               <div class="pot__body cyl-noir">
-                <span class="pot__chrome cyl-poli" style="top:0%;height:100%"></span>
+                <span class="pot__chrome cyl-poli" style="top:0;height:100%"></span>
                 <span class="pot__logo tx-d">ORIGIN</span>
-                <span class="pot__cote" style="top:24%"></span>
+                <span class="pot__filet" style="top:24%"></span>
                 <span class="pot__nom tx-d" style="top:30%">WHEY<br>ISOLATE</span>
                 <span class="pot__dose tx-d">25 g / dose</span>
               </div>
@@ -3105,14 +3119,14 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
             <div class="pot pot--34">
               <div class="pot__lid cyl-noir"></div>
               <div class="pot__body cyl-noir">
-                <span class="pot__chrome cyl-poli" style="top:0%;height:100%"></span>
-                <span class="pot__cote" style="top:24%"></span>
+                <span class="pot__chrome cyl-poli" style="top:0;height:100%"></span>
+                <span class="pot__filet" style="top:24%"></span>
               </div>
               <div class="pot__sol"></div>
             </div>
         </div>
         <figcaption><b>Whey Isolate</b>
-          <span class="mono">Pot 1 kg · Ø 120 × H 205 mm · face 100 % chrome · cote haute</span></figcaption>
+          <span class="mono">Pot 1 kg · Ø 120 × H 205 mm · habillage commun</span></figcaption>
       </figure>
 
       <figure class="pk">
@@ -3120,25 +3134,25 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
             <div class="pot">
               <div class="pot__lid cyl-noir"></div>
               <div class="pot__body cyl-noir">
-                <span class="pot__chrome cyl-poli" style="top:0%;height:56%"></span>
+                <span class="pot__chrome cyl-poli" style="top:0;height:100%"></span>
                 <span class="pot__logo tx-d">ORIGIN</span>
-                <span class="pot__cote" style="top:24%"></span>
+                <span class="pot__filet" style="top:24%"></span>
                 <span class="pot__nom tx-d" style="top:30%">PROTÉINE<br>VÉGÉTALE</span>
-                <span class="pot__dose tx-l">24 g / dose</span>
+                <span class="pot__dose tx-d">24 g / dose</span>
               </div>
               <div class="pot__sol"></div>
             </div>
             <div class="pot pot--34">
               <div class="pot__lid cyl-noir"></div>
               <div class="pot__body cyl-noir">
-                <span class="pot__chrome cyl-poli" style="top:0%;height:56%"></span>
-                <span class="pot__cote" style="top:24%"></span>
+                <span class="pot__chrome cyl-poli" style="top:0;height:100%"></span>
+                <span class="pot__filet" style="top:24%"></span>
               </div>
               <div class="pot__sol"></div>
             </div>
         </div>
         <figcaption><b>Protéine Végétale</b>
-          <span class="mono">Pot 900 g · Ø 120 × H 190 mm · face 56 % chrome · cote haute</span></figcaption>
+          <span class="mono">Pot 900 g · Ø 120 × H 190 mm · habillage commun</span></figcaption>
       </figure>
 
       <figure class="pk">
@@ -3146,25 +3160,25 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
             <div class="pot pot--s">
               <div class="pot__lid cyl-noir"></div>
               <div class="pot__body cyl-noir">
-                <span class="pot__chrome cyl-poli" style="top:28%;height:52%"></span>
-                <span class="pot__logo tx-l">ORIGIN</span>
-                <span class="pot__cote" style="top:50%"></span>
-                <span class="pot__nom tx-d" style="top:56%">CRÉATINE</span>
-                <span class="pot__dose tx-l">5 g / dose</span>
+                <span class="pot__chrome cyl-poli" style="top:0;height:100%"></span>
+                <span class="pot__logo tx-d">ORIGIN</span>
+                <span class="pot__filet" style="top:24%"></span>
+                <span class="pot__nom tx-d" style="top:30%">CRÉATINE</span>
+                <span class="pot__dose tx-d">5 g / dose</span>
               </div>
               <div class="pot__sol"></div>
             </div>
             <div class="pot pot--s pot--34">
               <div class="pot__lid cyl-noir"></div>
               <div class="pot__body cyl-noir">
-                <span class="pot__chrome cyl-poli" style="top:28%;height:52%"></span>
-                <span class="pot__cote" style="top:50%"></span>
+                <span class="pot__chrome cyl-poli" style="top:0;height:100%"></span>
+                <span class="pot__filet" style="top:24%"></span>
               </div>
               <div class="pot__sol"></div>
             </div>
         </div>
         <figcaption><b>Créatine Monohydrate</b>
-          <span class="mono">Pot 500 g · Ø 95 × H 150 mm · bandeau médian 52 % · cote médiane</span></figcaption>
+          <span class="mono">Pot 500 g · Ø 95 × H 150 mm · habillage commun</span></figcaption>
       </figure>
 
       <figure class="pk">
@@ -3172,75 +3186,75 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
             <div class="pot pot--s">
               <div class="pot__lid cyl-noir"></div>
               <div class="pot__body cyl-noir">
-                <span class="pot__chrome cyl-poli" style="top:28%;height:52%"></span>
-                <span class="pot__logo tx-l">ORIGIN</span>
-                <span class="pot__cote pot__cote--sig" style="top:50%"></span>
-                <span class="pot__nom tx-d" style="top:56%">PRÉ-WORKOUT</span>
-                <span class="pot__dose tx-l">200 mg caféine</span>
+                <span class="pot__chrome cyl-poli" style="top:0;height:100%"></span>
+                <span class="pot__logo tx-d">ORIGIN</span>
+                <span class="pot__filet" style="top:24%"></span>
+                <span class="pot__nom tx-d" style="top:30%">PRÉ-WORKOUT</span>
+                <span class="pot__dose tx-d">200 mg caféine</span>
               </div>
               <div class="pot__sol"></div>
             </div>
             <div class="pot pot--s pot--34">
               <div class="pot__lid cyl-noir"></div>
               <div class="pot__body cyl-noir">
-                <span class="pot__chrome cyl-poli" style="top:28%;height:52%"></span>
-                <span class="pot__cote pot__cote--sig" style="top:50%"></span>
+                <span class="pot__chrome cyl-poli" style="top:0;height:100%"></span>
+                <span class="pot__filet" style="top:24%"></span>
               </div>
               <div class="pot__sol"></div>
             </div>
         </div>
         <figcaption><b>Pré-Workout</b>
-          <span class="mono">Pot 400 g · Ø 95 × H 135 mm · bandeau médian 52 % · cote Signal</span></figcaption>
+          <span class="mono">Pot 400 g · Ø 95 × H 135 mm · habillage commun</span></figcaption>
       </figure>
 
       <figure class="pk">
         <div class="pk__duo">
             <div class="boite">
               <div class="boite__f cyl-noir">
-                <span class="pot__chrome cyl-poli" style="top:52%;height:48%"></span>
-                <span class="pot__logo tx-l">ORIGIN</span>
-                <span class="pot__cote" style="top:76%"></span>
-                <span class="boite__nom tx-d" style="top:82%">ÉLECTROLYTES</span>
+                <span class="pot__chrome cyl-poli" style="top:0;height:100%"></span>
+                <span class="pot__logo tx-d">ORIGIN</span>
+                <span class="pot__filet" style="top:24%"></span>
+                <span class="boite__nom tx-d" style="top:30%">ÉLECTROLYTES</span>
                 <span class="pot__dose tx-d">20 sticks</span>
               </div>
               <div class="pot__sol"></div>
             </div>
             <div class="boite boite--34">
               <div class="boite__f cyl-noir">
-                <span class="pot__chrome cyl-poli" style="top:52%;height:48%"></span>
-                <span class="pot__cote" style="top:76%"></span>
+                <span class="pot__chrome cyl-poli" style="top:0;height:100%"></span>
+                <span class="pot__filet" style="top:24%"></span>
               </div>
               <div class="boite__c cyl-noir"></div>
               <div class="pot__sol"></div>
             </div>
         </div>
         <figcaption><b>Électrolytes</b>
-          <span class="mono">Boîte 20 sticks · 130 × 85 × 60 mm · face 48 % chrome bas · cote basse</span></figcaption>
+          <span class="mono">Boîte 20 sticks · 130 × 85 × 60 mm · habillage commun</span></figcaption>
       </figure>
 
       <figure class="pk">
         <div class="pk__duo">
             <div class="etui">
               <div class="etui__f cyl-noir">
-                <span class="pot__chrome cyl-poli" style="top:70%;height:14%"></span>
-                <span class="pot__logo tx-l">ORIGIN</span>
-                <span class="pot__cote" style="top:76%"></span>
-                <span class="boite__nom tx-l" style="top:26%">RÉCUP. NUIT</span>
-                <span class="pot__dose tx-l">90 gélules</span>
+                <span class="pot__chrome cyl-poli" style="top:0;height:100%"></span>
+                <span class="pot__logo tx-d">ORIGIN</span>
+                <span class="pot__filet" style="top:24%"></span>
+                <span class="boite__nom tx-d" style="top:30%">RÉCUP. NUIT</span>
+                <span class="pot__dose tx-d">90 gélules</span>
               </div>
               <div class="pot__sol"></div>
             </div>
             <div class="etui etui--34">
               <div class="etui__f cyl-noir">
-                <span class="pot__chrome cyl-poli" style="top:70%;height:14%"></span>
-                <span class="pot__cote" style="top:76%"></span>
+                <span class="pot__chrome cyl-poli" style="top:0;height:100%"></span>
+                <span class="pot__filet" style="top:24%"></span>
               </div>
               <div class="etui__c cyl-noir"></div>
               <div class="pot__sol"></div>
             </div>
         </div>
         <figcaption><b>Récupération Nuit</b>
-          <span class="mono">Étui 90 gélules · 60 × 60 × 110 mm · chrome réduit à 14 % · cote basse</span></figcaption>
+          <span class="mono">Étui 90 gélules · 60 × 60 × 110 mm · habillage commun</span></figcaption>
       </figure>
     </div>
 
@@ -3427,7 +3441,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
         <text x="960" y="242" class="tm" font-size="8" fill="#5CE1F2" text-anchor="middle">+8</text>
 
         <!-- filet de cote qui traverse : la cote produit -->
-        <text x="0" y="46" class="tm" font-size="8" fill="#E4E8EC">COTE HAUTE · filet argent 2 mm, à 36 mm du haut</text>
+        <text x="0" y="46" class="tm" font-size="8" fill="#E4E8EC">FILET ARGENT 2 mm, à 36 mm du haut · identique sur les six références</text>
       </svg>
     </div>
     <div class="g4 mt-s rv">
@@ -3627,64 +3641,43 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
 
     <!-- ── 8.6 Vue de gamme ── -->
     <span class="lbl rv">Vue de gamme</span>
-    <h3 class="mt-s rv" style="font-size:clamp(19px,2vw,26px)">Alignée, puis regroupée</h3>
+    <h3 class="mt-s rv" style="font-size:clamp(19px,2vw,26px)">Le bloc de marque</h3>
     <div class="cart mt-s rv" style="padding:clamp(22px,3vw,44px)">
-      <div class="gamme">
-        <div class="pot pot--m"><div class="pot__lid cyl-noir"></div>
-          <div class="pot__body cyl-poli"><span class="pot__cote" style="top:24%"></span></div>
-          <div class="pot__sol"></div></div>
-        <div class="pot pot--m"><div class="pot__lid cyl-noir"></div>
-          <div class="pot__body cyl-noir"><span class="pot__cote" style="top:24%"></span></div>
-          <div class="pot__sol"></div></div>
-        <div class="pot pot--m pot--s"><div class="pot__lid cyl-noir"></div>
-          <div class="pot__body cyl-noir"><span class="pot__cote" style="top:50%"></span></div>
-          <div class="pot__sol"></div></div>
-        <div class="pot pot--m pot--s"><div class="pot__lid cyl-noir"></div>
-          <div class="pot__body cyl-poli"><span class="pot__cote pot__cote--sig" style="top:50%"></span></div>
-          <div class="pot__sol"></div></div>
-        <div class="boite boite--m"><div class="boite__f cyl-poli">
-          <span class="pot__cote" style="top:76%"></span></div><div class="pot__sol"></div></div>
-        <div class="etui etui--m"><div class="etui__f cyl-noir">
-          <span class="pot__cote" style="top:76%"></span></div><div class="pot__sol"></div></div>
-      </div>
+      <div class="gamme"><div class="pot pot--m"><div class="pot__lid cyl-noir"></div><div class="pot__body cyl-noir"><span class="pot__chrome cyl-poli" style="top:0;height:100%"></span><span class="pot__filet" style="top:24%"></span></div><div class="pot__sol"></div></div><div class="pot pot--m"><div class="pot__lid cyl-noir"></div><div class="pot__body cyl-noir"><span class="pot__chrome cyl-poli" style="top:0;height:100%"></span><span class="pot__filet" style="top:24%"></span></div><div class="pot__sol"></div></div><div class="pot pot--m pot--s"><div class="pot__lid cyl-noir"></div><div class="pot__body cyl-noir"><span class="pot__chrome cyl-poli" style="top:0;height:100%"></span><span class="pot__filet" style="top:24%"></span></div><div class="pot__sol"></div></div><div class="pot pot--m pot--s"><div class="pot__lid cyl-noir"></div><div class="pot__body cyl-noir"><span class="pot__chrome cyl-poli" style="top:0;height:100%"></span><span class="pot__filet" style="top:24%"></span></div><div class="pot__sol"></div></div><div class="boite boite--m"><div class="boite__f cyl-noir"><span class="pot__chrome cyl-poli" style="top:0;height:100%"></span><span class="pot__filet" style="top:24%"></span></div><div class="pot__sol"></div></div><div class="etui etui--m"><div class="etui__f cyl-noir"><span class="pot__chrome cyl-poli" style="top:0;height:100%"></span><span class="pot__filet" style="top:24%"></span></div><div class="pot__sol"></div></div></div>
       <p class="mono mt-s" style="color:var(--txt-3);text-align:center">
         Alignement sur une même ligne de sol, écart régulier de 24 mm, même axe optique.
       </p>
       <hr class="hair" style="margin:26px 0">
-      <div class="g3">
+      <div class="g-5-7">
         <div>
-          <span class="lbl">Famille · Protéines</span>
-          <div class="gamme gamme--f mt-s">
-            <div class="pot pot--m"><div class="pot__lid cyl-noir"></div>
-              <div class="pot__body cyl-poli"><span class="pot__cote" style="top:24%"></span></div>
-              <div class="pot__sol"></div></div>
-            <div class="pot pot--m"><div class="pot__lid cyl-noir"></div>
-              <div class="pot__body cyl-noir"><span class="pot__cote" style="top:24%"></span></div>
-              <div class="pot__sol"></div></div>
-          </div>
-          <p class="mono mt-s" style="color:var(--txt-3)">Cote haute. 100 % de chrome contre 56 %.</p>
+          <span class="lbl">Ce que produit l'habillage unique</span>
+          <p class="mt-s" style="color:var(--txt-2)">
+            Six faces identiques alignées ne forment pas six produits : elles forment
+            <b style="color:var(--blanc)">un bloc</b>. La gamme se lit comme une surface
+            continue plutôt que comme un assortiment, et c'est l'effet recherché.
+          </p>
+          <p class="mt-s" style="color:var(--txt-2)">
+            Le filet est posé à 24 % de la hauteur d'étiquette, donc proportionnellement,
+            et non à une cote fixe depuis la base. Il s'aligne par conséquent
+            <b style="color:var(--blanc)">à l'intérieur d'un même format</b>, les deux pots
+            de Ø 120 entre eux et les deux pots de Ø 95 entre eux, mais pas d'un format à
+            l'autre. C'est le comportement voulu : l'habillage reste identique en
+            proportion, ce qui prime sur un alignement de rayon.
+          </p>
         </div>
-        <div>
-          <span class="lbl">Famille · Performance</span>
-          <div class="gamme gamme--f mt-s">
-            <div class="pot pot--m pot--s"><div class="pot__lid cyl-noir"></div>
-              <div class="pot__body cyl-noir"><span class="pot__cote" style="top:50%"></span></div>
-              <div class="pot__sol"></div></div>
-            <div class="pot pot--m pot--s"><div class="pot__lid cyl-noir"></div>
-              <div class="pot__body cyl-poli"><span class="pot__cote pot__cote--sig" style="top:50%"></span></div>
-              <div class="pot__sol"></div></div>
-          </div>
-          <p class="mono mt-s" style="color:var(--txt-3)">Cote médiane. Bandeau identique, une seule cote Signal.</p>
-        </div>
-        <div>
-          <span class="lbl">Famille · Minéraux &amp; nuit</span>
-          <div class="gamme gamme--f mt-s">
-            <div class="boite boite--m"><div class="boite__f cyl-poli">
-              <span class="pot__cote" style="top:76%"></span></div><div class="pot__sol"></div></div>
-            <div class="etui etui--m"><div class="etui__f cyl-noir">
-              <span class="pot__cote" style="top:76%"></span></div><div class="pot__sol"></div></div>
-          </div>
-          <p class="mono mt-s" style="color:var(--txt-3)">Cote basse. 48 % de chrome contre 14 %, formats nomades.</p>
+        <div class="cart" style="border-color:var(--signal-700)">
+          <div class="cart__t">Conséquence assumée <span>à connaître</span></div>
+          <p>Aucun signe visuel ne distingue les références. En rayon, l'acheteur identifie
+             la marque à trois mètres, mais doit lire le nom pour choisir le produit.
+             Deux compensations, et deux seulement :</p>
+          <table class="mt-s">
+            <tr><th style="width:34%">Le nom</th><td>Titrage 800, deux lignes maximum,
+                le plus grand élément de la face après le bloc chromé.</td></tr>
+            <tr><th>Le format</th><td>Quatre volumes de contenant distincts. C'est la seule
+                variable physique qui sépare les références à distance.</td></tr>
+            <tr><th class="no">Jamais</th><td class="no">Une couleur, un pictogramme, une
+                pastille ou un filet déplacé pour « aider » le repérage.</td></tr>
+          </table>
         </div>
       </div>
     </div>
@@ -3744,8 +3737,8 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
             <rect x="66" y="180" width="24" height="40" fill="#141619"/>
           </g>
           <g fill="#E4E8EC">
-            <rect x="26" y="50" width="138" height="1.6"/><rect x="26" y="134" width="90" height="1.6"/>
-            <rect x="26" y="210" width="64" height="1.6"/>
+            <rect x="26" y="50" width="138" height="1.6"/><rect x="26" y="124" width="90" height="1.6"/>
+            <rect x="26" y="190" width="64" height="1.6"/>
           </g>
           <text x="200" y="60" class="tm" font-size="8" fill="#8E959E">PROTÉINES</text>
           <text x="200" y="130" class="tm" font-size="8" fill="#8E959E">PERFORMANCE</text>
@@ -3851,7 +3844,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
      Posé sous les textes, jamais au-dessus. */
   .pot__chrome{position:absolute;left:0;right:0;z-index:0;
     box-shadow:inset 0 1px 0 rgba(255,255,255,.34),inset 0 -1px 0 rgba(0,0,0,.5)}
-  .pot__logo,.pot__cote,.pot__nom,.pot__dose,.boite__nom{z-index:1}
+  .pot__logo,.pot__filet,.pot__nom,.pot__dose,.boite__nom{z-index:1}
   /* L'encre suit la valeur du fond sous elle, jamais la matière : noire sur
      le chrome, blanche sur le noir. C'est la règle de lisibilité du §05. */
   .tx-d{color:#08090B}
@@ -3859,9 +3852,8 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
   .pot__logo{position:absolute;left:8px;top:8px;font-family:var(--f-titre);font-weight:800;
     font-size:8px;letter-spacing:.06em;color:#0B0D10}
   .pot--s .pot__logo{font-size:7px}
-  .pot__cote{position:absolute;left:0;right:0;height:2px;background:#EDF1F5;
+  .pot__filet{position:absolute;left:0;right:0;height:2px;background:#EDF1F5;
     box-shadow:0 1px 0 rgba(0,0,0,.45)}
-  .pot__cote--sig{background:#5CE1F2;height:3px}
   .pot__nom{position:absolute;left:8px;font-family:var(--f-titre);font-weight:800;
     font-size:13px;line-height:.96;letter-spacing:-.03em;color:#08090B}
   .pot--s .pot__nom{font-size:11px}
@@ -3967,13 +3959,13 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
             <div class="ui-card"><div class="ui-card__v cyl-poli"><i style="top:24%"></i></div>
               <b>Whey Isolate</b><span class="mono">25 g · 40 doses</span>
               <span class="mono ui-card__p">54,00 €</span></div>
-            <div class="ui-card"><div class="ui-card__v cyl-noir"><i style="top:50%"></i></div>
+            <div class="ui-card"><div class="ui-card__v cyl-poli"><i style="top:24%"></i></div>
               <b>Créatine</b><span class="mono">5 g · 100 doses</span>
               <span class="mono ui-card__p">24,00 €</span></div>
-            <div class="ui-card"><div class="ui-card__v cyl-noir"><i style="top:24%"></i></div>
+            <div class="ui-card"><div class="ui-card__v cyl-poli"><i style="top:24%"></i></div>
               <b>Protéine Végétale</b><span class="mono">24 g · 37 doses</span>
               <span class="mono ui-card__p">44,00 €</span></div>
-            <div class="ui-card"><div class="ui-card__v cyl-poli"><i style="top:76%"></i></div>
+            <div class="ui-card"><div class="ui-card__v cyl-poli"><i style="top:24%"></i></div>
               <b>Électrolytes</b><span class="mono">20 sticks</span>
               <span class="mono ui-card__p">19,00 €</span></div>
           </div>
@@ -4049,8 +4041,8 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
               <div>
                 <div class="ui-gal cyl-poli"><i style="top:24%"></i></div>
                 <div class="ui-thumbs">
-                  <span class="cyl-poli is-on"></span><span class="cyl-noir"></span>
-                  <span class="cyl-noir"></span><span class="cyl-noir"></span>
+                  <span class="cyl-poli is-on"></span><span class="cyl-poli"></span>
+                  <span class="cyl-poli"></span><span class="cyl-noir"></span>
                 </div>
               </div>
               <div>
@@ -4077,7 +4069,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
                 </table>
                 <div class="ui-cross">
                   <span class="lbl">Souvent pris ensemble</span>
-                  <div class="ui-cross__i"><span class="cyl-noir"></span>
+                  <div class="ui-cross__i"><span class="cyl-poli"></span>
                     <b>Créatine</b><span class="mono">24,00 €</span></div>
                 </div>
               </div>
@@ -4227,7 +4219,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
                 <div><b>Whey Isolate</b><span class="mono">1 kg · 40 doses · lot 4471-B</span></div>
                 <div class="ui-qty"><i>-</i><b class="mono">1</b><i>+</i></div>
                 <b class="mono">54,00 €</b></div>
-              <div class="ui-line"><span class="cyl-noir"></span>
+              <div class="ui-line"><span class="cyl-poli"></span>
                 <div><b>Créatine Monohydrate</b><span class="mono">500 g · 100 doses · lot 4469-A</span></div>
                 <div class="ui-qty"><i>-</i><b class="mono">2</b><i>+</i></div>
                 <b class="mono">48,00 €</b></div>
@@ -4595,7 +4587,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
               <ellipse cx="50" cy="80" rx="34" ry="5" fill="url(#ombre)"/></svg></div>
           <div class="ig__c ig__c--q"><span>« Ce que nous ne pouvons pas doser,
             nous ne le vendons pas. »</span></div>
-          <div class="ig__c"><div class="cyl-noir" style="height:100%"></div>
+          <div class="ig__c"><div class="cyl-poli" style="height:100%"></div>
             <span class="ig__t">CRÉA-<br>TINE</span></div>
           <div class="ig__c ig__c--m"><svg viewBox="0 0 100 100" style="width:100%;height:100%"
               role="img" aria-label="Motif d'ondulations">
@@ -4607,15 +4599,16 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
                 <path d="M0 42 C25 36,50 48,75 42 S100 36,100 42" opacity=".25"/></g></svg></div>
           <div class="ig__c ig__c--k"><span class="ig__n">0</span>
             <span class="ig__l">ADDITIF<br>DANS LES SIX FORMULES</span></div>
-          <div class="ig__c"><div class="cyl-noir" style="height:100%"></div>
-            <span class="ig__t" style="color:#F2F4F7">RÉCUP.<br>NUIT</span></div>
+          <div class="ig__c"><div class="cyl-poli" style="height:100%"></div>
+            <span class="ig__t">RÉCUP.<br>NUIT</span></div>
           <div class="ig__c ig__c--coa"><span class="lbl">Certificat</span>
             <b class="mono">LOT 4471-B</b>
             <span class="mono">Plomb &lt; 0,01 mg/kg<br>Levures &lt; 10 UFC/g<br>Protéine 90,4 %</span></div>
         </div>
         <p class="mono mt-s" style="color:var(--txt-3)">
-          Rythme de trois : un produit, une donnée, une matière. Jamais deux produits côte à
-          côte, jamais deux fonds clairs adjacents. La grille se lit en colonne comme en ligne.
+          Rythme de trois : un produit, une donnée, une image de matière. Les six références
+          ayant le même habillage, jamais deux produits côte à côte : la grille deviendrait
+          illisible. La lecture fonctionne en colonne comme en ligne.
         </p>
       </div>
       <div>
@@ -5394,6 +5387,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
           <tr><th>Logotype chromé, taille minimale</th><td class="num ok">140 px · 30 mm</td></tr>
           <tr><th>Logotype, taille minimale absolue</th><td class="num">96 px · 22 mm</td></tr>
           <tr><th>Matières du système</th><td class="num ok">2 : chrome poli, noir</td></tr>
+          <tr><th>Habillages de packaging</th><td class="num ok">1, commun aux six références</td></tr>
           <tr><th>Monogramme, taille minimale</th><td class="num">16 px · 6 mm</td></tr>
           <tr><th>Zone de protection</th><td class="num">2 X, X = 20 u (le fût)</td></tr>
           <tr><th>Répartition de surface</th><td class="num">70 / 18 / 9 / 3</td></tr>
@@ -5409,22 +5403,21 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
     </div>
 
     <div class="cart mt rv">
-      <div class="cart__t">Gamme <span>codes et cotes</span></div>
+      <div class="cart__t">Gamme <span>formats et dosages</span></div>
       <table>
-        <tr><th>Référence</th><th>Format</th><th>Cotes contenant</th><th>Quantité de chrome</th>
-            <th>Cote produit</th><th>Dosage clé</th></tr>
+        <tr><th>Référence</th><th>Format</th><th>Cotes contenant</th><th>Habillage</th><th>Dosage clé</th></tr>
         <tr><td>Whey Isolate</td><td>Pot 1 kg</td><td class="num">Ø 120 × 205 mm</td>
-            <td>100 % chrome</td><td class="num">Haute · 24 %</td><td class="num">25 g / 22,6 g prot.</td></tr>
+            <td class="ok">Commun</td><td class="num">25 g / 22,6 g prot.</td></tr>
         <tr><td>Protéine Végétale</td><td>Pot 900 g</td><td class="num">Ø 120 × 190 mm</td>
-            <td>56 % chrome haut</td><td class="num">Haute · 24 %</td><td class="num">24 g / 20,1 g prot.</td></tr>
+            <td class="ok">Commun</td><td class="num">24 g / 20,1 g prot.</td></tr>
         <tr><td>Créatine Monohydrate</td><td>Pot 500 g</td><td class="num">Ø 95 × 150 mm</td>
-            <td>52 % chrome médian</td><td class="num">Médiane · 50 %</td><td class="num">5 g Creapure</td></tr>
+            <td class="ok">Commun</td><td class="num">5 g Creapure</td></tr>
         <tr><td>Pré-Workout</td><td>Pot 400 g</td><td class="num">Ø 95 × 135 mm</td>
-            <td>52 % chrome médian</td><td class="num ok">Médiane Signal · 50 %</td><td class="num">200 mg caféine</td></tr>
+            <td class="ok">Commun</td><td class="num">200 mg caféine</td></tr>
         <tr><td>Électrolytes</td><td>Boîte 20 sticks</td><td class="num">130 × 85 × 60 mm</td>
-            <td>48 % chrome bas</td><td class="num">Basse · 76 %</td><td class="num">1000 mg sodium</td></tr>
+            <td class="ok">Commun</td><td class="num">1000 mg sodium</td></tr>
         <tr><td>Récupération Nuit</td><td>Étui 90 gélules</td><td class="num">60 × 60 × 110 mm</td>
-            <td>14 % chrome</td><td class="num">Basse · 76 %</td><td class="num">300 mg magnésium</td></tr>
+            <td class="ok">Commun</td><td class="num">300 mg magnésium</td></tr>
       </table>
     </div>
 
