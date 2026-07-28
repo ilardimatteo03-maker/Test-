@@ -266,12 +266,21 @@ pre.code i{color:var(--graphite-3);font-style:normal}
   font-size:10px;letter-spacing:.14em;text-transform:uppercase}
 .verdict::before{content:"";width:7px;height:7px;border-radius:var(--r-pill);background:currentColor}
 
-/* Révélation au scroll : opacity + transform uniquement */
-.rv{opacity:0;transform:translate3d(0,26px,0);
-    transition:opacity .82s var(--ease),transform .82s var(--ease)}
-.rv.in{opacity:1;transform:none}
+/* Révélation au scroll : opacity + transform uniquement.
+
+   AMÉLIORATION PROGRESSIVE — point critique.
+   Le contenu est visible PAR DÉFAUT. Il ne doit jamais dépendre de
+   JavaScript pour s'afficher : sans cette précaution, une politique de
+   sécurité qui bloque les scripts en ligne, un JS désactivé ou une webview
+   restreinte laisseraient tout le document masqué après l'ouverture.
+   Le masquage n'est activé que par la classe .js, posée dans <head> par un
+   script en ligne qui n'existe que s'il a pu réellement s'exécuter. */
+.rv{opacity:1;transform:none}
+.js .rv{opacity:0;transform:translate3d(0,26px,0);
+        transition:opacity .82s var(--ease),transform .82s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){
-  .rv{opacity:1;transform:none;transition:none}
+  .js .rv{opacity:1;transform:none;transition:none}
 }
 
 /* ─── 5. MODES DÉGRADÉS ─────────────────────────────────────────────────── */
@@ -287,6 +296,22 @@ html[data-perf="low"] .chrome-txt.anim{animation:none;background-position:50% 34
 html[data-perf="low"] [data-filtre]{filter:none!important}
 html[data-perf="low"] .grain{display:none}
 html[data-perf="low"] .rv{transition-duration:.35s}
+
+/* Sommaire de secours : rendu uniquement si les scripts ne s'exécutent pas.
+   La navigation normale passe par data-scroll ; ces ancres ne sont jamais
+   présentes dans le document quand JavaScript fonctionne, elles ne peuvent
+   donc pas déclencher le défaut d'ancre des webviews mobiles. */
+.nav__ns{display:flex;flex-direction:column;padding:12px 0}
+.nav__ns a{display:block;padding:8px 22px;font-size:13.5px;color:var(--txt-3);
+  text-decoration:none;border-left:2px solid transparent}
+.nav__ns a:hover{color:var(--blanc);background:rgba(255,255,255,.028)}
+.nav__ns b{font-family:var(--f-mono);font-size:10px;font-weight:500;
+  color:var(--graphite-3);margin-right:11px}
+@media (max-width:1080px){
+  .nav__ns{flex-direction:row;overflow-x:auto;max-width:100%;padding:6px 10px 8px;
+           border-top:1px solid var(--line)}
+  .nav__ns a{white-space:nowrap;padding:7px 12px;font-size:12.5px}
+}
 
 /* ─── 6. RESPONSIVE ─────────────────────────────────────────────────────── */
 @media (max-width:1080px){
@@ -319,6 +344,10 @@ html[data-perf="low"] .rv{transition-duration:.35s}
   .sec{padding-left:18px;padding-right:18px}
 }
 </style>
+<!-- Marqueur d'amélioration progressive. Posé avant le premier rendu pour
+     éviter tout clignotement. S'il ne s'exécute pas, la classe .js n'existe
+     pas et l'intégralité du document reste visible sans animation. -->
+<script>document.documentElement.className += ' js';</script>
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -527,6 +556,27 @@ html[data-perf="low"] .rv{transition-duration:.35s}
     <button class="nav__b" data-scroll="s12" role="listitem"><b>12</b>Do &amp; Don't</button>
     <button class="nav__b" data-scroll="s13" role="listitem"><b>13</b>Récapitulatif</button>
   </div>
+  <!-- Sommaire de secours. Le contenu d'un <noscript> n'est analysé que si les
+       scripts ne s'exécutent pas : ces ancres n'existent donc jamais dans le
+       document lorsque JavaScript fonctionne. -->
+  <noscript>
+    <style>.nav__list,.nav__foot{display:none}</style>
+    <div class="nav__ns">
+      <a href="#s01"><b>01</b>Ouverture</a>
+      <a href="#s02"><b>02</b>Manifeste &amp; plateforme</a>
+      <a href="#s03"><b>03</b>Nom &amp; baseline</a>
+      <a href="#s04"><b>04</b>Logo</a>
+      <a href="#s05"><b>05</b>Couleurs &amp; matières</a>
+      <a href="#s06"><b>06</b>Typographie</a>
+      <a href="#s07"><b>07</b>Éléments graphiques</a>
+      <a href="#s08"><b>08</b>Packaging</a>
+      <a href="#s09"><b>09</b>Site internet</a>
+      <a href="#s10"><b>10</b>Applications</a>
+      <a href="#s11"><b>11</b>Ton de voix</a>
+      <a href="#s12"><b>12</b>Do &amp; Don't</a>
+      <a href="#s13"><b>13</b>Récapitulatif</a>
+    </div>
+  </noscript>
   <div class="nav__foot">
     <div>Rendu : <span id="perfLabel">complet</span></div>
     <button id="perfToggle" type="button">Basculer en mode sobre</button>
@@ -5673,6 +5723,41 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
       });
     }, { threshold: .06, rootMargin: '0px 0px -8% 0px' });
     aReveler.forEach(function (el) { obsRv.observe(el); });
+
+    /* Filet de sécurité. Si un bloc occupe l'écran sans avoir été révélé,
+       l'observateur n'a pas fait son travail : on l'affiche à la main.
+       Ne révèle que ce qui est réellement dans le champ, pour ne pas
+       consommer les apparitions du reste du document. */
+    var filet = function () {
+      var h = window.innerHeight || document.documentElement.clientHeight;
+      aReveler.forEach(function (el) {
+        if (el.classList.contains('in')) return;
+        var r = el.getBoundingClientRect();
+        if (r.top < h && r.bottom > 0) {
+          el.style.transitionDelay = '0ms';
+          el.classList.add('in');
+        }
+      });
+    };
+    setTimeout(filet, 1200);
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) setTimeout(filet, 200);
+    });
+    window.addEventListener('resize', filet);
+    // Impression : tout doit figurer sur le papier, révélé ou non.
+    if (window.matchMedia) {
+      var pourImpression = window.matchMedia('print');
+      var toutAfficher = function () {
+        aReveler.forEach(function (el) {
+          el.style.transitionDelay = '0ms';
+          el.classList.add('in');
+        });
+      };
+      if (pourImpression.addEventListener) {
+        pourImpression.addEventListener('change', function (e) { if (e.matches) toutAfficher(); });
+      }
+      window.addEventListener('beforeprint', toutAfficher);
+    }
   }
 
   /* ─── 4. PERFORMANCE ────────────────────────────────────────────────── */
