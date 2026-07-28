@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Origin Nutrition - Planche d'exploration</title>
+<meta name="color-scheme" content="light">
+<style>
+/* ============================================================================
+   ORIGIN NUTRITION - PLANCHE D'EXPLORATION
+   Quatre pistes de logo, quatre palettes. Objet : choisir une combinaison
+   avant de construire le brand book complet.
+   Fichier autonome, zero dependance externe.
+   ========================================================================= */
+:root{
+  --board:#E9E9EA; --card:#FFFFFF; --ink:#141416; --soft:#5F626A; --line:rgba(20,20,22,.14);
+  --f-d:"Arial Black","Archivo Black",Impact,"Helvetica Neue",sans-serif;
+  --f-s:"Helvetica Neue","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  --f-m:"SF Mono","JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--board);color:var(--ink);font-family:var(--f-s);
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+svg{display:block;max-width:100%}
+h1,h2,h3,p,figure{margin:0}
+.shell{max-width:1180px;margin-inline:auto;padding-inline:clamp(1rem,4vw,2.5rem)}
+.label{font-family:var(--f-m);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+.h1{font-family:var(--f-d);font-weight:900;text-transform:uppercase;font-size:clamp(1.6rem,4vw,2.8rem);
+  line-height:.96;letter-spacing:-.015em}
+.h2{font-family:var(--f-d);font-weight:900;text-transform:uppercase;font-size:clamp(1.05rem,2vw,1.4rem);
+  line-height:1;letter-spacing:-.01em}
+.lede{font-size:clamp(1rem,1.2vw,1.1rem);line-height:1.55;max-width:62ch;color:var(--soft)}
+
+header.top{padding:clamp(2.5rem,6vw,4.5rem) 0 clamp(1.5rem,3vw,2.5rem)}
+section{padding-block:clamp(2rem,4.5vw,3.5rem);border-top:1px solid var(--line)}
+.sechead{margin-bottom:clamp(1.5rem,3vw,2.25rem)}
+.sechead p{margin-top:.6rem}
+
+.grid{display:grid;gap:clamp(.8rem,1.6vw,1.25rem)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+
+/* ---- Cartes de piste logo ---- */
+.route{background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden}
+.route__mark{aspect-ratio:1/.82;display:grid;place-items:center;padding:1.5rem;background:#F5F5F6;
+  border-bottom:1px solid var(--line)}
+.route__mark svg{width:84px;color:var(--ink)}
+.route__wm{padding:1rem 1.15rem .35rem;display:grid;place-items:center;min-height:52px}
+.route__wm svg{width:100%;max-width:172px;color:var(--ink)}
+.route__b{padding:.35rem 1.15rem 1.15rem}
+.route__b h3{margin-bottom:.3rem}
+.route__b p{font-size:.8rem;line-height:1.45;color:var(--soft)}
+.route__tag{display:inline-block;font-family:var(--f-m);font-size:.58rem;letter-spacing:.14em;
+  text-transform:uppercase;background:var(--ink);color:#fff;padding:.16rem .45rem;margin-bottom:.5rem}
+
+/* ---- Cartes de palette ---- */
+.pal{border:1px solid var(--line);overflow:hidden;display:flex;flex-direction:column}
+.pal__demo{padding:clamp(1.1rem,2.4vw,1.75rem);min-height:230px;display:flex;flex-direction:column;
+  justify-content:space-between;gap:1rem}
+.pal__demo .wm{width:110px}
+.pal__title{font-family:var(--f-d);font-weight:900;text-transform:uppercase;font-size:1.5rem;line-height:.95;letter-spacing:-.012em}
+.pal__sub{font-size:.78rem;line-height:1.4}
+.pal__btn{display:inline-block;font-size:.72rem;font-weight:600;padding:.5rem 1.1rem;border-radius:2px;align-self:flex-start}
+.pal__chips{display:flex;height:34px}
+.pal__chips i{flex:1;display:block}
+.pal__b{background:var(--card);padding:.9rem 1.1rem 1.1rem;border-top:1px solid var(--line)}
+.pal__b h3{margin-bottom:.28rem}
+.pal__b p{font-size:.8rem;line-height:1.45;color:var(--soft)}
+.pal__hex{margin-top:.6rem;font-family:var(--f-m);font-size:.6rem;letter-spacing:.05em;color:var(--soft);
+  display:flex;flex-wrap:wrap;gap:.15rem .7rem}
+.pal__rule{margin-top:.6rem;font-size:.72rem;line-height:1.4;color:var(--ink);
+  border-left:2px solid currentColor;padding-left:.6rem}
+
+.note{background:var(--card);border:1px solid var(--line);padding:clamp(1.1rem,2.4vw,1.6rem);
+  font-size:.85rem;line-height:1.55;color:var(--soft)}
+.note b{color:var(--ink)}
+.note+.note{margin-top:.8rem}
+
+footer{padding-block:clamp(2rem,4vw,3rem) clamp(3rem,6vw,5rem);border-top:1px solid var(--line)}
+
+@media (max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.g4,.g2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- Les quatre marques sont definies une fois et appelees par <use>. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+
+  <!-- A. ECUSSON. Registre club, heritage sportif. -->
+  <symbol id="mA" viewBox="0 0 60 68">
+    <path d="M4 3h52v36c0 13-11 22-26 27C15 61 4 52 4 39Z" fill="none" stroke="currentColor" stroke-width="5"/>
+    <path d="M4 22h52" stroke="currentColor" stroke-width="5"/>
+    <circle cx="30" cy="41" r="10" fill="none" stroke="currentColor" stroke-width="6"/>
+  </symbol>
+  <symbol id="wA" viewBox="0 0 200 26">
+    <text x="100" y="20" text-anchor="middle" font-family="Arial Black,Helvetica,sans-serif"
+          font-size="20" letter-spacing="3.5" fill="currentColor">ORIGIN</text>
+  </symbol>
+
+  <!-- B. ITALIQUE CONDENSE. Registre vitesse, course. -->
+  <symbol id="mB" viewBox="0 0 60 60">
+    <g transform="skewX(-13) translate(7,0)">
+      <ellipse cx="30" cy="30" rx="15" ry="25" fill="none" stroke="currentColor" stroke-width="10"/>
+    </g>
+  </symbol>
+  <symbol id="wB" viewBox="0 0 200 26">
+    <text x="100" y="21" text-anchor="middle" font-family="Arial Black,Helvetica,sans-serif"
+          font-size="23" letter-spacing="-.5" transform="skewX(-13) translate(5,0)" fill="currentColor">ORIGIN</text>
+  </symbol>
+
+  <!-- C. CHEVRON. Registre progression, direction. -->
+  <symbol id="mC" viewBox="0 0 60 60">
+    <g fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="butt" stroke-linejoin="miter">
+      <path d="M13 12 31 30 13 48"/><path d="M31 12 49 30 31 48"/>
+    </g>
+  </symbol>
+  <symbol id="wC" viewBox="0 0 200 26">
+    <text x="100" y="20" text-anchor="middle" font-family="Arial Black,Helvetica,sans-serif"
+          font-size="20" letter-spacing="1.5" fill="currentColor">ORIGIN</text>
+  </symbol>
+
+  <!-- D. STENCIL. Registre industriel, materiel de salle. -->
+  <symbol id="mD" viewBox="0 0 60 60">
+    <circle cx="30" cy="30" r="22" fill="none" stroke="currentColor" stroke-width="11"
+            stroke-dasharray="27.6 7" stroke-dashoffset="13.8"/>
+  </symbol>
+  <symbol id="wD" viewBox="0 0 200 30">
+    <defs>
+      <!-- Fentes verticales et non horizontales : deux bandes horizontales en
+           travers du mot se lisent comme un texte barre, pas comme un pochoir. -->
+      <mask id="stencilCut">
+        <rect width="200" height="30" fill="#fff"/>
+        <g fill="#000">
+          <rect x="44" y="0" width="2.8" height="30"/><rect x="72" y="0" width="2.8" height="30"/>
+          <rect x="100" y="0" width="2.8" height="30"/><rect x="128" y="0" width="2.8" height="30"/>
+          <rect x="156" y="0" width="2.8" height="30"/>
+        </g>
+      </mask>
+    </defs>
+    <text x="100" y="23" text-anchor="middle" font-family="Arial Black,Helvetica,sans-serif"
+          font-size="22" letter-spacing="1" fill="currentColor" mask="url(#stencilCut)">ORIGIN</text>
+  </symbol>
+</defs></svg>
+
+
+<header class="top">
+  <div class="shell">
+    <p class="label">Origin Nutrition</p>
+    <h1 class="h1" style="margin-top:.6rem">Planche<br>d'exploration</h1>
+    <p class="lede" style="margin-top:1.1rem">Quatre pistes de logo et quatre palettes, dessinees et rendues. Choisis une piste et une palette, et je construis le brand book complet sur cette base. Les deux choix sont independants : n'importe quelle combinaison fonctionne.</p>
+  </div>
+</header>
+
+
+<!-- ==========================================================================
+     LES QUATRE PISTES DE LOGO
+     ======================================================================= -->
+<section>
+  <div class="shell">
+    <div class="sechead">
+      <h2 class="h2">Pistes de logo</h2>
+      <p class="lede" style="font-size:.9rem">Les symboles sont dessines. Le mot ORIGIN est ici compose dans une fonte systeme pour montrer le registre : il serait redessine sur mesure une fois la piste retenue.</p>
+    </div>
+
+    <div class="grid g4">
+      <article class="route">
+        <div class="route__mark"><svg viewBox="0 0 60 68" role="img" aria-label="Piste A, ecusson"><use href="#mA"/></svg></div>
+        <div class="route__wm"><svg viewBox="0 0 200 26" role="img" aria-label="Mot Origin, piste A"><use href="#wA"/></svg></div>
+        <div class="route__b">
+          <span class="route__tag">Piste A</span>
+          <h3 class="h2" style="font-size:1rem">Ecusson</h3>
+          <p>Registre club et heritage. Le blason evoque l'equipe, l'appartenance, la salle comme lieu. Il brode et se grave tres bien, il se reduit mal sous 20 px. Territoire boxe, rugby, powerlifting.</p>
+        </div>
+      </article>
+
+      <article class="route">
+        <div class="route__mark"><svg viewBox="0 0 60 60" role="img" aria-label="Piste B, italique condense"><use href="#mB"/></svg></div>
+        <div class="route__wm"><svg viewBox="0 0 200 26" role="img" aria-label="Mot Origin, piste B"><use href="#wB"/></svg></div>
+        <div class="route__b">
+          <span class="route__tag">Piste B</span>
+          <h3 class="h2" style="font-size:1rem">Italique condense</h3>
+          <p>Registre vitesse. Le mot penche, donc il avance. C'est la piste la plus immediatement sportive et la plus lisible en petit. Territoire course, cyclisme, endurance.</p>
+        </div>
+      </article>
+
+      <article class="route">
+        <div class="route__mark"><svg viewBox="0 0 60 60" role="img" aria-label="Piste C, chevron"><use href="#mC"/></svg></div>
+        <div class="route__wm"><svg viewBox="0 0 200 26" role="img" aria-label="Mot Origin, piste C"><use href="#wC"/></svg></div>
+        <div class="route__b">
+          <span class="route__tag">Piste C</span>
+          <h3 class="h2" style="font-size:1rem">Chevron</h3>
+          <p>Registre progression. Deux chevrons, donc une direction et un niveau. Symbole tres reductible, excellent en favicon et en broderie. Territoire salle, cross-training.</p>
+        </div>
+      </article>
+
+      <article class="route">
+        <div class="route__mark"><svg viewBox="0 0 60 60" role="img" aria-label="Piste D, stencil"><use href="#mD"/></svg></div>
+        <div class="route__wm"><svg viewBox="0 0 200 30" role="img" aria-label="Mot Origin, piste D"><use href="#wD"/></svg></div>
+        <div class="route__b">
+          <span class="route__tag">Piste D</span>
+          <h3 class="h2" style="font-size:1rem">Stencil</h3>
+          <p>Registre industriel. Le trait interrompu renvoie au pochoir, au materiel marque, a la caisse. Tres distinctif, un peu plus fragile en tres petit. Territoire force, garage gym.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<!-- ==========================================================================
+     LES QUATRE PALETTES
+     Chaque carte est rendue dans sa propre palette. Les ratios de contraste
+     ont ete calcules selon WCAG 2.1, pas estimes.
+     ======================================================================= -->
+<section>
+  <div class="shell">
+    <div class="sechead">
+      <h2 class="h2">Palettes</h2>
+      <p class="lede" style="font-size:.9rem">Chaque carte est affichee dans sa propre palette, avec un bouton et un titre reels pour juger sur pieces. Aucune ne reprend le beige de la premiere version ni le noir et orange de la seconde.</p>
+    </div>
+
+    <div class="grid g2">
+
+      <!-- P1 -->
+      <article class="pal">
+        <div class="pal__demo" style="background:#F4F5F7;color:#0B0B0C">
+          <svg class="wm" viewBox="0 0 200 26" style="color:#0B0B0C" role="img" aria-label="Origin en palette 1"><use href="#wC"/></svg>
+          <div>
+            <p class="pal__title">Tout part de la.</p>
+            <p class="pal__sub" style="color:#6B7280;margin-top:.5rem">Formules courtes, doses pleines, analyse de lot en libre acces.</p>
+          </div>
+          <span class="pal__btn" style="background:#1B4DFF;color:#F4F5F7">Voir la gamme</span>
+        </div>
+        <div class="pal__chips">
+          <i style="background:#F4F5F7"></i><i style="background:#D6D9DE"></i><i style="background:#6B7280"></i>
+          <i style="background:#1B4DFF"></i><i style="background:#0B0B0C"></i>
+        </div>
+        <div class="pal__b">
+          <span class="route__tag">Palette 1</span>
+          <h3 class="h2" style="font-size:1rem">Blanc et bleu electrique</h3>
+          <p>Clair, net, technique. Le fond blanc casse le codes du rayon, ou tout est noir. Le bleu est le seul accent. Registre laboratoire moderne plutot que salle sombre.</p>
+          <div class="pal__hex"><span>#F4F5F7</span><span>#D6D9DE</span><span>#6B7280</span><span>#1B4DFF</span><span>#0B0B0C</span></div>
+          <p class="pal__rule" style="color:#1B4DFF">Regle : le texte de bouton est blanc sur le bleu (5,42:1). L'encre sur le bleu tombe a 3,33:1, donc interdite en petit corps.</p>
+        </div>
+      </article>
+
+      <!-- P2 -->
+      <article class="pal">
+        <div class="pal__demo" style="background:#0B1B33;color:#F2F5F8">
+          <svg class="wm" viewBox="0 0 200 26" style="color:#F2F5F8" role="img" aria-label="Origin en palette 2"><use href="#wC"/></svg>
+          <div>
+            <p class="pal__title">Tout part de la.</p>
+            <p class="pal__sub" style="color:#8CA6C9;margin-top:.5rem">Formules courtes, doses pleines, analyse de lot en libre acces.</p>
+          </div>
+          <span class="pal__btn" style="background:#D2FF3A;color:#0B1B33">Voir la gamme</span>
+        </div>
+        <div class="pal__chips">
+          <i style="background:#0B1B33"></i><i style="background:#16304F"></i><i style="background:#8CA6C9"></i>
+          <i style="background:#D2FF3A"></i><i style="background:#F2F5F8"></i>
+        </div>
+        <div class="pal__b">
+          <span class="route__tag">Palette 2</span>
+          <h3 class="h2" style="font-size:1rem">Bleu nuit et volt</h3>
+          <p>Sombre mais pas noir. Le bleu nuit apporte la profondeur sans la durete du noir, le volt donne le signal. C'est la piste la plus proche du sport de performance classique.</p>
+          <div class="pal__hex"><span>#0B1B33</span><span>#16304F</span><span>#8CA6C9</span><span>#D2FF3A</span><span>#F2F5F8</span></div>
+          <p class="pal__rule" style="color:#0B1B33">Regle : le texte de bouton est bleu nuit sur le volt (14,86:1). Le volt ne porte jamais de texte clair.</p>
+        </div>
+      </article>
+
+      <!-- P3 -->
+      <article class="pal">
+        <div class="pal__demo" style="background:#EDE7DA;color:#12301C">
+          <svg class="wm" viewBox="0 0 200 26" style="color:#12301C" role="img" aria-label="Origin en palette 3"><use href="#wC"/></svg>
+          <div>
+            <p class="pal__title">Tout part de la.</p>
+            <p class="pal__sub" style="color:#55654F;margin-top:.5rem">Formules courtes, doses pleines, analyse de lot en libre acces.</p>
+          </div>
+          <span class="pal__btn" style="background:#B33A22;color:#EDE7DA">Voir la gamme</span>
+        </div>
+        <div class="pal__chips">
+          <i style="background:#EDE7DA"></i><i style="background:#CFC7B4"></i><i style="background:#55654F"></i>
+          <i style="background:#B33A22"></i><i style="background:#12301C"></i>
+        </div>
+        <div class="pal__b">
+          <span class="route__tag">Palette 3</span>
+          <h3 class="h2" style="font-size:1rem">Vert foret et brique</h3>
+          <p>Sport d'exterieur plutot que de salle. Le vert profond porte la marque, la brique sert d'accent rare. Chaud sans etre beige, naturel sans etre bien-etre.</p>
+          <div class="pal__hex"><span>#EDE7DA</span><span>#CFC7B4</span><span>#55654F</span><span>#B33A22</span><span>#12301C</span></div>
+          <p class="pal__rule" style="color:#B33A22">Regle : le texte de bouton est creme sur la brique (4,81:1). Le vert profond porte tout le texte courant.</p>
+        </div>
+      </article>
+
+      <!-- P4 -->
+      <article class="pal">
+        <div class="pal__demo" style="background:#F0EBE3;color:#14100F">
+          <svg class="wm" viewBox="0 0 200 26" style="color:#14100F" role="img" aria-label="Origin en palette 4"><use href="#wC"/></svg>
+          <div>
+            <p class="pal__title">Tout part de la.</p>
+            <p class="pal__sub" style="color:#6A6058;margin-top:.5rem">Formules courtes, doses pleines, analyse de lot en libre acces.</p>
+          </div>
+          <span class="pal__btn" style="background:#A81B2C;color:#F0EBE3">Voir la gamme</span>
+        </div>
+        <div class="pal__chips">
+          <i style="background:#F0EBE3"></i><i style="background:#D8D0C4"></i><i style="background:#6A6058"></i>
+          <i style="background:#A81B2C"></i><i style="background:#14100F"></i>
+        </div>
+        <div class="pal__b">
+          <span class="route__tag">Palette 4</span>
+          <h3 class="h2" style="font-size:1rem">Rouge sang et creme</h3>
+          <p>Heritage sportif. Le rouge profond est la couleur de l'effort et du club, la creme le sort du registre agressif. C'est la piste la plus chaude des quatre.</p>
+          <div class="pal__hex"><span>#F0EBE3</span><span>#D8D0C4</span><span>#6A6058</span><span>#A81B2C</span><span>#14100F</span></div>
+          <p class="pal__rule" style="color:#A81B2C">Regle : le texte de bouton est creme sur le rouge (6,19:1). L'encre sur le rouge tombe a 2,57:1, donc interdite.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<!-- ==========================================================================
+     COMBINAISONS
+     ======================================================================= -->
+<section>
+  <div class="shell">
+    <div class="sechead">
+      <h2 class="h2">Quatre combinaisons, pour situer</h2>
+      <p class="lede" style="font-size:.9rem">Les seize croisements sont possibles. En voici quatre, appliques a une face de pot, pour montrer ce que donne le passage a l'objet.</p>
+    </div>
+
+    <div class="grid g4">
+      <figure class="route" style="margin:0">
+        <div class="route__mark" style="background:#F4F5F7;aspect-ratio:1/1.15;align-items:stretch;padding:1.25rem">
+          <div style="display:flex;flex-direction:column;justify-content:space-between;color:#0B0B0C;width:100%">
+            <svg viewBox="0 0 60 60" style="width:26px;color:#1B4DFF" aria-hidden="true"><use href="#mC"/></svg>
+            <div>
+              <p style="font-family:var(--f-d);font-weight:900;text-transform:uppercase;font-size:1.15rem;line-height:.92">Whey<br>Isolate</p>
+              <p style="font-family:var(--f-m);font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:#6B7280;margin-top:.4rem">27 g &middot; 1 kg</p>
+            </div>
+            <div style="height:7px;background:#1B4DFF"></div>
+          </div>
+        </div>
+        <figcaption class="route__b"><p><b style="color:var(--ink)">C + 1</b><br>Chevron sur blanc et bleu. Le plus clinique.</p></figcaption>
+      </figure>
+
+      <figure class="route" style="margin:0">
+        <div class="route__mark" style="background:#0B1B33;aspect-ratio:1/1.15;align-items:stretch;padding:1.25rem">
+          <div style="display:flex;flex-direction:column;justify-content:space-between;color:#F2F5F8;width:100%">
+            <svg viewBox="0 0 60 60" style="width:26px;color:#D2FF3A" aria-hidden="true"><use href="#mB"/></svg>
+            <div>
+              <p style="font-family:var(--f-d);font-weight:900;text-transform:uppercase;font-size:1.15rem;line-height:.92;transform:skewX(-11deg);transform-origin:left">Whey<br>Isolate</p>
+              <p style="font-family:var(--f-m);font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:#8CA6C9;margin-top:.5rem">27 g &middot; 1 kg</p>
+            </div>
+            <div style="height:7px;background:#D2FF3A"></div>
+          </div>
+        </div>
+        <figcaption class="route__b"><p><b style="color:var(--ink)">B + 2</b><br>Italique sur navy et volt. Le plus performance.</p></figcaption>
+      </figure>
+
+      <figure class="route" style="margin:0">
+        <div class="route__mark" style="background:#12301C;aspect-ratio:1/1.15;align-items:stretch;padding:1.25rem">
+          <div style="display:flex;flex-direction:column;justify-content:space-between;color:#EDE7DA;width:100%">
+            <svg viewBox="0 0 60 68" style="width:24px;color:#EDE7DA" aria-hidden="true"><use href="#mA"/></svg>
+            <div>
+              <p style="font-family:var(--f-d);font-weight:900;text-transform:uppercase;font-size:1.15rem;line-height:.92">Whey<br>Isolate</p>
+              <p style="font-family:var(--f-m);font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:#CFC7B4;margin-top:.4rem">27 g &middot; 1 kg</p>
+            </div>
+            <div style="height:7px;background:#B33A22"></div>
+          </div>
+        </div>
+        <figcaption class="route__b"><p><b style="color:var(--ink)">A + 3</b><br>Ecusson sur vert foret. Le plus club.</p></figcaption>
+      </figure>
+
+      <figure class="route" style="margin:0">
+        <div class="route__mark" style="background:#F0EBE3;aspect-ratio:1/1.15;align-items:stretch;padding:1.25rem">
+          <div style="display:flex;flex-direction:column;justify-content:space-between;color:#14100F;width:100%">
+            <svg viewBox="0 0 60 60" style="width:26px;color:#A81B2C" aria-hidden="true"><use href="#mD"/></svg>
+            <div>
+              <p style="font-family:var(--f-d);font-weight:900;text-transform:uppercase;font-size:1.15rem;line-height:.92">Whey<br>Isolate</p>
+              <p style="font-family:var(--f-m);font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:#6A6058;margin-top:.4rem">27 g &middot; 1 kg</p>
+            </div>
+            <div style="height:7px;background:#A81B2C"></div>
+          </div>
+        </div>
+        <figcaption class="route__b"><p><b style="color:var(--ink)">D + 4</b><br>Stencil sur rouge et creme. Le plus brut.</p></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="shell">
+    <div class="note">
+      <b>Comment repondre.</b> Une lettre et un chiffre suffisent, par exemple <b>B + 2</b>. Si aucune piste ne te parle, dis-moi simplement laquelle est la moins loin et ce qui cloche, c'est une information suffisante pour repartir.
+    </div>
+    <div class="note">
+      <b>Ce qui reste ouvert.</b> Le mot ORIGIN est ici compose dans une fonte systeme pour montrer le registre. Une fois la piste choisie, il est redessine sur mesure, comme dans les versions precedentes. La typographie de titrage et de texte se choisit en meme temps.
+    </div>
+    <div class="note">
+      <b>Ce qui ne change pas.</b> Le nom Origin Nutrition, la structure du brand book en treize sections, la gamme de six references, et le fichier unique et autonome sans dependance externe.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
