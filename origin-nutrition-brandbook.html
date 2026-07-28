@@ -6,7 +6,7 @@
 <title>Origin Nutrition · Direction artistique</title>
 <meta name="description" content="Brand book Origin Nutrition. Système chrome, logo, couleurs, typographie, packaging, site. Document de référence unique.">
 <meta name="theme-color" content="#08090B">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2308090B'/%3E%3Ccircle cx='50' cy='52' r='30' fill='none' stroke='%23D8DEE6' stroke-width='13'/%3E%3Ccircle cx='72' cy='30' r='7' fill='%23F2F4F7'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2308090B'/%3E%3Cpath fill='%23D8DEE6' fill-rule='evenodd' d='M6,56 A38,38 0 1 1 82,56 A38,38 0 1 1 6,56 Z M22,56 A22,22 0 1 0 66,56 A22,22 0 1 0 22,56 Z M73.5,20 A10.5,10.5 0 1 1 94.5,20 A10.5,10.5 0 1 1 73.5,20 Z'/%3E%3C/svg%3E">
 
 <style>
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -56,34 +56,31 @@
       #A9B2BC 29%, #E9EEF3 34%,  #F7FAFC 36%,  #8F98A3 38%,
       #4A525C 47%, #22282F 56%,  #6E7885 66%,  #C3CBD4 75%,
       #7E8792 84%, #363D46 92%,  #171B20 100%);
-  --chrome-noir:linear-gradient(178deg,
-      #030405 0%,  #0B0D10 8%,   #1A1E24 16%,  #2E343C 24%,
-      #454C55 30%, #767F8A 34%,  #99A2AC 36%,  #3A4149 39%,
-      #22272D 48%, #0E1114 57%,  #262C33 67%,  #555D67 76%,
-      #2C3238 85%, #14171B 93%,  #050608 100%);
-  --chrome-mat:linear-gradient(178deg,
-      #2C3138 0%,  #3A4048 14%,  #4E555E 27%,  #676E77 36%,
-      #79808A 41%, #5E656E 52%,  #454B53 63%,  #5A616A 74%,
-      #6E757E 82%, #4A5058 91%,  #33383F 100%);
-  --chrome-iris:linear-gradient(178deg,
-      #0A0E14 0%,  #1E2A38 7%,   #3D5468 14%,  #6F8AA0 22%,
-      #A7BECD 29%, #E4EEF5 34%,  #F4FAFD 36%,  #8496A8 38%,
-      #4C5D74 47%, #262E3D 56%,  #5E7286 66%,  #B6C6D6 75%,
-      #75879B 84%, #333E4E 92%,  #141A22 100%);
-  /* Brossé : la même rampe, contraste écrasé, plus le peigne directionnel */
-  --chrome-brosse:
-    repeating-linear-gradient(92deg,
-      rgba(255,255,255,.055) 0 1px, rgba(0,0,0,.075) 1px 2px,
-      rgba(255,255,255,.02) 2px 3px, rgba(0,0,0,.03) 3px 4.5px),
-    linear-gradient(178deg,
-      #23282E 0%,  #3B424B 10%,  #5C646E 20%,  #838B95 28%,
-      #A6AEB8 33%, #C8D0D8 36%,  #7C858F 39%,  #565E68 48%,
-      #383F47 58%, #5F6771 68%,  #8D96A0 77%,  #5A626B 87%, #2B3038 100%);
-  /* Liquide : rampe poli + halos de reflet mobiles (animés en translate) */
-  --chrome-liquide:
+  /* État animé de la MÊME matière : la rampe poli, plus deux halos de reflet
+     qui glissent. Ce n'est pas une seconde matière, c'est le chrome poli en
+     mouvement. Voir la règle d'unicité en §03. */
+  --chrome-anime:
     radial-gradient(60% 38% at 22% 26%, rgba(255,255,255,.55), transparent 62%),
     radial-gradient(48% 30% at 76% 72%, rgba(120,190,220,.30), transparent 60%),
     var(--chrome-poli);
+
+  /* ── SURFACES NOIRES ──
+     Le complément du chrome, et la seule autre matière du système.
+     Aucune bande d'horizon, aucun highlight : ce n'est pas un chrome sombre,
+     c'est du plastique ou du carton noir. La distinction est ce qui garde
+     l'unicité du chrome lisible. */
+  --noir-plat:linear-gradient(178deg,#191C20 0%,#101317 46%,#15181C 100%);
+  /* Cylindres : un corps de pot est un cylindre, sa matière se rend donc par
+     une rampe HORIZONTALE, sombre aux deux bords et claire au centre. Une
+     rampe verticale donnerait une surface plate. */
+  --cyl-poli:linear-gradient(92deg,
+      #0A0C0F 0%,  #20262D 5%,  #454D57 12%, #79838F 20%, #B4BDC7 27%,
+      #EFF4F8 31%, #FAFCFE 33%, #8B949F 37%, #565E68 45%, #2C323A 54%,
+      #474F59 62%, #7C8590 71%, #C2CAD3 79%, #77808B 87%, #2B3138 94%,
+      #0D1014 100%);
+  --cyl-noir:linear-gradient(92deg,
+      #060709 0%,  #101317 12%, #1B1F24 24%, #262B31 34%, #2C3138 40%,
+      #21252A 52%, #16191D 66%, #1F2328 78%, #121518 90%, #07080A 100%);
 
   --grain:.055;    /* opacité du grain, coupée en mode dégradé */
 }
@@ -126,11 +123,8 @@ a{color:var(--signal);text-underline-offset:3px}
 
 /* ─── 2. MATIÈRE : classes chrome réutilisables ─────────────────────────── */
 .m-poli   {background-image:var(--chrome-poli)}
-.m-noir   {background-image:var(--chrome-noir)}
-.m-mat    {background-image:var(--chrome-mat)}
-.m-iris   {background-image:var(--chrome-iris)}
-.m-brosse {background-image:var(--chrome-brosse)}
-.m-liquide{background-image:var(--chrome-liquide);background-size:100% 220%;
+.s-noir   {background-image:var(--noir-plat)}
+.m-anime{background-image:var(--chrome-anime);background-size:100% 220%;
            animation:flux 16s var(--ease) infinite alternate}
 @keyframes flux{from{background-position:50% 12%}to{background-position:50% 78%}}
 
@@ -289,9 +283,9 @@ pre.code i{color:var(--graphite-3);font-style:normal}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
     transition-duration:.001ms!important}
-  .m-liquide,.chrome-txt.anim{animation:none;background-position:50% 34%}
+  .m-anime,.chrome-txt.anim{animation:none;background-position:50% 34%}
 }
-html[data-perf="low"] .m-liquide,
+html[data-perf="low"] .m-anime,
 html[data-perf="low"] .chrome-txt.anim{animation:none;background-position:50% 34%}
 html[data-perf="low"] [data-filtre]{filter:none!important}
 html[data-perf="low"] .grain{display:none}
@@ -354,8 +348,8 @@ html[data-perf="low"] .rv{transition-duration:.35s}
 
 <!-- ═══════════════════════════════════════════════════════════════════════
      BIBLIOTHÈQUE SVG — définie une seule fois, référencée dans tout le
-     document. Contient : rampes chrome, filtres de déformation liquide,
-     éclairage spéculaire, peigne brossé, primitives 3D.
+     document. Contient : rampe chrome, filtres de déformation,
+     éclairage spéculaire, primitives 3D.
      ═══════════════════════════════════════════════════════════════════════ -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
 
@@ -379,43 +373,6 @@ html[data-perf="low"] .rv{transition-duration:.35s}
     <stop offset=".6"   stop-color="#1E2429"/><stop offset=".71" stop-color="#5F6874"/>
     <stop offset=".8"   stop-color="#B4BDC7"/><stop offset=".88" stop-color="#6A727D"/>
     <stop offset="1"    stop-color="#191D22"/>
-  </linearGradient>
-  <linearGradient id="crNoir" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0"   stop-color="#030405"/><stop offset=".08" stop-color="#0B0D10"/>
-    <stop offset=".16" stop-color="#1A1E24"/><stop offset=".24" stop-color="#2E343C"/>
-    <stop offset=".30" stop-color="#454C55"/><stop offset=".34" stop-color="#767F8A"/>
-    <stop offset=".36" stop-color="#99A2AC"/><stop offset=".39" stop-color="#3A4149"/>
-    <stop offset=".48" stop-color="#22272D"/><stop offset=".57" stop-color="#0E1114"/>
-    <stop offset=".67" stop-color="#262C33"/><stop offset=".76" stop-color="#555D67"/>
-    <stop offset=".85" stop-color="#2C3238"/><stop offset=".93" stop-color="#14171B"/>
-    <stop offset="1"   stop-color="#050608"/>
-  </linearGradient>
-  <linearGradient id="crMat" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0"   stop-color="#2C3138"/><stop offset=".14" stop-color="#3A4048"/>
-    <stop offset=".27" stop-color="#4E555E"/><stop offset=".36" stop-color="#676E77"/>
-    <stop offset=".41" stop-color="#79808A"/><stop offset=".52" stop-color="#5E656E"/>
-    <stop offset=".63" stop-color="#454B53"/><stop offset=".74" stop-color="#5A616A"/>
-    <stop offset=".82" stop-color="#6E757E"/><stop offset=".91" stop-color="#4A5058"/>
-    <stop offset="1"   stop-color="#33383F"/>
-  </linearGradient>
-  <linearGradient id="crIris" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0"   stop-color="#0A0E14"/><stop offset=".07" stop-color="#1E2A38"/>
-    <stop offset=".14" stop-color="#3D5468"/><stop offset=".22" stop-color="#6F8AA0"/>
-    <stop offset=".29" stop-color="#A7BECD"/><stop offset=".34" stop-color="#E4EEF5"/>
-    <stop offset=".36" stop-color="#F4FAFD"/><stop offset=".38" stop-color="#8496A8"/>
-    <stop offset=".47" stop-color="#4C5D74"/><stop offset=".56" stop-color="#262E3D"/>
-    <stop offset=".66" stop-color="#5E7286"/><stop offset=".75" stop-color="#B6C6D6"/>
-    <stop offset=".84" stop-color="#75879B"/><stop offset=".92" stop-color="#333E4E"/>
-    <stop offset="1"   stop-color="#141A22"/>
-  </linearGradient>
-  <linearGradient id="crBrosse" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0"   stop-color="#23282E"/><stop offset=".10" stop-color="#3B424B"/>
-    <stop offset=".20" stop-color="#5C646E"/><stop offset=".28" stop-color="#838B95"/>
-    <stop offset=".33" stop-color="#A6AEB8"/><stop offset=".36" stop-color="#C8D0D8"/>
-    <stop offset=".39" stop-color="#7C858F"/><stop offset=".48" stop-color="#565E68"/>
-    <stop offset=".58" stop-color="#383F47"/><stop offset=".68" stop-color="#5F6771"/>
-    <stop offset=".77" stop-color="#8D96A0"/><stop offset=".87" stop-color="#5A626B"/>
-    <stop offset="1"   stop-color="#2B3038"/>
   </linearGradient>
   <!-- Aplat de référence : la version qui survit à tout -->
   <linearGradient id="crAplat" x1="0" y1="0" x2="0" y2="1">
@@ -441,20 +398,11 @@ html[data-perf="low"] .rv{transition-duration:.35s}
     <stop offset="1" stop-color="#000" stop-opacity="0"/>
   </radialGradient>
 
-  <!-- Peigne du chrome brossé : reflets étirés directionnels -->
-  <pattern id="peigne" width="4" height="4" patternUnits="userSpaceOnUse">
-    <rect width="4" height="4" fill="none"/>
-    <rect width="1" height="4" fill="#FFF" opacity=".07"/>
-    <rect x="1.6" width=".7" height="4" fill="#000" opacity=".10"/>
-    <rect x="3" width=".5" height="4" fill="#FFF" opacity=".03"/>
-  </pattern>
 
   <!-- ── FILTRES ────────────────────────────────────────────────────────
        f-liquide  : déformation animée (2 instances maximum dans la page)
        f-fige     : la même déformation, seed fixe, sans animation
-       f-relief   : éclairage spéculaire réel (feSpecularLighting)
-       f-brosse   : turbulence anisotrope = reflets étirés
-       f-adouci   : spéculaire diffuse basse pour le chrome mat        ── -->
+       f-relief   : éclairage spéculaire réel (feSpecularLighting)  ── -->
   <filter id="f-liquide" x="-18%" y="-18%" width="136%" height="136%"
           color-interpolation-filters="sRGB">
     <feTurbulence type="fractalNoise" baseFrequency="0.009 0.019" numOctaves="3"
@@ -483,22 +431,6 @@ html[data-perf="low"] .rv{transition-duration:.35s}
     <feComposite in="s" in2="SourceAlpha" operator="in" result="sc"/>
     <feComposite in="SourceGraphic" in2="sc" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/>
   </filter>
-  <filter id="f-brosse" x="-6%" y="-6%" width="112%" height="112%"
-          color-interpolation-filters="sRGB">
-    <feTurbulence type="fractalNoise" baseFrequency="0.004 1.1" numOctaves="2" seed="9" result="n"/>
-    <feDisplacementMap in="SourceGraphic" in2="n" scale="6"
-                       xChannelSelector="R" yChannelSelector="R"/>
-  </filter>
-  <filter id="f-adouci" x="-14%" y="-14%" width="128%" height="128%"
-          color-interpolation-filters="sRGB">
-    <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="b"/>
-    <feSpecularLighting in="b" surfaceScale="4" specularConstant=".55"
-                        specularExponent="7" lighting-color="#C8D4E2" result="s">
-      <feDistantLight azimuth="230" elevation="58"/>
-    </feSpecularLighting>
-    <feComposite in="s" in2="SourceAlpha" operator="in" result="sc"/>
-    <feComposite in="SourceGraphic" in2="sc" operator="arithmetic" k1="0" k2="1" k3=".7" k4="0"/>
-  </filter>
   <!-- Grain fin appliqué à une surface chromée -->
   <filter id="f-grain" x="0" y="0" width="100%" height="100%">
     <feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" result="g"/>
@@ -509,25 +441,50 @@ html[data-perf="low"] .rv{transition-duration:.35s}
   </filter>
 
   <!-- ── LOGOTYPE ──────────────────────────────────────────────────────
-       Un seul <path>, coordonnées absolues, aucun sous-groupe transformé.
-       Raison technique : un dégradé en objectBoundingBox se résout sur la
-       boîte de CHAQUE élément. Une lettre à fût vertical seul (le I) a une
-       boîte de largeur nulle, le dégradé devient dégénéré et la lettre
-       disparaît. Un tracé unique donne une boîte commune : la rampe chrome
-       traverse le mot entier, et le I s'affiche.
-       Grille : capitale 100 u · trait 18 u · rayon 41 u · approche 22 u  ── -->
-  <path id="wordmark" d="
-    M9,50 A41,41 0 0 1 91,50 A41,41 0 0 1 9,50
-    M131,100 V0 M131,9 H155 A30,20.5 0 0 1 155,50 H131 M152,50 L185,100
-    M225,0 V100
-    M343.2,32.7 A41,41 0 1 0 343.2,67.3 L343.2,50 L317,50
-    M387,0 V100
-    M427,100 V0 L481,100 V0"/>
-  <!-- Le monogramme : anneau (jamais rempli) + point d'origine (jamais tracé) -->
-  <g id="monogram">
-    <circle cx="50" cy="52" r="34" fill="none"/>
-    <circle cx="78" cy="24" r="9" stroke="none"/>
+       Lettrage grotesque néo-classique, capitales pleines, graisse lourde.
+       Les six lettres sont des CONTOURS REMPLIS, jamais des traits : le
+       logotype partage la construction du titrage du document.
+
+       Grille : capitale 100 u · fût 20 u · barre horizontale 16 u ·
+       approche 14 u · largeur totale 493 u.
+
+       Un seul <path> par tracé, en coordonnées absolues et sans sous-groupe
+       transformé. Raison technique : un dégradé en objectBoundingBox se
+       résout sur la boîte de CHAQUE élément. Regrouper les six lettres dans
+       un tracé unique leur donne une boîte commune, et la rampe chrome
+       traverse le mot entier au lieu de recommencer à chaque lettre.
+
+       Le G est bâti sur l'anneau du O, l'ouverture est retirée par
+       découpe : c'est ce qui garantit que le O et le G partagent
+       exactement la même courbe.                                       ── -->
+  <clipPath id="cutG" clipPathUnits="userSpaceOnUse">
+    <path d="M255,0 H320 V38 H351 V100 H255 Z"/>
+  </clipPath>
+  <g id="wordmark" fill-rule="evenodd">
+    <!-- O · R · I · N : tracé unique -->
+    <path d="
+      M48,0  A48,50 0 1 1 48,100 A48,50 0 1 1 48,0  Z
+      M48,16 A28,34 0 1 0 48,84  A28,34 0 1 0 48,16 Z
+      M110,0 H168 C189,0 201,10 201,26 C201,39 193,48 180,52
+      L207,100 H180 L156,52 H131 V100 H110 Z
+      M131,16 H166 C177,16 182,20 182,26 C182,32 177,36 166,36 H131 Z
+      M221,0 H241 V100 H221 Z
+      M365,0 H385 V100 H365 Z
+      M399,0 H419 L473,72 V0 H493 V100 H473 L419,28 V100 H399 Z"/>
+    <!-- G : l'anneau du O, ouverture découpée, plus la barre -->
+    <g clip-path="url(#cutG)">
+      <path d="M303,0 A48,50 0 1 1 303,100 A48,50 0 1 1 303,0 Z
+               M303,16 A28,34 0 1 0 303,84 A28,34 0 1 0 303,16 Z"/>
+    </g>
+    <path d="M311,38 H351 V56 H311 Z"/>
   </g>
+  <!-- Le monogramme : anneau plein (contour + contre-forme) et point d'origine.
+       L'anneau reprend la graisse du O du logotype. Le point ne touche jamais
+       l'anneau, sinon la règle pair-impair le transformerait en trou. -->
+  <path id="monogram" fill-rule="evenodd" d="
+    M6,56  A38,38 0 1 1 82,56 A38,38 0 1 1 6,56 Z
+    M22,56 A22,22 0 1 0 66,56 A22,22 0 1 0 22,56 Z
+    M73.5,20 A10.5,10.5 0 1 1 94.5,20 A10.5,10.5 0 1 1 73.5,20 Z"/>
 </defs></svg>
 
 <div class="shell">
@@ -537,7 +494,7 @@ html[data-perf="low"] .rv{transition-duration:.35s}
 <nav class="nav" aria-label="Sommaire du brand book">
   <div class="nav__id">
     <svg viewBox="-9 -12 508 124" role="img" aria-label="Origin">
-      <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/>
+      <use href="#wordmark" fill="#D8DEE6"/>
     </svg>
     <small>Brand book · Édition 01</small>
   </div>
@@ -595,7 +552,7 @@ html[data-perf="low"] .rv{transition-duration:.35s}
       <!-- Colonne gauche : le logotype se forme, puis le titre -->
       <div>
         <svg viewBox="-9 -14 508 128" style="width:100%;height:auto;max-height:22vh"
-             role="img" aria-label="Logotype Origin en chrome liquide se formant à l'écran">
+             role="img" aria-label="Logotype Origin en chrome poli se formant à l'écran">
           <defs>
             <!-- Filtre de formation : la déformation s'éteint puis se fige.
                  Coût nul après 2,6 s, contrairement à une boucle infinie. -->
@@ -612,8 +569,7 @@ html[data-perf="low"] .rv{transition-duration:.35s}
             </filter>
           </defs>
           <g filter="url(#fForme)">
-            <use class="draw" href="#wordmark" fill="none" stroke="url(#crPoliH)"
-                 stroke-width="18" stroke-linecap="butt" stroke-linejoin="miter"/>
+            <use href="#wordmark" fill="url(#crPoliH)" class="draw"/>
           </g>
         </svg>
 
@@ -630,7 +586,7 @@ html[data-perf="low"] .rv{transition-duration:.35s}
 
       <!-- Colonne droite : la goutte de mercure, puis la fiche du document -->
       <div>
-        <!-- Pièce chromée liquide : élément de composition, pas décor.
+        <!-- Pièce chromée en mouvement : élément de composition, pas décor.
              Démonstration §3.C : déformation animée + rebond froid + ombre. -->
         <svg class="goutte" viewBox="0 0 340 300" style="width:100%;height:auto;max-height:34vh;margin:0 auto"
              role="img" aria-label="Goutte de mercure chromée en déformation lente">
@@ -648,7 +604,7 @@ html[data-perf="low"] .rv{transition-duration:.35s}
             Direction artistique complète<br>
             Édition 01 · Juillet 2026<br>
             13 sections · référence unique<br>
-            <span class="k">6 matières chrome spécifiées</span>
+            <span class="k">Une seule matière : le chrome poli</span>
           </p>
           <!-- Indicateur de scroll : rail spéculaire -->
           <div style="margin-top:20px;display:flex;align-items:center;gap:11px">
@@ -993,7 +949,7 @@ html[data-perf="low"] .rv{transition-duration:.35s}
              aria-label="Verrouillage du logotype avec la baseline Rien que la molécule alignée à gauche sous le logo">
           <rect width="520" height="130" fill="#0B0D10"/>
           <g transform="translate(40,30) scale(.32)">
-            <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/>
+            <use href="#wordmark" fill="#D8DEE6"/>
           </g>
           <path d="M40 82 H196" stroke="#5CE1F2" stroke-width="1"/>
           <text x="40" y="102" class="tm" font-size="10.5" letter-spacing="2.6"
@@ -1035,40 +991,42 @@ html[data-perf="low"] .rv{transition-duration:.35s}
     </header>
     <p class="lede rv">
       Tout le système est vectoriel, construit sur une grille unique de 100 unités de hauteur de
-      capitale et 18 unités d'épaisseur de trait. Un seul tracé sert le logotype, le monogramme,
-      la gravure et la broderie.
+      capitale et 20 unités de fût. Un seul tracé sert le logotype, le monogramme, la gravure
+      et la broderie.
     </p>
 
     <!-- ── 4.1 Logotype principal ── -->
     <div class="g-7-5 mt rv" style="align-items:center">
       <div class="cart cart--plein scan" style="padding:clamp(28px,4vw,56px)">
         <svg viewBox="-9 -14 508 128" style="width:100%;height:auto" role="img"
-             aria-label="Logotype Origin, lettrage géométrique en chrome poli">
-          <use href="#wordmark" fill="none" stroke="url(#crPoliH)" stroke-width="18"/>
+             aria-label="Logotype Origin, grotesque néo-classique en chrome poli">
+          <use href="#wordmark" fill="url(#crPoliH)"/>
         </svg>
       </div>
       <div>
         <span class="lbl">Logotype principal</span>
-        <h3 class="mt-s" style="font-size:clamp(19px,2vw,26px)">Un lettrage de tracé, pas de plume</h3>
+        <h3 class="mt-s" style="font-size:clamp(19px,2vw,26px)">Un grotesque néo-classique, plein</h3>
         <p class="mt-s" style="color:var(--txt-2)">
-          Les six lettres sont des squelettes géométriques d'épaisseur constante, terminaisons
-          coupées à l'équerre, sans empattement ni fuseau. Aucune modulation : la même épaisseur
-          parcourt une courbe et une diagonale. C'est le registre du tracé technique, du plan
-          coté, de la pièce usinée.
+          Les six lettres sont des contours pleins, en capitales, à graisse lourde et
+          contraste quasi nul. Terminaisons coupées à l'horizontale, contreformes fermées,
+          aucun empattement, aucune modulation apparente. C'est le registre du grotesque
+          néo-classique : la lettre la plus neutre possible, celle qui laisse toute la place
+          à la matière.
         </p>
         <p style="color:var(--txt-2)">
-          Le O et le G sont des cercles parfaits, l'approche est serrée à 22 unités, ce qui
-          soude le mot en un bloc dense et lui donne son inertie. Un lettrage plus humaniste
-          aurait signé le wellness ; un lettrage plus étroit ou incliné aurait signé
-          le hardcore. Ce dessin ne signe ni l'un ni l'autre : il signe l'atelier.
+          Le O et le G partagent exactement la même ellipse, l'approche est serrée à 14 unités,
+          ce qui soude le mot en un bloc massif. Cette neutralité est le choix stratégique :
+          un lettrage expressif entrerait en concurrence avec le chrome, alors que la marque
+          repose entièrement sur la surface. Le logotype est un support, pas un motif.
         </p>
         <table class="mt-s">
           <tr><th style="width:52%">Hauteur de capitale</th><td class="num">100 u</td></tr>
-          <tr><th>Épaisseur de trait</th><td class="num">18 u, soit 0,18 de la capitale</td></tr>
-          <tr><th>Rayon O et G</th><td class="num">41 u (centre de trait)</td></tr>
-          <tr><th>Approche</th><td class="num">22 u constants</td></tr>
-          <tr><th>Largeur totale</th><td class="num">490 u, ratio 4,9 : 1</td></tr>
-          <tr><th>Terminaisons</th><td>Coupe droite, angle vif, aucun raccord</td></tr>
+          <tr><th>Fût vertical</th><td class="num">20 u, soit 0,20 de la capitale</td></tr>
+          <tr><th>Barre horizontale</th><td class="num">16 u, soit 0,80 du fût</td></tr>
+          <tr><th>O et G</th><td class="num">Ellipse 96 × 100 u, contreforme 56 × 68 u</td></tr>
+          <tr><th>Approche</th><td class="num">14 u constants</td></tr>
+          <tr><th>Largeur totale</th><td class="num">493 u, ratio 4,93 : 1</td></tr>
+          <tr><th>Terminaisons</th><td>Coupe horizontale, angle vif, aucun raccord</td></tr>
         </table>
       </div>
     </div>
@@ -1098,21 +1056,21 @@ html[data-perf="low"] .rv{transition-duration:.35s}
         <div class="cart" style="text-align:center">
           <svg viewBox="0 0 100 100" style="width:100%;height:auto" role="img"
                aria-label="Monogramme Origin en chrome poli">
-            <use href="#monogram" fill="url(#crPoli)" stroke="url(#crPoli)" stroke-width="13"/>
+            <use href="#monogram" fill="url(#crPoli)"/>
           </svg>
           <p class="lbl" style="margin-top:10px">Chrome</p>
         </div>
         <div class="cart" style="text-align:center">
           <svg viewBox="0 0 100 100" style="width:100%;height:auto" role="img"
                aria-label="Monogramme Origin en aplat blanc">
-            <use href="#monogram" fill="#F2F4F7" stroke="#F2F4F7" stroke-width="13"/>
+            <use href="#monogram" fill="#F2F4F7"/>
           </svg>
           <p class="lbl" style="margin-top:10px">Aplat</p>
         </div>
         <div class="cart" style="text-align:center;background:#F2F4F7">
           <svg viewBox="0 0 100 100" style="width:100%;height:auto" role="img"
                aria-label="Monogramme Origin en aplat noir sur fond clair">
-            <use href="#monogram" fill="#08090B" stroke="#08090B" stroke-width="13"/>
+            <use href="#monogram" fill="#08090B"/>
           </svg>
           <p class="lbl" style="margin-top:10px;color:#5C6168">Inversé</p>
         </div>
@@ -1121,12 +1079,12 @@ html[data-perf="low"] .rv{transition-duration:.35s}
             <svg viewBox="0 0 100 100" width="16" height="16" role="img"
                  aria-label="Monogramme rendu à 16 pixels, taille favicon">
               <rect width="100" height="100" fill="#08090B"/>
-              <use href="#monogram" fill="#D8DEE6" stroke="#D8DEE6" stroke-width="13"/>
+              <use href="#monogram" fill="#D8DEE6"/>
             </svg>
             <svg viewBox="0 0 100 100" width="32" height="32" role="img"
                  aria-label="Monogramme rendu à 32 pixels">
               <rect width="100" height="100" fill="#08090B"/>
-              <use href="#monogram" fill="#D8DEE6" stroke="#D8DEE6" stroke-width="13"/>
+              <use href="#monogram" fill="#D8DEE6"/>
             </svg>
           </div>
           <p class="lbl" style="margin-top:10px">16 / 32 px</p>
@@ -1140,39 +1098,44 @@ html[data-perf="low"] .rv{transition-duration:.35s}
     <span class="lbl rv">Construction</span>
     <h3 class="mt-s rv" style="font-size:clamp(19px,2vw,26px)">Grille de tracé</h3>
     <div class="cart mt-s rv" style="padding:clamp(20px,3vw,44px);overflow-x:auto">
-      <svg viewBox="-70 -60 640 240" style="width:100%;min-width:560px;height:auto" role="img"
-           aria-label="Grille de construction du logotype : hauteur de capitale 100 unités, épaisseur de trait 18 unités, rayon 41 unités, approche 22 unités, avec repères cotés.">
-        <!-- trame -->
-        <g stroke="rgba(142,149,158,.13)" stroke-width=".7">
-          <path d="M-70 0H570M-70 100H570M-70 50H570"/>
-          <path d="M0 -60V180M490 -60V180"/>
+      <svg viewBox="-70 -62 646 246" style="width:100%;min-width:560px;height:auto" role="img"
+           aria-label="Grille de construction du logotype : hauteur de capitale 100 unités, fût 20 unités, barre horizontale 16 unités, approche 14 unités, ellipse du O de 96 sur 100 unités, largeur totale 493 unités.">
+        <!-- lignes de référence -->
+        <g stroke="rgba(142,149,158,.14)" stroke-width=".7">
+          <path d="M-70 0H576M-70 100H576M-70 50H576"/>
+          <path d="M0 -62V184M493 -62V184"/>
         </g>
-        <!-- modules de 22 u -->
-        <g stroke="rgba(74,107,138,.4)" stroke-width=".7" stroke-dasharray="2 4">
-          <path d="M100 -30V130M122 -30V130M194 -30V130M216 -30V130M234 -30V130M256 -30V130M356 -30V130M378 -30V130M396 -30V130M418 -30V130"/>
-        </g>
-        <!-- cercles de construction du O et du G -->
-        <g fill="none" stroke="#5CE1F2" stroke-width=".9" opacity=".65">
-          <circle cx="50" cy="50" r="41"/><circle cx="50" cy="50" r="50"/><circle cx="50" cy="50" r="32"/>
-          <circle cx="306" cy="50" r="41"/>
-          <path d="M50 0V100M0 50H100"/>
+        <!-- gouttières d'approche, 14 u -->
+        <g fill="#5CE1F2" opacity=".13">
+          <rect x="96" y="-30" width="14" height="160"/><rect x="207" y="-30" width="14" height="160"/>
+          <rect x="241" y="-30" width="14" height="160"/><rect x="351" y="-30" width="14" height="160"/>
+          <rect x="385" y="-30" width="14" height="160"/>
         </g>
         <!-- le logotype -->
-        <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18" opacity=".92"/>
+        <use href="#wordmark" fill="#D8DEE6" opacity=".95"/>
+        <!-- ellipses de construction du O et du G, strictement identiques -->
+        <g fill="none" stroke="#5CE1F2" stroke-width="1" opacity=".8">
+          <ellipse cx="48" cy="50" rx="48" ry="50"/><ellipse cx="48" cy="50" rx="28" ry="34"/>
+          <ellipse cx="303" cy="50" rx="48" ry="50"/><ellipse cx="303" cy="50" rx="28" ry="34"/>
+          <path d="M48 -10V110M-10 50H106"/>
+        </g>
         <!-- cotes -->
         <g stroke="#8E959E" stroke-width=".8" fill="none">
-          <path d="M-30 0H-14M-30 100H-14M-22 0V100"/>
-          <path d="M0 -22H18M0 -30V-14M18 -30V-14"/>
-          <path d="M100 132H122M100 124V140M122 124V140"/>
+          <path d="M-32 0H-16M-32 100H-16M-24 0V100"/>
+          <path d="M221 -24H241M221 -32V-16M241 -32V-16"/>
+          <path d="M110 136H124M110 128V144M124 128V144"/>
+          <path d="M0 118H96M0 110V126M96 110V126"/>
         </g>
-        <g class="tm" font-size="9" fill="#8E959E" letter-spacing=".8">
-          <text x="-38" y="54" text-anchor="end">100 u</text>
-          <text x="9" y="-36" text-anchor="middle">18 u</text>
-          <text x="111" y="152" text-anchor="middle">22 u</text>
-          <text x="50" y="-36" fill="#5CE1F2" text-anchor="start" transform="translate(60,0)">r = 41 u</text>
+        <g class="tm" font-size="9.5" fill="#8E959E" letter-spacing=".8">
+          <text x="-40" y="54" text-anchor="end">100 u</text>
+          <text x="231" y="-38" text-anchor="middle">20 u</text>
+          <text x="117" y="156" text-anchor="middle">14 u</text>
+          <text x="48" y="132" text-anchor="middle">96 u</text>
+          <text x="493" y="156" text-anchor="end">LARGEUR TOTALE 493 u</text>
         </g>
-        <text x="490" y="152" class="tm" font-size="9" fill="#8E959E"
-              text-anchor="end" letter-spacing=".8">LARGEUR TOTALE 490 u</text>
+        <g class="tm" font-size="9" fill="#5CE1F2">
+          <text x="112" y="18">le O et le G partagent la même ellipse</text>
+        </g>
       </svg>
     </div>
 
@@ -1181,12 +1144,12 @@ html[data-perf="low"] .rv{transition-duration:.35s}
       <div class="cart">
         <div class="cart__t">Zone de protection <span>unité X</span></div>
         <svg viewBox="-90 -90 670 280" style="width:100%;height:auto" role="img"
-             aria-label="Zone de protection : une marge égale à deux fois l'épaisseur de trait, soit 2 X, est réservée autour du logotype.">
+             aria-label="Zone de protection : une marge égale à deux fois le fût, soit 2 X, est réservée autour du logotype.">
           <rect x="-72" y="-72" width="634" height="244" fill="rgba(92,225,242,.05)"
                 stroke="#5CE1F2" stroke-width="1" stroke-dasharray="4 4"/>
-          <rect x="0" y="0" width="490" height="100" fill="none"
+          <rect x="0" y="0" width="493" height="100" fill="none"
                 stroke="rgba(142,149,158,.3)" stroke-width=".8"/>
-          <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/>
+          <use href="#wordmark" fill="#D8DEE6"/>
           <!-- carré X -->
           <rect x="-72" y="-72" width="36" height="36" fill="#5CE1F2" opacity=".22"/>
           <rect x="-72" y="-72" width="36" height="36" fill="none" stroke="#5CE1F2" stroke-width=".8"/>
@@ -1198,7 +1161,7 @@ html[data-perf="low"] .rv{transition-duration:.35s}
           </g>
         </svg>
         <p class="mono mt-s">
-          X = épaisseur du trait du logotype = <span class="k">18 u</span>.<br>
+          X = fût du logotype = <span class="k">20 u</span>.<br>
           Marge réservée : <span class="k">2 X</span> sur les quatre côtés. Aucun texte, filet,
           bord de page ni élément graphique dans cette zone.
         </p>
@@ -1215,9 +1178,9 @@ html[data-perf="low"] .rv{transition-duration:.35s}
           <tr><td>Dorure / vernis</td><td class="num">28 mm</td><td class="num">8 mm</td>
               <td>Aplat obligatoire</td></tr>
           <tr><td>Broderie</td><td class="num">40 mm</td><td class="num">14 mm</td>
-              <td class="no">Aplat, trait épaissi à 20 u</td></tr>
+              <td class="no">Aplat, contreformes ouvertes à 24 u</td></tr>
           <tr><td>Gravure métal</td><td class="num">18 mm</td><td class="num">5 mm</td>
-              <td>Aplat, trait gravé</td></tr>
+              <td>Aplat, gravé en creux</td></tr>
         </table>
         <p class="mt-s" style="font-size:14px;color:var(--txt-2)">
           Le chrome n'est jamais employé sous 140 px de large à l'écran ni sous 30 mm en print :
@@ -1237,10 +1200,10 @@ html[data-perf="low"] .rv{transition-duration:.35s}
         <div style="flex:1;display:flex;align-items:center;padding:14px 0">
           <svg viewBox="0 0 640 110" style="width:100%" role="img"
                aria-label="Verrouillage horizontal : monogramme à gauche, logotype à droite">
-            <use href="#monogram" fill="#D8DEE6" stroke="#D8DEE6" stroke-width="13"/>
+            <use href="#monogram" fill="#D8DEE6"/>
             <path d="M124 12V98" stroke="rgba(142,149,158,.35)"/>
             <g transform="translate(158,5) scale(.9)">
-              <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/>
+              <use href="#wordmark" fill="#D8DEE6"/>
             </g>
           </svg>
         </div>
@@ -1252,10 +1215,10 @@ html[data-perf="low"] .rv{transition-duration:.35s}
           <svg viewBox="0 0 300 210" style="width:66%" role="img"
                aria-label="Verrouillage vertical : monogramme centré au-dessus du logotype">
             <g transform="translate(100,0)">
-              <use href="#monogram" fill="#D8DEE6" stroke="#D8DEE6" stroke-width="13"/>
+              <use href="#monogram" fill="#D8DEE6"/>
             </g>
             <g transform="translate(5,130) scale(.59)">
-              <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/>
+              <use href="#wordmark" fill="#D8DEE6"/>
             </g>
           </svg>
         </div>
@@ -1265,10 +1228,10 @@ html[data-perf="low"] .rv{transition-duration:.35s}
         <div class="cart__t">Symbole seul <span>réduit</span></div>
         <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:22px;padding:14px 0">
           <svg viewBox="0 0 100 100" style="width:72px" role="img" aria-label="Symbole seul">
-            <use href="#monogram" fill="#D8DEE6" stroke="#D8DEE6" stroke-width="13"/>
+            <use href="#monogram" fill="#D8DEE6"/>
           </svg>
           <svg viewBox="0 0 100 100" style="width:34px" role="img" aria-label="Symbole réduit">
-            <use href="#monogram" fill="#D8DEE6" stroke="#D8DEE6" stroke-width="13"/>
+            <use href="#monogram" fill="#D8DEE6"/>
           </svg>
         </div>
         <p class="mono">App, avatar, opercule, doseur, favicon</p>
@@ -1281,7 +1244,7 @@ html[data-perf="low"] .rv{transition-duration:.35s}
           <svg viewBox="0 0 900 46" style="width:100%" role="img"
                aria-label="Bandeau : logotype réduit à gauche, filet, mentions techniques à droite">
             <g transform="translate(0,2) scale(.42)">
-              <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/>
+              <use href="#wordmark" fill="#D8DEE6"/>
             </g>
             <path d="M230 6V40" stroke="rgba(142,149,158,.35)"/>
             <text x="252" y="28" class="tm" font-size="15" fill="#8E959E"
@@ -1295,61 +1258,52 @@ html[data-perf="low"] .rv{transition-duration:.35s}
       <div class="cart">
         <div class="cart__t">Version réduite <span>sous 140 px</span></div>
         <div style="display:flex;align-items:center;gap:26px;padding:18px 0;flex-wrap:wrap">
-          <svg viewBox="-9 -14 508 128" width="130" role="img" aria-label="Logotype réduit à 130 pixels en aplat">
-            <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="20"/>
+          <svg viewBox="-9 -14 508 128" width="130" role="img" aria-label="Logotype réduit à 130 pixels en aplat argent">
+            <use href="#wordmark" fill="#D8DEE6"/>
           </svg>
-          <svg viewBox="-9 -14 508 128" width="96" role="img" aria-label="Logotype réduit à 96 pixels, trait épaissi">
-            <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="22"/>
+          <svg viewBox="-9 -14 508 128" width="96" role="img"
+               aria-label="Logotype réduit à 96 pixels, approche élargie">
+            <g transform="scale(1.04,1) translate(-9,0)">
+              <use href="#wordmark" fill="#D8DEE6"/></g>
           </svg>
         </div>
-        <p class="mono">Trait épaissi de 18 u à <span class="k">20 u</span> sous 140 px,
-           <span class="k">22 u</span> sous 110 px. L'approche passe de 22 u à 26 u.
-           Compense la perte optique aux petites tailles.</p>
+        <p class="mono">Le fût ne change pas. Sous 140 px, l'approche passe de
+           <span class="k">14 u</span> à <span class="k">18 u</span> et les contreformes du O
+           et du G s'ouvrent de <span class="k">2 u</span>. Un lettrage plein se bouche par les
+           contreformes, jamais par le fût.</p>
       </div>
     </div>
 
     <hr class="hair">
 
     <!-- ── 4.6 Déclinaisons matière ── -->
-    <span class="lbl rv">Déclinaisons matière</span>
-    <h3 class="mt-s rv" style="font-size:clamp(19px,2vw,26px)">Sept états du même tracé</h3>
+    <span class="lbl rv">Déclinaisons</span>
+    <h3 class="mt-s rv" style="font-size:clamp(19px,2vw,26px)">Cinq états du même tracé</h3>
+    <p class="mt-s rv" style="color:var(--txt-2);max-width:74ch">
+      Une seule matière, donc une seule version chromée. Les quatre autres états sont des
+      aplats : ils ne sont pas des dégradations du chrome, ce sont les versions de travail.
+    </p>
     <div class="g4 mt-s rv">
       <figure class="cart" style="margin:0">
         <svg viewBox="-9 -14 508 128" style="width:100%" role="img" aria-label="Logotype en chrome poli">
-          <use href="#wordmark" fill="none" stroke="url(#crPoliH)" stroke-width="18"/>
+          <use href="#wordmark" fill="url(#crPoliH)"/>
         </svg>
         <figcaption class="mono" style="margin-top:12px">Chrome poli<br>
-          <span style="color:var(--txt-3)">Écran grand format, hero, PLV</span></figcaption>
-      </figure>
-      <figure class="cart" style="margin:0">
-        <svg viewBox="-9 -14 508 128" style="width:100%" role="img" aria-label="Logotype en chrome liquide déformé">
-          <g data-filtre="liquide" filter="url(#f-fige)">
-            <use href="#wordmark" fill="none" stroke="url(#crPoliH)" stroke-width="18"/>
-          </g>
-        </svg>
-        <figcaption class="mono" style="margin-top:12px">Chrome liquide<br>
-          <span style="color:var(--txt-3)">Ouverture, motion, réseaux</span></figcaption>
-      </figure>
-      <figure class="cart" style="margin:0">
-        <svg viewBox="-9 -14 508 128" style="width:100%" role="img" aria-label="Logotype en chrome noir">
-          <use href="#wordmark" fill="none" stroke="url(#crNoir)" stroke-width="18"/>
-        </svg>
-        <figcaption class="mono" style="margin-top:12px">Chrome noir<br>
-          <span style="color:var(--txt-3)">Ton sur ton, vernis sélectif</span></figcaption>
+          <span style="color:var(--txt-3)">Écran &gt; 140 px sur noir, PLV, packaging</span></figcaption>
       </figure>
       <figure class="cart" style="margin:0;border-color:var(--signal-700)">
-        <svg viewBox="-9 -14 508 128" style="width:100%" role="img" aria-label="Logotype en aplat blanc, version de référence">
-          <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/>
+        <svg viewBox="-9 -14 508 128" style="width:100%" role="img" aria-label="Logotype en aplat argent, version de référence">
+          <use href="#wordmark" fill="#D8DEE6"/>
         </svg>
         <figcaption class="mono" style="margin-top:12px;color:var(--signal)">Aplat argent · RÉFÉRENCE<br>
           <span style="color:var(--txt-3)">Le socle. Voir règle ci-dessous.</span></figcaption>
       </figure>
       <figure class="cart" style="margin:0;background:#F2F4F7">
         <svg viewBox="-9 -14 508 128" style="width:100%" role="img" aria-label="Logotype en aplat noir sur fond clair">
-          <use href="#wordmark" fill="none" stroke="#08090B" stroke-width="18"/>
+          <use href="#wordmark" fill="#08090B"/>
         </svg>
         <figcaption class="mono" style="margin-top:12px;color:#4A4C4F">Aplat noir<br>
-          <span style="color:#66686B">Fond clair, presse, facture</span></figcaption>
+          <span style="color:#66686B">Fond clair, presse, facture, dossard</span></figcaption>
       </figure>
       <figure class="cart" style="margin:0">
         <svg viewBox="-9 -14 508 128" style="width:100%" role="img" aria-label="Logotype en contour">
@@ -1360,17 +1314,10 @@ html[data-perf="low"] .rv{transition-duration:.35s}
       </figure>
       <figure class="cart" style="margin:0">
         <svg viewBox="-9 -14 508 128" style="width:100%" role="img" aria-label="Logotype monochrome argent moyen">
-          <use href="#wordmark" fill="none" stroke="#8E959E" stroke-width="18"/>
+          <use href="#wordmark" fill="#8E959E"/>
         </svg>
         <figcaption class="mono" style="margin-top:12px">Monochrome<br>
           <span style="color:var(--txt-3)">Une seule encre, tampon, sérigraphie</span></figcaption>
-      </figure>
-      <figure class="cart" style="margin:0">
-        <svg viewBox="-9 -14 508 128" style="width:100%" role="img" aria-label="Logotype en chrome irisé, dominantes froides">
-          <use href="#wordmark" fill="none" stroke="url(#crIris)" stroke-width="18"/>
-        </svg>
-        <figcaption class="mono" style="margin-top:12px">Chrome irisé<br>
-          <span style="color:var(--txt-3)">Édition limitée uniquement</span></figcaption>
       </figure>
     </div>
 
@@ -1381,7 +1328,7 @@ html[data-perf="low"] .rv{transition-duration:.35s}
       <div class="g-5-7" style="align-items:center">
         <svg viewBox="-9 -14 508 128" style="width:100%" role="img"
              aria-label="La version aplat argent du logotype, désignée comme version de référence">
-          <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/>
+          <use href="#wordmark" fill="#D8DEE6"/>
         </svg>
         <div>
           <h3 style="font-size:clamp(18px,1.9vw,24px);margin-bottom:10px">
@@ -1399,13 +1346,14 @@ html[data-perf="low"] .rv{transition-duration:.35s}
             la marque qu'un aplat parfaitement propre.
           </p>
           <table class="mt-s">
-            <tr><th style="width:34%">Chrome poli</th><td>Écran &gt; 140 px sur fond noir, PLV, hero, packaging avec procédé métallisé</td></tr>
-            <tr><th>Chrome liquide</th><td>Motion uniquement : ouverture de site, réseaux, écran de PLV</td></tr>
-            <tr><th>Chrome noir</th><td>Ton sur ton en vernis sélectif, sur substrat noir mat</td></tr>
+            <tr><th style="width:34%">Chrome poli</th><td>Écran &gt; 140 px sur fond noir, PLV,
+                packaging avec substrat métallisé</td></tr>
+            <tr><th>Chrome poli animé</th><td>Ouverture de site, réseaux, écran de PLV.
+                Même matière, déformation temporaire.</td></tr>
             <tr><th>Aplat argent</th><td class="ok">Par défaut partout ailleurs</td></tr>
-            <tr><th>Aplat noir</th><td>Tout fond clair, documents administratifs, presse</td></tr>
+            <tr><th>Aplat noir</th><td>Tout fond clair, documents administratifs, presse, dossard</td></tr>
             <tr><th>Contour</th><td>Gravure, découpe, marquage à chaud sans matière</td></tr>
-            <tr><th>Irisé</th><td>Éditions limitées signées, jamais en gamme courante</td></tr>
+            <tr><th>Monochrome</th><td>Une seule encre disponible : tampon, sérigraphie, flexo</td></tr>
           </table>
         </div>
       </div>
@@ -1422,7 +1370,7 @@ html[data-perf="low"] .rv{transition-duration:.35s}
         <svg viewBox="0 0 220 110" role="img" aria-label="Interdit : logotype étiré horizontalement">
           <rect width="220" height="110" fill="#0B0D10"/>
           <g transform="translate(14,36) scale(.42,.26)">
-            <use href="#wordmark" fill="none" stroke="#9AA2AB" stroke-width="18"/></g>
+            <use href="#wordmark" fill="#9AA2AB"/></g>
           <use href="#barre"/>
         </svg>
         <figcaption>Étiré ou compressé</figcaption>
@@ -1431,9 +1379,9 @@ html[data-perf="low"] .rv{transition-duration:.35s}
         <svg viewBox="0 0 220 110" role="img" aria-label="Interdit : logotype avec ombre portée">
           <rect width="220" height="110" fill="#0B0D10"/>
           <g transform="translate(20,42) scale(.38)">
-            <use href="#wordmark" fill="none" stroke="#000" stroke-width="18" opacity=".9"
+            <use href="#wordmark" fill="#000" opacity=".9"
                  transform="translate(9,9)"/>
-            <use href="#wordmark" fill="none" stroke="#9AA2AB" stroke-width="18"/></g>
+            <use href="#wordmark" fill="#9AA2AB"/></g>
           <use href="#barre"/>
         </svg>
         <figcaption>Ombré</figcaption>
@@ -1442,8 +1390,9 @@ html[data-perf="low"] .rv{transition-duration:.35s}
         <svg viewBox="0 0 220 110" role="img" aria-label="Interdit : logotype avec un contour ajouté">
           <rect width="220" height="110" fill="#0B0D10"/>
           <g transform="translate(20,42) scale(.38)">
-            <use href="#wordmark" fill="none" stroke="#5CE1F2" stroke-width="30"/>
-            <use href="#wordmark" fill="none" stroke="#0B0D10" stroke-width="18"/></g>
+            <use href="#wordmark" fill="none" stroke="#5CE1F2" stroke-width="14"
+                 stroke-linejoin="round"/>
+            <use href="#wordmark" fill="#9AA2AB"/></g>
           <use href="#barre"/>
         </svg>
         <figcaption>Contouré</figcaption>
@@ -1453,7 +1402,7 @@ html[data-perf="low"] .rv{transition-duration:.35s}
           <rect width="220" height="110" fill="#0B0D10"/>
           <g transform="rotate(-13,110,55)">
             <g transform="translate(22,40) scale(.38)">
-              <use href="#wordmark" fill="none" stroke="#9AA2AB" stroke-width="18"/></g>
+              <use href="#wordmark" fill="#9AA2AB"/></g>
           </g>
           <use href="#barre"/>
         </svg>
@@ -1463,7 +1412,7 @@ html[data-perf="low"] .rv{transition-duration:.35s}
         <svg viewBox="0 0 220 110" role="img" aria-label="Interdit : chrome sur fond clair, illisible">
           <rect width="220" height="110" fill="#EDEFF2"/>
           <g transform="translate(20,42) scale(.38)">
-            <use href="#wordmark" fill="none" stroke="url(#crPoliH)" stroke-width="18"/></g>
+            <use href="#wordmark" fill="url(#crPoliH)"/></g>
           <use href="#barre"/>
         </svg>
         <figcaption>Chrome sur fond clair</figcaption>
@@ -1477,13 +1426,13 @@ html[data-perf="low"] .rv{transition-duration:.35s}
             <stop offset=".78" stop-color="#E0C77A"/><stop offset="1" stop-color="#5C4514"/>
           </linearGradient></defs>
           <g transform="translate(20,42) scale(.38)">
-            <use href="#wordmark" fill="none" stroke="url(#dore)" stroke-width="18"/></g>
+            <use href="#wordmark" fill="url(#dore)"/></g>
           <use href="#barre"/>
         </svg>
-        <figcaption>Chrome doré</figcaption>
+        <figcaption>Chrome doré ou teinté</figcaption>
       </figure>
       <figure class="no-tile">
-        <svg viewBox="0 0 220 110" role="img" aria-label="Interdit : chrome irisé arc-en-ciel">
+        <svg viewBox="0 0 220 110" role="img" aria-label="Interdit : toute autre matière que le chrome poli">
           <rect width="220" height="110" fill="#0B0D10"/>
           <defs><linearGradient id="arcenciel" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stop-color="#FF4FD8"/><stop offset=".3" stop-color="#4FE3FF"/>
@@ -1491,18 +1440,18 @@ html[data-perf="low"] .rv{transition-duration:.35s}
             <stop offset="1" stop-color="#B44FFF"/>
           </linearGradient></defs>
           <g transform="translate(20,42) scale(.38)">
-            <use href="#wordmark" fill="none" stroke="url(#arcenciel)" stroke-width="18"/></g>
+            <use href="#wordmark" fill="url(#arcenciel)"/></g>
           <use href="#barre"/>
         </svg>
-        <figcaption>Irisé arc-en-ciel</figcaption>
+        <figcaption>Toute autre matière</figcaption>
       </figure>
       <figure class="no-tile">
         <svg viewBox="0 0 220 110" role="img" aria-label="Interdit : verrouillage réarrangé">
           <rect width="220" height="110" fill="#0B0D10"/>
           <g transform="translate(150,16) scale(.34)">
-            <use href="#monogram" fill="#9AA2AB" stroke="#9AA2AB" stroke-width="13"/></g>
+            <use href="#monogram" fill="#9AA2AB"/></g>
           <g transform="translate(16,58) scale(.28)">
-            <use href="#wordmark" fill="none" stroke="#9AA2AB" stroke-width="18"/></g>
+            <use href="#wordmark" fill="#9AA2AB"/></g>
           <use href="#barre"/>
         </svg>
         <figcaption>Réarrangé</figcaption>
@@ -1512,7 +1461,7 @@ html[data-perf="low"] .rv{transition-duration:.35s}
           <rect width="220" height="110" fill="#0B0D10"/>
           <g transform="translate(20,42) scale(.38)">
             <g filter="url(#f-relief)">
-              <use href="#wordmark" fill="none" stroke="#6E7885" stroke-width="26"/></g>
+              <use href="#wordmark" fill="#7D8894"/></g>
           </g>
           <use href="#barre"/>
         </svg>
@@ -1528,7 +1477,7 @@ html[data-perf="low"] .rv{transition-duration:.35s}
             <rect width="220" height="110" filter="url(#f-grain)" fill="#000" opacity=".25"/>
           </g>
           <g transform="translate(20,42) scale(.38)">
-            <use href="#wordmark" fill="none" stroke="url(#crPoliH)" stroke-width="18"/></g>
+            <use href="#wordmark" fill="url(#crPoliH)"/></g>
           <use href="#barre"/>
         </svg>
         <figcaption>Chrome sur photo chargée</figcaption>
@@ -1547,17 +1496,17 @@ html[data-perf="low"] .rv{transition-duration:.35s}
     <div class="g4 mt-s rv">
       <figure class="cart" style="margin:0;padding:0;overflow:hidden">
         <svg viewBox="0 0 300 180" style="width:100%" role="img"
-             aria-label="Logotype gravé dans une plaque de chrome brossé">
-          <rect width="300" height="180" fill="url(#crBrosse)"/>
-          <rect width="300" height="180" fill="url(#peigne)"/>
+             aria-label="Logotype gravé en creux dans une plaque de chrome poli">
+          <rect width="300" height="180" fill="url(#crPoli)"/>
+          <rect width="300" height="180" fill="none"/>
           <g transform="translate(24,64) scale(.5)">
-            <use href="#wordmark" fill="none" stroke="#000" stroke-width="18" opacity=".55"/>
-            <use href="#wordmark" fill="none" stroke="#EDF1F5" stroke-width="18" opacity=".5"
+            <use href="#wordmark" fill="#000" opacity=".55"/>
+            <use href="#wordmark" fill="#EDF1F5" opacity=".5"
                  transform="translate(0,3)"/>
-            <use href="#wordmark" fill="none" stroke="#5A626C" stroke-width="14"/>
+            <use href="#wordmark" fill="#5A626C"/>
           </g>
         </svg>
-        <figcaption class="mono" style="padding:12px 14px">Gravé · plaque brossée</figcaption>
+        <figcaption class="mono" style="padding:12px 14px">Gravé · plaque de chrome poli</figcaption>
       </figure>
       <figure class="cart" style="margin:0;padding:0;overflow:hidden">
         <svg viewBox="0 0 300 180" style="width:100%" role="img"
@@ -1565,11 +1514,10 @@ html[data-perf="low"] .rv{transition-duration:.35s}
           <rect width="300" height="180" fill="#141619"/>
           <rect width="300" height="180" filter="url(#f-grain)" fill="#1A1D21"/>
           <g transform="translate(24,64) scale(.5)">
-            <use href="#wordmark" fill="none" stroke="#000" stroke-width="18" opacity=".8"
+            <use href="#wordmark" fill="#000" opacity=".8"
                  transform="translate(0,4)"/>
-            <use href="#wordmark" fill="none" stroke="#4B525A" stroke-width="18"
-                 transform="translate(0,-2)"/>
-            <use href="#wordmark" fill="none" stroke="#1E2126" stroke-width="14"/>
+            <use href="#wordmark" fill="#4B525A" transform="translate(0,-2)"/>
+            <use href="#wordmark" fill="#1E2126"/>
           </g>
         </svg>
         <figcaption class="mono" style="padding:12px 14px">Embossé · carton noir mat</figcaption>
@@ -1580,7 +1528,7 @@ html[data-perf="low"] .rv{transition-duration:.35s}
           <rect width="300" height="180" fill="#0E1114"/>
           <rect x="30" y="20" width="240" height="140" fill="url(#crPoli)" opacity=".9"/>
           <g transform="translate(112,42) scale(.96)" filter="url(#f-relief)">
-            <use href="#monogram" fill="#B9C1CA" stroke="#B9C1CA" stroke-width="13"/>
+            <use href="#monogram" fill="#B9C1CA"/>
           </g>
         </svg>
         <figcaption class="mono" style="padding:12px 14px">Relief sur métal · éclairage réel</figcaption>
@@ -1590,14 +1538,13 @@ html[data-perf="low"] .rv{transition-duration:.35s}
              aria-label="Logotype brodé en fil blanc sur textile sombre, en version aplat">
           <rect width="300" height="180" fill="#16181C"/>
           <g opacity=".5">
-            <rect width="300" height="180" fill="url(#peigne)"/>
+            <rect width="300" height="180" fill="none"/>
           </g>
           <g transform="translate(30,66) scale(.46)">
-            <use href="#wordmark" fill="none" stroke="#E8ECF1" stroke-width="24"
-                 stroke-dasharray="9 5" stroke-linecap="butt"/>
+            <use href="#wordmark" fill="#E8ECF1"/>
           </g>
         </svg>
-        <figcaption class="mono" style="padding:12px 14px">Brodé · aplat, trait épaissi 20 u</figcaption>
+        <figcaption class="mono" style="padding:12px 14px">Brodé · aplat, points de remplissage</figcaption>
       </figure>
     </div>
   </div>
@@ -1807,124 +1754,83 @@ html[data-perf="low"] .rv{transition-duration:.35s}
     <hr class="hair">
 
     <!-- ── 5.3 Bibliothèque de matières ── -->
-    <span class="lbl rv">Bibliothèque de matières</span>
-    <h3 class="mt-s rv" style="font-size:clamp(19px,2vw,26px)">Les six chromes, avec leur recette</h3>
-    <div class="mat-grid mt-s rv">
-
-      <figure class="mat">
-        <div class="mat__s m-poli arete"></div>
+    <span class="lbl rv">La matière</span>
+    <h3 class="mt-s rv" style="font-size:clamp(19px,2vw,26px)">Un seul chrome : le chrome poli</h3>
+    <p class="mt-s rv" style="color:var(--txt-2);max-width:78ch">
+      La marque n'a qu'une matière. Pas de brossé, pas de mat, pas de noir, pas d'irisé :
+      une seule rampe, employée partout, sans variante. C'est une contrainte volontaire.
+      Une famille de six chromes se dilue en rayon, parce que l'œil ne distingue pas un
+      brossé d'un mat à trois mètres et lit simplement « du gris ». Une matière unique,
+      elle, devient une signature : tout ce qui brille de cette façon précise est Origin.
+    </p>
+    <div class="g-5-7 mt-s rv">
+      <figure class="mat" style="margin:0">
+        <div class="mat__s m-poli arete" style="height:230px"></div>
         <figcaption>
-          <h4>01 · Chrome poli</h4>
-          <p>Miroir. Contraste maximal, bande d'horizon dure, highlight étroit et décentré.
-             La matière de référence : logo, titres, face avant du produit héros.</p>
-          <pre class="code"><i>/* 14 arrêts irréguliers */</i>
-background:linear-gradient(178deg,
-  <b>#0C0E11</b> 0%,  #262C34 6%,  #4A525C 13%,
-  #7B8590 21%, #A9B2BC 29%,
-  <b>#E9EEF3</b> 34%, <b>#F7FAFC</b> 36%, <i>/* horizon */</i>
-  <b>#8F98A3</b> 38%, #4A525C 47%, #22282F 56%,
-  #6E7885 66%, #C3CBD4 75%, #7E8792 84%,
-  #363D46 92%, #171B20 100%);
-box-shadow:inset 0 1px 0 rgba(255,255,255,.42),
-           inset 0 -1px 0 rgba(0,0,0,.55);</pre>
+          <h4>Chrome poli <span class="k">MATIÈRE UNIQUE</span></h4>
+          <p>Miroir. Quatorze arrêts irréguliers, bande d'horizon dure entre 34 et 38 %,
+             highlight quasi blanc étroit et décentré, rebond froid dans les basses lumières.
+             C'est la seule surface réfléchissante autorisée par la marque.</p>
         </figcaption>
       </figure>
+      <div>
+        <pre class="code"><i>/* La rampe. 14 arrêts, volontairement irréguliers :
+   c'est l'irrégularité qui simule un environnement réfléchi
+   (sol sombre, ligne d'horizon, ciel clair) et non un tube. */</i>
+--chrome-poli:linear-gradient(178deg,
+  <b>#0C0E11</b> 0%,   <i>/* sol : le point le plus sombre */</i>
+  #262C34 6%,   #4A525C 13%,  #7B8590 21%,  #A9B2BC 29%,
+  <b>#E9EEF3</b> 34%,  <i>/* montée d'horizon */</i>
+  <b>#F7FAFC</b> 36%,  <i>/* highlight spéculaire, étroit, décentré */</i>
+  <b>#8F98A3</b> 38%,  <i>/* coupure dure : la surface est polie */</i>
+  #4A525C 47%,  #22282F 56%,  #6E7885 66%,  #C3CBD4 75%,
+  #7E8792 84%,  #363D46 92%,  #171B20 100%);
 
-      <figure class="mat">
-        <div class="mat__s m-liquide arete" data-filtre="liquide"></div>
-        <figcaption>
-          <h4>02 · Chrome liquide <span class="k">SIGNATURE</span></h4>
-          <p>La matière de marque. Le reflet se déplace au ralenti, la forme ondule.
-             En SVG : <code>feTurbulence</code> puis <code>feDisplacementMap</code>.
-             En CSS : la rampe est surdimensionnée et sa position glisse.</p>
-          <pre class="code"><i>/* SVG : la déformation réelle */</i>
-&lt;feTurbulence type="fractalNoise"
-   baseFrequency="<b>0.009 0.019</b>" numOctaves="3"/&gt;
-&lt;feDisplacementMap scale="<b>12</b>"
-   xChannelSelector="R" yChannelSelector="G"/&gt;
+<i>/* L'arête. Un liseré clair en haut, sombre en bas :
+   c'est ce qui donne l'épaisseur de la pièce. */</i>
+box-shadow:inset 0 1px 0 rgba(255,255,255,<b>.42</b>),
+           inset 0 -1px 0 rgba(0,0,0,<b>.55</b>);
 
-<i>/* CSS : le reflet qui glisse, sans filtre */</i>
-background-size:100% <b>220%</b>;
-animation:flux 16s cubic-bezier(.22,1,.36,1)
-          infinite alternate;</pre>
-        </figcaption>
-      </figure>
+<i>/* Sur un cylindre (corps de pot), la rampe passe à
+   l'HORIZONTALE : sombre aux deux bords, claire au centre.
+   Même matière, orientation dictée par la géométrie. */</i>
+--cyl-poli:linear-gradient(<b>92deg</b>,#0A0C0F,#454D57 12%,
+  #B4BDC7 27%,<b>#FAFCFE 33%</b>,#565E68 45%,#2C323A 54%,
+  #7C8590 71%,#C2CAD3 79%,#2B3138 94%,#0D1014);</pre>
+      </div>
+    </div>
 
-      <figure class="mat">
-        <div class="mat__s m-brosse arete"></div>
-        <figcaption>
-          <h4>03 · Chrome brossé</h4>
-          <p>Reflets étirés dans une seule direction. Contraste écrasé, horizon adouci.
-             Le peigne est un dégradé répété de 4,5 px superposé à la rampe.</p>
-          <pre class="code">background:
- <b>repeating-linear-gradient(92deg,</b>
-   rgba(255,255,255,.055) 0 1px,
-   rgba(0,0,0,.075) 1px 2px,
-   rgba(255,255,255,.02) 2px 3px,
-   rgba(0,0,0,.03) 3px 4.5px<b>)</b>,
- linear-gradient(178deg,#23282E,#A6AEB8 33%,
-   #7C858F 39%,#383F47 58%,#8D96A0 77%,#2B3038);
-
-<i>/* SVG équivalent : turbulence anisotrope */</i>
-baseFrequency="<b>0.004 1.1</b>"</pre>
-        </figcaption>
-      </figure>
-
-      <figure class="mat">
-        <div class="mat__s m-mat arete"></div>
-        <figcaption>
-          <h4>04 · Chrome mat / sablé</h4>
-          <p>Spéculaire diffuse. Aucun highlight blanc, amplitude réduite à 11 arrêts entre
-             <span class="k">#2C3138</span> et <span class="k">#79808A</span>.
-             C'est le seul chrome lisible sous une lumière indirecte.</p>
-          <pre class="code">background:linear-gradient(178deg,
-  #2C3138 0%,#4E555E 27%,<b>#79808A 41%</b>,
-  #5E656E 52%,#454B53 63%,#6E757E 82%,#33383F);
-
-<i>/* SVG : éclairage diffus, exposant bas */</i>
-&lt;feSpecularLighting surfaceScale="4"
-  specularConstant="<b>.55</b>" specularExponent="<b>7</b>"
-  lighting-color="#C8D4E2"&gt;
-  &lt;feDistantLight azimuth="230" elevation="58"/&gt;</pre>
-        </figcaption>
-      </figure>
-
-      <figure class="mat">
-        <div class="mat__s m-noir arete"></div>
-        <figcaption>
-          <h4>05 · Chrome noir</h4>
-          <p>Même logique, valeurs écrasées vers le noir. Le highlight plafonne à
-             <span class="k">#99A2AC</span> au lieu de <span class="k">#F7FAFC</span>.
-             Réservé au ton sur ton et au vernis sélectif sur substrat noir.</p>
-          <pre class="code">background:linear-gradient(178deg,
-  #030405 0%,#1A1E24 16%,#454C55 30%,
-  <b>#767F8A 34%</b>,<b>#99A2AC 36%</b>, <i>/* plafond */</i>
-  #3A4149 39%,#0E1114 57%,#555D67 76%,
-  #14171B 93%,#050608 100%);</pre>
-        </figcaption>
-      </figure>
-
-      <figure class="mat">
-        <div class="mat__s m-iris arete"></div>
-        <figcaption>
-          <h4>06 · Chrome irisé</h4>
-          <p>Dominantes froides dans les reflets : bleu ardoise dans les basses lumières,
-             bleu pâle sur l'horizon. Jamais d'arc-en-ciel, jamais de magenta, jamais de doré.
-             Éditions limitées uniquement.</p>
-          <pre class="code"><i>/* même structure, teintes froides injectées */</i>
-background:linear-gradient(178deg,
-  <b>#0A0E14</b> 0%,<b>#1E2A38</b> 7%,#3D5468 14%,
-  #6F8AA0 22%,#A7BECD 29%,#E4EEF5 34%,
-  #F4FAFD 36%,#8496A8 38%,<b>#4C5D74</b> 47%,
-  <b>#262E3D</b> 56%,#5E7286 66%,#B6C6D6 75%,
-  #75879B 84%,#333E4E 92%,#141A22 100%);</pre>
-        </figcaption>
-      </figure>
+    <div class="cart mt-s rv" style="border-left:3px solid var(--signal)">
+      <div class="cart__t">Règle d'unicité <span>non négociable</span></div>
+      <div class="g2">
+        <div>
+          <p style="color:var(--txt-2)">
+            Le chrome poli est la seule matière réfléchissante de la marque. Tout ce qui n'est
+            pas ce chrome est un <b style="color:var(--blanc)">aplat noir</b> : plastique du
+            couvercle, carton d'expédition, substrat de l'étui, fond de page. Deux surfaces,
+            pas davantage.
+          </p>
+          <p style="color:var(--txt-2)">
+            Le mouvement n'est pas une seconde matière. Quand le chrome ondule à l'ouverture du
+            site, c'est la même rampe, temporairement déformée. La déformation s'arrête, la
+            matière reste identique.
+          </p>
+        </div>
+        <table>
+          <tr><th style="width:46%" class="ok">Autorisé</th>
+              <td>Chrome poli, en aplat ou en mouvement</td></tr>
+          <tr><th class="ok">Autorisé</th><td>Noir, mat, non réfléchissant</td></tr>
+          <tr><th class="no">Interdit</th><td>Chrome brossé, mat, sablé</td></tr>
+          <tr><th class="no">Interdit</th><td>Chrome noir ou fumé</td></tr>
+          <tr><th class="no">Interdit</th><td>Chrome irisé, doré, cuivré, coloré</td></tr>
+          <tr><th class="no">Interdit</th><td>Deux matières réfléchissantes dans une même image</td></tr>
+        </table>
+      </div>
     </div>
 
     <!-- Démonstration animée exigée au §3.C -->
     <div class="cart cart--plein mt rv">
-      <div class="cart__t">Démonstration animée <span>chrome liquide</span></div>
+      <div class="cart__t">Démonstration animée <span>la matière en mouvement</span></div>
       <div class="g-5-7" style="align-items:center">
         <svg viewBox="0 0 400 260" style="width:100%" role="img"
              aria-label="Plan de métal liquide ondulant lentement en boucle, avec sphère et tore chromés">
@@ -2141,51 +2047,61 @@ background:linear-gradient(178deg,
 
     <!-- ── 5.8 Code produit ── -->
     <span class="lbl rv">Code produit</span>
-    <h3 class="mt-s rv" style="font-size:clamp(19px,2vw,26px)">Six SKU, une seule couleur</h3>
-    <p class="mt-s rv" style="color:var(--txt-2);max-width:74ch">
-      Les six références ne sont pas différenciées par six couleurs, ce qui détruirait la
-      cohérence de rayon. Elles le sont par deux variables croisées :
-      <b style="color:var(--blanc)">la matière</b> de la surface, et
-      <b style="color:var(--blanc)">la cote</b>, un filet argent dont la hauteur sur le pot code
-      la famille. Le résultat se lit à trois mètres sans lire un seul mot.
+    <h3 class="mt-s rv" style="font-size:clamp(19px,2vw,26px)">Six SKU, une seule matière</h3>
+    <p class="mt-s rv" style="color:var(--txt-2);max-width:78ch">
+      Puisque la matière est unique, elle ne peut plus différencier les références.
+      Ce sont deux autres variables, croisées, qui le font :
+      <b style="color:var(--blanc)">la quantité de chrome</b> sur la face, et
+      <b style="color:var(--blanc)">la cote</b>, un filet argent dont la hauteur code la famille.
+      La gamme se lit alors comme un dégagement progressif du chrome, du produit le plus
+      brillant au plus sombre, et se reconnaît à trois mètres sans lire un seul mot.
     </p>
     <div class="sku-grid mt-s rv">
       <figure class="sku">
-        <div class="sku__s m-poli arete"><span class="sku__c" style="top:22%"></span></div>
-        <figcaption><b>Whey Isolate</b><span class="mono">Chrome poli · cote haute</span></figcaption>
+        <div class="sku__s"><span class="sku__ch m-poli" style="top:0;height:100%"></span>
+          <span class="sku__c" style="top:24%"></span></div>
+        <figcaption><b>Whey Isolate</b><span class="mono">100 % chrome · cote haute</span></figcaption>
       </figure>
       <figure class="sku">
-        <div class="sku__s m-mat arete"><span class="sku__c" style="top:22%"></span></div>
-        <figcaption><b>Protéine Végétale</b><span class="mono">Chrome mat · cote haute</span></figcaption>
+        <div class="sku__s"><span class="sku__ch m-poli" style="top:0;height:56%"></span>
+          <span class="sku__c" style="top:24%"></span></div>
+        <figcaption><b>Protéine Végétale</b><span class="mono">56 % chrome haut · cote haute</span></figcaption>
       </figure>
       <figure class="sku">
-        <div class="sku__s m-brosse arete"><span class="sku__c" style="top:50%"></span></div>
-        <figcaption><b>Créatine</b><span class="mono">Chrome brossé · cote médiane</span></figcaption>
+        <div class="sku__s"><span class="sku__ch m-poli" style="top:28%;height:52%"></span>
+          <span class="sku__c" style="top:50%"></span></div>
+        <figcaption><b>Créatine</b><span class="mono">52 % chrome médian · cote médiane</span></figcaption>
       </figure>
       <figure class="sku">
-        <div class="sku__s m-poli arete"><span class="sku__c sku__c--sig" style="top:50%"></span></div>
-        <figcaption><b>Pré-Workout</b><span class="mono">Chrome poli · cote Signal</span></figcaption>
+        <div class="sku__s"><span class="sku__ch m-poli" style="top:28%;height:52%"></span>
+          <span class="sku__c sku__c--sig" style="top:50%"></span></div>
+        <figcaption><b>Pré-Workout</b><span class="mono">52 % chrome médian · cote Signal</span></figcaption>
       </figure>
       <figure class="sku">
-        <div class="sku__s m-iris arete"><span class="sku__c" style="top:78%"></span></div>
-        <figcaption><b>Électrolytes</b><span class="mono">Chrome irisé · cote basse</span></figcaption>
+        <div class="sku__s"><span class="sku__ch m-poli" style="top:52%;height:48%"></span>
+          <span class="sku__c" style="top:76%"></span></div>
+        <figcaption><b>Électrolytes</b><span class="mono">48 % chrome bas · cote basse</span></figcaption>
       </figure>
       <figure class="sku">
-        <div class="sku__s m-noir arete"><span class="sku__c" style="top:78%"></span></div>
-        <figcaption><b>Récupération Nuit</b><span class="mono">Chrome noir · cote basse</span></figcaption>
+        <div class="sku__s"><span class="sku__ch m-poli" style="top:70%;height:14%"></span>
+          <span class="sku__c" style="top:76%"></span></div>
+        <figcaption><b>Récupération Nuit</b><span class="mono">14 % chrome · cote basse</span></figcaption>
       </figure>
     </div>
     <div class="cart mt-s rv">
       <div class="cart__t">Lecture du système <span>vérification</span></div>
       <table>
-        <tr><th style="width:22%">Cote haute</th><td>Protéines. Whey isolate et protéine végétale,
-            séparées par le poli et le mat.</td></tr>
-        <tr><th>Cote médiane</th><td>Performance. Créatine et pré-workout, séparés par le brossé
-            et le poli, ce dernier portant la seule cote en Signal de toute la gamme.</td></tr>
-        <tr><th>Cote basse</th><td>Minéraux et récupération. Électrolytes et nuit, séparés par
-            l'irisé et le noir.</td></tr>
-        <tr><th>Contrôle</th><td class="ok">Aucune paire ne partage à la fois la matière et la
-            hauteur de cote. En monochrome, la cote seule sépare encore les trois familles.</td></tr>
+        <tr><th>Famille</th><th>Cote</th><th>Références</th><th>Ce qui les sépare</th></tr>
+        <tr><td>Protéines</td><td class="num">Haute · 24 %</td><td>Whey Isolate, Protéine Végétale</td>
+            <td>100 % de chrome contre 56 %. Le héros de la gamme est le seul entièrement chromé.</td></tr>
+        <tr><td>Performance</td><td class="num">Médiane · 50 %</td><td>Créatine, Pré-Workout</td>
+            <td>Bandeau identique. Seul le Pré-Workout porte la cote en Signal, unique dans toute la gamme.</td></tr>
+        <tr><td>Minéraux, nuit</td><td class="num">Basse · 76 %</td><td>Électrolytes, Récupération Nuit</td>
+            <td>48 % de chrome contre 14 %. Le produit du soir est le plus sombre de la gamme.</td></tr>
+        <tr><td colspan="2"><b style="color:var(--blanc)">Contrôle</b></td>
+            <td colspan="2" class="ok">Aucune paire ne partage à la fois la cote et la quantité de
+            chrome. En monochrome, la cote seule sépare encore les trois familles, et la surface
+            chromée devient un aplat argent qui conserve les six proportions.</td></tr>
       </table>
     </div>
   </div>
@@ -2232,7 +2148,10 @@ background:linear-gradient(178deg,
   /* SKU */
   .sku-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--gap)}
   .sku{margin:0}
-  .sku__s{position:relative;aspect-ratio:3/4;border-radius:var(--r)}
+  .sku__s{position:relative;aspect-ratio:3/4;border-radius:var(--r);overflow:hidden;
+          background-image:var(--noir-plat);
+          box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -1px 0 rgba(0,0,0,.6)}
+  .sku__ch{position:absolute;left:0;right:0}
   .sku__c{position:absolute;left:0;right:0;height:2px;background:#E4E8EC;
           box-shadow:0 1px 0 rgba(0,0,0,.5)}
   .sku__c--sig{background:#5CE1F2;height:3px}
@@ -2932,7 +2851,7 @@ opacity:.5;</pre>
           <rect width="300" height="200" fill="#0B0D10"/>
           <ellipse cx="150" cy="168" rx="86" ry="12" fill="url(#ombre)"/>
           <rect x="106" y="62" width="88" height="102" fill="url(#crPoli)"/>
-          <rect x="100" y="50" width="100" height="16" fill="url(#crBrosse)"/>
+          <rect x="100" y="50" width="100" height="16" fill="url(#crPoli)"/>
           <path d="M0 40 L96 96" stroke="#5CE1F2" stroke-width="1" opacity=".5"/>
           <circle cx="6" cy="38" r="4" fill="#5CE1F2" opacity=".6"/>
         </svg>
@@ -2984,7 +2903,7 @@ opacity:.5;</pre>
         <svg viewBox="0 0 300 200" role="img" aria-label="Cadre 5 : doseur en suspension">
           <rect width="300" height="200" fill="#0B0D10"/>
           <path d="M112 74 h76 l-10 54 h-56Z" fill="url(#crPoli)"/>
-          <rect x="186" y="76" width="34" height="7" fill="url(#crBrosse)"/>
+          <rect x="186" y="76" width="34" height="7" fill="url(#crPoli)"/>
           <ellipse cx="150" cy="176" rx="46" ry="7" fill="url(#ombre)" opacity=".6"/>
           <path d="M150 138 v22" stroke="#5CE1F2" stroke-width="1" stroke-dasharray="2 4" opacity=".6"/>
         </svg>
@@ -2999,7 +2918,7 @@ opacity:.5;</pre>
           <rect x="20" y="52" width="260" height="96" fill="#101317" stroke="rgba(142,149,158,.3)"/>
           <text x="38" y="92" class="tm" font-size="19" fill="#F2F4F7">LOT 4471-B</text>
           <text x="38" y="118" class="tm" font-size="12" fill="#8E959E">ANALYSE 12/06/2026</text>
-          <rect x="38" y="128" width="120" height="8" fill="url(#peigne)"/>
+          <rect x="38" y="128" width="120" height="8" fill="none"/>
           <path d="M240 60 L280 100" stroke="#5CE1F2" stroke-width="1" opacity=".4"/>
         </svg>
         <figcaption><b>06 · Macro étiquette</b>
@@ -3013,11 +2932,11 @@ opacity:.5;</pre>
           <ellipse cx="150" cy="158" rx="130" ry="10" fill="url(#ombre)"/>
           <g>
             <rect x="34" y="76" width="34" height="76" fill="url(#crPoli)"/>
-            <rect x="74" y="72" width="34" height="80" fill="url(#crMat)"/>
-            <rect x="114" y="80" width="34" height="72" fill="url(#crBrosse)"/>
+            <rect x="74" y="72" width="34" height="80" fill="url(#crPoli)"/>
+            <rect x="114" y="80" width="34" height="72" fill="url(#crPoli)"/>
             <rect x="154" y="74" width="34" height="78" fill="url(#crPoli)"/>
-            <rect x="194" y="84" width="34" height="68" fill="url(#crIris)"/>
-            <rect x="234" y="88" width="34" height="64" fill="url(#crNoir)"/>
+            <rect x="194" y="84" width="34" height="68" fill="url(#crPoli)"/>
+            <rect x="234" y="88" width="34" height="64" fill="#141619"/>
           </g>
         </svg>
         <figcaption><b>07 · Gamme en enfilade</b>
@@ -3030,7 +2949,7 @@ opacity:.5;</pre>
           <rect width="300" height="200" fill="#0B0D10"/>
           <g data-filtre="liquide" filter="url(#f-fige)">
             <rect x="0" y="30" width="300" height="140" fill="url(#crPoli)"/></g>
-          <rect x="0" y="30" width="300" height="140" fill="url(#peigne)" opacity=".5"/>
+          <rect x="0" y="30" width="300" height="140" fill="none" opacity=".5"/>
         </svg>
         <figcaption><b>08 · Détail de surface</b>
           <span>Plein cadre sur la matière, aucun objet identifiable. Sert de fond de section,
@@ -3170,158 +3089,158 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
     </p>
 
     <div class="pk-grid mt rv">
-      <!-- 01 WHEY -->
       <figure class="pk">
         <div class="pk__duo">
-          <div class="pot">
-            <div class="pot__lid cyl-brosse"></div>
-            <div class="pot__body cyl-poli">
-              <span class="pot__logo">ORIGIN</span>
-              <span class="pot__cote" style="top:24%"></span>
-              <span class="pot__nom">WHEY<br>ISOLATE</span>
-              <span class="pot__dose">25 g / dose</span>
+            <div class="pot">
+              <div class="pot__lid cyl-noir"></div>
+              <div class="pot__body cyl-noir">
+                <span class="pot__chrome cyl-poli" style="top:0%;height:100%"></span>
+                <span class="pot__logo tx-d">ORIGIN</span>
+                <span class="pot__cote" style="top:24%"></span>
+                <span class="pot__nom tx-d" style="top:30%">WHEY<br>ISOLATE</span>
+                <span class="pot__dose tx-d">25 g / dose</span>
+              </div>
+              <div class="pot__sol"></div>
             </div>
-            <div class="pot__sol"></div>
-          </div>
-          <div class="pot pot--34">
-            <div class="pot__lid cyl-brosse"></div>
-            <div class="pot__body cyl-poli">
-              <span class="pot__cote" style="top:24%"></span>
-              <span class="pot__nom pot__nom--34">WHEY<br>ISOLATE</span>
+            <div class="pot pot--34">
+              <div class="pot__lid cyl-noir"></div>
+              <div class="pot__body cyl-noir">
+                <span class="pot__chrome cyl-poli" style="top:0%;height:100%"></span>
+                <span class="pot__cote" style="top:24%"></span>
+              </div>
+              <div class="pot__sol"></div>
             </div>
-            <div class="pot__sol"></div>
-          </div>
         </div>
         <figcaption><b>Whey Isolate</b>
-          <span class="mono">Pot 1 kg · Ø 120 × H 205 mm · chrome poli · cote haute</span></figcaption>
+          <span class="mono">Pot 1 kg · Ø 120 × H 205 mm · face 100 % chrome · cote haute</span></figcaption>
       </figure>
 
-      <!-- 02 CRÉATINE -->
       <figure class="pk">
         <div class="pk__duo">
-          <div class="pot pot--s">
-            <div class="pot__lid cyl-brosse"></div>
-            <div class="pot__body cyl-brosse">
-              <span class="pot__logo">ORIGIN</span>
-              <span class="pot__cote" style="top:50%"></span>
-              <span class="pot__nom">CRÉA-<br>TINE</span>
-              <span class="pot__dose">5 g / dose</span>
+            <div class="pot">
+              <div class="pot__lid cyl-noir"></div>
+              <div class="pot__body cyl-noir">
+                <span class="pot__chrome cyl-poli" style="top:0%;height:56%"></span>
+                <span class="pot__logo tx-d">ORIGIN</span>
+                <span class="pot__cote" style="top:24%"></span>
+                <span class="pot__nom tx-d" style="top:30%">PROTÉINE<br>VÉGÉTALE</span>
+                <span class="pot__dose tx-l">24 g / dose</span>
+              </div>
+              <div class="pot__sol"></div>
             </div>
-            <div class="pot__sol"></div>
-          </div>
-          <div class="pot pot--s pot--34">
-            <div class="pot__lid cyl-brosse"></div>
-            <div class="pot__body cyl-brosse">
-              <span class="pot__cote" style="top:50%"></span>
-              <span class="pot__nom pot__nom--34">CRÉA-<br>TINE</span>
+            <div class="pot pot--34">
+              <div class="pot__lid cyl-noir"></div>
+              <div class="pot__body cyl-noir">
+                <span class="pot__chrome cyl-poli" style="top:0%;height:56%"></span>
+                <span class="pot__cote" style="top:24%"></span>
+              </div>
+              <div class="pot__sol"></div>
             </div>
-            <div class="pot__sol"></div>
-          </div>
-        </div>
-        <figcaption><b>Créatine Monohydrate</b>
-          <span class="mono">Pot 500 g · Ø 95 × H 150 mm · chrome brossé · cote médiane</span></figcaption>
-      </figure>
-
-      <!-- 03 VÉGÉTALE -->
-      <figure class="pk">
-        <div class="pk__duo">
-          <div class="pot">
-            <div class="pot__lid cyl-mat"></div>
-            <div class="pot__body cyl-mat">
-              <span class="pot__logo">ORIGIN</span>
-              <span class="pot__cote" style="top:24%"></span>
-              <span class="pot__nom">PROTÉINE<br>VÉGÉTALE</span>
-              <span class="pot__dose">24 g / dose</span>
-            </div>
-            <div class="pot__sol"></div>
-          </div>
-          <div class="pot pot--34">
-            <div class="pot__lid cyl-mat"></div>
-            <div class="pot__body cyl-mat">
-              <span class="pot__cote" style="top:24%"></span>
-              <span class="pot__nom pot__nom--34">PROTÉINE<br>VÉGÉTALE</span>
-            </div>
-            <div class="pot__sol"></div>
-          </div>
         </div>
         <figcaption><b>Protéine Végétale</b>
-          <span class="mono">Pot 900 g · Ø 120 × H 190 mm · chrome mat · cote haute</span></figcaption>
+          <span class="mono">Pot 900 g · Ø 120 × H 190 mm · face 56 % chrome · cote haute</span></figcaption>
       </figure>
 
-      <!-- 04 PRÉ-WORKOUT -->
       <figure class="pk">
         <div class="pk__duo">
-          <div class="pot pot--s">
-            <div class="pot__lid cyl-noir"></div>
-            <div class="pot__body cyl-poli">
-              <span class="pot__logo">ORIGIN</span>
-              <span class="pot__cote pot__cote--sig" style="top:50%"></span>
-              <span class="pot__nom">PRÉ-<br>WORKOUT</span>
-              <span class="pot__dose">200 mg caféine</span>
+            <div class="pot pot--s">
+              <div class="pot__lid cyl-noir"></div>
+              <div class="pot__body cyl-noir">
+                <span class="pot__chrome cyl-poli" style="top:28%;height:52%"></span>
+                <span class="pot__logo tx-l">ORIGIN</span>
+                <span class="pot__cote" style="top:50%"></span>
+                <span class="pot__nom tx-d" style="top:56%">CRÉATINE</span>
+                <span class="pot__dose tx-l">5 g / dose</span>
+              </div>
+              <div class="pot__sol"></div>
             </div>
-            <div class="pot__sol"></div>
-          </div>
-          <div class="pot pot--s pot--34">
-            <div class="pot__lid cyl-noir"></div>
-            <div class="pot__body cyl-poli">
-              <span class="pot__cote pot__cote--sig" style="top:50%"></span>
-              <span class="pot__nom pot__nom--34">PRÉ-<br>WORKOUT</span>
+            <div class="pot pot--s pot--34">
+              <div class="pot__lid cyl-noir"></div>
+              <div class="pot__body cyl-noir">
+                <span class="pot__chrome cyl-poli" style="top:28%;height:52%"></span>
+                <span class="pot__cote" style="top:50%"></span>
+              </div>
+              <div class="pot__sol"></div>
             </div>
-            <div class="pot__sol"></div>
-          </div>
+        </div>
+        <figcaption><b>Créatine Monohydrate</b>
+          <span class="mono">Pot 500 g · Ø 95 × H 150 mm · bandeau médian 52 % · cote médiane</span></figcaption>
+      </figure>
+
+      <figure class="pk">
+        <div class="pk__duo">
+            <div class="pot pot--s">
+              <div class="pot__lid cyl-noir"></div>
+              <div class="pot__body cyl-noir">
+                <span class="pot__chrome cyl-poli" style="top:28%;height:52%"></span>
+                <span class="pot__logo tx-l">ORIGIN</span>
+                <span class="pot__cote pot__cote--sig" style="top:50%"></span>
+                <span class="pot__nom tx-d" style="top:56%">PRÉ-WORKOUT</span>
+                <span class="pot__dose tx-l">200 mg caféine</span>
+              </div>
+              <div class="pot__sol"></div>
+            </div>
+            <div class="pot pot--s pot--34">
+              <div class="pot__lid cyl-noir"></div>
+              <div class="pot__body cyl-noir">
+                <span class="pot__chrome cyl-poli" style="top:28%;height:52%"></span>
+                <span class="pot__cote pot__cote--sig" style="top:50%"></span>
+              </div>
+              <div class="pot__sol"></div>
+            </div>
         </div>
         <figcaption><b>Pré-Workout</b>
-          <span class="mono">Pot 400 g · Ø 95 × H 135 mm · chrome poli · cote Signal</span></figcaption>
+          <span class="mono">Pot 400 g · Ø 95 × H 135 mm · bandeau médian 52 % · cote Signal</span></figcaption>
       </figure>
 
-      <!-- 05 ÉLECTROLYTES -->
       <figure class="pk">
         <div class="pk__duo">
-          <div class="boite">
-            <div class="boite__f cyl-iris">
-              <span class="pot__logo">ORIGIN</span>
-              <span class="pot__cote" style="top:76%"></span>
-              <span class="boite__nom">ÉLECTRO-<br>LYTES</span>
-              <span class="pot__dose">20 sticks</span>
+            <div class="boite">
+              <div class="boite__f cyl-noir">
+                <span class="pot__chrome cyl-poli" style="top:52%;height:48%"></span>
+                <span class="pot__logo tx-l">ORIGIN</span>
+                <span class="pot__cote" style="top:76%"></span>
+                <span class="boite__nom tx-d" style="top:82%">ÉLECTROLYTES</span>
+                <span class="pot__dose tx-d">20 sticks</span>
+              </div>
+              <div class="pot__sol"></div>
             </div>
-            <div class="pot__sol"></div>
-          </div>
-          <div class="boite boite--34">
-            <div class="boite__f cyl-iris">
-              <span class="pot__cote" style="top:76%"></span>
-              <span class="boite__nom">ÉLECTRO-<br>LYTES</span>
+            <div class="boite boite--34">
+              <div class="boite__f cyl-noir">
+                <span class="pot__chrome cyl-poli" style="top:52%;height:48%"></span>
+                <span class="pot__cote" style="top:76%"></span>
+              </div>
+              <div class="boite__c cyl-noir"></div>
+              <div class="pot__sol"></div>
             </div>
-            <div class="boite__c cyl-noir"></div>
-            <div class="pot__sol"></div>
-          </div>
         </div>
         <figcaption><b>Électrolytes</b>
-          <span class="mono">Boîte 20 sticks · 130 × 85 × 60 mm · chrome irisé · cote basse</span></figcaption>
+          <span class="mono">Boîte 20 sticks · 130 × 85 × 60 mm · face 48 % chrome bas · cote basse</span></figcaption>
       </figure>
 
-      <!-- 06 NUIT -->
       <figure class="pk">
         <div class="pk__duo">
-          <div class="etui">
-            <div class="etui__f cyl-noir">
-              <span class="pot__logo">ORIGIN</span>
-              <span class="pot__cote" style="top:76%"></span>
-              <span class="boite__nom">RÉCUP.<br>NUIT</span>
-              <span class="pot__dose">90 gélules</span>
+            <div class="etui">
+              <div class="etui__f cyl-noir">
+                <span class="pot__chrome cyl-poli" style="top:70%;height:14%"></span>
+                <span class="pot__logo tx-l">ORIGIN</span>
+                <span class="pot__cote" style="top:76%"></span>
+                <span class="boite__nom tx-l" style="top:26%">RÉCUP. NUIT</span>
+                <span class="pot__dose tx-l">90 gélules</span>
+              </div>
+              <div class="pot__sol"></div>
             </div>
-            <div class="pot__sol"></div>
-          </div>
-          <div class="etui etui--34">
-            <div class="etui__f cyl-noir">
-              <span class="pot__cote" style="top:76%"></span>
-              <span class="boite__nom">RÉCUP.<br>NUIT</span>
+            <div class="etui etui--34">
+              <div class="etui__f cyl-noir">
+                <span class="pot__chrome cyl-poli" style="top:70%;height:14%"></span>
+                <span class="pot__cote" style="top:76%"></span>
+              </div>
+              <div class="etui__c cyl-noir"></div>
+              <div class="pot__sol"></div>
             </div>
-            <div class="etui__c cyl-mat"></div>
-            <div class="pot__sol"></div>
-          </div>
         </div>
         <figcaption><b>Récupération Nuit</b>
-          <span class="mono">Étui 90 gélules · 60 × 60 × 110 mm · chrome noir · cote basse</span></figcaption>
+          <span class="mono">Étui 90 gélules · 60 × 60 × 110 mm · chrome réduit à 14 % · cote basse</span></figcaption>
       </figure>
     </div>
 
@@ -3341,7 +3260,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
           </g>
           <!-- 1 logo -->
           <g transform="translate(34,52) scale(.28)">
-            <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/></g>
+            <use href="#wordmark" fill="#D8DEE6"/></g>
           <!-- 2 nom produit -->
           <text x="34" y="176" class="tt" font-size="54" fill="#F2F4F7" letter-spacing="-2.4">WHEY</text>
           <text x="34" y="232" class="tt" font-size="54" fill="#F2F4F7" letter-spacing="-2.4">ISOLATE</text>
@@ -3416,7 +3335,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
         <!-- FACE AVANT -->
         <rect x="0" y="0" width="302" height="220" fill="#0B0D10" stroke="rgba(142,149,158,.3)"/>
         <g transform="translate(22,18) scale(.17)">
-          <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/></g>
+          <use href="#wordmark" fill="#D8DEE6"/></g>
         <text x="22" y="98" class="tt" font-size="34" fill="#F2F4F7" letter-spacing="-1.4">WHEY</text>
         <text x="22" y="132" class="tt" font-size="34" fill="#F2F4F7" letter-spacing="-1.4">ISOLATE</text>
         <text x="22" y="156" font-size="11" fill="#A5ABB3">90,4 % de protéine, sans arôme.</text>
@@ -3561,16 +3480,16 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
           <!-- axe -->
           <path d="M190 30 V530" stroke="rgba(92,225,242,.35)" stroke-width="1" stroke-dasharray="4 5"/>
           <!-- A couvercle -->
-          <ellipse cx="190" cy="60" rx="96" ry="20" fill="url(#crMat)"/>
-          <path d="M94 60 v18 a96 20 0 0 0 192 0 V60" fill="url(#crMat)"/>
+          <ellipse cx="190" cy="60" rx="96" ry="20" fill="url(#crPoli)"/>
+          <path d="M94 60 v18 a96 20 0 0 0 192 0 V60" fill="url(#crPoli)"/>
           <ellipse cx="190" cy="60" rx="96" ry="20" fill="none" stroke="rgba(255,255,255,.3)"/>
           <g transform="translate(172,44) scale(.36)">
-            <use href="#monogram" fill="#5A626C" stroke="#5A626C" stroke-width="13"/></g>
+            <use href="#monogram" fill="#5A626C"/></g>
           <!-- B opercule -->
           <ellipse cx="190" cy="140" rx="88" ry="18" fill="#2A2E35"/>
           <ellipse cx="190" cy="140" rx="88" ry="18" fill="none" stroke="#8E959E" stroke-width="1"/>
           <g transform="translate(146,132) scale(.18)">
-            <use href="#wordmark" fill="none" stroke="#0B0D10" stroke-width="18"/></g>
+            <use href="#wordmark" fill="#0B0D10"/></g>
           <!-- C corps -->
           <ellipse cx="190" cy="222" rx="88" ry="18" fill="#15181C"/>
           <path d="M102 222 V420 a88 18 0 0 0 176 0 V222" fill="#101317"
@@ -3581,12 +3500,12 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
                 transform="translate(0,0)"/>
           <rect x="110" y="288" width="160" height="2" fill="#E4E8EC"/>
           <g transform="translate(120,272) scale(.11)">
-            <use href="#wordmark" fill="none" stroke="#0B0D10" stroke-width="18"/></g>
+            <use href="#wordmark" fill="#0B0D10"/></g>
           <text x="120" y="330" class="tt" font-size="17" fill="#0B0D10">WHEY</text>
           <text x="120" y="350" class="tt" font-size="17" fill="#0B0D10">ISOLATE</text>
           <!-- E doseur -->
-          <path d="M156 470 h68 l-9 40 h-50Z" fill="url(#crMat)"/>
-          <rect x="222" y="472" width="34" height="6" fill="url(#crMat)"/>
+          <path d="M156 470 h68 l-9 40 h-50Z" fill="url(#crPoli)"/>
+          <rect x="222" y="472" width="34" height="6" fill="url(#crPoli)"/>
           <ellipse cx="190" cy="470" rx="34" ry="7" fill="#4E555E"/>
           <!-- légendes -->
           <g class="tm" font-size="11" fill="#5CE1F2">
@@ -3711,19 +3630,19 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
     <h3 class="mt-s rv" style="font-size:clamp(19px,2vw,26px)">Alignée, puis regroupée</h3>
     <div class="cart mt-s rv" style="padding:clamp(22px,3vw,44px)">
       <div class="gamme">
-        <div class="pot pot--m"><div class="pot__lid cyl-brosse"></div>
+        <div class="pot pot--m"><div class="pot__lid cyl-noir"></div>
           <div class="pot__body cyl-poli"><span class="pot__cote" style="top:24%"></span></div>
           <div class="pot__sol"></div></div>
-        <div class="pot pot--m"><div class="pot__lid cyl-mat"></div>
-          <div class="pot__body cyl-mat"><span class="pot__cote" style="top:24%"></span></div>
+        <div class="pot pot--m"><div class="pot__lid cyl-noir"></div>
+          <div class="pot__body cyl-noir"><span class="pot__cote" style="top:24%"></span></div>
           <div class="pot__sol"></div></div>
-        <div class="pot pot--m pot--s"><div class="pot__lid cyl-brosse"></div>
-          <div class="pot__body cyl-brosse"><span class="pot__cote" style="top:50%"></span></div>
+        <div class="pot pot--m pot--s"><div class="pot__lid cyl-noir"></div>
+          <div class="pot__body cyl-noir"><span class="pot__cote" style="top:50%"></span></div>
           <div class="pot__sol"></div></div>
         <div class="pot pot--m pot--s"><div class="pot__lid cyl-noir"></div>
           <div class="pot__body cyl-poli"><span class="pot__cote pot__cote--sig" style="top:50%"></span></div>
           <div class="pot__sol"></div></div>
-        <div class="boite boite--m"><div class="boite__f cyl-iris">
+        <div class="boite boite--m"><div class="boite__f cyl-poli">
           <span class="pot__cote" style="top:76%"></span></div><div class="pot__sol"></div></div>
         <div class="etui etui--m"><div class="etui__f cyl-noir">
           <span class="pot__cote" style="top:76%"></span></div><div class="pot__sol"></div></div>
@@ -3736,36 +3655,36 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
         <div>
           <span class="lbl">Famille · Protéines</span>
           <div class="gamme gamme--f mt-s">
-            <div class="pot pot--m"><div class="pot__lid cyl-brosse"></div>
+            <div class="pot pot--m"><div class="pot__lid cyl-noir"></div>
               <div class="pot__body cyl-poli"><span class="pot__cote" style="top:24%"></span></div>
               <div class="pot__sol"></div></div>
-            <div class="pot pot--m"><div class="pot__lid cyl-mat"></div>
-              <div class="pot__body cyl-mat"><span class="pot__cote" style="top:24%"></span></div>
+            <div class="pot pot--m"><div class="pot__lid cyl-noir"></div>
+              <div class="pot__body cyl-noir"><span class="pot__cote" style="top:24%"></span></div>
               <div class="pot__sol"></div></div>
           </div>
-          <p class="mono mt-s" style="color:var(--txt-3)">Cote haute. Poli contre mat.</p>
+          <p class="mono mt-s" style="color:var(--txt-3)">Cote haute. 100 % de chrome contre 56 %.</p>
         </div>
         <div>
           <span class="lbl">Famille · Performance</span>
           <div class="gamme gamme--f mt-s">
-            <div class="pot pot--m pot--s"><div class="pot__lid cyl-brosse"></div>
-              <div class="pot__body cyl-brosse"><span class="pot__cote" style="top:50%"></span></div>
+            <div class="pot pot--m pot--s"><div class="pot__lid cyl-noir"></div>
+              <div class="pot__body cyl-noir"><span class="pot__cote" style="top:50%"></span></div>
               <div class="pot__sol"></div></div>
             <div class="pot pot--m pot--s"><div class="pot__lid cyl-noir"></div>
               <div class="pot__body cyl-poli"><span class="pot__cote pot__cote--sig" style="top:50%"></span></div>
               <div class="pot__sol"></div></div>
           </div>
-          <p class="mono mt-s" style="color:var(--txt-3)">Cote médiane. Brossé contre poli, une seule cote Signal.</p>
+          <p class="mono mt-s" style="color:var(--txt-3)">Cote médiane. Bandeau identique, une seule cote Signal.</p>
         </div>
         <div>
           <span class="lbl">Famille · Minéraux &amp; nuit</span>
           <div class="gamme gamme--f mt-s">
-            <div class="boite boite--m"><div class="boite__f cyl-iris">
+            <div class="boite boite--m"><div class="boite__f cyl-poli">
               <span class="pot__cote" style="top:76%"></span></div><div class="pot__sol"></div></div>
             <div class="etui etui--m"><div class="etui__f cyl-noir">
               <span class="pot__cote" style="top:76%"></span></div><div class="pot__sol"></div></div>
           </div>
-          <p class="mono mt-s" style="color:var(--txt-3)">Cote basse. Irisé contre noir, formats nomades.</p>
+          <p class="mono mt-s" style="color:var(--txt-3)">Cote basse. 48 % de chrome contre 14 %, formats nomades.</p>
         </div>
       </div>
     </div>
@@ -3783,9 +3702,9 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
           <path d="M20 96 q150 -46 300 0" fill="none" stroke="#3A4149" stroke-width="3"/>
           <path d="M126 76 q44 -26 88 0" fill="none" stroke="#4A525C" stroke-width="4"/>
           <rect x="132" y="70" width="70" height="86" fill="url(#crPoli)"/>
-          <rect x="128" y="60" width="78" height="12" fill="url(#crMat)"/>
+          <rect x="128" y="60" width="78" height="12" fill="url(#crPoli)"/>
           <rect x="132" y="90" width="70" height="2" fill="#E4E8EC"/>
-          <rect x="216" y="104" width="48" height="52" fill="url(#crNoir)"/>
+          <rect x="216" y="104" width="48" height="52" fill="#141619"/>
           <path d="M0 0 L60 60" stroke="#5CE1F2" stroke-width="1" opacity=".35"/>
         </svg>
         <figcaption><b>Sac de sport</b><span>Le pot posé au milieu d'affaires sombres.
@@ -3798,7 +3717,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
           <path d="M0 168 H340" stroke="rgba(142,149,158,.28)"/>
           <path d="M170 168 L288 214 L214 214 L146 168Z" fill="#050608" opacity=".9"/>
           <rect x="126" y="62" width="88" height="106" fill="url(#crPoli)"/>
-          <rect x="120" y="48" width="100" height="16" fill="url(#crMat)"/>
+          <rect x="120" y="48" width="100" height="16" fill="url(#crPoli)"/>
           <rect x="126" y="88" width="88" height="2" fill="#E4E8EC"/>
           <ellipse cx="170" cy="168" rx="52" ry="6" fill="#000" opacity=".7"/>
           <ellipse cx="170" cy="196" rx="70" ry="10" fill="url(#rebond)"/>
@@ -3815,14 +3734,14 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
           </g>
           <g>
             <rect x="26" y="38" width="30" height="50" fill="url(#crPoli)"/>
-            <rect x="62" y="38" width="30" height="50" fill="url(#crMat)"/>
+            <rect x="62" y="38" width="30" height="50" fill="url(#crPoli)"/>
             <rect x="98" y="38" width="30" height="50" fill="url(#crPoli)"/>
-            <rect x="134" y="38" width="30" height="50" fill="url(#crMat)"/>
-            <rect x="26" y="112" width="26" height="44" fill="url(#crBrosse)"/>
+            <rect x="134" y="38" width="30" height="50" fill="url(#crPoli)"/>
+            <rect x="26" y="112" width="26" height="44" fill="url(#crPoli)"/>
             <rect x="58" y="112" width="26" height="44" fill="url(#crPoli)"/>
-            <rect x="90" y="112" width="26" height="44" fill="url(#crBrosse)"/>
-            <rect x="26" y="180" width="34" height="40" fill="url(#crIris)"/>
-            <rect x="66" y="180" width="24" height="40" fill="url(#crNoir)"/>
+            <rect x="90" y="112" width="26" height="44" fill="url(#crPoli)"/>
+            <rect x="26" y="180" width="34" height="40" fill="url(#crPoli)"/>
+            <rect x="66" y="180" width="24" height="40" fill="#141619"/>
           </g>
           <g fill="#E4E8EC">
             <rect x="26" y="50" width="138" height="1.6"/><rect x="26" y="134" width="90" height="1.6"/>
@@ -3850,7 +3769,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
           <path d="M400 96 l52 -46 v168 l-52 46Z" fill="#221D18" stroke="#4A4034"/>
           <!-- logo flexo une couleur -->
           <g transform="translate(96,140) scale(.42)">
-            <use href="#wordmark" fill="none" stroke="#B8BEC6" stroke-width="18" opacity=".75"/></g>
+            <use href="#wordmark" fill="#B8BEC6" opacity=".75"/></g>
           <text x="96" y="196" class="tm" font-size="10" fill="#9A8F7C" letter-spacing="2">RIEN QUE LA MOLÉCULE</text>
           <!-- ruban brandé -->
           <rect x="60" y="222" width="340" height="22" fill="#101317"/>
@@ -3859,18 +3778,18 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
           <!-- calage + produit -->
           <rect x="140" y="60" width="86" height="70" fill="#15181C"/>
           <rect x="150" y="30" width="66" height="76" fill="url(#crPoli)"/>
-          <rect x="146" y="22" width="74" height="10" fill="url(#crMat)"/>
+          <rect x="146" y="22" width="74" height="10" fill="url(#crPoli)"/>
           <!-- carte de bienvenue -->
           <rect x="470" y="120" width="130" height="80" fill="#0F1114" stroke="rgba(142,149,158,.3)"/>
           <g transform="translate(482,132) scale(.14)">
-            <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/></g>
+            <use href="#wordmark" fill="#D8DEE6"/></g>
           <text x="482" y="166" font-size="8.5" fill="#A5ABB3">Votre lot : 4471-B</text>
           <text x="482" y="180" font-size="8.5" fill="#A5ABB3">Analyse du 12/06/2026</text>
           <text x="482" y="194" class="tm" font-size="7.5" fill="#5CE1F2">SCANNEZ POUR LE CERTIFICAT</text>
           <!-- sticker -->
           <circle cx="516" cy="240" r="26" fill="url(#crPoli)"/>
           <g transform="translate(500,224) scale(.32)">
-            <use href="#monogram" fill="#0B0D10" stroke="#0B0D10" stroke-width="13"/></g>
+            <use href="#monogram" fill="#0B0D10"/></g>
         </svg>
         <div>
           <table>
@@ -3895,32 +3814,9 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
 </section>
 
 <style>
-  /* ── Rampes cylindriques : un cylindre se rend par une rampe HORIZONTALE.
-       Sombre aux deux bords, claire au centre décentré. C'est ce qui donne
-       le volume, un dégradé vertical donnerait une surface plate. ── */
-  :root{
-    --cyl-poli:linear-gradient(92deg,#0A0C0F 0%,#20262D 5%,#454D57 12%,#79838F 20%,
-      #B4BDC7 27%,#EFF4F8 31%,#FAFCFE 33%,#8B949F 37%,#565E68 45%,#2C323A 54%,
-      #474F59 62%,#7C8590 71%,#C2CAD3 79%,#77808B 87%,#2B3138 94%,#0D1014 100%);
-    --cyl-brosse:linear-gradient(92deg,#1A1E23 0%,#2E343B 8%,#4A515A 17%,#6E7680 26%,
-      #939BA5 32%,#B0B8C1 36%,#7B838D 42%,#5A626B 52%,#454C55 62%,#69717B 72%,
-      #939BA4 80%,#5F6770 89%,#22272D 100%);
-    --cyl-mat:linear-gradient(92deg,#2A2F35 0%,#373D45 14%,#484F58 28%,#5A616A 38%,
-      #6B7078 44%,#5D646D 56%,#4B525A 68%,#575E67 78%,#464C54 88%,#31363C 100%);
-    --cyl-noir:linear-gradient(92deg,#040507 0%,#0D1013 8%,#1C2026 17%,#2E343C 26%,
-      #454D56 32%,#5D656F 35%,#333940 40%,#1E2228 50%,#0E1114 60%,#252B32 71%,
-      #414952 80%,#1F242A 90%,#050609 100%);
-    --cyl-iris:linear-gradient(92deg,#080D14 0%,#1B2836 6%,#3A5166 13%,#6C879E 21%,
-      #A5BCCC 28%,#E6F0F7 32%,#F6FBFE 34%,#8395A7 38%,#4A5B72 46%,#232B3A 55%,
-      #5B6F84 65%,#B3C3D3 75%,#728499 84%,#313C4C 93%,#12181F 100%);
-  }
+  /* Deux surfaces, pas six : le chrome poli, et le noir. */
   .cyl-poli{background-image:var(--cyl-poli)}
-  .cyl-brosse{background-image:
-    repeating-linear-gradient(180deg,rgba(255,255,255,.05) 0 1px,rgba(0,0,0,.06) 1px 2.5px),
-    var(--cyl-brosse)}
-  .cyl-mat{background-image:var(--cyl-mat)}
   .cyl-noir{background-image:var(--cyl-noir)}
-  .cyl-iris{background-image:var(--cyl-iris)}
 
   /* ── Contenants ── */
   .pk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,2.6vw,36px)}
@@ -3942,7 +3838,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
   .pot--s .pot__lid{height:13px}
   .pot--m .pot__lid{height:9px}
   .pot__body{height:150px;position:relative;overflow:hidden;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 -14px 22px rgba(0,0,0,.55)}
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 -10px 16px rgba(0,0,0,.40)}
   .pot--s .pot__body{height:112px}
   .pot--m .pot__body{height:86px}
   .pot--m.pot--s .pot__body{height:66px}
@@ -3951,20 +3847,22 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
   .pot--34 .pot__body{transform:perspective(340px) rotateY(-16deg);transform-origin:left center}
   .pot__sol{height:8px;margin-top:2px;border-radius:50%;
     background:radial-gradient(50% 100% at 50% 0,rgba(0,0,0,.9),transparent 72%)}
-  /* Couleur d'étiquette : elle suit la valeur de la matière, pas une règle fixe.
-     Poli, brossé et irisé ont un centre clair, l'encre y est noire.
-     Mat et noir n'ont pas de haute lumière, l'encre y passe en blanc.
-     C'est exactement la règle §05 : la matière ne décide jamais de la lisibilité. */
-  .cyl-mat  .pot__logo,.cyl-mat  .pot__nom,.cyl-mat  .pot__dose,.cyl-mat  .boite__nom,
-  .cyl-noir .pot__logo,.cyl-noir .pot__nom,.cyl-noir .pot__dose,.cyl-noir .boite__nom{
-    color:#F2F4F7}
+  /* Le bandeau de chrome : c'est lui qui code la référence (§05).
+     Posé sous les textes, jamais au-dessus. */
+  .pot__chrome{position:absolute;left:0;right:0;z-index:0;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.34),inset 0 -1px 0 rgba(0,0,0,.5)}
+  .pot__logo,.pot__cote,.pot__nom,.pot__dose,.boite__nom{z-index:1}
+  /* L'encre suit la valeur du fond sous elle, jamais la matière : noire sur
+     le chrome, blanche sur le noir. C'est la règle de lisibilité du §05. */
+  .tx-d{color:#08090B}
+  .tx-l{color:#F2F4F7}
   .pot__logo{position:absolute;left:8px;top:8px;font-family:var(--f-titre);font-weight:800;
     font-size:8px;letter-spacing:.06em;color:#0B0D10}
   .pot--s .pot__logo{font-size:7px}
   .pot__cote{position:absolute;left:0;right:0;height:2px;background:#EDF1F5;
     box-shadow:0 1px 0 rgba(0,0,0,.45)}
   .pot__cote--sig{background:#5CE1F2;height:3px}
-  .pot__nom{position:absolute;left:8px;top:34%;font-family:var(--f-titre);font-weight:800;
+  .pot__nom{position:absolute;left:8px;font-family:var(--f-titre);font-weight:800;
     font-size:13px;line-height:.96;letter-spacing:-.03em;color:#08090B}
   .pot--s .pot__nom{font-size:11px}
   .pot__nom--34{font-size:11px;left:6px}
@@ -3974,16 +3872,16 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
 
   .boite{width:104px}.boite--m{width:62px}
   .boite__f{height:132px;position:relative;overflow:hidden;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 -12px 20px rgba(0,0,0,.5)}
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 -9px 14px rgba(0,0,0,.38)}
   .boite--m .boite__f{height:78px}
   .boite--34 .boite__f{transform:perspective(300px) rotateY(-18deg);transform-origin:left center}
   .boite__c{position:absolute;right:-16px;top:0;width:18px;height:132px;
     transform:perspective(300px) rotateY(-58deg);transform-origin:left center;opacity:.85}
-  .boite__nom{position:absolute;left:8px;top:32%;font-family:var(--f-titre);font-weight:800;
+  .boite__nom{position:absolute;left:8px;font-family:var(--f-titre);font-weight:800;
     font-size:12px;line-height:.96;letter-spacing:-.03em;color:#08090B}
   .etui{width:64px}.etui--m{width:40px}
   .etui__f{height:150px;position:relative;overflow:hidden;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.24),inset 0 -12px 20px rgba(0,0,0,.55)}
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.24),inset 0 -9px 14px rgba(0,0,0,.40)}
   .etui--m .etui__f{height:92px}
   .etui--34 .etui__f{transform:perspective(300px) rotateY(-18deg);transform-origin:left center}
   .etui__c{position:absolute;right:-12px;top:0;width:14px;height:150px;
@@ -4030,7 +3928,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
         <!-- nav -->
         <div class="ui-nav">
           <svg viewBox="-9 -14 508 128" style="width:92px" role="img" aria-label="Origin">
-            <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/></svg>
+            <use href="#wordmark" fill="#D8DEE6"/></svg>
           <nav class="ui-nav__l"><span>Protéines</span><span>Performance</span>
             <span>Minéraux</span><span>Analyses</span><span>Notre origine</span></nav>
           <div class="ui-nav__r"><span class="mono">Compte</span>
@@ -4069,13 +3967,13 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
             <div class="ui-card"><div class="ui-card__v cyl-poli"><i style="top:24%"></i></div>
               <b>Whey Isolate</b><span class="mono">25 g · 40 doses</span>
               <span class="mono ui-card__p">54,00 €</span></div>
-            <div class="ui-card"><div class="ui-card__v cyl-brosse"><i style="top:50%"></i></div>
+            <div class="ui-card"><div class="ui-card__v cyl-noir"><i style="top:50%"></i></div>
               <b>Créatine</b><span class="mono">5 g · 100 doses</span>
               <span class="mono ui-card__p">24,00 €</span></div>
-            <div class="ui-card"><div class="ui-card__v cyl-mat"><i style="top:24%"></i></div>
+            <div class="ui-card"><div class="ui-card__v cyl-noir"><i style="top:24%"></i></div>
               <b>Protéine Végétale</b><span class="mono">24 g · 37 doses</span>
               <span class="mono ui-card__p">44,00 €</span></div>
-            <div class="ui-card"><div class="ui-card__v cyl-iris"><i style="top:76%"></i></div>
+            <div class="ui-card"><div class="ui-card__v cyl-poli"><i style="top:76%"></i></div>
               <b>Électrolytes</b><span class="mono">20 sticks</span>
               <span class="mono ui-card__p">19,00 €</span></div>
           </div>
@@ -4125,7 +4023,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
         <!-- footer -->
         <div class="ui-foot">
           <svg viewBox="-9 -14 508 128" style="width:78px" role="img" aria-label="Origin">
-            <use href="#wordmark" fill="none" stroke="#8E959E" stroke-width="18"/></svg>
+            <use href="#wordmark" fill="#8E959E"/></svg>
           <div><b>Produits</b><span>Protéines</span><span>Performance</span><span>Minéraux</span></div>
           <div><b>Preuve</b><span>Analyses par lot</span><span>Sourcing</span><span>Fabrication</span></div>
           <div><b>Aide</b><span>Livraison</span><span>Retours</span><span>Contact</span></div>
@@ -4144,15 +4042,15 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
           <div class="brw__vp">
             <div class="ui-nav ui-nav--slim">
               <svg viewBox="-9 -14 508 128" style="width:78px" role="img" aria-label="Origin">
-                <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/></svg>
+                <use href="#wordmark" fill="#D8DEE6"/></svg>
               <span class="mono">Protéines / Whey Isolate</span>
             </div>
             <div class="ui-pdp">
               <div>
                 <div class="ui-gal cyl-poli"><i style="top:24%"></i></div>
                 <div class="ui-thumbs">
-                  <span class="cyl-poli is-on"></span><span class="cyl-brosse"></span>
-                  <span class="cyl-mat"></span><span class="cyl-noir"></span>
+                  <span class="cyl-poli is-on"></span><span class="cyl-noir"></span>
+                  <span class="cyl-noir"></span><span class="cyl-noir"></span>
                 </div>
               </div>
               <div>
@@ -4179,7 +4077,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
                 </table>
                 <div class="ui-cross">
                   <span class="lbl">Souvent pris ensemble</span>
-                  <div class="ui-cross__i"><span class="cyl-brosse"></span>
+                  <div class="ui-cross__i"><span class="cyl-noir"></span>
                     <b>Créatine</b><span class="mono">24,00 €</span></div>
                 </div>
               </div>
@@ -4194,7 +4092,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
           <div class="phone"><div class="phone__vp">
             <div class="ui-nav ui-nav--m">
               <svg viewBox="-9 -14 508 128" style="width:62px" role="img" aria-label="Origin">
-                <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/></svg>
+                <use href="#wordmark" fill="#D8DEE6"/></svg>
               <span class="ui-burger"><i></i><i></i></span>
             </div>
             <svg viewBox="0 0 200 150" style="width:100%" role="img" aria-label="Objet chromé">
@@ -4253,7 +4151,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
           <div class="brw__vp" style="padding-bottom:18px">
             <div class="ui-nav ui-nav--slim">
               <svg viewBox="-9 -14 508 128" style="width:78px" role="img" aria-label="Origin">
-                <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/></svg>
+                <use href="#wordmark" fill="#D8DEE6"/></svg>
               <span class="mono">Notre origine</span>
             </div>
             <div style="padding:22px 26px">
@@ -4282,7 +4180,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
           <div class="brw__vp scan" style="padding-bottom:18px">
             <div class="ui-nav ui-nav--slim">
               <svg viewBox="-9 -14 508 128" style="width:78px" role="img" aria-label="Origin">
-                <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/></svg>
+                <use href="#wordmark" fill="#D8DEE6"/></svg>
               <span class="mono">Analyses</span>
             </div>
             <div style="padding:22px 26px">
@@ -4320,7 +4218,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
         <div class="brw__vp" style="padding-bottom:20px">
           <div class="ui-nav ui-nav--slim">
             <svg viewBox="-9 -14 508 128" style="width:78px" role="img" aria-label="Origin">
-              <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/></svg>
+              <use href="#wordmark" fill="#D8DEE6"/></svg>
             <div class="ui-prog"><b>Panier</b><span>Livraison</span><span>Paiement</span></div>
           </div>
           <div class="ui-cart">
@@ -4329,7 +4227,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
                 <div><b>Whey Isolate</b><span class="mono">1 kg · 40 doses · lot 4471-B</span></div>
                 <div class="ui-qty"><i>-</i><b class="mono">1</b><i>+</i></div>
                 <b class="mono">54,00 €</b></div>
-              <div class="ui-line"><span class="cyl-brosse"></span>
+              <div class="ui-line"><span class="cyl-noir"></span>
                 <div><b>Créatine Monohydrate</b><span class="mono">500 g · 100 doses · lot 4469-A</span></div>
                 <div class="ui-qty"><i>-</i><b class="mono">2</b><i>+</i></div>
                 <b class="mono">48,00 €</b></div>
@@ -4697,7 +4595,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
               <ellipse cx="50" cy="80" rx="34" ry="5" fill="url(#ombre)"/></svg></div>
           <div class="ig__c ig__c--q"><span>« Ce que nous ne pouvons pas doser,
             nous ne le vendons pas. »</span></div>
-          <div class="ig__c"><div class="cyl-brosse" style="height:100%"></div>
+          <div class="ig__c"><div class="cyl-noir" style="height:100%"></div>
             <span class="ig__t">CRÉA-<br>TINE</span></div>
           <div class="ig__c ig__c--m"><svg viewBox="0 0 100 100" style="width:100%;height:100%"
               role="img" aria-label="Motif d'ondulations">
@@ -4736,7 +4634,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
                   <circle cx="100" cy="126" r="52" fill="url(#crSphere)"/></g>
                 <ellipse cx="100" cy="188" rx="58" ry="8" fill="url(#ombre)"/>
                 <g transform="translate(20,30) scale(.12)">
-                  <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/></g>
+                  <use href="#wordmark" fill="#D8DEE6"/></g>
                 <text x="20" y="236" class="tt" font-size="26" fill="#F2F4F7" letter-spacing="-1">25 g</text>
                 <text x="20" y="252" class="tm" font-size="8" fill="#5CE1F2" letter-spacing="1.4">PAR DOSE</text>
                 <rect x="20" y="326" width="160" height="1" fill="#8E959E"/>
@@ -4750,11 +4648,11 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
               <svg viewBox="0 0 100 100" style="width:76px;border-radius:50%" role="img"
                    aria-label="Photo de profil : monogramme sur fond noir">
                 <rect width="100" height="100" fill="#08090B"/>
-                <use href="#monogram" fill="#D8DEE6" stroke="#D8DEE6" stroke-width="13"/></svg>
+                <use href="#monogram" fill="#D8DEE6"/></svg>
               <svg viewBox="0 0 100 100" style="width:40px;border-radius:50%" role="img"
                    aria-label="Photo de profil réduite">
                 <rect width="100" height="100" fill="#08090B"/>
-                <use href="#monogram" fill="#D8DEE6" stroke="#D8DEE6" stroke-width="13"/></svg>
+                <use href="#monogram" fill="#D8DEE6"/></svg>
             </div>
             <p class="mono mt-s" style="color:var(--txt-3)">
               Monogramme aplat argent sur Noir Origin. Jamais chromé : le cercle de découpe
@@ -4773,7 +4671,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
         <svg viewBox="0 0 300 180" role="img" aria-label="Carte de visite recto : logotype en dorure argent sur noir">
           <rect width="300" height="180" fill="#0B0D10" stroke="rgba(142,149,158,.25)"/>
           <g transform="translate(28,64) scale(.44)">
-            <use href="#wordmark" fill="none" stroke="url(#crPoliH)" stroke-width="18"/></g>
+            <use href="#wordmark" fill="url(#crPoliH)"/></g>
           <rect x="28" y="118" width="120" height="1" fill="#8E959E"/>
           <text x="28" y="136" class="tm" font-size="9" fill="#8E959E" letter-spacing="2.4">RIEN QUE LA MOLÉCULE</text>
           <rect x="240" y="24" width="36" height="36" fill="none" stroke="rgba(92,225,242,.4)"
@@ -4797,7 +4695,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
             <text x="28" y="140">14 rue des Ateliers, 44000 Nantes</text>
           </g>
           <g transform="translate(244,116) scale(.34)">
-            <use href="#monogram" fill="#5C6168" stroke="#5C6168" stroke-width="13"/></g>
+            <use href="#monogram" fill="#5C6168"/></g>
         </svg>
         <figcaption><b>Carte de visite, verso</b>
           <span>Nom en titrage 15 pt, fonction en mono, coordonnées en mono 9 pt.
@@ -4807,7 +4705,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
         <svg viewBox="0 0 300 180" role="img" aria-label="En-tête de lettre et signature e-mail">
           <rect width="300" height="180" fill="#F2F4F7"/>
           <g transform="translate(24,22) scale(.24)">
-            <use href="#wordmark" fill="none" stroke="#08090B" stroke-width="18"/></g>
+            <use href="#wordmark" fill="#08090B"/></g>
           <rect x="24" y="52" width="252" height="1" fill="#BABCBF"/>
           <g fill="#4A4C4F" font-size="7">
             <text x="24" y="72">Nantes, le 12 juin 2026</text>
@@ -4839,18 +4737,18 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
                 fill="#1A1D22" stroke="rgba(142,149,158,.3)"/>
           <path d="M20 40 h180 v56 h-180Z" fill="#101317" stroke="rgba(142,149,158,.3)"/>
           <g transform="translate(48,54) scale(.26)">
-            <use href="#wordmark" fill="none" stroke="url(#crPoliH)" stroke-width="18"/></g>
+            <use href="#wordmark" fill="url(#crPoliH)"/></g>
           <text x="110" y="88" class="tm" font-size="7" fill="#8E959E" letter-spacing="2" text-anchor="middle">RIEN QUE LA MOLÉCULE</text>
           <g><rect x="34" y="62" width="0" height="0"/>
             <rect x="36" y="66" width="0" height="0"/></g>
           <rect x="38" y="132" width="34" height="38" fill="url(#crPoli)"/>
-          <rect x="80" y="132" width="34" height="38" fill="url(#crMat)"/>
+          <rect x="80" y="132" width="34" height="38" fill="url(#crPoli)"/>
           <rect x="122" y="132" width="34" height="38" fill="url(#crPoli)"/>
-          <rect x="164" y="132" width="30" height="38" fill="url(#crMat)"/>
-          <rect x="38" y="196" width="30" height="36" fill="url(#crBrosse)"/>
+          <rect x="164" y="132" width="30" height="38" fill="url(#crPoli)"/>
+          <rect x="38" y="196" width="30" height="36" fill="url(#crPoli)"/>
           <rect x="76" y="196" width="30" height="36" fill="url(#crPoli)"/>
-          <rect x="38" y="258" width="34" height="30" fill="url(#crIris)"/>
-          <rect x="80" y="258" width="24" height="30" fill="url(#crNoir)"/>
+          <rect x="38" y="258" width="34" height="30" fill="url(#crPoli)"/>
+          <rect x="80" y="258" width="24" height="30" fill="#141619"/>
           <g fill="#E4E8EC"><rect x="38" y="142" width="156" height="1.4"/>
             <rect x="38" y="212" width="68" height="1.4"/><rect x="38" y="278" width="66" height="1.4"/></g>
         </svg>
@@ -4866,7 +4764,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
             <circle cx="110" cy="112" r="56" fill="url(#crSphere)"/></g>
           <ellipse cx="110" cy="180" rx="64" ry="9" fill="url(#ombre)"/>
           <g transform="translate(38,32) scale(.28)">
-            <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/></g>
+            <use href="#wordmark" fill="#D8DEE6"/></g>
           <text x="34" y="222" class="tt" font-size="24" fill="#F2F4F7" letter-spacing="-1">RIEN QUE</text>
           <text x="34" y="246" class="tt" font-size="24" fill="#F2F4F7" letter-spacing="-1">LA MOLÉCULE</text>
           <rect x="34" y="258" width="150" height="1" fill="#8E959E"/>
@@ -4881,7 +4779,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
           <rect width="220" height="300" fill="#0B0D10"/>
           <rect x="16" y="96" width="188" height="108" fill="#F2F4F7"/>
           <g transform="translate(28,108) scale(.16)">
-            <use href="#wordmark" fill="none" stroke="#08090B" stroke-width="18"/></g>
+            <use href="#wordmark" fill="#08090B"/></g>
           <text x="28" y="150" class="tt" font-size="15" fill="#08090B">WHEY ISOLATE</text>
           <text x="28" y="166" class="tm" font-size="8" fill="#4A4C4F">1 kg · 40 doses · 90,4 %</text>
           <text x="28" y="192" class="tt" font-size="22" fill="#08090B">54,00 €</text>
@@ -4902,7 +4800,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
             <path d="M46 214 C78 205,110 223,142 214 S174 205,174 214" opacity=".45"/>
             <path d="M46 202 C78 196,110 208,142 202 S174 196,174 202" opacity=".25"/></g>
           <g transform="translate(62,30) scale(.19)">
-            <use href="#wordmark" fill="none" stroke="url(#crPoliH)" stroke-width="18"/></g>
+            <use href="#wordmark" fill="url(#crPoliH)"/></g>
           <g data-filtre="liquide" filter="url(#f-fige)">
             <circle cx="110" cy="118" r="38" fill="url(#crSphere)"/></g>
           <ellipse cx="110" cy="164" rx="44" ry="6" fill="url(#ombre)"/>
@@ -4938,7 +4836,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
           <tr><th style="width:32%">T-shirt</th><td>Sérigraphie 1 couleur argent Pantone 877 C,
               logotype 180 mm sur poitrine, ou monogramme 40 mm sur cœur.</td></tr>
           <tr><th>Hoodie</th><td>Monogramme brodé 45 mm sur cœur, fil polyester argent,
-              trait épaissi à 20 u. Logotype 240 mm dos, sérigraphie.</td></tr>
+              contreformes ouvertes de 2 u. Logotype 240 mm dos, sérigraphie.</td></tr>
           <tr><th>Tote</th><td>Sérigraphie 1 couleur, logotype 200 mm, coton non teint.</td></tr>
           <tr><th>Serviette</th><td>Jacquard tissé ton sur ton, monogramme seul, 60 mm.</td></tr>
           <tr><th>Gourde</th><td>Gravure laser sur inox brossé. Le seul support textile-adjacent
@@ -4952,7 +4850,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
             <path d="M56 34 L40 42 L28 66 L44 76 L48 66 V166 h64 V66 l4 10 16 -10 -12 -24 -16 -8
                      q-16 12 -32 0Z" fill="#16181C" stroke="rgba(142,149,158,.28)"/>
             <g transform="translate(52,92) scale(.115)">
-              <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/></g>
+              <use href="#wordmark" fill="#D8DEE6"/></g>
           </svg><figcaption><b>T-shirt</b></figcaption></figure>
         <figure class="app app--sm">
           <svg viewBox="0 0 160 190" role="img" aria-label="Hoodie avec monogramme brodé">
@@ -4961,17 +4859,16 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
                      q-16 12 -32 0Z" fill="#1A1D22" stroke="rgba(142,149,158,.28)"/>
             <path d="M62 36 q18 22 36 0" fill="none" stroke="rgba(142,149,158,.4)"/>
             <g transform="translate(94,94) scale(.2)">
-              <use href="#monogram" fill="#E8ECF1" stroke="#E8ECF1" stroke-width="16"
-                   stroke-dasharray="7 4"/></g>
+              <use href="#monogram" fill="#E8ECF1"/></g>
           </svg><figcaption><b>Hoodie</b></figcaption></figure>
         <figure class="app app--sm">
           <svg viewBox="0 0 160 190" role="img" aria-label="Gourde en inox brossé avec logotype gravé">
             <rect width="160" height="190" fill="#0B0D10"/>
-            <rect x="58" y="18" width="44" height="14" fill="url(#crMat)"/>
-            <rect x="52" y="32" width="56" height="140" rx="6" fill="url(#crBrosse)"/>
-            <rect x="52" y="32" width="56" height="140" rx="6" fill="url(#peigne)"/>
+            <rect x="58" y="18" width="44" height="14" fill="url(#crPoli)"/>
+            <rect x="52" y="32" width="56" height="140" rx="6" fill="url(#crPoli)"/>
+            <rect x="52" y="32" width="56" height="140" rx="6" fill="none"/>
             <g transform="translate(58,96) rotate(0) scale(.1)">
-              <use href="#wordmark" fill="none" stroke="#3A4149" stroke-width="20"/></g>
+              <use href="#wordmark" fill="#3A4149"/></g>
           </svg><figcaption><b>Gourde</b></figcaption></figure>
       </div>
     </div>
@@ -4988,7 +4885,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
               <rect width="180" height="130" fill="#0B0D10"/>
               <rect y="26" width="180" height="46" fill="#101317"/>
               <g transform="translate(14,36) scale(.11)">
-                <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/></g>
+                <use href="#wordmark" fill="#D8DEE6"/></g>
               <text x="14" y="62" class="tm" font-size="5.5" fill="#8E959E" letter-spacing="1.6">RIEN QUE LA MOLÉCULE</text>
               <path d="M110 26 V72" stroke="rgba(142,149,158,.35)"/>
               <g fill="none" stroke="url(#crPoliH)" stroke-width="1">
@@ -5002,7 +4899,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
               <rect width="180" height="130" fill="#0B0D10"/>
               <rect x="8" y="40" width="164" height="50" fill="#08090B" stroke="rgba(142,149,158,.3)"/>
               <g transform="translate(20,52) scale(.13)">
-                <use href="#wordmark" fill="none" stroke="url(#crPoliH)" stroke-width="18"/></g>
+                <use href="#wordmark" fill="url(#crPoliH)"/></g>
               <text x="20" y="82" class="tm" font-size="5.5" fill="#8E959E" letter-spacing="1.8">PARTENAIRE NUTRITION</text>
               <path d="M8 40 V26M172 40V26" stroke="#8E959E"/>
             </svg><figcaption><b>Banderole</b></figcaption></figure>
@@ -5011,7 +4908,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
               <rect width="180" height="130" fill="#0B0D10"/>
               <rect x="34" y="18" width="112" height="94" fill="#F2F4F7"/>
               <g transform="translate(46,26) scale(.075)">
-                <use href="#wordmark" fill="none" stroke="#08090B" stroke-width="18"/></g>
+                <use href="#wordmark" fill="#08090B"/></g>
               <text x="90" y="82" class="tt" font-size="34" fill="#08090B" text-anchor="middle">2471</text>
               <text x="90" y="100" class="tm" font-size="5.5" fill="#4A4C4F" text-anchor="middle" letter-spacing="1.6">RIEN QUE LA MOLÉCULE</text>
             </svg><figcaption><b>Dossard</b></figcaption></figure>
@@ -5031,7 +4928,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
               <g data-filtre="liquide" filter="url(#f-fige)">
                 <circle cx="152" cy="52" r="28" fill="url(#crSphere)"/></g>
               <g transform="translate(14,14) scale(.1)">
-                <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/></g>
+                <use href="#wordmark" fill="#D8DEE6"/></g>
               <text x="14" y="56" class="tt" font-size="14" fill="#F2F4F7">90,4 %</text>
               <text x="14" y="70" class="tm" font-size="6" fill="#8E959E">DE PROTÉINE MESURÉE</text>
               <rect x="14" y="86" width="70" height="18" rx="9" fill="#5CE1F2"/>
@@ -5042,7 +4939,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
               <rect width="200" height="120" fill="#F2F4F7"/>
               <rect width="200" height="26" fill="#08090B"/>
               <g transform="translate(12,8) scale(.075)">
-                <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/></g>
+                <use href="#wordmark" fill="#D8DEE6"/></g>
               <text x="12" y="46" class="tt" font-size="10" fill="#08090B">LOT 4471-B ANALYSÉ</text>
               <g fill="#66686B" font-size="5.5">
                 <text x="12" y="60">Le rapport du lot que vous avez reçu est en ligne.</text>
@@ -5058,11 +4955,11 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
               <g transform="translate(46,36)">
                 <rect width="48" height="48" fill="#08090B" stroke="rgba(142,149,158,.3)"/>
                 <g transform="scale(.48)">
-                  <use href="#monogram" fill="#D8DEE6" stroke="#D8DEE6" stroke-width="13"/></g></g>
+                  <use href="#monogram" fill="#D8DEE6"/></g></g>
               <g transform="translate(116,52)">
                 <rect width="24" height="24" fill="#08090B" stroke="rgba(142,149,158,.3)"/>
                 <g transform="scale(.24)">
-                  <use href="#monogram" fill="#D8DEE6" stroke="#D8DEE6" stroke-width="13"/></g></g>
+                  <use href="#monogram" fill="#D8DEE6"/></g></g>
               <text x="70" y="98" class="tm" font-size="7" fill="#8E959E" text-anchor="middle">32 px</text>
               <text x="128" y="98" class="tm" font-size="7" fill="#8E959E" text-anchor="middle">16 px</text>
             </svg><figcaption><b>Favicon</b></figcaption></figure>
@@ -5073,7 +4970,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
                 <rect width="68" height="68" rx="15" fill="#08090B"/>
                 <rect width="68" height="68" rx="15" fill="none" stroke="rgba(142,149,158,.25)"/>
                 <g transform="translate(4,4) scale(.6)">
-                  <use href="#monogram" fill="url(#crPoli)" stroke="url(#crPoli)" stroke-width="13"/></g></g>
+                  <use href="#monogram" fill="url(#crPoli)"/></g></g>
               <text x="100" y="102" class="tm" font-size="7" fill="#8E959E" text-anchor="middle">ICÔNE D'APP · 1024 px</text>
             </svg><figcaption><b>Icône d'app</b></figcaption></figure>
         </div>
@@ -5301,7 +5198,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
       <div class="dd dd--no">
         <h3>Ce qui ne l'est jamais</h3>
         <ul>
-          <li>Un chrome doré, irisé arc-en-ciel, ou réchauffé de quelque façon.</li>
+          <li>Un chrome brossé, mat, noir, irisé, doré, ou réchauffé de quelque façon. Une seule matière existe.</li>
           <li>Un dégradé gris à deux arrêts présenté comme du chrome.</li>
           <li>Du texte de lecture chromé, à n'importe quelle taille.</li>
           <li>Le chrome sur fond clair, sur photo chargée, ou sous 32 px.</li>
@@ -5456,30 +5353,12 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
     </div>
 
     <div class="cart mt rv">
-      <div class="cart__t">Les six matières <span>recettes complètes</span></div>
+      <div class="cart__t">La matière <span>recette complète</span></div>
       <pre class="code">--chrome-poli:linear-gradient(178deg,
   <b>#0C0E11</b> 0%,#262C34 6%,#4A525C 13%,#7B8590 21%,#A9B2BC 29%,<b>#E9EEF3</b> 34%,<b>#F7FAFC</b> 36%,<b>#8F98A3</b> 38%,
   #4A525C 47%,#22282F 56%,#6E7885 66%,#C3CBD4 75%,#7E8792 84%,#363D46 92%,#171B20 100%);
 
---chrome-noir:linear-gradient(178deg,
-  #030405 0%,#0B0D10 8%,#1A1E24 16%,#2E343C 24%,#454C55 30%,<b>#767F8A</b> 34%,<b>#99A2AC</b> 36%,#3A4149 39%,
-  #22272D 48%,#0E1114 57%,#262C33 67%,#555D67 76%,#2C3238 85%,#14171B 93%,#050608 100%);
-
---chrome-mat:linear-gradient(178deg,
-  #2C3138 0%,#3A4048 14%,#4E555E 27%,#676E77 36%,<b>#79808A</b> 41%,#5E656E 52%,#454B53 63%,
-  #5A616A 74%,#6E757E 82%,#4A5058 91%,#33383F 100%);
-
---chrome-iris:linear-gradient(178deg,
-  #0A0E14 0%,#1E2A38 7%,#3D5468 14%,#6F8AA0 22%,#A7BECD 29%,<b>#E4EEF5</b> 34%,<b>#F4FAFD</b> 36%,#8496A8 38%,
-  #4C5D74 47%,#262E3D 56%,#5E7286 66%,#B6C6D6 75%,#75879B 84%,#333E4E 92%,#141A22 100%);
-
---chrome-brosse:
-  repeating-linear-gradient(92deg,rgba(255,255,255,.055) 0 1px,rgba(0,0,0,.075) 1px 2px,
-    rgba(255,255,255,.02) 2px 3px,rgba(0,0,0,.03) 3px 4.5px),
-  linear-gradient(178deg,#23282E 0%,#3B424B 10%,#5C646E 20%,#838B95 28%,#A6AEB8 33%,#C8D0D8 36%,
-    #7C858F 39%,#565E68 48%,#383F47 58%,#5F6771 68%,#8D96A0 77%,#5A626B 87%,#2B3038 100%);
-
---chrome-liquide:
+--chrome-anime:
   radial-gradient(60% 38% at 22% 26%,rgba(255,255,255,.55),transparent 62%),
   radial-gradient(48% 30% at 76% 72%,rgba(120,190,220,.30),transparent 60%),
   var(--chrome-poli);
@@ -5497,15 +5376,12 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
         <table>
           <tr><th style="width:34%">#crPoli / #crPoliH</th><td>Rampe chrome poli, verticale et
               horizontale. 14 arrêts.</td></tr>
-          <tr><th>#crNoir · #crMat<br>#crIris · #crBrosse</th><td>Les autres matières.</td></tr>
-          <tr><th>#crSphere</th><td>Radial d'environnement pour les volumes.</td></tr>
           <tr><th>#crAplat</th><td>Aplat argent #D8DEE6, version de référence du logo.</td></tr>
+          <tr><th>#crSphere</th><td>Radial d'environnement pour les volumes.</td></tr>
           <tr><th>#f-liquide</th><td>Turbulence animée + déplacement, échelle 12.
               <b class="ok">2 instances animées maximum.</b></td></tr>
           <tr><th>#f-fige</th><td>Même déformation, graine fixe, sans animation. À privilégier.</td></tr>
           <tr><th>#f-relief</th><td>feSpecularLighting + fePointLight, exposant 26.</td></tr>
-          <tr><th>#f-adouci</th><td>Spéculaire diffuse, exposant 7, pour le chrome mat.</td></tr>
-          <tr><th>#f-brosse</th><td>Turbulence anisotrope 0.004 / 1.1.</td></tr>
           <tr><th>#f-grain</th><td>Grain fin composé en overlay.</td></tr>
           <tr><th>#wordmark · #monogram</th><td>Logotype et symbole, tracés uniques.</td></tr>
         </table>
@@ -5517,8 +5393,9 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
           <tr><th>Corps minimum d'un titre chromé</th><td class="num ok">32 px · 12 mm</td></tr>
           <tr><th>Logotype chromé, taille minimale</th><td class="num ok">140 px · 30 mm</td></tr>
           <tr><th>Logotype, taille minimale absolue</th><td class="num">96 px · 22 mm</td></tr>
+          <tr><th>Matières du système</th><td class="num ok">2 : chrome poli, noir</td></tr>
           <tr><th>Monogramme, taille minimale</th><td class="num">16 px · 6 mm</td></tr>
-          <tr><th>Zone de protection</th><td class="num">2 X, X = 18 u</td></tr>
+          <tr><th>Zone de protection</th><td class="num">2 X, X = 20 u (le fût)</td></tr>
           <tr><th>Répartition de surface</th><td class="num">70 / 18 / 9 / 3</td></tr>
           <tr><th>Accent Signal</th><td class="num">&lt; 3 % de la surface</td></tr>
           <tr><th>Filtres animés simultanés</th><td class="num ok">2 maximum</td></tr>
@@ -5534,20 +5411,20 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
     <div class="cart mt rv">
       <div class="cart__t">Gamme <span>codes et cotes</span></div>
       <table>
-        <tr><th>Référence</th><th>Format</th><th>Cotes contenant</th><th>Matière</th>
+        <tr><th>Référence</th><th>Format</th><th>Cotes contenant</th><th>Quantité de chrome</th>
             <th>Cote produit</th><th>Dosage clé</th></tr>
         <tr><td>Whey Isolate</td><td>Pot 1 kg</td><td class="num">Ø 120 × 205 mm</td>
-            <td>Chrome poli</td><td class="num">Haute · 24 %</td><td class="num">25 g / 22,6 g prot.</td></tr>
+            <td>100 % chrome</td><td class="num">Haute · 24 %</td><td class="num">25 g / 22,6 g prot.</td></tr>
         <tr><td>Protéine Végétale</td><td>Pot 900 g</td><td class="num">Ø 120 × 190 mm</td>
-            <td>Chrome mat</td><td class="num">Haute · 24 %</td><td class="num">24 g / 20,1 g prot.</td></tr>
+            <td>56 % chrome haut</td><td class="num">Haute · 24 %</td><td class="num">24 g / 20,1 g prot.</td></tr>
         <tr><td>Créatine Monohydrate</td><td>Pot 500 g</td><td class="num">Ø 95 × 150 mm</td>
-            <td>Chrome brossé</td><td class="num">Médiane · 50 %</td><td class="num">5 g Creapure</td></tr>
+            <td>52 % chrome médian</td><td class="num">Médiane · 50 %</td><td class="num">5 g Creapure</td></tr>
         <tr><td>Pré-Workout</td><td>Pot 400 g</td><td class="num">Ø 95 × 135 mm</td>
-            <td>Chrome poli</td><td class="num ok">Médiane Signal · 50 %</td><td class="num">200 mg caféine</td></tr>
+            <td>52 % chrome médian</td><td class="num ok">Médiane Signal · 50 %</td><td class="num">200 mg caféine</td></tr>
         <tr><td>Électrolytes</td><td>Boîte 20 sticks</td><td class="num">130 × 85 × 60 mm</td>
-            <td>Chrome irisé</td><td class="num">Basse · 76 %</td><td class="num">1000 mg sodium</td></tr>
+            <td>48 % chrome bas</td><td class="num">Basse · 76 %</td><td class="num">1000 mg sodium</td></tr>
         <tr><td>Récupération Nuit</td><td>Étui 90 gélules</td><td class="num">60 × 60 × 110 mm</td>
-            <td>Chrome noir</td><td class="num">Basse · 76 %</td><td class="num">300 mg magnésium</td></tr>
+            <td>14 % chrome</td><td class="num">Basse · 76 %</td><td class="num">300 mg magnésium</td></tr>
       </table>
     </div>
 
@@ -5610,7 +5487,7 @@ opacity:<b>.14</b>; mix-blend-mode:overlay;</pre>
     <div class="g-7-5 mt" style="align-items:end">
       <div>
         <svg viewBox="-9 -14 508 128" style="width:190px" role="img" aria-label="Origin">
-          <use href="#wordmark" fill="none" stroke="#D8DEE6" stroke-width="18"/></svg>
+          <use href="#wordmark" fill="#D8DEE6"/></svg>
         <p class="mono mt-s" style="color:var(--txt-3)">Rien que la molécule.</p>
       </div>
       <p class="mono" style="color:var(--txt-3);line-height:1.9">
