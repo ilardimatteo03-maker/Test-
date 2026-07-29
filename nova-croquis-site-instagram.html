@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NOVA, croquis : site web &amp; feed Instagram</title>
+<meta name="description" content="Croquis d'application du brand book Nova : maquette directrice du site e-commerce et du feed Instagram @wearnova.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0C53 38 62 47 100 50 62 53 53 62 50 100 47 62 38 53 0 50 38 47 47 38 50 0Z' fill='%23FF4B1F'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   NOVA, croquis d'application du brand book édition 01.
+   Croquis 01 : site e-commerce. Croquis 02 : feed Instagram.
+   ========================================================== */
+:root{
+  --craie:#F1F0EC;
+  --craie2:#E9E7E1;
+  --blanc:#FAFAF9;
+  --carbone:#141519;
+  --graphite:#44474E;
+  --brume:#B9B7B0;
+  --flare:#FF4B1F;
+  --poudre:#D9B4A7;
+  --hairline:rgba(20,21,25,.14);
+  --hairline-strong:rgba(20,21,25,.85);
+  --sans:'Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --wrap:1240px;
+  --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--craie);color:var(--carbone);
+  font-family:var(--sans);font-size:16.5px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{max-width:100%;display:block}
+a{color:inherit}
+::selection{background:var(--flare);color:var(--craie)}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad)}
+p{max-width:66ch}
+.label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--graphite)}
+.lede{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(21px,2.4vw,28px);line-height:1.4;max-width:36ch}
+.small{font-size:13px;line-height:1.55;color:var(--graphite)}
+
+/* ---------- entête du document ---------- */
+.nav{position:sticky;top:0;z-index:40;background:rgba(241,240,236,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--hairline)}
+.nav-in{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad);height:58px;display:flex;align-items:center;gap:14px}
+.nav-mono{width:25px;height:25px;fill:var(--carbone);flex:none}
+.nav-word{width:82px;aspect-ratio:520/120;fill:var(--carbone)}
+.nav-right{margin-left:auto;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--graphite);white-space:nowrap}
+
+.doc-head{padding-block:clamp(48px,7vw,96px)}
+.doc-head h1{font-weight:800;font-stretch:120%;text-transform:uppercase;font-size:clamp(30px,5vw,62px);line-height:.98;letter-spacing:-.005em}
+.doc-head .lede{margin-top:20px}
+
+.chapter{padding-block:clamp(56px,8vw,110px);scroll-margin-top:70px;border-top:1px solid var(--hairline)}
+.chap-row{display:flex;align-items:flex-end;gap:clamp(18px,3vw,44px);border-top:2px solid var(--carbone);padding-top:16px;flex-wrap:wrap;margin-bottom:clamp(30px,4vw,52px)}
+.chap-no{
+  font-weight:800;font-stretch:62%;line-height:.8;font-size:clamp(64px,9vw,120px);
+  color:var(--craie);-webkit-text-stroke:1.5px var(--carbone);font-variant-numeric:tabular-nums;flex:none;
+}
+@supports not (-webkit-text-stroke:1px black){.chap-no{color:var(--brume)}}
+.chap-title{font-weight:800;font-stretch:120%;text-transform:uppercase;font-size:clamp(24px,3.8vw,46px);line-height:.98;padding-bottom:6px}
+.chap-lede{margin-top:4px}
+
+/* ---------- annotations ---------- */
+.an{
+  position:absolute;width:24px;height:24px;border-radius:999px;
+  background:var(--flare);color:var(--carbone);
+  font-weight:800;font-size:12px;line-height:24px;text-align:center;
+  box-shadow:0 0 0 3px var(--craie);z-index:6;
+}
+.legend{list-style:none;margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:10px clamp(20px,3vw,44px)}
+@media (max-width:760px){.legend{grid-template-columns:1fr}}
+.legend li{display:flex;gap:12px;font-size:14.5px;line-height:1.5;align-items:flex-start;padding:8px 0;border-top:1px solid var(--hairline)}
+.legend .n{
+  flex:none;width:22px;height:22px;border-radius:999px;background:var(--flare);
+  color:var(--carbone);font-weight:800;font-size:11.5px;line-height:22px;text-align:center;margin-top:1px;
+}
+
+/* ---------- cadre navigateur ---------- */
+.scrollx{overflow-x:auto}
+.browser{
+  min-width:920px;max-width:1080px;margin-inline:auto;
+  border:1.5px solid var(--carbone);border-radius:12px;overflow:hidden;
+  background:var(--blanc);position:relative;
+}
+.b-bar{display:flex;align-items:center;gap:14px;padding:10px 16px;background:var(--craie2);border-bottom:1px solid var(--hairline)}
+.b-dots{display:flex;gap:6px}
+.b-dots i{width:9px;height:9px;border-radius:999px;background:var(--brume);display:block}
+.b-url{
+  flex:1;max-width:300px;margin-inline:auto;background:var(--blanc);
+  border:1px solid var(--hairline);border-radius:999px;
+  font-size:11px;color:var(--graphite);text-align:center;padding:4px 14px;
+}
+
+/* ---------- site : contenu ---------- */
+.s-annonce{background:var(--carbone);color:var(--craie);font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:8px 12px}
+.s-nav{display:flex;align-items:center;gap:28px;padding:16px 34px;border-bottom:1px solid var(--hairline)}
+.s-nav .w{width:92px;aspect-ratio:520/120;fill:var(--carbone);flex:none}
+.s-links{display:flex;gap:22px;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.s-tools{margin-left:auto;display:flex;align-items:center;gap:16px}
+.s-tools svg{width:17px;height:17px;stroke:var(--carbone);fill:none;stroke-width:1.75}
+.s-tools .bag{font-size:11px;font-weight:700}
+
+.s-hero{display:grid;grid-template-columns:1.02fr 1fr;position:relative}
+.s-hero-txt{padding:52px 40px 56px 34px;display:flex;flex-direction:column;justify-content:center;gap:20px}
+.s-hero-txt h2{font-weight:800;font-stretch:122%;text-transform:uppercase;font-size:44px;line-height:.96;letter-spacing:-.005em}
+.s-hero-txt .sub{font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.35;color:var(--graphite);max-width:30ch}
+.pill{
+  display:inline-block;background:var(--flare);color:var(--carbone);
+  font-weight:800;font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+  padding:13px 26px;border-radius:999px;align-self:flex-start;white-space:nowrap;
+}
+.pill.ghost{background:transparent;color:var(--craie);border:1.5px solid var(--craie)}
+.pill.dark{background:var(--carbone);color:var(--craie)}
+
+.ph{position:relative;overflow:hidden}
+.ph .cap{position:absolute;left:12px;bottom:10px;font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--carbone);opacity:.65}
+.ph .cap.inv{color:var(--craie);opacity:.6}
+.ph .grain{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.ph .sil{position:absolute;inset:0;margin:auto;stroke:var(--carbone);fill:none;stroke-width:2;opacity:.5}
+
+.s-ticker{display:flex;align-items:center;justify-content:center;gap:26px;padding:15px 10px;border-block:1px solid var(--hairline);flex-wrap:wrap}
+.s-ticker b{font-weight:800;font-stretch:70%;font-size:15px;letter-spacing:.2em;text-transform:uppercase}
+.s-ticker svg{width:10px;height:10px;fill:var(--flare)}
+
+.s-sec{padding:40px 34px;position:relative}
+.s-sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:22px}
+.s-sec-head h3{font-weight:800;font-stretch:116%;text-transform:uppercase;font-size:21px}
+.s-sec-head a{margin-left:auto;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:underline;text-underline-offset:3px}
+.s-prods{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.s-prod .ph{aspect-ratio:4/5}
+.s-prod .nm{display:flex;justify-content:space-between;gap:8px;margin-top:10px;font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.s-prod .nm span:last-child{font-variant-numeric:tabular-nums}
+.s-prod .rg{font-size:11px;color:var(--graphite);margin-top:2px}
+
+.s-edito{display:grid;grid-template-columns:1fr 1fr;background:var(--carbone);color:var(--craie);position:relative}
+.s-edito .ph{aspect-ratio:auto;min-height:300px}
+.s-edito-txt{padding:48px 40px;display:flex;flex-direction:column;justify-content:center;gap:16px}
+.s-edito-txt .big{font-family:var(--serif);font-style:italic;font-size:30px;line-height:1.2}
+.s-edito-txt p{font-size:13.5px;color:var(--brume);max-width:40ch}
+
+.s-club{padding:40px 34px;position:relative}
+.s-ugc{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.s-ugc .ph{aspect-ratio:1}
+.s-ugc figcaption{font-size:11px;color:var(--graphite);margin-top:7px;font-weight:600}
+
+.s-news{display:flex;align-items:center;gap:22px;padding:34px;border-top:1px solid var(--hairline);flex-wrap:wrap}
+.s-news .t{font-weight:800;font-stretch:116%;text-transform:uppercase;font-size:18px}
+.s-news form{display:flex;gap:10px;margin-left:auto;align-items:flex-end;flex-wrap:wrap}
+.s-news .fld{display:flex;flex-direction:column;gap:4px}
+.s-news label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--graphite)}
+.s-news input{
+  border:1px solid var(--hairline-strong);border-radius:999px;background:var(--blanc);
+  font-family:var(--sans);font-size:12.5px;color:var(--carbone);padding:11px 18px;width:230px;
+}
+.s-foot{background:var(--carbone);color:var(--craie);padding:42px 34px 30px}
+.s-foot .w{width:170px;aspect-ratio:520/120;fill:var(--craie)}
+.s-foot-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:24px;margin-top:30px;font-size:12px}
+.s-foot-grid b{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--brume);margin-bottom:10px}
+.s-foot-grid span{display:block;padding:3px 0;color:var(--craie)}
+.s-foot .base{font-family:var(--serif);font-style:italic;font-size:16px;color:var(--brume)}
+.s-foot .legal{border-top:1px solid rgba(241,240,236,.2);margin-top:26px;padding-top:14px;font-size:10.5px;color:var(--brume)}
+
+/* ---------- téléphones ---------- */
+.duo-devices{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:clamp(24px,4vw,56px);align-items:start}
+@media (max-width:900px){.duo-devices{grid-template-columns:1fr}}
+.phone{
+  width:min(100%,330px);margin-inline:auto;
+  border:2px solid var(--carbone);border-radius:30px;overflow:hidden;
+  background:var(--blanc);position:relative;
+}
+.phone .notch{height:22px;display:flex;align-items:center;justify-content:center}
+.phone .notch i{width:74px;height:7px;border-radius:999px;background:var(--craie2);display:block}
+
+/* site mobile */
+.m-annonce{background:var(--carbone);color:var(--craie);font-size:8.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;text-align:center;padding:6px}
+.m-nav{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--hairline)}
+.m-nav svg.ic{width:17px;height:17px;stroke:var(--carbone);fill:none;stroke-width:1.75}
+.m-nav .w{width:72px;aspect-ratio:520/120;fill:var(--carbone);margin-inline:auto}
+.m-hero .ph{aspect-ratio:4/4.4}
+.m-hero-txt{padding:20px 16px 22px;display:flex;flex-direction:column;gap:12px}
+.m-hero-txt h4{font-weight:800;font-stretch:120%;text-transform:uppercase;font-size:24px;line-height:.98}
+.m-hero-txt .sub{font-family:var(--serif);font-style:italic;font-size:14.5px;color:var(--graphite);line-height:1.35}
+.m-hero-txt .pill{font-size:10px;padding:10px 20px}
+.m-prods{padding:0 16px 20px}
+.m-prods h5{font-weight:800;font-stretch:116%;text-transform:uppercase;font-size:13px;margin-bottom:12px}
+.m-prods .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.m-prods .ph{aspect-ratio:4/5}
+.m-prods .nm{display:flex;justify-content:space-between;font-size:9.5px;font-weight:700;text-transform:uppercase;margin-top:6px}
+
+/* ---------- instagram ---------- */
+.igp{font-size:12px}
+.ig-top{display:flex;align-items:center;gap:10px;padding:12px 16px 8px}
+.ig-top .h{font-weight:800;font-size:14.5px;letter-spacing:.02em}
+.ig-top svg{width:16px;height:16px;stroke:var(--carbone);fill:none;stroke-width:1.75}
+.ig-top .r{margin-left:auto;display:flex;gap:14px}
+.ig-prof{display:flex;align-items:center;gap:18px;padding:8px 16px 4px}
+.ig-ava{
+  width:62px;height:62px;border-radius:999px;border:2px solid var(--flare);
+  display:flex;align-items:center;justify-content:center;background:var(--craie);flex:none;
+}
+.ig-ava svg{width:34px;height:34px;fill:var(--carbone)}
+.ig-stats{display:flex;gap:18px;flex:1;justify-content:space-around}
+.ig-stats div{text-align:center}
+.ig-stats b{display:block;font-size:14px;font-variant-numeric:tabular-nums}
+.ig-stats span{font-size:10.5px;color:var(--graphite)}
+.ig-bio{padding:8px 16px 2px;font-size:11.5px;line-height:1.5}
+.ig-bio b{font-weight:800;letter-spacing:.04em}
+.ig-bio .base{font-family:var(--serif);font-style:italic;font-size:13px}
+.ig-bio .lnk{color:#2E4A66;font-weight:600}
+.ig-btns{display:flex;gap:8px;padding:10px 16px}
+.ig-btns span{
+  flex:1;text-align:center;font-weight:800;font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  padding:8px 0;border-radius:999px;
+}
+.ig-btns .follow{background:var(--flare);color:var(--carbone)}
+.ig-btns .contact{border:1.5px solid var(--hairline-strong)}
+.ig-his{display:flex;gap:16px;padding:10px 16px 14px}
+.ig-hi{text-align:center;font-size:9px;color:var(--graphite)}
+.ig-hi .c{
+  width:50px;height:50px;border-radius:999px;border:1.5px solid var(--hairline-strong);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 5px;background:var(--blanc);
+}
+.ig-hi .c svg{width:20px;height:20px;stroke:var(--carbone);fill:none;stroke-width:1.6}
+.ig-hi .c svg.f{fill:var(--flare);stroke:none}
+.ig-tabs{display:flex;border-top:1px solid var(--hairline)}
+.ig-tabs div{flex:1;display:flex;justify-content:center;padding:9px 0}
+.ig-tabs div:first-child{border-bottom:2px solid var(--carbone)}
+.ig-tabs svg{width:17px;height:17px;stroke:var(--carbone);fill:none;stroke-width:1.6}
+.ig-tabs div:not(:first-child) svg{opacity:.35}
+.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--craie2);position:relative}
+.tile{aspect-ratio:1;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:10px}
+.tile .grain{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.tile .sil{position:absolute;inset:0;margin:auto;stroke:var(--carbone);fill:none;stroke-width:2;opacity:.5}
+.tile .tt{font-weight:800;font-stretch:116%;text-transform:uppercase;font-size:12px;line-height:1.05;letter-spacing:.01em}
+.tile .sq{font-family:var(--serif);font-style:italic;font-size:13.5px;line-height:1.25;color:var(--craie)}
+.tile .sk{width:9px;height:9px;fill:var(--flare);margin-bottom:6px}
+
+/* carte du rythme */
+.map{display:grid;grid-template-columns:repeat(3,26px);gap:3px}
+.map i{width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:10px;font-weight:800;border:1px solid var(--hairline)}
+.map .p{background:#E3CFC5}
+.map .a{background:var(--carbone);color:var(--craie)}
+.map .t{background:var(--blanc)}
+.map .t.f{background:var(--flare)}
+.map-key{list-style:none;font-size:13.5px;display:flex;flex-direction:column;gap:8px}
+.map-key li{display:flex;gap:10px;align-items:center}
+.map-key i{width:16px;height:16px;border:1px solid var(--hairline);flex:none}
+
+.panel{border:1px solid var(--hairline);background:var(--blanc);padding:clamp(18px,2.6vw,30px)}
+.note{border-left:3px solid var(--flare);padding:6px 0 6px 18px;font-size:14.5px;color:var(--graphite);max-width:62ch}
+
+.foot{background:var(--carbone);color:var(--craie);margin-top:clamp(50px,7vw,90px)}
+.foot-in{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad);padding-block:clamp(34px,5vw,60px);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+.foot-in .label{color:var(--brume)}
+.foot-in svg{width:110px;aspect-ratio:520/120;fill:var(--craie)}
+
+@media print{.nav{display:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="lg-word" viewBox="0 0 520 120">
+      <path d="M0 10H20L80 86V10H100V110H80L20 34V110H0Z"/>
+      <path fill-rule="evenodd" d="M140 60a50 50 0 1 0 100 0 50 50 0 1 0-100 0Zm20 0a30 30 0 1 1 60 0 30 30 0 1 1-60 0Z"/>
+      <path d="M280 10h20l30 76 30-76h20l-40 100h-20Z"/>
+      <path d="M460 10h20l40 100h-20l-30-76-30 76h-20Z"/>
+    </symbol>
+    <symbol id="lg-spark" viewBox="0 0 100 100">
+      <path d="M50 0C53 38 62 47 100 50 62 53 53 62 50 100 47 62 38 53 0 50 38 47 47 38 50 0Z"/>
+    </symbol>
+    <symbol id="lg-mono" viewBox="0 0 120 120">
+      <path fill-rule="evenodd" d="M2 60a58 58 0 1 0 116 0 58 58 0 1 0-116 0Zm14 0a44 44 0 1 1 88 0 44 44 0 1 1-88 0Z"/>
+      <use href="#lg-spark" x="29" y="29" width="62" height="62"/>
+    </symbol>
+    <symbol id="sil-legging" viewBox="0 0 200 340">
+      <path d="M55 22 L145 22 L160 95 C165 160 152 240 148 322 L118 322 C115 245 108 175 100 140 C92 175 85 245 82 322 L52 322 C48 240 35 160 40 95 Z"/>
+      <line x1="47" y1="54" x2="153" y2="54"/>
+    </symbol>
+    <symbol id="sil-bra" viewBox="0 0 200 150">
+      <path d="M60 8 L58 45 C40 60 42 80 42 95 L42 122 L158 122 L158 95 C158 80 160 60 142 45 L140 8"/>
+      <path d="M58 45 C75 62 125 62 142 45"/>
+      <line x1="42" y1="98" x2="158" y2="98"/>
+    </symbol>
+    <symbol id="sil-crop" viewBox="0 0 200 180">
+      <path d="M40 42 L72 24 C86 36 114 36 128 24 L160 42 L178 80 L150 94 L150 162 L50 162 L50 94 L22 80 Z"/>
+      <path d="M72 24 C84 46 116 46 128 24"/>
+    </symbol>
+    <symbol id="sil-short" viewBox="0 0 200 160">
+      <path d="M45 20 L155 20 L170 130 L112 138 L100 78 L88 138 L30 130 Z"/>
+      <line x1="42" y1="44" x2="158" y2="44"/>
+    </symbol>
+    <symbol id="sil-arc" viewBox="0 0 200 200">
+      <path d="M30 170 C60 80 120 50 178 64"/>
+      <path d="M52 176 C78 108 124 82 172 90"/>
+    </symbol>
+    <symbol id="halo-soft" viewBox="0 0 300 300">
+      <g fill="none" stroke-width="1">
+        <circle cx="150" cy="150" r="130" stroke-opacity=".18"/>
+        <circle cx="150" cy="150" r="92" stroke-opacity=".28"/>
+        <circle cx="150" cy="150" r="56" stroke-opacity=".4"/>
+      </g>
+    </symbol>
+    <filter id="fg-dark"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0 0 0 0 .95 0 0 0 0 .94 0 0 0 0 .92 0 0 0 .13 0"/></filter>
+    <filter id="fg-light"><feTurbulence type="fractalNoise" baseFrequency=".7" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0 0 0 0 .3 0 0 0 0 .29 0 0 0 0 .27 0 0 0 .05 0"/></filter>
+  </defs>
+</svg>
+
+<nav class="nav" aria-label="Navigation du document">
+  <div class="nav-in">
+    <svg class="nav-mono" role="img" aria-label="Monogramme Nova"><use href="#lg-mono"/></svg>
+    <svg class="nav-word" viewBox="0 0 520 120" role="img" aria-label="Nova"><use href="#lg-word"/></svg>
+    <span class="nav-right">Croquis d'application</span>
+  </div>
+</nav>
+
+<header class="doc-head">
+  <div class="wrap">
+    <h1>Croquis :<br>site &amp; Instagram</h1>
+    <p class="lede">Deux maquettes directrices dessinées d'après le brand book édition 01. Les photos sont figurées par leurs gammes tonales, à remplacer par les shootings des planches 01 à 03.</p>
+  </div>
+</header>
+
+<!-- ========================================================== CROQUIS 01 : SITE -->
+<section class="chapter" id="site">
+  <div class="wrap">
+    <div class="chap-row">
+      <span class="chap-no" aria-hidden="true">01</span>
+      <div>
+        <h2 class="chap-title">Le site<br>wearnova.com</h2>
+      </div>
+    </div>
+    <p class="chap-lede lede" style="margin-bottom:clamp(28px,4vw,44px)">La home est un feed maîtrisé : fond Craie, un seul CTA Flare par écran, l'arène sur Carbone, le club avant le footer.</p>
+
+    <div class="scrollx">
+      <div class="browser">
+        <div class="b-bar">
+          <div class="b-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+          <span class="b-url">wearnova.com</span>
+        </div>
+
+        <div class="s-annonce">Ignition 02 arrive le 12.09, les Novas du club l'essaient en avant-première</div>
+
+        <div class="s-nav">
+          <svg class="w" viewBox="0 0 520 120" role="img" aria-label="Nova"><use href="#lg-word"/></svg>
+          <div class="s-links"><span>Leggings</span><span>Brassières</span><span>Ensembles</span><span style="color:var(--flare)">Le Club</span></div>
+          <div class="s-tools">
+            <svg viewBox="0 0 24 24" aria-label="Rechercher"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
+            <svg viewBox="0 0 24 24" aria-label="Panier"><path d="M5 8h14l-1.5 13h-11Z"/><path d="M8.5 8V6.5a3.5 3.5 0 0 1 7 0V8"/></svg>
+            <span class="bag">(1)</span>
+          </div>
+        </div>
+
+        <div class="s-hero">
+          <span class="an" style="top:18px;left:18px">1</span>
+          <div class="s-hero-txt">
+            <h2>La grâce<br>se travaille.</h2>
+            <p class="sub">Ignition 01 : des pièces sculptantes qui tiennent du reformer au race day.</p>
+            <span class="pill">Découvrir Ignition 01</span>
+          </div>
+          <div class="ph" style="background:linear-gradient(165deg,#EAD9CF 0%,#D9B4A7 55%,#C7A090 100%)">
+            <svg class="sil" viewBox="0 0 200 200" style="width:64%;height:auto;opacity:.4"><use href="#sil-arc"/></svg>
+            <span class="cap">Photo registre studio, lumière fenêtre</span>
+          </div>
+        </div>
+
+        <div class="s-ticker" aria-hidden="true">
+          <b>Apex</b><svg viewBox="0 0 100 100"><use href="#lg-spark"/></svg>
+          <b>Orbite</b><svg viewBox="0 0 100 100"><use href="#lg-spark"/></svg>
+          <b>Éclipse</b><svg viewBox="0 0 100 100"><use href="#lg-spark"/></svg>
+          <b>Comète</b><svg viewBox="0 0 100 100"><use href="#lg-spark"/></svg>
+        </div>
+
+        <div class="s-sec">
+          <span class="an" style="top:30px;right:26px">2</span>
+          <div class="s-sec-head"><h3>Le drop Ignition 01</h3><a>Tout voir</a></div>
+          <div class="s-prods">
+            <div class="s-prod">
+              <div class="ph" style="background:linear-gradient(170deg,#E3C4B6 0%,#D9B4A7 70%)"><svg class="sil" viewBox="0 0 200 340" style="width:44%;height:auto"><use href="#sil-legging"/></svg></div>
+              <div class="nm"><span>Legging Apex</span><span>72 €</span></div>
+              <div class="rg">4 coloris</div>
+            </div>
+            <div class="s-prod">
+              <div class="ph" style="background:linear-gradient(170deg,#EDEBE5 0%,#DEDBD3 70%)"><svg class="sil" viewBox="0 0 200 150" style="width:56%;height:auto"><use href="#sil-bra"/></svg></div>
+              <div class="nm"><span>Brassière Orbite</span><span>54 €</span></div>
+              <div class="rg">Maintien medium</div>
+            </div>
+            <div class="s-prod">
+              <div class="ph" style="background:linear-gradient(170deg,#C9C6BE 0%,#B9B7B0 70%)"><svg class="sil" viewBox="0 0 200 180" style="width:56%;height:auto"><use href="#sil-crop"/></svg></div>
+              <div class="nm"><span>Crop Éclipse</span><span>48 €</span></div>
+              <div class="rg">Coupe carrée</div>
+            </div>
+            <div class="s-prod">
+              <div class="ph" style="background:#141519"><svg class="sil" viewBox="0 0 200 160" style="width:56%;height:auto;stroke:#F1F0EC"><use href="#sil-short"/></svg><span class="cap inv">Coloris nuit</span></div>
+              <div class="nm"><span>Short Comète</span><span>58 €</span></div>
+              <div class="rg">Poche chrono</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="s-edito">
+          <span class="an" style="top:18px;left:18px">3</span>
+          <div class="ph" style="background:radial-gradient(circle at 68% 32%,rgba(255,75,31,.9) 0%,rgba(255,75,31,.18) 26%,#141519 72%)">
+            <svg class="grain" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="100" filter="url(#fg-dark)"/></svg>
+            <span class="cap inv">Photo registre arena, rim-light sodium</span>
+          </div>
+          <div class="s-edito-txt">
+            <p class="big">Le club court de nuit.</p>
+            <p>Chaque drop se teste en conditions réelles : une course nocturne ouverte aux membres, chronométrée, photographiée pour la planche Ignition.</p>
+            <span class="pill ghost">Rejoindre le club</span>
+          </div>
+        </div>
+
+        <div class="s-club">
+          <span class="an" style="top:30px;right:26px">4</span>
+          <div class="s-sec-head"><h3>#NovaClub</h3><a>Voir le feed</a></div>
+          <div class="s-ugc">
+            <figure><div class="ph" style="background:linear-gradient(150deg,#E9E7E1 0%,#D9B4A7 100%)"><svg class="sil" viewBox="0 0 300 300" style="width:80%;height:auto;opacity:.3;stroke-width:1"><use href="#halo-soft"/></svg></div><figcaption>@lea.mvt, reformer</figcaption></figure>
+            <figure><div class="ph" style="background:radial-gradient(circle at 40% 70%,#FF7A45 0%,#1B1D23 62%)"><svg class="grain" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="100" filter="url(#fg-dark)"/></svg></div><figcaption>@ines.hyrox, race day</figcaption></figure>
+            <figure><div class="ph" style="background:linear-gradient(200deg,#F1F0EC 0%,#B9B7B0 100%)"></div><figcaption>@studio.karo, cours du matin</figcaption></figure>
+            <figure><div class="ph" style="background:linear-gradient(140deg,#D9B4A7 0%,#B08D7E 100%)"></div><figcaption>@camille.run, sortie longue</figcaption></figure>
+          </div>
+        </div>
+
+        <div class="s-news">
+          <span class="t">La newsletter du club</span>
+          <form>
+            <div class="fld"><label for="nl">Ton e-mail</label><input id="nl" type="email" value="lea@exemple.fr"></div>
+            <span class="pill dark" style="padding:12px 24px">S'inscrire</span>
+          </form>
+        </div>
+
+        <div class="s-foot">
+          <svg class="w" viewBox="0 0 520 120" role="img" aria-label="Nova"><use href="#lg-word"/></svg>
+          <div class="s-foot-grid">
+            <div><p class="base">La grâce est une force.</p></div>
+            <div><b>Boutique</b><span>Leggings</span><span>Brassières</span><span>Ensembles</span></div>
+            <div><b>Aide</b><span>Livraison</span><span>Retours</span><span>Guide des tailles</span></div>
+            <div><b>Le Club</b><span>Ambassadrices</span><span>Événements</span><span>#NovaClub</span></div>
+          </div>
+          <div class="legal">© Nova 2026. Mentions légales. Confidentialité.</div>
+        </div>
+      </div>
+    </div>
+
+    <ol class="legend">
+      <li><span class="n">1</span>Hero asymétrique : la typo Archivo étendue à gauche, une image du registre studio à droite. Un seul CTA Flare visible par écran, c'est celui-là.</li>
+      <li><span class="n">2</span>Le drop en 4 pièces : noms célestes, packshots sur fonds Poudre, Craie et Brume, une seule pièce « nuit » sur Carbone pour rythmer la ligne.</li>
+      <li><span class="n">3</span>La section arena passe sur Carbone : l'éclat Flare vient d'une lumière dans l'image (rim-light), jamais d'un aplat. CTA fantôme, le Flare du hero garde l'exclusivité.</li>
+      <li><span class="n">4</span>Le club est une section de plein droit avant le footer : quatre images UGC créditées par prénom et pratique, reliées au feed Instagram.</li>
+    </ol>
+    <p class="note" style="margin-top:24px">Grille site : fond Craie, conteneurs à angles vifs, interactions en pilule. Typo courante Archivo, respirations Cormorant italique. Les zones photo indiquent leur registre et leur gamme tonale en attendant les images des planches 01 et 02.</p>
+  </div>
+</section>
+<!-- ========================================================== SITE MOBILE -->
+<section class="chapter" id="mobile">
+  <div class="wrap">
+    <div class="chap-row">
+      <span class="chap-no" aria-hidden="true">01b</span>
+      <h2 class="chap-title">Déclinaison<br>mobile</h2>
+    </div>
+    <div class="duo-devices">
+      <div class="phone" aria-label="Maquette mobile du site Nova">
+        <div class="notch" aria-hidden="true"><i></i></div>
+        <div class="m-annonce">Ignition 02 arrive le 12.09</div>
+        <div class="m-nav">
+          <svg class="ic" viewBox="0 0 24 24" aria-label="Menu"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+          <svg class="w" viewBox="0 0 520 120" role="img" aria-label="Nova"><use href="#lg-word"/></svg>
+          <svg class="ic" viewBox="0 0 24 24" aria-label="Panier"><path d="M5 8h14l-1.5 13h-11Z"/><path d="M8.5 8V6.5a3.5 3.5 0 0 1 7 0V8"/></svg>
+        </div>
+        <div class="m-hero">
+          <div class="ph" style="background:linear-gradient(165deg,#EAD9CF 0%,#D9B4A7 55%,#C7A090 100%)">
+            <svg class="sil" viewBox="0 0 200 200" style="width:66%;height:auto;opacity:.4"><use href="#sil-arc"/></svg>
+            <span class="cap">Registre studio</span>
+          </div>
+          <div class="m-hero-txt">
+            <h4>La grâce<br>se travaille.</h4>
+            <p class="sub">Ignition 01 : des pièces sculptantes qui tiennent du reformer au race day.</p>
+            <span class="pill">Découvrir Ignition 01</span>
+          </div>
+        </div>
+        <div class="m-prods">
+          <h5>Le drop Ignition 01</h5>
+          <div class="row">
+            <div>
+              <div class="ph" style="background:linear-gradient(170deg,#E3C4B6 0%,#D9B4A7 70%)"><svg class="sil" viewBox="0 0 200 340" style="width:44%;height:auto"><use href="#sil-legging"/></svg></div>
+              <div class="nm"><span>Apex</span><span>72 €</span></div>
+            </div>
+            <div>
+              <div class="ph" style="background:linear-gradient(170deg,#EDEBE5 0%,#DEDBD3 70%)"><svg class="sil" viewBox="0 0 200 150" style="width:58%;height:auto"><use href="#sil-bra"/></svg></div>
+              <div class="nm"><span>Orbite</span><span>54 €</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px;justify-content:center">
+        <p><strong>Une colonne, même hiérarchie.</strong> Le mobile empile les mêmes blocs dans le même ordre : annonce, image studio plein cadre, titre Archivo étendue, CTA Flare unique, puis le drop en deux colonnes. Rien ne se réinvente, tout se comprime, fidèle au concept.</p>
+        <p style="font-size:15px;color:var(--graphite)">Règles mobiles : le wordmark reste centré dans la barre de navigation, les tailles minimales du logo s'appliquent (88 px), le ticker produits disparaît, la section arena passe en pleine largeur sous le drop.</p>
+        <p class="note">Plus de 75 % du trafic attendu est mobile : chaque gabarit se dessine d'abord dans cette colonne, la version desktop en est l'expansion.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== CROQUIS 02 : INSTAGRAM -->
+<section class="chapter" id="instagram">
+  <div class="wrap">
+    <div class="chap-row">
+      <span class="chap-no" aria-hidden="true">02</span>
+      <h2 class="chap-title">Le feed<br>@wearnova</h2>
+    </div>
+    <p class="chap-lede lede" style="margin-bottom:clamp(28px,4vw,44px)">Le profil est la vitrine du club : un rythme en diagonale, deux photos pour un visuel typographique, et le Flare rationné à une tuile par écran.</p>
+
+    <div class="duo-devices">
+      <div class="phone igp" aria-label="Maquette du profil Instagram de Nova">
+        <span class="an" style="top:64px;left:8px">1</span>
+        <span class="an" style="top:196px;right:10px">2</span>
+        <span class="an" style="top:318px;right:10px">3</span>
+        <div class="notch" aria-hidden="true"><i></i></div>
+        <div class="ig-top">
+          <span class="h">wearnova</span>
+          <div class="r" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+          </div>
+        </div>
+        <div class="ig-prof">
+          <div class="ig-ava"><svg role="img" aria-label="Monogramme Nova"><use href="#lg-mono"/></svg></div>
+          <div class="ig-stats">
+            <div><b>124</b><span>publications</span></div>
+            <div><b>26,8 k</b><span>abonnées</span></div>
+            <div><b>87</b><span>suivis</span></div>
+          </div>
+        </div>
+        <div class="ig-bio">
+          <b>NOVA</b><br>
+          <span class="base">La grâce est une force.</span><br>
+          Activewear taillé pour tes heures de studio et tes race days.<br>
+          Rejoins le club. #NovaClub<br>
+          <span class="lnk">wearnova.com/club</span>
+        </div>
+        <div class="ig-btns"><span class="follow">Suivre</span><span class="contact">Contact</span></div>
+        <div class="ig-his">
+          <div class="ig-hi"><div class="c"><svg viewBox="0 0 24 24"><path d="M3 8h18M3 12h18M3 16h12"/></svg></div>Studio</div>
+          <div class="ig-hi"><div class="c"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 13V8M9 2h6"/></svg></div>Arena</div>
+          <div class="ig-hi"><div class="c"><svg viewBox="0 0 24 24"><circle cx="8.5" cy="12" r="6"/><circle cx="15.5" cy="12" r="6"/></svg></div>Le Club</div>
+          <div class="ig-hi"><div class="c"><svg class="f" viewBox="0 0 100 100"><use href="#lg-spark"/></svg></div>Restock</div>
+        </div>
+        <div class="ig-tabs" aria-hidden="true">
+          <div><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4Z M4 10.7h16M10.7 4v16"/></svg></div>
+          <div><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M10 9.5 15 12l-5 2.5Z"/></svg></div>
+          <div><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="3.5"/><path d="M5 20c1.5-4 4-5.5 7-5.5s5.5 1.5 7 5.5"/></svg></div>
+        </div>
+        <div class="ig-grid">
+          <span class="an" style="top:8px;left:calc(33.33% + 9px)">4</span>
+          <div class="tile" style="background:var(--blanc)"><svg class="sk" viewBox="0 0 100 100" aria-hidden="true"><use href="#lg-spark"/></svg><p class="tt">La grâce<br>se travaille.</p></div>
+          <div class="tile" style="background:linear-gradient(165deg,#EAD9CF 0%,#D9B4A7 60%,#C7A090 100%)"><svg class="sil" viewBox="0 0 200 200" style="width:78%;height:auto;opacity:.42"><use href="#sil-arc"/></svg></div>
+          <div class="tile" style="background:radial-gradient(circle at 70% 28%,rgba(255,75,31,.9) 0%,rgba(255,75,31,.16) 30%,#141519 74%)"><svg class="grain" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="100" filter="url(#fg-dark)"/></svg></div>
+
+          <div class="tile" style="background:linear-gradient(170deg,#E3C4B6 0%,#D9B4A7 74%)"><svg class="sil" viewBox="0 0 200 340" style="width:38%;height:auto"><use href="#sil-legging"/></svg></div>
+          <div class="tile" style="background:var(--carbone)"><p class="sq">Comprimée,<br>jamais éteinte.</p></div>
+          <div class="tile" style="background:linear-gradient(200deg,#F1F0EC 0%,#C9C6BE 100%)"><svg class="grain" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="100" filter="url(#fg-light)"/></svg></div>
+
+          <div class="tile" style="background:radial-gradient(circle at 30% 76%,rgba(255,122,69,.85) 0%,rgba(255,75,31,.14) 30%,#16171B 72%)"><svg class="grain" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="100" filter="url(#fg-dark)"/></svg></div>
+          <div class="tile" style="background:linear-gradient(150deg,#E9E7E1 0%,#D9B4A7 100%)"><svg class="sil" viewBox="0 0 300 300" style="width:86%;height:auto;opacity:.35;stroke-width:1"><use href="#halo-soft"/></svg></div>
+          <div class="tile" style="background:var(--flare)"><p class="tt">Restock<br>Apex.</p></div>
+
+          <div class="tile" style="background:linear-gradient(170deg,#EDEBE5 0%,#DEDBD3 74%)"><svg class="sil" viewBox="0 0 200 150" style="width:56%;height:auto"><use href="#sil-bra"/></svg></div>
+          <div class="tile" style="background:radial-gradient(circle at 42% 30%,#FAFAF9 0%,#D9C4B8 78%)"></div>
+          <div class="tile" style="background:linear-gradient(180deg,#1B1D23 0%,#141519 100%)"><svg class="grain" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="100" filter="url(#fg-dark)"/></svg><div style="position:absolute;left:18%;top:40%;width:9px;height:9px;border-radius:999px;background:var(--flare);filter:blur(2px)"></div><div style="position:absolute;left:34%;top:44%;width:6px;height:6px;border-radius:999px;background:#FF7A45;filter:blur(2.5px)"></div></div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:26px">
+        <div class="panel" style="display:flex;gap:clamp(18px,3vw,34px);align-items:center;flex-wrap:wrap">
+          <div class="map" aria-label="Schéma du rythme du feed">
+            <i class="t">T</i><i class="p"></i><i class="a"></i>
+            <i class="p"></i><i class="t">T</i><i class="p"></i>
+            <i class="a"></i><i class="p"></i><i class="t f">T</i>
+            <i class="p"></i><i class="p"></i><i class="a"></i>
+          </div>
+          <ul class="map-key">
+            <li><i style="background:#E3CFC5"></i>Photo registre studio, packshots et club</li>
+            <li><i style="background:#141519"></i>Photo registre arena, nuit et grain</li>
+            <li><i style="background:#FAFAF9"></i>Visuel typographique (T), un maximum pour deux photos</li>
+          </ul>
+        </div>
+        <ol class="legend" style="grid-template-columns:1fr;margin-top:0">
+          <li><span class="n">1</span>Avatar : le monogramme sur Craie, cerclé de Flare quand une story est active. Jamais le wordmark, illisible à cette taille.</li>
+          <li><span class="n">2</span>Bio normative du chapitre 11 : la baseline en deuxième ligne, le club en appel, un seul lien.</li>
+          <li><span class="n">3</span>Stories à la une nommées par registres : Studio, Arena, Le Club, Restock. Couvertures en icônes trait sur Craie, l'étincelle Flare réservée au Restock.</li>
+          <li><span class="n">4</span>Le rythme : les visuels typographiques se posent en diagonale (tuiles 1, 5, 9), la tuile Flare est unique par écran, l'alternance studio / arena suit le ratio 60 / 40 de la DA photo. Chaque photo est créditée en légende de post.</li>
+        </ol>
+        <p class="note">Stories et Reels : le dégradé Incandescence est réservé aux stories (compte à rebours de drop, restock) ; les Reels ouvrent sur une typo Archivo plein cadre de moins d'une seconde, étincelle en watermark coin bas droit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-in">
+    <svg role="img" aria-label="Nova" viewBox="0 0 520 120"><use href="#lg-word"/></svg>
+    <span class="label">Croquis d'application, d'après le brand book édition 01, 2026</span>
+  </div>
+</footer>
+
+</body>
+</html>
