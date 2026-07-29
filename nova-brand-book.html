@@ -1,0 +1,1529 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NOVA, Brand Book. Édition 01</title>
+<meta name="description" content="Brand book complet de Nova, marque d'activewear féminin. Identité, logo, couleurs, typographie, direction artistique et applications.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0C53 38 62 47 100 50 62 53 53 62 50 100 47 62 38 53 0 50 38 47 47 38 50 0Z' fill='%23FF4B1F'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   NOVA BRAND BOOK, édition 01
+   Système : craie minérale, carbone asphalte, pop Flare.
+   Typo : Archivo variable (axe de chasse) + Cormorant Garamond italique.
+   ========================================================== */
+
+:root{
+  --craie:#F1F0EC;
+  --blanc:#FAFAF9;
+  --carbone:#141519;
+  --graphite:#44474E;
+  --brume:#B9B7B0;
+  --flare:#FF4B1F;
+  --poudre:#D9B4A7;
+  --hairline:rgba(20,21,25,.14);
+  --hairline-strong:rgba(20,21,25,.85);
+  --sans:'Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --wrap:1280px;
+  --pad:clamp(20px,5vw,72px);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--craie);
+  color:var(--carbone);
+  font-family:var(--sans);
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+img,svg{max-width:100%;display:block}
+a{color:inherit}
+::selection{background:var(--flare);color:var(--craie)}
+
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad)}
+
+/* ---------- typographie du document ---------- */
+h1,h2,h3,h4{font-family:var(--sans)}
+p{max-width:68ch}
+strong{font-weight:700}
+em{font-style:italic}
+.serif{font-family:var(--serif);font-style:italic;font-weight:500}
+
+.display{
+  font-weight:800;font-stretch:125%;text-transform:uppercase;
+  letter-spacing:-.005em;line-height:.94;
+}
+.lede{
+  font-family:var(--serif);font-style:italic;font-weight:500;
+  font-size:clamp(22px,2.6vw,30px);line-height:1.4;
+  max-width:34ch;
+}
+.small{font-size:13px;line-height:1.55;color:var(--graphite)}
+.label{
+  font-size:12px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.16em;color:var(--graphite);
+}
+
+code{
+  font-family:var(--sans);font-weight:600;font-size:.92em;
+  font-variant-numeric:tabular-nums;
+  background:rgba(20,21,25,.06);
+  padding:2px 8px;border-radius:999px;
+}
+code[data-copy]{cursor:pointer;transition:background .18s ease,color .18s ease}
+code[data-copy]:hover{background:var(--carbone);color:var(--craie)}
+code[data-copy].ok{background:var(--flare);color:var(--carbone)}
+
+/* ---------- navigation ---------- */
+.nav{
+  position:sticky;top:0;z-index:40;
+  background:rgba(241,240,236,.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--hairline);
+}
+.nav-in{
+  max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad);
+  height:60px;display:flex;align-items:center;gap:14px;
+}
+.nav-mono{width:26px;height:26px;fill:var(--carbone);flex:none}
+.nav-word{width:86px;aspect-ratio:520/120;fill:var(--carbone)}
+.nav-right{margin-left:auto;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--graphite);white-space:nowrap}
+
+/* ---------- couverture ---------- */
+.cover{
+  background:var(--carbone);color:var(--craie);
+  min-height:100dvh;display:flex;flex-direction:column;
+}
+.cover-in{
+  max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad);
+  width:100%;flex:1;display:flex;flex-direction:column;
+  padding-top:34px;padding-bottom:38px;
+}
+.cover-top{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.cover-top .label{color:var(--brume)}
+.cover-mono{width:34px;height:34px;fill:var(--craie)}
+.cover-mid{flex:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(28px,4vh,48px);padding-block:40px}
+.cover-logo{width:min(100%,1040px);aspect-ratio:520/120}
+.cover-logo .w{fill:var(--craie)}
+.cover-logo .s{fill:var(--flare)}
+.cover-base{
+  font-family:var(--serif);font-style:italic;font-weight:500;
+  font-size:clamp(24px,3.4vw,42px);line-height:1.2;color:var(--craie);
+}
+.cover-base b{color:var(--flare);font-weight:600}
+.cover-bottom{
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  border-top:1px solid rgba(241,240,236,.22);padding-top:22px;
+}
+.cover-bottom .label{color:var(--brume)}
+
+/* ---------- sommaire ---------- */
+.toc{padding-block:clamp(56px,8vw,110px);border-bottom:1px solid var(--hairline)}
+.toc h2{font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--graphite);margin-bottom:28px}
+.toc ol{list-style:none;columns:2;column-gap:clamp(24px,4vw,80px)}
+.toc li{break-inside:avoid}
+.toc a{
+  display:flex;align-items:baseline;gap:16px;
+  padding:13px 0;text-decoration:none;
+  border-top:1px solid var(--hairline);
+  transition:color .15s ease;
+}
+.toc a:hover{color:var(--flare)}
+.toc .no{
+  font-weight:800;font-stretch:62%;font-size:15px;
+  font-variant-numeric:tabular-nums;color:var(--brume);flex:none;width:28px;
+}
+.toc a:hover .no{color:var(--flare)}
+.toc .t{font-weight:600;font-size:15px;text-transform:uppercase;letter-spacing:.04em}
+@media (max-width:700px){.toc ol{columns:1}}
+
+/* ---------- chapitres ---------- */
+.chapter{padding-block:clamp(64px,9vw,130px);scroll-margin-top:70px}
+.chapter + .chapter{border-top:1px solid var(--hairline)}
+.chap-head{margin-bottom:clamp(36px,5vw,64px)}
+.chap-row{
+  display:flex;align-items:flex-end;gap:clamp(18px,3vw,44px);
+  border-top:2px solid var(--carbone);padding-top:18px;flex-wrap:wrap;
+}
+.chap-no{
+  font-weight:800;font-stretch:62%;line-height:.8;
+  font-size:clamp(72px,11vw,150px);
+  color:var(--craie);
+  -webkit-text-stroke:1.5px var(--carbone);
+  font-variant-numeric:tabular-nums;
+  flex:none;
+}
+@supports not (-webkit-text-stroke:1px black){.chap-no{color:var(--brume)}}
+.chap-title{
+  font-weight:800;font-stretch:120%;text-transform:uppercase;
+  font-size:clamp(28px,4.6vw,58px);line-height:.98;letter-spacing:-.005em;
+  padding-bottom:6px;
+}
+.chap-lede{margin-top:26px}
+
+/* ---------- blocs génériques ---------- */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,3.5vw,56px)}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.5vw,36px)}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2vw,28px)}
+@media (max-width:900px){.g3,.g4{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+.sub{margin-top:clamp(44px,6vw,80px)}
+.sub-head{
+  display:flex;align-items:baseline;gap:14px;margin-bottom:26px;
+  border-top:1px solid var(--hairline-strong);padding-top:14px;
+}
+.sub-head h3{font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.1em}
+.sub-head .small{margin-left:auto;text-align:right}
+
+.panel{border:1px solid var(--hairline);background:var(--blanc);padding:clamp(20px,3vw,34px)}
+.panel-dark{background:var(--carbone);color:var(--craie);border-color:var(--carbone)}
+.panel-dark .small{color:var(--brume)}
+
+.note{
+  border-left:3px solid var(--flare);
+  padding:6px 0 6px 20px;
+  font-size:15px;color:var(--graphite);max-width:62ch;
+}
+
+/* ---------- tableaux ---------- */
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{
+  text-align:left;font-size:12px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--graphite);
+  padding:0 14px 12px 0;border-bottom:1px solid var(--hairline-strong);
+}
+td{padding:13px 14px 13px 0;vertical-align:top;border-bottom:1px solid var(--hairline)}
+tr:last-child td{border-bottom:none}
+td b{font-weight:700}
+.num{font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
+
+/* ---------- listes est / n'est pas + do/don't ---------- */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.5vw,36px)}
+@media (max-width:760px){.duo{grid-template-columns:1fr}}
+.duo-col{border:1px solid var(--hairline);background:var(--blanc)}
+.duo-col header{
+  padding:16px 22px;border-bottom:1px solid var(--hairline);
+  font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;
+  display:flex;align-items:center;gap:10px;
+}
+.duo-col.yes header{color:var(--carbone)}
+.duo-col.no header{color:var(--graphite)}
+.duo-col ul{list-style:none;padding:10px 22px 18px}
+.duo-col li{
+  padding:9px 0 9px 26px;position:relative;font-size:15px;line-height:1.5;
+  border-top:1px solid rgba(20,21,25,.06);
+}
+.duo-col li:first-child{border-top:none}
+.duo-col li::before{
+  position:absolute;left:0;top:9px;font-weight:800;font-size:14px;
+}
+.duo-col.yes li::before{content:"✓";color:var(--flare)}
+.duo-col.no li::before{content:"✕";color:var(--brume)}
+
+/* ---------- logos ---------- */
+.logo-stage{
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--hairline);background:var(--blanc);
+  padding:clamp(34px,6vw,80px);
+}
+.logo-stage svg{width:min(100%,640px);aspect-ratio:520/120}
+.logo-grid figure{border:1px solid var(--hairline);background:var(--blanc)}
+.logo-grid .stage{display:flex;align-items:center;justify-content:center;padding:34px 24px;min-height:170px}
+.logo-grid .stage.dark{background:var(--carbone)}
+.logo-grid .stage.flare{background:var(--flare)}
+.logo-grid .stage.pou{background:var(--poudre)}
+.logo-grid figcaption{border-top:1px solid var(--hairline);padding:12px 16px}
+.logo-grid figcaption .label{display:block;color:var(--carbone)}
+.logo-grid figcaption span{font-size:13px;color:var(--graphite)}
+.lw{width:min(78%,320px);aspect-ratio:520/120;fill:var(--carbone)}
+.lw.on-dark{fill:var(--craie)}
+.lm{width:76px;aspect-ratio:1;fill:var(--carbone)}
+.lm.on-dark{fill:var(--craie)}
+.ls{width:44px;aspect-ratio:1;fill:var(--flare)}
+
+.forbid .stage{min-height:130px;padding:22px}
+.forbid svg{width:min(72%,220px);aspect-ratio:520/120;fill:var(--carbone)}
+.forbid figcaption{display:flex;gap:10px;align-items:baseline}
+.forbid figcaption::before{content:"✕";color:var(--flare);font-weight:800}
+
+/* ---------- couleurs ---------- */
+.sw{border:1px solid var(--hairline);background:var(--blanc);display:flex;flex-direction:column}
+.sw-chip{aspect-ratio:5/3;border-bottom:1px solid var(--hairline)}
+.sw-body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:10px;flex:1}
+.sw-name{font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:15px}
+.sw-role{font-size:13px;color:var(--graphite);line-height:1.5}
+.sw-codes{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+.ratio{display:flex;height:64px;border:1px solid var(--hairline)}
+.ratio div{position:relative}
+.ratio span{
+  position:absolute;left:8px;bottom:6px;font-size:11px;font-weight:700;
+  letter-spacing:.06em;white-space:nowrap;
+}
+
+/* ---------- typographie (chapitre) ---------- */
+.spec{border:1px solid var(--hairline);background:var(--blanc)}
+.spec-row{
+  display:grid;grid-template-columns:190px 1fr;gap:22px;align-items:center;
+  padding:22px 26px;border-top:1px solid var(--hairline);
+}
+.spec-row:first-child{border-top:none}
+.spec-meta{font-size:12px;line-height:1.7;color:var(--graphite);font-variant-numeric:tabular-nums}
+.spec-meta b{display:block;color:var(--carbone);font-size:13px;text-transform:uppercase;letter-spacing:.1em}
+@media (max-width:700px){.spec-row{grid-template-columns:1fr;gap:8px}}
+
+.width-demo{display:flex;flex-direction:column;gap:2px}
+.width-demo span{
+  font-weight:800;text-transform:uppercase;line-height:1.05;
+  font-size:clamp(30px,5vw,54px);
+}
+
+/* ---------- photo ---------- */
+.regie{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.5vw,36px)}
+@media (max-width:760px){.regie{grid-template-columns:1fr}}
+.tone-row{display:flex;height:76px;border:1px solid var(--hairline);margin-top:16px}
+.tone-row div{flex:1}
+.mood{border:1px solid var(--hairline);background:var(--blanc)}
+.mood-head{padding:20px 24px;border-bottom:1px solid var(--hairline);display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.mood-head h4{font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+.mood-head .small{margin-left:auto}
+.mood-body{padding:22px 24px 26px}
+.mood-tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:20px}
+.mood-tiles div{aspect-ratio:1;border:1px solid var(--hairline)}
+@media (max-width:640px){.mood-tiles{grid-template-columns:repeat(3,1fr)}}
+.mood ul{list-style:none;margin-top:14px}
+.mood ul li{
+  font-size:14.5px;line-height:1.55;color:var(--graphite);
+  padding:7px 0 7px 22px;position:relative;
+}
+.mood ul li::before{
+  content:"";position:absolute;left:2px;top:14px;width:8px;height:8px;
+  background:var(--flare);
+  clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);
+}
+
+/* ---------- iconographie ---------- */
+.icon-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+@media (max-width:820px){.icon-grid{grid-template-columns:repeat(3,1fr)}}
+.icon-grid figure{border:1px solid var(--hairline);background:var(--blanc);padding:18px 10px 12px;text-align:center}
+.icon-grid svg{width:34px;height:34px;margin:0 auto 10px;stroke:var(--carbone);fill:none;stroke-width:1.75}
+.icon-grid figcaption{font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--graphite)}
+.texture{width:100%;aspect-ratio:16/7;border:1px solid var(--hairline)}
+@media (max-width:760px){.pdp{grid-template-columns:1fr!important}}
+
+/* ---------- ton & voix : specimens ---------- */
+.copy-card{border:1px solid var(--hairline);background:var(--blanc);padding:22px 24px;display:flex;flex-direction:column;gap:12px}
+.copy-card .label{font-size:11px}
+.copy-card .body{font-size:15.5px;line-height:1.6}
+.copy-card .body .serif{font-size:1.25em}
+
+/* ---------- applications ---------- */
+.app-fig{border:1px solid var(--hairline);background:var(--blanc)}
+.app-stage{display:flex;align-items:center;justify-content:center;padding:clamp(22px,4vw,44px)}
+.app-stage.dark{background:var(--carbone)}
+.app-stage.soft{background:var(--poudre)}
+.app-cap{border-top:1px solid var(--hairline);padding:14px 18px}
+.app-cap .label{display:block;color:var(--carbone);margin-bottom:4px}
+.app-cap p{font-size:13.5px;color:var(--graphite);line-height:1.55;max-width:none}
+
+/* posts sociaux */
+.ig{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,24px)}
+@media (max-width:760px){.ig{grid-template-columns:1fr}}
+.ig-card{aspect-ratio:1;border:1px solid var(--hairline);display:flex;flex-direction:column;justify-content:space-between;padding:22px;position:relative;overflow:hidden}
+.ig-card .h{font-weight:800;font-stretch:118%;text-transform:uppercase;line-height:.96;font-size:clamp(24px,2.6vw,34px)}
+.ig-card .f{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.ig-card .handle{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.story{
+  aspect-ratio:9/16;max-width:250px;border:1px solid var(--hairline);
+  display:flex;flex-direction:column;justify-content:space-between;
+  padding:20px;background:linear-gradient(150deg,#FF4B1F 0%,#FF7A45 48%,#D9B4A7 100%);
+  color:var(--carbone);
+}
+
+/* bannière */
+.banner{
+  background:var(--carbone);color:var(--craie);
+  display:flex;align-items:center;gap:clamp(20px,4vw,56px);
+  padding:clamp(24px,4vw,44px) clamp(22px,4vw,52px);flex-wrap:wrap;
+}
+.banner .bw{width:150px;aspect-ratio:520/120;fill:var(--craie);flex:none}
+.banner .bt{font-family:var(--serif);font-style:italic;font-size:clamp(20px,2.4vw,30px);line-height:1.25;flex:1;min-width:220px}
+.banner .cta{
+  flex:none;background:var(--flare);color:var(--carbone);
+  font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;
+  padding:15px 30px;border-radius:999px;white-space:nowrap;
+}
+
+/* ---------- pied ---------- */
+.foot{background:var(--carbone);color:var(--craie);margin-top:clamp(60px,8vw,110px)}
+.foot-in{
+  max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad);
+  padding-block:clamp(48px,7vw,90px);
+  display:flex;flex-direction:column;gap:38px;
+}
+.foot-logo{width:min(100%,760px);aspect-ratio:520/120;fill:var(--craie)}
+.foot-row{
+  display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  border-top:1px solid rgba(241,240,236,.22);padding-top:22px;
+}
+.foot-row .label{color:var(--brume)}
+
+/* ---------- impression ---------- */
+@media print{
+  .nav{display:none}
+  .cover{min-height:auto;padding-block:60px}
+  .chapter{break-before:page;padding-block:40px}
+  body{font-size:12px}
+}
+</style>
+</head>
+<body>
+<!-- ==========================================================
+     BIBLIOTHÈQUE SVG : wordmark, étincelle, monogramme.
+     Géométrie : capitale 100 unités, fûts 20, chasse large.
+     ========================================================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="lg-word" viewBox="0 0 520 120">
+      <path d="M0 10H20L80 86V10H100V110H80L20 34V110H0Z"/>
+      <path fill-rule="evenodd" d="M140 60a50 50 0 1 0 100 0 50 50 0 1 0-100 0Zm20 0a30 30 0 1 1 60 0 30 30 0 1 1-60 0Z"/>
+      <path d="M280 10h20l30 76 30-76h20l-40 100h-20Z"/>
+      <path d="M460 10h20l40 100h-20l-30-76-30 76h-20Z"/>
+    </symbol>
+    <symbol id="lg-spark" viewBox="0 0 100 100">
+      <path d="M50 0C53 38 62 47 100 50 62 53 53 62 50 100 47 62 38 53 0 50 38 47 47 38 50 0Z"/>
+    </symbol>
+    <symbol id="lg-word-spark" viewBox="0 0 520 120">
+      <use href="#lg-word"/>
+      <use href="#lg-spark" x="171" y="41" width="38" height="38"/>
+    </symbol>
+    <symbol id="lg-mono" viewBox="0 0 120 120">
+      <path fill-rule="evenodd" d="M2 60a58 58 0 1 0 116 0 58 58 0 1 0-116 0Zm14 0a44 44 0 1 1 88 0 44 44 0 1 1-88 0Z"/>
+      <use href="#lg-spark" x="29" y="29" width="62" height="62"/>
+    </symbol>
+    <symbol id="lg-stack" viewBox="0 0 520 250">
+      <use href="#lg-spark" x="232" y="0" width="56" height="56"/>
+      <use href="#lg-word" x="0" y="130" width="520" height="120"/>
+    </symbol>
+  </defs>
+</svg>
+
+<nav class="nav" aria-label="Navigation du document">
+  <div class="nav-in">
+    <svg class="nav-mono" role="img" aria-label="Monogramme Nova"><use href="#lg-mono"/></svg>
+    <svg class="nav-word" viewBox="0 0 520 120" role="img" aria-label="Nova"><use href="#lg-word"/></svg>
+    <span class="nav-right">Brand book · Éd. 01</span>
+  </div>
+</nav>
+
+<!-- ========================================================== COUVERTURE -->
+<header class="cover">
+  <div class="cover-in">
+    <div class="cover-top">
+      <svg class="cover-mono" role="img" aria-label="Monogramme Nova"><use href="#lg-mono"/></svg>
+      <span class="label">Activewear féminin</span>
+    </div>
+    <div class="cover-mid">
+      <svg class="cover-logo" viewBox="0 0 520 120" role="img" aria-label="Nova, logo à étincelle">
+        <use class="w" href="#lg-word"/>
+        <use class="s" href="#lg-spark" x="171" y="41" width="38" height="38"/>
+      </svg>
+      <p class="cover-base">La grâce est <b>une force.</b></p>
+    </div>
+    <div class="cover-bottom">
+      <span class="label">Brand book</span>
+      <span class="label">Édition 01, 2026</span>
+    </div>
+  </div>
+</header>
+
+<!-- ========================================================== SOMMAIRE -->
+<section class="toc" aria-label="Sommaire">
+  <div class="wrap">
+    <h2>Sommaire</h2>
+    <ol>
+      <li><a href="#c01"><span class="no">01</span><span class="t">Introduction &amp; vision</span></a></li>
+      <li><a href="#c02"><span class="no">02</span><span class="t">Positionnement &amp; stratégie</span></a></li>
+      <li><a href="#c03"><span class="no">03</span><span class="t">Objectifs &amp; KPIs</span></a></li>
+      <li><a href="#c04"><span class="no">04</span><span class="t">Personnalité de marque</span></a></li>
+      <li><a href="#c05"><span class="no">05</span><span class="t">Naming &amp; signature</span></a></li>
+      <li><a href="#c06"><span class="no">06</span><span class="t">Logo</span></a></li>
+      <li><a href="#c07"><span class="no">07</span><span class="t">Système colorimétrique</span></a></li>
+      <li><a href="#c08"><span class="no">08</span><span class="t">Typographie</span></a></li>
+      <li><a href="#c09"><span class="no">09</span><span class="t">Direction artistique photo</span></a></li>
+      <li><a href="#c10"><span class="no">10</span><span class="t">Iconographie &amp; motifs</span></a></li>
+      <li><a href="#c11"><span class="no">11</span><span class="t">Ton &amp; voix</span></a></li>
+      <li><a href="#c12"><span class="no">12</span><span class="t">Applications</span></a></li>
+      <li><a href="#c13"><span class="no">13</span><span class="t">Do &amp; Don't</span></a></li>
+    </ol>
+  </div>
+</section>
+
+<main>
+
+<!-- ========================================================== 01 INTRO -->
+<section class="chapter" id="c01">
+  <div class="wrap">
+    <header class="chap-head">
+      <div class="chap-row">
+        <span class="chap-no" aria-hidden="true">01</span>
+        <h2 class="chap-title">Introduction<br>&amp; vision</h2>
+      </div>
+      <p class="chap-lede lede">Une nova est une étoile qui, sous sa propre compression, explose en lumière. Nova est née de cette image : l'effort qui devient éclat.</p>
+    </header>
+
+    <div class="g2">
+      <div>
+        <p><strong>Le parti pris.</strong> Deux pistes ont été explorées avant d'écrire ce document. La première, « Épure », poussait le curseur pilates à fond : greige, serif discret, silence visuel. Elle était juste, mais indifférenciée : c'est déjà le territoire d'Aybl et de Teveo. La seconde, « Incandescence », assume la collision des deux mondes : une base minérale et calme traversée par une couleur en fusion. C'est elle que nous retenons, et tout ce document la déroule sans compromis.</p>
+        <p style="margin-top:18px">Nova habille des femmes qui passent du tapis de pilates à la ligne de départ d'un hyrox sans changer de personnalité en route. Le marché leur propose de choisir : être gracieuse ou être puissante, esthétique ou performante. Nova refuse l'alternative. La grâce n'est pas le contraire de la force ; c'est sa forme la plus travaillée.</p>
+      </div>
+      <div>
+        <table>
+          <tr><td style="width:130px"><b>Mission</b></td><td>Concevoir des pièces sculptantes et techniques qui tiennent la séance la plus intense, et donner à chaque femme un club auquel appartenir.</td></tr>
+          <tr><td><b>Vision</b></td><td>Devenir en cinq ans la marque d'activewear de référence en Europe pour la génération qui s'entraîne à la fois au studio et en compétition.</td></tr>
+          <tr><td><b>Raison d'être</b></td><td>Prouver, vêtement après vêtement, que la douceur et l'intensité ne sont pas deux gammes séparées mais une seule et même femme.</td></tr>
+          <tr><td><b>Promesse</b></td><td>Une seconde peau qui suit chaque amplitude, pensée pour être vue, portée pour performer.</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Manifeste</h3><span class="small">Texte fondateur, lecture à voix haute recommandée</span></div>
+      <div class="panel panel-dark" style="padding:clamp(30px,5vw,64px)">
+        <p class="serif" style="font-size:clamp(22px,3vw,34px);line-height:1.45;max-width:30ch">
+          Nous ne choisissons pas.<br>
+          Pas entre le studio et l'arène.<br>
+          Pas entre la ligne et le chrono.<br>
+          Pas entre être belle et être forte.<br><br>
+          Nous nous comprimons, nous nous étirons,<br>
+          nous tenons la posture une seconde de plus,<br>
+          et quand tout le monde pense que nous allons céder,<br>
+          <span style="color:var(--flare)">nous explosons de lumière.</span><br><br>
+          Nous sommes des novas.<br>
+          La grâce est une force.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== 02 POSITIONNEMENT -->
+<section class="chapter" id="c02">
+  <div class="wrap">
+    <header class="chap-head">
+      <div class="chap-row">
+        <span class="chap-no" aria-hidden="true">02</span>
+        <h2 class="chap-title">Positionnement<br>&amp; stratégie</h2>
+      </div>
+      <p class="chap-lede lede">Le premium sculptural, au prix du réel, porté par une communauté qui se reconnaît au premier regard.</p>
+    </header>
+
+    <div class="g2">
+      <div>
+        <p><strong>Proposition de valeur.</strong> Des coupes sculptantes de niveau premium (matières compressives douces, coutures anatomiques, tenue à l'épreuve d'un race day) vendues à un prix accessible pour une femme de 18 à 35 ans qui s'équipe plusieurs fois par an, et enveloppées dans une expérience de marque qui donne le sentiment d'entrer dans un club, pas de passer en caisse.</p>
+        <p style="margin-top:18px"><strong>Différenciation.</strong> Aybl gagne sur le prix mais reste une marque de produit, pas d'identité. Dfyne pousse le sculptant et la sensualité, au risque de la froideur. Teveo tient le minimalisme communautaire, mais sans univers narratif fort. L'espace libre est exactement là où Nova se place : une identité incandescente et un récit (la nova, le club, le race day) que les trois benchmarks n'occupent pas. Personne ne raconte la femme qui fait les deux mondes ; c'est notre histoire.</p>
+        <p style="margin-top:18px"><strong>Territoire de marque.</strong> La beauté de l'effort. Nova ne vend ni la détente ni la souffrance : elle vend la seconde où le corps tient, la ligne du dos en extension, la poussière de magnésie dans la lumière. Tout ce qui montre l'effort avec élégance est Nova ; tout ce qui montre la paresse chic ou la douleur gratuite ne l'est pas.</p>
+      </div>
+      <figure class="panel" style="display:flex;flex-direction:column;gap:14px">
+        <svg viewBox="0 0 460 360" style="width:100%;aspect-ratio:460/360" role="img" aria-label="Carte de positionnement : identité forte et premium accessible">
+          <line x1="40" y1="320" x2="440" y2="320" stroke="#B9B7B0" stroke-width="1"/>
+          <line x1="40" y1="320" x2="40" y2="20" stroke="#B9B7B0" stroke-width="1"/>
+          <text x="440" y="342" text-anchor="end" font-family="Archivo" font-size="11" letter-spacing="1" fill="#44474E">PREMIUM →</text>
+          <text x="40" y="342" font-family="Archivo" font-size="11" letter-spacing="1" fill="#44474E">ACCESSIBLE</text>
+          <text x="28" y="24" font-family="Archivo" font-size="11" letter-spacing="1" fill="#44474E" transform="rotate(-90 28 24)" text-anchor="end">IDENTITÉ FORTE →</text>
+          <circle cx="150" cy="240" r="7" fill="#B9B7B0"/>
+          <text x="150" y="222" text-anchor="middle" font-family="Archivo" font-size="12" font-weight="600" fill="#44474E">Aybl</text>
+          <circle cx="255" cy="200" r="7" fill="#B9B7B0"/>
+          <text x="255" y="182" text-anchor="middle" font-family="Archivo" font-size="12" font-weight="600" fill="#44474E">Teveo</text>
+          <circle cx="330" cy="130" r="7" fill="#B9B7B0"/>
+          <text x="330" y="112" text-anchor="middle" font-family="Archivo" font-size="12" font-weight="600" fill="#44474E">Dfyne</text>
+          <circle cx="252" cy="66" r="16" fill="none" stroke="#FF4B1F" stroke-width="1.5"/>
+          <circle cx="252" cy="66" r="8" fill="#FF4B1F"/>
+          <text x="252" y="40" text-anchor="middle" font-family="Archivo" font-size="13" font-weight="800" letter-spacing="1" fill="#141519">NOVA</text>
+        </svg>
+        <figcaption class="small">Lecture : Nova revendique l'identité la plus forte du segment, à un niveau de prix premium accessible, entre Teveo et Dfyne.</figcaption>
+      </figure>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Persona principal</h3><span class="small">Construit sur la cible 18-35, urbaine, sociale</span></div>
+      <div class="g2">
+        <div class="panel">
+          <p class="label" style="margin-bottom:10px">Léa, 26 ans, Lyon</p>
+          <p style="font-size:15.5px">Cheffe de projet dans une agence, quatre séances par semaine : deux de pilates reformer, une préparation hyrox avec son crew, une course le dimanche. Elle poste ses séances en story, suit ses studios et trois marques d'activewear sur Instagram et TikTok, et achète 4 à 6 pièces par an entre 50 et 90 euros. Elle veut un legging « qui ne bouge pas » sur les burpees broad jumps mais qu'elle assume aussi en cours de reformer face au miroir, puis au café d'après.</p>
+          <table style="margin-top:16px;font-size:14px">
+            <tr><td style="width:150px"><b>Déclencheurs d'achat</b></td><td>Vue sur une fille de son studio, story d'ambassadrice, restock d'un coloris</td></tr>
+            <tr><td><b>Frustration n°1</b></td><td>Devoir choisir entre « joli » et « technique »</td></tr>
+            <tr><td><b>Frustration n°2</b></td><td>Les marques qui parlent de « summer body » au lieu de performance</td></tr>
+            <tr><td><b>Ce qui la fidélise</b></td><td>Le sentiment d'appartenir à un club, pas d'être une cliente</td></tr>
+          </table>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div class="panel">
+            <p class="label" style="margin-bottom:10px">Persona secondaire : Inès, 31 ans, Paris</p>
+            <p style="font-size:15.5px">Compétitrice hyrox classée, 6 entraînements par semaine, exigeante sur la compression et les coutures. Elle est moins sensible à l'esthétique qu'à la preuve : si le produit tient sur elle, elle devient la meilleure ambassadrice possible auprès des Léa.</p>
+          </div>
+          <p class="note">Règle stratégique : on conçoit pour Inès, on raconte pour Léa. La crédibilité technique vient des compétitrices, le volume vient des pratiquantes hybrides.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== 03 OBJECTIFS -->
+<section class="chapter" id="c03">
+  <div class="wrap">
+    <header class="chap-head">
+      <div class="chap-row">
+        <span class="chap-no" aria-hidden="true">03</span>
+        <h2 class="chap-title">Objectifs<br>&amp; KPIs</h2>
+      </div>
+      <p class="chap-lede lede">Une identité ne se pilote pas à l'intuition. Chaque objectif de marque est adossé à un indicateur mesurable, revu chaque mois.</p>
+    </header>
+
+    <div class="g2">
+      <div>
+        <div class="sub-head" style="margin-top:0"><h3>Business, cibles an 1</h3></div>
+        <table>
+          <tr><th>Objectif</th><th style="text-align:right">Cible</th></tr>
+          <tr><td>Chiffre d'affaires e-commerce</td><td class="num" style="text-align:right">1,2 M€</td></tr>
+          <tr><td>Marge brute</td><td class="num" style="text-align:right">≥ 62 %</td></tr>
+          <tr><td>Panier moyen</td><td class="num" style="text-align:right">92 €</td></tr>
+          <tr><td>Sell-through par drop à 8 semaines</td><td class="num" style="text-align:right">≥ 80 %</td></tr>
+          <tr><td>Taux de retour produit</td><td class="num" style="text-align:right">&lt; 9 %</td></tr>
+        </table>
+      </div>
+      <div>
+        <div class="sub-head" style="margin-top:0"><h3>Notoriété &amp; communauté</h3></div>
+        <table>
+          <tr><th>Objectif</th><th style="text-align:right">Cible</th></tr>
+          <tr><td>Abonnées Instagram + TikTok à M12</td><td class="num" style="text-align:right">60 000</td></tr>
+          <tr><td>Taux d'engagement moyen</td><td class="num" style="text-align:right">≥ 5 %</td></tr>
+          <tr><td>Publications UGC mensuelles (#NovaClub)</td><td class="num" style="text-align:right">≥ 300</td></tr>
+          <tr><td>Ambassadrices actives (studios + hyrox)</td><td class="num" style="text-align:right">40</td></tr>
+          <tr><td>Événements communautaires par an</td><td class="num" style="text-align:right">12</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="g2" style="margin-top:clamp(28px,4vw,48px)">
+      <div>
+        <div class="sub-head" style="margin-top:0"><h3>Conversion &amp; rétention</h3></div>
+        <table>
+          <tr><th>Objectif</th><th style="text-align:right">Cible</th></tr>
+          <tr><td>Taux de conversion e-commerce</td><td class="num" style="text-align:right">2,8 %</td></tr>
+          <tr><td>Coût d'acquisition client</td><td class="num" style="text-align:right">≤ 22 €</td></tr>
+          <tr><td>Ratio LTV / CAC</td><td class="num" style="text-align:right">≥ 3</td></tr>
+          <tr><td>Taux de réachat à 12 mois</td><td class="num" style="text-align:right">30 %</td></tr>
+          <tr><td>Inscriptions newsletter « Le Club »</td><td class="num" style="text-align:right">18 000</td></tr>
+        </table>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px;justify-content:flex-start">
+        <p class="note">Les chiffres ci-dessus sont des cibles de lancement, à recalibrer après le premier drop. Ils figurent ici parce qu'une direction artistique se juge aussi à ce qu'elle convertit.</p>
+        <p style="font-size:15px;color:var(--graphite)">Indicateur de santé de marque, mesuré par vague semestrielle : la part de clientes capables de citer la baseline « La grâce est une force » en notoriété assistée doit dépasser 35 % à M18. C'est le test ultime de cohérence de ce brand book.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ========================================================== 04 PERSONNALITÉ -->
+<section class="chapter" id="c04">
+  <div class="wrap">
+    <header class="chap-head">
+      <div class="chap-row">
+        <span class="chap-no" aria-hidden="true">04</span>
+        <h2 class="chap-title">Personnalité<br>de marque</h2>
+      </div>
+      <p class="chap-lede lede">Nova parle comme une capitaine d'équipe qui aurait le regard d'une chorégraphe : exigeante, chaleureuse, précise.</p>
+    </header>
+
+    <div class="g2">
+      <div>
+        <p><strong>Archétype.</strong> Nova est une <strong>Héroïne</strong> tempérée par <strong>l'Amante</strong>. L'Héroïne apporte le dépassement, la discipline, le goût du chrono ; l'Amante apporte le sensoriel, la matière, le plaisir d'habiter son corps. L'équilibre est stratégique : l'Héroïne seule donnerait une marque de crossfit de plus, l'Amante seule donnerait une marque de loungewear de plus. La tension entre les deux est exactement la tension pilates × hyrox.</p>
+        <p style="margin-top:18px"><strong>Attributs.</strong> Sculpturale, incandescente, directe, sororale, méticuleuse. Cinq mots, pas plus : toute création (photo, copy, produit) doit pouvoir être défendue par au moins deux d'entre eux.</p>
+      </div>
+      <table>
+        <tr><th>Valeur</th><th>La preuve, au quotidien</th></tr>
+        <tr><td><b>Exigence</b></td><td>Aucun produit ne sort sans avoir été testé en conditions de course par des ambassadrices.</td></tr>
+        <tr><td><b>Sororité</b></td><td>La communauté avant la marque : les Novas sont créditées, reprises, invitées, jamais utilisées.</td></tr>
+        <tr><td><b>Intensité</b></td><td>On montre l'effort réel : la sueur, la magnésie, le souffle. Jamais de pose figée sans raison.</td></tr>
+        <tr><td><b>Élégance</b></td><td>Chaque support respecte la grille, les blancs, la retenue. Le spectaculaire vient de la justesse.</td></tr>
+        <tr><td><b>Sincérité</b></td><td>Pas de discours minceur, pas de retouche des corps, pas de promesse technique invérifiable.</td></tr>
+      </table>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Ce que Nova est / n'est pas</h3></div>
+      <div class="duo">
+        <div class="duo-col yes">
+          <header>Nova est</header>
+          <ul>
+            <li>Premium accessible : la qualité se voit, le prix reste juste</li>
+            <li>Un club : on rejoint Nova, on n'achète pas seulement Nova</li>
+            <li>Sculpturale : la coupe et la ligne avant l'ornement</li>
+            <li>Bilingue d'univers : crédible au studio comme sur la ligne de départ</li>
+            <li>Directe : des phrases courtes, des preuves, du tutoiement</li>
+          </ul>
+        </div>
+        <div class="duo-col no">
+          <header>Nova n'est pas</header>
+          <ul>
+            <li>Une marque d'injonction : jamais de « summer body », jamais de culpabilité</li>
+            <li>Du streetwear à logo : le monogramme reste discret sur les produits</li>
+            <li>Un techwear froid : la performance sans chaleur humaine n'est pas Nova</li>
+            <li>Un cliché « girly » : pas de rose bonbon, pas de « queen » ni de « babe » mécaniques</li>
+            <li>Un luxe distant : pas de posture inaccessible ni de prix de prestige artificiel</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== 05 NAMING -->
+<section class="chapter" id="c05">
+  <div class="wrap">
+    <header class="chap-head">
+      <div class="chap-row">
+        <span class="chap-no" aria-hidden="true">05</span>
+        <h2 class="chap-title">Naming<br>&amp; signature</h2>
+      </div>
+      <p class="chap-lede lede">Quatre lettres, deux syllabes, un phénomène : le nom porte déjà toute la direction artistique.</p>
+    </header>
+
+    <div class="g2">
+      <div>
+        <p><strong>Le sens.</strong> En astronomie, une nova est une étoile dont l'éclat augmente brutalement de plusieurs magnitudes : une explosion de lumière née d'une accumulation de pression. En latin, <em>nova</em> signifie « nouvelle ». Le nom raconte donc, en un mot, le moment que la marque célèbre : celui où l'effort accumulé devient rayonnement. Sa finale en « a » l'ancre au féminin sans le crier ; ses deux syllabes se prononcent identiquement en français, en anglais, en espagnol et en italien, ce qui sécurise l'expansion européenne.</p>
+        <p style="margin-top:18px"><strong>Usage du nom.</strong> Nova s'écrit en capitales dans le logo (NOVA) et en bas de casse avec majuscule initiale dans le texte courant (Nova). Les membres de la communauté sont « les Novas » ; le programme de fidélité et d'ambassadrices est « le Nova Club ».</p>
+      </div>
+      <div class="panel" style="display:flex;flex-direction:column;gap:22px;justify-content:center">
+        <div>
+          <p class="label" style="margin-bottom:8px">Baseline officielle</p>
+          <p class="serif" style="font-size:clamp(26px,3.4vw,40px);line-height:1.15">La grâce est une force.</p>
+        </div>
+        <div class="small">
+          <p style="max-width:none">Règles : la baseline est une phrase complète, elle prend toujours son point final. Elle ne se traduit pas, ne se raccourcit pas, ne se décline pas en jeu de mots. Elle se compose en Cormorant Garamond italique, ou en Archivo pour les contextes utilitaires. Signature de campagne autorisée en complément : « La grâce se travaille. »</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== 06 LOGO -->
+<section class="chapter" id="c06">
+  <div class="wrap">
+    <header class="chap-head">
+      <div class="chap-row">
+        <span class="chap-no" aria-hidden="true">06</span>
+        <h2 class="chap-title">Logo</h2>
+      </div>
+      <p class="chap-lede lede">Un wordmark taillé comme un agrès, un anneau parfait, et une étincelle : le moment exact où l'étoile s'allume.</p>
+    </header>
+
+    <div class="g2" style="margin-bottom:clamp(28px,4vw,48px)">
+      <p><strong>Le concept.</strong> Le wordmark est dessiné sur mesure : capitales géométriques à chasse large, fûts francs (20 % de la hauteur de capitale), aucun empattement. Chaque lettre est un parti pris. Le <strong>O est un anneau parfait</strong> : le cercle du studio, la répétition, la discipline. Le <strong>A a perdu sa traverse</strong> : il devient une flèche, l'ascension, le sommet à prendre. Le V et le A se répondent en miroir : la descente et la remontée, l'excentrique et le concentrique, la grâce et l'effort. L'ensemble se lit d'un bloc, stable comme une structure de rig.</p>
+      <p><strong>L'étincelle.</strong> Le symbole de Nova est une étoile à quatre branches aux flancs creusés, dessinée d'après l'éclat d'une lumière dans un objectif. C'est la nova elle-même : posée au cœur de l'anneau du O, elle allume le wordmark ; isolée, elle devient monogramme, favicon, puce, tampon. C'est le seul élément de l'identité autorisé à porter la couleur Flare en toute circonstance.</p>
+    </div>
+
+    <figure class="logo-stage">
+      <svg viewBox="0 0 520 120" role="img" aria-label="Logo principal Nova"><use style="fill:var(--carbone)" href="#lg-word"/></svg>
+    </figure>
+    <p class="small" style="margin-top:12px">Logo principal : le wordmark seul, monochrome. C'est la version par défaut de tous les supports.</p>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Versions &amp; déclinaisons</h3><span class="small">Toutes vectorielles, aucune recomposition manuelle</span></div>
+      <div class="g3 logo-grid">
+        <figure>
+          <div class="stage"><svg class="lw" viewBox="0 0 520 120" role="img" aria-label="Nova, version cœur de nova"><use href="#lg-word"/><use style="fill:var(--flare)" href="#lg-spark" x="171" y="41" width="38" height="38"/></svg></div>
+          <figcaption><span class="label">Secondaire « cœur de nova »</span><span>L'étincelle Flare dans l'anneau. Réservée aux temps forts : campagnes, couvertures, packaging.</span></figcaption>
+        </figure>
+        <figure>
+          <div class="stage"><svg style="width:min(46%,150px);aspect-ratio:520/250;fill:var(--carbone)" viewBox="0 0 520 250" role="img" aria-label="Nova, version verticale"><use href="#lg-stack"/></svg></div>
+          <figcaption><span class="label">Verticale empilée</span><span>Étincelle au-dessus du wordmark. Pour les formats carrés et hauts : hangtags, tampons, PLV.</span></figcaption>
+        </figure>
+        <figure>
+          <div class="stage"><svg class="lm" viewBox="0 0 120 120" role="img" aria-label="Monogramme Nova"><use href="#lg-mono"/></svg></div>
+          <figcaption><span class="label">Monogramme</span><span>L'étincelle dans l'anneau. Avatar, favicon, ceintures de leggings, zips, broderies.</span></figcaption>
+        </figure>
+        <figure>
+          <div class="stage dark"><svg class="lw on-dark" viewBox="0 0 520 120" role="img" aria-label="Nova en négatif"><use href="#lg-word"/></svg></div>
+          <figcaption><span class="label">Négatif</span><span>Craie sur Carbone. Version par défaut sur fonds sombres et photos de nuit.</span></figcaption>
+        </figure>
+        <figure>
+          <div class="stage flare"><svg class="lw" viewBox="0 0 520 120" role="img" aria-label="Nova sur fond Flare"><use href="#lg-word"/></svg></div>
+          <figcaption><span class="label">Sur Flare</span><span>Carbone sur Flare, uniquement. Jamais de blanc sur Flare en petit corps (contraste insuffisant).</span></figcaption>
+        </figure>
+        <figure>
+          <div class="stage pou"><svg class="lm" viewBox="0 0 120 120" role="img" aria-label="Monogramme sur fond Poudre"><use href="#lg-mono"/></svg></div>
+          <figcaption><span class="label">Monochrome sur teintes</span><span>Sur Poudre ou Brume, le logo reste Carbone. Une seule encre, toujours.</span></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Zone de protection &amp; tailles minimales</h3></div>
+      <div class="g2">
+        <figure class="panel" style="padding:clamp(22px,3vw,40px)">
+          <svg viewBox="0 0 660 260" style="width:100%;aspect-ratio:660/260" role="img" aria-label="Zone de protection du logo : un demi O sur chaque côté">
+            <rect x="10" y="10" width="640" height="240" fill="none" stroke="#B9B7B0" stroke-width="1" stroke-dasharray="5 5"/>
+            <use href="#lg-word" x="70" y="70" width="520" height="120" style="fill:#141519"/>
+            <path fill-rule="evenodd" d="M26 130a14 14 0 1 0 28 0 14 14 0 1 0-28 0Zm6 0a8 8 0 1 1 16 0 8 8 0 1 1-16 0Z" fill="#FF4B1F"/>
+            <path fill-rule="evenodd" d="M316 26a14 14 0 1 0 28 0 14 14 0 1 0-28 0Zm6 0a8 8 0 1 1 16 0 8 8 0 1 1-16 0Z" fill="#FF4B1F"/>
+            <text x="330" y="238" text-anchor="middle" font-family="Archivo" font-size="12" letter-spacing="1.5" fill="#44474E">ZONE DE PROTECTION = ½ ANNEAU (½ O) SUR CHAQUE CÔTÉ</text>
+          </svg>
+        </figure>
+        <div>
+          <table>
+            <tr><th>Version</th><th>Min. écran</th><th>Min. print</th></tr>
+            <tr><td>Wordmark</td><td class="num">88 px de large</td><td class="num">24 mm</td></tr>
+            <tr><td>Verticale empilée</td><td class="num">64 px de haut</td><td class="num">18 mm</td></tr>
+            <tr><td>Monogramme</td><td class="num">20 px</td><td class="num">7 mm</td></tr>
+            <tr><td>Étincelle seule</td><td class="num">12 px</td><td class="num">4 mm</td></tr>
+          </table>
+          <p class="note" style="margin-top:18px">La zone de protection se mesure avec l'anneau du O : un demi-anneau d'air minimum sur chaque côté, un anneau entier dès que l'espace le permet. Rien n'entre dans cette zone, pas même la baseline.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Usages interdits</h3><span class="small">Aucune exception, y compris en interne</span></div>
+      <div class="g3 logo-grid forbid">
+        <figure>
+          <div class="stage"><svg viewBox="0 0 520 120" aria-hidden="true"><use href="#lg-word" transform="translate(0 22) scale(1 .62)"/></svg></div>
+          <figcaption>Ne pas écraser ni étirer les proportions</figcaption>
+        </figure>
+        <figure>
+          <div class="stage"><svg viewBox="0 0 520 120" aria-hidden="true"><use href="#lg-word" transform="translate(11 0) skewX(-10)"/></svg></div>
+          <figcaption>Ne pas incliner, pencher ou mettre en italique</figcaption>
+        </figure>
+        <figure>
+          <div class="stage"><svg viewBox="0 0 520 120" aria-hidden="true"><use href="#lg-word" style="fill:#8B5CF6"/></svg></div>
+          <figcaption>Ne pas sortir de la palette (une encre, jamais de dégradé)</figcaption>
+        </figure>
+        <figure>
+          <div class="stage"><svg viewBox="0 0 520 120" aria-hidden="true" style="filter:drop-shadow(5px 6px 4px rgba(20,21,25,.45))"><use href="#lg-word"/></svg></div>
+          <figcaption>Ne pas ajouter d'ombre portée, de relief ou de contour</figcaption>
+        </figure>
+        <figure>
+          <div class="stage"><svg viewBox="0 0 520 120" aria-hidden="true"><use href="#lg-word" transform="translate(78 0) scale(.7 1)"/></svg></div>
+          <figcaption>Ne pas resserrer ni recomposer l'espacement des lettres</figcaption>
+        </figure>
+        <figure>
+          <div class="stage" style="background:repeating-linear-gradient(45deg,#D9B4A7 0 14px,#B9B7B0 14px 28px)"><svg viewBox="0 0 520 120" aria-hidden="true"><use href="#lg-word"/></svg></div>
+          <figcaption>Ne pas poser le logo sur un fond chargé sans aplat ni voile</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== 07 COULEURS -->
+<section class="chapter" id="c07">
+  <div class="wrap">
+    <header class="chap-head">
+      <div class="chap-row">
+        <span class="chap-no" aria-hidden="true">07</span>
+        <h2 class="chap-title">Système<br>colorimétrique</h2>
+      </div>
+      <p class="chap-lede lede">Une base minérale et froide, comme la magnésie et l'asphalte. Puis une seule couleur en fusion, rationnée comme un effort maximal.</p>
+    </header>
+
+    <p style="margin-bottom:clamp(28px,4vw,44px)"><strong>Pourquoi cette palette.</strong> Les benchmarks du segment vivent dans des beiges chauds ; Nova s'en écarte volontairement. Sa base est froide et minérale : la Craie vient de la magnésie sur les mains, le Carbone de l'asphalte des courses de nuit. Sur ce silence, une seule couleur a le droit de brûler : Flare, l'orange incandescent de l'étoile qui explose. Sa rareté fait sa valeur : rationné à moins de 8 % des surfaces, il rend chaque apparition immanquable dans un feed. Poudre, enfin, apporte la chaleur de la peau, sans jamais glisser vers le rose cliché.</p>
+
+    <div class="sub-head"><h3>Palette principale</h3><span class="small">Cliquer un code pour le copier</span></div>
+    <div class="g3">
+      <div class="sw">
+        <div class="sw-chip" style="background:#F1F0EC"></div>
+        <div class="sw-body">
+          <span class="sw-name">Craie</span>
+          <span class="sw-role">Fond par défaut de tous les supports. 52 % des surfaces. La lumière du studio, la magnésie sur les paumes.</span>
+          <div class="sw-codes"><code data-copy>#F1F0EC</code><code data-copy>RGB 241 240 236</code><code data-copy>CMJN 0 0 2 5</code></div>
+        </div>
+      </div>
+      <div class="sw">
+        <div class="sw-chip" style="background:#141519"></div>
+        <div class="sw-body">
+          <span class="sw-name">Carbone</span>
+          <span class="sw-role">Texte, logo, fonds de nuit. 24 %. Un noir bleuté d'asphalte, jamais un noir pur.</span>
+          <div class="sw-codes"><code data-copy>#141519</code><code data-copy>RGB 20 21 25</code><code data-copy>CMJN 20 16 0 90</code></div>
+        </div>
+      </div>
+      <div class="sw">
+        <div class="sw-chip" style="background:#FF4B1F"></div>
+        <div class="sw-body">
+          <span class="sw-name">Flare</span>
+          <span class="sw-role">La signature. CTA, étincelle, soulignés, un mot par page maximum. Rationné à 8 % : sa rareté est la règle.</span>
+          <div class="sw-codes"><code data-copy>#FF4B1F</code><code data-copy>RGB 255 75 31</code><code data-copy>CMJN 0 71 88 0</code></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-head" style="margin-top:clamp(36px,5vw,60px)"><h3>Palette secondaire &amp; neutres</h3></div>
+    <div class="g4">
+      <div class="sw">
+        <div class="sw-chip" style="background:#D9B4A7"></div>
+        <div class="sw-body">
+          <span class="sw-name">Poudre</span>
+          <span class="sw-role">La note de peau. Fonds produits, packaging intérieur, coloris textile.</span>
+          <div class="sw-codes"><code data-copy>#D9B4A7</code><code data-copy>RGB 217 180 167</code><code data-copy>CMJN 0 17 23 15</code></div>
+        </div>
+      </div>
+      <div class="sw">
+        <div class="sw-chip" style="background:#B9B7B0"></div>
+        <div class="sw-body">
+          <span class="sw-name">Brume</span>
+          <span class="sw-role">Gris minéral. Filets, légendes, états inactifs, béton des salles.</span>
+          <div class="sw-codes"><code data-copy>#B9B7B0</code><code data-copy>RGB 185 183 176</code><code data-copy>CMJN 0 1 5 27</code></div>
+        </div>
+      </div>
+      <div class="sw">
+        <div class="sw-chip" style="background:#44474E"></div>
+        <div class="sw-body">
+          <span class="sw-name">Graphite</span>
+          <span class="sw-role">Texte secondaire et légendes sur fonds clairs. Jamais en aplat décoratif.</span>
+          <div class="sw-codes"><code data-copy>#44474E</code><code data-copy>RGB 68 71 78</code><code data-copy>CMJN 13 9 0 69</code></div>
+        </div>
+      </div>
+      <div class="sw">
+        <div class="sw-chip" style="background:#FAFAF9;border-bottom:1px solid var(--hairline)"></div>
+        <div class="sw-body">
+          <span class="sw-name">Blanc cassé</span>
+          <span class="sw-role">Cartes et panneaux posés sur Craie. Jamais de blanc pur #FFFFFF.</span>
+          <div class="sw-codes"><code data-copy>#FAFAF9</code><code data-copy>RGB 250 250 249</code><code data-copy>CMJN 0 0 0 2</code></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Répartition &amp; règles d'usage</h3></div>
+      <div class="ratio" role="img" aria-label="Répartition : Craie 52 %, Carbone 24 %, Brume 8 %, Flare 8 %, Poudre 5 %, Blanc cassé 3 %">
+        <div style="flex:52;background:#F1F0EC"><span style="color:#44474E">CRAIE 52</span></div>
+        <div style="flex:24;background:#141519"><span style="color:#F1F0EC">CARBONE 24</span></div>
+        <div style="flex:8;background:#B9B7B0"><span style="color:#141519">8</span></div>
+        <div style="flex:8;background:#FF4B1F"><span style="color:#141519">8</span></div>
+        <div style="flex:5;background:#D9B4A7"><span style="color:#141519">5</span></div>
+        <div style="flex:3;background:#FAFAF9"><span style="color:#44474E">3</span></div>
+      </div>
+      <div class="g2" style="margin-top:26px">
+        <div>
+          <p style="font-size:15px"><strong>Accessibilité.</strong> Le texte courant est toujours Carbone sur Craie ou Craie sur Carbone (contraste supérieur à 15:1). Flare ne porte jamais de texte courant : il souligne, remplit un bouton (texte Carbone dessus) ou colore l'étincelle. Poudre et Brume ne portent jamais de texte de moins de 18 px.</p>
+        </div>
+        <div>
+          <p style="font-size:15px"><strong>Dégradé Incandescence.</strong> Un seul dégradé est autorisé dans l'identité : Flare vers Poudre, réservé aux stories et visuels de campagne. Jamais sur le logo, jamais en fond de texte long.</p>
+          <div style="height:56px;margin-top:14px;border:1px solid var(--hairline);background:linear-gradient(120deg,#FF4B1F 0%,#FF7A45 48%,#D9B4A7 100%)"></div>
+          <div class="sw-codes" style="margin-top:10px"><code data-copy>linear-gradient(120deg, #FF4B1F 0%, #FF7A45 48%, #D9B4A7 100%)</code></div>
+        </div>
+      </div>
+      <p class="note" style="margin-top:26px">Références Pantone à faire valider par l'usine sur nuancier physique avant toute production textile ou packaging. Ne jamais convertir automatiquement.</p>
+    </div>
+  </div>
+</section>
+<!-- ========================================================== 08 TYPOGRAPHIE -->
+<section class="chapter" id="c08">
+  <div class="wrap">
+    <header class="chap-head">
+      <div class="chap-row">
+        <span class="chap-no" aria-hidden="true">08</span>
+        <h2 class="chap-title">Typographie</h2>
+      </div>
+      <p class="chap-lede lede">Une seule famille qui se comprime et s'étend comme un muscle, et un contrepoint italique pour les moments de grâce.</p>
+    </header>
+
+    <div class="g2" style="margin-bottom:clamp(28px,4vw,48px)">
+      <p><strong>Archivo, la charpente.</strong> Police variable dotée d'un axe de chasse (62 % à 125 %), Archivo incarne littéralement le concept de la marque : condensée, elle est la compression de l'effort ; étendue, elle est le rayonnement. Ses formes géométriques et ses chiffres tabulaires en font une athlète complète, du titre de campagne à la fiche produit. Tous les titres se composent en capitales, chasse étendue, graisse 800.</p>
+      <p><strong>Cormorant Garamond, la respiration.</strong> Utilisée exclusivement en italique, elle est la voix intérieure de Nova : la baseline, les ledes, les citations du manifeste. Sa finesse calligraphique contre la masse d'Archivo rejoue le duo pilates × hyrox à l'échelle de la lettre. Règle stricte : jamais en dessous de 20 px, jamais pour l'interface, jamais mêlée à Archivo dans une même phrase de titre.</p>
+    </div>
+
+    <figure class="panel" style="padding:clamp(26px,4vw,52px)">
+      <p class="display" style="font-size:clamp(34px,6.6vw,92px)">La grâce<br>est une force</p>
+      <p class="serif" style="font-size:clamp(22px,3vw,34px);margin-top:18px;color:var(--graphite)">et la force se travaille, séance après séance.</p>
+    </figure>
+    <p class="small" style="margin-top:12px">Le duo en action : Archivo 800 étendue en capitales, relayée par Cormorant Garamond italique. Les deux voix se succèdent, elles ne se mélangent jamais dans la même ligne.</p>
+
+    <div class="sub">
+      <div class="sub-head"><h3>L'axe de chasse, preuve par la lettre</h3></div>
+      <div class="g2">
+        <div class="panel width-demo">
+          <span style="font-stretch:62%">Compression</span>
+          <span style="font-stretch:100%">Transition</span>
+          <span style="font-stretch:125%;color:var(--flare)">Expansion</span>
+        </div>
+        <p style="align-self:center">Trois états d'une même famille, comme trois temps d'un même mouvement. La chasse 62 % est réservée aux grands chiffres (compteurs, numéros de chapitres, dossards) ; la chasse 125 % aux titres ; la chasse 100 % au texte courant. On ne choisit jamais une valeur intermédiaire « à l'œil » : trois crans, pas de demi-mesure.</p>
+      </div>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Hiérarchie complète</h3><span class="small">Corps de référence desktop, à adapter proportionnellement</span></div>
+      <div class="spec">
+        <div class="spec-row">
+          <div class="spec-meta"><b>Display</b>Archivo 800 · chasse 125 %<br>72 à 120 px · interlignage 0,94<br>capitales, approche -0,5 %</div>
+          <div class="display" style="font-size:clamp(30px,4.6vw,60px)">Race day</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-meta"><b>H1</b>Archivo 800 · chasse 120 %<br>44 à 64 px · interlignage 0,98<br>capitales</div>
+          <div style="font-weight:800;font-stretch:120%;text-transform:uppercase;font-size:clamp(24px,3.4vw,42px);line-height:1">Collection Ignition</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-meta"><b>H2</b>Archivo 700 · chasse 110 %<br>28 à 36 px · interlignage 1,1</div>
+          <div style="font-weight:700;font-stretch:110%;font-size:clamp(20px,2.6vw,30px);line-height:1.1">Le legging Apex, taillé pour tenir</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-meta"><b>H3 / Label</b>Archivo 700 · 13 px<br>capitales, approche +10 %</div>
+          <div style="font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.1em">Matières &amp; entretien</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-meta"><b>Lede</b>Cormorant Garamond 500 italique<br>24 à 30 px · interlignage 1,4</div>
+          <div class="serif" style="font-size:clamp(19px,2.4vw,27px);line-height:1.4">Pensée pour le studio, prête pour l'arène.</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-meta"><b>Body</b>Archivo 400 · 17 px<br>interlignage 1,65 · max 68 caractères</div>
+          <div style="font-size:16px;max-width:52ch">Le jersey compressif Apex épouse chaque amplitude sans jamais marquer, de la première salutation au dernier wall ball.</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-meta"><b>Caption</b>Archivo 400 · 13 px<br>couleur Graphite</div>
+          <div class="small">Composition : 76 % polyamide recyclé, 24 % élasthanne.</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-meta"><b>Chiffres</b>Archivo 800 · chasse 62 %<br>tabulaires, tailles libres</div>
+          <div style="font-weight:800;font-stretch:62%;font-size:clamp(30px,4.6vw,56px);line-height:1;font-variant-numeric:tabular-nums">58:47<span style="font-size:.4em;vertical-align:.9em;color:var(--flare)">PB</span></div>
+        </div>
+      </div>
+      <p class="note" style="margin-top:22px">Alternatives web-safe (e-mails, environnements sans webfonts) : Archivo se remplace par Helvetica Neue puis Arial ; Cormorant Garamond par Georgia italique puis Times New Roman italique. Les hiérarchies et graisses restent identiques.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== 09 PHOTO -->
+<section class="chapter" id="c09">
+  <div class="wrap">
+    <header class="chap-head">
+      <div class="chap-row">
+        <span class="chap-no" aria-hidden="true">09</span>
+        <h2 class="chap-title">Direction<br>artistique photo</h2>
+      </div>
+      <p class="chap-lede lede">Deux registres, une seule vérité : des corps réels en plein effort, jamais des poses de catalogue.</p>
+    </header>
+
+    <div class="regie">
+      <div class="panel">
+        <p class="label" style="margin-bottom:12px">Registre Studio · 60 % des images</p>
+        <p style="font-size:15.5px;max-width:none">Le monde pilates. Lumière naturelle diffuse (grande fenêtre, voilage), ombres douces, fonds minéraux : murs de plâtre, lin, béton ciré, bois clair. Poses tenues et sculpturales : extensions, spirales, équilibres, mains poudrées de magnésie. Cadrages au 50 mm et 85 mm, plans poitrine et très gros plans matière (grain du jersey, couture anatomique, peau). Beaucoup d'air autour des sujets : le vide fait partie de l'image.</p>
+        <div class="tone-row" role="img" aria-label="Gamme tonale du registre studio">
+          <div style="background:#F1F0EC"></div>
+          <div style="background:#E4E2DC"></div>
+          <div style="background:#D9B4A7"></div>
+          <div style="background:#B9B7B0"></div>
+          <div style="background:#8D8A83"></div>
+        </div>
+      </div>
+      <div class="panel panel-dark">
+        <p class="label" style="margin-bottom:12px;color:var(--brume)">Registre Arena · 40 % des images</p>
+        <p style="font-size:15.5px;max-width:none;color:var(--craie)">Le monde hyrox. Flash direct ou tungstène, noirs profonds, grain argentique assumé (équivalent 400 ISO poussé). Sueur visible, souffle, poussière de magnésie en suspension dans le faisceau. Mouvement réel : sled push, burpees, course de nuit sur asphalte mouillé ; un léger flou de mouvement est un atout, pas un défaut. Contre-plongée modérée pour la puissance, jamais caricaturale.</p>
+        <div class="tone-row" style="border-color:rgba(241,240,236,.25)" role="img" aria-label="Gamme tonale du registre arena">
+          <div style="background:#141519"></div>
+          <div style="background:#2A2C33"></div>
+          <div style="background:#44474E"></div>
+          <div style="background:#FF4B1F"></div>
+          <div style="background:#FF7A45"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g2" style="margin-top:clamp(24px,3vw,40px)">
+      <p style="font-size:15px"><strong>Règles de peau et de corps.</strong> Pas de lissage de peau, pas d'effacement des plis d'effort, pas d'amincissement. La sueur, les rougeurs, les marques d'élastiques sont la preuve de l'effort : on les garde. Casting diversifié en morphologies, âges (18 à 40 ans à l'image) et carnations, toujours des pratiquantes réelles, jamais des mannequins qui « miment » le sport.</p>
+      <p style="font-size:15px"><strong>Interdits photo.</strong> Poses passives type lingerie, filtres orange saturés, HDR, fonds de salle encombrés sans intention, regards caméra systématiques, et tout cliché « fitness motivation » (poings serrés face caméra, hurlements). Une image Nova doit pouvoir être accrochée dans une galerie sans légende.</p>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Planches de moodboard</h3><span class="small">Briefs de shooting, à produire tels quels</span></div>
+      <div style="display:flex;flex-direction:column;gap:clamp(18px,2.5vw,32px)">
+
+        <div class="mood">
+          <div class="mood-head"><h4>Planche 01 · Sculpture</h4><span class="small">Registre studio, campagne permanente</span></div>
+          <div class="mood-body">
+            <p style="font-size:15px;max-width:none">Huit images pensées comme une série de sculptures : un dos en extension complète sur reformer, contre-jour de fenêtre ; un très gros plan de hanche montrant la couture anatomique du legging Apex sur fond de plâtre ; deux mains poudrées de magnésie jointes au-dessus de la tête ; un drapé de jersey Craie posé sur un banc de bois ; un équilibre en attitude, ombre portée sur mur nu ; un portrait de profil, mâchoire relâchée, lumière du nord ; une plante de pied en relevé sur tapis ; une silhouette assise dos caméra, colonne vertébrale dessinée par la brassière Orbite.</p>
+            <ul>
+              <li>Lumière : naturelle diffuse, une seule source, jamais de fill artificiel</li>
+              <li>Palette : Craie, Poudre, ombres Brume ; aucun Flare dans ce registre</li>
+              <li>Direction modèle : mouvements tenus 3 secondes, photographiés au sommet de la tension</li>
+            </ul>
+            <div class="mood-tiles" aria-hidden="true">
+              <div style="background:linear-gradient(160deg,#FAFAF9 0%,#E4E2DC 100%)"></div>
+              <div style="background:#D9B4A7"></div>
+              <div style="background:radial-gradient(circle at 30% 20%,#F1F0EC 0%,#B9B7B0 100%)"></div>
+              <div style="background:linear-gradient(200deg,#E9E7E1 0%,#C9C6BE 100%)"></div>
+              <div style="background:#F1F0EC"></div>
+              <div style="background:linear-gradient(140deg,#D9B4A7 0%,#B08D7E 100%)"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mood">
+          <div class="mood-head"><h4>Planche 02 · Ignition</h4><span class="small">Registre arena, temps forts de campagne</span></div>
+          <div class="mood-body">
+            <p style="font-size:15px;max-width:none">La nuit du race day. Un départ de course sous éclairage sodium, silhouettes en tension sur la ligne ; un sled push cadré au ras du sol, rim-light orange découpant le mollet ; une explosion de magnésie figée au flash, plein cadre ; un chrono LED défocalisé en premier plan, athlète nette derrière ; une corde ondulée en pleine frappe ; l'asphalte mouillé reflétant les lignes du rig ; une athlète pliée en deux après l'arrivée, mains sur les genoux, fumée de respiration dans le froid.</p>
+            <ul>
+              <li>Lumière : flash direct ou sodium urbain, contrastes durs, noirs denses</li>
+              <li>Palette : Carbone dominant, Flare en accent lumineux réel (éclairage, LED, rim-light)</li>
+              <li>Grain : argentique marqué, texture visible à 100 %</li>
+            </ul>
+            <div class="mood-tiles" aria-hidden="true">
+              <div style="background:#141519"></div>
+              <div style="background:radial-gradient(circle at 70% 30%,#FF4B1F 0%,#141519 75%)"></div>
+              <div style="background:linear-gradient(180deg,#2A2C33 0%,#141519 100%)"></div>
+              <div style="background:radial-gradient(circle at 50% 90%,#FF7A45 0%,#1B1D23 70%)"></div>
+              <div style="background:#2A2C33"></div>
+              <div style="background:linear-gradient(120deg,#141519 40%,#44474E 100%)"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mood">
+          <div class="mood-head"><h4>Planche 03 · Le Club</h4><span class="small">Registre mixte, contenus communautaires</span></div>
+          <div class="mood-body">
+            <p style="font-size:15px;max-width:none">La vie entre les efforts. Deux amies qui rient, appuyées sur un rig, serviettes sur les épaules ; une file d'athlètes assises dans un couloir avant le départ, jambes étendues ; un café tenu à deux mains, manches de la veste Nova remontées ; un sac de sport ouvert, affaires roulées à la façon d'une valise de danseuse ; un high-five flou de mouvement ; des chaussettes hautes dans des sliders devant un studio ; une accolade d'après-course, yeux fermés. Lumière réelle, non préparée : c'est le registre du documentaire.</p>
+            <ul>
+              <li>Casting : membres réels du Nova Club, créditées en légende</li>
+              <li>Traitement : couleurs naturelles, pas de teinte imposée, grain léger</li>
+              <li>Usage : réseaux sociaux, newsletter, pages communauté ; jamais en packshot produit</li>
+            </ul>
+            <div class="mood-tiles" aria-hidden="true">
+              <div style="background:linear-gradient(150deg,#E9E7E1 0%,#D9B4A7 100%)"></div>
+              <div style="background:#B9B7B0"></div>
+              <div style="background:linear-gradient(200deg,#F1F0EC 0%,#B9B7B0 100%)"></div>
+              <div style="background:#44474E"></div>
+              <div style="background:linear-gradient(140deg,#D9B4A7 0%,#F1F0EC 100%)"></div>
+              <div style="background:#2A2C33"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== 10 ICONO -->
+<section class="chapter" id="c10">
+  <div class="wrap">
+    <header class="chap-head">
+      <div class="chap-row">
+        <span class="chap-no" aria-hidden="true">10</span>
+        <h2 class="chap-title">Iconographie,<br>textures &amp; motifs</h2>
+      </div>
+      <p class="chap-lede lede">Le trait des icônes vient du logo, le grain vient de la pellicule, le motif vient de l'anneau. Rien n'est décoratif par hasard.</p>
+    </header>
+
+    <div class="sub-head" style="margin-top:0"><h3>Icônes fonctionnelles</h3><span class="small">Grille 24 px, trait 1,75 pt, bouts droits</span></div>
+    <div class="icon-grid">
+      <figure>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1c.6 6 2.4 7.8 11 11-8.6 3.2-10.4 5-11 11-.6-6-2.4-7.8-11-11 8.6-3.2 10.4-5 11-11Z"/></svg>
+        <figcaption>Étincelle</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 13V8M9 2h6"/></svg>
+        <figcaption>Chrono</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h18M3 12h18M3 16h12"/></svg>
+        <figcaption>Matière</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16M4 12h16M6.3 6.3l11.4 11.4M17.7 6.3 6.3 17.7"/></svg>
+        <figcaption>Amplitude</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8.5" cy="12" r="6"/><circle cx="15.5" cy="12" r="6"/></svg>
+        <figcaption>Le Club</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.5 13h-11Z"/><path d="M8.5 8V6.5a3.5 3.5 0 0 1 7 0V8"/></svg>
+        <figcaption>Boutique</figcaption>
+      </figure>
+    </div>
+    <p class="small" style="margin-top:14px">Règles : géométrie pure, angles vifs, aucun arrondi décoratif, une seule graisse de trait. Les icônes sont Carbone sur clair et Craie sur sombre ; l'étincelle est la seule icône autorisée en Flare.</p>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Textures</h3></div>
+      <div class="g2">
+        <figure>
+          <svg class="texture" viewBox="0 0 480 210" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Texture grain argentique sur fond Carbone">
+            <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0 0 0 0 .95 0 0 0 0 .94 0 0 0 0 .92 0 0 0 .16 0"/></filter>
+            <rect width="480" height="210" fill="#141519"/>
+            <rect width="480" height="210" filter="url(#grain)"/>
+          </svg>
+          <figcaption class="small" style="margin-top:10px"><strong>Grain argentique.</strong> Appliqué à 6-8 % d'opacité sur toutes les images du registre arena et les fonds Carbone. Jamais sur les aplats Flare.</figcaption>
+        </figure>
+        <figure>
+          <svg class="texture" viewBox="0 0 480 210" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Texture voile de craie sur fond clair">
+            <filter id="chalk"><feTurbulence type="fractalNoise" baseFrequency=".55" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0 0 0 0 .72 0 0 0 0 .71 0 0 0 0 .68 0 0 0 .1 0"/></filter>
+            <rect width="480" height="210" fill="#F1F0EC"/>
+            <rect width="480" height="210" filter="url(#chalk)"/>
+          </svg>
+          <figcaption class="small" style="margin-top:10px"><strong>Voile de craie.</strong> Léger nuage minéral pour les fonds clairs de PLV et de packaging. Toujours sous 10 % d'opacité, jamais les deux textures ensemble.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Le Halo, élément graphique signature</h3></div>
+      <div class="g2">
+        <figure class="panel panel-dark" style="display:flex;align-items:center;justify-content:center;padding:clamp(26px,4vw,48px)">
+          <svg viewBox="0 0 300 300" style="width:min(100%,300px);aspect-ratio:1" role="img" aria-label="Motif Halo : anneaux concentriques et étincelle">
+            <g fill="none" stroke="#F1F0EC">
+              <circle cx="150" cy="150" r="140" stroke-opacity=".14"/>
+              <circle cx="150" cy="150" r="110" stroke-opacity=".24"/>
+              <circle cx="150" cy="150" r="80" stroke-opacity=".38"/>
+              <circle cx="150" cy="150" r="50" stroke-opacity=".6"/>
+            </g>
+            <use href="#lg-spark" x="128" y="128" width="44" height="44" style="fill:var(--flare)"/>
+          </svg>
+        </figure>
+        <div style="align-self:center">
+          <p>Le Halo est l'onde de l'anneau du O : des cercles concentriques dont l'opacité décroît en s'éloignant de l'étincelle. C'est le seul motif de la marque. Il habille les papiers de soie, les fonds de stories, les PLV et les zones vides des supports longs.</p>
+          <p style="margin-top:14px;font-size:15px;color:var(--graphite)">Règles : traits fins (1 pt), centre jamais placé au centre exact du support (toujours décalé vers un angle), maximum un Halo par support, jamais superposé au logo ni combiné au grain à pleine puissance.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ========================================================== 11 TON & VOIX -->
+<section class="chapter" id="c11">
+  <div class="wrap">
+    <header class="chap-head">
+      <div class="chap-row">
+        <span class="chap-no" aria-hidden="true">11</span>
+        <h2 class="chap-title">Ton &amp; voix</h2>
+      </div>
+      <p class="chap-lede lede">Nova écrit comme elle s'entraîne : des phrases courtes, un tutoiement franc, et zéro discours creux.</p>
+    </header>
+
+    <div class="g2">
+      <div>
+        <table>
+          <tr><th colspan="2">Quatre principes d'écriture</th></tr>
+          <tr><td style="width:44px" class="num">1</td><td><b>On tutoie, toujours.</b> Nova parle à une amie d'entraînement, pas à une cliente. Le vouvoiement n'existe que dans les mentions légales.</td></tr>
+          <tr><td class="num">2</td><td><b>Des verbes concrets.</b> Sculpter, tenir, pousser, respirer. Jamais « sublimer », « révolutionner » ni « élever son potentiel ».</td></tr>
+          <tr><td class="num">3</td><td><b>Sensation et performance, jamais apparence.</b> On décrit ce que le corps fait et ressent. Aucun mot du champ lexical de la minceur, sous aucune forme.</td></tr>
+          <tr><td class="num">4</td><td><b>Le collectif d'abord.</b> « On », « le club », des prénoms réels. Nova dit « on se retrouve samedi », pas « rendez-vous avec la marque ».</td></tr>
+        </table>
+      </div>
+      <div>
+        <table>
+          <tr><th>On dit</th><th>On ne dit pas</th></tr>
+          <tr><td>séance, race day, studio</td><td>workout du jour, grind</td></tr>
+          <tr><td>seconde peau, sculptant, compressif</td><td>amincissant, gainant « ventre plat »</td></tr>
+          <tr><td>tenir, durer, exploser (un chrono)</td><td>no pain no gain, se détruire</td></tr>
+          <tr><td>les Novas, le club, ton crew</td><td>girl boss, queen, babe</td></tr>
+          <tr><td>briller, incandescente, en fusion</td><td>parfaite, irréprochable, bikini body</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>La voix en situation</h3><span class="small">Exemples normatifs, réutilisables tels quels</span></div>
+      <div class="g2">
+        <div class="copy-card">
+          <span class="label">Bio Instagram</span>
+          <p class="body">NOVA<br>La grâce est une force.<br>Activewear taillé pour tes heures de studio et tes race days.<br>Rejoins le club. #NovaClub</p>
+        </div>
+        <div class="copy-card">
+          <span class="label">Slogans de campagne</span>
+          <p class="body"><span class="serif">La grâce se travaille.</span><br><br>Douce au studio. Létale au chrono.<br><br>Comprimée, jamais éteinte.</p>
+        </div>
+        <div class="copy-card">
+          <span class="label">Description produit : legging Apex</span>
+          <p class="body">Taille haute, compression douce, coutures anatomiques qui suivent le muscle au lieu de le couper. L'Apex tient le squat comme la salutation au soleil : il ne glisse pas, ne marque pas, ne devient jamais transparent. Testé sur 90 minutes de reformer et un hyrox complet par les athlètes du club. Tu l'enfiles, tu l'oublies, tu pousses.</p>
+        </div>
+        <div class="copy-card">
+          <span class="label">Notification push &amp; objet d'e-mail</span>
+          <p class="body">Push : « Restock Apex. Ton coloris est revenu, il ne t'attendra pas. »<br><br>Objet : « Samedi, 8 h, ligne de départ. Le club t'attend. »</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== 12 APPLICATIONS -->
+<section class="chapter" id="c12">
+  <div class="wrap">
+    <header class="chap-head">
+      <div class="chap-row">
+        <span class="chap-no" aria-hidden="true">12</span>
+        <h2 class="chap-title">Applications</h2>
+      </div>
+      <p class="chap-lede lede">Une identité se juge sur pièce. Voici les gabarits directeurs, du hangtag à la bannière.</p>
+    </header>
+
+    <div class="sub-head" style="margin-top:0"><h3>Étiquettes &amp; hangtags</h3></div>
+    <div class="g2">
+      <figure class="app-fig">
+        <div class="app-stage">
+          <svg viewBox="0 0 460 340" style="width:min(100%,430px);aspect-ratio:460/340" role="img" aria-label="Hangtags Nova, version claire et version nuit">
+            <path d="M96 6C96 40 150 34 150 6" fill="none" stroke="#B9B7B0" stroke-width="2"/>
+            <rect x="58" y="30" width="130" height="290" fill="#FAFAF9" stroke="#141519" stroke-width="1.5"/>
+            <circle cx="123" cy="52" r="7" fill="none" stroke="#141519" stroke-width="1.5"/>
+            <use href="#lg-stack" x="83" y="86" width="80" height="48"/>
+            <line x1="83" y1="170" x2="163" y2="170" stroke="#141519" stroke-width="1"/>
+            <text x="123" y="200" text-anchor="middle" font-family="Archivo" font-weight="800" font-size="17" letter-spacing="2.5" fill="#141519">APEX</text>
+            <text x="123" y="219" text-anchor="middle" font-family="Archivo" font-size="9.5" letter-spacing="1" fill="#44474E">LEGGING SCULPT</text>
+            <text x="123" y="234" text-anchor="middle" font-family="Archivo" font-size="9.5" letter-spacing="1" fill="#44474E">TAILLE HAUTE</text>
+            <text x="123" y="290" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="12.5" fill="#141519">La grâce est une force.</text>
+
+            <path d="M312 6C312 40 366 34 366 6" fill="none" stroke="#B9B7B0" stroke-width="2"/>
+            <rect x="274" y="30" width="130" height="290" fill="#141519"/>
+            <circle cx="339" cy="52" r="7" fill="none" stroke="#F1F0EC" stroke-width="1.5"/>
+            <use href="#lg-stack" x="299" y="86" width="80" height="48" style="fill:#F1F0EC"/>
+            <line x1="299" y1="170" x2="379" y2="170" stroke="#F1F0EC" stroke-width="1"/>
+            <text x="339" y="200" text-anchor="middle" font-family="Archivo" font-weight="800" font-size="17" letter-spacing="2.5" fill="#F1F0EC">ORBITE</text>
+            <text x="339" y="219" text-anchor="middle" font-family="Archivo" font-size="9.5" letter-spacing="1" fill="#B9B7B0">BRASSIÈRE MAINTIEN</text>
+            <text x="339" y="234" text-anchor="middle" font-family="Archivo" font-size="9.5" letter-spacing="1" fill="#B9B7B0">MEDIUM</text>
+            <text x="339" y="290" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="12.5" fill="#FF4B1F">La grâce est une force.</text>
+          </svg>
+        </div>
+        <figcaption class="app-cap"><span class="label">Hangtag 50 × 110 mm</span>
+          <p>Papier recyclé 350 g, version Craie pour la gamme studio, version Carbone pour les drops race day. Cordon coton Brume, œillet sans laiton. Verso : composition, prix et QR du Nova Club.</p>
+        </figcaption>
+      </figure>
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <div class="panel">
+          <p class="label" style="margin-bottom:10px">Étiquettes cousues</p>
+          <p style="font-size:15px;max-width:none">Étiquette de nuque supprimée au profit d'un marquage thermocollé (zéro friction sur la peau) : monogramme 12 mm + taille. Étiquette d'entretien unique, cousue couture de hanche gauche, texte Archivo 5,5 pt. Le confort est une décision de marque, pas un détail de production.</p>
+        </div>
+        <div class="panel">
+          <p class="label" style="margin-bottom:10px">Packaging</p>
+          <p style="font-size:15px;max-width:none">Boîte postale kraft teinté Carbone, intérieur Craie, étincelle Flare embossée au centre du couvercle. Papier de soie Craie imprimé du motif Halo en Brume, fermé par un sticker étincelle. Carte du club glissée dans chaque commande : « Bienvenue chez les Novas », Cormorant italique sur bristol Poudre. Aucun plastique visible.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Réseaux sociaux</h3><span class="small">Gabarits post 1:1 et story 9:16</span></div>
+      <div class="ig">
+        <div class="ig-card" style="background:var(--blanc)">
+          <svg style="width:26px;aspect-ratio:1;fill:var(--flare)" viewBox="0 0 100 100" aria-hidden="true"><use href="#lg-spark"/></svg>
+          <p class="h">La grâce<br>se travaille.</p>
+          <div class="f"><span class="handle">@wearnova</span></div>
+        </div>
+        <div class="ig-card" style="background:linear-gradient(165deg,#E3C4B6 0%,#D9B4A7 55%,#C7A090 100%)">
+          <span class="label" style="color:var(--carbone)">Ignition 01</span>
+          <p class="h">Apex<br>coloris Poudre</p>
+          <div class="f"><span class="handle">@wearnova</span><span style="font-weight:800;font-variant-numeric:tabular-nums">72 €</span></div>
+        </div>
+        <div class="ig-card" style="background:var(--carbone);color:var(--craie)">
+          <span class="label" style="color:var(--brume)">Samedi 8 h</span>
+          <p class="h" style="color:var(--flare)">Race<br>day.</p>
+          <div class="f"><span class="handle">@wearnova</span><svg style="width:22px;aspect-ratio:1;fill:var(--craie)" viewBox="0 0 120 120" aria-hidden="true"><use href="#lg-mono"/></svg></div>
+        </div>
+      </div>
+      <div class="g2" style="margin-top:clamp(18px,2.5vw,28px)">
+        <div style="display:flex;gap:clamp(16px,2vw,28px);align-items:flex-start;flex-wrap:wrap">
+          <div class="story">
+            <span class="label" style="color:var(--carbone)">Le Nova Club</span>
+            <p class="serif" style="font-size:24px;line-height:1.2">Ton studio<br>t'attend.</p>
+            <span style="align-self:flex-start;background:var(--carbone);color:var(--craie);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:10px 18px;border-radius:999px">Réserver</span>
+          </div>
+          <p style="font-size:15px;flex:1;min-width:220px"><strong>Règles de feed.</strong> Alternance stricte : deux images photo (registres studio ou arena) pour un visuel typographique maximum. Le dégradé Incandescence est réservé aux stories. Les gabarits typographiques n'utilisent jamais plus de six mots. Chaque post crédite les athlètes photographiées.</p>
+        </div>
+        <p class="note" style="align-self:center">TikTok suit la même grammaire mais en mouvement : typographie Archivo plein cadre en ouverture (moins d'une seconde), contenu réel non maquillé ensuite, étincelle en watermark discret coin bas droit.</p>
+      </div>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Page produit e-commerce</h3><span class="small">Wireframe directeur, desktop</span></div>
+      <div class="panel" style="padding:clamp(18px,3vw,36px)">
+        <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(20px,3vw,44px)" class="pdp">
+          <div style="aspect-ratio:4/5;background:linear-gradient(170deg,#E3C4B6 0%,#D9B4A7 60%,#CBA495 100%);position:relative;display:flex;align-items:center;justify-content:center">
+            <svg viewBox="0 0 300 300" style="width:62%;aspect-ratio:1;opacity:.5" aria-hidden="true">
+              <g fill="none" stroke="#141519"><circle cx="150" cy="150" r="140" stroke-opacity=".15"/><circle cx="150" cy="150" r="100" stroke-opacity=".25"/><circle cx="150" cy="150" r="60" stroke-opacity=".4"/></g>
+            </svg>
+            <span class="label" style="position:absolute;bottom:14px;left:16px;color:var(--carbone)">Packshot registre studio</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:16px;justify-content:center">
+            <span class="small">Leggings / Collection Ignition 01</span>
+            <div>
+              <p style="font-weight:800;font-stretch:118%;text-transform:uppercase;font-size:clamp(22px,2.6vw,32px);line-height:1">Legging Apex</p>
+              <p class="serif" style="font-size:19px;color:var(--graphite);margin-top:6px">Sculpte sans serrer, tient sans bouger.</p>
+            </div>
+            <p style="font-weight:800;font-size:22px;font-variant-numeric:tabular-nums">72 €</p>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <span style="border:1px solid var(--hairline-strong);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:600">XS</span>
+              <span style="border:1px solid var(--hairline-strong);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:600;background:var(--carbone);color:var(--craie)">S</span>
+              <span style="border:1px solid var(--hairline-strong);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:600">M</span>
+              <span style="border:1px solid var(--hairline-strong);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:600">L</span>
+              <span style="border:1px solid var(--hairline-strong);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:600">XL</span>
+            </div>
+            <span style="background:var(--flare);color:var(--carbone);text-align:center;font-weight:800;font-size:14px;letter-spacing:.08em;text-transform:uppercase;padding:16px 20px;border-radius:999px">Ajouter au panier</span>
+            <div class="small" style="border-top:1px solid var(--hairline);padding-top:12px;display:flex;gap:18px;flex-wrap:wrap"><span>Matière &amp; entretien</span><span>Guide des tailles</span><span>Avis du club (214)</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="small" style="margin-top:12px">Règles : fond Craie, un seul CTA Flare par écran, packshots sur fond Poudre, photos portées issues du registre studio, avis rédigés par les membres du club avec prénom et pratique (« Camille, reformer + hyrox »).</p>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Placement sur les produits</h3><span class="small">Discrétion : le monogramme signe, il ne crie pas</span></div>
+      <div class="g3">
+        <figure class="app-fig">
+          <div class="app-stage">
+            <svg viewBox="0 0 200 340" style="width:min(58%,150px);aspect-ratio:200/340" role="img" aria-label="Schéma legging : monogramme à la ceinture">
+              <g fill="none" stroke="#141519" stroke-width="1.75">
+                <path d="M55 22 L145 22 L160 95 C165 160 152 240 148 322 L118 322 C115 245 108 175 100 140 C92 175 85 245 82 322 L52 322 C48 240 35 160 40 95 Z"/>
+                <line x1="47" y1="54" x2="153" y2="54"/>
+              </g>
+              <circle cx="64" cy="38" r="6" fill="#FF4B1F"/>
+              <line x1="64" y1="38" x2="24" y2="38" stroke="#B9B7B0" stroke-dasharray="3 3"/>
+            </svg>
+          </div>
+          <figcaption class="app-cap"><span class="label">Legging Apex</span><p>Monogramme thermocollé ton sur ton, 12 mm, hanche gauche sur la ceinture. Rien d'autre.</p></figcaption>
+        </figure>
+        <figure class="app-fig">
+          <div class="app-stage">
+            <svg viewBox="0 0 200 170" style="width:min(78%,190px);aspect-ratio:200/170" role="img" aria-label="Schéma brassière : wordmark sur l'élastique">
+              <g fill="none" stroke="#141519" stroke-width="1.75">
+                <path d="M60 12 L58 55 C40 70 42 90 42 105 L42 132 L158 132 L158 105 C158 90 160 70 142 55 L140 12"/>
+                <path d="M58 55 C75 72 125 72 142 55"/>
+                <line x1="42" y1="108" x2="158" y2="108"/>
+              </g>
+              <use href="#lg-word" x="78" y="115" width="44" height="10" style="fill:#141519"/>
+              <line x1="122" y1="120" x2="176" y2="120" stroke="#B9B7B0" stroke-dasharray="3 3"/>
+            </svg>
+          </div>
+          <figcaption class="app-cap"><span class="label">Brassière Orbite</span><p>Wordmark tissé dans l'élastique sous-poitrine, centré, 40 mm, jacquard ton sur ton.</p></figcaption>
+        </figure>
+        <figure class="app-fig">
+          <div class="app-stage">
+            <svg viewBox="0 0 200 180" style="width:min(74%,180px);aspect-ratio:200/180" role="img" aria-label="Schéma crop : étincelle à la nuque">
+              <g fill="none" stroke="#141519" stroke-width="1.75">
+                <path d="M40 42 L72 24 C86 36 114 36 128 24 L160 42 L178 80 L150 94 L150 162 L50 162 L50 94 L22 80 Z"/>
+                <path d="M72 24 C84 46 116 46 128 24"/>
+              </g>
+              <use href="#lg-spark" x="93" y="32" width="14" height="14" style="fill:#FF4B1F"/>
+              <line x1="100" y1="32" x2="100" y2="8" stroke="#B9B7B0" stroke-dasharray="3 3"/>
+            </svg>
+          </div>
+          <figcaption class="app-cap"><span class="label">Crop Éclipse</span><p>Étincelle brodée 10 mm sous la nuque, Flare sur coloris sombres, Carbone sur coloris clairs.</p></figcaption>
+        </figure>
+      </div>
+      <p class="note" style="margin-top:22px">Nomenclature produit : les pièces portent des noms de phénomènes célestes. Legging Apex, brassière Orbite, crop Éclipse, short Comète. Les collections sont des « drops » numérotés : Ignition 01, Ignition 02.</p>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Tote bag &amp; bannière web</h3></div>
+      <div class="g2">
+        <figure class="app-fig">
+          <div class="app-stage">
+            <svg viewBox="0 0 220 270" style="width:min(56%,190px);aspect-ratio:220/270" role="img" aria-label="Tote bag Nova">
+              <g fill="none" stroke="#141519" stroke-width="1.75">
+                <rect x="30" y="82" width="160" height="170"/>
+                <path d="M68 82 C68 30 98 30 98 82"/>
+                <path d="M122 82 C122 30 152 30 152 82"/>
+              </g>
+              <use href="#lg-stack" x="65" y="128" width="90" height="54" style="fill:#141519"/>
+              <text x="110" y="228" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="13" fill="#141519">La grâce est une force.</text>
+            </svg>
+          </div>
+          <figcaption class="app-cap"><span class="label">Tote coton épais 340 g</span><p>Écru Craie, sérigraphie une couleur Carbone, lockup vertical centré. Offert dès 120 € d'achat et lors des événements du club.</p></figcaption>
+        </figure>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="banner">
+            <svg class="bw" viewBox="0 0 520 120" role="img" aria-label="Nova"><use href="#lg-word"/></svg>
+            <p class="bt">La collection Ignition 01 est en ligne.</p>
+            <span class="cta">Découvrir</span>
+          </div>
+          <p class="small">Bannière type (site, newsletter, display) : fond Carbone, wordmark Craie, accroche Cormorant italique, un CTA pilule Flare. Hauteur libre, la hiérarchie reste identique à toutes les tailles.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== 13 DO & DON'T -->
+<section class="chapter" id="c13">
+  <div class="wrap">
+    <header class="chap-head">
+      <div class="chap-row">
+        <span class="chap-no" aria-hidden="true">13</span>
+        <h2 class="chap-title">Do &amp; Don't</h2>
+      </div>
+      <p class="chap-lede lede">L'essentiel du système en une page. En cas de doute sur un support, c'est ici qu'on revient.</p>
+    </header>
+
+    <div class="duo">
+      <div class="duo-col yes">
+        <header>Do</header>
+        <ul>
+          <li>Composer sur fond Craie ou Carbone, avec de l'air : le vide est un matériau</li>
+          <li>Rationner Flare : moins de 8 % des surfaces, et chaque apparition compte</li>
+          <li>Réserver l'étincelle Flare aux temps forts, le wordmark monochrome au quotidien</li>
+          <li>Titres Archivo 800 étendue en capitales, respiration Cormorant italique</li>
+          <li>Montrer l'effort réel : sueur, magnésie, tension, corps non retouchés</li>
+          <li>Tutoyer, écrire court, parler sensation et performance</li>
+          <li>Créditer les athlètes et faire vivre le Nova Club sur chaque canal</li>
+          <li>Respecter la zone de protection du logo : un demi-anneau minimum</li>
+        </ul>
+      </div>
+      <div class="duo-col no">
+        <header>Don't</header>
+        <ul>
+          <li>Ne jamais déformer, incliner, ombrer ou recolorer le logo hors palette</li>
+          <li>Ne jamais poser du blanc sur Flare en petit corps, ni du texte long sur Flare</li>
+          <li>Ne jamais utiliser Cormorant sous 20 px, en droit, ou dans l'interface</li>
+          <li>Ne jamais employer le champ lexical de la minceur ou du « summer body »</li>
+          <li>Ne jamais lisser une peau ni affiner un corps en retouche</li>
+          <li>Ne jamais cumuler Halo, grain et dégradé sur un même support</li>
+          <li>Ne jamais dépasser un CTA Flare par écran ou par support</li>
+          <li>Ne jamais parler à la communauté comme à un fichier client</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="note" style="margin-top:clamp(28px,4vw,44px)">Arbitrage final : toute création qui hésite entre deux options choisit la plus sobre. L'incandescence de Nova vient de la rareté de ses éclats, jamais de leur accumulation.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- ========================================================== PIED -->
+<footer class="foot">
+  <div class="foot-in">
+    <svg class="foot-logo" viewBox="0 0 520 120" role="img" aria-label="Nova"><use href="#lg-word"/><use href="#lg-spark" x="171" y="41" width="38" height="38" style="fill:var(--flare)"/></svg>
+    <div class="foot-row">
+      <span class="label">Nova, brand book</span>
+      <span class="label">Édition 01, 2026</span>
+      <span class="label">Direction de marque : hello@wearnova.com</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('code[data-copy]').forEach(function(el){
+  el.setAttribute('title','Copier');
+  el.addEventListener('click',function(){
+    var txt=el.textContent;
+    function done(){
+      var old=el.textContent;
+      el.classList.add('ok');
+      el.textContent='Copié';
+      setTimeout(function(){el.classList.remove('ok');el.textContent=old;},900);
+    }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done,function(){});
+    }else{
+      var ta=document.createElement('textarea');
+      ta.value=txt;document.body.appendChild(ta);ta.select();
+      try{document.execCommand('copy');done();}catch(e){}
+      document.body.removeChild(ta);
+    }
+  });
+});
+</script>
+</body>
+</html>
