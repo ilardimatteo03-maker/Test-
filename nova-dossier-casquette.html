@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NOVA, dossier de production : casquette</title>
+<meta name="description" content="Dossier de production fournisseur Nova : casquette Zénith 6 panneaux. Mockups, schéma coté, coloris, broderie, packaging, conformité et grille de commande.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0C53 38 62 47 100 50 62 53 53 62 50 100 47 62 38 53 0 50 38 47 47 38 50 0Z' fill='%23FF4B1F'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   NOVA, dossier de production fournisseur NV-PROD-26-03.
+   Produit unique : casquette Zénith, 6 panneaux, 3 coloris.
+   ========================================================== */
+:root{
+  --craie:#F1F0EC;
+  --craie2:#E9E7E1;
+  --blanc:#FAFAF9;
+  --carbone:#141519;
+  --graphite:#44474E;
+  --brume:#B9B7B0;
+  --flare:#FF4B1F;
+  --poudre:#D9B4A7;
+  --hairline:rgba(20,21,25,.14);
+  --hairline-strong:rgba(20,21,25,.85);
+  --sans:'Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --wrap:1240px;
+  --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--craie);color:var(--carbone);font-family:var(--sans);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%;display:block}
+a{color:inherit}
+::selection{background:var(--flare);color:var(--craie)}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad)}
+p{max-width:66ch}
+.label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--graphite)}
+.lede{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(21px,2.4vw,28px);line-height:1.4;max-width:38ch}
+.small{font-size:13px;line-height:1.55;color:var(--graphite)}
+
+.nav{position:sticky;top:0;z-index:40;background:rgba(241,240,236,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--hairline)}
+.nav-in{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad);height:58px;display:flex;align-items:center;gap:14px}
+.nav-mono{width:25px;height:25px;fill:var(--carbone);flex:none}
+.nav-word{width:82px;aspect-ratio:520/120;fill:var(--carbone)}
+.nav-right{margin-left:auto;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--graphite);white-space:nowrap}
+
+.doc-head{padding-block:clamp(44px,6vw,84px)}
+.doc-head h1{font-weight:800;font-stretch:120%;text-transform:uppercase;font-size:clamp(28px,4.6vw,58px);line-height:.98;letter-spacing:-.005em}
+.doc-head .lede{margin-top:18px}
+
+.meta{margin-top:clamp(26px,4vw,40px);border:1px solid var(--hairline);background:var(--blanc);display:grid;grid-template-columns:repeat(4,1fr)}
+.meta div{padding:16px 20px;border-left:1px solid var(--hairline)}
+.meta div:first-child{border-left:none}
+.meta b{display:block;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--graphite);margin-bottom:4px}
+.meta span{font-size:14.5px;font-weight:600;font-variant-numeric:tabular-nums}
+@media (max-width:820px){.meta{grid-template-columns:1fr 1fr}.meta div:nth-child(3){border-left:none}}
+
+.chapter{padding-block:clamp(52px,7vw,100px);scroll-margin-top:70px;border-top:1px solid var(--hairline)}
+.chap-row{display:flex;align-items:flex-end;gap:clamp(18px,3vw,44px);border-top:2px solid var(--carbone);padding-top:16px;flex-wrap:wrap;margin-bottom:clamp(26px,3.6vw,46px)}
+.chap-no{font-weight:800;font-stretch:62%;line-height:.8;font-size:clamp(60px,8.6vw,116px);color:var(--craie);-webkit-text-stroke:1.5px var(--carbone);font-variant-numeric:tabular-nums;flex:none}
+@supports not (-webkit-text-stroke:1px black){.chap-no{color:var(--brume)}}
+.chap-title{font-weight:800;font-stretch:120%;text-transform:uppercase;font-size:clamp(23px,3.6vw,44px);line-height:.98;padding-bottom:6px}
+.chap-title small{display:block;font-size:.42em;letter-spacing:.14em;color:var(--graphite);font-weight:700;margin-top:6px}
+
+.sub{margin-top:clamp(36px,5vw,64px)}
+.sub-head{display:flex;align-items:baseline;gap:14px;margin-bottom:22px;border-top:1px solid var(--hairline-strong);padding-top:13px}
+.sub-head h3{font-size:14.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em}
+.sub-head .small{margin-left:auto;text-align:right}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(22px,3.2vw,48px)}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.2vw,30px)}
+@media (max-width:900px){.g3{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.g2,.g3{grid-template-columns:1fr}}
+
+.panel{border:1px solid var(--hairline);background:var(--blanc);padding:clamp(18px,2.6vw,30px)}
+.note{border-left:3px solid var(--flare);padding:6px 0 6px 18px;font-size:14.5px;color:var(--graphite);max-width:64ch}
+
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th{text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--graphite);padding:0 12px 10px 0;border-bottom:1px solid var(--hairline-strong)}
+td{padding:11px 12px 11px 0;vertical-align:top;border-bottom:1px solid var(--hairline)}
+tr:last-child td{border-bottom:none}
+td b{font-weight:700}
+.num{font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
+td.r,th.r{text-align:right}
+.chip{display:inline-block;width:13px;height:13px;border:1px solid var(--hairline-strong);vertical-align:-2px;margin-right:8px}
+
+.fig{border:1px solid var(--hairline);background:var(--blanc);display:flex;flex-direction:column}
+.fig .stage{display:flex;align-items:center;justify-content:center;padding:clamp(18px,2.6vw,30px);flex:1}
+.fig figcaption{border-top:1px solid var(--hairline);padding:12px 16px}
+.fig figcaption .label{display:block;color:var(--carbone);margin-bottom:3px}
+.fig figcaption span{font-size:13px;color:var(--graphite);line-height:1.5;display:block}
+
+.schema{border:1px solid var(--hairline);background:var(--blanc);padding:clamp(18px,3vw,36px)}
+.schema svg text{font-family:var(--sans)}
+
+.check{list-style:none}
+.check li{padding:9px 0 9px 26px;position:relative;font-size:14.5px;line-height:1.5;border-top:1px solid rgba(20,21,25,.07)}
+.check li:first-child{border-top:none}
+.check li::before{content:"✓";position:absolute;left:0;top:9px;font-weight:800;font-size:13px;color:var(--flare)}
+
+.foot{background:var(--carbone);color:var(--craie);margin-top:clamp(50px,7vw,90px)}
+.foot-in{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad);padding-block:clamp(34px,5vw,60px);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+.foot-in .label{color:var(--brume)}
+.foot-in svg{width:110px;aspect-ratio:520/120;fill:var(--craie)}
+
+@media print{
+  .nav{display:none}
+  .chapter{break-before:page;padding-block:36px}
+  body{font-size:12.5px}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="lg-word" viewBox="0 0 520 120">
+      <path d="M0 10H20L80 86V10H100V110H80L20 34V110H0Z"/>
+      <path fill-rule="evenodd" d="M140 60a50 50 0 1 0 100 0 50 50 0 1 0-100 0Zm20 0a30 30 0 1 1 60 0 30 30 0 1 1-60 0Z"/>
+      <path d="M280 10h20l30 76 30-76h20l-40 100h-20Z"/>
+      <path d="M460 10h20l40 100h-20l-30-76-30 76h-20Z"/>
+    </symbol>
+    <symbol id="lg-spark" viewBox="0 0 100 100">
+      <path d="M50 0C53 38 62 47 100 50 62 53 53 62 50 100 47 62 38 53 0 50 38 47 47 38 50 0Z"/>
+    </symbol>
+    <symbol id="lg-mono" viewBox="0 0 120 120">
+      <path fill-rule="evenodd" d="M2 60a58 58 0 1 0 116 0 58 58 0 1 0-116 0Zm14 0a44 44 0 1 1 88 0 44 44 0 1 1-88 0Z"/>
+      <use href="#lg-spark" x="29" y="29" width="62" height="62"/>
+    </symbol>
+    <symbol id="lg-stack" viewBox="0 0 520 250">
+      <use href="#lg-spark" x="232" y="0" width="56" height="56"/>
+      <use href="#lg-word" x="0" y="130" width="520" height="120"/>
+    </symbol>
+
+    <!-- casquette, profil : calotte + visière + bouton (reçoivent la couleur calotte) -->
+    <symbol id="cap-side" viewBox="0 0 340 230">
+      <path d="M108 152 C104 100 130 52 172 52 C226 52 260 96 256 156 L108 152 Z"/>
+      <path d="M112 148 C74 146 40 154 28 166 C24 170 30 176 38 174 C72 168 100 158 114 154 Z"/>
+      <circle cx="172" cy="50" r="5"/>
+    </symbol>
+    <!-- coutures panneaux, œillets, surpiqûres visière : trait seul -->
+    <symbol id="cap-stitch" viewBox="0 0 340 230">
+      <path d="M172 55 C150 82 132 112 122 150"/>
+      <path d="M172 55 C198 82 222 112 242 152"/>
+      <circle cx="150" cy="120" r="2.4"/>
+      <circle cx="202" cy="124" r="2.4"/>
+      <path d="M110 150 C76 149 44 156 32 167"/>
+      <path d="M112 156 C80 156 50 161 40 170"/>
+    </symbol>
+  </defs>
+</svg>
+
+<nav class="nav" aria-label="Navigation du document">
+  <div class="nav-in">
+    <svg class="nav-mono" role="img" aria-label="Monogramme Nova"><use href="#lg-mono"/></svg>
+    <svg class="nav-word" viewBox="0 0 520 120" role="img" aria-label="Nova"><use href="#lg-word"/></svg>
+    <span class="nav-right">Dossier de production</span>
+  </div>
+</nav>
+
+<header class="doc-head">
+  <div class="wrap">
+    <h1>Dossier de production :<br>casquette</h1>
+    <p class="lede">Casquette du drop Ignition 01, à produire d'après la direction artistique Nova. Ce document contient toutes les spécifications ; les tracés vectoriels intégrés font foi.</p>
+    <div class="meta">
+      <div><b>Référence dossier</b><span>NV-PROD-26-03</span></div>
+      <div><b>Date d'émission</b><span>30.07.2026</span></div>
+      <div><b>Contact production</b><span>production@wearnova.com</span></div>
+      <div><b>Validation couleurs</b><span>Lab-dips obligatoires</span></div>
+    </div>
+    <p class="note" style="margin-top:22px">Règle générale : les teintes de référence sont les codes HEX ci-dessous ; le fournisseur propose les équivalents Pantone / fils brodés les plus proches et soumet des lab-dips physiques pour validation avant tout lancement. Les schémas ne sont pas à l'échelle, les cotes en millimètres font foi. Tolérance de placement broderie : ±1,5 mm.</p>
+  </div>
+</header>
+
+<!-- ========================================================== 01 CASQUETTE -->
+<section class="chapter" id="zenith">
+  <div class="wrap">
+    <div class="chap-row">
+      <span class="chap-no" aria-hidden="true">01</span>
+      <h2 class="chap-title">Casquette « Zénith »<small>Réf. NV-ZEN · 6 panneaux · visière pré-courbée · monogramme brodé · 3 coloris · taille unique réglable</small></h2>
+    </div>
+    <p class="lede" style="margin-bottom:clamp(26px,3.6vw,44px)">Une casquette dad classique, calotte pleine, un seul geste de marque : le monogramme brodé au centre.</p>
+
+    <div class="g3">
+      <figure class="fig">
+        <div class="stage">
+          <svg viewBox="0 0 340 220" style="width:min(92%,270px);aspect-ratio:340/220" role="img" aria-label="Casquette coloris Craie, profil">
+            <use href="#cap-side" width="340" height="230" fill="#F1F0EC" stroke="#141519" stroke-width="2.5"/>
+            <use href="#cap-stitch" width="340" height="230" fill="none" stroke="#B9B7B0" stroke-width="1.4"/>
+            <rect x="250" y="142" width="16" height="16" rx="3" fill="none" stroke="#141519" stroke-width="1.8"/>
+            <use href="#lg-mono" x="120" y="94" width="34" height="34" fill="#141519"/>
+            <use href="#lg-spark" x="205" y="92" width="14" height="14" fill="#FF4B1F"/>
+          </svg>
+        </div>
+        <figcaption><span class="label">NV-ZEN-01 · Craie</span><span>Calotte et visière Craie, monogramme brodé Carbone, étincelle arrière Flare, boucle métal mat Graphite.</span></figcaption>
+      </figure>
+      <figure class="fig">
+        <div class="stage">
+          <svg viewBox="0 0 340 220" style="width:min(92%,270px);aspect-ratio:340/220" role="img" aria-label="Casquette coloris Carbone, profil">
+            <use href="#cap-side" width="340" height="230" fill="#141519" stroke="#141519" stroke-width="2.5"/>
+            <use href="#cap-stitch" width="340" height="230" fill="none" stroke="#F1F0EC" stroke-width="1.4" opacity=".5"/>
+            <rect x="250" y="142" width="16" height="16" rx="3" fill="none" stroke="#F1F0EC" stroke-width="1.8"/>
+            <use href="#lg-mono" x="120" y="94" width="34" height="34" fill="#F1F0EC"/>
+            <use href="#lg-spark" x="205" y="92" width="14" height="14" fill="#F1F0EC"/>
+          </svg>
+        </div>
+        <figcaption><span class="label">NV-ZEN-02 · Carbone</span><span>Calotte et visière Carbone, monogramme brodé Craie, étincelle arrière Craie, boucle métal mat Graphite.</span></figcaption>
+      </figure>
+      <figure class="fig">
+        <div class="stage">
+          <svg viewBox="0 0 340 220" style="width:min(92%,270px);aspect-ratio:340/220" role="img" aria-label="Casquette coloris Poudre, profil">
+            <use href="#cap-side" width="340" height="230" fill="#D9B4A7" stroke="#141519" stroke-width="2.5"/>
+            <use href="#cap-stitch" width="340" height="230" fill="none" stroke="#141519" stroke-width="1.4" opacity=".4"/>
+            <rect x="250" y="142" width="16" height="16" rx="3" fill="none" stroke="#141519" stroke-width="1.8"/>
+            <use href="#lg-mono" x="120" y="94" width="34" height="34" fill="#141519"/>
+            <use href="#lg-spark" x="205" y="92" width="14" height="14" fill="#141519"/>
+          </svg>
+        </div>
+        <figcaption><span class="label">NV-ZEN-03 · Poudre</span><span>Calotte et visière Poudre, monogramme brodé Carbone, étincelle arrière Carbone, boucle métal mat Graphite.</span></figcaption>
+      </figure>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Schéma coté &amp; broderie</h3><span class="small">Profil, non à l'échelle, cotes en mm</span></div>
+      <div class="schema">
+        <svg viewBox="0 0 680 300" style="width:100%;aspect-ratio:680/300" role="img" aria-label="Schéma coté de la casquette Zénith, profil">
+          <g transform="translate(120 34)">
+            <use href="#cap-side" width="340" height="230" fill="#F1F0EC" stroke="#141519" stroke-width="2.5"/>
+            <use href="#cap-stitch" width="340" height="230" fill="none" stroke="#B9B7B0" stroke-width="1.3"/>
+            <rect x="250" y="142" width="16" height="16" rx="3" fill="none" stroke="#141519" stroke-width="1.8"/>
+            <use href="#lg-mono" x="120" y="94" width="34" height="34" fill="#141519"/>
+            <use href="#lg-spark" x="205" y="92" width="14" height="14" fill="#FF4B1F"/>
+          </g>
+          <!-- cotes -->
+          <g stroke="#44474E" stroke-width="1">
+            <path d="M214 86V190M208 86h12M208 190h12"/>
+            <path d="M150 250H228M150 244v12M228 244v12"/>
+          </g>
+          <g stroke="#B9B7B0" stroke-dasharray="3 3" fill="none">
+            <path d="M338 124H428"/>
+            <path d="M258 150H360"/>
+            <path d="M400 158 L470 200"/>
+          </g>
+          <g fill="#44474E" font-size="12" font-weight="600">
+            <text x="204" y="134" text-anchor="end">Hauteur</text>
+            <text x="204" y="150" text-anchor="end">calotte 130</text>
+            <text x="189" y="272" text-anchor="middle">Visière 70,</text>
+            <text x="189" y="288" text-anchor="middle">pré-courbée</text>
+            <text x="434" y="112">Étincelle Ø 12 brodée, dos</text>
+            <text x="366" y="154">Monogramme Ø 45 brodé, centré,</text>
+            <text x="366" y="170">base à 40 au-dessus de la visière</text>
+            <text x="476" y="200" fill="#141519" font-weight="700">Fermeture boucle métal + passant,</text>
+            <text x="476" y="216">réglable, tour de tête 56-60</text>
+          </g>
+        </svg>
+      </div>
+      <p class="small" style="margin-top:12px">Vue de face de référence : monogramme centré sur le panneau avant, à cheval sur la couture centrale, base à 40 mm au-dessus du bord de la visière. Un seul marquage sur la face ; aucune surbroderie latérale.</p>
+    </div>
+    <div class="sub">
+      <div class="sub-head"><h3>Construction &amp; matière</h3></div>
+      <div class="g2">
+        <table>
+          <tr><td style="width:170px"><b>Composition</b></td><td>100 % coton sergé brossé, 260 g/m²</td></tr>
+          <tr><td><b>Structure</b></td><td>6 panneaux, profil medium semi-structuré (renfort buckram sur les 2 panneaux avant)</td></tr>
+          <tr><td><b>Visière</b></td><td>Pré-courbée, insert plastique recyclé, 6 rangs de surpiqûre ton sur ton</td></tr>
+          <tr><td><b>Aération</b></td><td>6 œillets brodés ton sur ton (un par panneau)</td></tr>
+          <tr><td><b>Bande de propreté</b></td><td>Coton, cousue, sans marquage imprimé</td></tr>
+          <tr><td><b>Broderie</b></td><td>Broderie plate 2D, fils aux teintes de la palette, densité standard. Aucune broderie 3D puff.</td></tr>
+          <tr><td><b>Fermeture</b></td><td>Boucle métal mat (Graphite) + passant coton à glisser, réglable, tour de tête 56-60 cm</td></tr>
+          <tr><td><b>Certification</b></td><td>Oeko-Tex Standard 100 classe II exigée, certificat en cours de validité à fournir avec l'offre</td></tr>
+        </table>
+        <div>
+          <table>
+            <tr><th>Zone</th><th>ZEN-01 Craie</th><th>ZEN-02 Carbone</th><th>ZEN-03 Poudre</th></tr>
+            <tr><td><b>Calotte &amp; visière</b></td><td><i class="chip" style="background:#F1F0EC"></i>Craie</td><td><i class="chip" style="background:#141519"></i>Carbone</td><td><i class="chip" style="background:#D9B4A7"></i>Poudre</td></tr>
+            <tr><td><b>Monogramme avant</b></td><td>Carbone</td><td>Craie</td><td>Carbone</td></tr>
+            <tr><td><b>Étincelle dos</b></td><td><i class="chip" style="background:#FF4B1F"></i>Flare</td><td>Craie</td><td>Carbone</td></tr>
+            <tr><td><b>Œillets &amp; bouton</b></td><td>Ton Craie</td><td>Ton Carbone</td><td>Ton Poudre</td></tr>
+            <tr><td><b>Sous-visière</b></td><td>Craie</td><td>Carbone</td><td>Poudre</td></tr>
+            <tr><td><b>Boucle</b></td><td colspan="3"><i class="chip" style="background:#44474E"></i>Métal mat Graphite sur les trois coloris</td></tr>
+          </table>
+          <p class="small" style="margin-top:12px">Fils de référence : Craie #F1F0EC · Carbone #141519 · Flare #FF4B1F · Poudre #D9B4A7 · Graphite #44474E. Équivalents fil brodé à soumettre en lab-dips.</p>
+        </div>
+      </div>
+      <p class="note" style="margin-top:22px">Interdits produit : ne pas verticaliser ni incliner le monogramme, ne pas ajouter de contour, pas de broderie 3D puff, pas d'étiquette de marque cousue sur la face. Le Flare n'apparaît que sur l'étincelle dos du coloris Craie, nulle part ailleurs.</p>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Packaging &amp; contrôle qualité</h3></div>
+      <div class="g2">
+        <div class="panel" style="display:flex;gap:clamp(16px,2.4vw,28px);align-items:center;flex-wrap:wrap">
+          <svg viewBox="0 0 170 210" style="width:min(38%,140px);aspect-ratio:170/210" role="img" aria-label="Hangtag de la casquette Zénith">
+            <path d="M78 8C78 34 132 28 132 8" fill="none" stroke="#B9B7B0" stroke-width="2"/>
+            <rect x="42" y="24" width="126" height="172" rx="4" fill="#FAFAF9" stroke="#141519" stroke-width="1.5"/>
+            <circle cx="105" cy="44" r="6" fill="none" stroke="#141519" stroke-width="1.5"/>
+            <use href="#lg-stack" x="72" y="66" width="66" height="32" fill="#141519"/>
+            <text x="105" y="128" text-anchor="middle" font-family="Archivo" font-weight="800" font-size="12" letter-spacing="2.5" fill="#141519">ZÉNITH</text>
+            <text x="105" y="145" text-anchor="middle" font-family="Archivo" font-size="8" letter-spacing="1" fill="#44474E">CASQUETTE 6 PANNEAUX</text>
+            <text x="105" y="176" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="11" fill="#141519">La grâce est une force.</text>
+          </svg>
+          <div style="flex:1;min-width:200px">
+            <p style="font-size:14px;max-width:none"><strong>Hangtag</strong> 350 g, Craie, impression 1 couleur Carbone : lockup vertical, nom « Zénith », baseline. Verso : composition, entretien, logo Oeko-Tex, pays de fabrication. Cordon coton Brume dans l'œillet arrière de réglage. Forme maintenue par un insert en pulpe moulée, expédition en pochette recyclée. Aucun plastique, aucun film.</p>
+          </div>
+        </div>
+        <ul class="check">
+          <li>Registration broderie ±1,5 mm, aucun fronce ni tension du tissu autour du motif</li>
+          <li>Solidité des couleurs (tissu et fils) au frottement et à la lumière : ISO 105, note ≥ 4</li>
+          <li>Boucle : 500 cycles ouverture / fermeture sans jeu ni casse</li>
+          <li>Symétrie de la calotte, alignement des 6 panneaux, couture centrale droite</li>
+          <li>Courbe de visière homogène sur tout le lot, 6 rangs de surpiqûre réguliers</li>
+          <li>Marquage réglementaire (composition, origine, entretien) sur la bande de propreté</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== 02 COMMANDE -->
+<section class="chapter" id="commande">
+  <div class="wrap">
+    <div class="chap-row">
+      <span class="chap-no" aria-hidden="true">02</span>
+      <h2 class="chap-title">Récapitulatif de commande<small>À compléter par Nova avant bon pour production</small></h2>
+    </div>
+
+    <div class="sub-head" style="margin-top:0"><h3>Casquettes Zénith (NV-ZEN)</h3></div>
+    <table>
+      <tr><th>SKU</th><th>Coloris</th><th>Taille</th><th class="r">Qté drop</th><th class="r">Cible prix / pièce</th></tr>
+      <tr><td class="num">NV-ZEN-01</td><td><i class="chip" style="background:#F1F0EC"></i>Craie</td><td>Unique réglable</td><td class="r num">500</td><td class="r num">à chiffrer</td></tr>
+      <tr><td class="num">NV-ZEN-02</td><td><i class="chip" style="background:#141519"></i>Carbone</td><td>Unique réglable</td><td class="r num">500</td><td class="r num">à chiffrer</td></tr>
+      <tr><td class="num">NV-ZEN-03</td><td><i class="chip" style="background:#D9B4A7"></i>Poudre</td><td>Unique réglable</td><td class="r num">300</td><td class="r num">à chiffrer</td></tr>
+      <tr><td colspan="3"><b>Total casquettes</b></td><td class="r num"><b>1 300</b></td><td class="r"></td></tr>
+    </table>
+
+    <div class="g2" style="margin-top:clamp(32px,4vw,52px)">
+      <div>
+        <div class="sub-head" style="margin-top:0"><h3>Étapes de validation</h3></div>
+        <ul class="check">
+          <li>Réception offre chiffrée + délais + MOQ par coloris</li>
+          <li>Lab-dips tissu + fils brodés validés par Nova</li>
+          <li>Fichier de broderie (piqué) validé sur le monogramme et l'étincelle</li>
+          <li>Contre-type / sample pré-production par coloris, validé et signé</li>
+          <li>Certificat Oeko-Tex fourni</li>
+          <li>Bon pour production émis par Nova après validation du sample</li>
+          <li>Inspection qualité avant expédition (AQL 2.5 défauts majeurs)</li>
+        </ul>
+      </div>
+      <div>
+        <div class="sub-head" style="margin-top:0"><h3>À retenir (Do &amp; Don't)</h3></div>
+        <table>
+          <tr><th>À faire</th><th>À ne pas faire</th></tr>
+          <tr><td>Respecter les HEX, soumettre lab-dips</td><td>Convertir les couleurs sans validation</td></tr>
+          <tr><td>Monogramme droit, broderie plate 2D</td><td>Verticaliser, incliner, broder en 3D puff</td></tr>
+          <tr><td>Flare uniquement sur l'étincelle dos Craie</td><td>Étendre le Flare hors de cette zone</td></tr>
+          <tr><td>Boucle et finitions mates, zéro plastique</td><td>Boucle brillante, logo fournisseur, polybag</td></tr>
+          <tr><td>Certifications fournies avec l'offre</td><td>Lancer sans bon pour production signé</td></tr>
+        </table>
+        <p class="note" style="margin-top:18px">Les quantités et cibles de prix sont indicatives pour le premier drop. Toute contrainte technique (MOQ, faisabilité d'un coloris, rendu du monogramme brodé) doit être remontée à Nova avant lancement plutôt que corrigée unilatéralement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-in">
+    <svg role="img" aria-label="Nova" viewBox="0 0 520 120"><use href="#lg-word"/></svg>
+    <span class="label">Dossier NV-PROD-26-03 · d'après le brand book édition 01 · production@wearnova.com</span>
+  </div>
+</footer>
+
+</body>
+</html>
