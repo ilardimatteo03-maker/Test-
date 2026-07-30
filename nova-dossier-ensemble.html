@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NOVA, dossier de production : ensemble Solstice</title>
+<meta name="description" content="Dossier de production fournisseur Nova : ensemble Solstice, brassière Aurore et pantalon Nébuleuse. Mockups, schémas cotés, coloris, marquages, packaging, conformité et grille de commande.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0C53 38 62 47 100 50 62 53 53 62 50 100 47 62 38 53 0 50 38 47 47 38 50 0Z' fill='%23FF4B1F'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   NOVA, dossier de production fournisseur NV-PROD-26-04.
+   Ensemble Solstice : brassière Aurore + pantalon Nébuleuse.
+   ========================================================== */
+:root{
+  --craie:#F1F0EC;
+  --craie2:#E9E7E1;
+  --blanc:#FAFAF9;
+  --carbone:#141519;
+  --graphite:#44474E;
+  --brume:#B9B7B0;
+  --flare:#FF4B1F;
+  --poudre:#D9B4A7;
+  --mars:#C05A48;
+  --hairline:rgba(20,21,25,.14);
+  --hairline-strong:rgba(20,21,25,.85);
+  --sans:'Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --wrap:1240px;
+  --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--craie);color:var(--carbone);font-family:var(--sans);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%;display:block}
+a{color:inherit}
+::selection{background:var(--flare);color:var(--craie)}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad)}
+p{max-width:66ch}
+.label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--graphite)}
+.lede{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(21px,2.4vw,28px);line-height:1.4;max-width:38ch}
+.small{font-size:13px;line-height:1.55;color:var(--graphite)}
+
+.nav{position:sticky;top:0;z-index:40;background:rgba(241,240,236,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--hairline)}
+.nav-in{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad);height:58px;display:flex;align-items:center;gap:14px}
+.nav-mono{width:25px;height:25px;fill:var(--carbone);flex:none}
+.nav-word{width:82px;aspect-ratio:520/120;fill:var(--carbone)}
+.nav-right{margin-left:auto;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--graphite);white-space:nowrap}
+
+.doc-head{padding-block:clamp(44px,6vw,84px)}
+.doc-head h1{font-weight:800;font-stretch:120%;text-transform:uppercase;font-size:clamp(28px,4.6vw,58px);line-height:.98;letter-spacing:-.005em}
+.doc-head .lede{margin-top:18px}
+
+.meta{margin-top:clamp(26px,4vw,40px);border:1px solid var(--hairline);background:var(--blanc);display:grid;grid-template-columns:repeat(4,1fr)}
+.meta div{padding:16px 20px;border-left:1px solid var(--hairline)}
+.meta div:first-child{border-left:none}
+.meta b{display:block;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--graphite);margin-bottom:4px}
+.meta span{font-size:14.5px;font-weight:600;font-variant-numeric:tabular-nums}
+@media (max-width:820px){.meta{grid-template-columns:1fr 1fr}.meta div:nth-child(3){border-left:none}}
+
+.chapter{padding-block:clamp(52px,7vw,100px);scroll-margin-top:70px;border-top:1px solid var(--hairline)}
+.chap-row{display:flex;align-items:flex-end;gap:clamp(18px,3vw,44px);border-top:2px solid var(--carbone);padding-top:16px;flex-wrap:wrap;margin-bottom:clamp(26px,3.6vw,46px)}
+.chap-no{font-weight:800;font-stretch:62%;line-height:.8;font-size:clamp(60px,8.6vw,116px);color:var(--craie);-webkit-text-stroke:1.5px var(--carbone);font-variant-numeric:tabular-nums;flex:none}
+@supports not (-webkit-text-stroke:1px black){.chap-no{color:var(--brume)}}
+.chap-title{font-weight:800;font-stretch:120%;text-transform:uppercase;font-size:clamp(23px,3.6vw,44px);line-height:.98;padding-bottom:6px}
+.chap-title small{display:block;font-size:.42em;letter-spacing:.14em;color:var(--graphite);font-weight:700;margin-top:6px}
+
+.sub{margin-top:clamp(36px,5vw,64px)}
+.sub-head{display:flex;align-items:baseline;gap:14px;margin-bottom:22px;border-top:1px solid var(--hairline-strong);padding-top:13px}
+.sub-head h3{font-size:14.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em}
+.sub-head .small{margin-left:auto;text-align:right}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(22px,3.2vw,48px)}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.2vw,30px)}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,2vw,24px)}
+@media (max-width:900px){.g3{grid-template-columns:1fr 1fr}.g4{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.g2,.g3{grid-template-columns:1fr}}
+
+.panel{border:1px solid var(--hairline);background:var(--blanc);padding:clamp(18px,2.6vw,30px)}
+.note{border-left:3px solid var(--flare);padding:6px 0 6px 18px;font-size:14.5px;color:var(--graphite);max-width:64ch}
+
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th{text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--graphite);padding:0 12px 10px 0;border-bottom:1px solid var(--hairline-strong)}
+td{padding:11px 12px 11px 0;vertical-align:top;border-bottom:1px solid var(--hairline)}
+tr:last-child td{border-bottom:none}
+td b{font-weight:700}
+.num{font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
+td.r,th.r{text-align:right}
+.chip{display:inline-block;width:13px;height:13px;border:1px solid var(--hairline-strong);vertical-align:-2px;margin-right:8px}
+
+.fig{border:1px solid var(--hairline);background:var(--blanc);display:flex;flex-direction:column}
+.fig .stage{display:flex;align-items:center;justify-content:center;padding:clamp(16px,2.4vw,28px);flex:1}
+.fig figcaption{border-top:1px solid var(--hairline);padding:12px 16px}
+.fig figcaption .label{display:block;color:var(--carbone);margin-bottom:3px}
+.fig figcaption span{font-size:13px;color:var(--graphite);line-height:1.5;display:block}
+.mini figcaption{padding:10px 14px}
+.mini .stage{padding:16px 10px}
+
+.schema{border:1px solid var(--hairline);background:var(--blanc);padding:clamp(18px,3vw,36px)}
+.schema svg text{font-family:var(--sans)}
+
+.check{list-style:none}
+.check li{padding:9px 0 9px 26px;position:relative;font-size:14.5px;line-height:1.5;border-top:1px solid rgba(20,21,25,.07)}
+.check li:first-child{border-top:none}
+.check li::before{content:"✓";position:absolute;left:0;top:9px;font-weight:800;font-size:13px;color:var(--flare)}
+
+.foot{background:var(--carbone);color:var(--craie);margin-top:clamp(50px,7vw,90px)}
+.foot-in{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad);padding-block:clamp(34px,5vw,60px);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+.foot-in .label{color:var(--brume)}
+.foot-in svg{width:110px;aspect-ratio:520/120;fill:var(--craie)}
+
+@media print{
+  .nav{display:none}
+  .chapter{break-before:page;padding-block:36px}
+  body{font-size:12.5px}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="lg-word" viewBox="0 0 520 120">
+      <path d="M0 10H20L80 86V10H100V110H80L20 34V110H0Z"/>
+      <path fill-rule="evenodd" d="M140 60a50 50 0 1 0 100 0 50 50 0 1 0-100 0Zm20 0a30 30 0 1 1 60 0 30 30 0 1 1-60 0Z"/>
+      <path d="M280 10h20l30 76 30-76h20l-40 100h-20Z"/>
+      <path d="M460 10h20l40 100h-20l-30-76-30 76h-20Z"/>
+    </symbol>
+    <symbol id="lg-spark" viewBox="0 0 100 100">
+      <path d="M50 0C53 38 62 47 100 50 62 53 53 62 50 100 47 62 38 53 0 50 38 47 47 38 50 0Z"/>
+    </symbol>
+    <symbol id="lg-mono" viewBox="0 0 120 120">
+      <path fill-rule="evenodd" d="M2 60a58 58 0 1 0 116 0 58 58 0 1 0-116 0Zm14 0a44 44 0 1 1 88 0 44 44 0 1 1-88 0Z"/>
+      <use href="#lg-spark" x="29" y="29" width="62" height="62"/>
+    </symbol>
+    <symbol id="lg-stack" viewBox="0 0 520 250">
+      <use href="#lg-spark" x="232" y="0" width="56" height="56"/>
+      <use href="#lg-word" x="0" y="130" width="520" height="120"/>
+    </symbol>
+
+    <!-- brassière Aurore, face : silhouette pleine (halter, dos ouvert) -->
+    <symbol id="bra-front" viewBox="0 0 200 230">
+      <path d="M96 15 C86 40 60 55 46 74 C36 92 36 110 40 130 L44 156 C44 162 46 164 52 164 L148 164 C154 164 156 162 156 156 L160 130 C164 110 164 92 154 74 C140 55 114 40 104 15 C110 34 118 52 120 74 C118 96 108 112 100 116 C92 112 82 96 80 74 C82 52 90 34 96 15 Z"/>
+    </symbol>
+    <!-- brassière, dos : bande seule -->
+    <symbol id="bra-back" viewBox="0 0 200 230">
+      <path d="M44 96 C70 88 130 88 156 96 L156 122 C130 114 70 114 44 122 Z"/>
+    </symbol>
+
+    <!-- pantalon Nébuleuse, silhouette (partagée face / dos) -->
+    <symbol id="pant-body" viewBox="0 0 220 380">
+      <path d="M58 20 L162 20 L172 98 C168 150 168 214 196 366 L128 366 L110 158 L92 366 L24 366 C52 214 52 150 48 98 Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<nav class="nav" aria-label="Navigation du document">
+  <div class="nav-in">
+    <svg class="nav-mono" role="img" aria-label="Monogramme Nova"><use href="#lg-mono"/></svg>
+    <svg class="nav-word" viewBox="0 0 520 120" role="img" aria-label="Nova"><use href="#lg-word"/></svg>
+    <span class="nav-right">Dossier de production</span>
+  </div>
+</nav>
+
+<header class="doc-head">
+  <div class="wrap">
+    <h1>Dossier de production :<br>ensemble Solstice</h1>
+    <p class="lede">Ensemble deux pièces du drop Ignition 01 : brassière Aurore et pantalon Nébuleuse. À produire d'après la direction artistique Nova ; les tracés vectoriels intégrés font foi.</p>
+    <div class="meta">
+      <div><b>Référence dossier</b><span>NV-PROD-26-04</span></div>
+      <div><b>Date d'émission</b><span>30.07.2026</span></div>
+      <div><b>Contact production</b><span>production@wearnova.com</span></div>
+      <div><b>Validation couleurs</b><span>Lab-dips obligatoires</span></div>
+    </div>
+    <p class="note" style="margin-top:22px">Coloris signature du drop : <strong>Mars</strong> (terracotta), teinte saisonnière qui étend la palette permanente Craie / Carbone / Poudre le temps du drop Ignition 01. Comme pour tout coloris, le fournisseur soumet des lab-dips physiques du tissu et des fils avant lancement ; les codes HEX ci-dessous font référence. Schémas non à l'échelle, cotes en millimètres, mesures à plat non tendues.</p>
+  </div>
+</header>
+
+<!-- ========================================================== 01 BRASSIÈRE -->
+<section class="chapter" id="aurore">
+  <div class="wrap">
+    <div class="chap-row">
+      <span class="chap-no" aria-hidden="true">01</span>
+      <h2 class="chap-title">Brassière « Aurore »<small>Réf. NV-BRA-AUR · halter dos ouvert · coussinets amovibles · 4 coloris · XS-XL</small></h2>
+    </div>
+    <p class="lede" style="margin-bottom:clamp(26px,3.6vw,44px)">Un décolleté plongeant, un dos entièrement ouvert, un lien de cou noué : la grâce assumée, le maintien tenu.</p>
+
+    <div class="sub-head" style="margin-top:0"><h3>Coloris signature Mars</h3><span class="small">Face &amp; dos, mesures à plat</span></div>
+    <div class="g2">
+      <figure class="fig">
+        <div class="stage">
+          <svg viewBox="0 0 200 210" style="width:min(70%,230px);aspect-ratio:200/210" role="img" aria-label="Brassière Aurore, face, coloris Mars">
+            <use href="#bra-front" fill="#C05A48" stroke="#141519" stroke-width="2.4"/>
+            <path d="M48 150 C90 160 110 160 152 150" fill="none" stroke="#141519" stroke-width="1.3" opacity=".45"/>
+            <circle cx="100" cy="11" r="5.5" fill="none" stroke="#141519" stroke-width="2"/>
+            <use href="#lg-mono" x="92" y="141" width="16" height="16" fill="#141519" opacity=".55"/>
+          </svg>
+        </div>
+        <figcaption><span class="label">Face</span><span>Décolleté en V profond, coussinets amovibles, élastique sous-poitrine avec monogramme tissé ton sur ton.</span></figcaption>
+      </figure>
+      <figure class="fig">
+        <div class="stage">
+          <svg viewBox="0 0 200 210" style="width:min(70%,230px);aspect-ratio:200/210" role="img" aria-label="Brassière Aurore, dos, coloris Mars">
+            <path d="M62 96 C68 60 92 34 100 20" fill="none" stroke="#141519" stroke-width="7" stroke-linecap="round"/>
+            <path d="M138 96 C132 60 108 34 100 20" fill="none" stroke="#141519" stroke-width="7" stroke-linecap="round"/>
+            <use href="#bra-back" fill="#C05A48" stroke="#141519" stroke-width="2.4"/>
+            <path d="M62 96 C68 60 92 34 100 20" fill="none" stroke="#C05A48" stroke-width="4" stroke-linecap="round"/>
+            <path d="M138 96 C132 60 108 34 100 20" fill="none" stroke="#C05A48" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="100" cy="18" r="5.5" fill="none" stroke="#141519" stroke-width="2"/>
+            <path d="M48 100 C90 94 110 94 152 100" fill="none" stroke="#141519" stroke-width="1.3" opacity=".45"/>
+            <use href="#lg-spark" x="93" y="102" width="14" height="14" fill="#141519" opacity=".5"/>
+          </svg>
+        </div>
+        <figcaption><span class="label">Dos</span><span>Dos entièrement ouvert, lien de cou noué réglable, bande dos élastique, étincelle brodée ton sur ton au centre.</span></figcaption>
+      </figure>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Schéma coté</h3><span class="small">Face, non à l'échelle, cotes en mm, taille M</span></div>
+      <div class="schema">
+        <svg viewBox="0 0 640 300" style="width:100%;aspect-ratio:640/300" role="img" aria-label="Schéma coté de la brassière Aurore">
+          <g transform="translate(210 44)">
+            <use href="#bra-front" width="200" height="230" fill="#F1F0EC" stroke="#141519" stroke-width="2.4"/>
+            <path d="M48 150 C90 160 110 160 152 150" fill="none" stroke="#B9B7B0" stroke-width="1.3"/>
+            <circle cx="100" cy="11" r="5.5" fill="none" stroke="#141519" stroke-width="2"/>
+            <use href="#lg-word" x="78" y="146" width="44" height="10.2" fill="#141519"/>
+          </g>
+          <g stroke="#44474E" stroke-width="1">
+            <path d="M250 218H366M250 212v12M366 212v12"/>
+            <path d="M228 128V208M222 128h12M222 208h12"/>
+          </g>
+          <g stroke="#B9B7B0" stroke-dasharray="3 3" fill="none">
+            <path d="M338 96H430"/>
+            <path d="M338 150H468"/>
+            <path d="M300 22 L300 8 L392 8"/>
+          </g>
+          <g fill="#44474E" font-size="12" font-weight="600">
+            <text x="308" y="248" text-anchor="middle">Sous-poitrine à plat 300, extensible</text>
+            <text x="218" y="164" text-anchor="end">Hauteur</text>
+            <text x="218" y="180" text-anchor="end">bonnet 150</text>
+            <text x="436" y="100">Profondeur décolleté 120</text>
+            <text x="474" y="154">Élastique sous-poitrine 35,</text>
+            <text x="474" y="170">monogramme tissé ton sur ton</text>
+            <text x="632" y="12" text-anchor="end">Lien de cou noué, longueur ajustable</text>
+          </g>
+        </svg>
+      </div>
+      <p class="small" style="margin-top:12px">Grading XS-XL par bonnet et sous-poitrine (voir tableau des tailles §03). Le lien de cou se noue : une seule longueur, réglable par la cliente. Bordures thermosoudées (bonded), sans couture apparente ni surpiqûre visible sur l'endroit.</p>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Coloris</h3><span class="small">Set assorti, face</span></div>
+      <div class="g4">
+        <figure class="fig mini">
+          <div class="stage"><svg viewBox="0 0 200 200" style="width:min(80%,150px);aspect-ratio:1" role="img" aria-label="Brassière Mars"><use href="#bra-front" fill="#C05A48" stroke="#141519" stroke-width="2.4"/><circle cx="100" cy="11" r="5.5" fill="none" stroke="#141519" stroke-width="2"/></svg></div>
+          <figcaption><span class="label">AUR-01 · Mars</span></figcaption>
+        </figure>
+        <figure class="fig mini">
+          <div class="stage"><svg viewBox="0 0 200 200" style="width:min(80%,150px);aspect-ratio:1" role="img" aria-label="Brassière Craie"><use href="#bra-front" fill="#F1F0EC" stroke="#141519" stroke-width="2.4"/><circle cx="100" cy="11" r="5.5" fill="none" stroke="#141519" stroke-width="2"/></svg></div>
+          <figcaption><span class="label">AUR-02 · Craie</span></figcaption>
+        </figure>
+        <figure class="fig mini">
+          <div class="stage"><svg viewBox="0 0 200 200" style="width:min(80%,150px);aspect-ratio:1" role="img" aria-label="Brassière Carbone"><use href="#bra-front" fill="#141519" stroke="#141519" stroke-width="2.4"/><circle cx="100" cy="11" r="5.5" fill="none" stroke="#F1F0EC" stroke-width="2"/></svg></div>
+          <figcaption><span class="label">AUR-03 · Carbone</span></figcaption>
+        </figure>
+        <figure class="fig mini">
+          <div class="stage"><svg viewBox="0 0 200 200" style="width:min(80%,150px);aspect-ratio:1" role="img" aria-label="Brassière Poudre"><use href="#bra-front" fill="#D9B4A7" stroke="#141519" stroke-width="2.4"/><circle cx="100" cy="11" r="5.5" fill="none" stroke="#141519" stroke-width="2"/></svg></div>
+          <figcaption><span class="label">AUR-04 · Poudre</span></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Construction, matière &amp; coloris</h3></div>
+      <div class="g2">
+        <table>
+          <tr><td style="width:170px"><b>Composition</b></td><td>76 % polyamide recyclé, 24 % élasthanne, interlock brossé mat « seconde peau », ~250 g/m²</td></tr>
+          <tr><td><b>Maintien</b></td><td>Léger à modéré, coussinets mousse amovibles insérés par le bas</td></tr>
+          <tr><td><b>Dos</b></td><td>Entièrement ouvert, bande élastique dos, aucune agrafe</td></tr>
+          <tr><td><b>Lien de cou</b></td><td>Noué, réglable par la cliente, extrémités thermosoudées</td></tr>
+          <tr><td><b>Finitions</b></td><td>Bordures thermosoudées (bonded), sans couture apparente sur l'endroit</td></tr>
+          <tr><td><b>Marquage</b></td><td>Monogramme tissé ton sur ton, centre de l'élastique sous-poitrine</td></tr>
+          <tr><td><b>Certification</b></td><td>Oeko-Tex Standard 100 classe I (contact peau), certificat à fournir avec l'offre</td></tr>
+        </table>
+        <div>
+          <table>
+            <tr><th>Zone</th><th>Mars</th><th>Craie</th><th>Carbone</th><th>Poudre</th></tr>
+            <tr><td><b>Corps &amp; bonnets</b></td><td><i class="chip" style="background:#C05A48"></i></td><td><i class="chip" style="background:#F1F0EC"></i></td><td><i class="chip" style="background:#141519"></i></td><td><i class="chip" style="background:#D9B4A7"></i></td></tr>
+            <tr><td><b>Lien de cou &amp; bande dos</b></td><td colspan="4">Ton sur ton avec le corps</td></tr>
+            <tr><td><b>Monogramme</b></td><td colspan="4">Tissé ton sur ton</td></tr>
+            <tr><td><b>Coussinets</b></td><td colspan="4">Mousse ton chair (nude), amovibles</td></tr>
+          </table>
+          <p class="small" style="margin-top:12px">Fils &amp; teintes : Mars #C05A48 (CMJN 0 71 79 25) · Craie #F1F0EC · Carbone #141519 · Poudre #D9B4A7. Équivalents à soumettre en lab-dips.</p>
+          <p class="note" style="margin-top:16px">Opacité obligatoire : le tissu reste couvrant à l'étirement (test squat). Aucun blanchiment de la couleur en zone tendue.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== 02 PANTALON -->
+<section class="chapter" id="nebuleuse">
+  <div class="wrap">
+    <div class="chap-row">
+      <span class="chap-no" aria-hidden="true">02</span>
+      <h2 class="chap-title">Pantalon « Nébuleuse »<small>Réf. NV-PAN-NEB · taille haute · jambe évasée · coutures sculptantes · 4 coloris · XS-XL</small></h2>
+    </div>
+    <p class="lede" style="margin-bottom:clamp(26px,3.6vw,44px)">Une taille haute qui sculpte, un empiècement en V qui galbe, une jambe qui s'évase : la puissance en mouvement.</p>
+
+    <div class="sub-head" style="margin-top:0"><h3>Coloris signature Mars</h3><span class="small">Face &amp; dos, mesures à plat</span></div>
+    <div class="g2">
+      <figure class="fig">
+        <div class="stage">
+          <svg viewBox="0 0 220 380" style="width:min(58%,190px);aspect-ratio:220/380" role="img" aria-label="Pantalon Nébuleuse, face, coloris Mars">
+            <use href="#pant-body" fill="#C05A48" stroke="#141519" stroke-width="2.4"/>
+            <g fill="none" stroke="#141519" stroke-width="1.3" opacity=".45">
+              <path d="M52 46 H168"/>
+              <path d="M78 48 C82 96 96 126 110 156"/>
+              <path d="M142 48 C138 96 124 126 110 156"/>
+            </g>
+            <use href="#lg-mono" x="60" y="26" width="15" height="15" fill="#141519" opacity=".55"/>
+          </svg>
+        </div>
+        <figcaption><span class="label">Face</span><span>Ceinture haute 180, coutures sculptantes princesse, monogramme thermocollé ton sur ton hanche gauche.</span></figcaption>
+      </figure>
+      <figure class="fig">
+        <div class="stage">
+          <svg viewBox="0 0 220 380" style="width:min(58%,190px);aspect-ratio:220/380" role="img" aria-label="Pantalon Nébuleuse, dos, coloris Mars">
+            <use href="#pant-body" fill="#C05A48" stroke="#141519" stroke-width="2.4"/>
+            <g fill="none" stroke="#141519" stroke-width="1.3" opacity=".45">
+              <path d="M50 44 L110 74 L170 44"/>
+              <path d="M110 74 V158"/>
+              <path d="M66 168 C68 240 70 320 66 360"/>
+              <path d="M154 168 C152 240 150 320 154 360"/>
+            </g>
+          </svg>
+        </div>
+        <figcaption><span class="label">Dos</span><span>Empiècement en V (effet lift), couture centrale dos, gousset anatomique, poche interne discrète dans la ceinture.</span></figcaption>
+      </figure>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Schéma coté</h3><span class="small">Face, non à l'échelle, cotes en mm, taille M</span></div>
+      <div class="schema">
+        <svg viewBox="0 0 660 440" style="width:100%;aspect-ratio:660/440" role="img" aria-label="Schéma coté du pantalon Nébuleuse">
+          <g transform="translate(230 24)">
+            <use href="#pant-body" width="220" height="380" fill="#F1F0EC" stroke="#141519" stroke-width="2.4"/>
+            <g fill="none" stroke="#B9B7B0" stroke-width="1.3">
+              <path d="M52 46 H168"/>
+              <path d="M78 48 C82 96 96 126 110 156"/>
+              <path d="M142 48 C138 96 124 126 110 156"/>
+            </g>
+            <use href="#lg-mono" x="60" y="26" width="15" height="15" fill="#141519"/>
+          </g>
+          <g stroke="#44474E" stroke-width="1">
+            <path d="M206 44V400M200 44h12M200 400h12"/>
+            <path d="M206 44V90M200 44h12M200 90h12"/>
+            <path d="M254 418H396M254 412v12M396 412v12"/>
+          </g>
+          <g stroke="#B9B7B0" stroke-dasharray="3 3" fill="none">
+            <path d="M360 60H470"/>
+            <path d="M300 44 L470 44"/>
+          </g>
+          <g fill="#44474E" font-size="12" font-weight="600">
+            <text x="196" y="70" text-anchor="end">Ceinture</text>
+            <text x="196" y="86" text-anchor="end">haute 180</text>
+            <text x="196" y="235" text-anchor="end">Longueur totale 1080,</text>
+            <text x="196" y="251" text-anchor="end">entrejambe 780</text>
+            <text x="325" y="438" text-anchor="middle">Ouverture bas à plat 240 (évasé)</text>
+            <text x="476" y="48">Monogramme, hanche gauche</text>
+            <text x="476" y="64">Coutures princesse</text>
+          </g>
+        </svg>
+      </div>
+      <p class="small" style="margin-top:12px">Longueur pensée pour tomber au sol sur talon plat. Gousset anatomique une pièce, couture plate (flatlock) sur l'entrejambe et les côtés. Ourlet évasé surpiqué double aiguille. Grading complet §03.</p>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Coloris</h3><span class="small">Set assorti, face</span></div>
+      <div class="g4">
+        <figure class="fig mini">
+          <div class="stage"><svg viewBox="0 0 220 380" style="width:min(52%,110px);aspect-ratio:220/380" role="img" aria-label="Pantalon Mars"><use href="#pant-body" fill="#C05A48" stroke="#141519" stroke-width="2.4"/></svg></div>
+          <figcaption><span class="label">NEB-01 · Mars</span></figcaption>
+        </figure>
+        <figure class="fig mini">
+          <div class="stage"><svg viewBox="0 0 220 380" style="width:min(52%,110px);aspect-ratio:220/380" role="img" aria-label="Pantalon Craie"><use href="#pant-body" fill="#F1F0EC" stroke="#141519" stroke-width="2.4"/></svg></div>
+          <figcaption><span class="label">NEB-02 · Craie</span></figcaption>
+        </figure>
+        <figure class="fig mini">
+          <div class="stage"><svg viewBox="0 0 220 380" style="width:min(52%,110px);aspect-ratio:220/380" role="img" aria-label="Pantalon Carbone"><use href="#pant-body" fill="#141519" stroke="#141519" stroke-width="2.4"/></svg></div>
+          <figcaption><span class="label">NEB-03 · Carbone</span></figcaption>
+        </figure>
+        <figure class="fig mini">
+          <div class="stage"><svg viewBox="0 0 220 380" style="width:min(52%,110px);aspect-ratio:220/380" role="img" aria-label="Pantalon Poudre"><use href="#pant-body" fill="#D9B4A7" stroke="#141519" stroke-width="2.4"/></svg></div>
+          <figcaption><span class="label">NEB-04 · Poudre</span></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Construction, matière &amp; coloris</h3></div>
+      <div class="g2">
+        <table>
+          <tr><td style="width:170px"><b>Composition</b></td><td>76 % polyamide recyclé, 24 % élasthanne, interlock brossé mat « seconde peau », ~250 g/m² (assorti à la brassière)</td></tr>
+          <tr><td><b>Taille</b></td><td>Haute, ceinture large 180 mm, maintien gainant, sans couture au niveau du ventre</td></tr>
+          <tr><td><b>Dos</b></td><td>Empiècement en V effet lift, couture centrale dos</td></tr>
+          <tr><td><b>Jambe</b></td><td>Évasée à partir du genou, ourlet ouverture 240 mm, surpiqûre double aiguille</td></tr>
+          <tr><td><b>Gousset</b></td><td>Anatomique une pièce, coutures plates flatlock</td></tr>
+          <tr><td><b>Poche</b></td><td>Interne discrète dans la ceinture (clé / carte)</td></tr>
+          <tr><td><b>Marquage</b></td><td>Monogramme thermocollé ton sur ton, hanche gauche de la ceinture</td></tr>
+          <tr><td><b>Certification</b></td><td>Oeko-Tex Standard 100 classe I, certificat à fournir avec l'offre</td></tr>
+        </table>
+        <div>
+          <table>
+            <tr><th>Zone</th><th>Mars</th><th>Craie</th><th>Carbone</th><th>Poudre</th></tr>
+            <tr><td><b>Corps &amp; ceinture</b></td><td><i class="chip" style="background:#C05A48"></i></td><td><i class="chip" style="background:#F1F0EC"></i></td><td><i class="chip" style="background:#141519"></i></td><td><i class="chip" style="background:#D9B4A7"></i></td></tr>
+            <tr><td><b>Coutures &amp; ourlet</b></td><td colspan="4">Fil ton sur ton avec le corps</td></tr>
+            <tr><td><b>Monogramme</b></td><td colspan="4">Thermocollé ton sur ton</td></tr>
+            <tr><td><b>Gousset</b></td><td colspan="4">Même tissu que le corps</td></tr>
+          </table>
+          <p class="small" style="margin-top:12px">Fils &amp; teintes identiques à la brassière : Mars #C05A48 · Craie #F1F0EC · Carbone #141519 · Poudre #D9B4A7. Le bain de teinture de la brassière et du pantalon d'un même set doit correspondre.</p>
+          <p class="note" style="margin-top:16px">Opacité obligatoire à l'étirement (test squat) sur toute la jambe et le fessier. Aucun effet de transparence en zone tendue.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== 03 COMMANDE -->
+<section class="chapter" id="commande">
+  <div class="wrap">
+    <div class="chap-row">
+      <span class="chap-no" aria-hidden="true">03</span>
+      <h2 class="chap-title">Tailles &amp; commande<small>À compléter par Nova avant bon pour production</small></h2>
+    </div>
+
+    <div class="sub-head" style="margin-top:0"><h3>Tableau des tailles</h3><span class="small">Mesures corps en cm, tolérance ±1 cm</span></div>
+    <table>
+      <tr><th>Taille</th><th class="r">Tour de poitrine</th><th class="r">Sous-poitrine</th><th class="r">Tour de taille</th><th class="r">Tour de hanches</th><th class="r">Entrejambe</th></tr>
+      <tr><td><b>XS</b></td><td class="r num">78-82</td><td class="r num">64-68</td><td class="r num">60-64</td><td class="r num">86-90</td><td class="r num">78</td></tr>
+      <tr><td><b>S</b></td><td class="r num">82-86</td><td class="r num">68-72</td><td class="r num">64-68</td><td class="r num">90-94</td><td class="r num">78</td></tr>
+      <tr><td><b>M</b></td><td class="r num">86-90</td><td class="r num">72-76</td><td class="r num">68-72</td><td class="r num">94-98</td><td class="r num">80</td></tr>
+      <tr><td><b>L</b></td><td class="r num">90-95</td><td class="r num">76-81</td><td class="r num">72-77</td><td class="r num">98-103</td><td class="r num">80</td></tr>
+      <tr><td><b>XL</b></td><td class="r num">95-100</td><td class="r num">81-86</td><td class="r num">77-82</td><td class="r num">103-108</td><td class="r num">82</td></tr>
+    </table>
+
+    <div class="sub-head" style="margin-top:clamp(32px,4vw,52px)"><h3>Quantités par coloris</h3><span class="small">Répartition tailles : XS 15 % · S 30 % · M 30 % · L 18 % · XL 7 %</span></div>
+    <div class="g2">
+      <table>
+        <tr><th>Brassière Aurore</th><th>Coloris</th><th class="r">Qté drop</th><th class="r">Cible prix</th></tr>
+        <tr><td class="num">NV-BRA-AUR-01</td><td><i class="chip" style="background:#C05A48"></i>Mars</td><td class="r num">400</td><td class="r num">à chiffrer</td></tr>
+        <tr><td class="num">NV-BRA-AUR-02</td><td><i class="chip" style="background:#F1F0EC"></i>Craie</td><td class="r num">300</td><td class="r num">à chiffrer</td></tr>
+        <tr><td class="num">NV-BRA-AUR-03</td><td><i class="chip" style="background:#141519"></i>Carbone</td><td class="r num">300</td><td class="r num">à chiffrer</td></tr>
+        <tr><td class="num">NV-BRA-AUR-04</td><td><i class="chip" style="background:#D9B4A7"></i>Poudre</td><td class="r num">200</td><td class="r num">à chiffrer</td></tr>
+        <tr><td colspan="2"><b>Sous-total brassières</b></td><td class="r num"><b>1 200</b></td><td class="r"></td></tr>
+      </table>
+      <table>
+        <tr><th>Pantalon Nébuleuse</th><th>Coloris</th><th class="r">Qté drop</th><th class="r">Cible prix</th></tr>
+        <tr><td class="num">NV-PAN-NEB-01</td><td><i class="chip" style="background:#C05A48"></i>Mars</td><td class="r num">400</td><td class="r num">à chiffrer</td></tr>
+        <tr><td class="num">NV-PAN-NEB-02</td><td><i class="chip" style="background:#F1F0EC"></i>Craie</td><td class="r num">300</td><td class="r num">à chiffrer</td></tr>
+        <tr><td class="num">NV-PAN-NEB-03</td><td><i class="chip" style="background:#141519"></i>Carbone</td><td class="r num">300</td><td class="r num">à chiffrer</td></tr>
+        <tr><td class="num">NV-PAN-NEB-04</td><td><i class="chip" style="background:#D9B4A7"></i>Poudre</td><td class="r num">200</td><td class="r num">à chiffrer</td></tr>
+        <tr><td colspan="2"><b>Sous-total pantalons</b></td><td class="r num"><b>1 200</b></td><td class="r"></td></tr>
+      </table>
+    </div>
+    <p class="note" style="margin-top:22px">L'ensemble se vend en set assorti (référence set NV-SET-SOL, brassière + pantalon même coloris) et à la pièce. Quantités identiques haut / bas par coloris pour garantir l'appairage des sets. Chaque set part avec les deux pièces issues du même bain de teinture.</p>
+
+    <div class="g2" style="margin-top:clamp(32px,4vw,52px)">
+      <div>
+        <div class="sub-head" style="margin-top:0"><h3>Étapes de validation</h3></div>
+        <ul class="check">
+          <li>Réception offre chiffrée + délais + MOQ par coloris et par taille</li>
+          <li>Lab-dips tissu + fils validés par Nova, brassière et pantalon appairés</li>
+          <li>Contre-type / sample pré-production par coloris et par pièce, en taille M</li>
+          <li>Essayage fit sur mannequin taille M, validation du tombé de l'évasé et du maintien de la brassière</li>
+          <li>Test squat (opacité à l'étirement) validé sur les deux pièces</li>
+          <li>Certificat Oeko-Tex fourni</li>
+          <li>Bon pour production émis par Nova après validation du sample</li>
+          <li>Inspection qualité avant expédition (AQL 2.5 défauts majeurs)</li>
+        </ul>
+      </div>
+      <div>
+        <div class="sub-head" style="margin-top:0"><h3>À retenir (Do &amp; Don't)</h3></div>
+        <table>
+          <tr><th>À faire</th><th>À ne pas faire</th></tr>
+          <tr><td>Respecter les HEX, soumettre lab-dips</td><td>Convertir les couleurs sans validation</td></tr>
+          <tr><td>Appairer le bain de teinture haut / bas</td><td>Mélanger deux bains dans un même set</td></tr>
+          <tr><td>Bordures thermosoudées, coutures plates</td><td>Surpiqûres visibles sur l'endroit de la brassière</td></tr>
+          <tr><td>Tissu opaque à l'étirement (squat-proof)</td><td>Tissu transparent en zone tendue</td></tr>
+          <tr><td>Monogramme thermocollé ton sur ton</td><td>Verticaliser, incliner ou contraster le logo</td></tr>
+          <tr><td>Certifications fournies avec l'offre</td><td>Lancer sans bon pour production signé</td></tr>
+        </table>
+        <p class="note" style="margin-top:18px">Les quantités et cibles de prix sont indicatives pour le premier drop. Toute contrainte technique (MOQ, faisabilité du coloris Mars, tenue de l'opacité, tombé de l'évasé) doit être remontée à Nova avant lancement plutôt que corrigée unilatéralement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-in">
+    <svg role="img" aria-label="Nova" viewBox="0 0 520 120"><use href="#lg-word"/></svg>
+    <span class="label">Dossier NV-PROD-26-04 · ensemble Solstice · d'après le brand book édition 01 · production@wearnova.com</span>
+  </div>
+</footer>
+
+</body>
+</html>
