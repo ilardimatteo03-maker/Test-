@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NOVA, facture &amp; carte de remerciement</title>
+<meta name="description" content="Supports commerciaux Nova : gabarit de facture client et carte de remerciement du Nova Club, d'après le brand book édition 01.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0C53 38 62 47 100 50 62 53 53 62 50 100 47 62 38 53 0 50 38 47 47 38 50 0Z' fill='%23FF4B1F'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   NOVA, supports commerciaux : facture + carte de remerciement.
+   Gabarits d'après le brand book édition 01. Données d'exemple.
+   ========================================================== */
+:root{
+  --craie:#F1F0EC;
+  --craie2:#E9E7E1;
+  --blanc:#FAFAF9;
+  --carbone:#141519;
+  --graphite:#44474E;
+  --brume:#B9B7B0;
+  --flare:#FF4B1F;
+  --poudre:#D9B4A7;
+  --hairline:rgba(20,21,25,.14);
+  --hairline-strong:rgba(20,21,25,.85);
+  --sans:'Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --wrap:1240px;
+  --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--craie);color:var(--carbone);font-family:var(--sans);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%;display:block}
+::selection{background:var(--flare);color:var(--craie)}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad)}
+p{max-width:66ch}
+.label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--graphite)}
+.lede{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(21px,2.4vw,28px);line-height:1.4;max-width:40ch}
+.small{font-size:13px;line-height:1.55;color:var(--graphite)}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- entête du document ---------- */
+.nav{position:sticky;top:0;z-index:40;background:rgba(241,240,236,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--hairline)}
+.nav-in{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad);height:58px;display:flex;align-items:center;gap:14px}
+.nav-mono{width:25px;height:25px;fill:var(--carbone);flex:none}
+.nav-word{width:82px;aspect-ratio:520/120;fill:var(--carbone)}
+.nav-right{margin-left:auto;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--graphite);white-space:nowrap}
+
+.doc-head{padding-block:clamp(44px,6vw,84px)}
+.doc-head h1{font-weight:800;font-stretch:120%;text-transform:uppercase;font-size:clamp(28px,4.6vw,58px);line-height:.98;letter-spacing:-.005em}
+.doc-head .lede{margin-top:18px}
+
+.chapter{padding-block:clamp(48px,7vw,96px);border-top:1px solid var(--hairline)}
+.chap-row{display:flex;align-items:flex-end;gap:clamp(18px,3vw,44px);border-top:2px solid var(--carbone);padding-top:16px;flex-wrap:wrap;margin-bottom:clamp(26px,3.6vw,46px)}
+.chap-no{font-weight:800;font-stretch:62%;line-height:.8;font-size:clamp(60px,8.6vw,116px);color:var(--craie);-webkit-text-stroke:1.5px var(--carbone);font-variant-numeric:tabular-nums;flex:none}
+@supports not (-webkit-text-stroke:1px black){.chap-no{color:var(--brume)}}
+.chap-title{font-weight:800;font-stretch:120%;text-transform:uppercase;font-size:clamp(23px,3.6vw,44px);line-height:.98;padding-bottom:6px}
+.chap-title small{display:block;font-size:.42em;letter-spacing:.14em;color:var(--graphite);font-weight:700;margin-top:6px}
+.note{border-left:3px solid var(--flare);padding:6px 0 6px 18px;font-size:14.5px;color:var(--graphite);max-width:64ch}
+
+/* ========================================================== FACTURE (A4) */
+.sheetwrap{display:flex;justify-content:center;overflow-x:auto;padding-bottom:4px}
+.sheet{
+  width:794px;min-width:794px;background:var(--blanc);color:var(--carbone);
+  border:1px solid var(--hairline);
+  box-shadow:0 24px 60px rgba(20,21,25,.14);
+  padding:56px 56px 40px;position:relative;overflow:hidden;
+}
+.sheet .halo{position:absolute;right:-140px;top:-140px;width:420px;opacity:.5;pointer-events:none}
+.inv-top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;position:relative}
+.inv-top .brand svg.w{width:150px;aspect-ratio:520/120;fill:var(--carbone)}
+.inv-top .brand .base{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--graphite);margin-top:8px}
+.inv-top .brand .sub{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--graphite);margin-top:2px}
+.inv-doc{text-align:right}
+.inv-doc h2{font-weight:800;font-stretch:120%;text-transform:uppercase;font-size:34px;line-height:1;letter-spacing:.02em}
+.inv-doc table{margin-top:12px;margin-left:auto;font-size:12.5px;border-collapse:collapse}
+.inv-doc td{padding:2px 0 2px 18px;text-align:right;white-space:nowrap}
+.inv-doc td:first-child{color:var(--graphite);font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:10.5px}
+.inv-doc td:last-child{font-weight:700;font-variant-numeric:tabular-nums}
+
+.inv-parties{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:38px}
+.inv-parties .blk{border-top:2px solid var(--carbone);padding-top:12px}
+.inv-parties h3{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--graphite);margin-bottom:8px}
+.inv-parties .nm{font-weight:700;font-size:15px}
+.inv-parties p{font-size:12.5px;line-height:1.7;color:var(--carbone)}
+.inv-parties .g{color:var(--graphite)}
+
+.inv-meta{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--hairline);margin-top:26px}
+.inv-meta div{padding:11px 14px;border-left:1px solid var(--hairline)}
+.inv-meta div:first-child{border-left:none}
+.inv-meta b{display:block;font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--graphite);margin-bottom:3px}
+.inv-meta span{font-size:12.5px;font-weight:600;font-variant-numeric:tabular-nums}
+
+table.items{width:100%;border-collapse:collapse;margin-top:26px;font-size:12.5px}
+table.items thead th{
+  text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--craie);
+  background:var(--carbone);padding:9px 12px;
+}
+table.items thead th.r{text-align:right}
+table.items tbody td{padding:12px 12px;border-bottom:1px solid var(--hairline);vertical-align:top}
+table.items tbody td.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.items .p-nm{font-weight:700;font-size:13px}
+table.items .p-meta{font-size:11px;color:var(--graphite);margin-top:2px}
+
+.inv-bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;margin-top:26px}
+.inv-pay h3,.inv-tot h3{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--graphite);margin-bottom:10px}
+.inv-pay p{font-size:12px;line-height:1.7}
+.inv-pay .paid{display:inline-block;margin-top:8px;background:var(--carbone);color:var(--craie);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:999px}
+.inv-tot table{width:100%;border-collapse:collapse;font-size:12.5px}
+.inv-tot td{padding:7px 0;border-bottom:1px solid var(--hairline)}
+.inv-tot td:last-child{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.inv-tot td.lbl{color:var(--graphite)}
+.inv-tot .rem td:last-child{color:var(--flare)}
+.inv-tot .grand td{border-bottom:none;border-top:2px solid var(--carbone);padding-top:12px;font-size:15px}
+.inv-tot .grand td:first-child{font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.inv-tot .grand td:last-child{font-weight:800;font-size:20px}
+.inv-tot .grand td:last-child b{color:var(--flare)}
+
+.inv-legal{margin-top:30px;border-top:1px solid var(--hairline);padding-top:14px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.inv-legal p{font-size:9.5px;line-height:1.6;color:var(--graphite);max-width:52ch}
+.inv-legal .thanks{font-family:var(--serif);font-style:italic;font-size:16px;color:var(--carbone);text-align:right;flex:none}
+.ph{color:var(--flare);font-weight:700}
+
+/* ========================================================== CARTE */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,40px);align-items:start}
+@media (max-width:760px){.cards{grid-template-columns:1fr}}
+.cardwrap{display:flex;flex-direction:column;gap:12px;align-items:center}
+.card{
+  width:100%;max-width:360px;aspect-ratio:105/148;
+  border:1px solid var(--hairline);position:relative;overflow:hidden;
+  box-shadow:0 20px 48px rgba(20,21,25,.14);
+  display:flex;flex-direction:column;
+}
+.card .cap{font-size:12px;color:var(--graphite);text-align:center}
+/* recto */
+.card.recto{background:var(--carbone);color:var(--craie);align-items:center;justify-content:center;padding:34px}
+.card.recto .halo{position:absolute;inset:0;margin:auto;width:118%;opacity:.5}
+.card.recto .spark{width:46px;aspect-ratio:1;fill:var(--flare);position:relative;margin-bottom:26px}
+.card.recto .w{width:170px;aspect-ratio:520/120;fill:var(--craie);position:relative}
+.card.recto .club{position:relative;margin-top:20px;font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--brume)}
+.card.recto .base{position:relative;margin-top:auto;font-family:var(--serif);font-style:italic;font-size:19px;color:var(--craie);text-align:center}
+/* verso */
+.card.verso{background:var(--poudre);color:var(--carbone);padding:32px 30px;justify-content:space-between}
+.card.verso .hi{font-family:var(--serif);font-style:italic;font-size:26px;line-height:1.15}
+.card.verso .msg{font-size:13px;line-height:1.62;margin-top:14px;max-width:none}
+.card.verso .sign{font-family:var(--serif);font-style:italic;font-size:16px;margin-top:14px}
+.card.verso .foot{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:20px;background:var(--carbone);color:var(--craie);border-radius:12px;padding:13px 15px}
+.card.verso .code b{display:block;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brume);margin-bottom:5px}
+.card.verso .code .val{display:block;font-weight:800;font-stretch:110%;letter-spacing:.04em;font-size:18px;color:var(--flare)}
+.card.verso .qr{width:54px;height:54px;flex:none;background:var(--blanc);border-radius:6px;display:grid;place-items:center}
+.card.verso .qr svg{width:42px;height:42px}
+.card.verso .handle{display:block;margin-top:6px;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--brume)}
+
+.specs{border:1px solid var(--hairline);background:var(--blanc);padding:clamp(18px,2.6vw,30px);margin-top:clamp(28px,4vw,44px)}
+.specs table{width:100%;border-collapse:collapse;font-size:14px}
+.specs td{padding:10px 12px 10px 0;border-bottom:1px solid var(--hairline);vertical-align:top}
+.specs tr:last-child td{border-bottom:none}
+.specs td:first-child{font-weight:700;width:190px}
+@media (max-width:640px){.specs td:first-child{width:130px}}
+
+.foot{background:var(--carbone);color:var(--craie);margin-top:clamp(50px,7vw,90px)}
+.foot-in{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad);padding-block:clamp(34px,5vw,60px);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+.foot-in .label{color:var(--brume)}
+.foot-in svg{width:110px;aspect-ratio:520/120;fill:var(--craie)}
+
+@media print{
+  .nav,.doc-head,.foot,.specs,.note,.chap-row{display:none}
+  .chapter{border:none;padding:0}
+  .sheet{box-shadow:none;border:none;width:100%;min-width:0;padding:0}
+  .card{box-shadow:none}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="lg-word" viewBox="0 0 520 120">
+      <path d="M0 10H20L80 86V10H100V110H80L20 34V110H0Z"/>
+      <path fill-rule="evenodd" d="M140 60a50 50 0 1 0 100 0 50 50 0 1 0-100 0Zm20 0a30 30 0 1 1 60 0 30 30 0 1 1-60 0Z"/>
+      <path d="M280 10h20l30 76 30-76h20l-40 100h-20Z"/>
+      <path d="M460 10h20l40 100h-20l-30-76-30 76h-20Z"/>
+    </symbol>
+    <symbol id="lg-spark" viewBox="0 0 100 100">
+      <path d="M50 0C53 38 62 47 100 50 62 53 53 62 50 100 47 62 38 53 0 50 38 47 47 38 50 0Z"/>
+    </symbol>
+    <symbol id="lg-mono" viewBox="0 0 120 120">
+      <path fill-rule="evenodd" d="M2 60a58 58 0 1 0 116 0 58 58 0 1 0-116 0Zm14 0a44 44 0 1 1 88 0 44 44 0 1 1-88 0Z"/>
+      <use href="#lg-spark" x="29" y="29" width="62" height="62"/>
+    </symbol>
+    <symbol id="halo" viewBox="0 0 300 300">
+      <g fill="none">
+        <circle cx="150" cy="150" r="140" stroke-width="1"/>
+        <circle cx="150" cy="150" r="108" stroke-width="1"/>
+        <circle cx="150" cy="150" r="76" stroke-width="1"/>
+        <circle cx="150" cy="150" r="44" stroke-width="1"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<nav class="nav" aria-label="Navigation du document">
+  <div class="nav-in">
+    <svg class="nav-mono" role="img" aria-label="Monogramme Nova"><use href="#lg-mono"/></svg>
+    <svg class="nav-word" viewBox="0 0 520 120" role="img" aria-label="Nova"><use href="#lg-word"/></svg>
+    <span class="nav-right">Supports commerciaux</span>
+  </div>
+</nav>
+
+<header class="doc-head">
+  <div class="wrap">
+    <h1>Facture &amp;<br>carte de remerciement</h1>
+    <p class="lede">Deux supports de l'expérience d'achat, dessinés d'après le brand book. Les données affichées sont des exemples à remplacer.</p>
+  </div>
+</header>
+
+<!-- ========================================================== 01 FACTURE -->
+<section class="chapter" id="facture">
+  <div class="wrap">
+    <div class="chap-row">
+      <span class="chap-no" aria-hidden="true">01</span>
+      <h2 class="chap-title">La facture<small>Gabarit A4 · document d'exemple · imprimable</small></h2>
+    </div>
+
+    <div class="sheetwrap">
+      <div class="sheet" role="img" aria-label="Facture Nova, exemple">
+        <svg class="halo" viewBox="0 0 300 300" aria-hidden="true"><use href="#halo" stroke="#141519" opacity=".16"/></svg>
+
+        <div class="inv-top">
+          <div class="brand">
+            <svg class="w" viewBox="0 0 520 120" aria-label="Nova"><use href="#lg-word"/></svg>
+            <div class="base">La grâce est une force.</div>
+            <div class="sub">Activewear féminin · wearnova.com</div>
+          </div>
+          <div class="inv-doc">
+            <h2>Facture</h2>
+            <table>
+              <tr><td>N° facture</td><td>NV-2026-0428</td></tr>
+              <tr><td>Date</td><td>30.07.2026</td></tr>
+              <tr><td>N° commande</td><td>#NV-10428</td></tr>
+              <tr><td>Échéance</td><td>Payée</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="inv-parties">
+          <div class="blk">
+            <h3>Émetteur</h3>
+            <div class="nm">Nova SAS</div>
+            <p class="g">
+              22 quai Saint-Vincent, 69001 Lyon, France<br>
+              contact@wearnova.com<br>
+              SIRET <span class="ph">000 000 000 00000</span> · TVA <span class="ph">FR00 000000000</span><br>
+              RCS Lyon <span class="ph">000 000 000</span>
+            </p>
+          </div>
+          <div class="blk">
+            <h3>Facturé à</h3>
+            <div class="nm">Léa Moreau</div>
+            <p class="g">
+              14 rue des Capucins<br>
+              69001 Lyon, France<br>
+              lea.moreau@exemple.fr<br>
+              Membre du Nova Club · #NV-0417
+            </p>
+          </div>
+        </div>
+
+        <div class="inv-meta">
+          <div><b>Commande</b><span>30.07.2026</span></div>
+          <div><b>Paiement</b><span>Carte •••• 4242</span></div>
+          <div><b>Livraison</b><span>Colissimo domicile</span></div>
+          <div><b>Drop</b><span>Ignition 01</span></div>
+        </div>
+
+        <table class="items">
+          <thead>
+            <tr>
+              <th>Article</th>
+              <th>Réf.</th>
+              <th class="r">Qté</th>
+              <th class="r">PU HT</th>
+              <th class="r">Total HT</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="p-nm">Legging Apex</div><div class="p-meta">Coloris Poudre · Taille M</div></td>
+              <td class="num">NV-APX-PO-M</td>
+              <td class="r">1</td>
+              <td class="r">60,00 €</td>
+              <td class="r">60,00 €</td>
+            </tr>
+            <tr>
+              <td><div class="p-nm">Brassière Aurore</div><div class="p-meta">Coloris Carbone · Taille M</div></td>
+              <td class="num">NV-BRA-AUR-02-M</td>
+              <td class="r">1</td>
+              <td class="r">45,00 €</td>
+              <td class="r">45,00 €</td>
+            </tr>
+            <tr>
+              <td><div class="p-nm">Chaussettes Satellite</div><div class="p-meta">Coloris Craie · Taille S/M</div></td>
+              <td class="num">NV-SAT-01-SM</td>
+              <td class="r">2</td>
+              <td class="r">10,00 €</td>
+              <td class="r">20,00 €</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="inv-bottom">
+          <div class="inv-pay">
+            <h3>Paiement</h3>
+            <p class="g">Réglée par carte bancaire le 30.07.2026.<br>Transaction 8f2a-1c4e-9022.<br>Retours acceptés sous 30 jours, articles non portés.</p>
+            <span class="paid">Payée · Merci</span>
+          </div>
+          <div class="inv-tot">
+            <h3>Total</h3>
+            <table>
+              <tr><td class="lbl">Sous-total HT</td><td>125,00 €</td></tr>
+              <tr class="rem"><td class="lbl">Remise Nova Club (PREMIERE-10)</td><td>-12,50 €</td></tr>
+              <tr><td class="lbl">Livraison HT</td><td>Offerte</td></tr>
+              <tr><td class="lbl">TVA 20 %</td><td>22,50 €</td></tr>
+              <tr class="grand"><td>Total TTC</td><td><b>135,00 €</b></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="inv-legal">
+          <p>
+            Nova SAS au capital de <span class="ph">[à compléter]</span> €. TVA acquittée sur les débits.
+            En cas de retard de paiement, indemnité forfaitaire de 40 € pour frais de recouvrement (art. L441-10 C. com.) et pénalités au taux de 3× l'intérêt légal. Pas d'escompte pour paiement anticipé.
+            Les champs en <span class="ph">orange</span> sont des marqueurs à remplacer par vos informations légales réelles.
+          </p>
+          <p class="thanks">Bienvenue<br>chez les Novas.</p>
+        </div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:20px">Règles : fond blanc cassé, texte Carbone, Flare rationné (uniquement la remise du club et le total). Colonnes chiffres en Archivo tabulaire aligné à droite. Motif Halo discret en filigrane d'angle. Imprimer en A4 sans marges de couleur ; version PDF pour l'envoi e-mail post-achat.</p>
+  </div>
+</section>
+
+<!-- ========================================================== 02 CARTE -->
+<section class="chapter" id="carte">
+  <div class="wrap">
+    <div class="chap-row">
+      <span class="chap-no" aria-hidden="true">02</span>
+      <h2 class="chap-title">La carte de remerciement<small>Format A6 · recto / verso · glissée dans chaque commande</small></h2>
+    </div>
+
+    <div class="cards">
+      <div class="cardwrap">
+        <div class="card recto">
+          <svg class="halo" viewBox="0 0 300 300" aria-hidden="true"><use href="#halo" stroke="#F1F0EC" opacity=".14"/></svg>
+          <svg class="spark" viewBox="0 0 100 100" aria-hidden="true"><use href="#lg-spark"/></svg>
+          <svg class="w" viewBox="0 0 520 120" role="img" aria-label="Nova"><use href="#lg-word"/></svg>
+          <div class="club">Le Nova Club</div>
+          <div class="base">La grâce est une force.</div>
+        </div>
+        <div class="cap">Recto · Carbone, étincelle Flare, motif Halo</div>
+      </div>
+
+      <div class="cardwrap">
+        <div class="card verso">
+          <div>
+            <div class="hi">Bienvenue<br>chez les Novas.</div>
+            <p class="msg">Ta pièce a été pensée pour le studio et pour l'arène, testée en conditions réelles par les filles du club. Porte-la, pousse, et montre-nous : identifie <b>@wearnova</b> et rejoins le feed avec <b>#NovaClub</b>. On se retrouve à la prochaine séance.</p>
+            <div class="sign">L'équipe Nova.</div>
+          </div>
+          <div class="foot">
+            <div class="code">
+              <b>10 % sur ta prochaine commande</b>
+              <span class="val">RACEDAY-10</span>
+              <span class="handle">@wearnova</span>
+            </div>
+            <div class="qr" aria-label="QR code vers le Nova Club">
+              <svg viewBox="0 0 100 100" aria-hidden="true">
+                <rect width="100" height="100" fill="#FAFAF9"/>
+                <g fill="#141519">
+                  <rect x="6" y="6" width="26" height="26"/><rect x="12" y="12" width="14" height="14" fill="#FAFAF9"/><rect x="16" y="16" width="6" height="6" fill="#141519"/>
+                  <rect x="68" y="6" width="26" height="26"/><rect x="74" y="12" width="14" height="14" fill="#FAFAF9"/><rect x="78" y="16" width="6" height="6" fill="#141519"/>
+                  <rect x="6" y="68" width="26" height="26"/><rect x="12" y="74" width="14" height="14" fill="#FAFAF9"/><rect x="16" y="78" width="6" height="6" fill="#141519"/>
+                  <rect x="40" y="8" width="6" height="6"/><rect x="52" y="8" width="6" height="6"/><rect x="40" y="20" width="6" height="6"/><rect x="58" y="20" width="6" height="6"/>
+                  <rect x="40" y="40" width="6" height="6"/><rect x="50" y="46" width="6" height="6"/><rect x="60" y="40" width="6" height="6"/><rect x="72" y="44" width="6" height="6"/><rect x="84" y="40" width="6" height="6"/>
+                  <rect x="44" y="58" width="6" height="6"/><rect x="56" y="60" width="6" height="6"/><rect x="68" y="58" width="6" height="6"/><rect x="80" y="62" width="6" height="6"/>
+                  <rect x="40" y="72" width="6" height="6"/><rect x="52" y="76" width="6" height="6"/><rect x="64" y="72" width="6" height="6"/><rect x="76" y="78" width="6" height="6"/><rect x="88" y="72" width="6" height="6"/>
+                  <rect x="40" y="86" width="6" height="6"/><rect x="60" y="86" width="6" height="6"/><rect x="80" y="86" width="6" height="6"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="cap">Verso · Poudre, Cormorant italique, code &amp; QR club</div>
+      </div>
+    </div>
+
+    <div class="specs">
+      <table>
+        <tr><td>Format</td><td>A6 fermé (105 × 148 mm), carte plate simple épaisseur</td></tr>
+        <tr><td>Papier</td><td>Bristol 350 g/m², non couché, toucher mat</td></tr>
+        <tr><td>Recto</td><td>Fond Carbone #141519, étincelle Flare #FF4B1F, wordmark et baseline Craie, motif Halo débossé ou imprimé Craie 14 %</td></tr>
+        <tr><td>Verso</td><td>Fond Poudre #D9B4A7, texte Carbone, message en Cormorant Garamond italique, code promo en Archivo</td></tr>
+        <tr><td>Impression</td><td>Quadri + éventuel débossage de l'étincelle au recto. QR fonctionnel vers wearnova.com/club (à générer)</td></tr>
+        <tr><td>Usage</td><td>Une carte par commande, glissée dans le papier de soie Halo, au-dessus du produit</td></tr>
+      </table>
+    </div>
+    <p class="note" style="margin-top:20px">Le code <b>RACEDAY-10</b> et le QR sont des exemples. Le QR affiché est une illustration graphique : générer un vrai QR vers la page du club avant impression. Ton de voix conforme au chapitre 11 du brand book : tutoiement, verbes concrets, le club avant la marque.</p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-in">
+    <svg role="img" aria-label="Nova" viewBox="0 0 520 120"><use href="#lg-word"/></svg>
+    <span class="label">Supports commerciaux · d'après le brand book édition 01 · wearnova.com</span>
+  </div>
+</footer>
+
+</body>
+</html>
