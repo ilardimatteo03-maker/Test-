@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NOVA, dossier de production : ensemble Équinoxe</title>
+<meta name="description" content="Dossier de production fournisseur Nova : ensemble Équinoxe, débardeur Croissant une-épaule et legging Gravité taille haute scrunch. Mockups, schémas cotés, coloris, marquages, conformité et grille de commande.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0C53 38 62 47 100 50 62 53 53 62 50 100 47 62 38 53 0 50 38 47 47 38 50 0Z' fill='%23FF4B1F'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   NOVA, dossier de production fournisseur NV-PROD-26-05.
+   Ensemble Équinoxe : débardeur Croissant + legging Gravité.
+   ========================================================== */
+:root{
+  --craie:#F1F0EC;
+  --craie2:#E9E7E1;
+  --blanc:#FAFAF9;
+  --carbone:#141519;
+  --graphite:#44474E;
+  --brume:#B9B7B0;
+  --flare:#FF4B1F;
+  --poudre:#D9B4A7;
+  --hairline:rgba(20,21,25,.14);
+  --hairline-strong:rgba(20,21,25,.85);
+  --sans:'Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --wrap:1240px;
+  --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--craie);color:var(--carbone);font-family:var(--sans);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%;display:block}
+a{color:inherit}
+::selection{background:var(--flare);color:var(--craie)}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad)}
+p{max-width:66ch}
+.label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--graphite)}
+.lede{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(21px,2.4vw,28px);line-height:1.4;max-width:38ch}
+.small{font-size:13px;line-height:1.55;color:var(--graphite)}
+
+.nav{position:sticky;top:0;z-index:40;background:rgba(241,240,236,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--hairline)}
+.nav-in{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad);height:58px;display:flex;align-items:center;gap:14px}
+.nav-mono{width:25px;height:25px;fill:var(--carbone);flex:none}
+.nav-word{width:82px;aspect-ratio:520/120;fill:var(--carbone)}
+.nav-right{margin-left:auto;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--graphite);white-space:nowrap}
+
+.doc-head{padding-block:clamp(44px,6vw,84px)}
+.doc-head h1{font-weight:800;font-stretch:120%;text-transform:uppercase;font-size:clamp(28px,4.6vw,58px);line-height:.98;letter-spacing:-.005em}
+.doc-head .lede{margin-top:18px}
+
+.meta{margin-top:clamp(26px,4vw,40px);border:1px solid var(--hairline);background:var(--blanc);display:grid;grid-template-columns:repeat(4,1fr)}
+.meta div{padding:16px 20px;border-left:1px solid var(--hairline)}
+.meta div:first-child{border-left:none}
+.meta b{display:block;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--graphite);margin-bottom:4px}
+.meta span{font-size:14.5px;font-weight:600;font-variant-numeric:tabular-nums}
+@media (max-width:820px){.meta{grid-template-columns:1fr 1fr}.meta div:nth-child(3){border-left:none}}
+
+.chapter{padding-block:clamp(52px,7vw,100px);scroll-margin-top:70px;border-top:1px solid var(--hairline)}
+.chap-row{display:flex;align-items:flex-end;gap:clamp(18px,3vw,44px);border-top:2px solid var(--carbone);padding-top:16px;flex-wrap:wrap;margin-bottom:clamp(26px,3.6vw,46px)}
+.chap-no{font-weight:800;font-stretch:62%;line-height:.8;font-size:clamp(60px,8.6vw,116px);color:var(--craie);-webkit-text-stroke:1.5px var(--carbone);font-variant-numeric:tabular-nums;flex:none}
+@supports not (-webkit-text-stroke:1px black){.chap-no{color:var(--brume)}}
+.chap-title{font-weight:800;font-stretch:120%;text-transform:uppercase;font-size:clamp(23px,3.6vw,44px);line-height:.98;padding-bottom:6px}
+.chap-title small{display:block;font-size:.42em;letter-spacing:.14em;color:var(--graphite);font-weight:700;margin-top:6px}
+
+.sub{margin-top:clamp(36px,5vw,64px)}
+.sub-head{display:flex;align-items:baseline;gap:14px;margin-bottom:22px;border-top:1px solid var(--hairline-strong);padding-top:13px}
+.sub-head h3{font-size:14.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em}
+.sub-head .small{margin-left:auto;text-align:right}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(22px,3.2vw,48px)}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.2vw,30px)}
+@media (max-width:900px){.g3{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.g2,.g3{grid-template-columns:1fr}}
+
+.panel{border:1px solid var(--hairline);background:var(--blanc);padding:clamp(18px,2.6vw,30px)}
+.note{border-left:3px solid var(--flare);padding:6px 0 6px 18px;font-size:14.5px;color:var(--graphite);max-width:64ch}
+
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th{text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--graphite);padding:0 12px 10px 0;border-bottom:1px solid var(--hairline-strong)}
+td{padding:11px 12px 11px 0;vertical-align:top;border-bottom:1px solid var(--hairline)}
+tr:last-child td{border-bottom:none}
+td b{font-weight:700}
+.num{font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
+td.r,th.r{text-align:right}
+.chip{display:inline-block;width:13px;height:13px;border:1px solid var(--hairline-strong);vertical-align:-2px;margin-right:8px}
+
+.fig{border:1px solid var(--hairline);background:var(--blanc);display:flex;flex-direction:column}
+.fig .stage{display:flex;align-items:center;justify-content:center;padding:clamp(16px,2.4vw,28px);flex:1}
+.fig figcaption{border-top:1px solid var(--hairline);padding:12px 16px}
+.fig figcaption .label{display:block;color:var(--carbone);margin-bottom:3px}
+.fig figcaption span{font-size:13px;color:var(--graphite);line-height:1.5;display:block}
+.mini figcaption{padding:10px 14px}
+.mini .stage{padding:16px 10px}
+
+.schema{border:1px solid var(--hairline);background:var(--blanc);padding:clamp(18px,3vw,36px)}
+.schema svg text{font-family:var(--sans)}
+
+.check{list-style:none}
+.check li{padding:9px 0 9px 26px;position:relative;font-size:14.5px;line-height:1.5;border-top:1px solid rgba(20,21,25,.07)}
+.check li:first-child{border-top:none}
+.check li::before{content:"✓";position:absolute;left:0;top:9px;font-weight:800;font-size:13px;color:var(--flare)}
+
+.foot{background:var(--carbone);color:var(--craie);margin-top:clamp(50px,7vw,90px)}
+.foot-in{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad);padding-block:clamp(34px,5vw,60px);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+.foot-in .label{color:var(--brume)}
+.foot-in svg{width:110px;aspect-ratio:520/120;fill:var(--craie)}
+
+@media print{
+  .nav{display:none}
+  .chapter{break-before:page;padding-block:36px}
+  body{font-size:12.5px}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="lg-word" viewBox="0 0 520 120">
+      <path d="M0 10H20L80 86V10H100V110H80L20 34V110H0Z"/>
+      <path fill-rule="evenodd" d="M140 60a50 50 0 1 0 100 0 50 50 0 1 0-100 0Zm20 0a30 30 0 1 1 60 0 30 30 0 1 1-60 0Z"/>
+      <path d="M280 10h20l30 76 30-76h20l-40 100h-20Z"/>
+      <path d="M460 10h20l40 100h-20l-30-76-30 76h-20Z"/>
+    </symbol>
+    <symbol id="lg-spark" viewBox="0 0 100 100">
+      <path d="M50 0C53 38 62 47 100 50 62 53 53 62 50 100 47 62 38 53 0 50 38 47 47 38 50 0Z"/>
+    </symbol>
+    <symbol id="lg-mono" viewBox="0 0 120 120">
+      <path fill-rule="evenodd" d="M2 60a58 58 0 1 0 116 0 58 58 0 1 0-116 0Zm14 0a44 44 0 1 1 88 0 44 44 0 1 1-88 0Z"/>
+      <use href="#lg-spark" x="29" y="29" width="62" height="62"/>
+    </symbol>
+
+    <!-- débardeur Croissant, face : crop une-épaule -->
+    <symbol id="crop-front" viewBox="0 0 200 200">
+      <path d="M74 18 C64 30 58 52 56 74 C54 110 54 150 56 176 C88 183 120 183 150 176 C152 150 152 110 150 74 L98 34 C93 30 89 24 92 20 L74 18 Z"/>
+    </symbol>
+    <!-- débardeur Croissant, dos -->
+    <symbol id="crop-back" viewBox="0 0 200 200">
+      <path d="M74 18 C64 30 58 52 56 74 C54 110 54 150 56 176 C88 183 120 183 150 176 C152 150 152 110 150 74 L104 40 C99 34 92 26 92 20 L74 18 Z"/>
+    </symbol>
+
+    <!-- legging Gravité, silhouette taille haute pleine longueur -->
+    <symbol id="legging-body" viewBox="0 0 200 380">
+      <path d="M56 20 L144 20 L152 92 C150 160 146 260 140 366 L114 368 L104 205 L100 155 L96 205 L86 368 L60 366 C54 260 50 160 48 92 Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<nav class="nav" aria-label="Navigation du document">
+  <div class="nav-in">
+    <svg class="nav-mono" role="img" aria-label="Monogramme Nova"><use href="#lg-mono"/></svg>
+    <svg class="nav-word" viewBox="0 0 520 120" role="img" aria-label="Nova"><use href="#lg-word"/></svg>
+    <span class="nav-right">Dossier de production</span>
+  </div>
+</nav>
+
+<header class="doc-head">
+  <div class="wrap">
+    <h1>Dossier de production :<br>ensemble Équinoxe</h1>
+    <p class="lede">Ensemble deux pièces du drop Ignition 01 : débardeur Croissant et legging Gravité. À produire d'après la direction artistique Nova ; les tracés vectoriels intégrés font foi.</p>
+    <div class="meta">
+      <div><b>Référence dossier</b><span>NV-PROD-26-05</span></div>
+      <div><b>Date d'émission</b><span>01.08.2026</span></div>
+      <div><b>Contact production</b><span>production@wearnova.com</span></div>
+      <div><b>Validation couleurs</b><span>Lab-dips obligatoires</span></div>
+    </div>
+    <p class="note" style="margin-top:22px">Ensemble décliné dans les trois coloris permanents de la marque : Craie, Carbone et Poudre. Les codes HEX ci-dessous font référence ; le fournisseur soumet des lab-dips physiques du tissu et des fils avant lancement, débardeur et legging d'un même set appairés sur le même bain. Schémas non à l'échelle, cotes en millimètres, mesures à plat non tendues.</p>
+  </div>
+</header>
+
+<!-- ========================================================== 01 DÉBARDEUR -->
+<section class="chapter" id="croissant">
+  <div class="wrap">
+    <div class="chap-row">
+      <span class="chap-no" aria-hidden="true">01</span>
+      <h2 class="chap-title">Débardeur « Croissant »<small>Réf. NV-TOP-CRO · une épaule · coupe crop · buste doublé · 3 coloris · XS-XL</small></h2>
+    </div>
+    <p class="lede" style="margin-bottom:clamp(26px,3.6vw,44px)">Une seule épaule, une ligne oblique nette : l'asymétrie assumée, la coupe qui sculpte le buste.</p>
+
+    <div class="sub-head" style="margin-top:0"><h3>Vue technique</h3><span class="small">Face &amp; dos, mesures à plat</span></div>
+    <div class="g2">
+      <figure class="fig">
+        <div class="stage">
+          <svg viewBox="0 0 200 200" style="width:min(60%,190px);aspect-ratio:1" role="img" aria-label="Débardeur Croissant, face">
+            <use href="#crop-front" fill="#E9E7E1" stroke="#141519" stroke-width="2.4"/>
+            <path d="M58 168 C90 175 120 175 148 168" fill="none" stroke="#141519" stroke-width="1.3" opacity=".45"/>
+            <path d="M100 176 L100 170" fill="none" stroke="#141519" stroke-width="1.3" opacity=".45"/>
+            <use href="#lg-mono" x="62" y="150" width="14" height="14" fill="#141519" opacity=".55"/>
+          </svg>
+        </div>
+        <figcaption><span class="label">Face</span><span>Encolure oblique une-épaule, bretelle large côté gauche, épaule droite nue. Buste doublé, coussinets amovibles en option.</span></figcaption>
+      </figure>
+      <figure class="fig">
+        <div class="stage">
+          <svg viewBox="0 0 200 200" style="width:min(60%,190px);aspect-ratio:1" role="img" aria-label="Débardeur Croissant, dos">
+            <use href="#crop-back" fill="#E9E7E1" stroke="#141519" stroke-width="2.4"/>
+            <path d="M58 168 C90 175 120 175 148 168" fill="none" stroke="#141519" stroke-width="1.3" opacity=".45"/>
+            <path d="M92 40 C96 90 96 130 96 174" fill="none" stroke="#141519" stroke-width="1.3" opacity=".45"/>
+          </svg>
+        </div>
+        <figcaption><span class="label">Dos</span><span>Dos scoop asymétrique, couture centrale dos, bordures thermosoudées. Étincelle brodée ton sur ton au dos de la bretelle.</span></figcaption>
+      </figure>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Schéma coté</h3><span class="small">Face, non à l'échelle, cotes en mm, taille M</span></div>
+      <div class="schema">
+        <svg viewBox="0 0 640 300" style="width:100%;aspect-ratio:640/300" role="img" aria-label="Schéma coté du débardeur Croissant">
+          <g transform="translate(210 44)">
+            <use href="#crop-front" width="200" height="200" fill="#F1F0EC" stroke="#141519" stroke-width="2.4"/>
+            <path d="M58 168 C90 175 120 175 148 168" fill="none" stroke="#B9B7B0" stroke-width="1.3"/>
+            <use href="#lg-mono" x="62" y="150" width="14" height="14" fill="#141519"/>
+          </g>
+          <g stroke="#44474E" stroke-width="1">
+            <path d="M244 62V222M238 62h12M238 222h12"/>
+            <path d="M266 250H356M266 244v12M356 244v12"/>
+          </g>
+          <g stroke="#B9B7B0" stroke-dasharray="3 3" fill="none">
+            <path d="M300 66H470"/>
+            <path d="M360 120H470"/>
+          </g>
+          <g fill="#44474E" font-size="12" font-weight="600">
+            <text x="234" y="138" text-anchor="end">Longueur</text>
+            <text x="234" y="154" text-anchor="end">totale 400</text>
+            <text x="311" y="272" text-anchor="middle">Poitrine à plat 300, extensible</text>
+            <text x="476" y="70">Bretelle, largeur 55 mm</text>
+            <text x="476" y="124">Encolure oblique bonded,</text>
+            <text x="476" y="140">monogramme ourlet gauche</text>
+          </g>
+        </svg>
+      </div>
+      <p class="small" style="margin-top:12px">Grading XS-XL par tour de poitrine (voir tableau des tailles §03). Bordures thermosoudées (bonded) sur l'encolure, l'emmanchure et l'ourlet, sans surpiqûre visible sur l'endroit. Longueur crop : l'ourlet tombe juste sous le nombril.</p>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Coloris</h3><span class="small">Set assorti, face</span></div>
+      <div class="g3">
+        <figure class="fig mini">
+          <div class="stage"><svg viewBox="0 0 200 200" style="width:min(64%,140px);aspect-ratio:1" role="img" aria-label="Débardeur Craie"><use href="#crop-front" fill="#F1F0EC" stroke="#141519" stroke-width="2.4"/></svg></div>
+          <figcaption><span class="label">CRO-01 · Craie</span></figcaption>
+        </figure>
+        <figure class="fig mini">
+          <div class="stage"><svg viewBox="0 0 200 200" style="width:min(64%,140px);aspect-ratio:1" role="img" aria-label="Débardeur Carbone"><use href="#crop-front" fill="#141519" stroke="#141519" stroke-width="2.4"/></svg></div>
+          <figcaption><span class="label">CRO-02 · Carbone</span></figcaption>
+        </figure>
+        <figure class="fig mini">
+          <div class="stage"><svg viewBox="0 0 200 200" style="width:min(64%,140px);aspect-ratio:1" role="img" aria-label="Débardeur Poudre"><use href="#crop-front" fill="#D9B4A7" stroke="#141519" stroke-width="2.4"/></svg></div>
+          <figcaption><span class="label">CRO-03 · Poudre</span></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Construction, matière &amp; coloris</h3></div>
+      <div class="g2">
+        <table>
+          <tr><td style="width:170px"><b>Composition</b></td><td>76 % polyamide recyclé, 24 % élasthanne, interlock brossé mat « seconde peau », ~250 g/m²</td></tr>
+          <tr><td><b>Coupe</b></td><td>Une épaule (asymétrique), crop, longueur juste sous le nombril</td></tr>
+          <tr><td><b>Bretelle</b></td><td>Large 55 mm sur l'épaule gauche, épaule droite nue</td></tr>
+          <tr><td><b>Buste</b></td><td>Doublé, emplacement pour coussinets mousse amovibles (option à chiffrer)</td></tr>
+          <tr><td><b>Finitions</b></td><td>Bordures thermosoudées (bonded), sans couture apparente sur l'endroit</td></tr>
+          <tr><td><b>Marquage</b></td><td>Monogramme thermocollé ton sur ton, ourlet hanche gauche</td></tr>
+          <tr><td><b>Certification</b></td><td>Oeko-Tex Standard 100 classe I (contact peau), certificat à fournir avec l'offre</td></tr>
+        </table>
+        <div>
+          <table>
+            <tr><th>Zone</th><th>Craie</th><th>Carbone</th><th>Poudre</th></tr>
+            <tr><td><b>Corps &amp; bretelle</b></td><td><i class="chip" style="background:#F1F0EC"></i></td><td><i class="chip" style="background:#141519"></i></td><td><i class="chip" style="background:#D9B4A7"></i></td></tr>
+            <tr><td><b>Doublure buste</b></td><td colspan="3">Ton sur ton avec le corps</td></tr>
+            <tr><td><b>Monogramme</b></td><td colspan="3">Thermocollé ton sur ton</td></tr>
+            <tr><td><b>Coussinets (option)</b></td><td colspan="3">Mousse ton chair (nude), amovibles</td></tr>
+          </table>
+          <p class="small" style="margin-top:12px">Fils &amp; teintes : Craie #F1F0EC · Carbone #141519 · Poudre #D9B4A7. Équivalents à soumettre en lab-dips.</p>
+          <p class="note" style="margin-top:16px">Opacité obligatoire à l'étirement (test squat) ; aucun blanchiment de la couleur en zone tendue.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== 02 LEGGING -->
+<section class="chapter" id="gravite">
+  <div class="wrap">
+    <div class="chap-row">
+      <span class="chap-no" aria-hidden="true">02</span>
+      <h2 class="chap-title">Legging « Gravité »<small>Réf. NV-LEG-GRA · taille haute · pleine longueur · couture scrunch dos · 3 coloris · XS-XL</small></h2>
+    </div>
+    <p class="lede" style="margin-bottom:clamp(26px,3.6vw,44px)">Une taille haute gainante, une couture centrale qui galbe, un tombé seconde peau jusqu'à la cheville.</p>
+
+    <div class="sub-head" style="margin-top:0"><h3>Vue technique</h3><span class="small">Face &amp; dos, mesures à plat</span></div>
+    <div class="g2">
+      <figure class="fig">
+        <div class="stage">
+          <svg viewBox="0 0 200 380" style="width:min(50%,160px);aspect-ratio:200/380" role="img" aria-label="Legging Gravité, face">
+            <use href="#legging-body" fill="#E9E7E1" stroke="#141519" stroke-width="2.4"/>
+            <g fill="none" stroke="#141519" stroke-width="1.3" opacity=".45">
+              <path d="M50 46 H150"/>
+              <path d="M100 46 V150"/>
+            </g>
+            <use href="#lg-mono" x="60" y="26" width="15" height="15" fill="#141519" opacity=".55"/>
+          </svg>
+        </div>
+        <figcaption><span class="label">Face</span><span>Ceinture haute 200, tricot seamless sans couture latérale, monogramme thermocollé ton sur ton hanche gauche.</span></figcaption>
+      </figure>
+      <figure class="fig">
+        <div class="stage">
+          <svg viewBox="0 0 200 380" style="width:min(50%,160px);aspect-ratio:200/380" role="img" aria-label="Legging Gravité, dos">
+            <use href="#legging-body" fill="#E9E7E1" stroke="#141519" stroke-width="2.4"/>
+            <g fill="none" stroke="#141519" stroke-width="1.3" opacity=".45">
+              <path d="M50 44 L100 72 L150 44"/>
+              <path d="M100 72 C114 118 114 158 100 196 C90 224 96 250 100 300"/>
+              <path d="M84 120 C92 132 108 132 116 120"/>
+              <path d="M80 140 C90 154 110 154 120 140"/>
+              <path d="M66 210 C68 280 70 330 66 364"/>
+              <path d="M134 210 C132 280 130 330 134 364"/>
+            </g>
+          </svg>
+        </div>
+        <figcaption><span class="label">Dos</span><span>Empiècement en V et couture centrale scrunch (effet lift des fessiers), gousset anatomique, poche interne dans la ceinture.</span></figcaption>
+      </figure>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Schéma coté</h3><span class="small">Face, non à l'échelle, cotes en mm, taille M</span></div>
+      <div class="schema">
+        <svg viewBox="0 0 660 440" style="width:100%;aspect-ratio:660/440" role="img" aria-label="Schéma coté du legging Gravité">
+          <g transform="translate(230 24)">
+            <use href="#legging-body" width="200" height="380" fill="#F1F0EC" stroke="#141519" stroke-width="2.4"/>
+            <g fill="none" stroke="#B9B7B0" stroke-width="1.3">
+              <path d="M50 46 H150"/>
+              <path d="M100 46 V150"/>
+            </g>
+            <use href="#lg-mono" x="60" y="26" width="15" height="15" fill="#141519"/>
+          </g>
+          <g stroke="#44474E" stroke-width="1">
+            <path d="M206 44V400M200 44h12M200 400h12"/>
+            <path d="M206 44V90M200 44h12M200 90h12"/>
+            <path d="M262 418H378M262 412v12M378 412v12"/>
+          </g>
+          <g stroke="#B9B7B0" stroke-dasharray="3 3" fill="none">
+            <path d="M360 60H470"/>
+            <path d="M300 44 L470 44"/>
+          </g>
+          <g fill="#44474E" font-size="12" font-weight="600">
+            <text x="196" y="70" text-anchor="end">Ceinture</text>
+            <text x="196" y="86" text-anchor="end">haute 200</text>
+            <text x="196" y="235" text-anchor="end">Longueur totale 1000,</text>
+            <text x="196" y="251" text-anchor="end">entrejambe 700</text>
+            <text x="320" y="438" text-anchor="middle">Ouverture cheville à plat 110</text>
+            <text x="476" y="48">Monogramme, hanche gauche</text>
+            <text x="476" y="64">Couture scrunch au dos</text>
+          </g>
+        </svg>
+      </div>
+      <p class="small" style="margin-top:12px">Tricot seamless : sans couture latérale, couture centrale dos scrunch pour l'effet galbant. Gousset anatomique une pièce, ourlet cheville surpiqué. Opacité squat-proof exigée sur toute la jambe et le fessier. Grading complet §03.</p>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Coloris</h3><span class="small">Set assorti, face</span></div>
+      <div class="g3">
+        <figure class="fig mini">
+          <div class="stage"><svg viewBox="0 0 200 380" style="width:min(44%,100px);aspect-ratio:200/380" role="img" aria-label="Legging Craie"><use href="#legging-body" fill="#F1F0EC" stroke="#141519" stroke-width="2.4"/></svg></div>
+          <figcaption><span class="label">GRA-01 · Craie</span></figcaption>
+        </figure>
+        <figure class="fig mini">
+          <div class="stage"><svg viewBox="0 0 200 380" style="width:min(44%,100px);aspect-ratio:200/380" role="img" aria-label="Legging Carbone"><use href="#legging-body" fill="#141519" stroke="#141519" stroke-width="2.4"/></svg></div>
+          <figcaption><span class="label">GRA-02 · Carbone</span></figcaption>
+        </figure>
+        <figure class="fig mini">
+          <div class="stage"><svg viewBox="0 0 200 380" style="width:min(44%,100px);aspect-ratio:200/380" role="img" aria-label="Legging Poudre"><use href="#legging-body" fill="#D9B4A7" stroke="#141519" stroke-width="2.4"/></svg></div>
+          <figcaption><span class="label">GRA-03 · Poudre</span></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="sub">
+      <div class="sub-head"><h3>Construction, matière &amp; coloris</h3></div>
+      <div class="g2">
+        <table>
+          <tr><td style="width:170px"><b>Composition</b></td><td>76 % polyamide recyclé, 24 % élasthanne, interlock brossé mat « seconde peau », ~250 g/m² (assorti au débardeur)</td></tr>
+          <tr><td><b>Taille</b></td><td>Haute, ceinture large 200 mm, gainante, sans couture au niveau du ventre</td></tr>
+          <tr><td><b>Dos</b></td><td>Empiècement en V + couture centrale scrunch (effet lift des fessiers)</td></tr>
+          <tr><td><b>Construction</b></td><td>Tricot seamless, sans couture latérale ; coutures plates flatlock aux jonctions</td></tr>
+          <tr><td><b>Jambe</b></td><td>Ajustée, pleine longueur, ourlet cheville surpiqué, ouverture 110 mm</td></tr>
+          <tr><td><b>Gousset &amp; poche</b></td><td>Gousset anatomique une pièce, poche interne discrète dans la ceinture</td></tr>
+          <tr><td><b>Marquage</b></td><td>Monogramme thermocollé ton sur ton, hanche gauche</td></tr>
+          <tr><td><b>Certification</b></td><td>Oeko-Tex Standard 100 classe I, certificat à fournir avec l'offre</td></tr>
+        </table>
+        <div>
+          <table>
+            <tr><th>Zone</th><th>Craie</th><th>Carbone</th><th>Poudre</th></tr>
+            <tr><td><b>Corps &amp; ceinture</b></td><td><i class="chip" style="background:#F1F0EC"></i></td><td><i class="chip" style="background:#141519"></i></td><td><i class="chip" style="background:#D9B4A7"></i></td></tr>
+            <tr><td><b>Couture scrunch &amp; ourlet</b></td><td colspan="3">Fil ton sur ton avec le corps</td></tr>
+            <tr><td><b>Monogramme</b></td><td colspan="3">Thermocollé ton sur ton</td></tr>
+            <tr><td><b>Gousset</b></td><td colspan="3">Même tissu que le corps</td></tr>
+          </table>
+          <p class="small" style="margin-top:12px">Fils &amp; teintes identiques au débardeur : Craie #F1F0EC · Carbone #141519 · Poudre #D9B4A7. Le bain de teinture du débardeur et du legging d'un même set doit correspondre.</p>
+          <p class="note" style="margin-top:16px">Opacité obligatoire à l'étirement sur toute la jambe et le fessier. Aucun effet de transparence en zone tendue.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== 03 COMMANDE -->
+<section class="chapter" id="commande">
+  <div class="wrap">
+    <div class="chap-row">
+      <span class="chap-no" aria-hidden="true">03</span>
+      <h2 class="chap-title">Tailles &amp; commande<small>À compléter par Nova avant bon pour production</small></h2>
+    </div>
+
+    <div class="sub-head" style="margin-top:0"><h3>Tableau des tailles</h3><span class="small">Mesures corps en cm, tolérance ±1 cm</span></div>
+    <table>
+      <tr><th>Taille</th><th class="r">Tour de poitrine</th><th class="r">Sous-poitrine</th><th class="r">Tour de taille</th><th class="r">Tour de hanches</th><th class="r">Entrejambe</th></tr>
+      <tr><td><b>XS</b></td><td class="r num">78-82</td><td class="r num">64-68</td><td class="r num">60-64</td><td class="r num">86-90</td><td class="r num">76</td></tr>
+      <tr><td><b>S</b></td><td class="r num">82-86</td><td class="r num">68-72</td><td class="r num">64-68</td><td class="r num">90-94</td><td class="r num">76</td></tr>
+      <tr><td><b>M</b></td><td class="r num">86-90</td><td class="r num">72-76</td><td class="r num">68-72</td><td class="r num">94-98</td><td class="r num">78</td></tr>
+      <tr><td><b>L</b></td><td class="r num">90-95</td><td class="r num">76-81</td><td class="r num">72-77</td><td class="r num">98-103</td><td class="r num">78</td></tr>
+      <tr><td><b>XL</b></td><td class="r num">95-100</td><td class="r num">81-86</td><td class="r num">77-82</td><td class="r num">103-108</td><td class="r num">80</td></tr>
+    </table>
+
+    <div class="sub-head" style="margin-top:clamp(32px,4vw,52px)"><h3>Quantités par coloris</h3><span class="small">Répartition tailles : XS 15 % · S 30 % · M 30 % · L 18 % · XL 7 %</span></div>
+    <div class="g2">
+      <table>
+        <tr><th>Débardeur Croissant</th><th>Coloris</th><th class="r">Qté drop</th><th class="r">Cible prix</th></tr>
+        <tr><td class="num">NV-TOP-CRO-01</td><td><i class="chip" style="background:#F1F0EC"></i>Craie</td><td class="r num">400</td><td class="r num">à chiffrer</td></tr>
+        <tr><td class="num">NV-TOP-CRO-02</td><td><i class="chip" style="background:#141519"></i>Carbone</td><td class="r num">400</td><td class="r num">à chiffrer</td></tr>
+        <tr><td class="num">NV-TOP-CRO-03</td><td><i class="chip" style="background:#D9B4A7"></i>Poudre</td><td class="r num">300</td><td class="r num">à chiffrer</td></tr>
+        <tr><td colspan="2"><b>Sous-total débardeurs</b></td><td class="r num"><b>1 100</b></td><td class="r"></td></tr>
+      </table>
+      <table>
+        <tr><th>Legging Gravité</th><th>Coloris</th><th class="r">Qté drop</th><th class="r">Cible prix</th></tr>
+        <tr><td class="num">NV-LEG-GRA-01</td><td><i class="chip" style="background:#F1F0EC"></i>Craie</td><td class="r num">400</td><td class="r num">à chiffrer</td></tr>
+        <tr><td class="num">NV-LEG-GRA-02</td><td><i class="chip" style="background:#141519"></i>Carbone</td><td class="r num">400</td><td class="r num">à chiffrer</td></tr>
+        <tr><td class="num">NV-LEG-GRA-03</td><td><i class="chip" style="background:#D9B4A7"></i>Poudre</td><td class="r num">300</td><td class="r num">à chiffrer</td></tr>
+        <tr><td colspan="2"><b>Sous-total leggings</b></td><td class="r num"><b>1 100</b></td><td class="r"></td></tr>
+      </table>
+    </div>
+    <p class="note" style="margin-top:22px">L'ensemble se vend en set assorti (référence set NV-SET-EQX, débardeur + legging même coloris) et à la pièce. Quantités identiques haut / bas par coloris pour garantir l'appairage des sets. Chaque set part avec les deux pièces issues du même bain de teinture.</p>
+
+    <div class="g2" style="margin-top:clamp(32px,4vw,52px)">
+      <div>
+        <div class="sub-head" style="margin-top:0"><h3>Étapes de validation</h3></div>
+        <ul class="check">
+          <li>Réception offre chiffrée + délais + MOQ par coloris et par taille</li>
+          <li>Lab-dips tissu + fils validés par Nova, débardeur et legging appairés</li>
+          <li>Contre-type / sample pré-production par coloris et par pièce, en taille M</li>
+          <li>Essayage fit sur mannequin taille M : symétrie de l'encolure une-épaule, tenue du buste, effet scrunch du legging</li>
+          <li>Test squat (opacité à l'étirement) validé sur les deux pièces</li>
+          <li>Certificat Oeko-Tex fourni</li>
+          <li>Bon pour production émis par Nova après validation du sample</li>
+          <li>Inspection qualité avant expédition (AQL 2.5 défauts majeurs)</li>
+        </ul>
+      </div>
+      <div>
+        <div class="sub-head" style="margin-top:0"><h3>À retenir (Do &amp; Don't)</h3></div>
+        <table>
+          <tr><th>À faire</th><th>À ne pas faire</th></tr>
+          <tr><td>Respecter les HEX, soumettre lab-dips</td><td>Convertir les couleurs sans validation</td></tr>
+          <tr><td>Appairer le bain de teinture haut / bas</td><td>Mélanger deux bains dans un même set</td></tr>
+          <tr><td>Bordures thermosoudées, coutures plates</td><td>Surpiqûres visibles sur l'endroit du débardeur</td></tr>
+          <tr><td>Couture scrunch dos centrée et symétrique</td><td>Scrunch décentré ou fronces irrégulières</td></tr>
+          <tr><td>Tissu opaque à l'étirement (squat-proof)</td><td>Tissu transparent en zone tendue</td></tr>
+          <tr><td>Monogramme thermocollé ton sur ton</td><td>Verticaliser, incliner ou contraster le logo</td></tr>
+        </table>
+        <p class="note" style="margin-top:18px">Les quantités et cibles de prix sont indicatives pour le premier drop. Toute contrainte technique (MOQ, tenue de l'opacité, rendu du scrunch, symétrie de l'encolure) doit être remontée à Nova avant lancement plutôt que corrigée unilatéralement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-in">
+    <svg role="img" aria-label="Nova" viewBox="0 0 520 120"><use href="#lg-word"/></svg>
+    <span class="label">Dossier NV-PROD-26-05 · ensemble Équinoxe · d'après le brand book édition 01 · production@wearnova.com</span>
+  </div>
+</footer>
+
+</body>
+</html>
