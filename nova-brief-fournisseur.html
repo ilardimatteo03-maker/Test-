@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nova · Brief fournisseur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0C53 38 62 47 100 50 62 53 53 62 50 100 47 62 38 53 0 50 38 47 47 38 50 0Z' fill='%23141519'/%3E%3C/svg%3E">
+<style>
+:root{
+  --craie:#F1F0EC;
+  --blanc:#FAFAF9;
+  --carbone:#141519;
+  --graphite:#44474E;
+  --brume:#B9B7B0;
+  --sable:#D9B4A7;
+  --hairline:rgba(20,21,25,.14);
+  --sans:'Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --wrap:1120px;
+  --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);background:var(--craie);color:var(--carbone);
+  line-height:1.62;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  font-variation-settings:'wght' 420,'wdth' 100;
+}
+::selection{background:var(--carbone);color:var(--craie)}
+p{max-width:64ch}
+strong{font-weight:680}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad)}
+.lede{font-family:var(--serif);font-style:italic;font-weight:500}
+
+/* ---------- topbar ---------- */
+.top{
+  position:sticky;top:0;z-index:20;background:rgba(241,240,236,.86);
+  backdrop-filter:saturate(1.1) blur(9px);border-bottom:1px solid var(--hairline);
+}
+.top-in{
+  max-width:var(--wrap);margin-inline:auto;padding:12px var(--pad);
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.top-logo{display:flex;align-items:center;gap:12px}
+.top-logo .spk{width:16px;height:16px;fill:var(--carbone)}
+.top-logo .wm{width:96px;aspect-ratio:520/120;fill:var(--carbone)}
+.top-right{font-size:12px;font-weight:640;letter-spacing:.16em;text-transform:uppercase;color:var(--graphite)}
+
+/* ---------- hero ---------- */
+.hero{background:var(--carbone);color:var(--craie)}
+.hero-in{max-width:var(--wrap);margin-inline:auto;padding:clamp(56px,10vw,120px) var(--pad)}
+.hero .kick{font-size:13px;font-weight:640;letter-spacing:.24em;text-transform:uppercase;color:var(--brume);display:flex;align-items:center;gap:12px}
+.hero .kick .spk{width:15px;height:15px;fill:var(--craie)}
+.hero h1{
+  font-weight:800;font-stretch:122%;text-transform:uppercase;
+  font-size:clamp(44px,10vw,120px);line-height:.92;letter-spacing:-.01em;
+  margin-top:clamp(18px,3vw,30px);
+}
+.hero .sub{
+  font-family:var(--serif);font-style:italic;font-weight:500;
+  font-size:clamp(20px,3vw,32px);line-height:1.35;color:var(--craie);
+  margin-top:clamp(20px,3vw,32px);max-width:34ch;
+}
+.hero .note{margin-top:clamp(22px,3vw,34px);color:var(--brume);max-width:52ch;font-size:15px}
+
+/* ---------- sections ---------- */
+.sec{padding-block:clamp(44px,7vw,90px);border-top:1px solid var(--hairline)}
+.sec:first-of-type{border-top:0}
+.sec-h{display:flex;gap:14px;align-items:center;margin-bottom:clamp(20px,3vw,34px)}
+.sec-h .spk{width:20px;height:20px;fill:var(--carbone);flex:none}
+.sec-t{font-weight:800;font-stretch:118%;text-transform:uppercase;font-size:clamp(21px,3.2vw,34px);letter-spacing:.005em;line-height:1}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,52px)}
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+.chip{
+  border:1px solid var(--hairline);border-radius:999px;padding:7px 15px;
+  font-size:13px;font-weight:600;letter-spacing:.02em;
+}
+
+/* ---------- logo stages ---------- */
+.logos{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.stage{
+  border:1px solid var(--hairline);background:var(--blanc);
+  min-height:150px;display:flex;align-items:center;justify-content:center;padding:26px;
+}
+.stage.dark{background:var(--carbone)}
+.stage svg{width:min(78%,220px)}
+.stage.mono svg{width:auto;height:74px}
+.cap{font-size:13px;color:var(--graphite);margin-top:9px}
+.wm-c{fill:var(--carbone)}
+.wm-k{fill:var(--craie)}
+.clear{
+  border:1px solid var(--hairline);background:var(--blanc);
+  padding:clamp(24px,4vw,44px);display:flex;align-items:center;justify-content:center;position:relative;
+}
+.clear svg{width:min(70%,280px)}
+.clear .box{position:absolute;inset:clamp(20px,3.4vw,38px);border:1px dashed var(--brume)}
+
+/* ---------- tones ---------- */
+.tones{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.tone{border:1px solid var(--hairline);background:var(--blanc)}
+.tone-chip{aspect-ratio:3/2;border-bottom:1px solid var(--hairline)}
+.tone-b{padding:13px 15px}
+.tone-n{font-weight:720;font-stretch:110%;text-transform:uppercase;letter-spacing:.05em;font-size:13px}
+.tone-r{display:block;color:var(--graphite);font-size:13px;margin-top:5px;line-height:1.45}
+
+/* ---------- type demo ---------- */
+.type-panel{border:1px solid var(--hairline);background:var(--blanc);padding:clamp(24px,4vw,48px)}
+.type-big{font-weight:800;font-stretch:124%;text-transform:uppercase;font-size:clamp(34px,7vw,80px);line-height:.94;letter-spacing:.01em}
+.type-serif{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(21px,3vw,34px);color:var(--graphite);margin-top:16px}
+.type-note{font-size:14px;color:var(--graphite);margin-top:14px}
+
+/* ---------- do / don't ---------- */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,3vw,32px)}
+.duo-col{border:1px solid var(--hairline);background:var(--blanc);padding:clamp(20px,3vw,30px)}
+.duo-col h3{font-size:12px;font-weight:720;letter-spacing:.2em;text-transform:uppercase;color:var(--graphite);margin-bottom:14px}
+.duo-col ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+.duo-col li{position:relative;padding-left:26px;font-size:15px;line-height:1.5}
+.duo-col li::before{position:absolute;left:0;top:0;font-weight:800}
+.duo-col.yes li::before{content:"\2713"}
+.duo-col.no li::before{content:"\2717"}
+
+/* ---------- placement ---------- */
+.place{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.place figure{border:1px solid var(--hairline);background:var(--blanc);padding:22px;display:flex;flex-direction:column}
+.place .art{flex:1;display:flex;align-items:center;justify-content:center;padding:8px 4px 16px}
+.place svg.garment{width:min(100%,220px);height:auto}
+.place figcaption{border-top:1px solid var(--hairline);padding-top:12px}
+.place .pn{font-weight:720;font-stretch:110%;text-transform:uppercase;letter-spacing:.04em;font-size:13px}
+.place .pd{display:block;color:var(--graphite);font-size:13.5px;margin-top:5px;line-height:1.45}
+.gline{fill:none;stroke:var(--carbone);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.gseal{fill:none;stroke:var(--brume);stroke-width:1.5;stroke-dasharray:5 5}
+.gfill{fill:var(--carbone)}
+
+/* ---------- closing ---------- */
+.close{background:var(--sable)}
+.close-in{max-width:var(--wrap);margin-inline:auto;padding:clamp(40px,6vw,80px) var(--pad)}
+.close h2{font-weight:800;font-stretch:118%;text-transform:uppercase;font-size:clamp(22px,3.6vw,40px);line-height:1.02}
+.close p{margin-top:16px;color:#5a4038;max-width:60ch}
+
+/* ---------- footer ---------- */
+.foot{background:var(--carbone);color:var(--craie)}
+.foot-in{max-width:var(--wrap);margin-inline:auto;padding:clamp(36px,5vw,64px) var(--pad)}
+.foot svg{width:min(100%,320px);aspect-ratio:520/120;fill:var(--craie)}
+.foot-row{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;margin-top:22px;border-top:1px solid rgba(241,240,236,.22);padding-top:18px}
+.foot-row span{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--brume)}
+
+@media (max-width:760px){
+  .g2,.duo{grid-template-columns:1fr}
+}
+@media print{
+  .top{position:static}
+  body{background:#fff}
+  .sec,.stage,.tone,.duo-col,.place figure,.type-panel{break-inside:avoid}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= LOGO DEFS ================= -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="lg-word" viewBox="0 0 520 120">
+      <path d="M0 10H20L80 86V10H100V110H80L20 34V110H0Z"/>
+      <path fill-rule="evenodd" d="M140 60a50 50 0 1 0 100 0 50 50 0 1 0-100 0Zm20 0a30 30 0 1 1 60 0 30 30 0 1 1-60 0Z"/>
+      <path d="M280 10h20l30 76 30-76h20l-40 100h-20Z"/>
+      <path d="M460 10h20l40 100h-20l-30-76-30 76h-20Z"/>
+    </symbol>
+    <symbol id="lg-spark" viewBox="0 0 100 100">
+      <path d="M50 0C53 38 62 47 100 50 62 53 53 62 50 100 47 62 38 53 0 50 38 47 47 38 50 0Z"/>
+    </symbol>
+    <symbol id="lg-word-spark" viewBox="0 0 520 120">
+      <use href="#lg-word"/>
+      <use href="#lg-spark" x="171" y="41" width="38" height="38"/>
+    </symbol>
+    <symbol id="lg-mono" viewBox="0 0 120 120">
+      <use href="#lg-spark" x="10" y="10" width="100" height="100"/>
+    </symbol>
+    <symbol id="lg-stack" viewBox="0 0 520 250">
+      <use href="#lg-spark" x="232" y="0" width="56" height="56"/>
+      <use href="#lg-word" x="0" y="130" width="520" height="120"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ================= TOP ================= -->
+<header class="top">
+  <div class="top-in">
+    <div class="top-logo">
+      <svg class="spk" viewBox="0 0 100 100" aria-hidden="true"><use href="#lg-spark"/></svg>
+      <svg class="wm" viewBox="0 0 520 120" role="img" aria-label="Nova"><use href="#lg-word"/></svg>
+    </div>
+    <span class="top-right">Brief fournisseur</span>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero-in">
+    <p class="kick"><svg class="spk" viewBox="0 0 100 100" aria-hidden="true"><use href="#lg-spark"/></svg>Nova · Activewear féminin</p>
+    <h1>Brief<br>fournisseur</h1>
+    <p class="sub">Tout ce qu'il faut pour dessiner un produit Nova. Pas de cotes, pas de codes : juste l'esprit.</p>
+    <p class="note">Ce document donne la direction de la marque. Vous proposez le design, on valide ensemble sur un échantillon. Les mesures précises et les références couleur physiques suivent au moment de la validation.</p>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <!-- ================= LA MARQUE ================= -->
+  <section class="sec">
+    <div class="sec-h"><svg class="spk" viewBox="0 0 100 100" aria-hidden="true"><use href="#lg-spark"/></svg><h2 class="sec-t">La marque</h2></div>
+    <div class="g2">
+      <div>
+        <p><strong>Nova habille des femmes qui passent du tapis de pilates à la ligne de départ d'un hyrox sans changer de personnalité.</strong> Un activewear premium, sculptant et accessible, porté par une communauté : le Nova Club.</p>
+        <p style="margin-top:16px">La ligne directrice tient en une phrase : <span class="lede">la grâce est une force.</span> Tout ce qu'on dessine doit montrer l'effort avec élégance, jamais la douleur ni la pose.</p>
+      </div>
+      <div>
+        <p style="font-size:14px;color:var(--graphite);text-transform:uppercase;letter-spacing:.14em;font-weight:640">L'esprit en quelques mots</p>
+        <div class="chips">
+          <span class="chip">Monochrome</span>
+          <span class="chip">Mat</span>
+          <span class="chip">Minimal</span>
+          <span class="chip">Sculptural</span>
+          <span class="chip">Féminin</span>
+          <span class="chip">Sûr de lui</span>
+          <span class="chip">Beaucoup de vide</span>
+          <span class="chip">Sans esbroufe</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LE LOGO ================= -->
+  <section class="sec">
+    <div class="sec-h"><svg class="spk" viewBox="0 0 100 100" aria-hidden="true"><use href="#lg-spark"/></svg><h2 class="sec-t">Le logo</h2></div>
+    <p style="margin-bottom:26px">Quatre versions, une seule couleur à la fois. On utilise le mot Nova complet dès qu'il y a la place ; l'étoile seule sert de signature discrète (col, étiquette, sticker).</p>
+    <div class="logos">
+      <figure>
+        <div class="stage"><svg viewBox="0 0 520 120" role="img" aria-label="Nova, mot complet"><use class="wm-c" href="#lg-word"/></svg></div>
+        <figcaption class="cap">Le mot Nova (version principale)</figcaption>
+      </figure>
+      <figure>
+        <div class="stage"><svg viewBox="0 0 520 250" role="img" aria-label="Nova, version verticale"><use class="wm-c" href="#lg-stack"/></svg></div>
+        <figcaption class="cap">Version verticale (étoile au-dessus)</figcaption>
+      </figure>
+      <figure>
+        <div class="stage mono"><svg viewBox="0 0 120 120" role="img" aria-label="Étoile Nova"><use class="wm-c" href="#lg-mono"/></svg></div>
+        <figcaption class="cap">L'étoile seule (signature, favicon, sticker)</figcaption>
+      </figure>
+      <figure>
+        <div class="stage dark"><svg viewBox="0 0 520 120" role="img" aria-label="Nova en clair sur fond sombre"><use class="wm-k" href="#lg-word"/></svg></div>
+        <figcaption class="cap">Sur fond sombre : logo en clair</figcaption>
+      </figure>
+    </div>
+
+    <div class="g2" style="margin-top:clamp(24px,4vw,44px);align-items:center">
+      <div class="clear">
+        <div class="box" aria-hidden="true"></div>
+        <svg viewBox="0 0 520 120" role="img" aria-label="Zone de respiration autour du logo"><use class="wm-c" href="#lg-word"/></svg>
+      </div>
+      <div>
+        <p><strong>Laissez-le respirer.</strong> Gardez toujours du vide autour du logo, au moins la hauteur de la lettre O. Rien ne vient toucher ou couper le mot.</p>
+        <p style="margin-top:14px;font-size:15px;color:var(--graphite)">On ne le déforme jamais, on ne l'incline pas, on ne lui ajoute ni ombre ni contour, et on ne le met pas en couleur.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LES TONS ================= -->
+  <section class="sec">
+    <div class="sec-h"><svg class="spk" viewBox="0 0 100 100" aria-hidden="true"><use href="#lg-spark"/></svg><h2 class="sec-t">Les tons</h2></div>
+    <p style="margin-bottom:26px">Une gamme neutre et un seul ton chaud, le sable. Pas de couleur vive, pas de dégradé. On donne les noms ici ; les vraies références (nuancier, lab-dip) vous sont envoyées à part pour la matière.</p>
+    <div class="tones">
+      <div class="tone"><div class="tone-chip" style="background:#141519"></div><div class="tone-b"><span class="tone-n">Carbone</span><span class="tone-r">Le noir de la marque, texte et logo. Un noir doux, jamais dur.</span></div></div>
+      <div class="tone"><div class="tone-chip" style="background:#F1F0EC"></div><div class="tone-b"><span class="tone-n">Craie</span><span class="tone-r">Le fond par défaut. Un blanc chaud, lumineux.</span></div></div>
+      <div class="tone"><div class="tone-chip" style="background:#FAFAF9;border-bottom:1px solid var(--hairline)"></div><div class="tone-b"><span class="tone-n">Blanc cassé</span><span class="tone-r">Pour les pièces et cartes posées sur la Craie. Jamais de blanc pur.</span></div></div>
+      <div class="tone"><div class="tone-chip" style="background:#44474E"></div><div class="tone-b"><span class="tone-n">Graphite</span><span class="tone-r">Gris foncé, pour les textes secondaires et détails.</span></div></div>
+      <div class="tone"><div class="tone-chip" style="background:#B9B7B0"></div><div class="tone-b"><span class="tone-n">Brume</span><span class="tone-r">Gris minéral doux, pour les filets et les nuances.</span></div></div>
+      <div class="tone"><div class="tone-chip" style="background:#D9B4A7"></div><div class="tone-b"><span class="tone-n">Sable</span><span class="tone-r">La seule chaleur. Coloris textile, fond produit, intérieur d'emballage. Jamais rose bonbon.</span></div></div>
+    </div>
+  </section>
+
+  <!-- ================= LA TYPO ================= -->
+  <section class="sec">
+    <div class="sec-h"><svg class="spk" viewBox="0 0 100 100" aria-hidden="true"><use href="#lg-spark"/></svg><h2 class="sec-t">La typographie</h2></div>
+    <div class="g2" style="align-items:center">
+      <div class="type-panel">
+        <div class="type-big">La grâce<br>est une force</div>
+        <div class="type-serif">et la force se travaille.</div>
+        <p class="type-note">En haut : Archivo, en capitales larges, pour les titres. En bas : Cormorant en italique, pour les phrases d'accroche.</p>
+      </div>
+      <div>
+        <p><strong>Archivo pour la charpente.</strong> Les titres se composent en capitales larges. C'est la voix forte, structurée, de la marque.</p>
+        <p style="margin-top:14px"><strong>Cormorant en italique pour la respiration.</strong> Réservée aux accroches et aux citations, jamais aux petits textes ni aux étiquettes. Les deux ne se mélangent pas dans une même ligne.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= L'ESPRIT ================= -->
+  <section class="sec">
+    <div class="sec-h"><svg class="spk" viewBox="0 0 100 100" aria-hidden="true"><use href="#lg-spark"/></svg><h2 class="sec-t">À faire, à éviter</h2></div>
+    <div class="duo">
+      <div class="duo-col yes">
+        <h3>À faire</h3>
+        <ul>
+          <li>Rester en noir, blanc et gris, avec le sable comme seule chaleur</li>
+          <li>Tout garder mat au toucher comme à l'œil</li>
+          <li>Laisser beaucoup de vide autour du logo et des textes</li>
+          <li>Une seule couleur pour le logo sur chaque support</li>
+          <li>Des finitions nettes, des lignes franches, des coutures propres</li>
+          <li>Montrer l'effort réel : matière, tenue, sculptant</li>
+        </ul>
+      </div>
+      <div class="duo-col no">
+        <h3>À éviter</h3>
+        <ul>
+          <li>Les couleurs vives, les dégradés, les effets brillants</li>
+          <li>Le vernis, le métallisé, le plastique brillant visible</li>
+          <li>Déformer, incliner, ombrer ou recolorer le logo</li>
+          <li>Surcharger : plusieurs logos, motifs partout, trop de texte</li>
+          <li>Les mélanges de polices ou les scripts fantaisie</li>
+          <li>Tout ce qui évoque la minceur ou le corps parfait</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PLACEMENT ================= -->
+  <section class="sec">
+    <div class="sec-h"><svg class="spk" viewBox="0 0 100 100" aria-hidden="true"><use href="#lg-spark"/></svg><h2 class="sec-t">Où mettre le logo</h2></div>
+    <p style="margin-bottom:26px">Le principe est toujours le même : discret, centré, jamais tape-à-l'œil. Voici l'idée pour trois familles de produits. Les positions exactes se calent ensemble sur l'échantillon.</p>
+    <div class="place">
+
+      <figure>
+        <div class="art">
+          <svg class="garment" viewBox="0 0 180 210" role="img" aria-label="Dos d'un haut avec l'étoile en haut et le mot Nova plus bas">
+            <path class="gline" d="M42 60 C42 44 60 30 90 30 C120 30 138 44 138 60 L128 70 L124 152 L56 152 L52 70 Z"/>
+            <path class="gline" d="M66 34 Q90 50 114 34"/>
+            <path class="gline" d="M52 70 Q64 65 70 80"/>
+            <path class="gline" d="M128 70 Q116 65 110 80"/>
+            <use class="gfill" href="#lg-spark" x="84" y="42" width="12" height="12"/>
+            <use class="gfill" href="#lg-word" x="66" y="108" width="48" height="11.08"/>
+          </svg>
+        </div>
+        <figcaption>
+          <span class="pn">Hauts et brassières</span>
+          <span class="pd">L'étoile discrète en haut du dos, sous la nuque. Le mot Nova plus bas, centré.</span>
+        </figcaption>
+      </figure>
+
+      <figure>
+        <div class="art">
+          <svg class="garment" viewBox="0 0 160 250" role="img" aria-label="Dos d'un legging avec le mot Nova sur la ceinture">
+            <path class="gline" d="M40 30 L120 30 L120 48 L114 240 L86 240 L80 130 L74 240 L46 240 L40 48 Z"/>
+            <path class="gline" d="M40 48 L120 48"/>
+            <use class="gfill" href="#lg-word" x="60" y="33" width="40" height="9.23"/>
+            <use class="gfill" href="#lg-spark" x="75" y="60" width="10" height="10"/>
+          </svg>
+        </div>
+        <figcaption>
+          <span class="pn">Leggings et bas</span>
+          <span class="pd">Le mot Nova sur la ceinture, centré. L'étoile juste en dessous, dans le haut du dos.</span>
+        </figcaption>
+      </figure>
+
+      <figure>
+        <div class="art">
+          <svg class="garment" viewBox="0 0 180 250" role="img" aria-label="Emballage avec le logo centré">
+            <rect class="gline" x="34" y="22" width="112" height="206" rx="8"/>
+            <path class="gseal" d="M34 46 L146 46"/>
+            <use class="gfill" href="#lg-spark" x="82" y="96" width="16" height="16"/>
+            <use class="gfill" href="#lg-word" x="60" y="126" width="60" height="13.85"/>
+          </svg>
+        </div>
+        <figcaption>
+          <span class="pn">Emballage et envoi</span>
+          <span class="pd">Logo centré, bien au milieu. Fond uni, tout le reste vide.</span>
+        </figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- ================= LA FINITION ================= -->
+  <section class="sec">
+    <div class="sec-h"><svg class="spk" viewBox="0 0 100 100" aria-hidden="true"><use href="#lg-spark"/></svg><h2 class="sec-t">La finition</h2></div>
+    <div class="g2">
+      <p><strong>Tout est mat.</strong> Sur le tissu comme sur l'emballage : jamais de brillant, de vernis ni de métallisé. Le logo se pose ton sur ton quand on veut la discrétion, ou en contraste (clair sur foncé, foncé sur clair) quand on veut qu'il se voie.</p>
+      <p><strong>Simple et propre.</strong> Une seule couleur d'impression, des broderies nettes, des matières au toucher doux et poudré. Le mat n'est pas un défaut : c'est une décision de la marque.</p>
+    </div>
+  </section>
+
+</div>
+
+<!-- ================= CLOSING ================= -->
+<section class="close">
+  <div class="close-in">
+    <h2>À vous de jouer</h2>
+    <p>Vous avez la direction complète. Proposez-nous une maquette du produit dans cet esprit, et on ajuste ensemble sur un premier échantillon. Les mesures et les références couleur définitives arrivent à ce moment-là, pas avant.</p>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="foot">
+  <div class="foot-in">
+    <svg viewBox="0 0 520 120" role="img" aria-label="Nova"><use href="#lg-word"/></svg>
+    <div class="foot-row">
+      <span>Nova · Brief fournisseur</span>
+      <span>hello@wearnova.com</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
