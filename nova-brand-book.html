@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NOVA, Brand Book. Édition 01</title>
 <meta name="description" content="Brand book complet de Nova, marque d'activewear féminin. Identité, logo, couleurs, typographie, direction artistique et applications.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0C53 38 62 47 100 50 62 53 53 62 50 100 47 62 38 53 0 50 38 47 47 38 50 0Z' fill='%23FF4B1F'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0C53 38 62 47 100 50 62 53 53 62 50 100 47 62 38 53 0 50 38 47 47 38 50 0Z' fill='%23141519'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
 <style>
 /* ==========================================================
    NOVA BRAND BOOK, édition 01
-   Système : craie minérale, carbone asphalte, pop Flare.
+   Système : craie minérale, carbone asphalte, sable poudré.
    Typo : Archivo variable (axe de chasse) + Cormorant Garamond italique.
    ========================================================== */
 
@@ -22,8 +22,8 @@
   --carbone:#141519;
   --graphite:#44474E;
   --brume:#B9B7B0;
-  --flare:#FF4B1F;
   --poudre:#D9B4A7;
+  --sable:#D9B4A7;
   --hairline:rgba(20,21,25,.14);
   --hairline-strong:rgba(20,21,25,.85);
   --sans:'Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
@@ -46,7 +46,7 @@ body{
 }
 img,svg{max-width:100%;display:block}
 a{color:inherit}
-::selection{background:var(--flare);color:var(--craie)}
+::selection{background:var(--carbone);color:var(--craie)}
 
 .wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad)}
 
@@ -80,7 +80,7 @@ code{
 }
 code[data-copy]{cursor:pointer;transition:background .18s ease,color .18s ease}
 code[data-copy]:hover{background:var(--carbone);color:var(--craie)}
-code[data-copy].ok{background:var(--flare);color:var(--carbone)}
+code[data-copy].ok{background:var(--carbone);color:var(--craie)}
 
 /* ---------- navigation ---------- */
 .nav{
@@ -113,12 +113,12 @@ code[data-copy].ok{background:var(--flare);color:var(--carbone)}
 .cover-mid{flex:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(28px,4vh,48px);padding-block:40px}
 .cover-logo{width:min(100%,1040px);aspect-ratio:520/120}
 .cover-logo .w{fill:var(--craie)}
-.cover-logo .s{fill:var(--flare)}
+.cover-logo .s{fill:var(--craie)}
 .cover-base{
   font-family:var(--serif);font-style:italic;font-weight:500;
   font-size:clamp(24px,3.4vw,42px);line-height:1.2;color:var(--craie);
 }
-.cover-base b{color:var(--flare);font-weight:600}
+.cover-base b{color:var(--craie);font-weight:600}
 .cover-bottom{
   display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   border-top:1px solid rgba(241,240,236,.22);padding-top:22px;
@@ -136,12 +136,12 @@ code[data-copy].ok{background:var(--flare);color:var(--carbone)}
   border-top:1px solid var(--hairline);
   transition:color .15s ease;
 }
-.toc a:hover{color:var(--flare)}
+.toc a:hover{color:var(--carbone)}
 .toc .no{
   font-weight:800;font-stretch:62%;font-size:15px;
   font-variant-numeric:tabular-nums;color:var(--brume);flex:none;width:28px;
 }
-.toc a:hover .no{color:var(--flare)}
+.toc a:hover .no{color:var(--carbone)}
 .toc .t{font-weight:600;font-size:15px;text-transform:uppercase;letter-spacing:.04em}
 @media (max-width:700px){.toc ol{columns:1}}
 
@@ -189,7 +189,7 @@ code[data-copy].ok{background:var(--flare);color:var(--carbone)}
 .panel-dark .small{color:var(--brume)}
 
 .note{
-  border-left:3px solid var(--flare);
+  border-left:3px solid var(--carbone);
   padding:6px 0 6px 20px;
   font-size:15px;color:var(--graphite);max-width:62ch;
 }
@@ -226,7 +226,7 @@ td b{font-weight:700}
 .duo-col li::before{
   position:absolute;left:0;top:9px;font-weight:800;font-size:14px;
 }
-.duo-col.yes li::before{content:"✓";color:var(--flare)}
+.duo-col.yes li::before{content:"✓";color:var(--carbone)}
 .duo-col.no li::before{content:"✕";color:var(--brume)}
 
 /* ---------- logos ---------- */
@@ -239,7 +239,7 @@ td b{font-weight:700}
 .logo-grid figure{border:1px solid var(--hairline);background:var(--blanc)}
 .logo-grid .stage{display:flex;align-items:center;justify-content:center;padding:34px 24px;min-height:170px}
 .logo-grid .stage.dark{background:var(--carbone)}
-.logo-grid .stage.flare{background:var(--flare)}
+.logo-grid .stage.brume{background:var(--brume)}
 .logo-grid .stage.pou{background:var(--poudre)}
 .logo-grid figcaption{border-top:1px solid var(--hairline);padding:12px 16px}
 .logo-grid figcaption .label{display:block;color:var(--carbone)}
@@ -248,12 +248,12 @@ td b{font-weight:700}
 .lw.on-dark{fill:var(--craie)}
 .lm{width:76px;aspect-ratio:1;fill:var(--carbone)}
 .lm.on-dark{fill:var(--craie)}
-.ls{width:44px;aspect-ratio:1;fill:var(--flare)}
+.ls{width:44px;aspect-ratio:1;fill:var(--carbone)}
 
 .forbid .stage{min-height:130px;padding:22px}
 .forbid svg{width:min(72%,220px);aspect-ratio:520/120;fill:var(--carbone)}
 .forbid figcaption{display:flex;gap:10px;align-items:baseline}
-.forbid figcaption::before{content:"✕";color:var(--flare);font-weight:800}
+.forbid figcaption::before{content:"✕";color:var(--carbone);font-weight:800}
 
 /* ---------- couleurs ---------- */
 .sw{border:1px solid var(--hairline);background:var(--blanc);display:flex;flex-direction:column}
@@ -306,7 +306,7 @@ td b{font-weight:700}
 }
 .mood ul li::before{
   content:"";position:absolute;left:2px;top:14px;width:8px;height:8px;
-  background:var(--flare);
+  background:var(--carbone);
   clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);
 }
 
@@ -344,7 +344,7 @@ td b{font-weight:700}
 .story{
   aspect-ratio:9/16;max-width:250px;border:1px solid var(--hairline);
   display:flex;flex-direction:column;justify-content:space-between;
-  padding:20px;background:linear-gradient(150deg,#FF4B1F 0%,#FF7A45 48%,#D9B4A7 100%);
+  padding:20px;background:linear-gradient(150deg,#E9E7E1 0%,#D9B4A7 100%);
   color:var(--carbone);
 }
 
@@ -357,7 +357,7 @@ td b{font-weight:700}
 .banner .bw{width:150px;aspect-ratio:520/120;fill:var(--craie);flex:none}
 .banner .bt{font-family:var(--serif);font-style:italic;font-size:clamp(20px,2.4vw,30px);line-height:1.25;flex:1;min-width:220px}
 .banner .cta{
-  flex:none;background:var(--flare);color:var(--carbone);
+  flex:none;background:var(--craie);color:var(--carbone);
   font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;
   padding:15px 30px;border-radius:999px;white-space:nowrap;
 }
@@ -455,7 +455,7 @@ td b{font-weight:700}
       <li><a href="#c04"><span class="no">04</span><span class="t">Personnalité de marque</span></a></li>
       <li><a href="#c05"><span class="no">05</span><span class="t">Naming &amp; signature</span></a></li>
       <li><a href="#c06"><span class="no">06</span><span class="t">Logo</span></a></li>
-      <li><a href="#c07"><span class="no">07</span><span class="t">Système colorimétrique</span></a></li>
+      <li><a href="#c07"><span class="no">07</span><span class="t">Tons &amp; matières</span></a></li>
       <li><a href="#c08"><span class="no">08</span><span class="t">Typographie</span></a></li>
       <li><a href="#c09"><span class="no">09</span><span class="t">Direction artistique photo</span></a></li>
       <li><a href="#c10"><span class="no">10</span><span class="t">Iconographie &amp; motifs</span></a></li>
@@ -481,7 +481,7 @@ td b{font-weight:700}
 
     <div class="g2">
       <div>
-        <p><strong>Le parti pris.</strong> Deux pistes ont été explorées avant d'écrire ce document. La première, « Épure », poussait le curseur pilates à fond : greige, serif discret, silence visuel. Elle était juste, mais indifférenciée : c'est déjà le territoire d'Aybl et de Teveo. La seconde, « Incandescence », assume la collision des deux mondes : une base minérale et calme traversée par une couleur en fusion. C'est elle que nous retenons, et tout ce document la déroule sans compromis.</p>
+        <p><strong>Le parti pris.</strong> Deux pistes ont été explorées avant d'écrire ce document. La première, « Épure », poussait le curseur pilates à fond : greige, serif discret, silence visuel. Elle était juste, mais indifférenciée : c'est déjà le territoire d'Aybl et de Teveo. La seconde, « Tension », assume la collision des deux mondes : une base minérale et calme, tenue par le contraste tranché du Carbone et de la Craie, sans un gramme de couleur. C'est elle que nous retenons, et tout ce document la déroule sans compromis.</p>
         <p style="margin-top:18px">Nova habille des femmes qui passent du tapis de pilates à la ligne de départ d'un hyrox sans changer de personnalité en route. Le marché leur propose de choisir : être gracieuse ou être puissante, esthétique ou performante. Nova refuse l'alternative. La grâce n'est pas le contraire de la force ; c'est sa forme la plus travaillée.</p>
       </div>
       <div>
@@ -505,7 +505,7 @@ td b{font-weight:700}
           Nous nous comprimons, nous nous étirons,<br>
           nous tenons la posture une seconde de plus,<br>
           et quand tout le monde pense que nous allons céder,<br>
-          <span style="color:var(--flare)">nous explosons de lumière.</span><br><br>
+          <span style="color:var(--poudre)">nous explosons de lumière.</span><br><br>
           Nous sommes des novas.<br>
           La grâce est une force.
         </p>
@@ -528,7 +528,7 @@ td b{font-weight:700}
     <div class="g2">
       <div>
         <p><strong>Proposition de valeur.</strong> Des coupes sculptantes de niveau premium (matières compressives douces, coutures anatomiques, tenue à l'épreuve d'un race day) vendues à un prix accessible pour une femme de 18 à 35 ans qui s'équipe plusieurs fois par an, et enveloppées dans une expérience de marque qui donne le sentiment d'entrer dans un club, pas de passer en caisse.</p>
-        <p style="margin-top:18px"><strong>Différenciation.</strong> Aybl gagne sur le prix mais reste une marque de produit, pas d'identité. Dfyne pousse le sculptant et la sensualité, au risque de la froideur. Teveo tient le minimalisme communautaire, mais sans univers narratif fort. L'espace libre est exactement là où Nova se place : une identité incandescente et un récit (la nova, le club, le race day) que les trois benchmarks n'occupent pas. Personne ne raconte la femme qui fait les deux mondes ; c'est notre histoire.</p>
+        <p style="margin-top:18px"><strong>Différenciation.</strong> Aybl gagne sur le prix mais reste une marque de produit, pas d'identité. Dfyne pousse le sculptant et la sensualité, au risque de la froideur. Teveo tient le minimalisme communautaire, mais sans univers narratif fort. L'espace libre est exactement là où Nova se place : une identité affirmée et un récit (la nova, le club, le race day) que les trois benchmarks n'occupent pas. Personne ne raconte la femme qui fait les deux mondes ; c'est notre histoire.</p>
         <p style="margin-top:18px"><strong>Territoire de marque.</strong> La beauté de l'effort. Nova ne vend ni la détente ni la souffrance : elle vend la seconde où le corps tient, la ligne du dos en extension, la poussière de magnésie dans la lumière. Tout ce qui montre l'effort avec élégance est Nova ; tout ce qui montre la paresse chic ou la douleur gratuite ne l'est pas.</p>
       </div>
       <figure class="panel" style="display:flex;flex-direction:column;gap:14px">
@@ -544,8 +544,8 @@ td b{font-weight:700}
           <text x="255" y="182" text-anchor="middle" font-family="Archivo" font-size="12" font-weight="600" fill="#44474E">Teveo</text>
           <circle cx="330" cy="130" r="7" fill="#B9B7B0"/>
           <text x="330" y="112" text-anchor="middle" font-family="Archivo" font-size="12" font-weight="600" fill="#44474E">Dfyne</text>
-          <circle cx="252" cy="66" r="16" fill="none" stroke="#FF4B1F" stroke-width="1.5"/>
-          <circle cx="252" cy="66" r="8" fill="#FF4B1F"/>
+          <circle cx="252" cy="66" r="16" fill="none" stroke="#141519" stroke-width="1.5"/>
+          <circle cx="252" cy="66" r="8" fill="#141519"/>
           <text x="252" y="40" text-anchor="middle" font-family="Archivo" font-size="13" font-weight="800" letter-spacing="1" fill="#141519">NOVA</text>
         </svg>
         <figcaption class="small">Lecture : Nova revendique l'identité la plus forte du segment, à un niveau de prix premium accessible, entre Teveo et Dfyne.</figcaption>
@@ -646,7 +646,7 @@ td b{font-weight:700}
     <div class="g2">
       <div>
         <p><strong>Archétype.</strong> Nova est une <strong>Héroïne</strong> tempérée par <strong>l'Amante</strong>. L'Héroïne apporte le dépassement, la discipline, le goût du chrono ; l'Amante apporte le sensoriel, la matière, le plaisir d'habiter son corps. L'équilibre est stratégique : l'Héroïne seule donnerait une marque de crossfit de plus, l'Amante seule donnerait une marque de loungewear de plus. La tension entre les deux est exactement la tension pilates × hyrox.</p>
-        <p style="margin-top:18px"><strong>Attributs.</strong> Sculpturale, incandescente, directe, sororale, méticuleuse. Cinq mots, pas plus : toute création (photo, copy, produit) doit pouvoir être défendue par au moins deux d'entre eux.</p>
+        <p style="margin-top:18px"><strong>Attributs.</strong> Sculpturale, affûtée, directe, sororale, méticuleuse. Cinq mots, pas plus : toute création (photo, copy, produit) doit pouvoir être défendue par au moins deux d'entre eux.</p>
       </div>
       <table>
         <tr><th>Valeur</th><th>La preuve, au quotidien</th></tr>
@@ -728,7 +728,7 @@ td b{font-weight:700}
 
     <div class="g2" style="margin-bottom:clamp(28px,4vw,48px)">
       <p><strong>Le concept.</strong> Le wordmark est dessiné sur mesure : capitales géométriques à chasse large, fûts francs (20 % de la hauteur de capitale), aucun empattement. Chaque lettre est un parti pris. Le <strong>O est un anneau parfait</strong> : le cercle du studio, la répétition, la discipline. Le <strong>A a perdu sa traverse</strong> : il devient une flèche, l'ascension, le sommet à prendre. Le V et le A se répondent en miroir : la descente et la remontée, l'excentrique et le concentrique, la grâce et l'effort. L'ensemble se lit d'un bloc, stable comme une structure de rig.</p>
-      <p><strong>L'étincelle.</strong> Le symbole de Nova est une étoile à quatre branches aux flancs creusés, dessinée d'après l'éclat d'une lumière dans un objectif. C'est la nova elle-même : posée au cœur de l'anneau du O, elle allume le wordmark ; isolée, elle devient monogramme, favicon, puce, tampon. C'est le seul élément de l'identité autorisé à porter la couleur Flare en toute circonstance.</p>
+      <p><strong>L'étincelle.</strong> Le symbole de Nova est une étoile à quatre branches aux flancs creusés, dessinée d'après l'éclat d'une lumière dans un objectif. C'est la nova elle-même : posée au cœur de l'anneau du O, elle allume le wordmark ; isolée, elle devient monogramme, favicon, puce, tampon. C'est l'élément le plus expressif de l'identité, réservé aux temps forts et aux points de signature.</p>
     </div>
 
     <figure class="logo-stage">
@@ -740,8 +740,8 @@ td b{font-weight:700}
       <div class="sub-head"><h3>Versions &amp; déclinaisons</h3><span class="small">Toutes vectorielles, aucune recomposition manuelle</span></div>
       <div class="g3 logo-grid">
         <figure>
-          <div class="stage"><svg class="lw" viewBox="0 0 520 120" role="img" aria-label="Nova, version cœur de nova"><use href="#lg-word"/><use style="fill:var(--flare)" href="#lg-spark" x="171" y="41" width="38" height="38"/></svg></div>
-          <figcaption><span class="label">Secondaire « cœur de nova »</span><span>L'étincelle Flare dans l'anneau. Réservée aux temps forts : campagnes, couvertures, packaging.</span></figcaption>
+          <div class="stage"><svg class="lw" viewBox="0 0 520 120" role="img" aria-label="Nova, version cœur de nova"><use href="#lg-word"/><use style="fill:var(--carbone)" href="#lg-spark" x="171" y="41" width="38" height="38"/></svg></div>
+          <figcaption><span class="label">Secondaire « cœur de nova »</span><span>L'étincelle au cœur de l'anneau du O. Réservée aux temps forts : campagnes, couvertures, packaging.</span></figcaption>
         </figure>
         <figure>
           <div class="stage"><svg style="width:min(46%,150px);aspect-ratio:520/250;fill:var(--carbone)" viewBox="0 0 520 250" role="img" aria-label="Nova, version verticale"><use href="#lg-stack"/></svg></div>
@@ -756,8 +756,8 @@ td b{font-weight:700}
           <figcaption><span class="label">Négatif</span><span>Craie sur Carbone. Version par défaut sur fonds sombres et photos de nuit.</span></figcaption>
         </figure>
         <figure>
-          <div class="stage flare"><svg class="lw" viewBox="0 0 520 120" role="img" aria-label="Nova sur fond Flare"><use href="#lg-word"/></svg></div>
-          <figcaption><span class="label">Sur Flare</span><span>Carbone sur Flare, uniquement. Jamais de blanc sur Flare en petit corps (contraste insuffisant).</span></figcaption>
+          <div class="stage brume"><svg class="lw" viewBox="0 0 520 120" role="img" aria-label="Nova sur fond Brume"><use href="#lg-word"/></svg></div>
+          <figcaption><span class="label">Sur teinte claire</span><span>Carbone sur Brume ou Sable. Une seule encre ; jamais de Craie sur teinte claire en petit corps (contraste insuffisant).</span></figcaption>
         </figure>
         <figure>
           <div class="stage pou"><svg class="lm" viewBox="0 0 120 120" role="img" aria-label="Monogramme sur fond Poudre"><use href="#lg-mono"/></svg></div>
@@ -773,8 +773,8 @@ td b{font-weight:700}
           <svg viewBox="0 0 660 260" style="width:100%;aspect-ratio:660/260" role="img" aria-label="Zone de protection du logo : un demi O sur chaque côté">
             <rect x="10" y="10" width="640" height="240" fill="none" stroke="#B9B7B0" stroke-width="1" stroke-dasharray="5 5"/>
             <use href="#lg-word" x="70" y="70" width="520" height="120" style="fill:#141519"/>
-            <path fill-rule="evenodd" d="M26 130a14 14 0 1 0 28 0 14 14 0 1 0-28 0Zm6 0a8 8 0 1 1 16 0 8 8 0 1 1-16 0Z" fill="#FF4B1F"/>
-            <path fill-rule="evenodd" d="M316 26a14 14 0 1 0 28 0 14 14 0 1 0-28 0Zm6 0a8 8 0 1 1 16 0 8 8 0 1 1-16 0Z" fill="#FF4B1F"/>
+            <path fill-rule="evenodd" d="M26 130a14 14 0 1 0 28 0 14 14 0 1 0-28 0Zm6 0a8 8 0 1 1 16 0 8 8 0 1 1-16 0Z" fill="#141519"/>
+            <path fill-rule="evenodd" d="M316 26a14 14 0 1 0 28 0 14 14 0 1 0-28 0Zm6 0a8 8 0 1 1 16 0 8 8 0 1 1-16 0Z" fill="#141519"/>
             <text x="330" y="238" text-anchor="middle" font-family="Archivo" font-size="12" letter-spacing="1.5" fill="#44474E">ZONE DE PROTECTION = ½ ANNEAU (½ O) SUR CHAQUE CÔTÉ</text>
           </svg>
         </figure>
@@ -803,7 +803,7 @@ td b{font-weight:700}
           <figcaption>Ne pas incliner, pencher ou mettre en italique</figcaption>
         </figure>
         <figure>
-          <div class="stage"><svg viewBox="0 0 520 120" aria-hidden="true"><use href="#lg-word" style="fill:#8B5CF6"/></svg></div>
+          <div class="stage"><svg viewBox="0 0 520 120" aria-hidden="true"><use href="#lg-word" style="fill:#2A6BE0"/></svg></div>
           <figcaption>Ne pas sortir de la palette (une encre, jamais de dégradé)</figcaption>
         </figure>
         <figure>
@@ -823,71 +823,35 @@ td b{font-weight:700}
   </div>
 </section>
 
-<!-- ========================================================== 07 COULEURS -->
+<!-- ========================================================== 07 TONS & MATIÈRES -->
 <section class="chapter" id="c07">
   <div class="wrap">
     <header class="chap-head">
       <div class="chap-row">
         <span class="chap-no" aria-hidden="true">07</span>
-        <h2 class="chap-title">Système<br>colorimétrique</h2>
+        <h2 class="chap-title">Tons<br>&amp; matières</h2>
       </div>
-      <p class="chap-lede lede">Une base minérale et froide, comme la magnésie et l'asphalte. Puis une seule couleur en fusion, rationnée comme un effort maximal.</p>
+      <p class="chap-lede lede">Pas d'accent coloré. Une gamme de neutres minéraux et un sable, une matière mate : l'identité tient au contraste, au vide et au toucher.</p>
     </header>
 
-    <p style="margin-bottom:clamp(28px,4vw,44px)"><strong>Pourquoi cette palette.</strong> Les benchmarks du segment vivent dans des beiges chauds ; Nova s'en écarte volontairement. Sa base est froide et minérale : la Craie vient de la magnésie sur les mains, le Carbone de l'asphalte des courses de nuit. Sur ce silence, une seule couleur a le droit de brûler : Flare, l'orange incandescent de l'étoile qui explose. Sa rareté fait sa valeur : rationné à moins de 8 % des surfaces, il rend chaque apparition immanquable dans un feed. Poudre, enfin, apporte la chaleur de la peau, sans jamais glisser vers le rose cliché.</p>
+    <p style="margin-bottom:clamp(28px,4vw,44px)"><strong>Le parti pris.</strong> Nova est monochrome, volontairement. Le Carbone d'asphalte et la Craie de magnésie forment tout le contraste ; le Graphite et la Brume font les nuances ; le Sable apporte la seule chaleur, jamais criarde. Aucune couleur d'accent, aucun dégradé de signature : la force vient de la sobriété, du blanc tournant et de la justesse typographique, pas d'un aplat vif. C'est ce qui rapproche Nova des marques neutres premium plutôt que du fitness bariolé.</p>
 
-    <div class="sub-head"><h3>Palette principale</h3><span class="small">Cliquer un code pour le copier</span></div>
+    <div class="sub-head"><h3>Fondations</h3><span class="small">Cliquer un code pour le copier</span></div>
     <div class="g3">
-      <div class="sw">
-        <div class="sw-chip" style="background:#F1F0EC"></div>
-        <div class="sw-body">
-          <span class="sw-name">Craie</span>
-          <span class="sw-role">Fond par défaut de tous les supports. 52 % des surfaces. La lumière du studio, la magnésie sur les paumes.</span>
-          <div class="sw-codes"><code data-copy>#F1F0EC</code><code data-copy>RGB 241 240 236</code><code data-copy>CMJN 0 0 2 5</code></div>
-        </div>
-      </div>
       <div class="sw">
         <div class="sw-chip" style="background:#141519"></div>
         <div class="sw-body">
           <span class="sw-name">Carbone</span>
-          <span class="sw-role">Texte, logo, fonds de nuit. 24 %. Un noir bleuté d'asphalte, jamais un noir pur.</span>
-          <div class="sw-codes"><code data-copy>#141519</code><code data-copy>RGB 20 21 25</code><code data-copy>CMJN 20 16 0 90</code></div>
+          <span class="sw-role">Texte, logo, fonds de nuit. Un noir bleuté d'asphalte, jamais un noir pur.</span>
+          <div class="sw-codes"><code data-copy>#141519</code><code data-copy>RGB 20 21 25</code></div>
         </div>
       </div>
       <div class="sw">
-        <div class="sw-chip" style="background:#FF4B1F"></div>
+        <div class="sw-chip" style="background:#F1F0EC"></div>
         <div class="sw-body">
-          <span class="sw-name">Flare</span>
-          <span class="sw-role">La signature. CTA, étincelle, soulignés, un mot par page maximum. Rationné à 8 % : sa rareté est la règle.</span>
-          <div class="sw-codes"><code data-copy>#FF4B1F</code><code data-copy>RGB 255 75 31</code><code data-copy>CMJN 0 71 88 0</code></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sub-head" style="margin-top:clamp(36px,5vw,60px)"><h3>Palette secondaire &amp; neutres</h3></div>
-    <div class="g4">
-      <div class="sw">
-        <div class="sw-chip" style="background:#D9B4A7"></div>
-        <div class="sw-body">
-          <span class="sw-name">Poudre</span>
-          <span class="sw-role">La note de peau. Fonds produits, packaging intérieur, coloris textile.</span>
-          <div class="sw-codes"><code data-copy>#D9B4A7</code><code data-copy>RGB 217 180 167</code><code data-copy>CMJN 0 17 23 15</code></div>
-        </div>
-      </div>
-      <div class="sw">
-        <div class="sw-chip" style="background:#B9B7B0"></div>
-        <div class="sw-body">
-          <span class="sw-name">Brume</span>
-          <span class="sw-role">Gris minéral. Filets, légendes, états inactifs, béton des salles.</span>
-          <div class="sw-codes"><code data-copy>#B9B7B0</code><code data-copy>RGB 185 183 176</code><code data-copy>CMJN 0 1 5 27</code></div>
-        </div>
-      </div>
-      <div class="sw">
-        <div class="sw-chip" style="background:#44474E"></div>
-        <div class="sw-body">
-          <span class="sw-name">Graphite</span>
-          <span class="sw-role">Texte secondaire et légendes sur fonds clairs. Jamais en aplat décoratif.</span>
-          <div class="sw-codes"><code data-copy>#44474E</code><code data-copy>RGB 68 71 78</code><code data-copy>CMJN 13 9 0 69</code></div>
+          <span class="sw-name">Craie</span>
+          <span class="sw-role">Fond par défaut de tous les supports. La lumière du studio, la magnésie sur les paumes.</span>
+          <div class="sw-codes"><code data-copy>#F1F0EC</code><code data-copy>RGB 241 240 236</code></div>
         </div>
       </div>
       <div class="sw">
@@ -895,32 +859,50 @@ td b{font-weight:700}
         <div class="sw-body">
           <span class="sw-name">Blanc cassé</span>
           <span class="sw-role">Cartes et panneaux posés sur Craie. Jamais de blanc pur #FFFFFF.</span>
-          <div class="sw-codes"><code data-copy>#FAFAF9</code><code data-copy>RGB 250 250 249</code><code data-copy>CMJN 0 0 0 2</code></div>
+          <div class="sw-codes"><code data-copy>#FAFAF9</code><code data-copy>RGB 250 250 249</code></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-head" style="margin-top:clamp(36px,5vw,60px)"><h3>Nuances &amp; sable</h3></div>
+    <div class="g3">
+      <div class="sw">
+        <div class="sw-chip" style="background:#44474E"></div>
+        <div class="sw-body">
+          <span class="sw-name">Graphite</span>
+          <span class="sw-role">Texte secondaire et légendes sur fonds clairs. Jamais en aplat décoratif.</span>
+          <div class="sw-codes"><code data-copy>#44474E</code><code data-copy>RGB 68 71 78</code></div>
+        </div>
+      </div>
+      <div class="sw">
+        <div class="sw-chip" style="background:#B9B7B0"></div>
+        <div class="sw-body">
+          <span class="sw-name">Brume</span>
+          <span class="sw-role">Gris minéral. Filets, légendes, états inactifs, béton des salles.</span>
+          <div class="sw-codes"><code data-copy>#B9B7B0</code><code data-copy>RGB 185 183 176</code></div>
+        </div>
+      </div>
+      <div class="sw">
+        <div class="sw-chip" style="background:#D9B4A7"></div>
+        <div class="sw-body">
+          <span class="sw-name">Sable</span>
+          <span class="sw-role">La seule chaleur. Fonds produits, packaging intérieur, coloris textile. Jamais un rose cliché.</span>
+          <div class="sw-codes"><code data-copy>#D9B4A7</code><code data-copy>RGB 217 180 167</code></div>
         </div>
       </div>
     </div>
 
     <div class="sub">
-      <div class="sub-head"><h3>Répartition &amp; règles d'usage</h3></div>
-      <div class="ratio" role="img" aria-label="Répartition : Craie 52 %, Carbone 24 %, Brume 8 %, Flare 8 %, Poudre 5 %, Blanc cassé 3 %">
-        <div style="flex:52;background:#F1F0EC"><span style="color:#44474E">CRAIE 52</span></div>
-        <div style="flex:24;background:#141519"><span style="color:#F1F0EC">CARBONE 24</span></div>
-        <div style="flex:8;background:#B9B7B0"><span style="color:#141519">8</span></div>
-        <div style="flex:8;background:#FF4B1F"><span style="color:#141519">8</span></div>
-        <div style="flex:5;background:#D9B4A7"><span style="color:#141519">5</span></div>
-        <div style="flex:3;background:#FAFAF9"><span style="color:#44474E">3</span></div>
-      </div>
-      <div class="g2" style="margin-top:26px">
+      <div class="sub-head"><h3>Contraste, matière &amp; règles</h3></div>
+      <div class="g2">
         <div>
-          <p style="font-size:15px"><strong>Accessibilité.</strong> Le texte courant est toujours Carbone sur Craie ou Craie sur Carbone (contraste supérieur à 15:1). Flare ne porte jamais de texte courant : il souligne, remplit un bouton (texte Carbone dessus) ou colore l'étincelle. Poudre et Brume ne portent jamais de texte de moins de 18 px.</p>
+          <p style="font-size:15px"><strong>Contraste.</strong> Le texte courant est toujours Carbone sur Craie ou Craie sur Carbone (contraste supérieur à 15:1). Le Graphite sert au texte secondaire sur clair ; la Brume aux filets et légendes. Sable et Brume ne portent jamais de texte de moins de 18 px. Aucun aplat vif, aucun dégradé de signature : la hiérarchie se fait au contraste, à la graisse et au blanc.</p>
         </div>
         <div>
-          <p style="font-size:15px"><strong>Dégradé Incandescence.</strong> Un seul dégradé est autorisé dans l'identité : Flare vers Poudre, réservé aux stories et visuels de campagne. Jamais sur le logo, jamais en fond de texte long.</p>
-          <div style="height:56px;margin-top:14px;border:1px solid var(--hairline);background:linear-gradient(120deg,#FF4B1F 0%,#FF7A45 48%,#D9B4A7 100%)"></div>
-          <div class="sw-codes" style="margin-top:10px"><code data-copy>linear-gradient(120deg, #FF4B1F 0%, #FF7A45 48%, #D9B4A7 100%)</code></div>
+          <p style="font-size:15px"><strong>Matière &amp; finition.</strong> Tout est <strong>mat</strong> : jamais de brillant, de vernis sélectif ni de métallisé, sur aucun support. Textile seconde peau au toucher poudré ; papiers non couchés ; impression une couleur. La seule texture autorisée est le grain minéral léger (voir chapitre 10). Le fini mat est une décision de marque, pas un défaut.</p>
         </div>
       </div>
-      <p class="note" style="margin-top:26px">Références Pantone à faire valider par l'usine sur nuancier physique avant toute production textile ou packaging. Ne jamais convertir automatiquement.</p>
+      <p class="note" style="margin-top:26px">Ces codes HEX / RGB sont les références écran. Pour le textile et le packaging, l'usine soumet des lab-dips physiques validés avant production ; ne jamais convertir automatiquement en Pantone.</p>
     </div>
   </div>
 </section>
@@ -952,7 +934,7 @@ td b{font-weight:700}
         <div class="panel width-demo">
           <span style="font-stretch:62%">Compression</span>
           <span style="font-stretch:100%">Transition</span>
-          <span style="font-stretch:125%;color:var(--flare)">Expansion</span>
+          <span style="font-stretch:125%;color:var(--carbone)">Expansion</span>
         </div>
         <p style="align-self:center">Trois états d'une même famille, comme trois temps d'un même mouvement. La chasse 62 % est réservée aux grands chiffres (compteurs, numéros de chapitres, dossards) ; la chasse 125 % aux titres ; la chasse 100 % au texte courant. On ne choisit jamais une valeur intermédiaire « à l'œil » : trois crans, pas de demi-mesure.</p>
       </div>
@@ -991,7 +973,7 @@ td b{font-weight:700}
         </div>
         <div class="spec-row">
           <div class="spec-meta"><b>Chiffres</b>Archivo 800 · chasse 62 %<br>tabulaires, tailles libres</div>
-          <div style="font-weight:800;font-stretch:62%;font-size:clamp(30px,4.6vw,56px);line-height:1;font-variant-numeric:tabular-nums">58:47<span style="font-size:.4em;vertical-align:.9em;color:var(--flare)">PB</span></div>
+          <div style="font-weight:800;font-stretch:62%;font-size:clamp(30px,4.6vw,56px);line-height:1;font-variant-numeric:tabular-nums">58:47<span style="font-size:.4em;vertical-align:.9em;color:var(--carbone)">PB</span></div>
         </div>
       </div>
       <p class="note" style="margin-top:22px">Alternatives web-safe (e-mails, environnements sans webfonts) : Archivo se remplace par Helvetica Neue puis Arial ; Cormorant Garamond par Georgia italique puis Times New Roman italique. Les hiérarchies et graisses restent identiques.</p>
@@ -1029,15 +1011,15 @@ td b{font-weight:700}
           <div style="background:#141519"></div>
           <div style="background:#2A2C33"></div>
           <div style="background:#44474E"></div>
-          <div style="background:#FF4B1F"></div>
-          <div style="background:#FF7A45"></div>
+          <div style="background:#8D8A83"></div>
+          <div style="background:#D9B4A7"></div>
         </div>
       </div>
     </div>
 
     <div class="g2" style="margin-top:clamp(24px,3vw,40px)">
       <p style="font-size:15px"><strong>Règles de peau et de corps.</strong> Pas de lissage de peau, pas d'effacement des plis d'effort, pas d'amincissement. La sueur, les rougeurs, les marques d'élastiques sont la preuve de l'effort : on les garde. Casting diversifié en morphologies, âges (18 à 40 ans à l'image) et carnations, toujours des pratiquantes réelles, jamais des mannequins qui « miment » le sport.</p>
-      <p style="font-size:15px"><strong>Interdits photo.</strong> Poses passives type lingerie, filtres orange saturés, HDR, fonds de salle encombrés sans intention, regards caméra systématiques, et tout cliché « fitness motivation » (poings serrés face caméra, hurlements). Une image Nova doit pouvoir être accrochée dans une galerie sans légende.</p>
+      <p style="font-size:15px"><strong>Interdits photo.</strong> Poses passives type lingerie, filtres saturés, HDR, fonds de salle encombrés sans intention, regards caméra systématiques, et tout cliché « fitness motivation » (poings serrés face caméra, hurlements). Une image Nova doit pouvoir être accrochée dans une galerie sans légende.</p>
     </div>
 
     <div class="sub">
@@ -1050,7 +1032,7 @@ td b{font-weight:700}
             <p style="font-size:15px;max-width:none">Huit images pensées comme une série de sculptures : un dos en extension complète sur reformer, contre-jour de fenêtre ; un très gros plan de hanche montrant la couture anatomique du legging Apex sur fond de plâtre ; deux mains poudrées de magnésie jointes au-dessus de la tête ; un drapé de jersey Craie posé sur un banc de bois ; un équilibre en attitude, ombre portée sur mur nu ; un portrait de profil, mâchoire relâchée, lumière du nord ; une plante de pied en relevé sur tapis ; une silhouette assise dos caméra, colonne vertébrale dessinée par la brassière Orbite.</p>
             <ul>
               <li>Lumière : naturelle diffuse, une seule source, jamais de fill artificiel</li>
-              <li>Palette : Craie, Poudre, ombres Brume ; aucun Flare dans ce registre</li>
+              <li>Palette : Craie, Poudre, ombres Brume ; jamais de Carbone dense dans ce registre</li>
               <li>Direction modèle : mouvements tenus 3 secondes, photographiés au sommet de la tension</li>
             </ul>
             <div class="mood-tiles" aria-hidden="true">
@@ -1067,17 +1049,17 @@ td b{font-weight:700}
         <div class="mood">
           <div class="mood-head"><h4>Planche 02 · Ignition</h4><span class="small">Registre arena, temps forts de campagne</span></div>
           <div class="mood-body">
-            <p style="font-size:15px;max-width:none">La nuit du race day. Un départ de course sous éclairage sodium, silhouettes en tension sur la ligne ; un sled push cadré au ras du sol, rim-light orange découpant le mollet ; une explosion de magnésie figée au flash, plein cadre ; un chrono LED défocalisé en premier plan, athlète nette derrière ; une corde ondulée en pleine frappe ; l'asphalte mouillé reflétant les lignes du rig ; une athlète pliée en deux après l'arrivée, mains sur les genoux, fumée de respiration dans le froid.</p>
+            <p style="font-size:15px;max-width:none">La nuit du race day. Un départ de course sous éclairage sodium, silhouettes en tension sur la ligne ; un sled push cadré au ras du sol, rim-light découpant le mollet ; une explosion de magnésie figée au flash, plein cadre ; un chrono LED défocalisé en premier plan, athlète nette derrière ; une corde ondulée en pleine frappe ; l'asphalte mouillé reflétant les lignes du rig ; une athlète pliée en deux après l'arrivée, mains sur les genoux, fumée de respiration dans le froid.</p>
             <ul>
               <li>Lumière : flash direct ou sodium urbain, contrastes durs, noirs denses</li>
-              <li>Palette : Carbone dominant, Flare en accent lumineux réel (éclairage, LED, rim-light)</li>
+              <li>Palette : Carbone dominant, Craie en accent lumineux réel (éclairage, LED, rim-light)</li>
               <li>Grain : argentique marqué, texture visible à 100 %</li>
             </ul>
             <div class="mood-tiles" aria-hidden="true">
               <div style="background:#141519"></div>
-              <div style="background:radial-gradient(circle at 70% 30%,#FF4B1F 0%,#141519 75%)"></div>
+              <div style="background:radial-gradient(circle at 70% 30%,#D9B4A7 0%,#141519 78%)"></div>
               <div style="background:linear-gradient(180deg,#2A2C33 0%,#141519 100%)"></div>
-              <div style="background:radial-gradient(circle at 50% 90%,#FF7A45 0%,#1B1D23 70%)"></div>
+              <div style="background:radial-gradient(circle at 50% 90%,#D9B4A7 0%,#1B1D23 74%)"></div>
               <div style="background:#2A2C33"></div>
               <div style="background:linear-gradient(120deg,#141519 40%,#44474E 100%)"></div>
             </div>
@@ -1147,7 +1129,7 @@ td b{font-weight:700}
         <figcaption>Boutique</figcaption>
       </figure>
     </div>
-    <p class="small" style="margin-top:14px">Règles : géométrie pure, angles vifs, aucun arrondi décoratif, une seule graisse de trait. Les icônes sont Carbone sur clair et Craie sur sombre ; l'étincelle est la seule icône autorisée en Flare.</p>
+    <p class="small" style="margin-top:14px">Règles : géométrie pure, angles vifs, aucun arrondi décoratif, une seule graisse de trait. Les icônes sont Carbone sur clair et Craie sur sombre ; l'étincelle est la seule icône expressive de la marque.</p>
 
     <div class="sub">
       <div class="sub-head"><h3>Textures</h3></div>
@@ -1158,7 +1140,7 @@ td b{font-weight:700}
             <rect width="480" height="210" fill="#141519"/>
             <rect width="480" height="210" filter="url(#grain)"/>
           </svg>
-          <figcaption class="small" style="margin-top:10px"><strong>Grain argentique.</strong> Appliqué à 6-8 % d'opacité sur toutes les images du registre arena et les fonds Carbone. Jamais sur les aplats Flare.</figcaption>
+          <figcaption class="small" style="margin-top:10px"><strong>Grain argentique.</strong> Appliqué à 6-8 % d'opacité sur toutes les images du registre arena et les fonds Carbone. Jamais sur les aplats pleins.</figcaption>
         </figure>
         <figure>
           <svg class="texture" viewBox="0 0 480 210" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Texture voile de craie sur fond clair">
@@ -1182,7 +1164,7 @@ td b{font-weight:700}
               <circle cx="150" cy="150" r="80" stroke-opacity=".38"/>
               <circle cx="150" cy="150" r="50" stroke-opacity=".6"/>
             </g>
-            <use href="#lg-spark" x="128" y="128" width="44" height="44" style="fill:var(--flare)"/>
+            <use href="#lg-spark" x="128" y="128" width="44" height="44" style="fill:var(--craie)"/>
           </svg>
         </figure>
         <div style="align-self:center">
@@ -1221,7 +1203,7 @@ td b{font-weight:700}
           <tr><td>seconde peau, sculptant, compressif</td><td>amincissant, gainant « ventre plat »</td></tr>
           <tr><td>tenir, durer, exploser (un chrono)</td><td>no pain no gain, se détruire</td></tr>
           <tr><td>les Novas, le club, ton crew</td><td>girl boss, queen, babe</td></tr>
-          <tr><td>briller, incandescente, en fusion</td><td>parfaite, irréprochable, bikini body</td></tr>
+          <tr><td>briller, précise, à froid</td><td>parfaite, irréprochable, bikini body</td></tr>
         </table>
       </div>
     </div>
@@ -1284,7 +1266,7 @@ td b{font-weight:700}
             <text x="339" y="200" text-anchor="middle" font-family="Archivo" font-weight="800" font-size="17" letter-spacing="2.5" fill="#F1F0EC">ORBITE</text>
             <text x="339" y="219" text-anchor="middle" font-family="Archivo" font-size="9.5" letter-spacing="1" fill="#B9B7B0">BRASSIÈRE MAINTIEN</text>
             <text x="339" y="234" text-anchor="middle" font-family="Archivo" font-size="9.5" letter-spacing="1" fill="#B9B7B0">MEDIUM</text>
-            <text x="339" y="290" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="12.5" fill="#FF4B1F">La grâce est une force.</text>
+            <text x="339" y="290" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="12.5" fill="#D9B4A7">La grâce est une force.</text>
           </svg>
         </div>
         <figcaption class="app-cap"><span class="label">Hangtag 50 × 110 mm</span>
@@ -1298,7 +1280,7 @@ td b{font-weight:700}
         </div>
         <div class="panel">
           <p class="label" style="margin-bottom:10px">Packaging</p>
-          <p style="font-size:15px;max-width:none">Boîte postale kraft teinté Carbone, intérieur Craie, étincelle Flare embossée au centre du couvercle. Papier de soie Craie imprimé du motif Halo en Brume, fermé par un sticker étincelle. Carte du club glissée dans chaque commande : « Bienvenue chez les Novas », Cormorant italique sur bristol Poudre. Aucun plastique visible.</p>
+          <p style="font-size:15px;max-width:none">Boîte postale kraft teinté Carbone, intérieur Craie, étincelle embossée au centre du couvercle. Papier de soie Craie imprimé du motif Halo en Brume, fermé par un sticker étincelle. Carte du club glissée dans chaque commande : « Bienvenue chez les Novas », Cormorant italique sur bristol Poudre. Aucun plastique visible.</p>
         </div>
       </div>
     </div>
@@ -1307,7 +1289,7 @@ td b{font-weight:700}
       <div class="sub-head"><h3>Réseaux sociaux</h3><span class="small">Gabarits post 1:1 et story 9:16</span></div>
       <div class="ig">
         <div class="ig-card" style="background:var(--blanc)">
-          <svg style="width:26px;aspect-ratio:1;fill:var(--flare)" viewBox="0 0 100 100" aria-hidden="true"><use href="#lg-spark"/></svg>
+          <svg style="width:26px;aspect-ratio:1;fill:var(--carbone)" viewBox="0 0 100 100" aria-hidden="true"><use href="#lg-spark"/></svg>
           <p class="h">La grâce<br>se travaille.</p>
           <div class="f"><span class="handle">@wearnova</span></div>
         </div>
@@ -1318,7 +1300,7 @@ td b{font-weight:700}
         </div>
         <div class="ig-card" style="background:var(--carbone);color:var(--craie)">
           <span class="label" style="color:var(--brume)">Samedi 8 h</span>
-          <p class="h" style="color:var(--flare)">Race<br>day.</p>
+          <p class="h" style="color:var(--craie)">Race<br>day.</p>
           <div class="f"><span class="handle">@wearnova</span><svg style="width:22px;aspect-ratio:1;fill:var(--craie)" viewBox="0 0 120 120" aria-hidden="true"><use href="#lg-mono"/></svg></div>
         </div>
       </div>
@@ -1329,7 +1311,7 @@ td b{font-weight:700}
             <p class="serif" style="font-size:24px;line-height:1.2">Ton studio<br>t'attend.</p>
             <span style="align-self:flex-start;background:var(--carbone);color:var(--craie);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:10px 18px;border-radius:999px">Réserver</span>
           </div>
-          <p style="font-size:15px;flex:1;min-width:220px"><strong>Règles de feed.</strong> Alternance stricte : deux images photo (registres studio ou arena) pour un visuel typographique maximum. Le dégradé Incandescence est réservé aux stories. Les gabarits typographiques n'utilisent jamais plus de six mots. Chaque post crédite les athlètes photographiées.</p>
+          <p style="font-size:15px;flex:1;min-width:220px"><strong>Règles de feed.</strong> Alternance stricte : deux images photo (registres studio ou arena) pour un visuel typographique maximum. Les dégradés sable sont réservés aux stories. Les gabarits typographiques n'utilisent jamais plus de six mots. Chaque post crédite les athlètes photographiées.</p>
         </div>
         <p class="note" style="align-self:center">TikTok suit la même grammaire mais en mouvement : typographie Archivo plein cadre en ouverture (moins d'une seconde), contenu réel non maquillé ensuite, étincelle en watermark discret coin bas droit.</p>
       </div>
@@ -1359,12 +1341,12 @@ td b{font-weight:700}
               <span style="border:1px solid var(--hairline-strong);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:600">L</span>
               <span style="border:1px solid var(--hairline-strong);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:600">XL</span>
             </div>
-            <span style="background:var(--flare);color:var(--carbone);text-align:center;font-weight:800;font-size:14px;letter-spacing:.08em;text-transform:uppercase;padding:16px 20px;border-radius:999px">Ajouter au panier</span>
+            <span style="background:var(--carbone);color:var(--craie);text-align:center;font-weight:800;font-size:14px;letter-spacing:.08em;text-transform:uppercase;padding:16px 20px;border-radius:999px">Ajouter au panier</span>
             <div class="small" style="border-top:1px solid var(--hairline);padding-top:12px;display:flex;gap:18px;flex-wrap:wrap"><span>Matière &amp; entretien</span><span>Guide des tailles</span><span>Avis du club (214)</span></div>
           </div>
         </div>
       </div>
-      <p class="small" style="margin-top:12px">Règles : fond Craie, un seul CTA Flare par écran, packshots sur fond Poudre, photos portées issues du registre studio, avis rédigés par les membres du club avec prénom et pratique (« Camille, reformer + hyrox »).</p>
+      <p class="small" style="margin-top:12px">Règles : fond Craie, un seul CTA Carbone par écran, packshots sur fond Poudre, photos portées issues du registre studio, avis rédigés par les membres du club avec prénom et pratique (« Camille, reformer + hyrox »).</p>
     </div>
 
     <div class="sub">
@@ -1377,7 +1359,7 @@ td b{font-weight:700}
                 <path d="M55 22 L145 22 L160 95 C165 160 152 240 148 322 L118 322 C115 245 108 175 100 140 C92 175 85 245 82 322 L52 322 C48 240 35 160 40 95 Z"/>
                 <line x1="47" y1="54" x2="153" y2="54"/>
               </g>
-              <circle cx="64" cy="38" r="6" fill="#FF4B1F"/>
+              <circle cx="64" cy="38" r="6" fill="#141519"/>
               <line x1="64" y1="38" x2="24" y2="38" stroke="#B9B7B0" stroke-dasharray="3 3"/>
             </svg>
           </div>
@@ -1404,11 +1386,11 @@ td b{font-weight:700}
                 <path d="M40 42 L72 24 C86 36 114 36 128 24 L160 42 L178 80 L150 94 L150 162 L50 162 L50 94 L22 80 Z"/>
                 <path d="M72 24 C84 46 116 46 128 24"/>
               </g>
-              <use href="#lg-spark" x="93" y="32" width="14" height="14" style="fill:#FF4B1F"/>
+              <use href="#lg-spark" x="93" y="32" width="14" height="14" style="fill:#141519"/>
               <line x1="100" y1="32" x2="100" y2="8" stroke="#B9B7B0" stroke-dasharray="3 3"/>
             </svg>
           </div>
-          <figcaption class="app-cap"><span class="label">Crop Éclipse</span><p>Étincelle brodée 10 mm sous la nuque, Flare sur coloris sombres, Carbone sur coloris clairs.</p></figcaption>
+          <figcaption class="app-cap"><span class="label">Crop Éclipse</span><p>Étincelle brodée 10 mm sous la nuque, Craie sur coloris sombres, Carbone sur coloris clairs.</p></figcaption>
         </figure>
       </div>
       <p class="note" style="margin-top:22px">Nomenclature produit : les pièces portent des noms de phénomènes célestes. Legging Apex, brassière Orbite, crop Éclipse, short Comète. Les collections sont des « drops » numérotés : Ignition 01, Ignition 02.</p>
@@ -1437,7 +1419,7 @@ td b{font-weight:700}
             <p class="bt">La collection Ignition 01 est en ligne.</p>
             <span class="cta">Découvrir</span>
           </div>
-          <p class="small">Bannière type (site, newsletter, display) : fond Carbone, wordmark Craie, accroche Cormorant italique, un CTA pilule Flare. Hauteur libre, la hiérarchie reste identique à toutes les tailles.</p>
+          <p class="small">Bannière type (site, newsletter, display) : fond Carbone, wordmark Craie, accroche Cormorant italique, un CTA pilule Craie. Hauteur libre, la hiérarchie reste identique à toutes les tailles.</p>
         </div>
       </div>
     </div>
@@ -1460,8 +1442,8 @@ td b{font-weight:700}
         <header>Do</header>
         <ul>
           <li>Composer sur fond Craie ou Carbone, avec de l'air : le vide est un matériau</li>
-          <li>Rationner Flare : moins de 8 % des surfaces, et chaque apparition compte</li>
-          <li>Réserver l'étincelle Flare aux temps forts, le wordmark monochrome au quotidien</li>
+          <li>Rationner l'accent sable : une touche par support, et chaque apparition compte</li>
+          <li>Réserver l'étincelle aux temps forts, le wordmark monochrome au quotidien</li>
           <li>Titres Archivo 800 étendue en capitales, respiration Cormorant italique</li>
           <li>Montrer l'effort réel : sueur, magnésie, tension, corps non retouchés</li>
           <li>Tutoyer, écrire court, parler sensation et performance</li>
@@ -1473,18 +1455,18 @@ td b{font-weight:700}
         <header>Don't</header>
         <ul>
           <li>Ne jamais déformer, incliner, ombrer ou recolorer le logo hors palette</li>
-          <li>Ne jamais poser du blanc sur Flare en petit corps, ni du texte long sur Flare</li>
+          <li>Ne jamais poser de texte long en petit corps sur les fonds sombres</li>
           <li>Ne jamais utiliser Cormorant sous 20 px, en droit, ou dans l'interface</li>
           <li>Ne jamais employer le champ lexical de la minceur ou du « summer body »</li>
           <li>Ne jamais lisser une peau ni affiner un corps en retouche</li>
           <li>Ne jamais cumuler Halo, grain et dégradé sur un même support</li>
-          <li>Ne jamais dépasser un CTA Flare par écran ou par support</li>
+          <li>Ne jamais dépasser un CTA appuyé par écran ou par support</li>
           <li>Ne jamais parler à la communauté comme à un fichier client</li>
         </ul>
       </div>
     </div>
 
-    <p class="note" style="margin-top:clamp(28px,4vw,44px)">Arbitrage final : toute création qui hésite entre deux options choisit la plus sobre. L'incandescence de Nova vient de la rareté de ses éclats, jamais de leur accumulation.</p>
+    <p class="note" style="margin-top:clamp(28px,4vw,44px)">Arbitrage final : toute création qui hésite entre deux options choisit la plus sobre. La force de Nova vient de la rareté de ses éclats, jamais de leur accumulation.</p>
   </div>
 </section>
 
@@ -1493,7 +1475,7 @@ td b{font-weight:700}
 <!-- ========================================================== PIED -->
 <footer class="foot">
   <div class="foot-in">
-    <svg class="foot-logo" viewBox="0 0 520 120" role="img" aria-label="Nova"><use href="#lg-word"/><use href="#lg-spark" x="171" y="41" width="38" height="38" style="fill:var(--flare)"/></svg>
+    <svg class="foot-logo" viewBox="0 0 520 120" role="img" aria-label="Nova"><use href="#lg-word"/><use href="#lg-spark" x="171" y="41" width="38" height="38" style="fill:var(--craie)"/></svg>
     <div class="foot-row">
       <span class="label">Nova, brand book</span>
       <span class="label">Édition 01, 2026</span>
