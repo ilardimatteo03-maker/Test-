@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nova · Maquettes produits</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0C53 38 62 47 100 50 62 53 53 62 50 100 47 62 38 53 0 50 38 47 47 38 50 0Z' fill='%23141519'/%3E%3C/svg%3E">
+<style>
+:root{
+  --craie:#F1F0EC; --blanc:#FAFAF9; --carbone:#141519;
+  --graphite:#44474E; --brume:#B9B7B0; --sable:#D9B4A7;
+  --hairline:rgba(20,21,25,.14);
+  --sans:'Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --wrap:1120px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--craie);color:var(--carbone);
+  line-height:1.6;-webkit-font-smoothing:antialiased;
+  font-variation-settings:'wght' 420,'wdth' 100;}
+::selection{background:var(--carbone);color:var(--craie)}
+p{max-width:62ch}
+strong{font-weight:680}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad)}
+.lede{font-family:var(--serif);font-style:italic;font-weight:500}
+
+/* top */
+.top{border-bottom:1px solid var(--hairline);background:var(--craie)}
+.top-in{max-width:var(--wrap);margin-inline:auto;padding:12px var(--pad);display:flex;align-items:center;justify-content:space-between;gap:16px}
+.top-logo{display:flex;align-items:center;gap:12px}
+.top-logo .spk{width:16px;height:16px;fill:var(--carbone)}
+.top-logo .wm{width:94px;aspect-ratio:520/120;fill:var(--carbone)}
+.top-right{font-size:12px;font-weight:640;letter-spacing:.16em;text-transform:uppercase;color:var(--graphite)}
+
+/* hero */
+.hero{background:var(--carbone);color:var(--craie)}
+.hero-in{max-width:var(--wrap);margin-inline:auto;padding:clamp(52px,9vw,110px) var(--pad)}
+.hero .kick{font-size:13px;font-weight:640;letter-spacing:.24em;text-transform:uppercase;color:var(--brume);display:flex;align-items:center;gap:12px}
+.hero .kick .spk{width:15px;height:15px;fill:var(--craie)}
+.hero h1{font-weight:800;font-stretch:122%;text-transform:uppercase;font-size:clamp(40px,9vw,104px);line-height:.92;letter-spacing:-.01em;margin-top:clamp(16px,3vw,28px)}
+.hero .sub{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(20px,3vw,32px);line-height:1.35;margin-top:clamp(18px,3vw,30px);max-width:32ch}
+.hero .note{margin-top:clamp(20px,3vw,32px);color:var(--brume);max-width:54ch;font-size:15px}
+
+/* intro band */
+.intro{border-bottom:1px solid var(--hairline)}
+.intro-in{max-width:var(--wrap);margin-inline:auto;padding-block:clamp(34px,5vw,60px);padding-inline:var(--pad)}
+.intro h2{font-size:12px;font-weight:720;letter-spacing:.2em;text-transform:uppercase;color:var(--graphite);margin-bottom:16px}
+.tones{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.tone{display:flex;align-items:center;gap:9px;border:1px solid var(--hairline);border-radius:999px;padding:6px 14px 6px 6px;font-size:13px;font-weight:600}
+.dot{width:20px;height:20px;border-radius:999px;border:1px solid var(--hairline)}
+
+/* product */
+.product{border-top:1px solid var(--hairline)}
+.product:first-of-type{border-top:0}
+.prod-in{max-width:var(--wrap);margin-inline:auto;padding-block:clamp(40px,6vw,84px);padding-inline:var(--pad)}
+.prod-head{display:flex;gap:14px;align-items:baseline;margin-bottom:8px}
+.prod-head .spk{width:18px;height:18px;fill:var(--carbone);flex:none;transform:translateY(2px)}
+.prod-t{font-weight:800;font-stretch:118%;text-transform:uppercase;font-size:clamp(24px,4vw,44px);line-height:1}
+.prod-sub{font-family:var(--serif);font-style:italic;font-size:clamp(18px,2.4vw,26px);color:var(--graphite);margin:2px 0 clamp(24px,3.4vw,40px) 32px}
+.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(24px,4vw,56px);align-items:start}
+.stage{border:1px solid var(--hairline);background:var(--blanc);border-radius:2px;padding:clamp(20px,3vw,36px)}
+.views{display:flex;gap:clamp(10px,2vw,22px);align-items:flex-end;justify-content:center;flex-wrap:wrap}
+.view{display:flex;flex-direction:column;align-items:center;gap:10px}
+.view svg{display:block}
+.view .vl{font-size:11px;font-weight:640;letter-spacing:.14em;text-transform:uppercase;color:var(--graphite)}
+.solo{display:flex;justify-content:center}
+
+.spec h3{font-size:12px;font-weight:720;letter-spacing:.16em;text-transform:uppercase;color:var(--graphite);margin:0 0 12px}
+.spec+.spec{margin-top:26px}
+.ways{display:flex;flex-direction:column;gap:10px}
+.way{display:flex;align-items:center;gap:12px}
+.sw{width:30px;height:30px;border-radius:6px;border:1px solid var(--hairline);flex:none}
+.way b{font-weight:700;font-size:14px}
+.way span{color:var(--graphite);font-size:13.5px}
+.blist{list-style:none;display:flex;flex-direction:column;gap:9px}
+.blist li{position:relative;padding-left:22px;font-size:14.5px;line-height:1.5}
+.blist li::before{content:"";position:absolute;left:2px;top:9px;width:8px;height:8px;background:var(--carbone);
+  clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%)}
+.callout{margin-top:14px;font-size:13px;color:var(--graphite);border-top:1px solid var(--hairline);padding-top:12px}
+
+/* closing */
+.close{background:var(--sable)}
+.close-in{max-width:var(--wrap);margin-inline:auto;padding:clamp(38px,6vw,76px) var(--pad)}
+.close h2{font-weight:800;font-stretch:118%;text-transform:uppercase;font-size:clamp(22px,3.6vw,40px);line-height:1.02}
+.close p{margin-top:16px;color:#5a4038;max-width:60ch}
+
+/* footer */
+.foot{background:var(--carbone);color:var(--craie)}
+.foot-in{max-width:var(--wrap);margin-inline:auto;padding:clamp(34px,5vw,60px) var(--pad)}
+.foot svg{width:min(100%,300px);aspect-ratio:520/120;fill:var(--craie)}
+.foot-row{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;margin-top:20px;border-top:1px solid rgba(241,240,236,.22);padding-top:16px}
+.foot-row span{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--brume)}
+
+@media (max-width:820px){ .grid{grid-template-columns:1fr} }
+@media print{
+  @page{ size:1280px 1810px; margin:0; }
+  *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+  .top{ display:none !important; }
+  .hero{ min-height:1810px; display:flex; align-items:center; break-after:page; }
+  .product{ break-before:page; }
+  .stage,.spec,.close{ break-inside:avoid; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOGO DEFS -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="lg-word" viewBox="0 0 520 120">
+      <path d="M0 10H20L80 86V10H100V110H80L20 34V110H0Z"/>
+      <path fill-rule="evenodd" d="M140 60a50 50 0 1 0 100 0 50 50 0 1 0-100 0Zm20 0a30 30 0 1 1 60 0 30 30 0 1 1-60 0Z"/>
+      <path d="M280 10h20l30 76 30-76h20l-40 100h-20Z"/>
+      <path d="M460 10h20l40 100h-20l-30-76-30 76h-20Z"/>
+    </symbol>
+    <symbol id="lg-spark" viewBox="0 0 100 100">
+      <path d="M50 0C53 38 62 47 100 50 62 53 53 62 50 100 47 62 38 53 0 50 38 47 47 38 50 0Z"/>
+    </symbol>
+    <symbol id="lg-stack" viewBox="0 0 520 250">
+      <use href="#lg-spark" x="232" y="0" width="56" height="56"/>
+      <use href="#lg-word" x="0" y="130" width="520" height="120"/>
+    </symbol>
+    <!-- flats socks -->
+    <symbol id="sock-body" viewBox="0 0 300 340">
+      <path d="M150 22H242V196C244 232 238 252 224 264 210 276 190 284 168 289L92 302C66 307 46 296 43 276 41 260 50 247 68 242L104 232C126 226 142 214 148 196Z"/>
+    </symbol>
+    <symbol id="sock-heel" viewBox="0 0 300 340">
+      <path d="M242 184V196C244 232 238 252 224 264 217 270 208 275 198 279L182 252C204 242 222 226 230 202Z"/>
+    </symbol>
+    <symbol id="sock-toe" viewBox="0 0 300 340">
+      <path d="M104 232 92 302C66 307 46 296 43 276 41 260 50 247 68 242Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- TOP -->
+<header class="top">
+  <div class="top-in">
+    <div class="top-logo">
+      <svg class="spk" viewBox="0 0 100 100" aria-hidden="true"><use href="#lg-spark"/></svg>
+      <svg class="wm" viewBox="0 0 520 120" role="img" aria-label="Nova"><use href="#lg-word"/></svg>
+    </div>
+    <span class="top-right">Maquettes produits</span>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-in">
+    <p class="kick"><svg class="spk" viewBox="0 0 100 100" aria-hidden="true"><use href="#lg-spark"/></svg>Nova · Design produits</p>
+    <h1>Maquettes<br>produits</h1>
+    <p class="sub">Casquette, gourde, chaussettes. Le design, rien que le design.</p>
+    <p class="note">Trois produits, dessinés dans la direction Nova à jour. Ce document montre le style, les coloris et l'emplacement du logo. Il n'y a ni cote, ni quantité : vous proposez la maquette, on valide ensemble sur un échantillon.</p>
+  </div>
+</section>
+
+<!-- INTRO / DIRECTION -->
+<section class="intro">
+  <div class="intro-in">
+    <h2>La direction en bref</h2>
+    <p><strong>Monochrome et mat.</strong> Tout se joue en Carbone, Craie et gris, avec le Sable comme seule chaleur. Aucune couleur vive, aucun brillant. Un seul geste de marque par produit : l'étoile ou le mot Nova, posé avec retenue.</p>
+    <div class="tones">
+      <span class="tone"><span class="dot" style="background:#141519"></span>Carbone</span>
+      <span class="tone"><span class="dot" style="background:#F1F0EC"></span>Craie</span>
+      <span class="tone"><span class="dot" style="background:#44474E"></span>Graphite</span>
+      <span class="tone"><span class="dot" style="background:#B9B7B0"></span>Brume</span>
+      <span class="tone"><span class="dot" style="background:#D9B4A7"></span>Sable</span>
+    </div>
+  </div>
+</section>
+
+<!-- =============== PRODUIT 1 : CASQUETTE =============== -->
+<section class="product">
+  <div class="prod-in">
+    <div class="prod-head"><svg class="spk" viewBox="0 0 100 100" aria-hidden="true"><use href="#lg-spark"/></svg><h2 class="prod-t">La casquette</h2></div>
+    <p class="prod-sub">Six panneaux, visière pré-courbée, un seul geste : l'étoile.</p>
+    <div class="grid">
+      <div class="stage">
+        <div class="views">
+          <!-- PROFIL -->
+          <div class="view">
+            <svg viewBox="0 0 300 200" width="180" height="120" role="img" aria-label="Casquette, profil">
+              <path d="M108 152 C104 100 130 52 172 52 C226 52 260 96 256 156 L108 152 Z" fill="#141519"/>
+              <path d="M112 148 C74 146 40 154 28 166 C24 170 30 176 38 174 C72 168 100 158 114 154 Z" fill="#141519"/>
+              <circle cx="172" cy="50" r="5" fill="#141519"/>
+              <g fill="none" stroke="rgba(241,240,236,.32)" stroke-width="1.6">
+                <path d="M172 55 C150 82 132 112 122 150"/>
+                <path d="M172 55 C198 82 222 112 242 152"/>
+              </g>
+              <use href="#lg-spark" x="128" y="86" width="26" height="26" style="fill:#F1F0EC"/>
+            </svg>
+            <span class="vl">Profil</span>
+          </div>
+          <!-- FACE -->
+          <div class="view">
+            <svg viewBox="0 0 240 200" width="132" height="110" role="img" aria-label="Casquette, face">
+              <path d="M46 132 L46 118 C46 68 92 46 120 46 C148 46 194 68 194 118 L194 132 Z" fill="#141519"/>
+              <path d="M60 132 C62 168 90 186 120 186 C150 186 178 168 180 132 Z" fill="#141519"/>
+              <circle cx="120" cy="46" r="5" fill="#141519"/>
+              <g fill="none" stroke="rgba(241,240,236,.32)" stroke-width="1.6">
+                <path d="M120 47 L120 132"/>
+                <path d="M120 47 C98 55 80 84 74 132"/>
+                <path d="M120 47 C142 55 160 84 166 132"/>
+              </g>
+              <use href="#lg-spark" x="104" y="74" width="32" height="32" style="fill:#F1F0EC"/>
+            </svg>
+            <span class="vl">Face</span>
+          </div>
+          <!-- DOS -->
+          <div class="view">
+            <svg viewBox="0 0 240 200" width="132" height="110" role="img" aria-label="Casquette, dos">
+              <path d="M46 132 L46 118 C46 68 92 46 120 46 C148 46 194 68 194 118 L194 132 Z" fill="#141519"/>
+              <g fill="none" stroke="rgba(241,240,236,.32)" stroke-width="1.6">
+                <path d="M46 132 L90 132"/>
+                <path d="M150 132 L194 132"/>
+                <path d="M120 47 L120 116"/>
+              </g>
+              <rect x="90" y="120" width="60" height="18" rx="3" fill="#141519" stroke="rgba(241,240,236,.32)" stroke-width="1.4"/>
+              <rect x="132" y="123" width="12" height="12" rx="2" fill="none" stroke="rgba(241,240,236,.4)" stroke-width="1.4"/>
+              <use href="#lg-word" x="92" y="100" width="56" height="12.9" style="fill:#F1F0EC"/>
+              <circle cx="120" cy="46" r="5" fill="#141519"/>
+            </svg>
+            <span class="vl">Dos</span>
+          </div>
+        </div>
+        <p class="callout">Coloris principal Carbone, logo Craie. Vue de face, de profil et de dos.</p>
+      </div>
+
+      <div>
+        <div class="spec">
+          <h3>Coloris</h3>
+          <div class="ways">
+            <div class="way"><span class="sw" style="background:#141519"></span><b>Carbone</b><span>logo Craie</span></div>
+            <div class="way"><span class="sw" style="background:#F1F0EC"></span><b>Craie</b><span>logo Carbone</span></div>
+            <div class="way"><span class="sw" style="background:#D9B4A7"></span><b>Sable</b><span>logo Carbone</span></div>
+          </div>
+        </div>
+        <div class="spec">
+          <h3>Le logo</h3>
+          <ul class="blist">
+            <li>Étoile brodée au centre du panneau avant, à cheval sur la couture</li>
+            <li>Mot Nova brodé au dos, au-dessus de la bride réglable</li>
+            <li>Aucun marquage sur les côtés</li>
+          </ul>
+        </div>
+        <div class="spec">
+          <h3>Finition</h3>
+          <ul class="blist">
+            <li>Broderie plate, mate, ton sur ton ou contrastée selon le coloris</li>
+            <li>Boucle métal mat, jamais brillante</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== PRODUIT 2 : GOURDE =============== -->
+<section class="product">
+  <div class="prod-in">
+    <div class="prod-head"><svg class="spk" viewBox="0 0 100 100" aria-hidden="true"><use href="#lg-spark"/></svg><h2 class="prod-t">La gourde</h2></div>
+    <p class="prod-sub">Isotherme, bouchon paille et anse de transport.</p>
+    <div class="grid">
+      <div class="stage">
+        <div class="solo">
+          <svg viewBox="0 0 200 490" width="150" height="368" role="img" aria-label="Gourde, face, coloris Sable">
+            <!-- corps -->
+            <path d="M60 172 C60 158 70 150 84 150 L116 150 C130 150 140 158 140 172 L140 430 C140 448 129 458 112 458 L88 458 C71 458 60 448 60 430 Z" fill="#D9B4A7"/>
+            <!-- épaule / collet -->
+            <path d="M82 138 L118 138 L116 152 L84 152 Z" fill="#D9B4A7"/>
+            <!-- base bouchon -->
+            <rect x="76" y="110" width="48" height="30" rx="10" fill="#141519"/>
+            <!-- bouton -->
+            <circle cx="90" cy="124" r="5" fill="#F1F0EC"/>
+            <!-- paille -->
+            <path d="M107 112 L107 82 C107 73 115 69 124 73" fill="none" stroke="#141519" stroke-width="6" stroke-linecap="round"/>
+            <!-- anse -->
+            <path d="M78 124 C50 122 48 152 76 152" fill="none" stroke="#141519" stroke-width="7" stroke-linecap="round"/>
+            <!-- logo vertical -->
+            <use href="#lg-stack" x="72" y="260" width="56" height="26.9" style="fill:#141519"/>
+          </svg>
+        </div>
+        <p class="callout">Coloris principal Sable, bouchon Carbone, logo vertical Carbone centré.</p>
+      </div>
+
+      <div>
+        <div class="spec">
+          <h3>Coloris</h3>
+          <div class="ways">
+            <div class="way"><span class="sw" style="background:#D9B4A7"></span><b>Sable</b><span>bouchon et logo Carbone</span></div>
+            <div class="way"><span class="sw" style="background:#141519"></span><b>Carbone</b><span>bouchon Carbone, logo Craie</span></div>
+            <div class="way"><span class="sw" style="background:#F1F0EC"></span><b>Craie</b><span>bouchon et logo Carbone</span></div>
+          </div>
+        </div>
+        <div class="spec">
+          <h3>Le logo</h3>
+          <ul class="blist">
+            <li>Étoile au-dessus du mot Nova, vertical, centré sur le corps</li>
+            <li>Un seul marquage, à hauteur des yeux quand on tient la gourde</li>
+          </ul>
+        </div>
+        <div class="spec">
+          <h3>Finition</h3>
+          <ul class="blist">
+            <li>Revêtement poudré mat, toucher doux, jamais brillant</li>
+            <li>Bouchon paille avec bec rabattable et anse de transport</li>
+            <li>Logo gravé ou imprimé une couleur, ton mat</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== PRODUIT 3 : CHAUSSETTES =============== -->
+<section class="product">
+  <div class="prod-in">
+    <div class="prod-head"><svg class="spk" viewBox="0 0 100 100" aria-hidden="true"><use href="#lg-spark"/></svg><h2 class="prod-t">Les chaussettes</h2></div>
+    <p class="prod-sub">Tige mi-haute, logo et étoile tricotés, jamais imprimés.</p>
+    <div class="grid">
+      <div class="stage">
+        <div class="solo">
+          <svg viewBox="0 0 300 320" width="230" height="245" role="img" aria-label="Chaussette, profil, coloris Craie">
+            <use href="#sock-body" fill="#F1F0EC" stroke="#141519" stroke-width="2.5"/>
+            <use href="#sock-heel" fill="#D9B4A7" stroke="#141519" stroke-width="2"/>
+            <use href="#sock-toe" fill="#D9B4A7" stroke="#141519" stroke-width="2"/>
+            <!-- liserés bord-côte -->
+            <g fill="none" stroke="#141519" stroke-width="2.4">
+              <path d="M150 44 L242 44"/>
+              <path d="M150 56 L242 56"/>
+            </g>
+            <!-- NOVA tricoté sur la tige -->
+            <use href="#lg-word" x="164" y="74" width="64" height="14.8" style="fill:#141519"/>
+            <!-- étincelle arrière, au-dessus du talon -->
+            <use href="#lg-spark" x="206" y="150" width="18" height="18" style="fill:#141519"/>
+          </svg>
+        </div>
+        <p class="callout">Coloris principal Craie, talon et pointe Sable, logo et étoile Carbone.</p>
+      </div>
+
+      <div>
+        <div class="spec">
+          <h3>Coloris</h3>
+          <div class="ways">
+            <div class="way"><span class="sw" style="background:#F1F0EC"></span><b>Craie</b><span>talon et pointe Sable</span></div>
+            <div class="way"><span class="sw" style="background:#141519"></span><b>Carbone</b><span>talon et pointe Craie</span></div>
+            <div class="way"><span class="sw" style="background:#D9B4A7"></span><b>Sable</b><span>talon et pointe Craie</span></div>
+          </div>
+        </div>
+        <div class="spec">
+          <h3>Le logo</h3>
+          <ul class="blist">
+            <li>Mot Nova tricoté sur la tige, sous le bord-côte</li>
+            <li>Étoile tricotée à l'arrière, au-dessus du talon</li>
+            <li>Deux fins liserés en haut de la tige</li>
+          </ul>
+        </div>
+        <div class="spec">
+          <h3>Finition</h3>
+          <ul class="blist">
+            <li>Motifs tricotés en jacquard, jamais imprimés</li>
+            <li>Talon et pointe renforcés, matière douce et mate</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="close">
+  <div class="close-in">
+    <h2>À vous de dessiner</h2>
+    <p>Vous avez la direction et l'emplacement du logo pour les trois produits. Proposez-nous une maquette dans cet esprit ; on ajuste ensemble sur un premier échantillon. Les mesures et les références couleur physiques arrivent à la validation, pas avant.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="foot-in">
+    <svg viewBox="0 0 520 120" role="img" aria-label="Nova"><use href="#lg-word"/></svg>
+    <div class="foot-row">
+      <span>Nova · Maquettes produits</span>
+      <span>hello@wearnova.com</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
