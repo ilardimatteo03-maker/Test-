@@ -134,6 +134,15 @@ strong{font-weight:680}
     <symbol id="sock-toe" viewBox="0 0 300 340">
       <path d="M104 232 92 302C66 307 46 296 43 276 41 260 50 247 68 242Z"/>
     </symbol>
+    <!-- gourde Capsule : corps + couvercle paille -->
+    <symbol id="cap-body" viewBox="0 0 240 420">
+      <path d="M50 152C50 134 60 124 78 120L162 120C180 124 190 134 190 152V380C190 393 182 400 168 400H72C58 400 50 393 50 380Z"/>
+    </symbol>
+    <symbol id="cap-lid" viewBox="0 0 240 420">
+      <rect x="64" y="92" width="112" height="30" rx="8"/>
+      <rect x="72" y="66" width="96" height="28" rx="9"/>
+      <rect x="94" y="44" width="30" height="24" rx="7"/>
+    </symbol>
   </defs>
 </svg>
 
@@ -263,52 +272,50 @@ strong{font-weight:680}
 <section class="product">
   <div class="prod-in">
     <div class="prod-head"><svg class="spk" viewBox="0 0 100 100" aria-hidden="true"><use href="#lg-spark"/></svg><h2 class="prod-t">La gourde</h2></div>
-    <p class="prod-sub">Isotherme, bouchon paille et anse de transport.</p>
+    <p class="prod-sub">Inox double paroi, couvercle paille et poignée de transport.</p>
     <div class="grid">
       <div class="stage">
         <div class="solo">
-          <svg viewBox="0 0 200 490" width="150" height="368" role="img" aria-label="Gourde, face, coloris Sable">
+          <svg viewBox="0 0 240 420" width="152" height="266" role="img" aria-label="Gourde, face, coloris Sable">
+            <!-- poignée de transport -->
+            <path d="M88 88C72 38 168 38 152 88" fill="none" stroke="#D9B4A7" stroke-width="10" stroke-linecap="round"/>
+            <path d="M88 88C72 38 168 38 152 88" fill="none" stroke="#141519" stroke-width="1.5"/>
+            <!-- couvercle paille -->
+            <use href="#cap-lid" style="fill:#D9B4A7;stroke:#141519;stroke-width:2"/>
+            <circle cx="88" cy="88" r="6" fill="#B9B7B0" stroke="#141519" stroke-width="1.5"/>
+            <circle cx="152" cy="88" r="6" fill="#B9B7B0" stroke="#141519" stroke-width="1.5"/>
             <!-- corps -->
-            <path d="M60 172 C60 158 70 150 84 150 L116 150 C130 150 140 158 140 172 L140 430 C140 448 129 458 112 458 L88 458 C71 458 60 448 60 430 Z" fill="#D9B4A7"/>
-            <!-- épaule / collet -->
-            <path d="M82 138 L118 138 L116 152 L84 152 Z" fill="#D9B4A7"/>
-            <!-- base bouchon -->
-            <rect x="76" y="110" width="48" height="30" rx="10" fill="#141519"/>
-            <!-- bouton -->
-            <circle cx="90" cy="124" r="5" fill="#F1F0EC"/>
-            <!-- paille -->
-            <path d="M107 112 L107 82 C107 73 115 69 124 73" fill="none" stroke="#141519" stroke-width="6" stroke-linecap="round"/>
-            <!-- anse -->
-            <path d="M78 124 C50 122 48 152 76 152" fill="none" stroke="#141519" stroke-width="7" stroke-linecap="round"/>
-            <!-- logo vertical -->
-            <use href="#lg-stack" x="72" y="260" width="56" height="26.9" style="fill:#141519"/>
+            <use href="#cap-body" style="fill:#D9B4A7;stroke:#141519;stroke-width:2.5"/>
+            <!-- wordmark horizontal -->
+            <use href="#lg-word" x="82" y="242" width="76" height="17.5" style="fill:#141519"/>
           </svg>
         </div>
-        <p class="callout">Coloris principal Sable, bouchon Carbone, logo vertical Carbone centré.</p>
+        <p class="callout">Coloris principal Sable, couvercle et poignée Sable, wordmark Carbone.</p>
       </div>
 
       <div>
         <div class="spec">
           <h3>Coloris</h3>
           <div class="ways">
-            <div class="way"><span class="sw" style="background:#D9B4A7"></span><b>Sable</b><span>bouchon et logo Carbone</span></div>
-            <div class="way"><span class="sw" style="background:#141519"></span><b>Carbone</b><span>bouchon Carbone, logo Craie</span></div>
-            <div class="way"><span class="sw" style="background:#F1F0EC"></span><b>Craie</b><span>bouchon et logo Carbone</span></div>
+            <div class="way"><span class="sw" style="background:#D9B4A7"></span><b>Sable</b><span>couvercle et poignée Sable, wordmark Carbone</span></div>
+            <div class="way"><span class="sw" style="background:#141519"></span><b>Carbone</b><span>couvercle et poignée Carbone, wordmark Craie</span></div>
+            <div class="way"><span class="sw" style="background:#F1F0EC"></span><b>Craie</b><span>couvercle et poignée Craie, wordmark Carbone</span></div>
           </div>
         </div>
         <div class="spec">
           <h3>Le logo</h3>
           <ul class="blist">
-            <li>Étoile au-dessus du mot Nova, vertical, centré sur le corps</li>
-            <li>Un seul marquage, à hauteur des yeux quand on tient la gourde</li>
+            <li>Mot Nova à l'horizontale, centré sur le corps</li>
+            <li>Étoile centrée au dos, sur la face arrière</li>
+            <li>Jamais de logo vertical ni incliné</li>
           </ul>
         </div>
         <div class="spec">
           <h3>Finition</h3>
           <ul class="blist">
             <li>Revêtement poudré mat, toucher doux, jamais brillant</li>
-            <li>Bouchon paille avec bec rabattable et anse de transport</li>
-            <li>Logo gravé ou imprimé une couleur, ton mat</li>
+            <li>Couvercle paille repliable et poignée de transport</li>
+            <li>Wordmark sérigraphié une couleur, ton mat</li>
           </ul>
         </div>
       </div>
@@ -324,10 +331,8 @@ strong{font-weight:680}
     <div class="grid">
       <div class="stage">
         <div class="solo">
-          <svg viewBox="0 0 300 320" width="230" height="245" role="img" aria-label="Chaussette, profil, coloris Craie">
+          <svg viewBox="0 0 300 320" width="230" height="245" role="img" aria-label="Chaussette, profil, coloris Craie uni">
             <use href="#sock-body" fill="#F1F0EC" stroke="#141519" stroke-width="2.5"/>
-            <use href="#sock-heel" fill="#D9B4A7" stroke="#141519" stroke-width="2"/>
-            <use href="#sock-toe" fill="#D9B4A7" stroke="#141519" stroke-width="2"/>
             <!-- liserés bord-côte -->
             <g fill="none" stroke="#141519" stroke-width="2.4">
               <path d="M150 44 L242 44"/>
@@ -339,16 +344,14 @@ strong{font-weight:680}
             <use href="#lg-spark" x="206" y="150" width="18" height="18" style="fill:#141519"/>
           </svg>
         </div>
-        <p class="callout">Coloris principal Craie, talon et pointe Sable, logo et étoile Carbone.</p>
+        <p class="callout">Coloris Craie uni, logo et étoile Carbone.</p>
       </div>
 
       <div>
         <div class="spec">
           <h3>Coloris</h3>
           <div class="ways">
-            <div class="way"><span class="sw" style="background:#F1F0EC"></span><b>Craie</b><span>talon et pointe Sable</span></div>
-            <div class="way"><span class="sw" style="background:#141519"></span><b>Carbone</b><span>talon et pointe Craie</span></div>
-            <div class="way"><span class="sw" style="background:#D9B4A7"></span><b>Sable</b><span>talon et pointe Craie</span></div>
+            <div class="way"><span class="sw" style="background:#F1F0EC"></span><b>Craie</b><span>uni, logo et étoile Carbone</span></div>
           </div>
         </div>
         <div class="spec">
@@ -363,7 +366,7 @@ strong{font-weight:680}
           <h3>Finition</h3>
           <ul class="blist">
             <li>Motifs tricotés en jacquard, jamais imprimés</li>
-            <li>Talon et pointe renforcés, matière douce et mate</li>
+            <li>Talon et pointe renforcés, tricotés ton sur ton</li>
           </ul>
         </div>
       </div>
