@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nova · Section NOVACORE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Cormorant+Garamond:ital,wght@0,500&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--carbone:#141519;--craie:#F1F0EC;--brume:#B9B7B0;--sable:#D9B4A7;--sans:'Archivo',Helvetica,Arial,sans-serif;--serif:'Cormorant Garamond',Georgia,serif}
+  body{font-family:var(--sans);background:#0d0e11}
+
+  /* ---- SECTION NOVACORE (à coller dans le site) ---- */
+  .nc{background:var(--carbone);color:var(--craie);padding:clamp(48px,9vw,84px) clamp(22px,6vw,64px);text-align:center}
+  .nc-in{max-width:900px;margin-inline:auto}
+  .nc-kick{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--brume)}
+  .nc-kick svg{width:13px;height:13px;fill:var(--sable)}
+  .nc h2{font-weight:800;font-stretch:112%;text-transform:uppercase;font-size:clamp(28px,7vw,44px);letter-spacing:.01em;margin-top:16px;line-height:1.05}
+  .nc h2 b{font-weight:800}
+  .nc .lead{font-family:var(--serif);font-style:italic;font-size:clamp(18px,4.6vw,24px);color:var(--craie);margin-top:14px}
+
+  .nc-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,7vw,46px) clamp(20px,6vw,40px);
+           margin-top:clamp(40px,8vw,60px);max-width:640px;margin-inline:auto}
+  .pil{display:flex;flex-direction:column;align-items:center;gap:12px}
+  .pil .ic{width:44px;height:44px}
+  .pil .ic svg{width:44px;height:44px;fill:none;stroke:var(--craie);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .pil .nm{font-weight:800;font-stretch:108%;text-transform:uppercase;letter-spacing:.05em;font-size:14px}
+  .pil .ds{font-size:13px;color:var(--brume);letter-spacing:.01em}
+
+  .nc-cta{display:inline-flex;align-items:center;gap:12px;margin-top:clamp(40px,8vw,58px);
+          border:1px solid rgba(241,240,236,.5);color:var(--craie);border-radius:999px;
+          padding:16px 30px;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+          text-decoration:none;transition:.2s}
+  .nc-cta:hover{background:var(--craie);color:var(--carbone);border-color:var(--craie)}
+  .nc-cta svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.7}
+</style>
+</head>
+<body>
+
+<!-- ================= SECTION À COLLER ================= -->
+<section class="nc">
+  <div class="nc-in">
+    <span class="nc-kick"><svg viewBox="0 0 100 100"><path d="M50 0C53 38 62 47 100 50 62 53 53 62 50 100 47 62 38 53 0 50 38 47 47 38 50 0Z"/></svg>Technologie</span>
+    <h2>NOVA<b>CORE</b>™</h2>
+    <p class="lead">La seconde peau qui te tient à froid.</p>
+
+    <div class="nc-grid">
+      <!-- MATTE-SKIN -->
+      <div class="pil">
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3.2 3.4 8 12 12.8 20.6 8Z"/><path d="M3.4 12 12 16.8 20.6 12"/><path d="M3.4 16 12 20.8 20.6 16"/></svg></span>
+        <span class="nm">Matte-Skin™</span>
+        <span class="ds">Mat &amp; opaque</span>
+      </div>
+      <!-- DRYLUME -->
+      <div class="pil">
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3.5c4.2 5 5.6 7.6 5.6 10a5.6 5.6 0 0 1-11.2 0c0-2.4 1.4-5 5.6-10Z"/><path d="M9.6 13.2a2.6 2.6 0 0 0 2.4 3"/></svg></span>
+        <span class="nm">Drylume™</span>
+        <span class="ds">Toujours au sec</span>
+      </div>
+      <!-- HOLD-MEMORY -->
+      <div class="pil">
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M19.5 12a7.5 7.5 0 1 1-2.3-5.4"/><path d="M18.4 3.6l.4 3.4-3.4.4"/></svg></span>
+        <span class="nm">Hold-Memory™</span>
+        <span class="ds">Tient dans le temps</span>
+      </div>
+      <!-- FLEX-4 -->
+      <div class="pil">
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/><path d="M12 3l-2.4 2.6M12 3l2.4 2.6M12 21l-2.4-2.6M12 21l2.4-2.6M3 12l2.6-2.4M3 12l2.6 2.4M21 12l-2.6-2.4M21 12l-2.6 2.4"/></svg></span>
+        <span class="nm">Flex-4™</span>
+        <span class="ds">Liberté 4 sens</span>
+      </div>
+    </div>
+
+    <a class="nc-cta" href="#">Découvrir la démarche <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+  </div>
+</section>
+
+</body>
+</html>
