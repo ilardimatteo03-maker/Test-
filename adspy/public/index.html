@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ADSPY — Spy de publicités Meta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%238B5CF6'/><text x='16' y='23' text-anchor='middle' font-family='sans-serif' font-weight='800' font-size='17' fill='white'>A</text></svg>" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Barre haute + onglets forment un seul bloc collant :
+       leur hauteur est mesurée par app.js, jamais codée en dur. -->
+  <div class="stickybar" id="stickybar">
+
+  <!-- ==============================
+       BARRE HAUTE — collecte
+       ============================== -->
+  <header class="topbar">
+    <div class="topbar-inner">
+
+      <div class="brand">
+        <span class="brand-mark">A</span>
+        <span class="brand-name">ads<span class="brand-accent">py</span></span>
+      </div>
+
+      <form class="search" id="searchForm">
+        <div class="search-field">
+          <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Nom d'une marque : Gymshark, Alo Yoga, Oh My Cream…"
+            autocomplete="off"
+            aria-label="Marque à espionner"
+          />
+        </div>
+
+        <select id="countrySelect" aria-label="Pays de diffusion" title="Pays de diffusion">
+          <option value="BE">Belgique</option>
+          <option value="FR">France</option>
+          <option value="LU">Luxembourg</option>
+          <option value="CH">Suisse</option>
+          <option value="CA">Canada</option>
+          <option value="US">États-Unis</option>
+          <option value="GB">Royaume-Uni</option>
+          <option value="DE">Allemagne</option>
+          <option value="NL">Pays-Bas</option>
+          <option value="ES">Espagne</option>
+          <option value="IT">Italie</option>
+          <option value="ALL">Tous les pays</option>
+        </select>
+
+        <select id="statusSelect" aria-label="Statut des pubs" title="Statut des pubs">
+          <option value="active">Pubs actives</option>
+          <option value="all">Actives + terminées</option>
+          <option value="inactive">Terminées</option>
+        </select>
+
+        <button type="submit" class="btn btn-purple" id="searchBtn">
+          Espionner
+        </button>
+      </form>
+
+      <div class="topbar-actions">
+        <button class="btn btn-ghost" id="browserModeBtn" title="Quand Meta bloque la collecte automatique">
+          Mode navigateur
+        </button>
+        <button class="btn btn-ghost" id="importBtn" title="Importer un HAR ou du JSON">
+          Importer
+        </button>
+      </div>
+    </div>
+
+    <!-- Bandeau de statut de collecte -->
+    <div class="run-status" id="runStatus" hidden></div>
+  </header>
+
+  <!-- ==============================
+       ONGLETS
+       ============================== -->
+  <nav class="tabs" aria-label="Sections">
+    <button class="tab is-active" data-view="library">
+      Bibliothèque <span class="tab-count" id="countAds">0</span>
+    </button>
+    <button class="tab" data-view="compare">
+      Comparateur <span class="tab-count" id="countBrands">0</span>
+    </button>
+    <button class="tab" data-view="prospect">
+      Prospection
+    </button>
+    <button class="tab" data-view="help">
+      Aide
+    </button>
+  </nav>
+
+  </div><!-- /.stickybar -->
+
+  <main class="layout">
+
+    <!-- ==============================
+         VUE — BIBLIOTHÈQUE
+         ============================== -->
+    <section class="view is-active" id="view-library">
+
+      <aside class="filters" id="filters">
+        <div class="filter-block">
+          <label class="filter-label" for="filterBrand">Marque</label>
+          <select id="filterBrand"><option value="">Toutes les marques</option></select>
+        </div>
+
+        <div class="filter-block">
+          <label class="filter-label" for="filterSearch">Chercher dans les textes</label>
+          <input type="text" id="filterSearch" placeholder="ex : livraison offerte" />
+        </div>
+
+        <div class="filter-block">
+          <label class="filter-label" for="filterSort">Trier par</label>
+          <select id="filterSort">
+            <option value="score">Score winner</option>
+            <option value="longevity">Ancienneté (jours)</option>
+            <option value="recent">Lancées récemment</option>
+            <option value="variations">Nombre de duplications</option>
+            <option value="reach">Portée estimée</option>
+            <option value="brand">Marque (A→Z)</option>
+          </select>
+        </div>
+
+        <div class="filter-block">
+          <span class="filter-label">Statut</span>
+          <div class="chips" id="filterStatus" role="group">
+            <button class="chip is-active" data-value="all">Toutes</button>
+            <button class="chip" data-value="active">Actives</button>
+            <button class="chip" data-value="inactive">Terminées</button>
+          </div>
+        </div>
+
+        <div class="filter-block">
+          <span class="filter-label">Format</span>
+          <div class="chips" id="filterFormat" role="group">
+            <button class="chip is-active" data-value="all">Tous</button>
+            <button class="chip" data-value="video">Vidéo</button>
+            <button class="chip" data-value="image">Image</button>
+            <button class="chip" data-value="carrousel">Carrousel</button>
+          </div>
+        </div>
+
+        <div class="filter-block">
+          <span class="filter-label">Plateforme</span>
+          <div class="chips" id="filterPlatform" role="group">
+            <button class="chip is-active" data-value="all">Toutes</button>
+            <button class="chip" data-value="FACEBOOK">Facebook</button>
+            <button class="chip" data-value="INSTAGRAM">Instagram</button>
+          </div>
+        </div>
+
+        <div class="filter-block">
+          <label class="filter-label" for="filterMinDays">
+            Diffusée depuis au moins <strong id="minDaysValue">0</strong> jour(s)
+          </label>
+          <input type="range" id="filterMinDays" min="0" max="120" step="5" value="0" />
+          <p class="filter-hint">Au-delà de 30 jours, une créa est presque toujours rentable.</p>
+        </div>
+
+        <div class="filter-block">
+          <label class="switch">
+            <input type="checkbox" id="filterStarred" />
+            <span>Favoris uniquement</span>
+          </label>
+        </div>
+
+        <div class="filter-actions">
+          <a class="btn btn-ghost btn-sm" id="exportAdsBtn" href="#">Exporter en CSV</a>
+          <button class="btn btn-ghost btn-sm" id="resetFiltersBtn">Réinitialiser</button>
+        </div>
+      </aside>
+
+      <div class="results">
+        <div class="results-head">
+          <p class="results-count" id="resultsCount">Aucune annonce pour l'instant</p>
+          <div class="legend" title="Comment le score est calculé">
+            Score winner
+            <span class="legend-dot legend-hot"></span> 70+
+            <span class="legend-dot legend-warm"></span> 40–69
+            <span class="legend-dot legend-cold"></span> &lt; 40
+          </div>
+        </div>
+
+        <div class="grid" id="adsGrid"></div>
+
+        <div class="empty" id="emptyState">
+          <h2>Aucune pub dans ta bibliothèque</h2>
+          <p>
+            Tape le nom d'une marque en haut (Gymshark, Alo Yoga, une boutique concurrente…)
+            et lance la collecte. Les annonces récupérées restent stockées ici,
+            même quand la marque les retire de l'Ad Library.
+          </p>
+          <p class="empty-alt">
+            Si la collecte automatique est bloquée par Meta, passe par
+            <button class="linklike" id="emptyBrowserMode">le mode navigateur</button> —
+            il fonctionne dans tous les cas.
+          </p>
+        </div>
+
+        <button class="btn btn-ghost load-more" id="loadMoreBtn" hidden>Afficher plus</button>
+      </div>
+    </section>
+
+    <!-- ==============================
+         VUE — COMPARATEUR
+         ============================== -->
+    <section class="view" id="view-compare">
+      <div class="compare-head">
+        <div>
+          <h2 class="view-title">Comparateur de marques</h2>
+          <p class="view-sub">
+            Sélectionne 2 à 5 marques pour confronter leur stratégie publicitaire :
+            volume, ancienneté des créas, formats, rythme de lancement.
+          </p>
+        </div>
+        <div class="compare-picker" id="comparePicker"></div>
+      </div>
+      <div class="compare-grid" id="compareGrid"></div>
+    </section>
+
+    <!-- ==============================
+         VUE — PROSPECTION
+         ============================== -->
+    <section class="view" id="view-prospect">
+      <div class="compare-head">
+        <div>
+          <h2 class="view-title">Prospection</h2>
+          <p class="view-sub">
+            Tous les annonceurs croisés pendant tes recherches. Ceux qui dépensent
+            déjà en publicité sont les meilleurs prospects pour une agence.
+          </p>
+        </div>
+        <a class="btn btn-purple" id="exportLeadsBtn" href="/api/export/leads.csv">Exporter les prospects</a>
+      </div>
+
+      <div class="table-wrap">
+        <table class="table" id="prospectTable">
+          <thead>
+            <tr>
+              <th>Annonceur</th>
+              <th class="num">Pubs actives</th>
+              <th class="num">Total vues</th>
+              <th class="num">Ancienneté médiane</th>
+              <th>Dernière pub</th>
+              <th>Site</th>
+              <th>Notes</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="prospectBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ==============================
+         VUE — AIDE
+         ============================== -->
+    <section class="view" id="view-help">
+      <div class="help">
+        <h2 class="view-title">Comment ça marche</h2>
+
+        <div class="help-card">
+          <h3>D'où viennent les données</h3>
+          <p>
+            De l'<strong>Ad Library de Meta</strong> — le registre public que Meta est
+            légalement tenu de publier. Toute publicité diffusée sur Facebook et Instagram
+            y figure, consultable par n'importe qui, sans compte. ADSPY interroge cette
+            source publique et garde une copie locale, ce que le site de Meta ne fait pas.
+          </p>
+        </div>
+
+        <div class="help-card">
+          <h3>Ce que Meta publie… et ce qu'il ne publie pas</h3>
+          <p>
+            Disponible : le visuel, la vidéo, le texte, le titre, le bouton d'action,
+            l'URL de destination, la date de lancement, les plateformes de diffusion et
+            le nombre de copies d'une même créa. Dans l'Union européenne, s'y ajoute la
+            portée déclarée (transparence DSA).
+          </p>
+          <p>
+            <strong>Jamais publié</strong> pour une pub commerciale : le budget, le coût
+            par achat, le ROAS. Aucun outil du marché n'y a accès — quand un outil affiche
+            un « chiffre d'affaires estimé », c'est une extrapolation, pas une donnée.
+            ADSPY préfère afficher des signaux vérifiables.
+          </p>
+        </div>
+
+        <div class="help-card">
+          <h3>Le score winner</h3>
+          <p>Note sur 100 calculée à partir des signaux réellement publiés :</p>
+          <ul>
+            <li><strong>Longévité — 45 points.</strong> Le signal le plus fiable : personne ne paie deux mois pour une créa qui ne convertit pas.</li>
+            <li><strong>Duplications — 25 points.</strong> Le nombre de copies de la même pub diffusées en parallèle : on duplique ce qu'on scale.</li>
+            <li><strong>Toujours active — 15 points.</strong></li>
+            <li><strong>Portée déclarée — 15 points.</strong> Bonus quand l'UE l'impose.</li>
+          </ul>
+        </div>
+
+        <div class="help-card">
+          <h3>Si la collecte automatique échoue</h3>
+          <p>
+            Meta durcit régulièrement ses défenses contre les appels automatisés. Le
+            <strong>mode navigateur</strong> contourne le problème sans rien forcer : tu
+            ouvres l'Ad Library normalement dans ton navigateur, et un petit script
+            recopie vers ADSPY les données que la page a déjà chargées. Tu peux aussi
+            importer un fichier HAR exporté depuis les outils de développement.
+          </p>
+        </div>
+
+        <div class="help-card">
+          <h3>Bon usage</h3>
+          <p>
+            Les créas récupérées sont la propriété de leurs annonceurs : elles servent à
+            analyser des angles, des accroches et des formats — pas à être republiées
+            telles quelles. ADSPY limite volontairement son rythme de collecte à une
+            requête par seconde.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==============================
+       MODALE — détail d'une annonce
+       ============================== -->
+  <div class="modal" id="adModal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" data-close aria-label="Fermer">&times;</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- ==============================
+       MODALE — mode navigateur
+       ============================== -->
+  <div class="modal" id="browserModal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-panel modal-narrow" role="dialog" aria-modal="true">
+      <button class="modal-close" data-close aria-label="Fermer">&times;</button>
+      <h2 class="view-title">Mode navigateur</h2>
+      <p class="view-sub">
+        À utiliser quand Meta bloque la collecte automatique. C'est ton navigateur qui
+        charge l'Ad Library normalement ; le script recopie vers ADSPY ce que la page
+        a déjà reçu.
+      </p>
+
+      <ol class="steps">
+        <li>
+          <strong>Installe le marque-page.</strong>
+          Fais glisser ce bouton dans ta barre de favoris :
+          <div class="bookmarklet-row">
+            <a class="bookmarklet" id="bookmarkletLink" href="#">📎 Capturer vers ADSPY</a>
+            <button class="btn btn-ghost btn-sm" id="copyBookmarklet">Copier le code</button>
+          </div>
+          <span class="step-hint">
+            Si la barre de favoris est masquée : <kbd>Ctrl</kbd>+<kbd>Maj</kbd>+<kbd>B</kbd>
+            (<kbd>Cmd</kbd>+<kbd>Maj</kbd>+<kbd>B</kbd> sur Mac).
+          </span>
+        </li>
+        <li>
+          <strong>Ouvre l'Ad Library</strong> et cherche ta marque :
+          <a href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=BE" target="_blank" rel="noopener">facebook.com/ads/library</a>
+        </li>
+        <li><strong>Clique sur le marque-page.</strong> Un badge violet apparaît en bas à droite.</li>
+        <li><strong>Fais défiler la page.</strong> Chaque nouveau lot de pubs part vers ADSPY, le compteur monte.</li>
+        <li>Reviens ici : les annonces sont dans ta bibliothèque.</li>
+      </ol>
+
+      <details class="details">
+        <summary>Version Tampermonkey (automatique à chaque visite)</summary>
+        <p>Crée un nouveau script dans Tampermonkey et colle le contenu de <code>adspy/public/capture.user.js</code>.</p>
+      </details>
+    </div>
+  </div>
+
+  <!-- ==============================
+       MODALE — import
+       ============================== -->
+  <div class="modal" id="importModal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-panel modal-narrow" role="dialog" aria-modal="true">
+      <button class="modal-close" data-close aria-label="Fermer">&times;</button>
+      <h2 class="view-title">Importer des données</h2>
+
+      <div class="help-card">
+        <h3>Fichier HAR</h3>
+        <p class="view-sub">
+          Dans le navigateur : <kbd>F12</kbd> → onglet <em>Réseau</em> → charge l'Ad Library →
+          clic droit → <em>Enregistrer tout sous HAR</em>. Dépose le fichier ici.
+        </p>
+        <input type="file" id="harInput" accept=".har,application/json" />
+      </div>
+
+      <div class="help-card">
+        <h3>Coller du JSON</h3>
+        <p class="view-sub">
+          Réponse brute d'une requête <code>graphql</code> copiée depuis l'onglet Réseau.
+        </p>
+        <textarea id="jsonInput" rows="6" placeholder='{"data":{"ad_library_main":…'></textarea>
+        <button class="btn btn-purple btn-sm" id="importJsonBtn">Importer ce JSON</button>
+      </div>
+
+      <div id="importResult" class="import-result" hidden></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

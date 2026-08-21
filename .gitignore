@@ -12,3 +12,6 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# ADSPY — base locale et créas téléchargées (propres à chaque poste)
+adspy/data/
