@@ -1,0 +1,1508 @@
+<title>ADSPY</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+/* =========================================================
+   ADSPY — dossier de publicités Meta
+
+   Palette héritée de la charte Servicom (violet #8B5CF6),
+   posée sur des neutres légèrement violacés plutôt que gris
+   purs. Sombre par défaut : on lit des créas, pas un rapport.
+   Les couleurs sémantiques (ambre = longévité, vert = en
+   diffusion) sont volontairement distinctes de l'accent.
+   ========================================================= */
+
+/* Thème sombre = base. */
+:root {
+  --ground:     #0B0A0F;
+  --surface:    #15131C;
+  --surface-2:  #1E1B27;
+  --line:       #2C2738;
+  --line-soft:  #221E2C;
+  --ink:        #F3F1F7;
+  --ink-dim:    #A49FB4;
+  --ink-faint:  #6C6680;
+  --accent:     #8B5CF6;
+  --accent-ink: #FFFFFF;
+  --accent-soft: rgba(139, 92, 246, .14);
+  --heat:       #F5A524;
+  --heat-soft:  rgba(245, 165, 36, .16);
+  --live:       #3ECF8E;
+  --live-soft:  rgba(62, 207, 142, .14);
+  --danger:     #F87171;
+
+  --display: 'Syne', Georgia, serif;
+  --body:    'Inter', system-ui, -apple-system, sans-serif;
+  --mono:    'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --r-sm: 7px;
+  --r:    11px;
+  --r-lg: 16px;
+}
+
+/* Thème clair — sur préférence système, sauf choix explicite « dark ». */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --ground:     #F7F6FA;
+    --surface:    #FFFFFF;
+    --surface-2:  #F2F0F7;
+    --line:       #E1DDEC;
+    --line-soft:  #EDEAF4;
+    --ink:        #15131C;
+    --ink-dim:    #5D5770;
+    --ink-faint:  #8B85A0;
+    --accent:     #6D28D9;
+    --accent-ink: #FFFFFF;
+    --accent-soft: rgba(109, 40, 217, .09);
+    --heat:       #B45309;
+    --heat-soft:  rgba(180, 83, 9, .11);
+    --live:       #0F8A5F;
+    --live-soft:  rgba(15, 138, 95, .11);
+    --danger:     #B91C1C;
+  }
+}
+
+/* Thème clair — choix explicite du lecteur. */
+:root[data-theme="light"] {
+  --ground:     #F7F6FA;
+  --surface:    #FFFFFF;
+  --surface-2:  #F2F0F7;
+  --line:       #E1DDEC;
+  --line-soft:  #EDEAF4;
+  --ink:        #15131C;
+  --ink-dim:    #5D5770;
+  --ink-faint:  #8B85A0;
+  --accent:     #6D28D9;
+  --accent-ink: #FFFFFF;
+  --accent-soft: rgba(109, 40, 217, .09);
+  --heat:       #B45309;
+  --heat-soft:  rgba(180, 83, 9, .11);
+  --live:       #0F8A5F;
+  --live-soft:  rgba(15, 138, 95, .11);
+  --danger:     #B91C1C;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, select, textarea { font: inherit; color: inherit; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 22px; }
+
+/* ---------- Étiquettes techniques ---------- */
+.label {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.num { font-variant-numeric: tabular-nums; }
+
+/* =========================================================
+   EN-TÊTE
+   ========================================================= */
+.masthead {
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+.masthead-inner {
+  display: flex; align-items: baseline; gap: 18px;
+  flex-wrap: wrap; padding: 26px 22px 22px;
+  max-width: 1180px; margin: 0 auto;
+}
+.wordmark {
+  font-family: var(--display);
+  font-weight: 800; font-size: 30px;
+  letter-spacing: -.03em; line-height: 1;
+}
+.wordmark em { font-style: normal; color: var(--accent); }
+.tagline { color: var(--ink-dim); font-size: 14px; flex: 1; min-width: 240px; }
+
+.counters { display: flex; gap: 24px; }
+.counter-value {
+  font-family: var(--display); font-weight: 800;
+  font-size: 22px; line-height: 1; letter-spacing: -.02em;
+}
+.counter-value.accent { color: var(--accent); }
+
+/* =========================================================
+   BOUTONS
+   ========================================================= */
+.btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 15px; border-radius: var(--r-sm);
+  border: 1px solid var(--line); background: var(--surface-2);
+  color: var(--ink-dim); cursor: pointer;
+  font-size: 13px; font-weight: 500;
+  transition: border-color .15s, color .15s, background .15s;
+}
+.btn:hover { border-color: var(--accent); color: var(--ink); background: var(--accent-soft); }
+.btn.primary {
+  background: var(--accent); border-color: var(--accent);
+  color: var(--accent-ink); font-weight: 600;
+}
+.btn.primary:hover { filter: brightness(1.1); background: var(--accent); color: var(--accent-ink); }
+.btn.sm { padding: 6px 11px; font-size: 12px; }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+
+/* =========================================================
+   ATELIER D'IMPORT
+   ========================================================= */
+.intake {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  margin: 22px 0;
+  overflow: hidden;
+}
+.intake-head {
+  display: flex; align-items: center; gap: 12px;
+  padding: 15px 20px; cursor: pointer;
+  background: none; border: none; width: 100%; text-align: left;
+}
+.intake-head h2 { font-family: var(--display); font-size: 16px; font-weight: 700; }
+.intake-head .label { margin-left: auto; }
+.intake-body { padding: 0 20px 22px; display: grid; gap: 18px; }
+.intake[hidden] { display: none; }
+
+.route {
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r);
+  padding: 17px 19px;
+  background: var(--surface-2);
+}
+.route-title {
+  display: flex; align-items: baseline; gap: 10px;
+  font-weight: 600; margin-bottom: 7px;
+}
+.route-rank {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--accent-ink); background: var(--accent);
+  border-radius: 4px; padding: 2px 6px; line-height: 1.3;
+}
+.route p { color: var(--ink-dim); font-size: 13.5px; max-width: 68ch; }
+.route ol { color: var(--ink-dim); font-size: 13.5px; margin: 10px 0 0 18px; display: grid; gap: 5px; }
+.route ol strong { color: var(--ink); }
+
+.grab {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 13px; padding: 11px 17px;
+  background: var(--accent); color: var(--accent-ink) !important;
+  border-radius: var(--r-sm); font-weight: 600; font-size: 13.5px;
+  cursor: grab; text-decoration: none !important;
+  border: 1px dashed rgba(255,255,255,.45);
+}
+.grab:active { cursor: grabbing; }
+.grab-row { display: flex; align-items: center; gap: 11px; flex-wrap: wrap; }
+
+textarea.paste {
+  width: 100%; margin-top: 11px; min-height: 92px; resize: vertical;
+  background: var(--ground); border: 1px solid var(--line);
+  border-radius: var(--r-sm); padding: 11px 13px;
+  font-family: var(--mono); font-size: 12px; color: var(--ink);
+}
+textarea.paste:focus { outline: none; border-color: var(--accent); }
+
+input[type="file"] { margin-top: 11px; font-size: 13px; color: var(--ink-dim); max-width: 100%; }
+
+.intake-note {
+  margin-top: 11px; padding: 10px 13px; border-radius: var(--r-sm);
+  font-size: 13px; font-family: var(--mono);
+}
+.intake-note.ok { background: var(--live-soft); color: var(--live); }
+.intake-note.bad { background: rgba(248,113,113,.12); color: var(--danger); }
+.intake-note[hidden] { display: none; }
+
+/* =========================================================
+   BARRE D'OUTILS
+   ========================================================= */
+.toolbar {
+  position: sticky; top: 0; z-index: 20;
+  background: color-mix(in srgb, var(--ground) 92%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  padding: 12px 0;
+}
+.toolbar-inner {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  max-width: 1180px; margin: 0 auto; padding: 0 22px;
+}
+.toolbar input[type="search"], .toolbar select {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r-sm); padding: 8px 11px; font-size: 13px;
+  color: var(--ink); min-width: 0;
+}
+.toolbar input[type="search"] { flex: 1 1 190px; }
+.toolbar select { cursor: pointer; }
+.toolbar input:focus, .toolbar select:focus { outline: none; border-color: var(--accent); }
+
+.chipset { display: flex; gap: 5px; flex-wrap: wrap; }
+.chip {
+  padding: 6px 11px; border-radius: 30px; cursor: pointer;
+  border: 1px solid var(--line); background: var(--surface);
+  color: var(--ink-dim); font-size: 12px;
+  transition: all .15s;
+}
+.chip:hover { border-color: var(--accent); color: var(--ink); }
+.chip[aria-pressed="true"] {
+  background: var(--accent-soft); border-color: var(--accent); color: var(--accent);
+  font-weight: 600;
+}
+
+.slider-cell { display: flex; align-items: center; gap: 9px; font-size: 12px; color: var(--ink-dim); }
+.slider-cell input { accent-color: var(--accent); width: 96px; cursor: pointer; }
+.slider-cell b { font-family: var(--mono); color: var(--heat); min-width: 34px; }
+
+/* =========================================================
+   LISTE DES PUBS
+   ========================================================= */
+.result-line {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap; margin: 24px 0 14px;
+}
+.result-line strong { font-family: var(--mono); color: var(--ink); }
+
+.deck { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); }
+
+.clip {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 18px 20px 16px 24px;
+  display: flex; flex-direction: column; gap: 13px;
+  overflow: hidden;
+}
+/* Rail de longévité : la hauteur remplie = ancienneté de la créa.
+   La donnée la plus prédictive, lisible sans lire un chiffre. */
+.rail {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: var(--line-soft);
+}
+.rail span { position: absolute; left: 0; right: 0; bottom: 0; background: var(--heat); }
+
+.clip-head { display: flex; align-items: flex-start; gap: 12px; }
+.clip-brand { flex: 1; min-width: 0; }
+.clip-brand h3 {
+  font-family: var(--display); font-size: 16px; font-weight: 700;
+  letter-spacing: -.01em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.clip-brand .label { margin-top: 2px; display: block; }
+
+.score {
+  flex-shrink: 0; text-align: right;
+}
+.score-val {
+  font-family: var(--display); font-weight: 800; font-size: 25px;
+  line-height: 1; letter-spacing: -.02em; color: var(--ink-faint);
+}
+.score-val.hot { color: var(--heat); }
+.score-val.warm { color: var(--accent); }
+
+.copyblock {
+  background: var(--surface-2);
+  border-left: 2px solid var(--line);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  padding: 12px 14px;
+}
+.copyblock .hook {
+  font-weight: 600; margin-bottom: 6px; text-wrap: balance;
+}
+.copyblock .said {
+  color: var(--ink-dim); font-size: 14px; white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden;
+}
+.copyblock .said.open { -webkit-line-clamp: unset; }
+.more {
+  background: none; border: none; padding: 4px 0 0;
+  color: var(--accent); font-size: 12px; cursor: pointer; font-weight: 500;
+}
+
+.facts { display: flex; flex-wrap: wrap; gap: 6px; }
+.fact {
+  font-family: var(--mono); font-size: 11px;
+  padding: 3px 8px; border-radius: 5px;
+  background: var(--surface-2); border: 1px solid var(--line-soft);
+  color: var(--ink-dim);
+}
+.fact b { color: var(--ink); font-weight: 500; }
+.fact.live { background: var(--live-soft); border-color: transparent; color: var(--live); }
+.fact.ended { color: var(--ink-faint); }
+.fact.heat { background: var(--heat-soft); border-color: transparent; color: var(--heat); }
+
+.clip-foot {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  padding-top: 12px; border-top: 1px solid var(--line-soft);
+}
+.star { margin-left: auto; }
+.star[aria-pressed="true"] { color: var(--heat); border-color: var(--heat); }
+
+/* =========================================================
+   COMPARATEUR
+   ========================================================= */
+.compare { margin: 30px 0; }
+.compare-head { margin-bottom: 16px; }
+.compare-head h2 { font-family: var(--display); font-size: 21px; font-weight: 800; letter-spacing: -.02em; }
+.compare-head p { color: var(--ink-dim); font-size: 14px; margin-top: 4px; max-width: 62ch; }
+
+.versus { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); margin-top: 18px; }
+.dossier {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r-lg); padding: 20px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.dossier h3 { font-family: var(--display); font-size: 17px; font-weight: 700; }
+
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.stat { background: var(--surface-2); border-radius: var(--r-sm); padding: 10px 12px; }
+.stat .v { font-family: var(--display); font-weight: 800; font-size: 20px; letter-spacing: -.02em; }
+.stat .v.accent { color: var(--accent); }
+.stat .k { font-size: 11px; color: var(--ink-faint); margin-top: 1px; line-height: 1.35; }
+
+.meter { display: flex; align-items: center; gap: 9px; font-size: 12px; margin-bottom: 5px; }
+.meter > span:first-child { width: 68px; color: var(--ink-dim); flex-shrink: 0; }
+.meter-track { display: block; flex: 1; height: 5px; background: var(--surface-2); border-radius: 3px; overflow: hidden; }
+.meter-fill { display: block; height: 100%; background: var(--accent); }
+.meter > span:last-child { font-family: var(--mono); width: 22px; text-align: right; color: var(--ink-dim); }
+
+.cadence { width: 100%; height: 38px; display: block; }
+
+/* =========================================================
+   ÉTAT VIDE
+   ========================================================= */
+.blank {
+  text-align: center; padding: 56px 24px;
+  border: 1px dashed var(--line); border-radius: var(--r-lg);
+  color: var(--ink-dim);
+}
+.blank h2 { font-family: var(--display); font-size: 20px; color: var(--ink); margin-bottom: 9px; }
+.blank p { max-width: 54ch; margin: 0 auto; font-size: 14px; }
+
+/* =========================================================
+   PIED DE PAGE
+   ========================================================= */
+.colophon {
+  border-top: 1px solid var(--line);
+  margin-top: 48px; padding: 28px 0 44px;
+  color: var(--ink-dim); font-size: 13.5px;
+}
+.colophon h2 { font-family: var(--display); font-size: 15px; color: var(--ink); margin-bottom: 8px; }
+.colophon p { max-width: 72ch; margin-bottom: 9px; }
+.colophon dl { display: grid; grid-template-columns: auto 1fr; gap: 5px 14px; margin: 12px 0; max-width: 66ch; }
+.colophon dt { font-family: var(--mono); font-size: 11.5px; color: var(--heat); white-space: nowrap; }
+.colophon dd { font-size: 13.5px; }
+
+/* ---------- Notification ---------- */
+.toast {
+  position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%);
+  background: var(--surface-2); border: 1px solid var(--accent);
+  color: var(--ink); padding: 11px 19px; border-radius: var(--r);
+  font-size: 13px; z-index: 100; box-shadow: 0 14px 40px rgba(0,0,0,.4);
+  max-width: min(92vw, 460px); text-align: center;
+}
+.toast[hidden] { display: none; }
+
+@media (max-width: 640px) {
+  .deck { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr; }
+  .masthead-inner { padding-top: 20px; }
+  .counters { gap: 18px; }
+  .wordmark { font-size: 25px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+</style>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="wordmark">ads<em>py</em></div>
+    <p class="tagline">Dossier des publicités Facebook &amp; Instagram de tes concurrents.</p>
+    <div class="counters">
+      <div>
+        <div class="counter-value accent num" id="cAds">0</div>
+        <div class="label">pubs</div>
+      </div>
+      <div>
+        <div class="counter-value num" id="cLive">0</div>
+        <div class="label">actives</div>
+      </div>
+      <div>
+        <div class="counter-value num" id="cBrands">0</div>
+        <div class="label">marques</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ==============================
+       IMPORT
+       ============================== -->
+  <section class="intake" id="intake">
+    <button class="intake-head" id="intakeToggle" aria-expanded="true" aria-controls="intakeBody">
+      <h2>Alimenter le dossier</h2>
+      <span class="label" id="intakeState">masquer</span>
+    </button>
+
+    <div class="intake-body" id="intakeBody">
+
+      <div class="route">
+        <div class="route-title"><span class="route-rank">1</span> Le marque-page</div>
+        <p>
+          Cette page ne peut pas appeler Facebook elle-même. C'est donc ton navigateur
+          qui charge l'Ad Library, normalement, et un petit script y ramasse les pubs
+          pour te les mettre dans le presse-papiers.
+        </p>
+        <ol>
+          <li>Fais glisser le bouton violet dans ta <strong>barre de favoris</strong> (<kbd>Ctrl</kbd>/<kbd>Cmd</kbd>+<kbd>Maj</kbd>+<kbd>B</kbd> pour l'afficher).</li>
+          <li>Ouvre <a href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=BE" target="_blank" rel="noopener">l'Ad Library</a> et cherche une marque.</li>
+          <li><strong>Clique le favori</strong>, puis fais défiler la page : le compteur monte.</li>
+          <li>Clique <strong>Copier</strong> dans le badge, reviens ici, colle ci-dessous.</li>
+        </ol>
+        <div class="grab-row">
+          <a class="grab" id="grabLink" href="#">Ramasser les pubs → ADSPY</a>
+          <button class="btn sm" id="copyGrab">Copier le code du favori</button>
+        </div>
+      </div>
+
+      <div class="route">
+        <div class="route-title"><span class="route-rank">2</span> Coller les données</div>
+        <p>Colle ici ce que le marque-page a copié — ou n'importe quelle réponse <code>graphql</code> récupérée dans l'onglet Réseau.</p>
+        <textarea class="paste" id="pasteBox" placeholder="Colle ici (Ctrl+V)…" spellcheck="false"></textarea>
+        <div class="grab-row" style="margin-top:11px">
+          <button class="btn primary" id="pasteBtn">Ajouter au dossier</button>
+          <button class="btn sm" id="clearAll">Vider le dossier</button>
+        </div>
+      </div>
+
+      <div class="route">
+        <div class="route-title"><span class="route-rank">3</span> Fichier HAR</div>
+        <p>Solution de repli : <kbd>F12</kbd> → onglet Réseau → charge l'Ad Library → clic droit → « Enregistrer tout sous HAR ». Dépose le fichier ici.</p>
+        <input type="file" id="harFile" accept=".har,.json,application/json" />
+      </div>
+
+      <div class="intake-note" id="intakeNote" hidden></div>
+    </div>
+  </section>
+</main>
+
+<!-- ==============================
+     BARRE D'OUTILS
+     ============================== -->
+<div class="toolbar" id="toolbar" hidden>
+  <div class="toolbar-inner">
+    <input type="search" id="qBox" placeholder="Chercher une accroche, un mot, un domaine…" aria-label="Chercher dans les textes" />
+    <select id="brandSel" aria-label="Filtrer par marque"><option value="">Toutes les marques</option></select>
+    <select id="sortSel" aria-label="Trier">
+      <option value="score">Score winner</option>
+      <option value="days">Ancienneté</option>
+      <option value="recent">Plus récentes</option>
+      <option value="copies">Duplications</option>
+      <option value="brand">Marque A→Z</option>
+    </select>
+    <div class="chipset" id="statusChips" role="group" aria-label="Statut">
+      <button class="chip" data-v="all" aria-pressed="true">Toutes</button>
+      <button class="chip" data-v="live" aria-pressed="false">Actives</button>
+      <button class="chip" data-v="ended" aria-pressed="false">Terminées</button>
+    </div>
+    <div class="chipset" id="formatChips" role="group" aria-label="Format">
+      <button class="chip" data-v="all" aria-pressed="true">Tous</button>
+      <button class="chip" data-v="video" aria-pressed="false">Vidéo</button>
+      <button class="chip" data-v="image" aria-pressed="false">Image</button>
+      <button class="chip" data-v="carrousel" aria-pressed="false">Carrousel</button>
+    </div>
+    <label class="slider-cell">
+      diffusée &gt; <b class="num" id="minDaysOut">0 j</b>
+      <input type="range" id="minDays" min="0" max="120" step="5" value="0" aria-label="Ancienneté minimum en jours" />
+    </label>
+    <button class="chip" id="starChip" aria-pressed="false">★ Favoris</button>
+    <button class="btn sm" id="csvBtn">Export CSV</button>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="result-line" id="resultLine" hidden></div>
+  <div class="deck" id="deck"></div>
+
+  <div class="blank" id="blank">
+    <h2>Le dossier est vide</h2>
+    <p>
+      Récupère les pubs d'une marque avec le marque-page ci-dessus, colle-les,
+      et elles s'analysent ici : accroches, angles, ancienneté, score.
+    </p>
+  </div>
+
+  <!-- ==============================
+       COMPARATEUR
+       ============================== -->
+  <section class="compare" id="compare" hidden>
+    <div class="compare-head">
+      <h2>Face à face</h2>
+      <p>Choisis deux marques ou plus pour confronter leur stratégie : volume, ancienneté des créas, formats, rythme de lancement.</p>
+      <div class="chipset" id="versusChips" style="margin-top:12px"></div>
+    </div>
+    <div class="versus" id="versus"></div>
+  </section>
+
+  <!-- ==============================
+       NOTE DE MÉTHODE
+       ============================== -->
+  <footer class="colophon">
+    <h2>Comment lire le score</h2>
+    <p>
+      Meta ne publie <strong>ni le budget, ni le coût par achat, ni le retour sur dépense</strong>
+      d'une publicité commerciale. Aucun outil n'y a accès : quand un outil payant affiche un
+      « chiffre d'affaires estimé », c'est une extrapolation. Le score ci-dessous n'utilise que
+      des signaux réellement publiés.
+    </p>
+    <dl>
+      <dt>45 pts</dt><dd>Longévité — personne ne paie deux mois pour une créa qui ne convertit pas. C'est le signal le plus fiable.</dd>
+      <dt>25 pts</dt><dd>Duplications — le nombre de copies de la même pub diffusées en parallèle. On duplique ce qu'on scale.</dd>
+      <dt>15 pts</dt><dd>Toujours en diffusion aujourd'hui.</dd>
+      <dt>15 pts</dt><dd>Portée déclarée, que l'Union européenne impose de publier.</dd>
+    </dl>
+    <p>
+      Repère pratique : au-delà de 30 jours de diffusion, une créa est presque toujours rentable.
+      Les visuels ne s'affichent pas ici — une page hébergée ne peut pas charger les images de
+      Facebook — mais chaque pub garde son lien vers l'Ad Library, où tu la vois en entier.
+      Tes données restent dans ce navigateur, sur cet appareil.
+    </p>
+  </footer>
+</main>
+
+<div class="toast" id="toast" hidden></div>
+
+<script>
+'use strict';
+
+/* =========================================================
+   ADSPY — logique
+
+   Tout se passe dans le navigateur : rien n'est envoyé nulle
+   part. Le dossier est gardé dans le stockage local.
+
+   Les textes viennent de Meta : ils sont traités comme non
+   fiables et échappés systématiquement.
+   ========================================================= */
+
+const $ = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+const DAY = 86400000;
+const STORAGE_KEY = 'adspy.dossier.v1';
+
+/* ---------------------------------------------------------
+   Le marque-page.
+
+   Écrit comme une vraie fonction pour être converti en URL
+   `javascript:` sans passer par un minifieur : encodeURIComponent
+   suffit, et le code reste lisible pour qui veut le vérifier.
+   Il doit être autonome — aucune référence à cette page.
+   --------------------------------------------------------- */
+function adspyCollector() {
+  if (window.__adspyOn) { window.__adspyBadge(); return; }
+  window.__adspyOn = true;
+
+  var vault = {};
+  var KEEP_AD = ['ad_archive_id','page_id','page_name','is_active','start_date','end_date',
+                 'collation_count','publisher_platform','reach_estimate','currency'];
+  var KEEP_SNAP = ['title','caption','cta_text','cta_type','link_url','link_description',
+                   'page_name','current_page_name','page_profile_uri','display_format'];
+
+  function slimSnapshot(snap) {
+    var out = {};
+    if (!snap) return out;
+    KEEP_SNAP.forEach(function (k) { if (snap[k]) out[k] = snap[k]; });
+    if (snap.body && snap.body.text) out.body = { text: snap.body.text };
+    if (snap.images && snap.images.length) {
+      out.images = snap.images.slice(0, 4).map(function (i) {
+        return { original_image_url: i.original_image_url, resized_image_url: i.resized_image_url };
+      });
+    }
+    if (snap.videos && snap.videos.length) {
+      out.videos = snap.videos.slice(0, 4).map(function (v) {
+        return { video_hd_url: v.video_hd_url, video_preview_image_url: v.video_preview_image_url };
+      });
+    }
+    if (snap.cards && snap.cards.length) {
+      out.cards = snap.cards.slice(0, 10).map(function (c) {
+        return { title: c.title, body: c.body, cta_text: c.cta_text, link_url: c.link_url,
+                 original_image_url: c.original_image_url, video_hd_url: c.video_hd_url };
+      });
+    }
+    return out;
+  }
+
+  function harvest(node, depth) {
+    if (!node || typeof node !== 'object' || depth > 14) return;
+    if (node.ad_archive_id && (node.snapshot || node.publisher_platform)) {
+      var slim = {};
+      KEEP_AD.forEach(function (k) { if (node[k] !== undefined) slim[k] = node[k]; });
+      slim.snapshot = slimSnapshot(node.snapshot);
+      vault[String(node.ad_archive_id)] = slim;
+    }
+    if (Array.isArray(node)) { for (var i = 0; i < node.length; i++) harvest(node[i], depth + 1); return; }
+    for (var k in node) { try { harvest(node[k], depth + 1); } catch (e) {} }
+  }
+
+  function absorb(text) {
+    if (!text || text.indexOf('ad_archive_id') === -1) return;
+    var clean = text.replace(/^\s*for\s*\(;;\);/, '');
+    var depth = 0, start = -1, inStr = false, esc = false;
+    for (var i = 0; i < clean.length; i++) {
+      var ch = clean[i];
+      if (inStr) {
+        if (esc) esc = false; else if (ch === '\\') esc = true; else if (ch === '"') inStr = false;
+        continue;
+      }
+      if (ch === '"') inStr = true;
+      else if (ch === '{') { if (depth++ === 0) start = i; }
+      else if (ch === '}') {
+        if (--depth === 0 && start >= 0) {
+          try { harvest(JSON.parse(clean.slice(start, i + 1)), 0); } catch (e) {}
+          start = -1;
+        }
+      }
+    }
+    window.__adspyBadge();
+  }
+
+  /* --- badge --- */
+  var box = document.createElement('div');
+  box.style.cssText = 'position:fixed;right:16px;bottom:16px;z-index:2147483647;background:#15131C;' +
+    'color:#F3F1F7;border:1px solid #8B5CF6;border-radius:12px;padding:13px 15px;' +
+    'font:500 13px/1.5 system-ui,sans-serif;box-shadow:0 14px 40px rgba(0,0,0,.5);width:212px';
+  document.documentElement.appendChild(box);
+
+  window.__adspyBadge = function (msg) {
+    var n = Object.keys(vault).length;
+    box.innerHTML =
+      '<div style="font-weight:700;letter-spacing:-.01em">ADSPY</div>' +
+      '<div style="font-size:26px;font-weight:800;color:#8B5CF6;line-height:1.1;margin:4px 0">' + n + '</div>' +
+      '<div style="color:#A49FB4;font-size:12px">pub(s) ramassée(s)<br>' +
+      (msg || 'Fais défiler pour en charger plus.') + '</div>';
+    var b = document.createElement('button');
+    b.textContent = 'Copier';
+    b.style.cssText = 'margin-top:9px;width:100%;padding:8px;border:0;border-radius:7px;' +
+      'background:#8B5CF6;color:#fff;font-weight:600;font-size:13px;cursor:pointer';
+    b.onclick = function () {
+      var payload = JSON.stringify({ adspy: 1, ads: Object.keys(vault).map(function (k) { return vault[k]; }) });
+      function done() { window.__adspyBadge('Copié — colle dans ADSPY.'); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(payload).then(done, fallback);
+      } else fallback();
+      function fallback() {
+        var t = document.createElement('textarea');
+        t.value = payload;
+        t.style.cssText = 'position:fixed;opacity:0';
+        document.body.appendChild(t); t.select();
+        try { document.execCommand('copy'); done(); }
+        catch (e) { window.__adspyBadge('Copie refusée par le navigateur.'); }
+        t.remove();
+      }
+    };
+    box.appendChild(b);
+  };
+
+  /* --- écoute du trafic de la page --- */
+  var of = window.fetch;
+  window.fetch = function () {
+    var u = '';
+    try { u = typeof arguments[0] === 'string' ? arguments[0] : (arguments[0] && arguments[0].url) || ''; } catch (e) {}
+    var p = of.apply(this, arguments);
+    if (u.indexOf('/api/graphql') !== -1 || u.indexOf('/ads/library/async') !== -1) {
+      p.then(function (r) { try { r.clone().text().then(absorb, function () {}); } catch (e) {} return r; },
+             function () {});
+    }
+    return p;
+  };
+
+  var oo = XMLHttpRequest.prototype.open;
+  var os = XMLHttpRequest.prototype.send;
+  XMLHttpRequest.prototype.open = function (m, u) { this.__u = u; return oo.apply(this, arguments); };
+  XMLHttpRequest.prototype.send = function () {
+    var x = this;
+    if (x.__u && (String(x.__u).indexOf('/api/graphql') !== -1 || String(x.__u).indexOf('/ads/library/async') !== -1)) {
+      x.addEventListener('load', function () { try { absorb(x.responseText); } catch (e) {} });
+    }
+    return os.apply(this, arguments);
+  };
+
+  /* --- ce qui est déjà chargé --- */
+  try {
+    var sc = document.querySelectorAll('script');
+    for (var i = 0; i < sc.length; i++) {
+      var t = sc[i].textContent || '';
+      if (t.length > 400 && t.indexOf('ad_archive_id') !== -1) absorb(t);
+    }
+  } catch (e) {}
+
+  window.__adspyBadge();
+}
+
+/* =========================================================
+   LECTURE DES DONNÉES META
+   ========================================================= */
+function pick(o, ...keys) {
+  if (!o) return undefined;
+  for (const k of keys) {
+    const v = o[k];
+    if (v !== undefined && v !== null && v !== '') return v;
+  }
+  return undefined;
+}
+
+function toMs(v) {
+  const n = Number(v);
+  if (!Number.isFinite(n) || n <= 0) return null;
+  return n < 1e11 ? n * 1000 : n;
+}
+
+function hostOf(url) {
+  if (!url) return '';
+  try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return ''; }
+}
+
+/** « 1K-5K », « 12 345 » → nombre exploitable pour trier. */
+function approx(v) {
+  if (typeof v === 'number') return v;
+  if (!v || typeof v !== 'string') return null;
+  const hits = [...v.matchAll(/([\d.,]+)\s*([KMkm]?)/g)].map(([, n, s]) => {
+    const base = parseFloat(n.replace(/[ ,](?=\d{3}\b)/g, '').replace(',', '.'));
+    if (!Number.isFinite(base)) return null;
+    return base * (/k/i.test(s) ? 1e3 : /m/i.test(s) ? 1e6 : 1);
+  }).filter(n => n !== null);
+  if (!hits.length) return null;
+  return Math.round(hits.reduce((a, b) => a + b, 0) / hits.length);
+}
+
+function creativesOf(snap) {
+  const out = [];
+  (snap.images || []).forEach(i => out.push({ type: 'image', url: pick(i, 'original_image_url', 'resized_image_url') }));
+  (snap.videos || []).forEach(v => out.push({ type: 'video', url: pick(v, 'video_hd_url', 'video_sd_url') }));
+  (snap.cards || []).forEach(c => out.push({
+    type: c.video_hd_url ? 'video' : 'image',
+    url: pick(c, 'video_hd_url', 'original_image_url', 'resized_image_url'),
+  }));
+  return out.filter(c => c.url);
+}
+
+function scoreOf(ad) {
+  const longevity = Math.min((ad.days || 0) / 60, 1) * 45;
+  const copies = Math.min((ad.copies || 1) / 10, 1) * 25;
+  const running = ad.live ? 15 : 0;
+  const reach = ad.reach ? Math.min(ad.reach / 500000, 1) * 15 : 0;
+  return Math.round(longevity + copies + running + reach);
+}
+
+function normalize(raw) {
+  if (!raw || typeof raw !== 'object') return null;
+  const snap = raw.snapshot || {};
+  const id = String(pick(raw, 'ad_archive_id', 'adArchiveID', 'adArchiveId') || '');
+  if (!id) return null;
+
+  const start = toMs(pick(raw, 'start_date', 'startDate'));
+  const end = toMs(pick(raw, 'end_date', 'endDate'));
+  const live = Boolean(pick(raw, 'is_active', 'isActive') ?? !end);
+  const until = live ? Date.now() : (end || Date.now());
+  const days = start ? Math.max(1, Math.round((until - start) / DAY)) : 0;
+
+  const link = pick(snap, 'link_url') || '';
+  const shown = String(pick(snap, 'display_format') || '').toUpperCase();
+  const creatives = creativesOf(snap);
+
+  const ad = {
+    id,
+    pageId: String(pick(raw, 'page_id', 'pageID') || pick(snap, 'page_id') || ''),
+    brand: pick(raw, 'page_name') || pick(snap, 'page_name', 'current_page_name') || 'Annonceur inconnu',
+    brandUrl: pick(snap, 'page_profile_uri') || '',
+    live, start, end, days,
+    copies: Number(pick(raw, 'collation_count', 'collationCount')) || 1,
+    platforms: (pick(raw, 'publisher_platform', 'publisherPlatform') || []).map(p => String(p).toUpperCase()),
+    format: shown.includes('VIDEO') || creatives.some(c => c.type === 'video') ? 'video'
+      : /CAROUSEL|MULTI|DCO|DPA/.test(shown) || (snap.cards || []).length > 1 ? 'carrousel'
+        : 'image',
+    hook: pick(snap, 'title') || '',
+    said: pick(snap.body || {}, 'text') || (typeof snap.body === 'string' ? snap.body : '') || '',
+    sub: pick(snap, 'link_description') || '',
+    cta: pick(snap, 'cta_text') || '',
+    link,
+    host: hostOf(link),
+    reach: approx(pick(raw, 'reach_estimate')),
+    creatives: creatives.length,
+    archive: 'https://www.facebook.com/ads/library/?id=' + id,
+  };
+  ad.score = scoreOf(ad);
+  return ad;
+}
+
+/** Cherche les annonces par leur forme, à n'importe quelle profondeur. */
+function dig(payload) {
+  const found = [];
+  const seen = new Set();
+  const walk = (n, d = 0) => {
+    if (!n || typeof n !== 'object' || d > 14) return;
+    const id = n.ad_archive_id || n.adArchiveID || n.adArchiveId;
+    if (id && (n.snapshot || n.publisher_platform || n.publisherPlatform)) {
+      if (!seen.has(String(id))) { seen.add(String(id)); found.push(n); }
+    }
+    if (Array.isArray(n)) { n.forEach(c => walk(c, d + 1)); return; }
+    Object.values(n).forEach(c => walk(c, d + 1));
+  };
+  walk(payload);
+  return found.map(normalize).filter(Boolean);
+}
+
+/** Meta préfixe ses réponses de `for (;;);` et en colle parfois plusieurs. */
+function parseMeta(text) {
+  const clean = String(text || '').replace(/^\s*for\s*\(;;\);/, '').trim();
+  if (!clean) return [];
+  try { return [JSON.parse(clean)]; } catch { /* multi-objets */ }
+
+  const out = [];
+  let depth = 0, start = -1, inStr = false, esc = false;
+  for (let i = 0; i < clean.length; i++) {
+    const ch = clean[i];
+    if (inStr) {
+      if (esc) esc = false; else if (ch === '\\') esc = true; else if (ch === '"') inStr = false;
+      continue;
+    }
+    if (ch === '"') inStr = true;
+    else if (ch === '{') { if (depth++ === 0) start = i; }
+    else if (ch === '}') {
+      if (--depth === 0 && start >= 0) {
+        try { out.push(JSON.parse(clean.slice(start, i + 1))); } catch {}
+        start = -1;
+      }
+    }
+  }
+  return out;
+}
+
+function adsFromHar(text) {
+  const har = JSON.parse(text);
+  const entries = har?.log?.entries;
+  if (!Array.isArray(entries)) throw new Error('Ce fichier n\'est pas un HAR.');
+  const ads = [];
+  const seen = new Set();
+  for (const e of entries) {
+    const url = e?.request?.url || '';
+    if (!/facebook\.com\/(api\/graphql|ads\/library)/.test(url)) continue;
+    const c = e?.response?.content;
+    if (!c?.text || c.encoding === 'base64') continue;
+    for (const p of parseMeta(c.text)) {
+      for (const ad of dig(p)) {
+        if (seen.has(ad.id)) continue;
+        seen.add(ad.id);
+        ads.push(ad);
+      }
+    }
+  }
+  return ads;
+}
+
+/* =========================================================
+   DOSSIER (stockage local)
+   ========================================================= */
+const state = {
+  ads: {},
+  filters: { q: '', brand: '', sort: 'score', status: 'all', format: 'all', minDays: 0, starred: false },
+  versus: new Set(),
+};
+
+function load() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) state.ads = JSON.parse(raw).ads || {};
+  } catch { state.ads = {}; }
+}
+
+function save() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ ads: state.ads }));
+  } catch (err) {
+    note('Dossier trop volumineux pour ce navigateur : exporte en CSV puis vide-le.', 'bad');
+  }
+}
+
+function absorbAds(ads) {
+  let fresh = 0;
+  const now = Date.now();
+  for (const ad of ads) {
+    const old = state.ads[ad.id];
+    if (old) {
+      state.ads[ad.id] = { ...old, ...ad, seen: old.seen || now, star: old.star || false };
+    } else {
+      state.ads[ad.id] = { ...ad, seen: now, star: false };
+      fresh++;
+    }
+  }
+  save();
+  return { total: ads.length, fresh };
+}
+
+const list = () => Object.values(state.ads);
+
+/* =========================================================
+   AFFICHAGE
+   ========================================================= */
+function esc(v) {
+  return String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function safeUrl(u) {
+  try {
+    const p = new URL(u, location.origin);
+    return ['http:', 'https:'].includes(p.protocol) ? p.href : '';
+  } catch { return ''; }
+}
+
+function nombre(n) {
+  if (!Number.isFinite(n)) return '—';
+  if (n >= 1e6) return (n / 1e6).toFixed(1).replace('.0', '') + ' M';
+  if (n >= 1e3) return (n / 1e3).toFixed(1).replace('.0', '') + ' k';
+  return String(n);
+}
+
+const dateFr = ms => (ms ? new Date(ms).toLocaleDateString('fr-BE', { day: '2-digit', month: 'short', year: '2-digit' }) : '—');
+
+let toastTimer;
+function toast(msg, ms = 2600) {
+  const el = $('#toast');
+  el.textContent = msg;
+  el.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { el.hidden = true; }, ms);
+}
+
+function note(msg, kind) {
+  const el = $('#intakeNote');
+  el.textContent = msg;
+  el.className = 'intake-note ' + kind;
+  el.hidden = false;
+}
+
+function filtered() {
+  const f = state.filters;
+  const needle = f.q.trim().toLowerCase();
+
+  let out = list().filter(ad => {
+    if (f.brand && ad.pageId !== f.brand) return false;
+    if (f.status === 'live' && !ad.live) return false;
+    if (f.status === 'ended' && ad.live) return false;
+    if (f.format !== 'all' && ad.format !== f.format) return false;
+    if (f.starred && !ad.star) return false;
+    if (f.minDays && (ad.days || 0) < f.minDays) return false;
+    if (needle) {
+      const hay = [ad.said, ad.hook, ad.brand, ad.cta, ad.host, ad.sub].join(' ').toLowerCase();
+      if (!hay.includes(needle)) return false;
+    }
+    return true;
+  });
+
+  const by = {
+    score: (a, b) => b.score - a.score,
+    days: (a, b) => (b.days || 0) - (a.days || 0),
+    recent: (a, b) => (b.start || 0) - (a.start || 0),
+    copies: (a, b) => (b.copies || 0) - (a.copies || 0),
+    brand: (a, b) => String(a.brand).localeCompare(String(b.brand)),
+  };
+  out.sort(by[f.sort] || by.score);
+  return out;
+}
+
+function clipCard(ad) {
+  const heat = Math.min((ad.days || 0) / 90, 1) * 100;
+  const rank = ad.score >= 70 ? 'hot' : ad.score >= 40 ? 'warm' : '';
+  const platforms = (ad.platforms || [])
+    .map(p => ({ FACEBOOK: 'Facebook', INSTAGRAM: 'Instagram', MESSENGER: 'Messenger', AUDIENCE_NETWORK: 'Audience', THREADS: 'Threads' }[p] || p))
+    .join(' · ');
+  const long = (ad.said || '').length > 320;
+
+  return `
+  <article class="clip" data-id="${esc(ad.id)}">
+    <span class="rail"><span style="height:${heat.toFixed(1)}%"></span></span>
+
+    <div class="clip-head">
+      <div class="clip-brand">
+        <h3>${esc(ad.brand)}</h3>
+        <span class="label">${esc(platforms || 'plateforme inconnue')} · ${esc(ad.format)}</span>
+      </div>
+      <div class="score">
+        <div class="score-val num ${rank}">${ad.score}</div>
+        <div class="label">score</div>
+      </div>
+    </div>
+
+    <div class="copyblock">
+      ${ad.hook ? `<div class="hook">${esc(ad.hook)}</div>` : ''}
+      <div class="said" id="said-${esc(ad.id)}">${esc(ad.said || 'Pas de texte dans cette pub.')}</div>
+      ${long ? `<button class="more" data-act="expand">Lire la suite</button>` : ''}
+    </div>
+
+    <div class="facts">
+      <span class="fact ${ad.live ? 'live' : 'ended'}">${ad.live ? 'en diffusion' : 'terminée'}</span>
+      <span class="fact ${ad.days >= 30 ? 'heat' : ''} num"><b>${ad.days}</b> jours</span>
+      ${ad.copies > 1 ? `<span class="fact num"><b>${ad.copies}</b> copies</span>` : ''}
+      ${ad.reach ? `<span class="fact num">portée <b>${nombre(ad.reach)}</b></span>` : ''}
+      <span class="fact num">lancée ${dateFr(ad.start)}</span>
+      ${ad.cta ? `<span class="fact">${esc(ad.cta)}</span>` : ''}
+      ${ad.host ? `<span class="fact">${esc(ad.host)}</span>` : ''}
+    </div>
+
+    <div class="clip-foot">
+      <button class="btn sm" data-act="copy">Copier le texte</button>
+      <button class="btn sm" data-act="brief">Copier le brief</button>
+      <a class="btn sm" href="${esc(ad.archive)}" target="_blank" rel="noopener">Voir chez Meta</a>
+      <button class="btn sm star" data-act="star" aria-pressed="${ad.star ? 'true' : 'false'}" title="Mettre en favori">★</button>
+    </div>
+  </article>`;
+}
+
+function render() {
+  const all = list();
+  const rows = filtered();
+
+  $('#cAds').textContent = all.length;
+  $('#cLive').textContent = all.filter(a => a.live).length;
+  const brands = [...new Set(all.map(a => a.pageId).filter(Boolean))];
+  $('#cBrands').textContent = brands.length;
+
+  const hasData = all.length > 0;
+  $('#toolbar').hidden = !hasData;
+  $('#blank').hidden = hasData;
+  $('#resultLine').hidden = !hasData;
+  $('#compare').hidden = brands.length < 2;
+
+  if (hasData) {
+    $('#resultLine').innerHTML =
+      `<span><strong class="num">${rows.length}</strong> pub(s) affichée(s) sur ${all.length}</span>` +
+      `<span class="label">rail à gauche = ancienneté · plus il monte, plus la créa dure</span>`;
+  }
+
+  $('#deck').innerHTML = rows.map(clipCard).join('');
+
+  const names = brandNames();
+
+  // Le sélecteur n'est reconstruit que si la liste des marques a changé :
+  // le refaire à chaque rendu volerait le focus en pleine manipulation.
+  const sel = $('#brandSel');
+  const signature = [...names.keys()].sort().join('|');
+  if (sel.dataset.sig !== signature) {
+    const prev = sel.value;
+    sel.dataset.sig = signature;
+    sel.innerHTML = '<option value="">Toutes les marques</option>' +
+      sortedBrands(names).map(([id, name]) => `<option value="${esc(id)}">${esc(name)}</option>`).join('');
+    sel.value = prev;
+  }
+
+  renderVersusChips(names);
+  renderVersusPanel(names);
+}
+
+function brandNames() {
+  const names = new Map();
+  list().forEach(a => { if (a.pageId) names.set(a.pageId, a.brand); });
+  return names;
+}
+
+const sortedBrands = names => [...names.entries()].sort((a, b) => a[1].localeCompare(b[1]));
+
+/* ---------- Textes à copier ---------- */
+function asText(ad) {
+  return [
+    ad.hook && 'TITRE : ' + ad.hook,
+    ad.said,
+    ad.sub && 'DESCRIPTION : ' + ad.sub,
+    ad.cta && 'BOUTON : ' + ad.cta,
+    ad.link && 'DESTINATION : ' + ad.link,
+  ].filter(Boolean).join('\n\n');
+}
+
+function asBrief(ad) {
+  return `BRIEF CRÉATIF — inspiré d'une pub ${ad.brand}
+
+Format : ${ad.format}${ad.copies > 1 ? ` (${ad.copies} variantes en diffusion)` : ''}
+Diffusée depuis : ${ad.days} jours${ad.live ? ' (toujours active)' : ' (terminée)'}
+Plateformes : ${(ad.platforms || []).join(', ') || 'non précisé'}
+Score winner : ${ad.score}/100
+
+ACCROCHE
+${ad.hook || '(pas de titre)'}
+
+TEXTE
+${ad.said || '(pas de texte)'}
+
+APPEL À L'ACTION
+${ad.cta || '(aucun)'} → ${ad.host || ad.link || '(pas de lien)'}
+
+À REPRODUIRE : l'angle et la structure du message.
+À NE PAS REPRODUIRE : le visuel et le texte tels quels, ils appartiennent à ${ad.brand}.
+
+Source : ${ad.archive}`;
+}
+
+async function toClipboard(text, msg) {
+  try {
+    await navigator.clipboard.writeText(text);
+    toast(msg);
+  } catch {
+    const t = document.createElement('textarea');
+    t.value = text;
+    t.style.cssText = 'position:fixed;opacity:0';
+    document.body.appendChild(t);
+    t.select();
+    try { document.execCommand('copy'); toast(msg); }
+    catch { toast('Ton navigateur a refusé la copie.'); }
+    t.remove();
+  }
+}
+
+/* =========================================================
+   COMPARATEUR
+   ========================================================= */
+const WEEK = 7 * DAY;
+
+function median(nums) {
+  if (!nums.length) return 0;
+  const s = [...nums].sort((a, b) => a - b);
+  const m = Math.floor(s.length / 2);
+  return s.length % 2 ? s[m] : Math.round((s[m - 1] + s[m]) / 2);
+}
+
+/**
+ * Les puces sont reconstruites uniquement quand la liste des marques
+ * change. Un clic se contente de basculer aria-pressed et de redessiner
+ * le panneau : le bouton reste sous le doigt et garde le focus clavier.
+ */
+function renderVersusChips(names) {
+  const chips = $('#versusChips');
+  const signature = [...names.keys()].sort().join('|');
+  if (chips.dataset.sig === signature) return;
+  chips.dataset.sig = signature;
+  chips.innerHTML = sortedBrands(names).map(([id, name]) =>
+    `<button class="chip" data-page="${esc(id)}" aria-pressed="${state.versus.has(id)}">${esc(name)}</button>`
+  ).join('');
+}
+
+function renderVersusPanel(names) {
+  const picked = [...state.versus].filter(id => names.has(id));
+  const box = $('#versus');
+
+  if (picked.length < 2) {
+    box.innerHTML = '<p style="color:var(--ink-faint);font-size:13.5px">Sélectionne au moins deux marques.</p>';
+    return;
+  }
+
+  const now = Date.now();
+  const cards = picked.map(pageId => {
+    const ads = list().filter(a => a.pageId === pageId);
+    const live = ads.filter(a => a.live);
+    const days = live.map(a => a.days || 0);
+    const cadence = Array.from({ length: 12 }, (_, i) => {
+      const end = now - i * WEEK;
+      return ads.filter(a => a.start && a.start > end - WEEK && a.start <= end).length;
+    }).reverse();
+    return {
+      pageId,
+      name: names.get(pageId),
+      total: ads.length,
+      live: live.length,
+      median: median(days),
+      max: days.length ? Math.max(...days) : 0,
+      mix: {
+        video: live.filter(a => a.format === 'video').length,
+        image: live.filter(a => a.format === 'image').length,
+        carrousel: live.filter(a => a.format === 'carrousel').length,
+      },
+      cadence,
+      fresh: ads.filter(a => a.start && now - a.start < 30 * DAY).length,
+    };
+  });
+
+  const peak = Math.max(1, ...cards.flatMap(c => c.cadence));
+
+  box.innerHTML = cards.map(c => {
+    const totalMix = Math.max(1, c.mix.video + c.mix.image + c.mix.carrousel);
+    const meter = (k, v) => `
+      <div class="meter">
+        <span>${k}</span>
+        <span class="meter-track"><span class="meter-fill" style="width:${Math.round(v / totalMix * 100)}%"></span></span>
+        <span class="num">${v}</span>
+      </div>`;
+
+    const bars = c.cadence.map((v, i) => {
+      const h = Math.max(2, v / peak * 34);
+      const w = (100 - 11 * 2) / 12;
+      return `<rect x="${(i * (w + 2)).toFixed(2)}" y="${(38 - h).toFixed(2)}" width="${w.toFixed(2)}" height="${h.toFixed(2)}" rx="1" fill="${v ? 'var(--accent)' : 'var(--line)'}"><title>${v} pub(s)</title></rect>`;
+    }).join('');
+
+    return `
+    <div class="dossier">
+      <h3>${esc(c.name)}</h3>
+      <div class="stats">
+        <div class="stat"><div class="v accent num">${c.live}</div><div class="k">pubs actives</div></div>
+        <div class="stat"><div class="v num">${c.median} j</div><div class="k">ancienneté médiane</div></div>
+        <div class="stat"><div class="v num">${c.max} j</div><div class="k">créa la plus tenace</div></div>
+        <div class="stat"><div class="v num">${c.fresh}</div><div class="k">lancées sur 30 jours</div></div>
+      </div>
+      <div>
+        <div class="label" style="margin-bottom:8px">Répartition des formats</div>
+        ${meter('Vidéo', c.mix.video)}
+        ${meter('Image', c.mix.image)}
+        ${meter('Carrousel', c.mix.carrousel)}
+      </div>
+      <div>
+        <div class="label" style="margin-bottom:8px">Rythme de lancement · 12 semaines</div>
+        <svg class="cadence" viewBox="0 0 100 38" preserveAspectRatio="none" role="img" aria-label="Nombre de pubs lancées par semaine">${bars}</svg>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* =========================================================
+   EXPORT CSV
+   ========================================================= */
+function buildCsv(ads) {
+  const cell = v => {
+    const t = String(v ?? '').replace(/\r?\n/g, ' ').trim();
+    return /[";]/.test(t) ? '"' + t.replace(/"/g, '""') + '"' : t;
+  };
+  const cols = [
+    ['Marque', a => a.brand],
+    ['Score winner', a => a.score],
+    ['Active', a => (a.live ? 'oui' : 'non')],
+    ['Jours de diffusion', a => a.days],
+    ['Debut', a => (a.start ? new Date(a.start).toISOString().slice(0, 10) : '')],
+    ['Duplications', a => a.copies],
+    ['Format', a => a.format],
+    ['Plateformes', a => (a.platforms || []).join(', ')],
+    ['Accroche', a => a.hook],
+    ['Texte', a => a.said],
+    ['CTA', a => a.cta],
+    ['Destination', a => a.link],
+    ['Domaine', a => a.host],
+    ['Portee estimee', a => a.reach ?? ''],
+    ['Lien Ad Library', a => a.archive],
+  ];
+  return '﻿' + [
+    cols.map(c => cell(c[0])).join(';'),
+    ...ads.map(a => cols.map(c => cell(c[1](a))).join(';')),
+  ].join('\r\n');
+}
+
+async function exportCsv() {
+  const rows = filtered();
+  if (!rows.length) return toast('Rien à exporter avec ces filtres.');
+
+  const csv = buildCsv(rows);
+  const stamp = new Date().toISOString().slice(0, 10);
+  const downloads = await (window.claude?.use?.('downloads') ?? Promise.resolve(null));
+
+  if (!downloads) {
+    await toClipboard(csv, 'Export copié dans le presse-papiers — colle-le dans un fichier .csv.');
+    return;
+  }
+
+  try {
+    await downloads.save({ filename: `pubs-meta-${stamp}.csv`, data: csv });
+    toast('Export enregistré.');
+  } catch (err) {
+    if (err?.code === 'extension_not_enabled' || err?.code === 'rejected_extension') {
+      try {
+        await downloads.save({ filename: `pubs-meta-${stamp}.txt`, data: csv });
+        toast('Enregistré en .txt — renomme-le en .csv pour l\'ouvrir dans Excel.');
+        return;
+      } catch (retry) {
+        if (retry?.code === 'declined') return;
+      }
+    }
+    if (err?.code === 'declined') return;
+    await toClipboard(csv, 'Téléchargement indisponible — export copié dans le presse-papiers.');
+  }
+}
+
+/* =========================================================
+   ÉVÉNEMENTS
+   ========================================================= */
+
+/* --- import --- */
+function ingest(text, source) {
+  let ads = [];
+  try {
+    const trimmed = String(text || '').trim();
+    if (!trimmed) throw new Error('Rien à lire.');
+
+    if (/"log"\s*:/.test(trimmed) && /entries/.test(trimmed)) {
+      ads = adsFromHar(trimmed);
+    } else {
+      ads = parseMeta(trimmed).flatMap(dig);
+    }
+  } catch (err) {
+    note('Lecture impossible : ' + err.message, 'bad');
+    return;
+  }
+
+  if (!ads.length) {
+    note('Aucune publicité reconnue là-dedans. Vérifie que tu as bien copié depuis le badge ADSPY sur la page Ad Library.', 'bad');
+    return;
+  }
+
+  const { total, fresh } = absorbAds(ads);
+  render();
+
+  // On replie l'atelier : la récompense d'un import, c'est de voir les pubs,
+  // pas de rester devant le formulaire.
+  setIntake(false);
+  toast(`${total} pub(s) lue(s) — ${fresh} nouvelle(s) au dossier.`, 3600);
+  $('#toolbar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+$('#pasteBtn').addEventListener('click', () => {
+  ingest($('#pasteBox').value, 'collé');
+  $('#pasteBox').value = '';
+});
+
+$('#harFile').addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  note('Lecture du fichier…', 'ok');
+  try { ingest(await file.text(), file.name); }
+  catch (err) { note('Fichier illisible : ' + err.message, 'bad'); }
+  e.target.value = '';
+});
+
+$('#clearAll').addEventListener('click', () => {
+  if (!list().length) return toast('Le dossier est déjà vide.');
+  if (!confirm('Vider tout le dossier ? Les pubs collectées seront perdues.')) return;
+  state.ads = {};
+  state.versus.clear();
+  save();
+  render();
+  toast('Dossier vidé.');
+});
+
+/* --- marque-page --- */
+const bookmarklet = 'javascript:' + encodeURIComponent('(' + adspyCollector.toString() + ')()');
+$('#grabLink').href = bookmarklet;
+$('#grabLink').addEventListener('click', (e) => {
+  e.preventDefault();
+  toast('Fais-le glisser dans ta barre de favoris — un clic ici ne fait rien.', 3600);
+});
+$('#copyGrab').addEventListener('click', () => toClipboard(bookmarklet, 'Code du favori copié.'));
+
+/* --- repli de l'atelier --- */
+function setIntake(open) {
+  $('#intakeBody').style.display = open ? 'grid' : 'none';
+  $('#intakeToggle').setAttribute('aria-expanded', String(open));
+  $('#intakeState').textContent = open ? 'masquer' : 'afficher';
+}
+
+$('#intakeToggle').addEventListener('click', () => {
+  setIntake($('#intakeBody').style.display === 'none');
+});
+
+/* --- filtres --- */
+let qTimer;
+$('#qBox').addEventListener('input', (e) => {
+  clearTimeout(qTimer);
+  const v = e.target.value;
+  qTimer = setTimeout(() => { state.filters.q = v; render(); }, 220);
+});
+$('#brandSel').addEventListener('change', e => { state.filters.brand = e.target.value; render(); });
+$('#sortSel').addEventListener('change', e => { state.filters.sort = e.target.value; render(); });
+
+function chipGroup(id, key) {
+  $('#' + id).addEventListener('click', (e) => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    $$('.chip', chip.parentElement).forEach(c => c.setAttribute('aria-pressed', 'false'));
+    chip.setAttribute('aria-pressed', 'true');
+    state.filters[key] = chip.dataset.v;
+    render();
+  });
+}
+chipGroup('statusChips', 'status');
+chipGroup('formatChips', 'format');
+
+$('#minDays').addEventListener('input', (e) => {
+  state.filters.minDays = Number(e.target.value);
+  $('#minDaysOut').textContent = e.target.value + ' j';
+  render();
+});
+
+$('#starChip').addEventListener('click', (e) => {
+  state.filters.starred = !state.filters.starred;
+  e.currentTarget.setAttribute('aria-pressed', String(state.filters.starred));
+  render();
+});
+
+$('#csvBtn').addEventListener('click', exportCsv);
+
+/* --- actions sur les cartes --- */
+$('#deck').addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-act]');
+  const card = e.target.closest('.clip');
+  if (!btn || !card) return;
+  const ad = state.ads[card.dataset.id];
+  if (!ad) return;
+
+  switch (btn.dataset.act) {
+    case 'copy': toClipboard(asText(ad), 'Texte de la pub copié.'); break;
+    case 'brief': toClipboard(asBrief(ad), 'Brief créatif copié.'); break;
+    case 'expand': {
+      const said = $('#said-' + CSS.escape(ad.id), card);
+      const open = said.classList.toggle('open');
+      btn.textContent = open ? 'Réduire' : 'Lire la suite';
+      break;
+    }
+    case 'star':
+      ad.star = !ad.star;
+      btn.setAttribute('aria-pressed', String(ad.star));
+      save();
+      if (state.filters.starred) render();
+      break;
+  }
+});
+
+/* --- comparateur --- */
+$('#versusChips').addEventListener('click', (e) => {
+  const chip = e.target.closest('.chip');
+  if (!chip) return;
+  const id = chip.dataset.page;
+  if (state.versus.has(id)) state.versus.delete(id);
+  else if (state.versus.size >= 5) return toast('Cinq marques au maximum.');
+  else state.versus.add(id);
+  chip.setAttribute('aria-pressed', String(state.versus.has(id)));
+  renderVersusPanel(brandNames());
+});
+
+/* --- démarrage --- */
+load();
+render();
+setIntake(list().length === 0);
+</script>

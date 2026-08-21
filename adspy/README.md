@@ -8,7 +8,25 @@ Gratuit, sans compte, sans abonnement. Tout tourne sur ta machine.
 
 ---
 
-## Démarrer
+## Deux versions
+
+| | Version complète | Version web |
+|---|---|---|
+| Fichier | `server.js` + `public/` | `web/index.html` (page unique) |
+| Installation | Node.js | aucune |
+| Collecte automatique | oui | non — copier-coller depuis l'Ad Library |
+| Visuels des créas | affichés et téléchargeables | non affichés |
+| Stockage | `data/db.json` sur ton disque | mémoire du navigateur |
+
+La version web est un fichier autonome : elle fait la même analyse (score,
+filtres, comparateur, export CSV, copie des textes et des briefs), mais sans
+serveur elle ne peut ni appeler Facebook ni afficher les images de Meta. Utilise-la
+si tu ne veux rien installer, et la version complète quand tu veux les visuels
+et la collecte automatique.
+
+---
+
+## Démarrer la version complète
 
 Il faut **Node.js 18 ou plus** ([nodejs.org](https://nodejs.org) — installe la version LTS).
 Aucune autre installation, aucun `npm install` : l'outil n'utilise que ce que Node
