@@ -14,6 +14,21 @@ Il faut **Node.js 18 ou plus** ([nodejs.org](https://nodejs.org) — installe la
 Aucune autre installation, aucun `npm install` : l'outil n'utilise que ce que Node
 fournit déjà.
 
+**Le plus simple — double-clic :**
+
+| Système | Fichier |
+|---|---|
+| Windows | `DEMARRER-WINDOWS.bat` |
+| macOS | `DEMARRER-MAC-LINUX.command` |
+
+Le navigateur s'ouvre tout seul. Garde la fenêtre noire ouverte tant que tu
+utilises l'outil : c'est elle qui fait tourner le serveur.
+
+Sur macOS, au premier lancement, le système peut bloquer le fichier
+(« développeur non identifié ») : clic droit → **Ouvrir** → **Ouvrir**.
+
+**En ligne de commande, depuis la racine du projet :**
+
 ```bash
 node adspy/server.js
 ```
