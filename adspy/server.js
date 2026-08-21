@@ -502,7 +502,13 @@ async function handleApi(req, res, url) {
 
   /* --- le script de capture, servi prêt à copier --- */
   if (route === '/api/bookmarklet' && req.method === 'GET') {
-    const source = await fs.readFile(path.join(PUBLIC_DIR, 'capture.user.js'), 'utf8');
+    const raw = await fs.readFile(path.join(PUBLIC_DIR, 'capture.user.js'), 'utf8');
+
+    // Le script source cible le port par défaut ; on y injecte le port réel,
+    // sinon un lancement sur ADSPY_PORT donnerait un marque-page qui parle
+    // dans le vide.
+    const source = raw.replaceAll('http://localhost:4177', `http://localhost:${PORT}`);
+
     const minified = source
       .replace(/\/\*[\s\S]*?\*\//g, '')
       .replace(/^\s*\/\/.*$/gm, '')

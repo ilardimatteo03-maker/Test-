@@ -23,9 +23,10 @@ echo "  Ctrl+C pour arrêter."
 echo ""
 
 # Ouvre le navigateur une fois le serveur prêt.
+URL="http://localhost:${ADSPY_PORT:-4177}"
 ( sleep 2
-  open http://localhost:4177 2>/dev/null \
-    || xdg-open http://localhost:4177 2>/dev/null \
-    || echo "  Ouvre http://localhost:4177 dans ton navigateur." ) &
+  open "$URL" 2>/dev/null \
+    || xdg-open "$URL" 2>/dev/null \
+    || echo "  Ouvre $URL dans ton navigateur." ) &
 
 node adspy/server.js
