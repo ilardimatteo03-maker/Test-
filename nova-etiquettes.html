@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nova · Étiquettes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Cormorant+Garamond:ital,wght@0,500&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--carbone:#141519;--craie:#F1F0EC;--blanc:#FAFAF9;--graphite:#44474E;--brume:#B9B7B0;--sable:#D9B4A7;
+  --hair:rgba(20,21,25,.16);--sans:'Archivo',Helvetica,Arial,sans-serif;--serif:'Cormorant Garamond',Georgia,serif}
+  body{font-family:var(--sans);background:#E7E5DF;color:var(--carbone);padding:64px 60px 72px}
+  .head{max-width:1280px;margin:0 auto 44px}
+  .kick{font-size:14px;font-weight:640;letter-spacing:.26em;text-transform:uppercase;color:#6d6a63;display:flex;align-items:center;gap:10px}
+  .kick svg{width:15px;height:15px;fill:var(--carbone)}
+  .h1{font-weight:800;font-stretch:118%;text-transform:uppercase;font-size:40px;margin-top:8px}
+  .h1 small{display:block;font-family:var(--serif);font-style:italic;font-weight:500;font-size:17px;text-transform:none;color:#55524b;margin-top:6px}
+  .board{max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:70px;align-items:flex-start;justify-content:center}
+  .col{display:flex;flex-direction:column;align-items:center;gap:16px}
+  .cap{font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#55524b;text-align:center}
+  .cap small{display:block;font-weight:500;letter-spacing:.02em;text-transform:none;color:#8a877f;font-size:12px;margin-top:4px}
+  .spk{fill:var(--carbone)}
+  .wm{fill:var(--carbone)}
+
+  /* eyelet + cord */
+  .hang{position:relative;display:flex;flex-direction:column;align-items:center}
+  .cord{position:absolute;top:-34px;width:60px;height:44px}
+  .cord svg{width:60px;height:44px;fill:none;stroke:var(--brume);stroke-width:3}
+
+  /* hangtag */
+  .tag{width:300px;height:640px;background:var(--craie);border:1px solid var(--hair);border-radius:10px;
+    box-shadow:0 24px 30px rgba(20,21,25,.14);padding:44px 34px 38px;display:flex;flex-direction:column;align-items:center;position:relative}
+  .eyelet{width:26px;height:26px;border-radius:50%;border:2px solid var(--carbone);margin-bottom:34px;position:relative}
+  .tag .rule{width:64px;height:1px;background:var(--carbone);margin:26px 0}
+  .tag .slogan{font-family:var(--serif);font-style:italic;font-size:27px;text-align:center;line-height:1.2}
+  .tag .foot{margin-top:auto;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--graphite)}
+
+  /* verso content */
+  .badge{border:1.5px solid var(--carbone);border-radius:999px;padding:8px 18px;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+  .nc-title{font-weight:800;font-stretch:114%;text-transform:uppercase;font-size:22px;letter-spacing:.02em}
+  .nc-line{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--graphite);text-align:center;line-height:1.25;margin-top:2px}
+  .rows{width:100%;margin-top:8px;display:flex;flex-direction:column;gap:0}
+  .r{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-top:1px solid var(--hair);font-size:12.5px}
+  .r b{font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:11px;color:var(--graphite)}
+  .r span{color:var(--carbone);text-align:right}
+  .fill{color:var(--brume)!important;font-style:italic}
+
+  /* care label */
+  .care{width:300px;background:var(--craie);border:1px dashed var(--brume);border-radius:6px;padding:26px 26px 24px}
+  .care .top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-bottom:12px;border-bottom:1px solid var(--hair)}
+  .care .top .l{display:flex;align-items:center;gap:9px}
+  .care .top .l svg{fill:var(--carbone)}
+  .care .top .nc{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--carbone);border-radius:4px;padding:3px 7px}
+  .care .cr{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--hair);font-size:12px}
+  .care .cr:first-of-type{border-top:0}
+  .care .cr b{font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:10.5px;color:var(--graphite)}
+  .care .cr span{color:var(--carbone);text-align:right}
+  .care .cr .fill{color:var(--brume);font-style:italic}
+  .care .symzone{margin-top:12px;border:1.5px dashed var(--carbone);border-radius:5px;padding:14px 12px;text-align:center}
+  .care .symrow{display:flex;justify-content:center;gap:14px;opacity:.32;margin-bottom:9px}
+  .care .symrow svg{width:26px;height:26px;fill:none;stroke:var(--carbone);stroke-width:1.4}
+  .care .symnote{font-size:11px;line-height:1.4;color:var(--graphite)}
+  .care .symnote b{color:var(--carbone)}
+  .care .madein{margin-top:12px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--graphite);text-align:center;font-weight:600}
+
+  .note{max-width:1280px;margin:52px auto 0;border-left:3px solid var(--carbone);padding:12px 20px;font-size:13.5px;color:var(--graphite);line-height:1.5;background:var(--blanc)}
+  .note b{color:var(--carbone)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+  <symbol id="lg-word" viewBox="0 0 520 120">
+    <path d="M0 10H20L80 86V10H100V110H80L20 34V110H0Z"/>
+    <path fill-rule="evenodd" d="M140 60a50 50 0 1 0 100 0 50 50 0 1 0-100 0Zm20 0a30 30 0 1 1 60 0 30 30 0 1 1-60 0Z"/>
+    <path d="M280 10h20l30 76 30-76h20l-40 100h-20Z"/>
+    <path d="M460 10h20l40 100h-20l-30-76-30 76h-20Z"/>
+  </symbol>
+  <symbol id="lg-spark" viewBox="0 0 100 100"><path d="M50 0C53 38 62 47 100 50 62 53 53 62 50 100 47 62 38 53 0 50 38 47 47 38 50 0Z"/></symbol>
+</defs></svg>
+
+<div class="head">
+  <div class="kick"><svg viewBox="0 0 100 100"><use href="#lg-spark"/></svg>Nova · Fournisseur</div>
+  <div class="h1">Étiquettes<small>Hangtag à accrocher + étiquette d'entretien thermocollée. Fond Craie, impression Carbone.</small></div>
+</div>
+
+<div class="board">
+
+  <!-- HANGTAG RECTO -->
+  <div class="col">
+    <div class="hang">
+      <div class="cord"><svg viewBox="0 0 60 44"><path d="M8 44 C8 8 52 8 52 44"/></svg></div>
+      <div class="tag">
+        <div class="eyelet"></div>
+        <svg viewBox="0 0 100 100" style="width:44px;height:44px" class="spk"><use href="#lg-spark"/></svg>
+        <svg viewBox="0 0 520 120" style="width:200px;margin-top:22px" class="wm"><use href="#lg-word"/></svg>
+        <div class="rule"></div>
+        <div class="slogan">Become<br>the splendour.</div>
+        <div class="foot">wearnova.com</div>
+      </div>
+    </div>
+    <div class="cap">Hangtag · Recto<small>logo + slogan</small></div>
+  </div>
+
+  <!-- HANGTAG VERSO -->
+  <div class="col">
+    <div class="hang">
+      <div class="cord"><svg viewBox="0 0 60 44"><path d="M8 44 C8 8 52 8 52 44"/></svg></div>
+      <div class="tag">
+        <div class="eyelet"></div>
+        <div class="badge">Technologie</div>
+        <div class="nc-title" style="margin-top:18px">NOVACORE™</div>
+        <div class="nc-line">La seconde peau<br>qui te tient à froid.</div>
+        <div class="rows">
+          <div class="r"><b>Modèle</b><span class="fill">Réf. produit</span></div>
+          <div class="r"><b>Taille</b><span class="fill">S · M · L</span></div>
+          <div class="r"><b>Coupe</b><span>V-Lift™</span></div>
+          <div class="r"><b>Composition</b><span class="fill">à compléter usine</span></div>
+          <div class="r"><b>Entretien</b><span>voir étiquette intérieure</span></div>
+        </div>
+        <div class="foot" style="margin-top:22px">Become the splendour</div>
+      </div>
+    </div>
+    <div class="cap">Hangtag · Verso<small>label NOVACORE™</small></div>
+  </div>
+
+  <!-- CARE LABEL -->
+  <div class="col">
+    <div class="care">
+      <div class="top">
+        <div class="l"><svg viewBox="0 0 520 120" style="width:78px"><use href="#lg-word"/></svg></div>
+        <div class="nc">NOVACORE™</div>
+      </div>
+      <div class="cr"><b>Taille / Size</b><span class="fill">S · M · L · XL</span></div>
+      <div class="cr"><b>Composition</b><span class="fill">à compléter par l'usine</span></div>
+      <div class="symzone">
+        <div class="symrow">
+          <svg viewBox="0 0 24 24"><path d="M3 8c3-3 6 3 9 0s6-3 9 0v8c-3 3-6-3-9 0s-6 3-9 0Z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M4 5h16l-2 15H6Z"/></svg>
+          <svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M4 18l8-13 8 13Z"/></svg>
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg>
+        </div>
+        <div class="symnote"><b>Pictogrammes d'entretien à intégrer ici.</b><br>Utiliser les symboles <b>recommandés et fournis par l'usine</b> (norme ISO 3758), adaptés à la matière réelle.</div>
+      </div>
+      <div class="madein">Fabriqué en · Made in ______</div>
+    </div>
+    <div class="cap">Étiquette intérieure · thermocollée<small>entretien uniquement · sans étiquette cousue</small></div>
+  </div>
+
+</div>
+
+<div class="note"><b>À l'usine :</b> hangtag imprimé une couleur Carbone sur papier Craie recyclé (env. 300 g), œillet sans laiton, cordon coton ton Brume. Étiquette d'entretien <b>thermocollée</b> à l'intérieur (pas d'étiquette cousue, pour le confort) : reprendre la mise en page ci-dessus et <b>insérer les pictogrammes de lavage recommandés par le fournisseur</b> selon la composition finale.</div>
+</body>
+</html>
