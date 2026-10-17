@@ -1,0 +1,327 @@
+{
+  "marque": "Arte Automobili",
+  "version": "1.0",
+  "couleurs": [
+    {
+      "id": "nero-vite",
+      "nom": "Nero Vite",
+      "groupe": "principale",
+      "hex": "#0D0F0E",
+      "cmjn": [
+        75,
+        65,
+        65,
+        85
+      ],
+      "aplat_cmjn": [
+        60,
+        40,
+        40,
+        100
+      ],
+      "pantone": "Neutral Black C",
+      "origine": "Noir de vigne — pigment décrit par Cennino Cennini dans Il Libro dell'Arte (vers 1400).",
+      "role": "Couleur dominante. Fond des supports premium, de la photographie et du digital.",
+      "rgb": [
+        13,
+        15,
+        14
+      ]
+    },
+    {
+      "id": "bianco-sangiovanni",
+      "nom": "Bianco Sangiovanni",
+      "groupe": "principale",
+      "hex": "#EEEDE7",
+      "cmjn": [
+        4,
+        3,
+        7,
+        0
+      ],
+      "aplat_cmjn": null,
+      "pantone": "Teinte papier (blanc naturel) — pas d'encre",
+      "origine": "Blanc de chaux de la tradition des fresquistes italiens.",
+      "role": "Texte et logo sur fonds sombres ; fond des documents administratifs.",
+      "rgb": [
+        238,
+        237,
+        231
+      ]
+    },
+    {
+      "id": "verde-verona",
+      "nom": "Verde Verona",
+      "groupe": "principale",
+      "hex": "#1F3D35",
+      "cmjn": [
+        84,
+        45,
+        68,
+        48
+      ],
+      "aplat_cmjn": null,
+      "pantone": "5535 C (indicatif)",
+      "origine": "Terre verte de Vérone, pigment historique des peintres italiens, approfondie.",
+      "role": "Couleur signature. Aplats, cartes, enseigne, moments de marque. Jamais en filet fin sur noir.",
+      "rgb": [
+        31,
+        61,
+        53
+      ]
+    },
+    {
+      "id": "verdaccio",
+      "nom": "Verdaccio",
+      "groupe": "secondaire",
+      "hex": "#262B29",
+      "cmjn": [
+        72,
+        58,
+        62,
+        62
+      ],
+      "aplat_cmjn": null,
+      "pantone": "447 C (indicatif)",
+      "origine": "Sous-couche gris-vert des peintres de la Renaissance.",
+      "role": "Anthracite de structure : surfaces secondaires, cartes UI, textile, véhicule.",
+      "rgb": [
+        38,
+        43,
+        41
+      ]
+    },
+    {
+      "id": "argento",
+      "nom": "Argento",
+      "groupe": "secondaire",
+      "hex": "#8E9592",
+      "cmjn": [
+        45,
+        32,
+        37,
+        8
+      ],
+      "aplat_cmjn": null,
+      "pantone": "Cool Gray 8 C · métallisé : 877 C / dorure argent",
+      "origine": "Feuille d'argent — la lumière métallique de la carrosserie.",
+      "role": "Texte secondaire sur fond sombre, filets, données techniques, dorure à chaud.",
+      "rgb": [
+        142,
+        149,
+        146
+      ]
+    },
+    {
+      "id": "travertino",
+      "nom": "Travertino",
+      "groupe": "secondaire",
+      "hex": "#D6D3CA",
+      "cmjn": [
+        15,
+        12,
+        18,
+        0
+      ],
+      "aplat_cmjn": null,
+      "pantone": "7527 C (indicatif)",
+      "origine": "Pierre romaine des façades et des sols d'atelier.",
+      "role": "Fonds clairs secondaires, séparateurs sur ivoire, états désactivés.",
+      "rgb": [
+        214,
+        211,
+        202
+      ]
+    }
+  ],
+  "contrastes": [
+    {
+      "texte": "Nero Vite",
+      "fond": "Bianco Sangiovanni",
+      "ratio": 16.4,
+      "niveau": "AAA"
+    },
+    {
+      "texte": "Nero Vite",
+      "fond": "Verde Verona",
+      "ratio": 1.63,
+      "niveau": "décoratif seulement"
+    },
+    {
+      "texte": "Nero Vite",
+      "fond": "Verdaccio",
+      "ratio": 1.34,
+      "niveau": "décoratif seulement"
+    },
+    {
+      "texte": "Nero Vite",
+      "fond": "Argento",
+      "ratio": 6.29,
+      "niveau": "AA"
+    },
+    {
+      "texte": "Nero Vite",
+      "fond": "Travertino",
+      "ratio": 12.85,
+      "niveau": "AAA"
+    },
+    {
+      "texte": "Bianco Sangiovanni",
+      "fond": "Nero Vite",
+      "ratio": 16.4,
+      "niveau": "AAA"
+    },
+    {
+      "texte": "Bianco Sangiovanni",
+      "fond": "Verde Verona",
+      "ratio": 10.07,
+      "niveau": "AAA"
+    },
+    {
+      "texte": "Bianco Sangiovanni",
+      "fond": "Verdaccio",
+      "ratio": 12.26,
+      "niveau": "AAA"
+    },
+    {
+      "texte": "Bianco Sangiovanni",
+      "fond": "Argento",
+      "ratio": 2.61,
+      "niveau": "décoratif seulement"
+    },
+    {
+      "texte": "Bianco Sangiovanni",
+      "fond": "Travertino",
+      "ratio": 1.28,
+      "niveau": "décoratif seulement"
+    },
+    {
+      "texte": "Verde Verona",
+      "fond": "Nero Vite",
+      "ratio": 1.63,
+      "niveau": "décoratif seulement"
+    },
+    {
+      "texte": "Verde Verona",
+      "fond": "Bianco Sangiovanni",
+      "ratio": 10.07,
+      "niveau": "AAA"
+    },
+    {
+      "texte": "Verde Verona",
+      "fond": "Verdaccio",
+      "ratio": 1.22,
+      "niveau": "décoratif seulement"
+    },
+    {
+      "texte": "Verde Verona",
+      "fond": "Argento",
+      "ratio": 3.86,
+      "niveau": "AA grands textes"
+    },
+    {
+      "texte": "Verde Verona",
+      "fond": "Travertino",
+      "ratio": 7.89,
+      "niveau": "AAA"
+    },
+    {
+      "texte": "Verdaccio",
+      "fond": "Nero Vite",
+      "ratio": 1.34,
+      "niveau": "décoratif seulement"
+    },
+    {
+      "texte": "Verdaccio",
+      "fond": "Bianco Sangiovanni",
+      "ratio": 12.26,
+      "niveau": "AAA"
+    },
+    {
+      "texte": "Verdaccio",
+      "fond": "Verde Verona",
+      "ratio": 1.22,
+      "niveau": "décoratif seulement"
+    },
+    {
+      "texte": "Verdaccio",
+      "fond": "Argento",
+      "ratio": 4.7,
+      "niveau": "AA"
+    },
+    {
+      "texte": "Verdaccio",
+      "fond": "Travertino",
+      "ratio": 9.61,
+      "niveau": "AAA"
+    },
+    {
+      "texte": "Argento",
+      "fond": "Nero Vite",
+      "ratio": 6.29,
+      "niveau": "AA"
+    },
+    {
+      "texte": "Argento",
+      "fond": "Bianco Sangiovanni",
+      "ratio": 2.61,
+      "niveau": "décoratif seulement"
+    },
+    {
+      "texte": "Argento",
+      "fond": "Verde Verona",
+      "ratio": 3.86,
+      "niveau": "AA grands textes"
+    },
+    {
+      "texte": "Argento",
+      "fond": "Verdaccio",
+      "ratio": 4.7,
+      "niveau": "AA"
+    },
+    {
+      "texte": "Argento",
+      "fond": "Travertino",
+      "ratio": 2.04,
+      "niveau": "décoratif seulement"
+    },
+    {
+      "texte": "Travertino",
+      "fond": "Nero Vite",
+      "ratio": 12.85,
+      "niveau": "AAA"
+    },
+    {
+      "texte": "Travertino",
+      "fond": "Bianco Sangiovanni",
+      "ratio": 1.28,
+      "niveau": "décoratif seulement"
+    },
+    {
+      "texte": "Travertino",
+      "fond": "Verde Verona",
+      "ratio": 7.89,
+      "niveau": "AAA"
+    },
+    {
+      "texte": "Travertino",
+      "fond": "Verdaccio",
+      "ratio": 9.61,
+      "niveau": "AAA"
+    },
+    {
+      "texte": "Travertino",
+      "fond": "Argento",
+      "ratio": 2.04,
+      "niveau": "décoratif seulement"
+    }
+  ],
+  "proportions": {
+    "Nero Vite": 55,
+    "Verdaccio": 15,
+    "Bianco Sangiovanni": 18,
+    "Verde Verona": 8,
+    "Argento": 3,
+    "Travertino": 1
+  }
+}

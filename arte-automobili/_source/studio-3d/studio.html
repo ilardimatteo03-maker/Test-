@@ -1,0 +1,155 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>html,body{margin:0;background:#0D0F0E;overflow:hidden}canvas{display:block}</style>
+<script type="importmap">{"imports":{"three":"./package/build/three.module.js","three/addons/":"./package/examples/jsm/"}}</script>
+</head><body>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { BokehPass } from 'three/addons/postprocessing/BokehPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+
+const q = new URLSearchParams(location.search);
+const SHOTS = {
+  hero:    { cam: [6.9, 0.9, 6.3],   tgt: [-1.45, 0.62, 1.1],  fov: 26, paint: 'nero' },
+  profil:  { cam: [9.5, 0.7, -0.15], tgt: [0, 0.62, -0.15],   fov: 24, paint: 'grafite' },
+  epaule:  { cam: [2.9, 1.25, -0.2], tgt: [1.05, 0.95, -1.35], fov: 34, paint: 'nero', focus: 2.2, aperture: 0.0025 },
+  avant:   { cam: [2.9, 1.25, -0.2], tgt: [1.05, 0.95, -1.35], fov: 34, paint: 'nero-terne', focus: 2.2, aperture: 0.0025 },
+  jante:   { cam: [2.35, 0.55, 2.1], tgt: [1.0, 0.5, 1.25],   fov: 34, paint: 'nero', focus: 1.6, aperture: 0.003 },
+  phare:   { cam: [1.9, 0.95, 3.4],  tgt: [0.55, 0.78, 1.95], fov: 34, paint: 'argento', focus: 1.95, aperture: 0.003 },
+  capot:   { cam: [0.9, 1.75, 3.9],  tgt: [0.1, 0.85, 1.2],   fov: 38, paint: 'nero', focus: 2.7, aperture: 0.0015 },
+  verde:   { cam: [-4.6, 1.05, -4.8], tgt: [0, 0.5, -0.3],    fov: 28, paint: 'verde' },
+  arriere: { cam: [4.6, 0.65, -5.0], tgt: [0, 0.5, -0.3],     fov: 28, paint: 'bianco' },
+  face:    { cam: [0, 0.75, 9.5],    tgt: [0, 0.6, 0],        fov: 30, paint: 'nero' },
+};
+const shot = SHOTS[q.get('shot') || 'hero'];
+const W = +(q.get('w') || 1600), H = +(q.get('h') || 900);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1);
+renderer.setSize(W, H);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = +(q.get('exp') || 1.3);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+{
+  const bc = document.createElement('canvas'); bc.width = 64; bc.height = 64;
+  const b = bc.getContext('2d');
+  const gr = b.createRadialGradient(32, 26, 2, 32, 30, 44);
+  gr.addColorStop(0, '#202423'); gr.addColorStop(0.55, '#121514'); gr.addColorStop(1, '#070808');
+  b.fillStyle = gr; b.fillRect(0, 0, 64, 64);
+  const t = new THREE.CanvasTexture(bc); t.colorSpace = THREE.SRGBColorSpace;
+  scene.background = t;
+}
+scene.fog = new THREE.Fog(0x0b0d0c, 7, 16);
+
+// --- Environnement de studio : lames LED au plafond + panneaux latéraux
+function studioEnv() {
+  const env = new THREE.Scene();
+  env.background = new THREE.Color(0x050606);
+  const lamp = (w, h, x, y, z, rx, ry, intensity) => {
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h),
+      new THREE.MeshBasicMaterial({ color: new THREE.Color(intensity, intensity, intensity * 0.98), side: THREE.DoubleSide }));
+    m.position.set(x, y, z); m.rotation.set(rx, ry, 0); env.add(m);
+  };
+  // lames parallèles au-dessus (l'effet « linea di luce » sur le vernis)
+  for (let i = -3; i <= 3; i++) lamp(14, 0.16, 0, 6, i * 1.15, Math.PI / 2, 0, 4.2);
+  // grands panneaux diffus latéraux, faibles
+  lamp(12, 2.6, 0, 2.0, -7, 0, 0, 1.25);
+  lamp(12, 2.6, 0, 2.0, 7, 0, Math.PI, 1.25);
+  lamp(16, 9, 0, 6.6, 0, Math.PI / 2, 0, 0.18);
+  // bandes verticales fines (reflets nets sur les flancs)
+  for (const x of [-4.5, -1.5, 1.5, 4.5]) { lamp(0.12, 3.2, x, 2.0, 6.8, 0, Math.PI, 3.0); lamp(0.12, 3.2, x, 2.0, -6.8, 0, 0, 3.0); }
+  lamp(3.5, 3, 8, 2, 0, 0, -Math.PI / 2, 0.9);
+  lamp(3.5, 3, -8, 2, 0, 0, Math.PI / 2, 0.9);
+  // sol de l'environnement très sombre
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.MeshBasicMaterial({ color: 0x0a0b0b }));
+  floor.rotation.x = -Math.PI / 2; floor.position.y = -0.01; env.add(floor);
+  const pm = new THREE.PMREMGenerator(renderer);
+  return pm.fromScene(env, 0.0, 0.1, 100).texture;
+}
+scene.environment = studioEnv();
+
+// sol réel
+const floorMat = new THREE.MeshStandardMaterial({ color: 0x0a0b0b, roughness: 0.92, metalness: 0.0, envMapIntensity: 0.12 });
+const floor = new THREE.Mesh(new THREE.CircleGeometry(30, 64), floorMat);
+floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
+
+// ombre de contact douce
+const cv = document.createElement('canvas'); cv.width = cv.height = 256;
+const cx = cv.getContext('2d');
+const g = cx.createRadialGradient(128, 128, 10, 128, 128, 128);
+g.addColorStop(0, 'rgba(0,0,0,0.95)'); g.addColorStop(0.55, 'rgba(0,0,0,0.6)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+cx.fillStyle = g; cx.fillRect(0, 0, 256, 256);
+const shadow = new THREE.Mesh(new THREE.PlaneGeometry(5.6, 2.6),
+  new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(cv), transparent: true, depthWrite: false }));
+shadow.rotation.x = -Math.PI / 2; shadow.position.y = 0.002; scene.add(shadow);
+
+const key = new THREE.DirectionalLight(0xffffff, 0.25);
+key.position.set(0.5, 8, 1); key.castShadow = true;
+key.shadow.mapSize.set(2048, 2048);
+Object.assign(key.shadow.camera, { left: -4, right: 4, top: 4, bottom: -4, near: 1, far: 20 });
+key.shadow.radius = 8;
+scene.add(key);
+
+const PAINTS = {
+  nero:        { color: 0x050606, metalness: 0.35, roughness: 0.32, clearcoat: 1, ccr: 0.015 },
+  'nero-terne':{ color: 0x0b0c0c, metalness: 0.2,  roughness: 0.75, clearcoat: 0.25, ccr: 0.55 },
+  grafite:     { color: 0x1c1f1e, metalness: 0.7,  roughness: 0.35, clearcoat: 1, ccr: 0.02 },
+  argento:     { color: 0x8a8f8d, metalness: 0.85, roughness: 0.32, clearcoat: 1, ccr: 0.02 },
+  verde:       { color: 0x1f3d35, metalness: 0.45, roughness: 0.3, clearcoat: 1, ccr: 0.015 },
+  bianco:      { color: 0xd8d8d2, metalness: 0.1,  roughness: 0.3,  clearcoat: 1, ccr: 0.02 },
+};
+
+const loader = new GLTFLoader();
+loader.load('./CarConcept.glb', (gltf) => {
+  const car = gltf.scene;
+  const p = PAINTS[shot.paint];
+  const paint = new THREE.MeshPhysicalMaterial({
+    color: p.color, metalness: p.metalness, roughness: p.roughness,
+    clearcoat: p.clearcoat, clearcoatRoughness: p.ccr, envMapIntensity: 1.0 });
+  const trim = new THREE.MeshPhysicalMaterial({ color: 0x050505, metalness: 0.2, roughness: 0.45, clearcoat: 0.6, clearcoatRoughness: 0.1 });
+  car.traverse((o) => {
+    if (!o.isMesh) return;
+    o.castShadow = true;
+    const n = o.material && o.material.name;
+    if (n === 'Paint 1 Carmine') o.material = paint;
+    if (n === 'Paint 2 Carmine') o.material = trim;
+    if (n === 'Interior 3 Carmine') o.material = new THREE.MeshStandardMaterial({ color: 0x1a1512, roughness: 0.6 });
+    if (n === 'Brake') o.material = new THREE.MeshStandardMaterial({ color: 0x2a2c2b, metalness: 0.6, roughness: 0.4 });
+    if (n === 'Tireside') o.material = new THREE.MeshStandardMaterial({ color: 0x0a0a0a, roughness: 0.7 });
+    if (o.name === 'License Plate' || o.name === 'InteriorSteeringEmblem' || n === 'License') o.visible = false;
+  });
+  // centrage au sol
+  const box = new THREE.Box3().setFromObject(car);
+  const c = box.getCenter(new THREE.Vector3());
+  car.position.x -= c.x; car.position.z -= c.z; car.position.y -= box.min.y;
+  scene.add(car);
+  const size = box.getSize(new THREE.Vector3());
+  shadow.scale.set(size.x / 4.6, 1, size.z / 1.9);
+  window.carSize = size.toArray();
+  car.updateMatrixWorld(true);
+  window.parts = {};
+  for (const nm of ['WheelFrontL','WheelFrontR','WheelRearL','WheelRearR','BodyHeadlights','BodyTaillights','BodyHood']) {
+    const o = car.getObjectByName(nm); if (o) window.parts[nm] = new THREE.Box3().setFromObject(o).getCenter(new THREE.Vector3()).toArray().map(v => +v.toFixed(2));
+  }
+
+  const cam = new THREE.PerspectiveCamera(shot.fov, W / H, 0.05, 200);
+  cam.position.fromArray(shot.cam);
+  cam.lookAt(new THREE.Vector3().fromArray(shot.tgt));
+
+  const composer = new EffectComposer(renderer);
+  composer.addPass(new RenderPass(scene, cam));
+  if (shot.focus) composer.addPass(new BokehPass(scene, cam, { focus: shot.focus, aperture: shot.aperture, maxblur: 0.006 }));
+  composer.addPass(new OutputPass());
+  composer.render();
+  window.renderDone = true;
+}, undefined, (e) => { document.title = 'ERR ' + e; window.renderDone = true; });
+</script>
+</body></html>
