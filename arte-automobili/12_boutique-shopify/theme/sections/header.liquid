@@ -1,0 +1,50 @@
+{%- liquid
+  assign over = false
+  if section.settings.transparent_home and template.name == 'index'
+    assign over = true
+  endif
+-%}
+<header class="header{% if over %} header--over{% endif %}">
+  <div class="wrap header__in">
+    <a class="header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}, accueil">
+      {%- if section.settings.logo != blank -%}
+        {{ section.settings.logo | image_url: width: 400 | image_tag: alt: shop.name, height: 38 }}
+      {%- else -%}
+        <img src="{{ 'logo-principal-bianco.svg' | asset_url }}" alt="{{ shop.name }}" width="117" height="38">
+      {%- endif -%}
+    </a>
+    <nav class="header__nav" aria-label="Navigation principale">
+      {%- for link in section.settings.menu.links -%}
+        <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+    <div class="header__tools">
+      <a class="icon-btn" href="{{ routes.search_url }}" aria-label="Recherche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg></a>
+      {%- if shop.customer_accounts_enabled -%}
+        <a class="icon-btn" href="{{ routes.account_url }}" aria-label="Compte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/></svg></a>
+      {%- endif -%}
+      <a class="icon-btn" href="{{ routes.cart_url }}" aria-label="Panier, {{ cart.item_count }} article{% if cart.item_count > 1 %}s{% endif %}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 8h14l-1.2 12.5H6.2z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span>{{ cart.item_count }}</span></a>
+      <button class="icon-btn menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="drawer" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 9h18M3 15h18"/></svg></button>
+    </div>
+  </div>
+  <div class="drawer" id="drawer" data-drawer>
+    {%- for link in section.settings.menu.links -%}
+      <a href="{{ link.url }}">{{ link.title }}</a>
+    {%- endfor -%}
+    {%- if settings.devis_url != blank -%}
+      <p style="margin-top:28px"><a class="btn btn--primary" href="{{ settings.devis_url }}" style="font:600 13px/1 var(--sans);border-bottom:1px solid var(--bianco)">Demander un devis</a></p>
+    {%- endif -%}
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "En-tête",
+  "class": "section-header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo (sinon le logo principal Bianco fourni)" },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "checkbox", "id": "transparent_home", "label": "En-tête transparent sur l'image d'accueil", "default": true }
+  ]
+}
+{% endschema %}

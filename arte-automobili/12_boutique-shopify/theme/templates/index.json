@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "hero": { "type": "hero", "settings": {} },
+    "gamme": { "type": "featured-collection", "settings": { "eyebrow": "Gamme atelier", "title_1": "Les produits", "title_2": "de nos protocoles.", "limit": 4, "columns": 4 } },
+    "manifeste": { "type": "manifeste", "settings": {} },
+    "atelier": { "type": "image-with-text", "settings": { "default_image": "capot.jpg" } },
+    "cadeaux": { "type": "featured-collection", "settings": { "eyebrow": "Coffrets et cartes cadeaux", "title_1": "Offrir", "title_2": "un reflet.", "limit": 3, "columns": 3, "tight": true } },
+    "engagements": {
+      "type": "promises",
+      "blocks": {
+        "p1": { "type": "promise", "settings": { "ref": "EXPÉDITION", "title": "Sous 48 heures", "text": "Colis préparé à l'atelier, livré en point relais ou à domicile." } },
+        "p2": { "type": "promise", "settings": { "ref": "RETRAIT", "title": "Gratuit à l'atelier", "text": "Retirez votre commande lors d'un rendez-vous, avec nos conseils d'utilisation." } },
+        "p3": { "type": "promise", "settings": { "ref": "CONSEIL", "title": "Une question ?", "text": "L'atelier répond par e-mail ou téléphone, avant comme après l'achat." } }
+      },
+      "block_order": ["p1", "p2", "p3"],
+      "settings": {}
+    },
+    "bandeau": { "type": "cta-band", "settings": {} }
+  },
+  "order": ["hero", "gamme", "manifeste", "atelier", "cadeaux", "engagements", "bandeau"]
+}

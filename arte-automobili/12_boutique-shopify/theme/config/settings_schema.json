@@ -1,0 +1,44 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Arte Automobili",
+    "theme_version": "1.0.0",
+    "theme_author": "Arte Automobili",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://help.shopify.com"
+  },
+  {
+    "name": "Couleurs",
+    "settings": [
+      { "type": "paragraph", "content": "Palette officielle : ne modifier qu'en accord avec le guide de marque." },
+      { "type": "color", "id": "color_nero", "label": "Nero Vite (fond)", "default": "#0D0F0E" },
+      { "type": "color", "id": "color_bianco", "label": "Bianco Sangiovanni (texte, boutons)", "default": "#EEEDE7" },
+      { "type": "color", "id": "color_verde", "label": "Verde Verona (moments de marque)", "default": "#1F3D35" },
+      { "type": "color", "id": "color_verdaccio", "label": "Verdaccio (surfaces)", "default": "#262B29" },
+      { "type": "color", "id": "color_argento", "label": "Argento (texte secondaire, filets)", "default": "#8E9592" }
+    ]
+  },
+  {
+    "name": "Identité",
+    "settings": [
+      { "type": "image_picker", "id": "favicon", "label": "Favicon (sinon le monogramme fourni)" },
+      { "type": "text", "id": "signature", "label": "Signature", "default": "L'arte del riflesso." }
+    ]
+  },
+  {
+    "name": "Atelier",
+    "settings": [
+      { "type": "url", "id": "devis_url", "label": "Lien « Demander un devis » (site de l'atelier)" },
+      { "type": "text", "id": "telephone", "label": "Téléphone", "default": "[TÉLÉPHONE]" },
+      { "type": "text", "id": "adresse", "label": "Adresse de l'atelier", "default": "[ADRESSE DE L'ATELIER]" },
+      { "type": "url", "id": "instagram_url", "label": "Instagram" }
+    ]
+  },
+  {
+    "name": "Panier",
+    "settings": [
+      { "type": "checkbox", "id": "cart_note", "label": "Afficher la note de commande", "default": true },
+      { "type": "text", "id": "shipping_note", "label": "Mention livraison", "default": "Livraison offerte dès 60 € · retrait gratuit à l'atelier" }
+    ]
+  }
+]

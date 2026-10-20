@@ -1,0 +1,38 @@
+<section class="section section--tight" style="background:var(--verdaccio)">
+  <div class="wrap">
+    {%- if section.settings.title != blank -%}<h2 style="margin-bottom:40px">{{ section.settings.title }}</h2>{%- endif -%}
+    <div class="promises" style="--cols: {{ section.blocks.size | at_most: 4 | at_least: 1 }}">
+      {%- for block in section.blocks -%}
+        <div {{ block.shopify_attributes }}>
+          <span class="mono" style="font-size:13px;color:var(--argento)">{{ block.settings.ref }}</span>
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Engagements",
+  "settings": [{ "type": "text", "id": "title", "label": "Titre" }],
+  "blocks": [{
+    "type": "promise", "name": "Engagement",
+    "settings": [
+      { "type": "text", "id": "ref", "label": "Référence", "default": "01" },
+      { "type": "text", "id": "title", "label": "Titre", "default": "Engagement" },
+      { "type": "textarea", "id": "text", "label": "Texte" }
+    ]
+  }],
+  "max_blocks": 4,
+  "presets": [{
+    "name": "Engagements",
+    "blocks": [
+      { "type": "promise", "settings": { "ref": "EXPÉDITION", "title": "Sous 48 heures", "text": "Colis préparé à l'atelier, numéroté, livré en point relais ou à domicile." } },
+      { "type": "promise", "settings": { "ref": "RETRAIT", "title": "Gratuit à l'atelier", "text": "Retirez votre commande lors d'un rendez-vous, avec nos conseils d'utilisation." } },
+      { "type": "promise", "settings": { "ref": "CONSEIL", "title": "Une question ?", "text": "L'atelier répond par e-mail ou téléphone, avant comme après l'achat." } }
+    ]
+  }]
+}
+{% endschema %}

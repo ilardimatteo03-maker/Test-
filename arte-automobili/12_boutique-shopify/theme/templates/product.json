@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "usage": { "type": "accordion", "settings": { "title": "Conseils d'utilisation", "content": "<p>Toujours sur surface froide, à l'ombre. Testez d'abord sur une zone discrète. Fiche de données de sécurité disponible sur demande.</p>" } },
+        "livraison": { "type": "accordion", "settings": { "title": "Livraison et retrait", "content": "<p>Expédition sous 48 h ouvrées. Retrait gratuit à l'atelier sur rendez-vous. Retours acceptés sous 14 jours pour un produit non ouvert.</p>" } }
+      },
+      "block_order": ["usage", "livraison"],
+      "settings": {}
+    },
+    "suggestions": { "type": "featured-collection", "settings": { "eyebrow": "À associer", "title_1": "Le reste", "title_2": "du protocole.", "limit": 4, "columns": 4, "tight": true } }
+  },
+  "order": ["main", "suggestions"]
+}

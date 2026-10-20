@@ -1,0 +1,21 @@
+<section class="band">
+  <div class="wrap">
+    <p>{{ section.settings.text_1 }} <em>{{ section.settings.text_2 }}</em></p>
+    {%- if section.settings.button_label != blank -%}
+      <a class="btn btn--primary" href="{{ section.settings.button_link | default: settings.devis_url | default: '#' }}">{{ section.settings.button_label }} {% render 'icon-arrow' %}</a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bandeau Verde",
+  "settings": [
+    { "type": "text", "id": "text_1", "label": "Texte", "default": "Votre vernis mérite" },
+    { "type": "text", "id": "text_2", "label": "Texte (italique)", "default": "une inspection." },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "Demander un devis" },
+    { "type": "url", "id": "button_link", "label": "Lien (sinon le lien devis des réglages)" }
+  ],
+  "presets": [{ "name": "Bandeau Verde" }]
+}
+{% endschema %}

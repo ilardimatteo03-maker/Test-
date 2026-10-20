@@ -1,0 +1,48 @@
+{%- paginate collection.products by section.settings.per_page -%}
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="page-head" style="padding-top:0">
+      <p class="crumbs"><a href="{{ routes.root_url }}">Accueil</a> / {{ collection.title }}</p>
+      <h1 class="h2">{{ collection.title }}</h1>
+      {%- if collection.description != blank -%}<div class="rte muted" style="margin-top:18px">{{ collection.description }}</div>{%- endif -%}
+    </div>
+    <div class="toolbar">
+      <span>{{ collection.products_count }} PRODUIT{% if collection.products_count > 1 %}S{% endif %}</span>
+      <label>
+        <span class="visually-hidden">Trier par</span>
+        <select data-sort>
+          {%- for option in collection.sort_options -%}
+            <option value="{{ option.value }}"{% if option.value == collection.sort_by %} selected{% endif %}>{{ option.name }}</option>
+          {%- endfor -%}
+        </select>
+      </label>
+    </div>
+    <div class="products" style="--cols: {{ section.settings.columns }}">
+      {%- for product in collection.products -%}
+        {% render 'card-product', product: product %}
+      {%- else -%}
+        <p class="muted">Cette collection est vide pour le moment.</p>
+      {%- endfor -%}
+    </div>
+    {%- if paginate.pages > 1 -%}
+      <nav class="pagination" aria-label="Pages">
+        {%- for part in paginate.parts -%}
+          {%- if part.is_link -%}<a href="{{ part.url }}">{{ part.title }}</a>
+          {%- elsif part.title == paginate.current_page -%}<span class="current" aria-current="page">{{ part.title }}</span>
+          {%- else -%}<span>{{ part.title }}</span>{%- endif -%}
+        {%- endfor -%}
+      </nav>
+    {%- endif -%}
+  </div>
+</section>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    { "type": "range", "id": "per_page", "label": "Produits par page", "min": 8, "max": 48, "step": 4, "default": 24 },
+    { "type": "range", "id": "columns", "label": "Colonnes", "min": 2, "max": 4, "step": 1, "default": 3 }
+  ]
+}
+{% endschema %}

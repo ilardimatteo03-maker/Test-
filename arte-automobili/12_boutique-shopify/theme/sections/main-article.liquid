@@ -1,0 +1,12 @@
+<article class="section section--tight">
+  <div class="wrap" style="max-width:900px">
+    <p class="crumbs"><a href="{{ blog.url }}">{{ blog.title }}</a> / {{ article.published_at | date: '%d.%m.%Y' }}</p>
+    <h1 class="h2" style="margin-bottom:32px">{{ article.title }}</h1>
+    {%- if article.image -%}<div style="margin-bottom:40px">{{ article.image | image_url: width: 1600 | image_tag: alt: article.title }}</div>{%- endif -%}
+    <div class="rte">{{ article.content }}</div>
+  </div>
+</article>
+
+{% schema %}
+{ "name": "Article" }
+{% endschema %}

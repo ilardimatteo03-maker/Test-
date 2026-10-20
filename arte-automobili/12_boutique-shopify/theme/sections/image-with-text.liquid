@@ -1,0 +1,40 @@
+<section class="section{% if section.settings.verdaccio %} section--surface{% endif %}"{% if section.settings.verdaccio %} style="background:var(--verdaccio)"{% endif %}>
+  <div class="wrap grid-2--rev grid-2 media-text">
+    <div>
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '540, 800, 1200', sizes: '(min-width: 990px) 40vw, 100vw' }}
+      {%- else -%}
+        <img src="{{ section.settings.default_image | asset_url }}" alt="" loading="lazy" width="1080" height="1350">
+      {%- endif -%}
+    </div>
+    <div class="media-text__body">
+      {%- if section.settings.eyebrow != blank -%}<p class="label" style="margin:0">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2>{{ section.settings.title_1 }} <em>{{ section.settings.title_2 }}</em></h2>
+      <div class="rte muted">{{ section.settings.text }}</div>
+      {%- if section.settings.button_label != blank -%}
+        <p><a class="btn btn--secondary" href="{{ section.settings.button_link | default: settings.devis_url | default: '#' }}">{{ section.settings.button_label }}</a></p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image et texte",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "select", "id": "default_image", "label": "Image par défaut", "default": "capot.jpg", "options": [
+      { "value": "capot.jpg", "label": "Capot noir, lames de lumière" },
+      { "value": "bianco-capot.jpg", "label": "Capot blanc" }
+    ] },
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "L'atelier" },
+    { "type": "text", "id": "title_1", "label": "Titre", "default": "Ce que nous utilisons," },
+    { "type": "text", "id": "title_2", "label": "Titre (italique)", "default": "rien de plus." },
+    { "type": "richtext", "id": "text", "label": "Texte", "default": "<p>Chaque produit de la boutique sert chaque jour à l'atelier. Une gamme resserrée, au pH maîtrisé, compatible avec les protections céramiques.</p>" },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "Découvrir l'atelier" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton" },
+    { "type": "checkbox", "id": "verdaccio", "label": "Fond Verdaccio", "default": false }
+  ],
+  "presets": [{ "name": "Image et texte" }]
+}
+{% endschema %}

@@ -1,0 +1,56 @@
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="page-head" style="padding-top:0"><h1 class="h2">Votre <em>panier</em></h1></div>
+    {%- if cart.item_count > 0 -%}
+      <form action="{{ routes.cart_url }}" method="post" class="grid-2" style="align-items:start" novalidate>
+        <div>
+          {%- for item in cart.items -%}
+            <div class="cart-row">
+              <a href="{{ item.url }}">
+                {%- if item.image -%}{{ item.image | image_url: width: 240 | image_tag: loading: 'lazy', alt: item.title }}{%- else -%}{{ 'product-1' | placeholder_svg_tag }}{%- endif -%}
+              </a>
+              <div>
+                <a class="cart-row__title" href="{{ item.url }}">{{ item.product.title }}</a>
+                {%- unless item.product.has_only_default_variant -%}<p class="mono" style="margin:6px 0 0;font-size:12px;color:var(--argento)">{{ item.variant.title | upcase }}</p>{%- endunless -%}
+                <a class="remove" href="{{ item.url_to_remove }}">Retirer</a>
+              </div>
+              <div class="qty" data-qty>
+                <button type="button" data-step="-1" aria-label="Retirer un">−</button>
+                <label class="visually-hidden" for="q-{{ item.key }}">Quantité</label>
+                <input id="q-{{ item.key }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0" inputmode="numeric">
+                <button type="button" data-step="1" aria-label="Ajouter un">+</button>
+              </div>
+              <span class="price">{{ item.final_line_price | money }}</span>
+            </div>
+          {%- endfor -%}
+          <p style="margin-top:20px"><button class="link" type="submit" name="update" style="background:none;border:0;border-bottom:1px solid;color:var(--bianco);cursor:pointer;min-height:44px">Mettre à jour le panier</button></p>
+          {%- if settings.cart_note -%}
+            <div class="field" style="margin-top:28px;max-width:560px">
+              <label for="cart-note">Une précision pour l'atelier</label>
+              <textarea id="cart-note" name="note" rows="3">{{ cart.note }}</textarea>
+            </div>
+          {%- endif -%}
+        </div>
+        <aside class="cart-sum" aria-label="Récapitulatif">
+          <p class="label" style="margin:0">Récapitulatif</p>
+          {%- if cart.cart_level_discount_applications.size > 0 -%}
+            {%- for d in cart.cart_level_discount_applications -%}
+              <div style="display:flex;justify-content:space-between"><span>{{ d.title }}</span><span class="price">−{{ d.total_allocated_amount | money }}</span></div>
+            {%- endfor -%}
+          {%- endif -%}
+          <div class="cart-sum__total"><span>Sous-total</span><span>{{ cart.total_price | money }}</span></div>
+          <p class="muted" style="margin:0;font-size:14px">TVA incluse. Livraison et codes de réduction calculés à l'étape suivante.</p>
+          <button class="btn btn--primary" type="submit" name="checkout">Commander {% render 'icon-arrow' %}</button>
+          {%- if settings.shipping_note != blank -%}<p class="mono" style="margin:0;font-size:12px;letter-spacing:.05em;color:var(--argento);text-transform:uppercase">{{ settings.shipping_note }}</p>{%- endif -%}
+        </aside>
+      </form>
+    {%- else -%}
+      <p class="muted">Votre panier est vide.</p>
+      <p><a class="btn btn--secondary" href="{{ routes.all_products_collection_url }}">Voir la gamme</a></p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Panier" }
+{% endschema %}

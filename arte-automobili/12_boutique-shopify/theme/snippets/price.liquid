@@ -1,0 +1,10 @@
+{%- comment -%} Prix en DM Mono. Paramètres : product (requis), variant (optionnel). {%- endcomment -%}
+{%- liquid
+  assign v = variant | default: product.selected_or_first_available_variant
+  assign p = v.price | default: product.price
+-%}
+<span class="price">
+  {%- if v.compare_at_price > v.price -%}<s>{{ v.compare_at_price | money }}</s>{%- endif -%}
+  {%- if product.price_varies and variant == blank -%}dès {% endif -%}
+  {{ p | money }}
+</span>

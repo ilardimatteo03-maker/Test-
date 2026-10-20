@@ -1,0 +1,37 @@
+{%- assign collection = section.settings.collection | default: collections.all -%}
+<section class="section{% if section.settings.tight %} section--tight{% endif %}">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<p class="label">{{ section.settings.eyebrow }}</p>{%- endif -%}
+        <h2>{{ section.settings.title_1 }} <em>{{ section.settings.title_2 }}</em></h2>
+      </div>
+      <a class="link" href="{{ collection.url }}">Tout voir</a>
+    </div>
+    <div class="products" style="--cols: {{ section.settings.columns }}">
+      {%- for product in collection.products limit: section.settings.limit -%}
+        {% render 'card-product', product: product %}
+      {%- else -%}
+        {%- for i in (1..4) -%}
+          <div class="card"><div class="card__media">{{ 'product-1' | placeholder_svg_tag }}</div><div class="card__row"><h3 class="card__title">Produit</h3><span class="price">—</span></div></div>
+        {%- endfor -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection en vitrine",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "Gamme atelier" },
+    { "type": "text", "id": "title_1", "label": "Titre", "default": "Les produits" },
+    { "type": "text", "id": "title_2", "label": "Titre (italique)", "default": "de nos protocoles." },
+    { "type": "range", "id": "limit", "label": "Nombre de produits", "min": 2, "max": 12, "step": 1, "default": 4 },
+    { "type": "range", "id": "columns", "label": "Colonnes", "min": 2, "max": 4, "step": 1, "default": 4 },
+    { "type": "checkbox", "id": "tight", "label": "Espacement réduit", "default": false }
+  ],
+  "presets": [{ "name": "Collection en vitrine" }]
+}
+{% endschema %}

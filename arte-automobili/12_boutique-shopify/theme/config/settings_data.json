@@ -1,0 +1,14 @@
+{
+  "current": {
+    "color_nero": "#0D0F0E",
+    "color_bianco": "#EEEDE7",
+    "color_verde": "#1F3D35",
+    "color_verdaccio": "#262B29",
+    "color_argento": "#8E9592",
+    "signature": "L'arte del riflesso.",
+    "telephone": "[TÉLÉPHONE]",
+    "adresse": "[ADRESSE DE L'ATELIER]",
+    "cart_note": true,
+    "shipping_note": "Livraison offerte dès 60 € · retrait gratuit à l'atelier"
+  }
+}

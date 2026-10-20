@@ -1,0 +1,16 @@
+{%- comment -%} Carte produit. Paramètre : product. {%- endcomment -%}
+<a class="card" href="{{ product.url }}">
+  <div class="card__media">
+    {%- if product.featured_media -%}
+      {{ product.featured_media | image_url: width: 900 | image_tag: loading: 'lazy', widths: '360, 540, 720, 900', sizes: '(min-width: 990px) 25vw, 50vw', alt: product.featured_media.alt | default: product.title }}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag }}
+    {%- endif -%}
+    {%- unless product.available -%}<span class="badge">Épuisé</span>{%- endunless -%}
+  </div>
+  <div class="card__row">
+    <h3 class="card__title">{{ product.title }}</h3>
+    {% render 'price', product: product %}
+  </div>
+  {%- if product.type != blank -%}<span class="card__meta">{{ product.type }}</span>{%- endif -%}
+</a>

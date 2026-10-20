@@ -1,0 +1,26 @@
+<section class="section section--tight"><div class="wrap">
+  <div class="page-head" style="padding-top:0;display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap">
+    <h1 class="h2">Bonjour <em>{{ customer.first_name }}</em></h1>
+    <a class="link" href="{{ routes.account_logout_url }}">Se déconnecter</a>
+  </div>
+  <div class="grid-2" style="align-items:start">
+    <div>
+      <p class="label">Commandes</p>
+      {%- paginate customer.orders by 20 -%}
+        {%- for order in customer.orders -%}
+          <div class="cart-row" style="grid-template-columns:minmax(0,1fr) auto auto">
+            <a class="cart-row__title" href="{{ order.customer_url }}">{{ order.name }}</a>
+            <span class="mono" style="font-size:13px;color:var(--argento)">{{ order.created_at | date: '%d.%m.%Y' }} · {{ order.fulfillment_status_label | upcase }}</span>
+            <span class="price">{{ order.total_price | money }}</span>
+          </div>
+        {%- else -%}<p class="muted">Aucune commande pour le moment.</p>
+        {%- endfor -%}
+      {%- endpaginate -%}
+    </div>
+    <div>
+      <p class="label">Adresse principale</p>
+      <p>{{ customer.default_address | format_address }}</p>
+      <a class="link" href="{{ routes.account_addresses_url }}">Gérer les adresses ({{ customer.addresses_count }})</a>
+    </div>
+  </div>
+</div></section>

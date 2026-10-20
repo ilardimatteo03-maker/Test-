@@ -1,0 +1,57 @@
+{%- comment -%} Héros « La lampe d'inspection » : lame d'ouverture, lampe qui suit le curseur, titre et son reflet. {%- endcomment -%}
+<section class="hero" data-lamp aria-label="Présentation">
+  <div class="hero__media">
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 2400 | image_tag: widths: '750, 1100, 1500, 2000, 2400', sizes: '100vw', fetchpriority: 'high', alt: section.settings.image.alt }}
+    {%- else -%}
+      <img src="{{ 'hero.jpg' | asset_url }}" alt="Coupé noir en studio, lames de lumière sur la carrosserie" width="2400" height="1200" fetchpriority="high">
+    {%- endif -%}
+  </div>
+  <div class="hero__lamp" aria-hidden="true"></div>
+  <div class="hero__sweep" aria-hidden="true"></div>
+  <div class="hero__shade" aria-hidden="true"></div>
+  <div class="wrap hero__body">
+    {%- if section.settings.eyebrow != blank -%}<p class="label">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    <div class="grid-2">
+      <div>
+        <h1>{{ section.settings.title_1 }}<br><em>{{ section.settings.title_2 }}</em></h1>
+        <hr class="linea" style="margin-top:18px">
+        <div class="hero__reflet h1" aria-hidden="true"><span>{{ section.settings.title_1 }}<br><em>{{ section.settings.title_2 }}</em></span></div>
+      </div>
+      <div class="hero__aside">
+        {%- if section.settings.text != blank -%}<p>{{ section.settings.text }}</p>{%- endif -%}
+        <div class="ctas">
+          {%- if section.settings.button_1_label != blank -%}
+            <a class="btn btn--primary" href="{{ section.settings.button_1_link | default: routes.all_products_collection_url }}">{{ section.settings.button_1_label }} {% render 'icon-arrow' %}</a>
+          {%- endif -%}
+          {%- if section.settings.button_2_label != blank -%}
+            <a class="btn btn--secondary" href="{{ section.settings.button_2_link | default: settings.devis_url | default: '#' }}">{{ section.settings.button_2_label }}</a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero__foot">
+    <div class="wrap"><span>{{ section.settings.foot_1 }}</span><span>{{ section.settings.foot_2 }}</span><span>{{ settings.signature }}</span></div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Héros — lampe",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image (voiture sous les lames de lumière)" },
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "La boutique de l'atelier" },
+    { "type": "text", "id": "title_1", "label": "Titre, ligne 1", "default": "Le reflet," },
+    { "type": "text", "id": "title_2", "label": "Titre, ligne 2 (italique)", "default": "à la maison." },
+    { "type": "textarea", "id": "text", "label": "Texte", "default": "Les produits et les microfibres de nos protocoles, choisis pour entretenir un vernis corrigé et une protection céramique." },
+    { "type": "text", "id": "button_1_label", "label": "Bouton principal", "default": "Voir la gamme" },
+    { "type": "url", "id": "button_1_link", "label": "Lien du bouton principal" },
+    { "type": "text", "id": "button_2_label", "label": "Bouton secondaire", "default": "Réserver l'atelier" },
+    { "type": "url", "id": "button_2_link", "label": "Lien du bouton secondaire (sinon le lien devis)" },
+    { "type": "text", "id": "foot_1", "label": "Bandeau bas, gauche", "default": "Faites passer la lumière : déplacez le curseur" },
+    { "type": "text", "id": "foot_2", "label": "Bandeau bas, centre", "default": "Expédition sous 48 h" }
+  ],
+  "presets": [{ "name": "Héros — lampe" }]
+}
+{% endschema %}

@@ -1,0 +1,18 @@
+{%- assign words = section.settings.text | split: ' ' -%}
+<section class="section manifeste">
+  <div class="wrap">
+    {%- if section.settings.eyebrow != blank -%}<p class="label">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    <p class="manifeste__text">{%- for w in words -%}<span class="w">{{ w }} </span>{%- endfor -%}</p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Manifeste",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "Manifeste" },
+    { "type": "textarea", "id": "text", "label": "Texte (les mots s'allument au défilement)", "default": "Un vernis corrigé se garde par des gestes simples : un bon shampoing, une microfibre propre, et de la patience." }
+  ],
+  "presets": [{ "name": "Manifeste" }]
+}
+{% endschema %}
