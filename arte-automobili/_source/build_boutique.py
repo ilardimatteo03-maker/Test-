@@ -177,7 +177,7 @@ def catalogue():
 def theme_assets():
     a = THEME / "assets"
     a.mkdir(parents=True, exist_ok=True)
-    for f in (ROOT / "10_site-web" / "assets" / "fonts").glob("*.woff2"):
+    for f in (ROOT / "10_site-web" / "src" / "assets" / "fonts").glob("*.woff2"):
         shutil.copy(f, a / f.name)
     for src, dst in [("aa-logo-principal-bianco.svg", "logo-principal-bianco.svg"), ("aa-logo-vertical-bianco.svg", "logo-vertical-bianco.svg"),
                      ("aa-monogramme-simplifie-bianco.svg", "monogramme-bianco.svg")]:

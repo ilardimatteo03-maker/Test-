@@ -1,0 +1,26 @@
+---
+# ── SERVICES ── les prestations et les tarifs se modifient dans src/_data/prestations.yaml
+layout: base.njk
+permalink: /services/
+cle: services
+titre_seo: "Services et tarifs — Arte Automobili"
+description: "Lavage intérieur 60 €, lavage extérieur 60 €, lavage intérieur + extérieur 100 €, et services sur devis pour les professionnels. Demandez votre rendez-vous."
+entete:
+  surtitre: "Services"
+  titre: "Services et <em>tarifs</em>."
+  texte: "Des prestations claires, des tarifs affichés."
+note: "Les modalités de prise en charge et les éventuelles prestations complémentaires sont à confirmer lors de la réservation."
+---
+{%- import "composants.njk" as ui -%}
+<header class="entete wrap">
+  <p class="label">{{ entete.surtitre }}</p>
+  <h1>{{ entete.titre | safe }}</h1>
+  <p class="entete__texte">{{ entete.texte }}</p>
+</header>
+
+<div class="wrap prestations">
+  {%- for p in prestations %}
+  {{ ui.prestation(p, loop.index) | safe }}
+  {%- endfor %}
+  <p class="note">{{ note }}</p>
+</div>

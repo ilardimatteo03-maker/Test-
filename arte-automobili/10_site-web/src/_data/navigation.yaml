@@ -1,0 +1,9 @@
+# Menu principal (en-tête, menu mobile et pied de page)
+- titre: "Accueil"
+  url: "/"
+- titre: "Services"
+  url: "/services/"
+- titre: "Présentation"
+  url: "/presentation/"
+- titre: "Contact"
+  url: "/contact/"

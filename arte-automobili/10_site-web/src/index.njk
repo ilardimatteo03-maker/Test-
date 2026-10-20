@@ -1,0 +1,85 @@
+---
+# ── ACCUEIL ── textes modifiables (balise <em>…</em> = mot en italique)
+layout: base.njk
+permalink: /
+cle: accueil
+titre_seo: "Arte Automobili — L'art du détail automobile"
+description: "Arte Automobili, lavage automobile haut de gamme : lavage intérieur, extérieur ou complet, et solutions pour les professionnels. Tarifs et prise de rendez-vous."
+hero:
+  titre: "L'art du <em>détail</em> automobile."
+  texte: "Lavage intérieur et extérieur, réalisé avec soin et précision."
+  image: "accueil-hero.jpg"
+  alt: "Coupé blanc vu de trois quarts avant, seul dans un studio plongé dans la pénombre"
+services:
+  surtitre: "Prestations"
+  titre: "Trois formules, une même <em>exigence</em>."
+  pro: "Professionnels et flottes de véhicules : prestations sur devis."
+  lien: "Tous les services et tarifs"
+approche:
+  surtitre: "Notre approche"
+  titre: "Chaque surface mérite la même <em>attention</em>."
+  texte: "Nous traitons chaque véhicule avec méthode, de la première surface à la dernière finition."
+  image: "accueil-approche.jpg"
+  alt: "Jante sombre d'un coupé noir, soulignée par un filet de lumière"
+cta:
+  titre: "Votre véhicule mérite le meilleur."
+  bouton: "Prendre rendez-vous"
+---
+{%- import "composants.njk" as ui -%}
+<section class="hero" aria-labelledby="hero-titre">
+  <div class="hero__media">
+    <img src="/images/{{ hero.image }}" alt="{{ hero.alt }}" sizes="(max-width: 760px) 220vw, 100vw" loading="eager" fetchpriority="high">
+  </div>
+  <div class="hero__ombre" aria-hidden="true"></div>
+  <div class="hero__lame" aria-hidden="true"></div>
+  <div class="wrap hero__corps">
+    <h1 class="hero__titre" id="hero-titre">{{ hero.titre | safe }}</h1>
+    <div class="hero__reflet" aria-hidden="true"><span class="hero__titre">{{ hero.titre | safe }}</span></div>
+    <hr class="linea">
+    <div class="hero__infos">
+      <p>{{ hero.texte }}</p>
+      <div class="actions">
+        {{ ui.bouton("Découvrir nos services", "/services/", "primary") | safe }}
+        {{ ui.bouton("Nous contacter", "/contact/", "secondary") | safe }}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="services-titre">
+  <div class="wrap">
+    <div class="tete-section">
+      <p class="label">{{ services.surtitre }}</p>
+      <h2 id="services-titre">{{ services.titre | safe }}</h2>
+    </div>
+    <div class="cartes">
+      {%- for p in prestations %}{% if p.accueil %}
+      {{ ui.carteService(p) | safe }}
+      {%- endif %}{% endfor %}
+    </div>
+    <div class="cartes__pied">
+      <p>{{ services.pro }}</p>
+      <a class="lien" href="/services/"><span>{{ services.lien }}</span>{{ ui.fleche() | safe }}</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--filet approche" aria-labelledby="approche-titre">
+  <div class="wrap approche__grille">
+    <div class="approche__texte reveal">
+      <p class="label">{{ approche.surtitre }}</p>
+      <h2 id="approche-titre">{{ approche.titre | safe }}</h2>
+      <p>{{ approche.texte }}</p>
+    </div>
+    <div class="approche__media reveal">
+      <img src="/images/{{ approche.image }}" alt="{{ approche.alt }}" sizes="(min-width: 990px) 40vw, 100vw">
+    </div>
+  </div>
+</section>
+
+<section class="bandeau" aria-labelledby="cta-titre">
+  <div class="wrap bandeau__in">
+    <h2 id="cta-titre">{{ cta.titre }}</h2>
+    {{ ui.bouton(cta.bouton, "/contact/", "primary", true) | safe }}
+  </div>
+</section>

@@ -231,22 +231,21 @@ def grid_svg():
 
 
 def sitemap_svg():
-    nodes = [("Accueil", 400, 40)]
-    kids = ["Prestations", "L'atelier", "Réalisations", "Avis", "Devis et contact"]
+    kids = ["Services", "Présentation", "Contact"]
     out = [f'<rect x="330" y="20" width="140" height="44" fill="{N}"/><text x="400" y="48" text-anchor="middle" font-family="Archivo" font-size="15" fill="{B}">Accueil</text>']
     for i, kname in enumerate(kids):
-        x = 30 + i * 158
-        out.append(f'<line x1="400" y1="64" x2="400" y2="100" stroke="{G}"/><line x1="{x + 65}" y1="100" x2="{x + 65}" y2="124" stroke="{G}"/>')
-        out.append(f'<rect x="{x}" y="124" width="130" height="44" fill="none" stroke="{N}"/><text x="{x + 65}" y="151" text-anchor="middle" font-family="Archivo" font-size="14" fill="{N}">{escape(kname)}</text>')
-    out.append(f'<line x1="95" y1="100" x2="727" y2="100" stroke="{G}"/>')
-    subs = {0: ["Lavage", "Décontamination", "Correction", "Céramique", "Habitacle", "Jantes · vitrage"],
-            2: ["Opera N° — fiches", "Avant / après"], 4: ["Formulaire", "Accès · horaires"]}
+        x = 110 + i * 220
+        out.append(f'<line x1="400" y1="64" x2="400" y2="100" stroke="{G}"/><line x1="{x + 80}" y1="100" x2="{x + 80}" y2="124" stroke="{G}"/>')
+        out.append(f'<rect x="{x}" y="124" width="160" height="44" fill="none" stroke="{N}"/><text x="{x + 80}" y="151" text-anchor="middle" font-family="Archivo" font-size="14" fill="{N}">{escape(kname)}</text>')
+    out.append(f'<line x1="190" y1="100" x2="630" y2="100" stroke="{G}"/>')
+    subs = {0: ["Lavage intérieur · 60 €", "Lavage extérieur · 60 €", "Intérieur + extérieur · 100 €", "Professionnels · sur devis"],
+            1: ["La passion du détail", "Précision · soin · exigence"], 2: ["Formulaire de demande", "Confirmation d'envoi"]}
     for i, items in subs.items():
-        x = 30 + i * 158
-        for j, s in enumerate(items):
+        x = 110 + i * 220
+        for j, t in enumerate(items):
             y = 196 + j * 30
-            out.append(f'<line x1="{x + 10}" y1="{y - 18}" x2="{x + 10}" y2="{y - 4}" stroke="{TR}"/><text x="{x + 20}" y="{y}" font-family="DM Mono" font-size="12" fill="{G}">{escape(s)}</text>')
-    out.append(f'<text x="30" y="400" font-family="DM Mono" font-size="12" fill="{G}">+ Mentions légales · Confidentialité · page 404 aux couleurs de la marque</text>')
+            out.append(f'<line x1="{x + 10}" y1="{y - 18}" x2="{x + 10}" y2="{y - 4}" stroke="{TR}"/><text x="{x + 20}" y="{y}" font-family="DM Mono" font-size="12" fill="{G}">{escape(t)}</text>')
+    out.append(f'<text x="30" y="400" font-family="DM Mono" font-size="12" fill="{G}">+ Mentions légales · Confidentialité (pied de page) · page 404 aux couleurs de la marque</text>')
     return f'<svg viewBox="0 0 800 410" class="dia" role="img" aria-label="Arborescence du site">{"".join(out)}</svg>'
 
 

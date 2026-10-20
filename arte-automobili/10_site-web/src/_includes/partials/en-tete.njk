@@ -1,0 +1,29 @@
+<header class="header" data-header>
+  <div class="wrap header__in">
+    <a class="header__logo" href="/" aria-label="Arte Automobili, retour à l'accueil">
+      <img src="/assets/logo/logo-principal-bianco.svg" alt="" width="479" height="151" eleventy:ignore>
+    </a>
+    <nav class="header__nav" aria-label="Navigation principale">
+      <ul>
+        {%- for item in navigation %}
+        <li><a href="{{ item.url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.titre }}</a></li>
+        {%- endfor %}
+      </ul>
+    </nav>
+    <a class="btn btn--ghost btn--small header__cta" href="/contact/">Prendre rendez-vous</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-mobile" data-menu-toggle>
+      <span class="menu-toggle__label" data-label-open="Menu" data-label-close="Fermer">Menu</span>
+      <span class="menu-toggle__lines" aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="menu-mobile" id="menu-mobile" hidden data-menu>
+    <nav class="wrap" aria-label="Navigation mobile">
+      <ul>
+        {%- for item in navigation %}
+        <li><a href="{{ item.url }}"{% if page.url == item.url %} aria-current="page"{% endif %}><span class="mono">0{{ loop.index }}</span>{{ item.titre }}</a></li>
+        {%- endfor %}
+      </ul>
+      <a class="btn btn--primary" href="/contact/">Prendre rendez-vous</a>
+    </nav>
+  </div>
+</header>

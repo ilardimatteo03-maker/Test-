@@ -1,0 +1,131 @@
+---
+# ── CONTACT ── coordonnées et service d'envoi du formulaire : src/_data/site.yaml
+layout: base.njk
+permalink: /contact/
+cle: contact
+titre_seo: "Contact et rendez-vous — Arte Automobili"
+description: "Contactez Arte Automobili pour un rendez-vous ou un devis : lavage intérieur, extérieur, formule complète ou demande professionnelle."
+surtitre: "Contact"
+titre: "Parlons de votre <em>véhicule</em>."
+texte: "Rendez-vous, devis ou simple question : décrivez votre demande, nous vous répondrons."
+confirmation:
+  titre: "Merci, votre demande est bien partie."
+  texte: "Nous l'avons reçue et vous répondrons dans les meilleurs délais."
+---
+{%- import "composants.njk" as ui -%}
+{%- set f = site.formulaire -%}
+{%- set c = site.contact -%}
+{%- set r = site.reseaux -%}
+{%- set envoi = f.service if (f.service == "netlify" or (f.service == "web3forms" and f.cle_web3forms) or (f.service == "formspree" and f.id_formspree)) else "" -%}
+{%- set action = "/contact/merci/" if envoi == "netlify" else ("https://api.web3forms.com/submit" if envoi == "web3forms" else ("https://formspree.io/f/" + f.id_formspree if envoi == "formspree" else "")) -%}
+{%- set piege = "botcheck" if envoi == "web3forms" else ("_gotcha" if envoi == "formspree" else "societe_web") -%}
+<section class="contact wrap" aria-labelledby="contact-titre">
+  <div class="contact__intro">
+    <p class="label">{{ surtitre }}</p>
+    <h1 id="contact-titre">{{ titre | safe }}</h1>
+    <p class="contact__texte">{{ texte }}</p>
+    {%- if c.telephone or c.email or c.adresse or c.zone or c.horaires %}
+    <dl class="coordonnees">
+      {%- if c.telephone %}<div><dt>Téléphone</dt><dd><a href="tel:{{ c.telephone | tel }}">{{ c.telephone }}</a></dd></div>{% endif %}
+      {%- if c.email %}<div><dt>E-mail</dt><dd><a href="mailto:{{ c.email }}">{{ c.email }}</a></dd></div>{% endif %}
+      {%- if c.adresse %}<div><dt>Adresse</dt><dd>{{ c.adresse }}</dd></div>{% endif %}
+      {%- if c.zone %}<div><dt>Zone</dt><dd>{{ c.zone }}</dd></div>{% endif %}
+      {%- if c.horaires %}<div><dt>Horaires</dt><dd>{{ c.horaires }}</dd></div>{% endif %}
+    </dl>
+    {%- endif %}
+    {%- if r.instagram or r.facebook or r.tiktok or r.linkedin %}
+    <p class="reseaux">
+      {%- if r.instagram %}<a href="{{ r.instagram }}" rel="noopener" target="_blank">Instagram<span class="visually-hidden"> (nouvel onglet)</span></a>{% endif %}
+      {%- if r.facebook %}<a href="{{ r.facebook }}" rel="noopener" target="_blank">Facebook<span class="visually-hidden"> (nouvel onglet)</span></a>{% endif %}
+      {%- if r.tiktok %}<a href="{{ r.tiktok }}" rel="noopener" target="_blank">TikTok<span class="visually-hidden"> (nouvel onglet)</span></a>{% endif %}
+      {%- if r.linkedin %}<a href="{{ r.linkedin }}" rel="noopener" target="_blank">LinkedIn<span class="visually-hidden"> (nouvel onglet)</span></a>{% endif %}
+    </p>
+    {%- endif %}
+  </div>
+
+  <div class="contact__formulaire" id="formulaire">
+    <form class="form" name="contact" method="post"{% if action %} action="{{ action }}"{% endif %} data-form data-envoi="{{ envoi }}" data-email="{{ c.email }}"
+      {%- if envoi == "netlify" %} data-netlify="true" netlify-honeypot="{{ piege }}"{% endif %} novalidate>
+      {%- if envoi == "netlify" %}
+      <input type="hidden" name="form-name" value="contact">
+      {%- elif envoi == "web3forms" %}
+      <input type="hidden" name="access_key" value="{{ f.cle_web3forms }}">
+      <input type="hidden" name="subject" value="Nouvelle demande depuis le site Arte Automobili">
+      <input type="hidden" name="from_name" value="Site Arte Automobili">
+      <input type="hidden" name="redirect" value="{{ '/contact/merci/' | absolu }}">
+      {%- elif envoi == "formspree" %}
+      <input type="hidden" name="_subject" value="Nouvelle demande depuis le site Arte Automobili">
+      {%- endif %}
+
+      {%- if not envoi %}
+      <p class="notice" role="note">
+        Le formulaire en ligne n'est pas encore activé.{% if c.email %} Écrivez-nous à <a href="mailto:{{ c.email }}">{{ c.email }}</a>.{% endif %}
+      </p>
+      {%- endif %}
+
+      <p class="piege" aria-hidden="true">
+        <label>Ne pas remplir ce champ <input {% if envoi == "web3forms" %}type="checkbox"{% else %}type="text"{% endif %} name="{{ piege }}" tabindex="-1" autocomplete="off"></label>
+      </p>
+
+      <div class="form__grille">
+        <div class="field">
+          <label for="f-nom">Nom et prénom</label>
+          <input id="f-nom" name="nom" type="text" autocomplete="name" required data-msg="Indiquez votre nom et votre prénom.">
+          <p class="field__erreur" id="f-nom-erreur" hidden></p>
+        </div>
+        <div class="field">
+          <label for="f-email">Adresse e-mail</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required data-msg="Indiquez une adresse e-mail valide, par exemple nom@domaine.fr.">
+          <p class="field__erreur" id="f-email-erreur" hidden></p>
+        </div>
+        <div class="field">
+          <label for="f-tel">Téléphone <span class="facultatif">(facultatif)</span></label>
+          <input id="f-tel" name="telephone" type="tel" autocomplete="tel" inputmode="tel" pattern="[0-9+().\s-]{6,}" data-msg="Ce numéro ne semble pas valide.">
+          <p class="field__erreur" id="f-tel-erreur" hidden></p>
+        </div>
+        <div class="field">
+          <label for="f-service">Service souhaité</label>
+          <select id="f-service" name="service" required data-msg="Choisissez le service souhaité.">
+            <option value="" selected disabled>Choisir un service</option>
+            {%- for p in prestations %}
+            <option value="{{ p.libelle_formulaire or p.nom }}" data-id="{{ p.id }}">{{ p.libelle_formulaire or p.nom }}</option>
+            {%- endfor %}
+          </select>
+          <p class="field__erreur" id="f-service-erreur" hidden></p>
+        </div>
+        <div class="field">
+          <label for="f-vehicule">Marque et modèle <span class="facultatif">(facultatif)</span></label>
+          <input id="f-vehicule" name="vehicule" type="text" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="f-date">Date souhaitée <span class="facultatif">(facultatif)</span></label>
+          <input id="f-date" name="date_souhaitee" type="date" data-msg="Choisissez une date à venir.">
+          <p class="field__erreur" id="f-date-erreur" hidden></p>
+        </div>
+        <div class="field field--large">
+          <label for="f-message">Message <span class="facultatif">(facultatif)</span></label>
+          <textarea id="f-message" name="message" rows="5"></textarea>
+        </div>
+        <div class="field field--large field--case">
+          <input id="f-accord" name="consentement" type="checkbox" value="Oui" required data-msg="Votre accord est nécessaire pour envoyer la demande.">
+          <label for="f-accord">J'accepte que les informations saisies soient utilisées pour répondre à ma demande, conformément à la <a href="/confidentialite/">politique de confidentialité</a>.</label>
+          <p class="field__erreur" id="f-accord-erreur" hidden></p>
+        </div>
+      </div>
+
+      <div class="form__pied">
+        <div class="form__statut" data-statut role="status" aria-live="polite"></div>
+        <button class="btn btn--primary" type="submit"{% if not envoi %} disabled{% endif %} data-envoyer>
+          <span data-libelle>Envoyer la demande</span>{{ ui.fleche() | safe }}
+        </button>
+      </div>
+    </form>
+
+    <div class="confirmation" data-confirmation hidden tabindex="-1">
+      <p class="label">Demande envoyée</p>
+      <h2>{{ confirmation.titre }}</h2>
+      <p>{{ confirmation.texte }}</p>
+      {{ ui.bouton("Retour à l'accueil", "/", "secondary") | safe }}
+    </div>
+  </div>
+</section>

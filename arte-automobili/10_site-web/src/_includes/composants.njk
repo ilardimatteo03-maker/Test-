@@ -1,0 +1,50 @@
+{#- Composants réutilisables. Usage : {% import "composants.njk" as ui %} puis {{ ui.bouton(…) }} -#}
+
+{%- macro fleche() -%}
+<svg class="icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="M4 12h15.5"/><path d="m14.5 7 5 5-5 5"/></svg>
+{%- endmacro -%}
+
+{#- Bouton : style = "primary" (plein), "secondary" (contour) ou "ghost" (contour discret) -#}
+{%- macro bouton(texte, lien, style="primary", avecFleche=false) -%}
+<a class="btn btn--{{ style }}" href="{{ lien }}">{{ texte }}{% if avecFleche %}{{ fleche() | safe }}{% endif %}</a>
+{%- endmacro -%}
+
+{#- Carte de service (page d'accueil) -#}
+{%- macro carteService(p) -%}
+<a class="carte{% if p.mise_en_avant %} carte--avant{% endif %}" href="/services/#{{ p.id }}">
+  <div class="carte__media">
+    <img src="/images/{{ p.image }}" alt="{{ p.alt }}" sizes="(min-width: 760px) 30vw, 100vw"{% if p.cadrage %} style="object-position: {{ p.cadrage }}"{% endif %}>
+  </div>
+  <div class="carte__corps">
+    <div class="carte__ligne">
+      <h3 class="carte__titre">{{ p.nom | plus | safe }}</h3>
+      <p class="prix">{{ p.prix | prix }}</p>
+    </div>
+    <div class="carte__pied">
+      <span class="carte__lien">Voir la prestation{{ fleche() | safe }}</span>
+      {%- if p.mention %}<span class="carte__mention">{{ p.mention }}</span>{% endif %}
+    </div>
+  </div>
+</a>
+{%- endmacro -%}
+
+{#- Prestation détaillée (page Services) -#}
+{%- macro prestation(p, numero) -%}
+<article class="prestation{% if p.mise_en_avant %} prestation--avant{% endif %}" id="{{ p.id }}" aria-labelledby="titre-{{ p.id }}">
+  <div class="prestation__media">
+    <img src="/images/{{ p.image }}" alt="{{ p.alt }}" sizes="(min-width: 990px) 58vw, 100vw">
+  </div>
+  <div class="prestation__corps">
+    <p class="prestation__numero">N° {{ numero | deuxChiffres }}{% if p.mention %}<span>{{ p.mention }}</span>{% endif %}</p>
+    <h2 class="prestation__titre" id="titre-{{ p.id }}">{{ p.nom | plus | safe }}</h2>
+    <p class="prestation__prix">{{ p.prix | prix }}</p>
+    <p class="prestation__texte">{{ p.description }}</p>
+    {{ bouton(p.bouton, "/contact/?service=" + p.id, "primary" if p.mise_en_avant else "secondary") | safe }}
+  </div>
+</article>
+{%- endmacro -%}
+
+{#- Information obligatoire non encore fournie : signalée clairement à l'écran -#}
+{%- macro aCompleter(valeur, libelle) -%}
+{%- if valeur %}{{ valeur }}{% else %}<span class="a-completer">[À compléter : {{ libelle }}]</span>{% endif -%}
+{%- endmacro -%}

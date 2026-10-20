@@ -1,0 +1,57 @@
+---
+# ── MENTIONS LÉGALES ── les informations se renseignent dans src/_data/site.yaml (rubrique legal).
+# Tant qu'un champ est vide, il s'affiche « [À compléter : …] ».
+layout: base.njk
+permalink: /mentions-legales/
+cle: legal
+titre_seo: "Mentions légales — Arte Automobili"
+description: "Mentions légales du site Arte Automobili : éditeur, hébergement, propriété intellectuelle et crédits."
+mise_a_jour: "octobre 2026"
+# Crédits des visuels : à mettre à jour quand les rendus 3D seront remplacés par vos photos
+credits:
+  - "Visuels : rendus 3D d'illustration réalisés à partir du modèle « Car Concept » de The Khronos Group (glTF Sample Assets), sous licence CC BY 4.0 — creativecommons.org/licenses/by/4.0/."
+---
+{%- import "composants.njk" as ui -%}
+{%- set l = site.legal -%}
+<article class="texte-legal wrap">
+  <header class="entete entete--legal">
+    <p class="label">Informations légales</p>
+    <h1>Mentions légales</h1>
+  </header>
+  <div class="prose">
+    <h2>Éditeur du site</h2>
+    <dl class="fiche">
+      <div><dt>Dénomination</dt><dd>{{ ui.aCompleter(l.raison_sociale, "raison sociale ou nom de l'entrepreneur") | safe }}</dd></div>
+      <div><dt>Forme juridique</dt><dd>{{ ui.aCompleter(l.forme_juridique, "forme juridique") | safe }}</dd></div>
+      {%- if l.capital %}<div><dt>Capital social</dt><dd>{{ l.capital }}</dd></div>{% endif %}
+      <div><dt>Siège</dt><dd>{{ ui.aCompleter(l.siege, "adresse du siège") | safe }}</dd></div>
+      <div><dt>SIRET</dt><dd>{{ ui.aCompleter(l.siret, "numéro SIRET") | safe }}</dd></div>
+      <div><dt>Immatriculation</dt><dd>{{ ui.aCompleter(l.rcs_rm, "RCS ou RM") | safe }}</dd></div>
+      <div><dt>TVA</dt><dd>{{ ui.aCompleter(l.tva, "numéro de TVA ou mention d'exonération") | safe }}</dd></div>
+      <div><dt>Directeur de la publication</dt><dd>{{ ui.aCompleter(l.directeur_publication, "nom et prénom") | safe }}</dd></div>
+      <div><dt>Contact</dt><dd>{{ ui.aCompleter(l.email_contact or site.contact.email, "adresse e-mail") | safe }}{% if site.contact.telephone %} · {{ site.contact.telephone }}{% endif %}</dd></div>
+    </dl>
+
+    <h2>Hébergement</h2>
+    <dl class="fiche">
+      <div><dt>Hébergeur</dt><dd>{{ ui.aCompleter(l.hebergeur_nom, "nom de l'hébergeur") | safe }}</dd></div>
+      <div><dt>Adresse</dt><dd>{{ ui.aCompleter(l.hebergeur_adresse, "adresse de l'hébergeur") | safe }}</dd></div>
+      <div><dt>Site</dt><dd>{{ ui.aCompleter(l.hebergeur_site, "site de l'hébergeur") | safe }}</dd></div>
+    </dl>
+
+    <h2>Propriété intellectuelle</h2>
+    <p>Les textes, le logo, l'identité visuelle et les images de ce site sont la propriété de {{ site.nom }} ou sont utilisés avec l'autorisation de leurs auteurs. Toute reproduction, totale ou partielle, sans autorisation préalable est interdite.</p>
+
+    {%- if credits and credits.length %}
+    <h2>Crédits</h2>
+    {%- for ligne in credits %}
+    <p>{{ ligne }}</p>
+    {%- endfor %}
+    {%- endif %}
+
+    <h2>Données personnelles</h2>
+    <p>Le traitement des informations transmises par le formulaire de contact est décrit dans la <a href="/confidentialite/">politique de confidentialité</a>.</p>
+
+    <p class="maj">Dernière mise à jour : {{ mise_a_jour }}</p>
+  </div>
+</article>

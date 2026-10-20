@@ -33,7 +33,7 @@ arte-automobili/
 │   └── documents/             Devis et facture (HTML modifiables + PDF), en-tête Word, signature e-mail,
 │                              présentation commerciale 16:9, carte des prestations A4
 ├── 09_vehicule-textile-atelier/ Maquettes de principe : fourgon, tenues, enseigne, signalétique, affiche A2, étiquettes
-├── 10_site-web/               Prototype du site (index.html autonome, polices auto-hébergées) + aperçus
+├── 10_site-web/               Site vitrine 4 pages (Eleventy), formulaire de contact réel, aperçus — voir son README
 ├── 11_ton-de-voix/            Tous les textes de marque en Markdown, prêts à copier
 └── _source/                   Scripts qui régénèrent l'ensemble
 ```
@@ -51,20 +51,21 @@ couleurs : `nero` (fonds clairs), `bianco` (fonds sombres), `verde`, `noir-100`,
 | Imprimeur | `02_logo/pdf/`, `08_papeterie/**/*.pdf` (fonds perdus 3 mm), `04_couleurs/palette.json`, le guide |
 | Brodeur | `aa-monogramme-simplifie-*.svg` (sous 60 mm), `aa-monogramme-*.svg` (dos de veste), page « Tenues » du guide |
 | Poseur (véhicule, enseigne) | `aa-logo-principal-bianco.svg`, `aa-logo-horizontal-bianco.svg`, pages 55 et 57 du guide |
-| Développeur web | `10_site-web/` (prototype), `04_couleurs/palette.css`, `05_univers-graphique/icones/`, `02_logo/icones/` |
+| Développeur web | `10_site-web/` (site complet et son README), `04_couleurs/palette.css`, `05_univers-graphique/icones/`, `02_logo/icones/` |
 | Réseaux sociaux | `07_reseaux-sociaux/gabarits-svg/` (installer les polices de `03_typographie/`), `02_logo/icones/avatar-reseaux-1080.png`, `11_ton-de-voix/` |
 
 ## Ce qui est final, ce qui reste à faire
 
 **Final** : logos vectoriels, palette et codes, choix typographiques, icônes, motifs, gabarits,
-fichiers d'impression de la papeterie, modèles de documents, prototype de page d'accueil, textes.
+fichiers d'impression de la papeterie, modèles de documents, site vitrine de quatre pages, textes.
 
 **À compléter par l'entreprise avant usage commercial :**
 
 - Remplacer les rendus 3D par des **photographies réelles** de l'atelier (voir chapitre 08 du guide).
 - Renseigner les **coordonnées** (adresse, téléphone, e-mail, ville) et les **mentions légales** (SIRET, TVA…),
   à faire valider par l'expert-comptable. Les valeurs actuelles sont des emplacements `[—]`.
-- Fixer les **tarifs** : ceux des maquettes sont indicatifs.
+- Aligner les **tarifs** des autres supports (carte des prestations, présentation commerciale, gabarits) sur ceux du site
+  (intérieur 60 €, extérieur 60 €, intérieur + extérieur 100 €, professionnels sur devis) : ils montrent encore des prestations indicatives.
 - Vérifier la disponibilité du **nom de domaine** `arteautomobili.fr` (utilisé comme exemple).
 - Faire une **recherche d'antériorité** sur la marque « Arte Automobili » (INPI, EUIPO) avant dépôt et investissements.
 - Pour l'enseigne et le véhicule, produire les fichiers de fabrication à partir des **plans réels** (façade, modèle de fourgon) :
@@ -77,7 +78,8 @@ fichiers d'impression de la papeterie, modèles de documents, prototype de page 
   polices de `03_typographie/polices/` : les installer sur le poste pour les modifier.
 - Les PDF incorporent les polices ; les polices variables y apparaissent en Type 3 (vectoriel). Si un imprimeur exige
   du texte vectorisé, ouvrir le PDF dans Illustrator et vectoriser, ou demander une sortie depuis les SVG.
-- Le prototype de site fonctionne hors ligne ; le formulaire est une démonstration (à brancher sur un service d'envoi).
+- Le site (`10_site-web/`) se modifie dans deux fichiers YAML et se publie sur Netlify ; son formulaire envoie réellement
+  les demandes (Netlify Forms, Web3Forms ou Formspree). Mode d'emploi complet : `10_site-web/README.md`.
 
 ## Régénérer les fichiers
 
@@ -93,7 +95,8 @@ compression du reflet, position des lames). Les textes ont une source unique : `
 
 La scène `_source/studio-3d/studio.html` (three.js) produit les images de `06_photographie/rendus-3d/`. Elle attend, dans
 le même dossier, `CarConcept.glb` ([Khronos glTF Sample Assets](https://github.com/KhronosGroup/glTF-Sample-Assets/tree/main/Models/CarConcept), CC BY 4.0)
-et le paquet `three@0.169.0` décompressé dans `package/`, servis en HTTP local. Paramètres : `studio.html?shot=hero&w=2400&h=1200` (option `&paint=bianco` pour changer de teinte : nero, grafite, argento, verde, bianco).
+et le paquet `three@0.169.0` décompressé dans `package/`, servis en HTTP local. Paramètres : `studio.html?shot=hero&w=2400&h=1200` (option `&paint=bianco` pour changer de teinte : nero, grafite, argento, verde, bianco ;
+`&cam=x,y,z&tgt=x,y,z&fov=n` pour ajuster un cadrage). Plans du site : `site` (héros), `complet`, `interieur` (habitacle, vitre baissée), `flotte` (trois coupés).
 
 ## Licences et crédits
 

@@ -1,0 +1,2 @@
+{#- Données structurées (Google) : uniquement les informations réelles de site.yaml et prestations.yaml -#}
+<script type="application/ld+json">{{ site | donneesStructurees(prestations, description) | safe }}</script>

@@ -1,0 +1,52 @@
+{%- set c = site.contact -%}
+{%- set r = site.reseaux -%}
+{%- set aContact = c.email or c.telephone or c.adresse or c.zone or c.horaires -%}
+{%- set aReseaux = r.instagram or r.facebook or r.tiktok or r.linkedin -%}
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <a href="/" aria-label="Arte Automobili, retour à l'accueil">
+        <img src="/assets/logo/logo-vertical-bianco.svg" alt="" width="289" height="407" loading="lazy" eleventy:ignore>
+      </a>
+      <p>{{ site.signature }}</p>
+    </div>
+    <nav class="footer__col" aria-label="Pages du site">
+      <p class="label">Pages</p>
+      <ul>
+        {%- for item in navigation %}
+        <li><a href="{{ item.url }}">{{ item.titre }}</a></li>
+        {%- endfor %}
+      </ul>
+    </nav>
+    {%- if aContact %}
+    <div class="footer__col">
+      <p class="label">Contact</p>
+      <ul>
+        {%- if c.telephone %}<li><a href="tel:{{ c.telephone | tel }}">{{ c.telephone }}</a></li>{% endif %}
+        {%- if c.email %}<li><a href="mailto:{{ c.email }}">{{ c.email }}</a></li>{% endif %}
+        {%- if c.adresse %}<li>{{ c.adresse }}</li>{% endif %}
+        {%- if c.zone %}<li>{{ c.zone }}</li>{% endif %}
+        {%- if c.horaires %}<li>{{ c.horaires }}</li>{% endif %}
+      </ul>
+    </div>
+    {%- endif %}
+    {%- if aReseaux %}
+    <div class="footer__col">
+      <p class="label">Suivre</p>
+      <ul>
+        {%- if r.instagram %}<li><a href="{{ r.instagram }}" rel="noopener" target="_blank">Instagram<span class="visually-hidden"> (nouvel onglet)</span></a></li>{% endif %}
+        {%- if r.facebook %}<li><a href="{{ r.facebook }}" rel="noopener" target="_blank">Facebook<span class="visually-hidden"> (nouvel onglet)</span></a></li>{% endif %}
+        {%- if r.tiktok %}<li><a href="{{ r.tiktok }}" rel="noopener" target="_blank">TikTok<span class="visually-hidden"> (nouvel onglet)</span></a></li>{% endif %}
+        {%- if r.linkedin %}<li><a href="{{ r.linkedin }}" rel="noopener" target="_blank">LinkedIn<span class="visually-hidden"> (nouvel onglet)</span></a></li>{% endif %}
+      </ul>
+    </div>
+    {%- endif %}
+  </div>
+  <div class="wrap footer__legal">
+    <span>© {{ annee }} {{ site.nom }}</span>
+    <nav aria-label="Informations légales">
+      <a href="/mentions-legales/">Mentions légales</a>
+      <a href="/confidentialite/">Politique de confidentialité</a>
+    </nav>
+  </div>
+</footer>

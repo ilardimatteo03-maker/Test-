@@ -20,6 +20,16 @@ for (const j of jobs) {
   await page.goto(j.url || pathToFileURL(resolve(j.in)).href, { waitUntil: 'networkidle', timeout: 180000 });
   await page.evaluate(() => document.fonts.ready);
   if (j.wait) await page.waitForFunction(j.wait, null, { timeout: j.timeout || 120000 });
+  if (j.css) await page.addStyleTag({ content: j.css });
+  if (j.scroll) {
+    // fait défiler la page pour charger les images différées et déclencher les apparitions
+    await page.evaluate(async () => {
+      for (let y = 0; y < document.documentElement.scrollHeight; y += 400) { window.scrollTo({ top: y, behavior: 'instant' }); await new Promise(r => setTimeout(r, 60)); }
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    });
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(1500);
+  }
   if (j.fullsize) {
     const h = await page.evaluate(() => document.documentElement.scrollHeight);
     await page.setViewportSize({ width: j.w, height: h });

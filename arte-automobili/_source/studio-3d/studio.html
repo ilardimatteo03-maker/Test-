@@ -23,8 +23,20 @@ const SHOTS = {
   verde:   { cam: [-4.6, 1.05, -4.8], tgt: [0, 0.5, -0.3],    fov: 28, paint: 'verde' },
   arriere: { cam: [4.6, 0.65, -5.0], tgt: [0, 0.5, -0.3],     fov: 28, paint: 'bianco' },
   face:    { cam: [0, 0.75, 9.5],    tgt: [0, 0.6, 0],        fov: 30, paint: 'nero' },
+  // héros du site : le coupé à droite, la moitié gauche laissée à la pénombre pour le titre
+  site:    { cam: [8.4, 0.85, 6.2],  tgt: [-2.61, 0.75, 1.74], fov: 33, paint: 'bianco' },
+  // carte « intérieur + extérieur » : le coupé entier, cadrage vertical
+  complet: { cam: [4.6, 0.65, -5.0], tgt: [0, 0.55, -0.3],   fov: 47, paint: 'bianco' },
+  // habitacle vu par la vitre latérale baissée
+  interieur: { cam: [1.22, 1.34, -0.8], tgt: [-0.3, 0.72, 0.4], fov: 44, paint: 'nero', cabin: true, hide: ['BodyDoorRWindow', 'BodyDoorLWindow'], focus: 1.5, aperture: 0.002 },
+  // flotte : trois véhicules alignés en diagonale
+  flotte:  { cam: [4.4, 1.35, 7.6], tgt: [-2.7, 0.5, 0.1], fov: 32, paint: 'nero', fog: [11, 26],
+             fleet: [{ x: 0, z: 0, paint: 'nero' }, { x: -3.0, z: 0, paint: 'grafite' }, { x: -6.0, z: 0, paint: 'argento' }] },
 };
-const shot = SHOTS[q.get('shot') || 'hero'];
+const shot = { ...SHOTS[q.get('shot') || 'hero'] };
+// réglages ponctuels par l'adresse : &cam=x,y,z&tgt=x,y,z&fov=n
+for (const k of ['cam', 'tgt']) if (q.get(k)) shot[k] = q.get(k).split(',').map(Number);
+if (q.get('fov')) shot.fov = +q.get('fov');
 const W = +(q.get('w') || 1600), H = +(q.get('h') || 900);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
@@ -47,7 +59,7 @@ const scene = new THREE.Scene();
   const t = new THREE.CanvasTexture(bc); t.colorSpace = THREE.SRGBColorSpace;
   scene.background = t;
 }
-scene.fog = new THREE.Fog(0x0b0d0c, 7, 16);
+scene.fog = new THREE.Fog(0x0b0d0c, ...(shot.fog || [7, 16]));
 
 // --- Environnement de studio : lames LED au plafond + panneaux latéraux
 function studioEnv() {
@@ -110,10 +122,10 @@ const PAINTS = {
 const loader = new GLTFLoader();
 loader.load('./CarConcept.glb', (gltf) => {
   const car = gltf.scene;
-  const p = PAINTS[q.get('paint') || shot.paint];
-  const paint = new THREE.MeshPhysicalMaterial({
+  const mkPaint = (key) => { const p = PAINTS[key]; return new THREE.MeshPhysicalMaterial({
     color: p.color, metalness: p.metalness, roughness: p.roughness,
-    clearcoat: p.clearcoat, clearcoatRoughness: p.ccr, envMapIntensity: 1.0 });
+    clearcoat: p.clearcoat, clearcoatRoughness: p.ccr, envMapIntensity: 1.0 }); };
+  const paint = mkPaint(q.get('paint') || shot.paint);
   const trim = new THREE.MeshPhysicalMaterial({ color: 0x050505, metalness: 0.2, roughness: 0.45, clearcoat: 0.6, clearcoatRoughness: 0.1 });
   car.traverse((o) => {
     if (!o.isMesh) return;
@@ -125,18 +137,37 @@ loader.load('./CarConcept.glb', (gltf) => {
     if (n === 'Brake') o.material = new THREE.MeshStandardMaterial({ color: 0x2a2c2b, metalness: 0.6, roughness: 0.4 });
     if (n === 'Tireside') o.material = new THREE.MeshStandardMaterial({ color: 0x0a0a0a, roughness: 0.7 });
     if (o.name === 'License Plate' || o.name === 'InteriorSteeringEmblem' || n === 'License') o.visible = false;
+    if (shot.hide && shot.hide.some(h => o.name.startsWith(h))) o.visible = false;
+    // écran de bord : teinte neutre plutôt qu'ambre
+    if (n === 'Dashboard' && o.material.emissive) { o.material = o.material.clone(); o.material.emissive.setHex(0xcfd6d2); }
   });
   // centrage au sol
   const box = new THREE.Box3().setFromObject(car);
   const c = box.getCenter(new THREE.Vector3());
   car.position.x -= c.x; car.position.z -= c.z; car.position.y -= box.min.y;
   scene.add(car);
+  if (shot.cabin) {
+    // baladeuse d'inspection dans l'habitacle
+    const lamp = new THREE.PointLight(0xf4f2ea, 2.4, 2.6, 1.6); lamp.position.set(0.45, 1.18, -0.2); scene.add(lamp);
+    const lamp2 = new THREE.PointLight(0xf4f2ea, 1.2, 2.2, 1.6); lamp2.position.set(-0.4, 1.1, 0.5); scene.add(lamp2);
+  }
   const size = box.getSize(new THREE.Vector3());
   shadow.scale.set(size.x / 4.6, 1, size.z / 1.9);
+  if (shot.fleet) {
+    shot.fleet.forEach((f, i) => {
+      let c2 = car, s2 = shadow;
+      if (i > 0) {
+        c2 = car.clone(true); const pm = mkPaint(f.paint);
+        c2.traverse((o) => { if (o.isMesh && o.material === paint) o.material = pm; });
+        s2 = shadow.clone(); scene.add(c2); scene.add(s2);
+      }
+      c2.position.x += f.x; c2.position.z += f.z; s2.position.x += f.x; s2.position.z += f.z;
+    });
+  }
   window.carSize = size.toArray();
   car.updateMatrixWorld(true);
   window.parts = {};
-  for (const nm of ['WheelFrontL','WheelFrontR','WheelRearL','WheelRearR','BodyHeadlights','BodyTaillights','BodyHood']) {
+  for (const nm of ['WheelFrontL','WheelFrontR','WheelRearL','WheelRearR','BodyHeadlights','BodyTaillights','BodyHood','BodyDoorRWindow','BodyDoorLWindow','InteriorSteeringWheel01','InteriorSeatsColor1','InteriorDashMid']) {
     const o = car.getObjectByName(nm); if (o) window.parts[nm] = new THREE.Box3().setFromObject(o).getCenter(new THREE.Vector3()).toArray().map(v => +v.toFixed(2));
   }
 

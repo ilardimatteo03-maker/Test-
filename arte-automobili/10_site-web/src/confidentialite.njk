@@ -1,0 +1,46 @@
+---
+# ── POLITIQUE DE CONFIDENTIALITÉ ── modèle à faire relire ; les champs viennent de src/_data/site.yaml
+layout: base.njk
+permalink: /confidentialite/
+cle: legal
+titre_seo: "Politique de confidentialité — Arte Automobili"
+description: "Comment Arte Automobili traite les informations envoyées par le formulaire de contact, et comment exercer vos droits."
+mise_a_jour: "octobre 2026"
+---
+{%- import "composants.njk" as ui -%}
+{%- set l = site.legal -%}
+{%- set email = l.email_contact or site.contact.email -%}
+{%- set prestataires = { "netlify": "Netlify", "web3forms": "Web3Forms", "formspree": "Formspree" } -%}
+{%- set prestataire = prestataires[site.formulaire.service] -%}
+<article class="texte-legal wrap">
+  <header class="entete entete--legal">
+    <p class="label">Informations légales</p>
+    <h1>Politique de confidentialité</h1>
+  </header>
+  <div class="prose">
+    <p class="chapo">Cette page explique quelles informations sont collectées sur ce site, à quoi elles servent et comment exercer vos droits.</p>
+
+    <h2>Responsable du traitement</h2>
+    <p>{{ ui.aCompleter(l.raison_sociale, "raison sociale") | safe }}, {{ ui.aCompleter(l.siege, "adresse du siège") | safe }}. Contact : {{ ui.aCompleter(email, "adresse e-mail") | safe }}.</p>
+
+    <h2>Informations collectées</h2>
+    <p>Uniquement celles que vous saisissez dans le formulaire de contact : nom et prénom, adresse e-mail, service souhaité et, si vous les indiquez, numéro de téléphone, marque et modèle du véhicule, date souhaitée et message.</p>
+
+    <h2>Utilisation et base légale</h2>
+    <p>Ces informations servent uniquement à répondre à votre demande et, le cas échéant, à organiser un rendez-vous ou à établir un devis. Le traitement repose sur votre consentement, exprimé par la case à cocher du formulaire, et sur les mesures précontractuelles prises à votre demande (article 6.1, a et b, du RGPD).</p>
+
+    <h2>Destinataires</h2>
+    <p>Vos informations sont destinées à {{ site.nom }} uniquement ; elles ne sont ni vendues ni cédées.{% if prestataire %} Le formulaire est acheminé par {{ prestataire }}, prestataire technique qui agit en qualité de sous-traitant.{% endif %}</p>
+
+    <h2>Durée de conservation</h2>
+    <p>{{ ui.aCompleter(l.duree_conservation, "durée de conservation des demandes") | safe }}</p>
+
+    <h2>Vos droits</h2>
+    <p>Vous pouvez accéder à vos données, les faire rectifier ou effacer, vous opposer à leur traitement ou en demander la limitation et la portabilité, et retirer votre consentement à tout moment. Pour cela, écrivez à {{ ui.aCompleter(email, "adresse e-mail") | safe }}. Si vous estimez que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la CNIL (<a href="https://www.cnil.fr" rel="noopener">cnil.fr</a>).</p>
+
+    <h2>Cookies et mesure d'audience</h2>
+    <p>Ce site ne dépose aucun cookie et n'utilise aucun outil de mesure d'audience ni de publicité. Les polices de caractères sont hébergées avec le site : votre visite n'entraîne aucun appel à un service tiers. L'hébergeur peut conserver des journaux techniques de connexion (adresse IP, date, page consultée) nécessaires au fonctionnement et à la sécurité du site.</p>
+
+    <p class="maj">Dernière mise à jour : {{ mise_a_jour }}</p>
+  </div>
+</article>

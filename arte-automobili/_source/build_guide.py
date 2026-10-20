@@ -547,15 +547,15 @@ def build():
       <div>{img("sticker-rect.png", "Autocollant rectangulaire")}</div><p class="small"><b>Autocollant rectangulaire</b> 90 × 22 mm : version horizontale pour le matériel et les cartons.</p></div></div></div>""", "dark", "11 — Atelier")
 
     # ------------------------------------------------------------ 12 site
-    bk.chapter("12", "Site <i>vitrine</i>", "Un site qui vend un service, pas un catalogue de voitures : comprendre, faire confiance, demander un devis.")
+    bk.chapter("12", "Site <i>vitrine</i>", "Quatre pages, des tarifs lisibles, une demande de rendez-vous en un formulaire. La simplicité avant tout.")
     bk.add(f"""<div class="g g-7-5"><div>{sitemap_svg()}</div><div><h2>Architecture</h2><h4>Page d'accueil, dans l'ordre</h4><ul class="l">
-      <li><b>Héros</b> : « Le reflet du premier jour. », une phrase, deux boutons (devis, réalisations), grande image.</li><li><b>Prestations</b> : six lignes, durée et prix indicatif.</li>
-      <li><b>Méthode</b> : quatre temps.</li><li><b>Avant / après</b> : comparateur interactif.</li><li><b>Réalisations</b> : fiches Opera.</li><li><b>L'atelier</b>, <b>avis</b>, <b>devis</b>, <b>pied de page</b>.</li></ul></div></div>""", "", "12 — Site")
-    bk.add(f"""<div class="g g-8-4"><div>{img("site-hero.jpg", "Page d'accueil — ordinateur", "Prototype fonctionnel : 10_site-web/index.html")}</div>
+      <li><b>Héros</b> : « L'art du détail automobile. », une ligne, deux boutons ; le coupé posé sur la Linea à 61,8 %.</li><li><b>Prestations</b> : trois cartes, image, nom et prix.</li>
+      <li><b>Approche</b> : un titre, une phrase.</li><li><b>Bandeau Verde</b> : « Votre véhicule mérite le meilleur. »</li><li><b>Pied de page</b> : logo, pages, coordonnées une fois fournies, mentions légales.</li></ul></div></div>""", "", "12 — Site")
+    bk.add(f"""<div class="g g-8-4"><div>{img("site-hero.jpg", "Page d'accueil — ordinateur", "Site fonctionnel : 10_site-web (Eleventy)")}</div>
       <div style="display:flex;gap:18px">{img("site-mobile.jpg", "Page d'accueil — mobile", "Mobile", style="max-height:520px;width:auto")}</div></div>
       <div class="g g4 keep" style="margin-top:22px"><p class="small"><b>Boutons</b> : rectangles à angles vifs, Archivo Expanded 600 en capitales ; principal plein Bianco, secondaire en contour. Une flèche, jamais d'icône décorative.</p>
-      <p class="small"><b>Formulaire</b> : champs soulignés, libellés en surtitre ; nom et téléphone suffisent pour envoyer.</p>
-      <p class="small"><b>Pied de page</b> : logo vertical, signature en italique, trois colonnes de liens, mentions légales.</p><p class="small"><b>Technique</b> : polices auto-hébergées (RGPD), images compressées, aucune dépendance.</p></div>""", "dark", "12 — Site")
+      <p class="small"><b>Formulaire</b> : champs soulignés, libellés en surtitre ; envoi réel (Netlify Forms, Web3Forms ou Formspree), confirmation seulement après réception.</p>
+      <p class="small"><b>Pied de page</b> : logo vertical, signature en italique, pages, coordonnées et réseaux une fois fournis, mentions légales.</p><p class="small"><b>Technique</b> : Eleventy, contenus dans deux fichiers YAML, polices auto-hébergées (RGPD), images AVIF et JPEG.</p></div>""", "dark", "12 — Site")
 
     # ------------------------------------------------------------ 13 ton de voix
     bk.chapter("13", "Ton <i>de voix</i>", "Parler comme on travaille : avec précision, sans hausser la voix.")
@@ -590,7 +590,7 @@ def build():
 ├── 08_papeterie/        Cartes, en-tête, autocollants, devis, facture,
 │                        présentation, carte des prestations, signature
 ├── 09_vehicule-textile-atelier/  Maquettes de principe
-├── 10_site-web/         Prototype du site (index.html)
+├── 10_site-web/         Site vitrine (Eleventy) : 4 pages, formulaire
 ├── 11_ton-de-voix/      Textes prêts à copier (Markdown)
 └── _source/             Scripts qui régénèrent tous les fichiers"""
     bk.add(f"""<div class="g g-7-5"><div><h2>Organisation <i>des fichiers</i></h2><pre class="tree">{escape(tree)}</pre></div>

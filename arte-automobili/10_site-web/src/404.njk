@@ -1,0 +1,19 @@
+---
+layout: base.njk
+permalink: /404.html
+cle: erreur
+noindex: true
+exclure_plan: true
+titre_seo: "Page introuvable — Arte Automobili"
+description: "Cette page n'existe pas ou a été déplacée."
+---
+{%- import "composants.njk" as ui -%}
+<section class="entete entete--seule wrap">
+  <p class="label">Erreur 404</p>
+  <h1>Cette page est <em>introuvable</em>.</h1>
+  <p class="entete__texte">Elle n'existe pas ou a été déplacée.</p>
+  <div class="actions">
+    {{ ui.bouton("Retour à l'accueil", "/", "primary") | safe }}
+    {{ ui.bouton("Nos services", "/services/", "secondary") | safe }}
+  </div>
+</section>

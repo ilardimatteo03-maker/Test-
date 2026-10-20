@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{{ titre_seo }}</title>
+  <meta name="description" content="{{ description }}">
+  {%- if baseUrl %}
+  <link rel="canonical" href="{{ page.url | absolu }}">
+  {%- endif %}
+  {%- if noindex %}
+  <meta name="robots" content="noindex">
+  {%- endif %}
+  <meta name="theme-color" content="#0D0F0E">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="{{ site.nom }}">
+  <meta property="og:title" content="{{ titre_seo }}">
+  <meta property="og:description" content="{{ description }}">
+  {%- if baseUrl %}
+  <meta property="og:url" content="{{ page.url | absolu }}">
+  {%- endif %}
+  <meta property="og:image" content="{{ '/assets/partage.jpg' | absolu }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Arte Automobili — coupé blanc dans un studio sombre">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" href="/assets/fonts/BodoniModa.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/Archivo.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <script>document.documentElement.classList.add("js")</script>
+  <script src="/assets/js/site.js" defer></script>
+  {%- if cle == "accueil" %}
+  {% include "partials/donnees-structurees.njk" %}
+  {%- endif %}
+</head>
+<body class="page-{{ cle }}">
+  <a class="skip" href="#contenu">Aller au contenu</a>
+  {% include "partials/en-tete.njk" %}
+  <main id="contenu" tabindex="-1">
+    {{ content | safe }}
+  </main>
+  {% include "partials/pied-de-page.njk" %}
+</body>
+</html>

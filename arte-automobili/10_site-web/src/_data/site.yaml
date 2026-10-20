@@ -1,0 +1,54 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  ARTE AUTOMOBILI — informations générales du site
+#  Modifiez uniquement le texte entre guillemets. Un champ laissé vide ("")
+#  n'apparaît pas sur le site (sauf dans les mentions légales, où il est signalé
+#  « À compléter »). La liste des champs manquants s'affiche à chaque construction.
+# ─────────────────────────────────────────────────────────────────────────────
+
+nom: "Arte Automobili"
+signature: "L'arte del riflesso."
+
+# Adresse publique du site, sans barre finale (ex. "https://www.arte-automobili.fr").
+# Sur Netlify, laissée vide, elle est renseignée automatiquement.
+url: ""
+
+# Coordonnées — affichées dans le pied de page et sur la page Contact une fois remplies.
+contact:
+  email: ""            # ex. "contact@arte-automobili.fr"
+  telephone: ""        # ex. "06 00 00 00 00" (tel qu'il doit s'afficher)
+  adresse: ""          # ex. "12 rue Exemple, 69000 Lyon" — laisser vide si vous vous déplacez
+  zone: ""             # ex. "Lyon et alentours" — zone d'intervention, si pertinent
+  horaires: ""         # ex. "Du lundi au samedi, sur rendez-vous"
+
+# Réseaux sociaux — adresse complète du profil (https://…). Vide = non affiché.
+reseaux:
+  instagram: ""
+  facebook: ""
+  tiktok: ""
+  linkedin: ""
+
+# Formulaire de contact — voir README, section « Formulaire de contact ».
+#   service: "netlify"    → Netlify Forms (site hébergé sur Netlify, aucune clé à fournir)
+#   service: "web3forms"  → Web3Forms (tout hébergeur) : coller la clé d'accès dans cle_web3forms
+#   service: "formspree"  → Formspree (tout hébergeur) : coller l'identifiant dans id_formspree
+#   service: ""           → formulaire affiché mais désactivé, avec un message explicite
+formulaire:
+  service: "netlify"
+  cle_web3forms: ""
+  id_formspree: ""
+
+# Mentions légales — obligatoires avant la mise en ligne (art. 6 de la LCEN).
+legal:
+  raison_sociale: ""          # ex. "Arte Automobili" ou nom de l'entrepreneur individuel
+  forme_juridique: ""         # ex. "Entreprise individuelle", "SASU", "EURL"…
+  capital: ""                 # pour une société uniquement, ex. "1 000 €"
+  siege: ""                   # adresse du siège ou du domicile professionnel
+  siret: ""
+  rcs_rm: ""                  # ex. "RCS Lyon 000 000 000" ou "RM 000 000 000"
+  tva: ""                     # numéro de TVA intracommunautaire, ou "TVA non applicable, art. 293 B du CGI"
+  directeur_publication: ""   # nom et prénom
+  email_contact: ""           # adresse à laquelle exercer les droits RGPD (souvent la même que contact.email)
+  hebergeur_nom: ""           # ex. le nom de l'hébergeur choisi
+  hebergeur_adresse: ""       # adresse postale de l'hébergeur (indiquée dans ses propres mentions légales)
+  hebergeur_site: ""          # site web de l'hébergeur
+  duree_conservation: ""      # durée de conservation des demandes reçues par le formulaire, ex. "3 ans après le dernier contact"

@@ -1,0 +1,37 @@
+---
+# ── PRÉSENTATION ── texte provisoire : remplacez-le librement (balise <em>…</em> = italique)
+layout: base.njk
+permalink: /presentation/
+cle: presentation
+titre_seo: "Présentation — Arte Automobili"
+description: "Arte Automobili : la passion du détail. Une approche du lavage automobile fondée sur la précision, le soin et l'exigence."
+surtitre: "Présentation"
+titre: "La passion du <em>détail</em>."
+texte: "Chez Arte Automobili, nous pensons qu'un véhicule bien entretenu se reconnaît à ses détails. Chaque prestation est menée avec calme et méthode, pour vous rendre un véhicule propre, soigné et agréable à retrouver."
+image: "presentation.jpg"
+alt: "Optique avant d'un coupé blanc, éclairée par une ligne de lumière"
+valeurs:
+  - titre: "Précision"
+    texte: "Une méthode rigoureuse, appliquée à chaque surface."
+  - titre: "Soin"
+    texte: "Des gestes attentifs, respectueux de chaque matériau."
+  - titre: "Exigence"
+    texte: "Le même niveau d'attention, quel que soit le véhicule."
+---
+{%- import "composants.njk" as ui -%}
+<section class="presentation wrap" aria-labelledby="presentation-titre">
+  <div class="presentation__media">
+    <img src="/images/{{ image }}" alt="{{ alt }}" sizes="(min-width: 990px) 50vw, 100vw" loading="eager" fetchpriority="high">
+  </div>
+  <div class="presentation__corps">
+    <p class="label">{{ surtitre }}</p>
+    <h1 id="presentation-titre">{{ titre | safe }}</h1>
+    <p class="presentation__texte">{{ texte }}</p>
+    <ul class="valeurs">
+      {%- for v in valeurs %}
+      <li><span class="valeurs__num">0{{ loop.index }}</span><h2 class="valeurs__titre">{{ v.titre }}</h2><p>{{ v.texte }}</p></li>
+      {%- endfor %}
+    </ul>
+    {{ ui.bouton("Découvrir nos services", "/services/", "primary", true) | safe }}
+  </div>
+</section>

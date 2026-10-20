@@ -1,0 +1,19 @@
+{
+  "name": "arte-automobili-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site vitrine Arte Automobili — Accueil, Services, Présentation, Contact",
+  "type": "module",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "3.1.6",
+    "@11ty/eleventy-img": "6.0.4",
+    "js-yaml": "4.1.0"
+  }
+}

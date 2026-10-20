@@ -1,0 +1,17 @@
+---
+# Page affichée après un envoi du formulaire lorsque JavaScript est désactivé
+layout: base.njk
+permalink: /contact/merci/
+cle: merci
+noindex: true
+exclure_plan: true
+titre_seo: "Demande envoyée — Arte Automobili"
+description: "Votre demande a bien été envoyée à Arte Automobili."
+---
+{%- import "composants.njk" as ui -%}
+<section class="entete entete--seule wrap">
+  <p class="label">Demande envoyée</p>
+  <h1>Merci, votre demande est bien <em>partie</em>.</h1>
+  <p class="entete__texte">Nous l'avons reçue et vous répondrons dans les meilleurs délais.</p>
+  <div class="actions">{{ ui.bouton("Retour à l'accueil", "/", "secondary") | safe }}</div>
+</section>

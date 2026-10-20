@@ -1,0 +1,50 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  PRESTATIONS ET TARIFS — utilisés sur l'accueil, la page Services et le formulaire.
+#  prix : un nombre (affiché « 60 € ») ou un texte (affiché tel quel, ex. "Sur devis").
+#  image : nom d'un fichier du dossier src/images.
+#  accueil : true = la prestation apparaît dans les cartes de la page d'accueil.
+#  mise_en_avant : true = présentation légèrement valorisée (une seule prestation).
+#  libelle_formulaire : intitulé dans la liste du formulaire de contact, s'il diffère du nom.
+# ─────────────────────────────────────────────────────────────────────────────
+
+- id: interieur
+  nom: "Lavage intérieur"
+  prix: 60
+  description: "Nettoyage et remise au propre de l'intérieur du véhicule, avec une attention particulière portée aux surfaces et aux finitions."
+  image: "service-interieur.jpg"
+  alt: "Habitacle d'un coupé vu par la vitre latérale ouverte : sièges et volant sous une lumière douce"
+  bouton: "Demander un rendez-vous"
+  accueil: true
+  mise_en_avant: false
+
+- id: exterieur
+  nom: "Lavage extérieur"
+  prix: 60
+  description: "Nettoyage extérieur soigné pour retrouver un véhicule propre et une finition impeccable."
+  image: "service-exterieur.jpg"
+  alt: "Capot noir brillant d'un coupé sur lequel se reflètent des lignes de lumière"
+  bouton: "Demander un rendez-vous"
+  accueil: true
+  mise_en_avant: false
+
+- id: complet
+  nom: "Lavage intérieur + extérieur"
+  prix: 100
+  mention: "Formule complète"
+  description: "Une prestation complète pour prendre soin de l'intérieur et de l'extérieur du véhicule."
+  image: "service-complet.jpg"
+  alt: "Coupé blanc vu de trois quarts arrière, en entier, dans un studio sombre"
+  bouton: "Demander un rendez-vous"
+  accueil: true
+  mise_en_avant: true
+
+- id: professionnels
+  nom: "Services pour les professionnels"
+  prix: "Sur devis"
+  description: "Solutions de nettoyage automobile adaptées aux besoins des professionnels et des flottes de véhicules."
+  image: "service-professionnels.jpg"
+  alt: "Trois coupés alignés côte à côte dans un studio sombre"
+  libelle_formulaire: "Demande professionnelle"
+  bouton: "Demander un devis"
+  accueil: false
+  mise_en_avant: false
