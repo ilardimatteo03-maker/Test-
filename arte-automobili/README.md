@@ -93,7 +93,7 @@ compression du reflet, position des lames). Les textes ont une source unique : `
 
 La scène `_source/studio-3d/studio.html` (three.js) produit les images de `06_photographie/rendus-3d/`. Elle attend, dans
 le même dossier, `CarConcept.glb` ([Khronos glTF Sample Assets](https://github.com/KhronosGroup/glTF-Sample-Assets/tree/main/Models/CarConcept), CC BY 4.0)
-et le paquet `three@0.169.0` décompressé dans `package/`, servis en HTTP local. Paramètres : `studio.html?shot=hero&w=2400&h=1200`.
+et le paquet `three@0.169.0` décompressé dans `package/`, servis en HTTP local. Paramètres : `studio.html?shot=hero&w=2400&h=1200` (option `&paint=bianco` pour changer de teinte : nero, grafite, argento, verde, bianco).
 
 ## Licences et crédits
 

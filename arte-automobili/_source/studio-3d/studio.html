@@ -110,7 +110,7 @@ const PAINTS = {
 const loader = new GLTFLoader();
 loader.load('./CarConcept.glb', (gltf) => {
   const car = gltf.scene;
-  const p = PAINTS[shot.paint];
+  const p = PAINTS[q.get('paint') || shot.paint];
   const paint = new THREE.MeshPhysicalMaterial({
     color: p.color, metalness: p.metalness, roughness: p.roughness,
     clearcoat: p.clearcoat, clearcoatRoughness: p.ccr, envMapIntensity: 1.0 });
