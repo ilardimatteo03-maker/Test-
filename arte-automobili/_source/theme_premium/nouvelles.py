@@ -11,7 +11,7 @@ RATIOS_SANS_AUTO = [r for r in RATIOS if r[0] != "auto"]
 
 
 def entete(surtitre="", titre="", texte=None):
-    s = [txt("surtitre", "Surtitre", surtitre), {"type": "inline_richtext", "id": "titre", "label": "Titre", "default": titre} if titre else {"type": "inline_richtext", "id": "titre", "label": "Titre"}]
+    s = [txt("surtitre", "Surtitre", surtitre or None), {"type": "inline_richtext", "id": "titre", "label": "Titre", "default": titre} if titre else {"type": "inline_richtext", "id": "titre", "label": "Titre"}]
     r = {"type": "richtext", "id": "texte", "label": "Texte d'introduction"}
     if texte: r["default"] = texte
     return s + [r]
