@@ -35,6 +35,8 @@ arte-automobili/
 ├── 09_vehicule-textile-atelier/ Maquettes de principe : fourgon, tenues, enseigne, signalétique, affiche A2, étiquettes
 ├── 10_site-web/               Site vitrine 4 pages (Eleventy), formulaire de contact réel, aperçus — voir son README
 ├── 11_ton-de-voix/            Tous les textes de marque en Markdown, prêts à copier
+├── 12_boutique-shopify/       Thème boutique (produits d'entretien), catalogue CSV, visuels produits
+├── 13_site-shopify/           Le site vitrine en thème Shopify (4 pages, formulaire natif) — voir son README
 └── _source/                   Scripts qui régénèrent l'ensemble
 ```
 

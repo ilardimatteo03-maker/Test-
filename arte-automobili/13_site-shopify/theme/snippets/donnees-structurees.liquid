@@ -1,0 +1,34 @@
+{%- comment -%} Données structurées schema.org : uniquement les informations renseignées dans les réglages du thème {%- endcomment -%}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AutoWash",
+    "name": {{ shop.name | json }},
+    "url": {{ shop.url | append: '/' | json }},
+    {%- if settings.telephone != blank %}"telephone": {{ settings.telephone | json }},{% endif -%}
+    {%- if settings.email != blank %}"email": {{ settings.email | json }},{% endif -%}
+    {%- if settings.adresse != blank %}"address": {{ settings.adresse | json }},{% endif -%}
+    {%- if settings.zone != blank %}"areaServed": {{ settings.zone | json }},{% endif %}
+    "image": {{ 'partage.jpg' | asset_url | prepend: 'https:' | json }},
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Prestations",
+      "itemListElement": [
+        {%- for i in (1..4) -%}
+          {%- liquid
+            assign k_nom = 'p' | append: i | append: '_nom'
+            assign k_desc = 'p' | append: i | append: '_description'
+            assign k_prix = 'p' | append: i | append: '_prix'
+            assign prix = settings[k_prix] | remove: '€' | strip | replace: ',', '.'
+            assign prix_num = prix | times: 1
+          -%}
+          {
+            "@type": "Offer",
+            "itemOffered": { "@type": "Service", "name": {{ settings[k_nom] | json }}, "description": {{ settings[k_desc] | json }} }
+            {%- if prix_num > 0 %}, "price": {{ prix | json }}, "priceCurrency": "EUR"{% endif %}
+          }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ]
+    }
+  }
+</script>

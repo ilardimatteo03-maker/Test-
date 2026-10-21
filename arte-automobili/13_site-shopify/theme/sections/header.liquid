@@ -1,0 +1,38 @@
+{%- assign u_contact = pages['contact'].url | default: '/pages/contact' -%}
+{%- assign menu = linklists[section.settings.menu] -%}
+<header class="header" data-header>
+  <div class="wrap header__in">
+    <a class="header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}, retour à l'accueil">
+      <img src="{{ 'logo-principal-bianco.svg' | asset_url }}" alt="" width="479" height="151">
+    </a>
+    <nav class="header__nav" aria-label="Navigation principale">
+      <ul>{% render 'liens', menu: menu %}</ul>
+    </nav>
+    {%- if section.settings.cta_label != blank -%}
+      <a class="btn btn--ghost btn--small header__cta" href="{{ u_contact }}">{{ section.settings.cta_label }}</a>
+    {%- endif -%}
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-mobile" data-menu-toggle>
+      <span class="menu-toggle__label" data-label-open="Menu" data-label-close="Fermer">Menu</span>
+      <span class="menu-toggle__lines" aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="menu-mobile" id="menu-mobile" hidden data-menu>
+    <nav class="wrap" aria-label="Navigation mobile">
+      <ul>{% render 'liens', menu: menu, numeros: true %}</ul>
+      {%- if section.settings.cta_label != blank -%}
+        <a class="btn btn--primary" href="{{ u_contact }}">{{ section.settings.cta_label }}</a>
+      {%- endif -%}
+    </nav>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "En-tête",
+  "class": "section-header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "info": "Laisser vide pour afficher les quatre pages du site : Accueil, Services, Présentation, Contact." },
+    { "type": "text", "id": "cta_label", "label": "Bouton de rendez-vous", "default": "Prendre rendez-vous", "info": "Mène à la page Contact. Vide = bouton masqué." }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,18 @@
+{%- assign u_contact = pages['contact'].url | default: '/pages/contact' -%}
+<section class="bandeau" aria-labelledby="bandeau-titre-{{ section.id }}">
+  <div class="wrap bandeau__in">
+    <h2 id="bandeau-titre-{{ section.id }}">{{ section.settings.titre }}</h2>
+    <a class="btn btn--primary" href="{{ u_contact }}">{{ section.settings.bouton }}{% render 'icon-arrow' %}</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bandeau final",
+  "settings": [
+    { "type": "text", "id": "titre", "label": "Titre", "default": "Votre véhicule mérite le meilleur." },
+    { "type": "text", "id": "bouton", "label": "Bouton (vers Contact)", "default": "Prendre rendez-vous" }
+  ],
+  "presets": [{ "name": "Bandeau final" }]
+}
+{% endschema %}

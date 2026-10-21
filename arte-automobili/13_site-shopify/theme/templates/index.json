@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {}
+    },
+    "services": {
+      "type": "cartes-services",
+      "settings": {}
+    },
+    "approche": {
+      "type": "approche",
+      "settings": {}
+    },
+    "bandeau": {
+      "type": "bandeau",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "services",
+    "approche",
+    "bandeau"
+  ]
+}

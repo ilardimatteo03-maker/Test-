@@ -1,0 +1,33 @@
+{%- assign u_services = pages['services'].url | default: '/pages/services' -%}
+<section class="section" aria-labelledby="services-titre-{{ section.id }}">
+  <div class="wrap">
+    <div class="tete-section">
+      {%- if section.settings.surtitre != blank %}<p class="label">{{ section.settings.surtitre }}</p>{% endif -%}
+      <h2 id="services-titre-{{ section.id }}">{{ section.settings.titre }}</h2>
+    </div>
+    <div class="cartes">
+      {%- for i in (1..4) -%}
+        {%- assign k_accueil = 'p' | append: i | append: '_accueil' -%}
+        {%- if settings[k_accueil] -%}{% render 'prestation', i: i, mode: 'carte' %}{%- endif -%}
+      {%- endfor -%}
+    </div>
+    <div class="cartes__pied">
+      {%- if section.settings.pro != blank %}<p>{{ section.settings.pro }}</p>{% endif -%}
+      <a class="lien" href="{{ u_services }}"><span>{{ section.settings.lien }}</span>{% render 'icon-arrow' %}</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cartes de prestations",
+  "settings": [
+    { "type": "paragraph", "content": "Noms, prix et photos : Réglages du thème › Prestations et tarifs." },
+    { "type": "text", "id": "surtitre", "label": "Surtitre", "default": "Prestations" },
+    { "type": "inline_richtext", "id": "titre", "label": "Titre", "default": "Trois formules, une même <em>exigence</em>." },
+    { "type": "text", "id": "pro", "label": "Phrase sous les cartes", "default": "Professionnels et flottes de véhicules : prestations sur devis." },
+    { "type": "text", "id": "lien", "label": "Lien vers la page Services", "default": "Tous les services et tarifs" }
+  ],
+  "presets": [{ "name": "Cartes de prestations" }]
+}
+{% endschema %}

@@ -1,0 +1,43 @@
+{%- comment -%}
+  Pages de boutique (produit, collection, panier, recherche, blog) : le site vitrine ne vend rien,
+  ces adresses affichent un contenu sobre et renvoient vers les services.
+{%- endcomment -%}
+{%- assign u_services = pages['services'].url | default: '/pages/services' -%}
+<section class="entete entete--seule wrap">
+  {%- case template.name -%}
+    {%- when 'product' -%}
+      <h1>{{ product.title }}</h1>
+      {%- if product.description != blank %}<div class="prose rte">{{ product.description }}</div>{% endif -%}
+    {%- when 'collection' -%}
+      <h1>{{ collection.title }}</h1>
+      {%- if collection.description != blank %}<div class="prose rte">{{ collection.description }}</div>{% endif -%}
+    {%- when 'article' -%}
+      <p class="label">{{ article.published_at | date: '%d.%m.%Y' }}</p>
+      <h1>{{ article.title }}</h1>
+      <div class="prose rte">{{ article.content }}</div>
+    {%- when 'blog' -%}
+      <h1>{{ blog.title }}</h1>
+      <ul class="liste-simple">
+        {%- for article in blog.articles limit: 24 -%}<li><a href="{{ article.url }}">{{ article.title }}</a></li>{%- endfor -%}
+      </ul>
+    {%- when 'search' -%}
+      <h1>Recherche</h1>
+      <form action="{{ routes.search_url }}" method="get" role="search" class="field recherche">
+        <label for="q">Rechercher sur le site</label>
+        <input id="q" type="search" name="q" value="{{ search.terms | escape }}">
+      </form>
+      {%- if search.performed -%}
+        <ul class="liste-simple">
+          {%- for item in search.results limit: 24 -%}<li><a href="{{ item.url }}">{{ item.title }}</a></li>{%- else -%}<li>Aucun résultat.</li>{%- endfor -%}
+        </ul>
+      {%- endif -%}
+    {%- else -%}
+      <h1>{{ page_title }}</h1>
+      <p class="entete__texte">Ce site présente nos services ; il ne propose pas de vente en ligne.</p>
+  {%- endcase -%}
+  <div class="actions"><a class="btn btn--secondary" href="{{ u_services }}">Découvrir nos services</a></div>
+</section>
+
+{% schema %}
+{ "name": "Contenu simple", "settings": [] }
+{% endschema %}

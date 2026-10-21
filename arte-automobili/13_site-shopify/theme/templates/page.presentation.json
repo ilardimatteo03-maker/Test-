@@ -1,0 +1,39 @@
+{
+  "sections": {
+    "main": {
+      "type": "presentation",
+      "settings": {},
+      "blocks": {
+        "v1": {
+          "type": "valeur",
+          "settings": {
+            "titre": "Précision",
+            "texte": "Une méthode rigoureuse, appliquée à chaque surface."
+          }
+        },
+        "v2": {
+          "type": "valeur",
+          "settings": {
+            "titre": "Soin",
+            "texte": "Des gestes attentifs, respectueux de chaque matériau."
+          }
+        },
+        "v3": {
+          "type": "valeur",
+          "settings": {
+            "titre": "Exigence",
+            "texte": "Le même niveau d'attention, quel que soit le véhicule."
+          }
+        }
+      },
+      "block_order": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

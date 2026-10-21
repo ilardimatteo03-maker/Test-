@@ -1,0 +1,385 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Arte Automobili — Vitrine",
+    "theme_version": "1.0.0",
+    "theme_author": "Arte Automobili",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://help.shopify.com"
+  },
+  {
+    "name": "Couleurs",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Palette officielle : ne modifier qu'en accord avec le guide de marque."
+      },
+      {
+        "type": "color",
+        "id": "color_nero",
+        "label": "Nero Vite (fond)",
+        "default": "#0D0F0E"
+      },
+      {
+        "type": "color",
+        "id": "color_bianco",
+        "label": "Bianco Sangiovanni (texte, boutons)",
+        "default": "#EEEDE7"
+      },
+      {
+        "type": "color",
+        "id": "color_verde",
+        "label": "Verde Verona (moments de marque)",
+        "default": "#1F3D35"
+      },
+      {
+        "type": "color",
+        "id": "color_verdaccio",
+        "label": "Verdaccio (surfaces)",
+        "default": "#262B29"
+      },
+      {
+        "type": "color",
+        "id": "color_argento",
+        "label": "Argento (texte secondaire, filets)",
+        "default": "#8E9592"
+      }
+    ]
+  },
+  {
+    "name": "Identité",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon (sinon le monogramme fourni)"
+      },
+      {
+        "type": "text",
+        "id": "signature",
+        "label": "Signature",
+        "default": "L'arte del riflesso."
+      },
+      {
+        "type": "image_picker",
+        "id": "image_partage",
+        "label": "Image d'aperçu de partage (1200 × 630 px)"
+      }
+    ]
+  },
+  {
+    "name": "Coordonnées",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Un champ laissé vide n'est pas affiché sur le site."
+      },
+      {
+        "type": "text",
+        "id": "telephone",
+        "label": "Téléphone"
+      },
+      {
+        "type": "text",
+        "id": "email",
+        "label": "E-mail"
+      },
+      {
+        "type": "text",
+        "id": "adresse",
+        "label": "Adresse"
+      },
+      {
+        "type": "text",
+        "id": "zone",
+        "label": "Zone d'intervention"
+      },
+      {
+        "type": "text",
+        "id": "horaires",
+        "label": "Horaires"
+      }
+    ]
+  },
+  {
+    "name": "Réseaux sociaux",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Adresse complète du profil. Vide = non affiché."
+      },
+      {
+        "type": "url",
+        "id": "instagram",
+        "label": "Instagram"
+      },
+      {
+        "type": "url",
+        "id": "facebook",
+        "label": "Facebook"
+      },
+      {
+        "type": "url",
+        "id": "tiktok",
+        "label": "TikTok"
+      },
+      {
+        "type": "url",
+        "id": "linkedin",
+        "label": "LinkedIn"
+      }
+    ]
+  },
+  {
+    "name": "Prestations et tarifs",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Utilisées sur l'accueil, la page Services et la liste du formulaire de contact. Une image laissée vide reprend le visuel fourni avec le thème."
+      },
+      {
+        "type": "header",
+        "content": "Prestation 1"
+      },
+      {
+        "type": "text",
+        "id": "p1_nom",
+        "label": "Nom",
+        "default": "Lavage intérieur"
+      },
+      {
+        "type": "text",
+        "id": "p1_prix",
+        "label": "Prix affiché",
+        "default": "60 €",
+        "info": "Ex. « 60 € » ou « Sur devis »"
+      },
+      {
+        "type": "textarea",
+        "id": "p1_description",
+        "label": "Description",
+        "default": "Nettoyage et remise au propre de l'intérieur du véhicule, avec une attention particulière portée aux surfaces et aux finitions."
+      },
+      {
+        "type": "image_picker",
+        "id": "p1_image",
+        "label": "Photo"
+      },
+      {
+        "type": "text",
+        "id": "p1_alt",
+        "label": "Description de la photo (accessibilité)",
+        "default": "Habitacle d'un coupé vu par la vitre latérale ouverte : sièges et volant sous une lumière douce"
+      },
+      {
+        "type": "text",
+        "id": "p1_bouton",
+        "label": "Texte du bouton",
+        "default": "Demander un rendez-vous"
+      },
+      {
+        "type": "text",
+        "id": "p1_formulaire",
+        "label": "Intitulé dans le formulaire (si différent du nom)"
+      },
+      {
+        "type": "checkbox",
+        "id": "p1_accueil",
+        "label": "Afficher sur l'accueil",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Prestation 2"
+      },
+      {
+        "type": "text",
+        "id": "p2_nom",
+        "label": "Nom",
+        "default": "Lavage extérieur"
+      },
+      {
+        "type": "text",
+        "id": "p2_prix",
+        "label": "Prix affiché",
+        "default": "60 €",
+        "info": "Ex. « 60 € » ou « Sur devis »"
+      },
+      {
+        "type": "textarea",
+        "id": "p2_description",
+        "label": "Description",
+        "default": "Nettoyage extérieur soigné pour retrouver un véhicule propre et une finition impeccable."
+      },
+      {
+        "type": "image_picker",
+        "id": "p2_image",
+        "label": "Photo"
+      },
+      {
+        "type": "text",
+        "id": "p2_alt",
+        "label": "Description de la photo (accessibilité)",
+        "default": "Capot noir brillant d'un coupé sur lequel se reflètent des lignes de lumière"
+      },
+      {
+        "type": "text",
+        "id": "p2_bouton",
+        "label": "Texte du bouton",
+        "default": "Demander un rendez-vous"
+      },
+      {
+        "type": "text",
+        "id": "p2_formulaire",
+        "label": "Intitulé dans le formulaire (si différent du nom)"
+      },
+      {
+        "type": "checkbox",
+        "id": "p2_accueil",
+        "label": "Afficher sur l'accueil",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Prestation 3"
+      },
+      {
+        "type": "text",
+        "id": "p3_nom",
+        "label": "Nom",
+        "default": "Lavage intérieur + extérieur"
+      },
+      {
+        "type": "text",
+        "id": "p3_prix",
+        "label": "Prix affiché",
+        "default": "100 €",
+        "info": "Ex. « 60 € » ou « Sur devis »"
+      },
+      {
+        "type": "textarea",
+        "id": "p3_description",
+        "label": "Description",
+        "default": "Une prestation complète pour prendre soin de l'intérieur et de l'extérieur du véhicule."
+      },
+      {
+        "type": "image_picker",
+        "id": "p3_image",
+        "label": "Photo"
+      },
+      {
+        "type": "text",
+        "id": "p3_alt",
+        "label": "Description de la photo (accessibilité)",
+        "default": "Coupé blanc vu de trois quarts arrière, en entier, dans un studio sombre"
+      },
+      {
+        "type": "text",
+        "id": "p3_bouton",
+        "label": "Texte du bouton",
+        "default": "Demander un rendez-vous"
+      },
+      {
+        "type": "text",
+        "id": "p3_formulaire",
+        "label": "Intitulé dans le formulaire (si différent du nom)"
+      },
+      {
+        "type": "checkbox",
+        "id": "p3_accueil",
+        "label": "Afficher sur l'accueil",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Prestation 4"
+      },
+      {
+        "type": "text",
+        "id": "p4_nom",
+        "label": "Nom",
+        "default": "Services pour les professionnels"
+      },
+      {
+        "type": "text",
+        "id": "p4_prix",
+        "label": "Prix affiché",
+        "default": "Sur devis",
+        "info": "Ex. « 60 € » ou « Sur devis »"
+      },
+      {
+        "type": "textarea",
+        "id": "p4_description",
+        "label": "Description",
+        "default": "Solutions de nettoyage automobile adaptées aux besoins des professionnels et des flottes de véhicules."
+      },
+      {
+        "type": "image_picker",
+        "id": "p4_image",
+        "label": "Photo"
+      },
+      {
+        "type": "text",
+        "id": "p4_alt",
+        "label": "Description de la photo (accessibilité)",
+        "default": "Trois coupés alignés côte à côte dans un studio sombre"
+      },
+      {
+        "type": "text",
+        "id": "p4_bouton",
+        "label": "Texte du bouton",
+        "default": "Demander un devis"
+      },
+      {
+        "type": "text",
+        "id": "p4_formulaire",
+        "label": "Intitulé dans le formulaire (si différent du nom)",
+        "default": "Demande professionnelle"
+      },
+      {
+        "type": "checkbox",
+        "id": "p4_accueil",
+        "label": "Afficher sur l'accueil",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Mise en avant"
+      },
+      {
+        "type": "select",
+        "id": "prestation_avant",
+        "label": "Prestation valorisée (avec discrétion)",
+        "default": "3",
+        "options": [
+          {
+            "value": "0",
+            "label": "Aucune"
+          },
+          {
+            "value": "1",
+            "label": "Prestation 1"
+          },
+          {
+            "value": "2",
+            "label": "Prestation 2"
+          },
+          {
+            "value": "3",
+            "label": "Prestation 3"
+          },
+          {
+            "value": "4",
+            "label": "Prestation 4"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "mention_avant",
+        "label": "Mention de la prestation valorisée",
+        "default": "Formule complète"
+      }
+    ]
+  }
+]

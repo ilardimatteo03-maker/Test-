@@ -1,0 +1,21 @@
+{%- comment -%}
+  Liens du menu. Sans menu choisi dans l'éditeur, les quatre pages du site.
+  Paramètres : menu (linklist, facultatif), numeros (true : 01, 02… devant chaque lien).
+{%- endcomment -%}
+{%- liquid
+  assign u_services = pages['services'].url | default: '/pages/services'
+  assign u_presentation = pages['presentation'].url | default: '/pages/presentation'
+  assign u_contact = pages['contact'].url | default: '/pages/contact'
+  assign urls = routes.root_url | append: '|' | append: u_services | append: '|' | append: u_presentation | append: '|' | append: u_contact | split: '|'
+  assign titres = 'Accueil|Services|Présentation|Contact' | split: '|'
+-%}
+{%- if menu != blank and menu.links.size > 0 -%}
+  {%- for link in menu.links -%}
+    <li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{% if numeros %}<span class="mono">0{{ forloop.index }}</span>{% endif %}{{ link.title | escape }}</a></li>
+  {%- endfor -%}
+{%- else -%}
+  {%- for titre in titres -%}
+    {%- assign u = urls[forloop.index0] -%}
+    <li><a href="{{ u }}"{% if request.path == u %} aria-current="page"{% endif %}>{% if numeros %}<span class="mono">0{{ forloop.index }}</span>{% endif %}{{ titre }}</a></li>
+  {%- endfor -%}
+{%- endif -%}

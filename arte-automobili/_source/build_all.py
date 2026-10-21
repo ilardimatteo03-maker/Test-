@@ -9,7 +9,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 STEPS = ["build_logos", "build_pistes", "build_palette", "build_icons", "build_motifs", "build_social",
-         "build_papeterie", "build_documents", "build_mockups", "build_site", "build_textes", "build_guide"]
+         "build_papeterie", "build_documents", "build_mockups", "build_site", "build_site_shopify", "build_textes", "build_guide"]
 
 for step in STEPS:
     print(f"→ {step}")

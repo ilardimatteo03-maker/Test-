@@ -1,0 +1,39 @@
+{%- assign u_services = pages['services'].url | default: '/pages/services' -%}
+<section class="presentation wrap" aria-labelledby="presentation-titre-{{ section.id }}">
+  <div class="presentation__media">
+    {%- render 'image-asset', image: section.settings.image, nom: 'presentation', largeurs: '800,1080', largeur: 1080, hauteur: 1350, sizes: '(min-width: 990px) 50vw, 100vw', alt: section.settings.alt, eager: true -%}
+  </div>
+  <div class="presentation__corps">
+    {%- if section.settings.surtitre != blank %}<p class="label">{{ section.settings.surtitre }}</p>{% endif -%}
+    <h1 id="presentation-titre-{{ section.id }}">{{ section.settings.titre }}</h1>
+    <p class="presentation__texte">{{ section.settings.texte }}</p>
+    {%- if section.blocks.size > 0 -%}
+      <ul class="valeurs">
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}><span class="valeurs__num">0{{ forloop.index }}</span><h2 class="valeurs__titre">{{ block.settings.titre }}</h2><p>{{ block.settings.texte }}</p></li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+    <a class="btn btn--primary" href="{{ u_services }}">{{ section.settings.bouton }}{% render 'icon-arrow' %}</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Présentation",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image (portrait 4:5)" },
+    { "type": "text", "id": "alt", "label": "Description de l'image", "default": "Optique avant d'un coupé blanc, éclairée par une ligne de lumière" },
+    { "type": "text", "id": "surtitre", "label": "Surtitre", "default": "Présentation" },
+    { "type": "inline_richtext", "id": "titre", "label": "Titre", "default": "La passion du <em>détail</em>." },
+    { "type": "textarea", "id": "texte", "label": "Texte (provisoire, à personnaliser)", "default": "Chez Arte Automobili, nous pensons qu'un véhicule bien entretenu se reconnaît à ses détails. Chaque prestation est menée avec calme et méthode, pour vous rendre un véhicule propre, soigné et agréable à retrouver." },
+    { "type": "text", "id": "bouton", "label": "Bouton (vers Services)", "default": "Découvrir nos services" }
+  ],
+  "blocks": [
+    { "type": "valeur", "name": "Valeur", "limit": 4, "settings": [
+      { "type": "text", "id": "titre", "label": "Titre", "default": "Précision" },
+      { "type": "text", "id": "texte", "label": "Phrase", "default": "Une méthode rigoureuse, appliquée à chaque surface." }
+    ] }
+  ]
+}
+{% endschema %}

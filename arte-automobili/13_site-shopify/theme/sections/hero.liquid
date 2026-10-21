@@ -1,0 +1,36 @@
+{%- assign u_services = pages['services'].url | default: '/pages/services' -%}
+{%- assign u_contact = pages['contact'].url | default: '/pages/contact' -%}
+<section class="hero" aria-labelledby="hero-titre-{{ section.id }}">
+  <div class="hero__media">
+    {%- render 'image-asset', image: section.settings.image, nom: 'accueil-hero', largeurs: '1200,2400', largeur: 2400, hauteur: 1350, sizes: '(max-width: 760px) 220vw, 100vw', alt: section.settings.alt, eager: true -%}
+  </div>
+  <div class="hero__ombre" aria-hidden="true"></div>
+  <div class="hero__lame" aria-hidden="true"></div>
+  <div class="wrap hero__corps">
+    <h1 class="hero__titre" id="hero-titre-{{ section.id }}">{{ section.settings.titre }}</h1>
+    <div class="hero__reflet" aria-hidden="true"><span class="hero__titre">{{ section.settings.titre }}</span></div>
+    <hr class="linea">
+    <div class="hero__infos">
+      <p>{{ section.settings.texte }}</p>
+      <div class="actions">
+        <a class="btn btn--primary" href="{{ u_services }}">{{ section.settings.bouton_1 }}</a>
+        <a class="btn btn--secondary" href="{{ u_contact }}">{{ section.settings.bouton_2 }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Héros",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "Paysage 16:9, 2400 px de large ou plus ; véhicule sur la moitié droite. Vide = visuel fourni." },
+    { "type": "text", "id": "alt", "label": "Description de l'image", "default": "Coupé blanc vu de trois quarts avant, seul dans un studio plongé dans la pénombre" },
+    { "type": "inline_richtext", "id": "titre", "label": "Titre (italique pour un mot)", "default": "L'art du <em>détail</em> automobile." },
+    { "type": "text", "id": "texte", "label": "Ligne secondaire", "default": "Lavage intérieur et extérieur, réalisé avec soin et précision." },
+    { "type": "text", "id": "bouton_1", "label": "Bouton principal (vers Services)", "default": "Découvrir nos services" },
+    { "type": "text", "id": "bouton_2", "label": "Bouton secondaire (vers Contact)", "default": "Nous contacter" }
+  ],
+  "presets": [{ "name": "Héros" }]
+}
+{% endschema %}

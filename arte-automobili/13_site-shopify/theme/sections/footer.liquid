@@ -1,0 +1,60 @@
+{%- liquid
+  assign a_contact = false
+  if settings.telephone != blank or settings.email != blank or settings.adresse != blank or settings.zone != blank or settings.horaires != blank
+    assign a_contact = true
+  endif
+  assign a_reseaux = false
+  if settings.instagram != blank or settings.facebook != blank or settings.tiktok != blank or settings.linkedin != blank
+    assign a_reseaux = true
+  endif
+-%}
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <a href="{{ routes.root_url }}" aria-label="{{ shop.name }}, retour à l'accueil">
+        <img src="{{ 'logo-vertical-bianco.svg' | asset_url }}" alt="" width="289" height="407" loading="lazy">
+      </a>
+      {%- if settings.signature != blank %}<p>{{ settings.signature }}</p>{% endif -%}
+    </div>
+    <nav class="footer__col" aria-label="Pages du site">
+      <p class="label">Pages</p>
+      <ul>{% render 'liens' %}</ul>
+    </nav>
+    {%- if a_contact -%}
+      <div class="footer__col">
+        <p class="label">Contact</p>
+        <ul>
+          {%- if settings.telephone != blank %}<li><a href="tel:{{ settings.telephone | remove: ' ' | remove: '.' }}">{{ settings.telephone }}</a></li>{% endif -%}
+          {%- if settings.email != blank %}<li><a href="mailto:{{ settings.email }}">{{ settings.email }}</a></li>{% endif -%}
+          {%- if settings.adresse != blank %}<li>{{ settings.adresse }}</li>{% endif -%}
+          {%- if settings.zone != blank %}<li>{{ settings.zone }}</li>{% endif -%}
+          {%- if settings.horaires != blank %}<li>{{ settings.horaires }}</li>{% endif -%}
+        </ul>
+      </div>
+    {%- endif -%}
+    {%- if a_reseaux -%}
+      <div class="footer__col">
+        <p class="label">Suivre</p>
+        <ul>{% render 'reseaux', element: 'li' %}</ul>
+      </div>
+    {%- endif -%}
+  </div>
+  <div class="wrap footer__legal">
+    <span>© {{ 'now' | date: '%Y' }} {{ shop.name }}</span>
+    {%- if shop.policies.size > 0 -%}
+      <nav aria-label="Informations légales">
+        {%- for policy in shop.policies -%}<a href="{{ policy.url }}">{{ policy.title }}</a>{%- endfor -%}
+      </nav>
+    {%- endif -%}
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Pied de page",
+  "class": "section-footer",
+  "settings": [
+    { "type": "paragraph", "content": "Coordonnées et réseaux : Réglages du thème. Liens légaux : politiques de la boutique (Paramètres › Politiques)." }
+  ]
+}
+{% endschema %}

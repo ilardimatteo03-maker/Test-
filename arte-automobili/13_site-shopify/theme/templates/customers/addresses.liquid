@@ -1,0 +1,32 @@
+<section class="section section--tight"><div class="wrap" style="max-width:760px">
+  <p class="crumbs"><a href="{{ routes.account_url }}">Compte</a> / Adresses</p>
+  <div class="page-head" style="padding-top:0"><h1 class="h2">Adresses</h1></div>
+  {%- paginate customer.addresses by 10 -%}
+    {%- for address in customer.addresses -%}
+      <div style="border-bottom:1px solid var(--verdaccio);padding:20px 0">
+        <p style="margin:0 0 10px">{{ address | format_address }}</p>
+        {%- if address == customer.default_address -%}<span class="mono" style="font-size:12px;color:var(--argento)">ADRESSE PRINCIPALE</span>{%- endif -%}
+        <form method="post" action="{{ routes.account_addresses_url }}/{{ address.id }}" style="display:inline">
+          <input type="hidden" name="_method" value="delete">
+          <button class="remove" type="submit">Supprimer</button>
+        </form>
+      </div>
+    {%- endfor -%}
+  {%- endpaginate -%}
+  <h2 class="h3" style="margin:48px 0 24px">Ajouter une adresse</h2>
+  {%- form 'customer_address', customer.new_address -%}
+    {%- if form.errors -%}<p class="notice notice--error">{{ form.errors | default_errors }}</p>{%- endif -%}
+    <div class="grid-2" style="align-items:start;gap:22px">
+      <div class="field"><label for="a-first">Prénom</label><input id="a-first" name="address[first_name]" autocomplete="given-name" value="{{ form.first_name }}"></div>
+      <div class="field"><label for="a-last">Nom</label><input id="a-last" name="address[last_name]" autocomplete="family-name" value="{{ form.last_name }}"></div>
+      <div class="field"><label for="a-1">Adresse</label><input id="a-1" name="address[address1]" autocomplete="address-line1" value="{{ form.address1 }}"></div>
+      <div class="field"><label for="a-2">Complément</label><input id="a-2" name="address[address2]" autocomplete="address-line2" value="{{ form.address2 }}"></div>
+      <div class="field"><label for="a-zip">Code postal</label><input id="a-zip" name="address[zip]" autocomplete="postal-code" value="{{ form.zip }}"></div>
+      <div class="field"><label for="a-city">Ville</label><input id="a-city" name="address[city]" autocomplete="address-level2" value="{{ form.city }}"></div>
+      <div class="field"><label for="a-country">Pays</label><select id="a-country" name="address[country]">{{ all_country_option_tags }}</select></div>
+      <div class="field"><label for="a-phone">Téléphone</label><input id="a-phone" name="address[phone]" type="tel" autocomplete="tel" value="{{ form.phone }}"></div>
+    </div>
+    <p style="margin-top:20px"><label><input type="checkbox" name="address[default]" value="1"> Définir comme adresse principale</label></p>
+    <button class="btn btn--primary" type="submit" style="margin-top:12px">Enregistrer</button>
+  {%- endform -%}
+</div></section>

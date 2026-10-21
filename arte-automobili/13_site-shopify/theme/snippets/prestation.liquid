@@ -1,0 +1,78 @@
+{%- comment -%}
+  Une prestation, lue dans les réglages du thème (Prestations et tarifs).
+  Paramètres : i (1 à 4), mode ("carte" pour l'accueil, "ligne" pour la page Services).
+{%- endcomment -%}
+{%- liquid
+  assign k = 'p' | append: i
+  assign k_nom = k | append: '_nom'
+  assign k_prix = k | append: '_prix'
+  assign k_desc = k | append: '_description'
+  assign k_image = k | append: '_image'
+  assign k_alt = k | append: '_alt'
+  assign k_bouton = k | append: '_bouton'
+  assign nom = settings[k_nom]
+  assign avant = false
+  assign i_texte = i | append: ''
+  if settings.prestation_avant == i_texte
+    assign avant = true
+  endif
+  case i
+    when 1
+      assign visuel = 'service-interieur'
+      assign largeurs = '800,1600'
+      assign l = 1600
+      assign h = 1000
+      assign ancre = 'interieur'
+    when 2
+      assign visuel = 'service-exterieur'
+      assign largeurs = '800,1080'
+      assign l = 1080
+      assign h = 1350
+      assign ancre = 'exterieur'
+    when 3
+      assign visuel = 'service-complet'
+      assign largeurs = '800,1200'
+      assign l = 1200
+      assign h = 1500
+      assign ancre = 'complet'
+    else
+      assign visuel = 'service-professionnels'
+      assign largeurs = '800,1600'
+      assign l = 1600
+      assign h = 1000
+      assign ancre = 'professionnels'
+  endcase
+  assign u_services = pages['services'].url | default: '/pages/services'
+  assign u_contact = pages['contact'].url | default: '/pages/contact'
+  assign nom_html = nom | escape | replace: ' + ', ' <span class="plus">+</span> '
+-%}
+{%- if mode == 'carte' -%}
+  <a class="carte{% if avant %} carte--avant{% endif %}" href="{{ u_services }}#{{ ancre }}">
+    <div class="carte__media">
+      {%- render 'image-asset', image: settings[k_image], nom: visuel, largeurs: largeurs, largeur: l, hauteur: h, sizes: '(min-width: 760px) 30vw, 100vw', alt: settings[k_alt] -%}
+    </div>
+    <div class="carte__corps">
+      <div class="carte__ligne">
+        <h3 class="carte__titre">{{ nom_html }}</h3>
+        <p class="prix">{{ settings[k_prix] }}</p>
+      </div>
+      <div class="carte__pied">
+        <span class="carte__lien">Voir la prestation{% render 'icon-arrow' %}</span>
+        {%- if avant and settings.mention_avant != blank %}<span class="carte__mention">{{ settings.mention_avant }}</span>{% endif -%}
+      </div>
+    </div>
+  </a>
+{%- else -%}
+  <article class="prestation{% if avant %} prestation--avant{% endif %}" id="{{ ancre }}" aria-labelledby="titre-{{ ancre }}">
+    <div class="prestation__media">
+      {%- render 'image-asset', image: settings[k_image], nom: visuel, largeurs: largeurs, largeur: l, hauteur: h, sizes: '(min-width: 990px) 58vw, 100vw', alt: settings[k_alt] -%}
+    </div>
+    <div class="prestation__corps">
+      <p class="prestation__numero">N° 0{{ i }}{% if avant and settings.mention_avant != blank %}<span>{{ settings.mention_avant }}</span>{% endif %}</p>
+      <h2 class="prestation__titre" id="titre-{{ ancre }}">{{ nom_html }}</h2>
+      <p class="prestation__prix">{{ settings[k_prix] }}</p>
+      <p class="prestation__texte">{{ settings[k_desc] }}</p>
+      <a class="btn {% if avant %}btn--primary{% else %}btn--secondary{% endif %}" href="{{ u_contact }}?service={{ ancre }}">{{ settings[k_bouton] }}</a>
+    </div>
+  </article>
+{%- endif -%}

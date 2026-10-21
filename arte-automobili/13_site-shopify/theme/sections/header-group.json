@@ -1,0 +1,6 @@
+{
+  "type": "header",
+  "name": "Groupe en-tête",
+  "sections": { "header": { "type": "header", "settings": { "cta_label": "Prendre rendez-vous" } } },
+  "order": ["header"]
+}
