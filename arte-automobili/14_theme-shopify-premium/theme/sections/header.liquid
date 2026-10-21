@@ -1,26 +1,97 @@
-{%- assign u_contact = pages['contact'].url | default: '/pages/contact' -%}
-{%- assign menu = linklists[section.settings.menu] -%}
-<header class="header" data-header>
-  <div class="wrap header__in">
+{%- liquid
+  assign s = section.settings
+  assign u_contact = pages['contact'].url | default: '/pages/contact'
+  assign menu = linklists[s.menu]
+  assign fond = s.couleur_fond | default: settings.color_nero
+  assign texte = s.couleur_texte | default: settings.color_bianco
+  assign survol = s.couleur_survol | default: texte
+  assign opacite = s.opacite_fond | default: 94 | divided_by: 100.0
+  assign texte_lum = texte | color_brightness
+  assign logo_sombre = false
+  if s.logo_version == 'sombre'
+    assign logo_sombre = true
+  elsif s.logo_version == 'auto' and texte_lum < 128
+    assign logo_sombre = true
+  endif
+  if logo_sombre
+    assign logo_img = settings.logo_sombre
+    assign logo_asset = 'logo-principal-nero.svg'
+  else
+    assign logo_img = settings.logo
+    assign logo_asset = 'logo-principal-bianco.svg'
+  endif
+  assign seuil = s.menu_mobile_seuil | default: '1080'
+-%}
+<style>
+  :root { --header: {{ s.hauteur_d | default: 84 }}px; }
+  @media (max-width: 760px) { :root { --header: {{ s.hauteur_m | default: 68 }}px; } }
+  #shopify-section-{{ section.id }} .header {
+    --header-fond: rgba({{ fond | color_extract: 'red' }}, {{ fond | color_extract: 'green' }}, {{ fond | color_extract: 'blue' }}, {{ opacite }});
+    --header-fond-plein: {{ fond }};
+    --header-texte: {{ texte }};
+    --header-survol: {{ survol }};
+    --header-bordure: {% if s.bordure %}var(--c-filet){% else %}transparent{% endif %};
+    --c-texte: {{ texte }}; --c-texte-rgb: {{ texte | color_extract: 'red' }}, {{ texte | color_extract: 'green' }}, {{ texte | color_extract: 'blue' }};
+    --c-fond: {{ fond }}; --c-fond-rgb: {{ fond | color_extract: 'red' }}, {{ fond | color_extract: 'green' }}, {{ fond | color_extract: 'blue' }};
+    --nav-gap: {{ s.nav_espacement | default: 36 }}px;
+    --nav-fs: {{ s.nav_taille | default: 12 }}px;
+    --nav-poids: {{ s.nav_poids | default: '600' }};
+    --nav-transform: {% if s.nav_majuscules %}uppercase{% else %}none{% endif %};
+    --nav-ls: {% if s.nav_majuscules %}.2em{% else %}.02em{% endif %};
+    {%- case s.menu_mobile_taille -%}
+      {%- when 'moyen' %} --menu-mobile-fs: 28px;
+      {%- when 'petit' %} --menu-mobile-fs: 21px;
+    {%- endcase %}
+    {%- unless s.fixe %} --header-position: absolute;{% endunless %}
+  }
+  {%- if s.fond_mode == 'opaque' %}
+  #shopify-section-{{ section.id }} .header { background: var(--header-fond); border-bottom-color: var(--header-bordure); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  {%- endif %}
+  @media (max-width: {{ seuil }}px) {
+    #shopify-section-{{ section.id }} .header__nav{% unless s.mobile_cta %}, #shopify-section-{{ section.id }} .header__cta{% endunless %} { display: none; }
+    #shopify-section-{{ section.id }} .menu-toggle { display: inline-flex; }
+  }
+  @media (min-width: {{ seuil | plus: 1 }}px) {
+    #shopify-section-{{ section.id }} .menu-mobile { display: none; }
+  }
+</style>
+<header class="header header--nav-{{ s.nav_survol | default: 'opacite' }}{% if s.fond_mode == 'opaque' %} is-solid{% endif %}" data-header data-fond="{{ s.fond_mode | default: 'defilement' }}" data-fixe="{{ s.fixe }}" data-reduire="{{ s.reduire }}">
+  <div class="wrap header__in header__in--logo-{{ s.logo_position | default: 'gauche' }} header__in--nav-{{ s.nav_position | default: 'droite' }}">
     <a class="header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}, retour à l'accueil">
-      <img src="{{ 'logo-principal-bianco.svg' | asset_url }}" alt="" width="479" height="151">
+      {%- if logo_img != blank -%}
+        {%- if settings.logo_mobile != blank -%}
+          <picture>
+            <source media="(max-width: 760px)" srcset="{{ settings.logo_mobile | image_url: width: 400 }}">
+            {{ logo_img | image_url: width: 600 | image_tag: alt: '', widths: '200, 400, 600', sizes: '260px', loading: 'eager' }}
+          </picture>
+        {%- else -%}
+          {{ logo_img | image_url: width: 600 | image_tag: alt: '', widths: '200, 400, 600', sizes: '260px', loading: 'eager' }}
+        {%- endif -%}
+      {%- else -%}
+        <img src="{{ logo_asset | asset_url }}" alt="" width="479" height="151">
+      {%- endif -%}
     </a>
     <nav class="header__nav" aria-label="Navigation principale">
-      <ul>{% render 'liens', menu: menu %}</ul>
+      <ul>{% render 'liens', menu: menu, prefixe: 'd' %}</ul>
     </nav>
-    {%- if section.settings.cta_label != blank -%}
-      <a class="btn btn--ghost btn--small header__cta" href="{{ u_contact }}">{{ section.settings.cta_label }}</a>
-    {%- endif -%}
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-mobile" data-menu-toggle>
-      <span class="menu-toggle__label" data-label-open="Menu" data-label-close="Fermer">Menu</span>
-      <span class="menu-toggle__lines" aria-hidden="true"></span>
-    </button>
+    <div class="header__actions">
+      {%- if s.cta_label != blank -%}
+        <a class="btn btn--ghost btn--small header__cta" href="{{ s.cta_lien | default: u_contact }}">{{ s.cta_label }}</a>
+      {%- endif -%}
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-mobile" data-menu-toggle>
+        <span class="menu-toggle__label" data-label-open="Menu" data-label-close="Fermer">Menu</span>
+        <span class="menu-toggle__lines" aria-hidden="true"></span>
+      </button>
+    </div>
   </div>
-  <div class="menu-mobile" id="menu-mobile" hidden data-menu>
+  <div class="menu-mobile menu-mobile--{{ s.menu_mobile_style | default: 'plein' }}" id="menu-mobile" hidden data-menu>
     <nav class="wrap" aria-label="Navigation mobile">
-      <ul>{% render 'liens', menu: menu, numeros: true %}</ul>
-      {%- if section.settings.cta_label != blank -%}
-        <a class="btn btn--primary" href="{{ u_contact }}">{{ section.settings.cta_label }}</a>
+      <ul>{% render 'liens', menu: menu, numeros: s.menu_mobile_numeros, prefixe: 'm' %}</ul>
+      {%- if s.cta_label != blank and s.menu_mobile_cta -%}
+        <a class="btn btn--primary" href="{{ s.cta_lien | default: u_contact }}">{{ s.cta_label }}</a>
+      {%- endif -%}
+      {%- if s.menu_mobile_reseaux -%}
+        <p class="menu-mobile__reseaux">{% render 'reseaux' %}</p>
       {%- endif -%}
     </nav>
   </div>
@@ -31,8 +102,59 @@
   "name": "En-tête",
   "class": "section-header",
   "settings": [
-    { "type": "link_list", "id": "menu", "label": "Menu", "info": "Laisser vide pour afficher les quatre pages du site : Accueil, Services, Présentation, Contact." },
-    { "type": "text", "id": "cta_label", "label": "Bouton de rendez-vous", "default": "Prendre rendez-vous", "info": "Mène à la page Contact. Vide = bouton masqué." }
+    { "type": "link_list", "id": "menu", "label": "Menu", "info": "Laisser vide pour afficher les quatre pages du site : Accueil, Services, Présentation, Contact. Les sous-menus de la navigation Shopify deviennent des menus déroulants." },
+    { "type": "text", "id": "cta_label", "label": "Bouton de rendez-vous", "default": "Prendre rendez-vous", "info": "Vide = bouton masqué." },
+    { "type": "url", "id": "cta_lien", "label": "Lien du bouton", "info": "Vide = page Contact." },
+    { "type": "header", "content": "Comportement" },
+    { "type": "select", "id": "fond_mode", "label": "Fond de l'en-tête", "default": "defilement", "options": [
+      { "value": "defilement", "label": "Transparent, puis opaque au défilement" },
+      { "value": "opaque", "label": "Toujours opaque" },
+      { "value": "transparent", "label": "Toujours transparent" }
+    ] },
+    { "type": "checkbox", "id": "fixe", "label": "Rester visible au défilement", "default": true },
+    { "type": "checkbox", "id": "reduire", "label": "Réduire la hauteur au défilement", "default": false },
+    { "type": "checkbox", "id": "bordure", "label": "Filet sous l'en-tête opaque", "default": true },
+    { "type": "header", "content": "Disposition" },
+    { "type": "select", "id": "logo_position", "label": "Position du logo", "default": "gauche", "options": [
+      { "value": "gauche", "label": "À gauche" }, { "value": "centre", "label": "Au centre" }, { "value": "droite", "label": "À droite" }
+    ] },
+    { "type": "select", "id": "nav_position", "label": "Position du menu (logo à gauche)", "default": "droite", "options": [
+      { "value": "droite", "label": "À droite" }, { "value": "centre", "label": "Au centre" }, { "value": "gauche", "label": "Après le logo" }
+    ], "visible_if": "{{ section.settings.logo_position == 'gauche' }}" },
+    { "type": "range", "id": "hauteur_d", "label": "Hauteur sur ordinateur", "min": 56, "max": 128, "step": 2, "unit": "px", "default": 84 },
+    { "type": "range", "id": "hauteur_m", "label": "Hauteur sur mobile", "min": 52, "max": 100, "step": 2, "unit": "px", "default": 68 },
+    { "type": "select", "id": "logo_version", "label": "Version du logo", "default": "auto", "options": [
+      { "value": "auto", "label": "Automatique selon la couleur du texte" }, { "value": "clair", "label": "Logo clair (fond sombre)" }, { "value": "sombre", "label": "Logo sombre (fond clair)" }
+    ], "info": "Logos et largeurs : Réglages du thème › Identité visuelle." },
+    { "type": "header", "content": "Couleurs" },
+    { "type": "color", "id": "couleur_fond", "label": "Fond (en-tête opaque et menu mobile)", "default": "#0D0F0E" },
+    { "type": "range", "id": "opacite_fond", "label": "Opacité du fond", "min": 50, "max": 100, "step": 1, "unit": "%", "default": 94 },
+    { "type": "color", "id": "couleur_texte", "label": "Texte et icônes", "default": "#EEEDE7" },
+    { "type": "color", "id": "couleur_survol", "label": "Liens au survol", "info": "Vide = couleur du texte." },
+    { "type": "header", "content": "Liens du menu" },
+    { "type": "range", "id": "nav_taille", "label": "Taille du texte", "min": 10, "max": 18, "step": 1, "unit": "px", "default": 12 },
+    { "type": "select", "id": "nav_poids", "label": "Graisse", "default": "600", "options": [
+      { "value": "400", "label": "Normale" }, { "value": "500", "label": "Moyenne" }, { "value": "600", "label": "Demi-grasse" }, { "value": "700", "label": "Grasse" }
+    ] },
+    { "type": "checkbox", "id": "nav_majuscules", "label": "En majuscules", "default": true },
+    { "type": "range", "id": "nav_espacement", "label": "Espacement entre les liens", "min": 12, "max": 72, "step": 2, "unit": "px", "default": 36 },
+    { "type": "select", "id": "nav_survol", "label": "Effet au survol", "default": "opacite", "options": [
+      { "value": "opacite", "label": "Le lien s'éclaire" }, { "value": "souligne", "label": "Soulignement animé" }, { "value": "aucun", "label": "Aucun" }
+    ] },
+    { "type": "header", "content": "Mobile et tablette" },
+    { "type": "select", "id": "menu_mobile_seuil", "label": "Passer au menu mobile en dessous de", "default": "1080", "options": [
+      { "value": "760", "label": "760 px (mobile seulement)" }, { "value": "990", "label": "990 px" }, { "value": "1080", "label": "1 080 px" }, { "value": "1200", "label": "1 200 px" }
+    ] },
+    { "type": "select", "id": "menu_mobile_style", "label": "Style du menu mobile", "default": "plein", "options": [
+      { "value": "plein", "label": "Plein écran" }, { "value": "panneau", "label": "Panneau latéral" }, { "value": "deroulant", "label": "Volet déroulant" }
+    ] },
+    { "type": "select", "id": "menu_mobile_taille", "label": "Taille des liens du menu mobile", "default": "grand", "options": [
+      { "value": "grand", "label": "Grande" }, { "value": "moyen", "label": "Moyenne" }, { "value": "petit", "label": "Petite" }
+    ] },
+    { "type": "checkbox", "id": "menu_mobile_numeros", "label": "Numéroter les liens (01, 02…)", "default": true },
+    { "type": "checkbox", "id": "menu_mobile_cta", "label": "Bouton de rendez-vous dans le menu mobile", "default": true },
+    { "type": "checkbox", "id": "menu_mobile_reseaux", "label": "Réseaux sociaux dans le menu mobile", "default": false },
+    { "type": "checkbox", "id": "mobile_cta", "label": "Bouton de rendez-vous visible dans la barre sur mobile", "default": false }
   ]
 }
 {% endschema %}

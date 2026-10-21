@@ -1,0 +1,14 @@
+{%- assign s = section.settings -%}
+{% render 'section-style', section: section %}
+<header class="entete wrap">
+  {%- if section.settings.surtitre != blank %}<p class="label">{{ section.settings.surtitre }}</p>{% endif -%}
+  <h1>{{ section.settings.titre }}</h1>
+  {%- if section.settings.texte != blank %}<p class="entete__texte">{{ section.settings.texte }}</p>{% endif -%}
+</header>
+<div class="wrap prestations{% if s.disposition != blank and s.disposition != 'lignes' %} prestations--{{ s.disposition }}{% endif %}"{% if s.ratio != blank and s.ratio != '16 / 10' %} style="--ratio: {{ s.ratio }};"{% endif %}>
+  {%- for i in (1..4) -%}
+    {%- assign k_visible = 'p' | append: i | append: '_visible' -%}
+    {%- unless settings[k_visible] == false -%}{% render 'prestation', i: i, mode: 'ligne', afficher_numero: s.afficher_numeros, afficher_duree: s.afficher_duree, afficher_inclus: s.afficher_inclus, afficher_image: s.afficher_images %}{%- endunless -%}
+  {%- endfor -%}
+  {%- if section.settings.note != blank %}<p class="note">{{ section.settings.note }}</p>{% endif -%}
+</div>

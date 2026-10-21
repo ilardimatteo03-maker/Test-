@@ -1,0 +1,157 @@
+/* Arte Automobili — composants ajoutés : en-tête avancé, barre d'annonce, pied de page,
+   blocs de contenu et sections de la bibliothèque. S'appuie sur les variables de base.css. */
+
+/* ── En-tête : dispositions ───────────────────────────────────────────── */
+.header__actions { display: contents; }
+.header__in--nav-centre .header__nav { margin-inline: auto; }
+.header__in--nav-gauche .header__nav { margin-left: 12px; margin-right: auto; }
+.header__in--logo-centre { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); }
+.header__in--logo-centre .header__logo { grid-column: 2; grid-row: 1; }
+.header__in--logo-centre .header__nav { grid-column: 1; grid-row: 1; margin: 0; }
+.header__in--logo-centre .header__actions,
+.header__in--logo-droite .header__actions { display: flex; align-items: center; gap: 28px; }
+.header__in--logo-centre .header__actions { grid-column: 3; grid-row: 1; justify-content: flex-end; }
+.header__in--logo-droite .header__logo { order: 3; }
+.header__in--logo-droite .header__nav { order: 1; margin: 0 auto 0 0; }
+.header__in--logo-droite .header__actions { order: 2; margin-right: 8px; }
+.header__in--logo-droite .menu-toggle { order: -1; margin-left: 0; }
+.header--nav-souligne .header__nav > ul > li > a:hover { background-size: 100% 1px; }
+.header--nav-aucun .header__nav a { opacity: 1; }
+.header.is-reduit .header__in { height: calc(var(--header) * .78); }
+.header.is-reduit .header__logo img { width: calc(var(--logo-l) * .84); }
+body.menu-ouvert .header.is-reduit .header__in { height: var(--header); }
+@media (max-width: 760px) { .header.is-reduit .header__logo img { width: calc(var(--logo-l-m) * .9); } }
+
+/* sous-menus de l'en-tête */
+.nav__parent { position: relative; display: flex; align-items: center; gap: 2px; }
+.nav__ouvrir { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 44px; padding: 0; background: none; border: 0; color: inherit; cursor: pointer; opacity: .78; }
+.nav__ouvrir svg { transition: transform .3s var(--ease); }
+.nav__parent.is-open > .nav__ouvrir svg { transform: rotate(180deg); }
+.header__nav .sous-menu { position: absolute; top: 100%; left: -20px; z-index: 2; min-width: 240px; margin: 0; padding: 12px 20px; list-style: none; background: var(--header-fond-plein, var(--nero)); border: var(--bordure-ep) solid var(--c-filet); border-radius: var(--rayon); opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity .3s var(--ease), transform .3s var(--ease), visibility 0s linear .3s; }
+.header__nav .nav__parent:hover > .sous-menu, .header__nav .nav__parent:focus-within > .sous-menu, .header__nav .nav__parent.is-open > .sous-menu { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+.header__nav .sous-menu a { display: flex; min-height: 40px; font-size: 14px; font-weight: 400; font-stretch: 100%; letter-spacing: .02em; text-transform: none; background-image: none; }
+.sous-menu__niveau3 { margin: 0 0 8px; padding: 0 0 0 14px; list-style: none; border-left: var(--bordure-ep) solid var(--c-filet); }
+
+/* menu mobile : sous-menus et styles */
+.menu-mobile .nav__parent { flex-wrap: wrap; }
+.menu-mobile .nav__parent > a { flex: 1; }
+.menu-mobile .nav__ouvrir { width: 48px; height: 48px; opacity: 1; }
+.menu-mobile .sous-menu { flex-basis: 100%; display: none; margin: 0; padding: 4px 0 14px 30px; list-style: none; }
+.menu-mobile .nav__parent.is-open > .sous-menu { display: block; }
+.menu-mobile .sous-menu a { padding: 10px 0; border-bottom: 0; font: 400 18px/1.3 var(--sans); }
+.menu-mobile .sous-menu__niveau3 a { font-size: 16px; }
+.menu-mobile--panneau { left: auto; width: min(440px, 88vw); box-shadow: 0 0 0 100vmax rgba(0, 0, 0, .55); }
+.menu-mobile--deroulant { bottom: auto; max-height: calc(100svh - var(--header) - var(--entete-top, 0px)); border-bottom: var(--bordure-ep) solid var(--c-filet); }
+.menu-mobile--deroulant nav { min-height: 0; }
+.menu-mobile__reseaux { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 0; }
+.menu-mobile__reseaux a { display: inline-flex; align-items: center; min-height: 44px; }
+
+/* ── Barre d'annonce ──────────────────────────────────────────────────── */
+.annonce { position: relative; z-index: 51; overflow: hidden; }
+.annonce__in { display: flex; align-items: center; justify-content: center; min-height: var(--annonce-h, 40px); font: 500 var(--annonce-fs, 12px)/1.3 var(--nav-font); font-stretch: var(--nav-stretch); letter-spacing: .06em; text-align: center; }
+.annonce--capitales .annonce__in { text-transform: uppercase; letter-spacing: .16em; }
+.annonce a { text-decoration: none; background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat; padding-bottom: 2px; }
+.annonce__rotation { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; }
+.annonce__liste { flex: 1; min-width: 0; }
+.annonce__item { margin: 0; animation: apparition calc(.6s * var(--vitesse)) var(--ease); }
+.annonce__fleche { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; padding: 0; background: none; border: 0; color: inherit; cursor: pointer; opacity: .7; }
+.annonce__fleche:hover { opacity: 1; }
+.annonce__icone-prec { transform: rotate(90deg); }
+.annonce__icone-suiv { transform: rotate(-90deg); }
+.annonce--defilement .annonce__in { padding-inline: 0; justify-content: flex-start; max-width: none; }
+.annonce__piste { display: flex; width: max-content; animation: defile var(--annonce-duree, 24s) linear infinite; }
+.annonce__piste:hover { animation-play-state: paused; }
+.annonce__groupe { display: flex; margin: 0; padding: 0; list-style: none; }
+.annonce__groupe .annonce__item { padding-inline: 32px; white-space: nowrap; animation: none; }
+.annonce__groupe .annonce__item::after { content: "◆"; margin-left: 64px; font-size: .7em; opacity: .5; }
+@keyframes defile { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .annonce__piste { animation: none; flex-wrap: wrap; width: auto; } .annonce__groupe[aria-hidden] { display: none; } }
+
+/* ── En-têtes de section : alignement ─────────────────────────────────── */
+.tete-section { text-align: var(--sec-align, var(--titres-align, left)); }
+.tete-section h2 { font-size: var(--titre-taille, var(--h2)); }
+[style*="--sec-align: center"] .tete-section h2, .tete-section[style*="center"] h2 { margin-inline: auto; }
+
+/* ── Héros : compositions, vidéo ──────────────────────────────────────── */
+.hero__iframe { position: absolute; top: 50%; left: 50%; width: max(100%, 177.78vh); height: max(100%, 56.25vw); transform: translate(-50%, -50%); border: 0; pointer-events: none; }
+.hero--bas .hero__corps { display: flex; flex-direction: column; justify-content: flex-end; }
+.hero--bas .hero__titre { align-self: flex-start; }
+.hero--centre .hero__corps { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+.hero--centre .hero__titre { align-self: center; margin-inline: auto; }
+.hero--centre .hero__reflet { width: 100%; }
+.hero--centre .hero__corps > .linea { width: min(100%, 560px); }
+.hero--centre .hero__infos, .hero--align-centre .hero__infos { flex-direction: column; align-items: center; text-align: center; }
+.hero--align-centre .hero__titre { margin-inline: auto; text-align: center; }
+.hero--adapte .hero__corps { min-height: 0; grid-template-rows: auto auto auto auto; padding-top: calc(var(--header) + clamp(80px, 12vw, 200px)); }
+@media (max-width: 760px) {
+  .hero--centre .hero__corps, .hero--bas .hero__corps { display: grid; }
+}
+
+/* ── Approche : image à gauche, ordre mobile ──────────────────────────── */
+.approche--image-gauche .approche__grille { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+.approche--image-gauche .approche__media { order: -1; }
+.approche__actions { margin-top: 32px; }
+.approche__texte .approche__actions p { margin: 0; }
+@media (max-width: 990px) {
+  .approche--image-gauche .approche__grille { grid-template-columns: minmax(0, 1fr); }
+  .approche--image-gauche .approche__media { order: 0; }
+  .approche--image-premier .approche__media { order: -1; }
+}
+
+/* ── Bandeau : texte, disposition centrée ─────────────────────────────── */
+.bandeau__texte { display: flex; flex-direction: column; gap: 16px; max-width: 46ch; }
+.bandeau__texte .label { margin: 0; }
+.bandeau__para { margin: 0; color: rgba(var(--c-texte-rgb), .86); }
+.bandeau--centre .bandeau__in { flex-direction: column; justify-content: center; text-align: center; }
+.bandeau--centre .bandeau__texte { align-items: center; margin-inline: auto; }
+.bandeau--centre h2 { margin-inline: auto; }
+
+/* ── Services : grille, liste compacte, durée, prestations incluses ───── */
+.prestation__duree { display: inline-flex; align-items: center; gap: 10px; margin: 0; font: 400 14px/1.4 var(--mono); letter-spacing: .04em; color: var(--c-texte-2); }
+.prestation--avant .prestation__duree { color: var(--travertino); }
+.prestation__inclus { display: grid; gap: 8px; margin: 0 0 10px; padding: 0; list-style: none; }
+.prestation__inclus li { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; color: rgba(var(--c-texte-rgb), .86); }
+.prestation__inclus .icone { flex: none; margin-top: 3px; }
+.carte__duree { margin: -4px 0 0; font: 400 13px/1.4 var(--mono); color: var(--c-texte-2); }
+.prestations--grille { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 var(--gouttiere); }
+.prestations--grille .prestation, .prestations--grille .prestation:nth-of-type(even) { grid-template-columns: minmax(0, 1fr); align-content: start; align-items: start; gap: 28px; }
+.prestations--grille .prestation:nth-of-type(even) .prestation__media { order: 0; }
+.prestations--grille .note { grid-column: 1 / -1; }
+.prestations--compacte .prestation, .prestations--compacte .prestation:nth-of-type(even) { grid-template-columns: minmax(0, 3fr) minmax(0, 7fr); gap: clamp(24px, 3vw, 48px); padding-block: calc(clamp(28px, 3vw, 44px) * var(--densite)); }
+.prestations--compacte .prestation:nth-of-type(even) .prestation__media { order: 0; }
+.prestations--compacte .prestation__titre { font-size: clamp(24px, 2.2vw, 32px); }
+.prestations--compacte .prestation__prix { font-size: clamp(26px, 2.4vw, 34px); }
+.prestation--sans-image, .prestation--sans-image:nth-of-type(even) { grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 990px) {
+  .prestations--grille { grid-template-columns: minmax(0, 1fr); }
+  .prestations--compacte .prestation, .prestations--compacte .prestation:nth-of-type(even) { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ── Présentation et contact ──────────────────────────────────────────── */
+.presentation--image-droite .presentation__media { order: 2; }
+h2.presentation__titre { font-size: var(--titre-taille, clamp(40px, 5vw, 76px)); line-height: 1.02; }
+h2.contact__titre { font-size: var(--titre-taille, clamp(36px, 4.4vw, 64px)); max-width: 12ch; }
+@media (max-width: 990px) { .presentation--image-droite .presentation__media { order: 0; } }
+.contact--formulaire-seul { grid-template-columns: minmax(0, 1fr); max-width: 860px; }
+.contact--formulaire-seul .contact__intro { position: static; }
+
+/* ── Pied de page ─────────────────────────────────────────────────────── */
+.footer--sans-filet { border-top: 0; }
+.footer--centre .footer__grid, .footer--centre .footer__legal { text-align: center; justify-items: center; justify-content: center; }
+.footer--centre .footer__col ul { align-items: center; }
+.footer__description { margin-top: 18px; max-width: 36ch; font-size: 15px; }
+.footer__texte { margin: 0 0 12px; font-size: 15px; color: rgba(var(--c-texte-rgb), .82); }
+.footer__icones { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }
+.footer__paiements { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.footer__paiements svg { width: 38px; height: 24px; }
+.reseau { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-width: 44px; min-height: 44px; text-decoration: none; }
+
+/* ── Formulaire e-mail (newsletter, liste d'attente) ──────────────────── */
+.form-email { width: 100%; max-width: 480px; }
+.form-email__ligne { display: flex; gap: 12px; align-items: stretch; }
+.form-email__ligne input { flex: 1; min-width: 0; min-height: 48px; padding: 10px 0; background: transparent; border: 0; border-bottom: var(--bordure-ep) solid var(--c-bordure); border-radius: 0; color: var(--c-texte); font: 400 16px/1.4 var(--sans); }
+.form-email__ligne input:focus { outline: none; border-bottom-color: var(--c-texte); box-shadow: 0 1px 0 var(--c-texte); }
+.form-email__ligne input[aria-invalid="true"] { border-bottom-color: var(--erreur); }
+.form-email__mention { margin: 10px 0 0; font-size: 13px; color: var(--c-texte-2); }
+.form-email__ok { margin: 0; padding: 14px 16px; border: var(--bordure-ep) solid var(--c-bordure); border-radius: var(--rayon); }
+@media (max-width: 760px) { .form-email__ligne { flex-direction: column; } .form-email__ligne .btn { width: 100%; } }

@@ -1,12 +1,18 @@
-{%- comment -%} Liens vers les réseaux renseignés dans les réglages. Paramètre : element ("li" ou vide). {%- endcomment -%}
+{%- comment -%}
+  Liens vers les réseaux renseignés dans les réglages du thème.
+  Paramètres : element ("li" pour une liste), icones (true : icône + nom masqué visuellement), avec_nom (true : icône et nom).
+{%- endcomment -%}
 {%- liquid
-  assign noms = 'Instagram|Facebook|TikTok|LinkedIn' | split: '|'
-  assign cles = 'instagram|facebook|tiktok|linkedin' | split: '|'
+  assign noms = 'Instagram|Facebook|TikTok|LinkedIn|YouTube|WhatsApp' | split: '|'
+  assign cles = 'instagram|facebook|tiktok|linkedin|youtube|whatsapp' | split: '|'
 -%}
 {%- for cle in cles -%}
   {%- if settings[cle] != blank -%}
     {%- if element == 'li' %}<li>{% endif -%}
-    <a href="{{ settings[cle] }}" rel="noopener" target="_blank">{{ noms[forloop.index0] }}<span class="visually-hidden"> (nouvel onglet)</span></a>
+    <a href="{{ settings[cle] }}" rel="noopener" target="_blank"{% if icones or avec_nom %} class="reseau"{% endif %}>
+      {%- if icones or avec_nom %}{% render 'icone', nom: cle %}{% endif -%}
+      {%- if icones and avec_nom == blank %}<span class="visually-hidden">{{ noms[forloop.index0] }}</span>{% else %}{% if avec_nom %}<span>{{ noms[forloop.index0] }}</span>{% else %}{{ noms[forloop.index0] }}{% endif %}{% endif -%}
+      <span class="visually-hidden"> (nouvel onglet)</span></a>
     {%- if element == 'li' %}</li>{% endif -%}
   {%- endif -%}
 {%- endfor -%}

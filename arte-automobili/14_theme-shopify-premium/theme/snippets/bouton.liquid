@@ -1,0 +1,44 @@
+{%- comment -%}
+  Bouton configurable (bloc « Bouton » des sections).
+  Paramètres : texte, lien, style (defaut, primary, secondary, minimal, fleche, premium), taille (petit, moyen, grand),
+  icone (aucune, fleche, rendez-vous, telephone, email, localisation), pleine_largeur, nouvel_onglet,
+  fond, couleur, bordure (couleurs facultatives), rayon (theme ou valeur en px), attributs.
+  Sans lien, le bouton n'apparaît que dans l'éditeur de thème : aucun bouton sans action sur le site.
+{%- endcomment -%}
+{%- liquid
+  assign st = style | default: 'defaut'
+  if st == 'defaut'
+    assign st = settings.btn_style_defaut | default: 'primary'
+  endif
+  assign ic = icone | default: 'aucune'
+  if ic == 'aucune'
+    if st == 'fleche' or st == 'premium'
+      assign ic = 'fleche'
+    endif
+  endif
+  capture css
+    if fond != blank
+      echo '--b-fond: ' | append: fond | append: ';'
+    endif
+    if couleur != blank
+      echo '--b-texte: ' | append: couleur | append: ';'
+    endif
+    if bordure != blank
+      echo '--b-bordure: ' | append: bordure | append: ';'
+    endif
+    if rayon != blank and rayon != 'theme'
+      echo '--b-rayon: ' | append: rayon | append: 'px;'
+    endif
+  endcapture
+  assign visible = true
+  if lien == blank and request.design_mode != true
+    assign visible = false
+  endif
+-%}
+{%- if texte != blank and visible -%}
+  <a class="btn btn--{{ st }}{% if taille == 'petit' %} btn--petit{% elsif taille == 'grand' %} btn--grand{% endif %}{% if pleine_largeur %} btn--pleine{% endif %}" href="{{ lien | default: '#' }}"{% if nouvel_onglet %} target="_blank" rel="noopener"{% endif %}{% if css != blank %} style="{{ css }}"{% endif %} {{ attributs }}>
+    {%- if ic != 'aucune' and ic != 'fleche' %}{% render 'icone', nom: ic, taille: 18, classe: 'icon icon--fixe' %}{% endif -%}
+    <span>{{ texte }}</span>
+    {%- if ic == 'fleche' %}{% render 'icon-arrow' %}{% endif -%}
+  </a>
+{%- endif -%}

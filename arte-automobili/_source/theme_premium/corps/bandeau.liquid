@@ -1,0 +1,32 @@
+{%- liquid
+  assign s = section.settings
+  assign u_contact = pages['contact'].url | default: '/pages/contact'
+  assign style_1 = s.bouton_style | default: 'primary'
+  if style_1 == 'defaut'
+    assign style_1 = settings.btn_style_defaut
+  endif
+-%}
+{% render 'section-style', section: section %}
+<section class="bandeau{% if s.disposition == 'centre' %} bandeau--centre{% endif %}" aria-labelledby="bandeau-titre-{{ section.id }}">
+  <div class="wrap bandeau__in">
+    {%- if s.surtitre != blank or s.texte != blank %}
+    <div class="bandeau__texte">
+      {%- if s.surtitre != blank %}<p class="label">{{ s.surtitre }}</p>{% endif %}
+      <h2 id="bandeau-titre-{{ section.id }}">{{ section.settings.titre }}</h2>
+      {%- if s.texte != blank %}<p class="bandeau__para">{{ s.texte }}</p>{% endif %}
+    </div>
+    {%- else %}
+    <h2 id="bandeau-titre-{{ section.id }}">{{ section.settings.titre }}</h2>
+    {%- endif -%}
+    {%- if s.bouton2_texte != blank %}
+    <div class="actions">
+    {%- endif %}
+    {%- if s.bouton != blank %}
+    <a class="btn btn--{{ style_1 }}" href="{{ s.bouton_lien | default: u_contact }}">{{ section.settings.bouton }}{% if s.afficher_fleche %}{% render 'icon-arrow' %}{% endif %}</a>
+    {%- endif -%}
+    {%- if s.bouton2_texte != blank %}
+      {% render 'bouton', texte: s.bouton2_texte, lien: s.bouton2_lien, style: s.bouton2_style %}
+    </div>
+    {%- endif %}
+  </div>
+</section>

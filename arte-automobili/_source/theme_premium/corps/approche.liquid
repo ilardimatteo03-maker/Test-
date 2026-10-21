@@ -1,0 +1,15 @@
+{%- assign s = section.settings -%}
+{% render 'section-style', section: section %}
+<section class="section section--filet approche{% if s.position_image == 'gauche' %} approche--image-gauche{% endif %}{% if s.image_mobile_premier %} approche--image-premier{% endif %}" aria-labelledby="approche-titre-{{ section.id }}">
+  <div class="wrap approche__grille"{% if s.ratio != blank and s.ratio != '4 / 5' %} style="--ratio: {{ s.ratio }};"{% endif %}>
+    <div class="approche__texte reveal">
+      {%- if section.settings.surtitre != blank %}<p class="label">{{ section.settings.surtitre }}</p>{% endif -%}
+      <h2 id="approche-titre-{{ section.id }}">{{ section.settings.titre }}</h2>
+      {%- if section.settings.texte != blank %}<p>{{ section.settings.texte }}</p>{% endif -%}
+      {%- if s.bouton_texte != blank %}<div class="actions approche__actions">{% render 'bouton', texte: s.bouton_texte, lien: s.bouton_lien, style: s.bouton_style %}</div>{% endif %}
+    </div>
+    <div class="approche__media reveal">
+      {%- render 'image-asset', image: section.settings.image, nom: 'accueil-approche', largeurs: '800,1080', largeur: 1080, hauteur: 1350, sizes: '(min-width: 990px) 40vw, 100vw', alt: section.settings.alt -%}
+    </div>
+  </div>
+</section>

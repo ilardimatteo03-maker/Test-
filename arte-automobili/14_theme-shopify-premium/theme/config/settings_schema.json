@@ -2,52 +2,13 @@
   {
     "name": "theme_info",
     "theme_name": "Arte Automobili — Vitrine",
-    "theme_version": "1.0.0",
+    "theme_version": "2.0.0",
     "theme_author": "Arte Automobili",
     "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
     "theme_support_url": "https://help.shopify.com"
   },
   {
-    "name": "Couleurs",
-    "settings": [
-      {
-        "type": "paragraph",
-        "content": "Palette officielle : ne modifier qu'en accord avec le guide de marque."
-      },
-      {
-        "type": "color",
-        "id": "color_nero",
-        "label": "Nero Vite (fond)",
-        "default": "#0D0F0E"
-      },
-      {
-        "type": "color",
-        "id": "color_bianco",
-        "label": "Bianco Sangiovanni (texte, boutons)",
-        "default": "#EEEDE7"
-      },
-      {
-        "type": "color",
-        "id": "color_verde",
-        "label": "Verde Verona (moments de marque)",
-        "default": "#1F3D35"
-      },
-      {
-        "type": "color",
-        "id": "color_verdaccio",
-        "label": "Verdaccio (surfaces)",
-        "default": "#262B29"
-      },
-      {
-        "type": "color",
-        "id": "color_argento",
-        "label": "Argento (texte secondaire, filets)",
-        "default": "#8E9592"
-      }
-    ]
-  },
-  {
-    "name": "Identité",
+    "name": "Identité visuelle",
     "settings": [
       {
         "type": "image_picker",
@@ -64,6 +25,883 @@
         "type": "image_picker",
         "id": "image_partage",
         "label": "Image d'aperçu de partage (1200 × 630 px)"
+      },
+      {
+        "type": "header",
+        "content": "Logos"
+      },
+      {
+        "type": "paragraph",
+        "content": "Sans logo téléversé, le thème utilise le logo vectoriel Arte Automobili fourni."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo principal (pour fonds sombres)"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_sombre",
+        "label": "Logo pour fonds clairs",
+        "info": "Utilisé quand l'en-tête a un fond clair."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_mobile",
+        "label": "Logo sur mobile (facultatif)"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_secondaire",
+        "label": "Logo secondaire (pied de page)",
+        "info": "Sans image, le logo vertical fourni."
+      },
+      {
+        "type": "range",
+        "id": "logo_largeur_d",
+        "label": "Largeur du logo sur ordinateur",
+        "min": 77,
+        "max": 277,
+        "step": 2,
+        "default": 127,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "Couleurs",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Palette officielle : ne modifier qu'en accord avec le guide de marque."
+      },
+      {
+        "type": "color",
+        "id": "color_nero",
+        "label": "Fond général — Nero Vite",
+        "default": "#0D0F0E"
+      },
+      {
+        "type": "color",
+        "id": "color_bianco",
+        "label": "Texte principal — Bianco Sangiovanni",
+        "default": "#EEEDE7"
+      },
+      {
+        "type": "color",
+        "id": "color_verde",
+        "label": "Couleur d'accentuation — Verde Verona",
+        "default": "#1F3D35"
+      },
+      {
+        "type": "color",
+        "id": "color_verdaccio",
+        "label": "Fond des surfaces et cartes — Verdaccio",
+        "default": "#262B29"
+      },
+      {
+        "type": "color",
+        "id": "color_argento",
+        "label": "Texte secondaire — Argento",
+        "default": "#8E9592"
+      },
+      {
+        "type": "color",
+        "id": "color_travertino",
+        "label": "Couleur secondaire claire — Travertino",
+        "default": "#D6D3CA",
+        "info": "Mentions, fonds clairs."
+      },
+      {
+        "type": "header",
+        "content": "Liens et filets"
+      },
+      {
+        "type": "color",
+        "id": "couleur_liens",
+        "label": "Liens",
+        "default": "#EEEDE7"
+      },
+      {
+        "type": "color",
+        "id": "couleur_survol",
+        "label": "Liens et menus au survol",
+        "default": "#EEEDE7"
+      },
+      {
+        "type": "color",
+        "id": "couleur_bordures",
+        "label": "Bordures et filets",
+        "default": "#8E9592"
+      },
+      {
+        "type": "header",
+        "content": "Boutons"
+      },
+      {
+        "type": "color",
+        "id": "btn1_fond",
+        "label": "Bouton principal — fond",
+        "default": "#EEEDE7"
+      },
+      {
+        "type": "color",
+        "id": "btn1_texte",
+        "label": "Bouton principal — texte",
+        "default": "#0D0F0E"
+      },
+      {
+        "type": "color",
+        "id": "btn1_bordure",
+        "label": "Bouton principal — bordure",
+        "default": "#EEEDE7"
+      },
+      {
+        "type": "color",
+        "id": "btn2_texte",
+        "label": "Bouton secondaire — texte",
+        "default": "#EEEDE7"
+      },
+      {
+        "type": "color",
+        "id": "btn2_bordure",
+        "label": "Bouton secondaire — bordure",
+        "default": "#EEEDE7"
+      },
+      {
+        "type": "paragraph",
+        "content": "Sur les sections claires (palettes Bianco ou Travertino), les couleurs des boutons et des textes s'inversent automatiquement."
+      }
+    ]
+  },
+  {
+    "name": "Typographies",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Polices"
+      },
+      {
+        "type": "paragraph",
+        "content": "« Polices de la marque » : Bodoni Moda, Archivo et DM Mono, hébergées avec le thème. Choisissez « Bibliothèque Shopify » pour utiliser une autre police."
+      },
+      {
+        "type": "select",
+        "id": "police_titres_source",
+        "label": "Police des titres",
+        "options": [
+          {
+            "value": "marque",
+            "label": "Bodoni Moda (marque)"
+          },
+          {
+            "value": "shopify",
+            "label": "Bibliothèque Shopify"
+          }
+        ],
+        "default": "marque"
+      },
+      {
+        "type": "font_picker",
+        "id": "police_titres",
+        "label": "Police des titres (bibliothèque Shopify)",
+        "default": "assistant_n4",
+        "visible_if": "{{ settings.police_titres_source == 'shopify' }}"
+      },
+      {
+        "type": "select",
+        "id": "police_texte_source",
+        "label": "Police des paragraphes",
+        "options": [
+          {
+            "value": "marque",
+            "label": "Archivo (marque)"
+          },
+          {
+            "value": "shopify",
+            "label": "Bibliothèque Shopify"
+          }
+        ],
+        "default": "marque"
+      },
+      {
+        "type": "font_picker",
+        "id": "police_texte",
+        "label": "Police des paragraphes (bibliothèque Shopify)",
+        "default": "assistant_n4",
+        "visible_if": "{{ settings.police_texte_source == 'shopify' }}"
+      },
+      {
+        "type": "select",
+        "id": "police_boutons",
+        "label": "Police des boutons",
+        "options": [
+          {
+            "value": "elargi",
+            "label": "Archivo élargi (marque)"
+          },
+          {
+            "value": "texte",
+            "label": "Police des paragraphes"
+          },
+          {
+            "value": "titres",
+            "label": "Police des titres"
+          }
+        ],
+        "default": "elargi"
+      },
+      {
+        "type": "select",
+        "id": "police_menus",
+        "label": "Police des menus",
+        "options": [
+          {
+            "value": "elargi",
+            "label": "Archivo élargi (marque)"
+          },
+          {
+            "value": "texte",
+            "label": "Police des paragraphes"
+          },
+          {
+            "value": "titres",
+            "label": "Police des titres"
+          }
+        ],
+        "default": "elargi"
+      },
+      {
+        "type": "select",
+        "id": "police_chiffres",
+        "label": "Police des prix et chiffres",
+        "options": [
+          {
+            "value": "mono",
+            "label": "DM Mono (marque)"
+          },
+          {
+            "value": "texte",
+            "label": "Police des paragraphes"
+          }
+        ],
+        "default": "mono"
+      },
+      {
+        "type": "header",
+        "content": "Titres"
+      },
+      {
+        "type": "select",
+        "id": "titres_poids",
+        "label": "Graisse des titres",
+        "options": [
+          {
+            "value": "400",
+            "label": "Normal"
+          },
+          {
+            "value": "500",
+            "label": "Moyen"
+          },
+          {
+            "value": "600",
+            "label": "Demi-gras"
+          },
+          {
+            "value": "700",
+            "label": "Gras"
+          }
+        ],
+        "default": "400"
+      },
+      {
+        "type": "range",
+        "id": "titres_interlignage",
+        "label": "Interlignage des titres",
+        "min": 80,
+        "max": 140,
+        "step": 2,
+        "default": 100,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "titres_espacement",
+        "label": "Espacement des lettres des titres",
+        "min": -5,
+        "max": 10,
+        "step": 0.5,
+        "default": -0.5,
+        "unit": "%",
+        "info": "En pourcentage de la taille du texte."
+      },
+      {
+        "type": "checkbox",
+        "id": "titres_majuscules",
+        "label": "Titres en majuscules",
+        "default": false
+      },
+      {
+        "type": "text_alignment",
+        "id": "titres_alignement",
+        "label": "Alignement des en-têtes de section",
+        "default": "left"
+      },
+      {
+        "type": "header",
+        "content": "Taille des titres sur ordinateur"
+      },
+      {
+        "type": "paragraph",
+        "content": "Les tailles sur mobile se règlent dans « Mobile et tablette »."
+      },
+      {
+        "type": "range",
+        "id": "h1_d",
+        "label": "Titre 1 (H1)",
+        "min": 40,
+        "max": 160,
+        "step": 2,
+        "default": 104,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "h2_d",
+        "label": "Titre 2 (H2)",
+        "min": 24,
+        "max": 100,
+        "step": 2,
+        "default": 58,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "h3_d",
+        "label": "Titre 3 (H3)",
+        "min": 16,
+        "max": 60,
+        "step": 1,
+        "default": 30,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "h4_d",
+        "label": "Titre 4 (H4)",
+        "min": 14,
+        "max": 44,
+        "step": 1,
+        "default": 24,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "h5_d",
+        "label": "Titre 5 (H5)",
+        "min": 12,
+        "max": 32,
+        "step": 1,
+        "default": 19,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "h6_d",
+        "label": "Titre 6 (H6)",
+        "min": 11,
+        "max": 26,
+        "step": 1,
+        "default": 15,
+        "unit": "px"
+      },
+      {
+        "type": "header",
+        "content": "Paragraphes"
+      },
+      {
+        "type": "range",
+        "id": "texte_taille_d",
+        "label": "Taille des paragraphes",
+        "min": 14,
+        "max": 22,
+        "step": 1,
+        "default": 17,
+        "unit": "px"
+      },
+      {
+        "type": "select",
+        "id": "texte_poids",
+        "label": "Graisse des paragraphes",
+        "options": [
+          {
+            "value": "300",
+            "label": "Léger"
+          },
+          {
+            "value": "400",
+            "label": "Normal"
+          },
+          {
+            "value": "500",
+            "label": "Moyen"
+          }
+        ],
+        "default": "400"
+      },
+      {
+        "type": "range",
+        "id": "texte_interlignage",
+        "label": "Interlignage des paragraphes",
+        "min": 120,
+        "max": 200,
+        "step": 5,
+        "default": 160,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "name": "Mise en page",
+    "settings": [
+      {
+        "type": "range",
+        "id": "largeur_max",
+        "label": "Largeur maximale du contenu",
+        "min": 960,
+        "max": 1920,
+        "step": 20,
+        "default": 1440,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "marge_d",
+        "label": "Marges latérales",
+        "min": 16,
+        "max": 120,
+        "step": 4,
+        "default": 72,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "espacement_d",
+        "label": "Espacement vertical entre les sections",
+        "min": 40,
+        "max": 240,
+        "step": 8,
+        "default": 160,
+        "unit": "px"
+      },
+      {
+        "type": "select",
+        "id": "densite",
+        "label": "Densité de la mise en page",
+        "options": [
+          {
+            "value": "compacte",
+            "label": "Compacte"
+          },
+          {
+            "value": "standard",
+            "label": "Standard"
+          },
+          {
+            "value": "aeree",
+            "label": "Aérée"
+          }
+        ],
+        "default": "standard",
+        "info": "Agit sur tous les espacements verticaux."
+      },
+      {
+        "type": "header",
+        "content": "Formes"
+      },
+      {
+        "type": "range",
+        "id": "rayon",
+        "label": "Arrondi des images, cartes et encadrés",
+        "min": 0,
+        "max": 24,
+        "step": 1,
+        "default": 0,
+        "unit": "px",
+        "info": "0 = angles vifs, signature de la marque."
+      },
+      {
+        "type": "range",
+        "id": "bordure_ep",
+        "label": "Épaisseur des bordures et filets",
+        "min": 1,
+        "max": 3,
+        "step": 1,
+        "default": 1,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "gouttiere_d",
+        "label": "Espacement entre les cartes",
+        "min": 8,
+        "max": 64,
+        "step": 2,
+        "default": 28,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "Boutons",
+    "settings": [
+      {
+        "type": "select",
+        "id": "btn_style_defaut",
+        "label": "Style par défaut des nouveaux boutons",
+        "options": [
+          {
+            "value": "primary",
+            "label": "Plein"
+          },
+          {
+            "value": "secondary",
+            "label": "Contour"
+          },
+          {
+            "value": "minimal",
+            "label": "Minimaliste"
+          },
+          {
+            "value": "fleche",
+            "label": "Texte avec flèche"
+          },
+          {
+            "value": "premium",
+            "label": "Premium automobile"
+          }
+        ],
+        "default": "primary"
+      },
+      {
+        "type": "range",
+        "id": "btn_rayon",
+        "label": "Arrondi des boutons",
+        "min": 0,
+        "max": 40,
+        "step": 1,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "btn_hauteur",
+        "label": "Hauteur",
+        "min": 36,
+        "max": 64,
+        "step": 1,
+        "default": 50,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "btn_padding",
+        "label": "Espacement intérieur horizontal",
+        "min": 12,
+        "max": 48,
+        "step": 1,
+        "default": 26,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "btn_taille",
+        "label": "Taille du texte",
+        "min": 10,
+        "max": 18,
+        "step": 0.5,
+        "default": 12.5,
+        "unit": "px"
+      },
+      {
+        "type": "select",
+        "id": "btn_poids",
+        "label": "Graisse du texte",
+        "options": [
+          {
+            "value": "400",
+            "label": "Normal"
+          },
+          {
+            "value": "500",
+            "label": "Moyen"
+          },
+          {
+            "value": "600",
+            "label": "Demi-gras"
+          },
+          {
+            "value": "700",
+            "label": "Gras"
+          }
+        ],
+        "default": "600"
+      },
+      {
+        "type": "range",
+        "id": "btn_espacement",
+        "label": "Espacement des lettres",
+        "min": 0,
+        "max": 30,
+        "step": 1,
+        "default": 18,
+        "unit": "%"
+      },
+      {
+        "type": "checkbox",
+        "id": "btn_majuscules",
+        "label": "Texte en majuscules",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "btn_survol",
+        "label": "Effet au survol",
+        "options": [
+          {
+            "value": "inverser",
+            "label": "Inversion plein / contour"
+          },
+          {
+            "value": "attenuer",
+            "label": "Léger fondu"
+          },
+          {
+            "value": "lame",
+            "label": "Lame de lumière"
+          },
+          {
+            "value": "aucun",
+            "label": "Aucun"
+          }
+        ],
+        "default": "inverser"
+      }
+    ]
+  },
+  {
+    "name": "Animations",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "anim_actives",
+        "label": "Activer les animations",
+        "default": true,
+        "info": "Toujours désactivées pour les visiteurs qui ont demandé à réduire les animations."
+      },
+      {
+        "type": "select",
+        "id": "anim_apparition",
+        "label": "Apparition des éléments au défilement",
+        "options": [
+          {
+            "value": "aucune",
+            "label": "Aucune"
+          },
+          {
+            "value": "fondu",
+            "label": "Fondu"
+          },
+          {
+            "value": "montee",
+            "label": "Fondu et montée"
+          },
+          {
+            "value": "zoom",
+            "label": "Fondu et léger zoom"
+          }
+        ],
+        "default": "montee"
+      },
+      {
+        "type": "select",
+        "id": "anim_vitesse",
+        "label": "Vitesse",
+        "options": [
+          {
+            "value": "lente",
+            "label": "Lente"
+          },
+          {
+            "value": "normale",
+            "label": "Normale"
+          },
+          {
+            "value": "rapide",
+            "label": "Rapide"
+          }
+        ],
+        "default": "normale"
+      },
+      {
+        "type": "select",
+        "id": "anim_images",
+        "label": "Images au survol",
+        "options": [
+          {
+            "value": "zoom",
+            "label": "Léger zoom"
+          },
+          {
+            "value": "aucun",
+            "label": "Aucun effet"
+          }
+        ],
+        "default": "zoom"
+      },
+      {
+        "type": "checkbox",
+        "id": "anim_lame",
+        "label": "Lame de lumière sur les images au survol",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Mobile et tablette",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Réglages appliqués aux écrans de moins de 760 px de large. Les tablettes reçoivent des valeurs intermédiaires calculées automatiquement."
+      },
+      {
+        "type": "header",
+        "content": "Mise en page"
+      },
+      {
+        "type": "range",
+        "id": "marge_m",
+        "label": "Marges latérales",
+        "min": 12,
+        "max": 40,
+        "step": 2,
+        "default": 20,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "espacement_m",
+        "label": "Espacement vertical entre les sections",
+        "min": 24,
+        "max": 160,
+        "step": 8,
+        "default": 88,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "gouttiere_m",
+        "label": "Espacement entre les cartes",
+        "min": 8,
+        "max": 40,
+        "step": 2,
+        "default": 16,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "logo_largeur_m",
+        "label": "Largeur du logo",
+        "min": 50,
+        "max": 200,
+        "step": 2,
+        "default": 102,
+        "unit": "px"
+      },
+      {
+        "type": "header",
+        "content": "Taille des titres"
+      },
+      {
+        "type": "range",
+        "id": "h1_m",
+        "label": "Titre 1 (H1)",
+        "min": 28,
+        "max": 80,
+        "step": 2,
+        "default": 46,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "h2_m",
+        "label": "Titre 2 (H2)",
+        "min": 20,
+        "max": 60,
+        "step": 2,
+        "default": 32,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "h3_m",
+        "label": "Titre 3 (H3)",
+        "min": 15,
+        "max": 40,
+        "step": 1,
+        "default": 22,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "h4_m",
+        "label": "Titre 4 (H4)",
+        "min": 13,
+        "max": 32,
+        "step": 1,
+        "default": 20,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "h5_m",
+        "label": "Titre 5 (H5)",
+        "min": 12,
+        "max": 26,
+        "step": 1,
+        "default": 17,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "h6_m",
+        "label": "Titre 6 (H6)",
+        "min": 11,
+        "max": 22,
+        "step": 1,
+        "default": 14,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "texte_taille_m",
+        "label": "Taille des paragraphes",
+        "min": 14,
+        "max": 20,
+        "step": 1,
+        "default": 17,
+        "unit": "px"
+      },
+      {
+        "type": "header",
+        "content": "Animations"
+      },
+      {
+        "type": "checkbox",
+        "id": "anim_mobile",
+        "label": "Animations sur mobile",
+        "default": true
       }
     ]
   },
@@ -127,6 +965,16 @@
         "type": "url",
         "id": "linkedin",
         "label": "LinkedIn"
+      },
+      {
+        "type": "url",
+        "id": "youtube",
+        "label": "YouTube"
+      },
+      {
+        "type": "url",
+        "id": "whatsapp",
+        "label": "WhatsApp (lien wa.me)"
       }
     ]
   },
@@ -189,6 +1037,44 @@
         "default": true
       },
       {
+        "type": "select",
+        "id": "p1_prix_mode",
+        "label": "Affichage du prix",
+        "options": [
+          {
+            "value": "afficher",
+            "label": "Afficher le prix"
+          },
+          {
+            "value": "devis",
+            "label": "Remplacer par « Sur devis »"
+          },
+          {
+            "value": "masquer",
+            "label": "Masquer le prix"
+          }
+        ],
+        "default": "afficher"
+      },
+      {
+        "type": "text",
+        "id": "p1_duree",
+        "label": "Durée indicative (facultative)",
+        "info": "Ex. « Environ 2 h ». Vide = non affichée."
+      },
+      {
+        "type": "textarea",
+        "id": "p1_inclus",
+        "label": "Prestations incluses (facultatif)",
+        "info": "Une ligne par élément. Vide = non affiché."
+      },
+      {
+        "type": "checkbox",
+        "id": "p1_visible",
+        "label": "Afficher sur la page Services",
+        "default": true
+      },
+      {
         "type": "header",
         "content": "Prestation 2"
       },
@@ -240,6 +1126,44 @@
         "default": true
       },
       {
+        "type": "select",
+        "id": "p2_prix_mode",
+        "label": "Affichage du prix",
+        "options": [
+          {
+            "value": "afficher",
+            "label": "Afficher le prix"
+          },
+          {
+            "value": "devis",
+            "label": "Remplacer par « Sur devis »"
+          },
+          {
+            "value": "masquer",
+            "label": "Masquer le prix"
+          }
+        ],
+        "default": "afficher"
+      },
+      {
+        "type": "text",
+        "id": "p2_duree",
+        "label": "Durée indicative (facultative)",
+        "info": "Ex. « Environ 2 h ». Vide = non affichée."
+      },
+      {
+        "type": "textarea",
+        "id": "p2_inclus",
+        "label": "Prestations incluses (facultatif)",
+        "info": "Une ligne par élément. Vide = non affiché."
+      },
+      {
+        "type": "checkbox",
+        "id": "p2_visible",
+        "label": "Afficher sur la page Services",
+        "default": true
+      },
+      {
         "type": "header",
         "content": "Prestation 3"
       },
@@ -288,6 +1212,44 @@
         "type": "checkbox",
         "id": "p3_accueil",
         "label": "Afficher sur l'accueil",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "p3_prix_mode",
+        "label": "Affichage du prix",
+        "options": [
+          {
+            "value": "afficher",
+            "label": "Afficher le prix"
+          },
+          {
+            "value": "devis",
+            "label": "Remplacer par « Sur devis »"
+          },
+          {
+            "value": "masquer",
+            "label": "Masquer le prix"
+          }
+        ],
+        "default": "afficher"
+      },
+      {
+        "type": "text",
+        "id": "p3_duree",
+        "label": "Durée indicative (facultative)",
+        "info": "Ex. « Environ 2 h ». Vide = non affichée."
+      },
+      {
+        "type": "textarea",
+        "id": "p3_inclus",
+        "label": "Prestations incluses (facultatif)",
+        "info": "Une ligne par élément. Vide = non affiché."
+      },
+      {
+        "type": "checkbox",
+        "id": "p3_visible",
+        "label": "Afficher sur la page Services",
         "default": true
       },
       {
@@ -343,6 +1305,44 @@
         "default": false
       },
       {
+        "type": "select",
+        "id": "p4_prix_mode",
+        "label": "Affichage du prix",
+        "options": [
+          {
+            "value": "afficher",
+            "label": "Afficher le prix"
+          },
+          {
+            "value": "devis",
+            "label": "Remplacer par « Sur devis »"
+          },
+          {
+            "value": "masquer",
+            "label": "Masquer le prix"
+          }
+        ],
+        "default": "afficher"
+      },
+      {
+        "type": "text",
+        "id": "p4_duree",
+        "label": "Durée indicative (facultative)",
+        "info": "Ex. « Environ 2 h ». Vide = non affichée."
+      },
+      {
+        "type": "textarea",
+        "id": "p4_inclus",
+        "label": "Prestations incluses (facultatif)",
+        "info": "Une ligne par élément. Vide = non affiché."
+      },
+      {
+        "type": "checkbox",
+        "id": "p4_visible",
+        "label": "Afficher sur la page Services",
+        "default": true
+      },
+      {
         "type": "header",
         "content": "Mise en avant"
       },
@@ -379,6 +1379,23 @@
         "id": "mention_avant",
         "label": "Mention de la prestation valorisée",
         "default": "Formule complète"
+      }
+    ]
+  },
+  {
+    "name": "Aide : pages et sections",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Pour ajouter une section : ouvrez une page dans l'éditeur, puis « Ajouter une section ». Chaque section peut être masquée (icône œil), dupliquée, déplacée ou supprimée."
+      },
+      {
+        "type": "paragraph",
+        "content": "Modèles de page fournis : « services », « presentation », « contact », « histoire » (présentation complète) et « lancement » (page Coming Soon sans en-tête). Attribuez-les depuis Boutique en ligne › Pages."
+      },
+      {
+        "type": "paragraph",
+        "content": "Page Coming Soon de toute la boutique : activez la protection par mot de passe (Boutique en ligne › Préférences). La page mot de passe utilise alors la section « Page de lancement »."
       }
     ]
   }

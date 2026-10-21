@@ -1,0 +1,31 @@
+{%- liquid
+  assign s = section.settings
+  assign u_services = pages['services'].url | default: '/pages/services'
+  assign style_b = s.bouton_style | default: 'primary'
+  if style_b == 'defaut'
+    assign style_b = settings.btn_style_defaut
+  endif
+-%}
+{% render 'section-style', section: section %}
+<section class="presentation wrap{% if s.position_image == 'droite' %} presentation--image-droite{% endif %}" aria-labelledby="presentation-titre-{{ section.id }}"{% if s.ratio != blank and s.ratio != '4 / 5' %} style="--ratio: {{ s.ratio }};"{% endif %}>
+  <div class="presentation__media">
+    {%- render 'image-asset', image: section.settings.image, nom: 'presentation', largeurs: '800,1080', largeur: 1080, hauteur: 1350, sizes: '(min-width: 990px) 50vw, 100vw', alt: section.settings.alt, eager: true -%}
+  </div>
+  <div class="presentation__corps">
+    {%- if section.settings.surtitre != blank %}<p class="label">{{ section.settings.surtitre }}</p>{% endif -%}
+    <{{ s.balise_titre | default: 'h1' }} class="presentation__titre" id="presentation-titre-{{ section.id }}">{{ section.settings.titre }}</{{ s.balise_titre | default: 'h1' }}>
+    {%- if s.texte != blank %}
+    <p class="presentation__texte">{{ section.settings.texte }}</p>
+    {%- endif -%}
+    {%- if section.blocks.size > 0 -%}
+      <ul class="valeurs">
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}><span class="valeurs__num">0{{ forloop.index }}</span><h2 class="valeurs__titre">{{ block.settings.titre }}</h2><p>{{ block.settings.texte }}</p></li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+    {%- if s.bouton != blank %}
+    <a class="btn btn--{{ style_b }}" href="{{ s.bouton_lien | default: u_services }}">{{ section.settings.bouton }}{% render 'icon-arrow' %}</a>
+    {%- endif %}
+  </div>
+</section>

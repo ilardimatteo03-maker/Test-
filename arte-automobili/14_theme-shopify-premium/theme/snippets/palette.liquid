@@ -1,0 +1,70 @@
+{%- comment -%}
+  Déclarations de couleurs d'une palette de section (à placer dans une règle CSS).
+  Paramètres : palette (nero, verdaccio, verde, bianco, travertino, perso), fond, texte, accent_perso (couleurs personnalisées).
+  Les palettes sombres reprennent les couleurs de boutons et de liens des réglages du thème ;
+  les palettes claires les inversent pour garder un contraste suffisant.
+{%- endcomment -%}
+{%- liquid
+  assign clair = false
+  assign accent = settings.color_verde
+  assign t2 = settings.color_argento
+  assign surface = settings.color_verdaccio
+  assign mention = settings.color_travertino
+  case palette
+    when 'verdaccio'
+      assign f = settings.color_verdaccio
+      assign t = settings.color_bianco
+      assign surface = settings.color_nero
+    when 'verde'
+      assign f = settings.color_verde
+      assign t = settings.color_bianco
+      assign t2 = settings.color_travertino
+      assign accent = settings.color_verdaccio
+    when 'bianco'
+      assign f = settings.color_bianco
+      assign t = settings.color_nero
+      assign clair = true
+      assign surface = settings.color_travertino
+      assign mention = settings.color_verde
+    when 'travertino'
+      assign f = settings.color_travertino
+      assign t = settings.color_nero
+      assign clair = true
+      assign surface = settings.color_bianco
+      assign mention = settings.color_verde
+    when 'perso'
+      assign f = fond | default: settings.color_nero
+      assign lum = f | color_brightness
+      if lum > 140
+        assign clair = true
+        assign t = texte | default: settings.color_nero
+        assign surface = f | color_darken: 6
+        assign mention = settings.color_verde
+      else
+        assign t = texte | default: settings.color_bianco
+        assign surface = f | color_lighten: 6
+      endif
+      if accent_perso != blank
+        assign accent = accent_perso
+      endif
+    else
+      assign f = settings.color_nero
+      assign t = settings.color_bianco
+  endcase
+  if clair
+    assign t2 = t | color_mix: f, 72
+  endif
+-%}
+--c-fond: {{ f }}; --c-fond-rgb: {{ f | color_extract: 'red' }}, {{ f | color_extract: 'green' }}, {{ f | color_extract: 'blue' }};
+--c-texte: {{ t }}; --c-texte-rgb: {{ t | color_extract: 'red' }}, {{ t | color_extract: 'green' }}, {{ t | color_extract: 'blue' }};
+--c-texte-2: {{ t2 }}; --c-surface: {{ surface }}; --c-accent: {{ accent }}; --c-mention: {{ mention }};
+{%- if clair %}
+--c-bordure: {{ t | color_mix: f, 45 }}; --c-filet: rgba({{ t | color_extract: 'red' }}, {{ t | color_extract: 'green' }}, {{ t | color_extract: 'blue' }}, .16);
+--c-lien: {{ t }}; --c-survol: {{ t }};
+--c-btn-fond: {{ t }}; --c-btn-texte: {{ f }}; --c-btn-bordure: {{ t }}; --c-btn2-texte: {{ t }}; --c-btn2-bordure: {{ t }};
+--c-scheme: light; color-scheme: light;
+{%- else %}
+--c-bordure: var(--g-bordure); --c-filet: var(--g-filet); --c-lien: var(--g-lien); --c-survol: var(--g-survol);
+--c-btn-fond: var(--g-btn-fond); --c-btn-texte: var(--g-btn-texte); --c-btn-bordure: var(--g-btn-bordure); --c-btn2-texte: var(--g-btn2-texte); --c-btn2-bordure: var(--g-btn2-bordure);
+--c-scheme: dark; color-scheme: dark;
+{%- endif %}

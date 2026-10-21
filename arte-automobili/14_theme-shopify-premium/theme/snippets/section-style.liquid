@@ -1,0 +1,65 @@
+{%- comment -%}
+  Mise en forme commune d'une section (couleurs, fond, largeur, espacements, filets, visibilité, alignement).
+  Paramètre : section. Seuls les réglages modifiés produisent du CSS : les valeurs « défaut » laissent le rendu d'origine.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign sel = '#shopify-section-' | append: section.id
+  assign tailles_d = 'aucun:0,petit:40,moyen:80,grand:120,tres-grand:160' | split: ','
+  assign tailles_m = 'aucun:0,petit:24,moyen:48,grand:72,tres-grand:96' | split: ','
+-%}
+{%- assign pt_d = '' -%}{%- assign pt_m = '' -%}{%- assign pb_d = '' -%}{%- assign pb_m = '' -%}
+{%- for t in tailles_d -%}
+  {%- assign kv = t | split: ':' -%}
+  {%- if s.espace_haut == kv[0] %}{% assign pt_d = kv[1] %}{% endif -%}
+  {%- if s.espace_bas == kv[0] %}{% assign pb_d = kv[1] %}{% endif -%}
+{%- endfor -%}
+{%- for t in tailles_m -%}
+  {%- assign kv = t | split: ':' -%}
+  {%- if s.espace_mobile == 'auto' or s.espace_mobile == blank -%}
+    {%- if s.espace_haut == kv[0] %}{% assign pt_m = kv[1] %}{% endif -%}
+    {%- if s.espace_bas == kv[0] %}{% assign pb_m = kv[1] %}{% endif -%}
+  {%- elsif s.espace_mobile == kv[0] -%}
+    {%- assign pt_m = kv[1] -%}{%- assign pb_m = kv[1] -%}
+  {%- endif -%}
+{%- endfor -%}
+<style>
+  {{ sel }} {
+    {%- if s.palette != blank and s.palette != 'defaut' -%}
+      {% render 'palette', palette: s.palette, fond: s.couleur_fond, texte: s.couleur_texte, accent_perso: s.couleur_accent %}
+      background-color: var(--c-fond); color: var(--c-texte);
+    {%- endif -%}
+    {%- if s.fond_image != blank -%}
+      {%- assign voile = s.fond_voile | default: 0 | divided_by: 100.0 %}
+      background-image: linear-gradient(rgba(var(--c-fond-rgb), {{ voile }}), rgba(var(--c-fond-rgb), {{ voile }})), url('{{ s.fond_image | image_url: width: 2400 }}');
+      background-size: cover; background-position: {{ s.fond_image.presentation.focal_point | default: 'center' }};
+    {%- endif -%}
+    {%- if pt_d != '' %} --sec-pt: {{ pt_d | times: 1 }}px;{% endif -%}
+    {%- if pb_d != '' %} --sec-pb: {{ pb_d | times: 1 }}px;{% endif -%}
+    {%- case s.largeur -%}
+      {%- when 'large' %} --max: 1800px;
+      {%- when 'pleine' %} --max: none;
+      {%- when 'bord' %} --max: none; --pad: 0px;
+    {%- endcase -%}
+    {%- if s.bordure_haut %} border-top: var(--bordure-ep) solid var(--c-filet);{% endif -%}
+    {%- if s.bordure_bas %} border-bottom: var(--bordure-ep) solid var(--c-filet);{% endif -%}
+    {%- case s.taille_titre -%}
+      {%- when 's' %} --titre-taille: var(--h3);
+      {%- when 'm' %} --titre-taille: var(--h2);
+      {%- when 'l' %} --titre-taille: var(--h1);
+      {%- when 'xl' %} --titre-taille: calc(var(--h1) * 1.2);
+    {%- endcase -%}
+    {%- if s.alignement != blank %} --sec-align: {{ s.alignement }};{% endif %}
+  }
+  @media (max-width: 760px) {
+    {{ sel }} {
+      {%- if pt_m != '' %} --sec-pt: {{ pt_m | times: 1 }}px;{% endif -%}
+      {%- if pb_m != '' %} --sec-pb: {{ pb_m | times: 1 }}px;{% endif -%}
+      {%- if s.alignement_mobile != blank and s.alignement_mobile != 'auto' %} --sec-align: {{ s.alignement_mobile }};{% endif %}
+    }
+    {%- if s.afficher_mobile == false %} {{ sel }} { display: none; }{% endif %}
+  }
+  {%- if s.afficher_ordinateur == false %}
+  @media (min-width: 761px) { {{ sel }} { display: none; } }
+  {%- endif %}
+</style>

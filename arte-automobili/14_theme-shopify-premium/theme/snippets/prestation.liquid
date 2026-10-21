@@ -1,6 +1,8 @@
 {%- comment -%}
   Une prestation, lue dans les réglages du thème (Prestations et tarifs).
   Paramètres : i (1 à 4), mode ("carte" pour l'accueil, "ligne" pour la page Services).
+  Options (facultatives, affichées par défaut sauf la durée en mode carte) : afficher_prix, afficher_lien, afficher_duree,
+  afficher_inclus, afficher_numero, afficher_image.
 {%- endcomment -%}
 {%- liquid
   assign k = 'p' | append: i
@@ -10,7 +12,19 @@
   assign k_image = k | append: '_image'
   assign k_alt = k | append: '_alt'
   assign k_bouton = k | append: '_bouton'
+  assign k_mode = k | append: '_prix_mode'
+  assign k_duree = k | append: '_duree'
+  assign k_inclus = k | append: '_inclus'
   assign nom = settings[k_nom]
+  assign prix = settings[k_prix]
+  if settings[k_mode] == 'devis'
+    assign prix = 'Sur devis'
+  elsif settings[k_mode] == 'masquer' or afficher_prix == false
+    assign prix = ''
+  endif
+  assign duree = settings[k_duree]
+  assign inclus = settings[k_inclus] | newline_to_br | split: '<br />'
+
   assign avant = false
   assign i_texte = i | append: ''
   if settings.prestation_avant == i_texte
@@ -54,24 +68,40 @@
     <div class="carte__corps">
       <div class="carte__ligne">
         <h3 class="carte__titre">{{ nom_html }}</h3>
-        <p class="prix">{{ settings[k_prix] }}</p>
+        {%- if prix != blank %}<p class="prix">{{ prix }}</p>{% endif %}
       </div>
+      {%- if afficher_duree and duree != blank %}<p class="carte__duree">{{ duree }}</p>{% endif %}
       <div class="carte__pied">
-        <span class="carte__lien">Voir la prestation{% render 'icon-arrow' %}</span>
+        {%- unless afficher_lien == false %}<span class="carte__lien">Voir la prestation{% render 'icon-arrow' %}</span>{% endunless -%}
         {%- if avant and settings.mention_avant != blank %}<span class="carte__mention">{{ settings.mention_avant }}</span>{% endif -%}
       </div>
     </div>
   </a>
 {%- else -%}
-  <article class="prestation{% if avant %} prestation--avant{% endif %}" id="{{ ancre }}" aria-labelledby="titre-{{ ancre }}">
+  <article class="prestation{% if avant %} prestation--avant{% endif %}{% if afficher_image == false %} prestation--sans-image{% endif %}" id="{{ ancre }}" aria-labelledby="titre-{{ ancre }}">
+    {%- unless afficher_image == false %}
     <div class="prestation__media">
       {%- render 'image-asset', image: settings[k_image], nom: visuel, largeurs: largeurs, largeur: l, hauteur: h, sizes: '(min-width: 990px) 58vw, 100vw', alt: settings[k_alt] -%}
     </div>
+    {%- endunless %}
     <div class="prestation__corps">
+      {%- unless afficher_numero == false %}
       <p class="prestation__numero">N° 0{{ i }}{% if avant and settings.mention_avant != blank %}<span>{{ settings.mention_avant }}</span>{% endif %}</p>
+      {%- endunless %}
       <h2 class="prestation__titre" id="titre-{{ ancre }}">{{ nom_html }}</h2>
-      <p class="prestation__prix">{{ settings[k_prix] }}</p>
+      {%- if prix != blank %}
+      <p class="prestation__prix">{{ prix }}</p>
+      {%- endif %}
+      {%- unless afficher_duree == false %}{% if duree != blank %}<p class="prestation__duree">{% render 'icone', nom: 'horaires', taille: 18 %}<span>{{ duree }}</span></p>{% endif %}{% endunless %}
       <p class="prestation__texte">{{ settings[k_desc] }}</p>
+      {%- unless afficher_inclus == false -%}
+        {%- assign inclus_net = inclus | join: '' | strip -%}
+        {%- if inclus_net != blank -%}
+          <ul class="prestation__inclus">
+            {%- for ligne in inclus -%}{%- assign l_net = ligne | strip -%}{%- if l_net != blank %}<li>{% render 'icone', nom: 'coche', taille: 16 %}<span>{{ l_net }}</span></li>{% endif -%}{%- endfor -%}
+          </ul>
+        {%- endif -%}
+      {%- endunless %}
       <a class="btn {% if avant %}btn--primary{% else %}btn--secondary{% endif %}" href="{{ u_contact }}?service={{ ancre }}">{{ settings[k_bouton] }}</a>
     </div>
   </article>

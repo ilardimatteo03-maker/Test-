@@ -1,10 +1,15 @@
+{%- assign s = section.settings -%}
+{% render 'section-style', section: section %}
 <header class="entete wrap">
   {%- if section.settings.surtitre != blank %}<p class="label">{{ section.settings.surtitre }}</p>{% endif -%}
   <h1>{{ section.settings.titre }}</h1>
   {%- if section.settings.texte != blank %}<p class="entete__texte">{{ section.settings.texte }}</p>{% endif -%}
 </header>
-<div class="wrap prestations">
-  {%- for i in (1..4) -%}{% render 'prestation', i: i, mode: 'ligne' %}{%- endfor -%}
+<div class="wrap prestations{% if s.disposition != blank and s.disposition != 'lignes' %} prestations--{{ s.disposition }}{% endif %}"{% if s.ratio != blank and s.ratio != '16 / 10' %} style="--ratio: {{ s.ratio }};"{% endif %}>
+  {%- for i in (1..4) -%}
+    {%- assign k_visible = 'p' | append: i | append: '_visible' -%}
+    {%- unless settings[k_visible] == false -%}{% render 'prestation', i: i, mode: 'ligne', afficher_numero: s.afficher_numeros, afficher_duree: s.afficher_duree, afficher_inclus: s.afficher_inclus, afficher_image: s.afficher_images %}{%- endunless -%}
+  {%- endfor -%}
   {%- if section.settings.note != blank %}<p class="note">{{ section.settings.note }}</p>{% endif -%}
 </div>
 
@@ -12,11 +17,357 @@
 {
   "name": "Services et tarifs",
   "settings": [
-    { "type": "paragraph", "content": "Noms, prix, descriptions et photos : Réglages du thème › Prestations et tarifs." },
-    { "type": "text", "id": "surtitre", "label": "Surtitre", "default": "Services" },
-    { "type": "inline_richtext", "id": "titre", "label": "Titre", "default": "Services et <em>tarifs</em>." },
-    { "type": "text", "id": "texte", "label": "Introduction", "default": "Des prestations claires, des tarifs affichés." },
-    { "type": "textarea", "id": "note", "label": "Note sous les prestations", "default": "Les modalités de prise en charge et les éventuelles prestations complémentaires sont à confirmer lors de la réservation." }
+    {
+      "type": "paragraph",
+      "content": "Noms, prix, descriptions et photos : Réglages du thème › Prestations et tarifs."
+    },
+    {
+      "type": "text",
+      "id": "surtitre",
+      "label": "Surtitre",
+      "default": "Services"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titre",
+      "label": "Titre",
+      "default": "Services et <em>tarifs</em>."
+    },
+    {
+      "type": "text",
+      "id": "texte",
+      "label": "Introduction",
+      "default": "Des prestations claires, des tarifs affichés."
+    },
+    {
+      "type": "textarea",
+      "id": "note",
+      "label": "Note sous les prestations",
+      "default": "Les modalités de prise en charge et les éventuelles prestations complémentaires sont à confirmer lors de la réservation."
+    },
+    {
+      "type": "header",
+      "content": "Présentation des prestations"
+    },
+    {
+      "type": "select",
+      "id": "disposition",
+      "label": "Disposition",
+      "options": [
+        {
+          "value": "lignes",
+          "label": "Lignes alternées"
+        },
+        {
+          "value": "grille",
+          "label": "Grille de deux colonnes"
+        },
+        {
+          "value": "compacte",
+          "label": "Liste compacte"
+        }
+      ],
+      "default": "lignes"
+    },
+    {
+      "type": "select",
+      "id": "ratio",
+      "label": "Format des images",
+      "options": [
+        {
+          "value": "4 / 5",
+          "label": "Portrait 4:5"
+        },
+        {
+          "value": "3 / 4",
+          "label": "Portrait 3:4"
+        },
+        {
+          "value": "1 / 1",
+          "label": "Carré"
+        },
+        {
+          "value": "4 / 3",
+          "label": "Paysage 4:3"
+        },
+        {
+          "value": "3 / 2",
+          "label": "Paysage 3:2"
+        },
+        {
+          "value": "16 / 10",
+          "label": "Paysage 16:10"
+        },
+        {
+          "value": "16 / 9",
+          "label": "Panoramique 16:9"
+        }
+      ],
+      "default": "16 / 10"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_images",
+      "label": "Afficher les photos",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_numeros",
+      "label": "Afficher les numéros (N° 01…)",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_duree",
+      "label": "Afficher la durée indicative (si renseignée)",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_inclus",
+      "label": "Afficher les prestations incluses (si renseignées)",
+      "default": true
+    },
+    {
+      "type": "paragraph",
+      "content": "Prix « Sur devis » ou masqué, durée, prestations incluses, visibilité : Réglages du thème › Prestations et tarifs."
+    },
+    {
+      "type": "select",
+      "id": "taille_titre",
+      "label": "Taille du titre",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "s",
+          "label": "Petite"
+        },
+        {
+          "value": "m",
+          "label": "Moyenne"
+        },
+        {
+          "value": "l",
+          "label": "Grande"
+        },
+        {
+          "value": "xl",
+          "label": "Très grande"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "select",
+      "id": "largeur",
+      "label": "Largeur du contenu",
+      "options": [
+        {
+          "value": "contenu",
+          "label": "Largeur du thème"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "pleine",
+          "label": "Pleine largeur"
+        },
+        {
+          "value": "bord",
+          "label": "Bord à bord (sans marges)"
+        }
+      ],
+      "default": "contenu"
+    },
+    {
+      "type": "select",
+      "id": "espace_haut",
+      "label": "Espacement en haut",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_bas",
+      "label": "Espacement en bas",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_mobile",
+      "label": "Espacements sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Proportionnels"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petits"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyens"
+        },
+        {
+          "value": "grand",
+          "label": "Grands"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_haut",
+      "label": "Filet en haut",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_bas",
+      "label": "Filet en bas",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Services et tarifs (liste détaillée)"
+    }
   ]
 }
 {% endschema %}

@@ -1,6 +1,18 @@
 {
   "type": "footer",
   "name": "Groupe pied de page",
-  "sections": { "footer": { "type": "footer", "settings": {} } },
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "logo": { "type": "logo", "settings": { "afficher_logo": true, "afficher_signature": true } },
+        "pages": { "type": "menu", "settings": { "titre": "Pages", "menu": "" } },
+        "contact": { "type": "coordonnees", "settings": { "titre": "Contact", "afficher_horaires": true } },
+        "reseaux": { "type": "reseaux", "settings": { "titre": "Suivre", "style": "texte" } }
+      },
+      "block_order": ["logo", "pages", "contact", "reseaux"],
+      "settings": {}
+    }
+  },
   "order": ["footer"]
 }

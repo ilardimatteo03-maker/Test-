@@ -1,20 +1,90 @@
-{%- assign u_services = pages['services'].url | default: '/pages/services' -%}
-{%- assign u_contact = pages['contact'].url | default: '/pages/contact' -%}
-<section class="hero" aria-labelledby="hero-titre-{{ section.id }}">
+{%- liquid
+  assign s = section.settings
+  assign u_services = pages['services'].url | default: '/pages/services'
+  assign u_contact = pages['contact'].url | default: '/pages/contact'
+  assign video = false
+  if s.type_media == 'video'
+    if s.video != blank or s.video_url != blank
+      assign video = true
+    endif
+  endif
+  case s.position_image
+    when 'centre'
+      assign pos = '50% 50%'
+    when 'gauche'
+      assign pos = '0% 50%'
+  endcase
+  case s.position_image_mobile
+    when 'centre'
+      assign pos_m = '50% 50%'
+    when 'gauche'
+      assign pos_m = '8% 50%'
+  endcase
+  case s.hauteur
+    when 'grand'
+      assign h = 'max(85svh, 560px)'
+    when 'moyen'
+      assign h = 'max(70svh, 480px)'
+    when 'adapte'
+      assign h = 'auto'
+  endcase
+-%}
+{% render 'section-style', section: section %}
+{%- if pos or pos_m or h or s.intensite_ombre != 100 or s.largeur_titre != 11 -%}
+<style>
+  #shopify-section-{{ section.id }} .hero {
+    {%- if pos %} --hero-pos: {{ pos }};{% endif -%}
+    {%- if pos_m %} --hero-pos-m: {{ pos_m }};{% endif -%}
+    {%- if h %} --hero-h: {{ h }};{% endif -%}
+    {%- if s.intensite_ombre != 100 %} --hero-ombre: {{ s.intensite_ombre | divided_by: 100.0 }};{% endif -%}
+    {%- if s.largeur_titre != 11 %} --hero-titre-l: {{ s.largeur_titre }}ch;{% endif %}
+  }
+</style>
+{%- endif -%}
+<section class="hero{% if s.disposition != blank and s.disposition != 'linea' %} hero--{{ s.disposition }}{% endif %}{% if s.alignement_texte == 'centre' %} hero--align-centre{% endif %}{% if s.hauteur == 'adapte' %} hero--adapte{% endif %}" aria-labelledby="hero-titre-{{ section.id }}">
   <div class="hero__media">
+    {%- if video -%}
+      {%- if s.video != blank -%}
+        {{ s.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, image_size: '2400x', class: 'hero__video' }}
+      {%- elsif s.video_url.type == 'youtube' -%}
+        <iframe class="hero__iframe" src="https://www.youtube-nocookie.com/embed/{{ s.video_url.id }}?autoplay=1&mute=1&loop=1&playlist={{ s.video_url.id }}&controls=0&playsinline=1&rel=0&modestbranding=1" title="{{ s.alt | escape }}" allow="autoplay; encrypted-media" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
+      {%- else -%}
+        <iframe class="hero__iframe" src="https://player.vimeo.com/video/{{ s.video_url.id }}?background=1&autoplay=1&loop=1&muted=1" title="{{ s.alt | escape }}" allow="autoplay" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
+      {%- endif -%}
+    {%- elsif s.image_mobile != blank -%}
+      <picture>
+        <source media="(max-width: 760px)" srcset="{{ s.image_mobile | image_url: width: 800 }} 800w, {{ s.image_mobile | image_url: width: 1200 }} 1200w" sizes="100vw">
+        {%- render 'image-asset', image: s.image, nom: 'accueil-hero', largeurs: '1200,2400', largeur: 2400, hauteur: 1350, sizes: '(max-width: 760px) 220vw, 100vw', alt: s.alt, eager: true -%}
+      </picture>
+    {%- else -%}
     {%- render 'image-asset', image: section.settings.image, nom: 'accueil-hero', largeurs: '1200,2400', largeur: 2400, hauteur: 1350, sizes: '(max-width: 760px) 220vw, 100vw', alt: section.settings.alt, eager: true -%}
+    {%- endif %}
   </div>
+  {%- if s.intensite_ombre != 0 %}
   <div class="hero__ombre" aria-hidden="true"></div>
+  {%- endif -%}
+  {%- if s.afficher_lame %}
   <div class="hero__lame" aria-hidden="true"></div>
+  {%- endif %}
   <div class="wrap hero__corps">
     <h1 class="hero__titre" id="hero-titre-{{ section.id }}">{{ section.settings.titre }}</h1>
+    {%- if s.afficher_reflet %}
     <div class="hero__reflet" aria-hidden="true"><span class="hero__titre">{{ section.settings.titre }}</span></div>
+    {%- endif -%}
+    {%- if s.afficher_linea %}
     <hr class="linea">
+    {%- endif %}
     <div class="hero__infos">
+      {%- if s.texte != blank %}
       <p>{{ section.settings.texte }}</p>
+      {%- endif %}
       <div class="actions">
-        <a class="btn btn--primary" href="{{ u_services }}">{{ section.settings.bouton_1 }}</a>
-        <a class="btn btn--secondary" href="{{ u_contact }}">{{ section.settings.bouton_2 }}</a>
+        {%- if s.bouton_1 != blank %}
+        <a class="btn btn--{{ s.style_1 | default: 'primary' }}" href="{{ s.lien_1 | default: u_services }}">{{ section.settings.bouton_1 }}{% if s.style_1 == 'fleche' or s.style_1 == 'premium' %}{% render 'icon-arrow' %}{% endif %}</a>
+        {%- endif -%}
+        {%- if s.bouton_2 != blank %}
+        <a class="btn btn--{{ s.style_2 | default: 'secondary' }}" href="{{ s.lien_2 | default: u_contact }}">{{ section.settings.bouton_2 }}{% if s.style_2 == 'fleche' or s.style_2 == 'premium' %}{% render 'icon-arrow' %}{% endif %}</a>
+        {%- endif %}
       </div>
     </div>
   </div>
@@ -24,13 +94,439 @@
 {
   "name": "Héros",
   "settings": [
-    { "type": "image_picker", "id": "image", "label": "Image", "info": "Paysage 16:9, 2400 px de large ou plus ; véhicule sur la moitié droite. Vide = visuel fourni." },
-    { "type": "text", "id": "alt", "label": "Description de l'image", "default": "Coupé blanc vu de trois quarts avant, seul dans un studio plongé dans la pénombre" },
-    { "type": "inline_richtext", "id": "titre", "label": "Titre (italique pour un mot)", "default": "L'art du <em>détail</em> automobile." },
-    { "type": "text", "id": "texte", "label": "Ligne secondaire", "default": "Lavage intérieur et extérieur, réalisé avec soin et précision." },
-    { "type": "text", "id": "bouton_1", "label": "Bouton principal (vers Services)", "default": "Découvrir nos services" },
-    { "type": "text", "id": "bouton_2", "label": "Bouton secondaire (vers Contact)", "default": "Nous contacter" }
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Paysage 16:9, 2400 px de large ou plus ; véhicule sur la moitié droite. Vide = visuel fourni."
+    },
+    {
+      "type": "text",
+      "id": "alt",
+      "label": "Description de l'image",
+      "default": "Coupé blanc vu de trois quarts avant, seul dans un studio plongé dans la pénombre"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titre",
+      "label": "Titre (italique pour un mot)",
+      "default": "L'art du <em>détail</em> automobile."
+    },
+    {
+      "type": "text",
+      "id": "texte",
+      "label": "Ligne secondaire",
+      "default": "Lavage intérieur et extérieur, réalisé avec soin et précision."
+    },
+    {
+      "type": "text",
+      "id": "bouton_1",
+      "label": "Bouton principal (vers Services)",
+      "default": "Découvrir nos services"
+    },
+    {
+      "type": "text",
+      "id": "bouton_2",
+      "label": "Bouton secondaire (vers Contact)",
+      "default": "Nous contacter"
+    },
+    {
+      "type": "url",
+      "id": "lien_1",
+      "label": "Lien du bouton principal",
+      "info": "Vide = page Services."
+    },
+    {
+      "type": "select",
+      "id": "style_1",
+      "label": "Style du bouton principal",
+      "options": [
+        {
+          "value": "primary",
+          "label": "Plein"
+        },
+        {
+          "value": "secondary",
+          "label": "Contour"
+        },
+        {
+          "value": "minimal",
+          "label": "Minimaliste"
+        },
+        {
+          "value": "fleche",
+          "label": "Texte avec flèche"
+        },
+        {
+          "value": "premium",
+          "label": "Premium automobile"
+        }
+      ],
+      "default": "primary"
+    },
+    {
+      "type": "url",
+      "id": "lien_2",
+      "label": "Lien du bouton secondaire",
+      "info": "Vide = page Contact."
+    },
+    {
+      "type": "select",
+      "id": "style_2",
+      "label": "Style du bouton secondaire",
+      "options": [
+        {
+          "value": "primary",
+          "label": "Plein"
+        },
+        {
+          "value": "secondary",
+          "label": "Contour"
+        },
+        {
+          "value": "minimal",
+          "label": "Minimaliste"
+        },
+        {
+          "value": "fleche",
+          "label": "Texte avec flèche"
+        },
+        {
+          "value": "premium",
+          "label": "Premium automobile"
+        }
+      ],
+      "default": "secondary"
+    },
+    {
+      "type": "header",
+      "content": "Image ou vidéo"
+    },
+    {
+      "type": "select",
+      "id": "type_media",
+      "label": "Arrière-plan",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "video",
+          "label": "Vidéo"
+        }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Vidéo hébergée sur Shopify",
+      "info": "Lecture automatique, sans son, en boucle.",
+      "visible_if": "{{ section.settings.type_media == 'video' }}"
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "label": "…ou lien YouTube / Vimeo",
+      "accept": [
+        "youtube",
+        "vimeo"
+      ],
+      "visible_if": "{{ section.settings.type_media == 'video' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image pour mobile (facultative)",
+      "info": "Format portrait conseillé."
+    },
+    {
+      "type": "select",
+      "id": "position_image",
+      "label": "Cadrage de l'image sur ordinateur",
+      "options": [
+        {
+          "value": "droite",
+          "label": "À droite"
+        },
+        {
+          "value": "centre",
+          "label": "Au centre"
+        },
+        {
+          "value": "gauche",
+          "label": "À gauche"
+        }
+      ],
+      "default": "droite"
+    },
+    {
+      "type": "select",
+      "id": "position_image_mobile",
+      "label": "Cadrage de l'image sur mobile",
+      "options": [
+        {
+          "value": "droite",
+          "label": "À droite"
+        },
+        {
+          "value": "centre",
+          "label": "Au centre"
+        },
+        {
+          "value": "gauche",
+          "label": "À gauche"
+        }
+      ],
+      "default": "droite"
+    },
+    {
+      "type": "header",
+      "content": "Mise en page"
+    },
+    {
+      "type": "select",
+      "id": "hauteur",
+      "label": "Hauteur",
+      "options": [
+        {
+          "value": "plein",
+          "label": "Plein écran"
+        },
+        {
+          "value": "grand",
+          "label": "Grande"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyenne"
+        },
+        {
+          "value": "adapte",
+          "label": "Adaptée au contenu"
+        }
+      ],
+      "default": "plein"
+    },
+    {
+      "type": "select",
+      "id": "disposition",
+      "label": "Composition",
+      "options": [
+        {
+          "value": "linea",
+          "label": "Linea à 61,8 % (signature)"
+        },
+        {
+          "value": "bas",
+          "label": "Contenu en bas"
+        },
+        {
+          "value": "centre",
+          "label": "Contenu centré"
+        }
+      ],
+      "default": "linea"
+    },
+    {
+      "type": "select",
+      "id": "alignement_texte",
+      "label": "Alignement du texte",
+      "options": [
+        {
+          "value": "gauche",
+          "label": "À gauche"
+        },
+        {
+          "value": "centre",
+          "label": "Centré"
+        }
+      ],
+      "default": "gauche"
+    },
+    {
+      "type": "range",
+      "id": "intensite_ombre",
+      "label": "Intensité de l'ombrage sur l'image",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 100,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "largeur_titre",
+      "label": "Largeur maximale du titre",
+      "min": 6,
+      "max": 24,
+      "step": 1,
+      "default": 11,
+      "info": "En nombre de caractères par ligne.",
+      "unit": "car"
+    },
+    {
+      "type": "select",
+      "id": "taille_titre",
+      "label": "Taille du titre",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "s",
+          "label": "Petite"
+        },
+        {
+          "value": "m",
+          "label": "Moyenne"
+        },
+        {
+          "value": "l",
+          "label": "Grande"
+        },
+        {
+          "value": "xl",
+          "label": "Très grande"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_reflet",
+      "label": "Reflet du titre (Il Riflesso)",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_linea",
+      "label": "Afficher la Linea",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_lame",
+      "label": "Lame de lumière à l'ouverture",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "select",
+      "id": "largeur",
+      "label": "Largeur du contenu",
+      "options": [
+        {
+          "value": "contenu",
+          "label": "Largeur du thème"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "pleine",
+          "label": "Pleine largeur"
+        },
+        {
+          "value": "bord",
+          "label": "Bord à bord (sans marges)"
+        }
+      ],
+      "default": "contenu"
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_haut",
+      "label": "Filet en haut",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_bas",
+      "label": "Filet en bas",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
   ],
-  "presets": [{ "name": "Héros" }]
+  "presets": [
+    {
+      "name": "Héros"
+    }
+  ]
 }
 {% endschema %}

@@ -1,6 +1,17 @@
 {
   "type": "header",
   "name": "Groupe en-tête",
-  "sections": { "header": { "type": "header", "settings": { "cta_label": "Prendre rendez-vous" } } },
-  "order": ["header"]
+  "sections": {
+    "annonce": {
+      "type": "barre-annonce",
+      "disabled": true,
+      "blocks": {
+        "annonce_1": { "type": "annonce", "settings": { "texte": "Prise de rendez-vous en ligne", "lien": "" } }
+      },
+      "block_order": ["annonce_1"],
+      "settings": {}
+    },
+    "header": { "type": "header", "settings": { "cta_label": "Prendre rendez-vous" } }
+  },
+  "order": ["annonce", "header"]
 }

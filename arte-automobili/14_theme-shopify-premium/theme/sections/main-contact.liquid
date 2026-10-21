@@ -1,14 +1,27 @@
 {%- liquid
+  assign s = section.settings
   assign u_confidentialite = shop.privacy_policy.url | default: '/policies/privacy-policy'
   assign a_coord = false
   if settings.telephone != blank or settings.email != blank or settings.adresse != blank or settings.zone != blank or settings.horaires != blank
     assign a_coord = true
   endif
+  if s.afficher_coordonnees == false
+    assign a_coord = false
+  endif
+  assign sid = section.id
+  assign form_id = 'contact-form-' | append: sid
+  assign motifs = s.motifs | newline_to_br | split: '<br />'
+  assign motifs_net = s.motifs | strip
+  assign style_b = s.bouton_style | default: 'primary'
+  if style_b == 'defaut'
+    assign style_b = settings.btn_style_defaut
+  endif
 -%}
-<section class="contact wrap" aria-labelledby="contact-titre-{{ section.id }}">
+{% render 'section-style', section: section %}
+<section class="contact wrap{% if s.disposition == 'formulaire' %} contact--formulaire-seul{% endif %}" aria-labelledby="contact-titre-{{ sid }}">
   <div class="contact__intro">
     {%- if section.settings.surtitre != blank %}<p class="label">{{ section.settings.surtitre }}</p>{% endif -%}
-    <h1 id="contact-titre-{{ section.id }}">{{ section.settings.titre }}</h1>
+    <{{ s.balise_titre | default: 'h1' }} class="contact__titre" id="contact-titre-{{ sid }}">{{ section.settings.titre }}</{{ s.balise_titre | default: 'h1' }}>
     {%- if section.settings.texte != blank %}<p class="contact__texte">{{ section.settings.texte }}</p>{% endif -%}
     {%- if a_coord -%}
       <dl class="coordonnees">
@@ -16,18 +29,20 @@
         {%- if settings.email != blank %}<div><dt>E-mail</dt><dd><a href="mailto:{{ settings.email }}">{{ settings.email }}</a></dd></div>{% endif -%}
         {%- if settings.adresse != blank %}<div><dt>Adresse</dt><dd>{{ settings.adresse }}</dd></div>{% endif -%}
         {%- if settings.zone != blank %}<div><dt>Zone</dt><dd>{{ settings.zone }}</dd></div>{% endif -%}
-        {%- if settings.horaires != blank %}<div><dt>Horaires</dt><dd>{{ settings.horaires }}</dd></div>{% endif -%}
+        {%- if settings.horaires != blank and s.afficher_horaires != false %}<div><dt>Horaires</dt><dd>{{ settings.horaires }}</dd></div>{% endif -%}
       </dl>
     {%- endif -%}
+    {%- unless s.afficher_reseaux == false %}
     <p class="reseaux">{% render 'reseaux' %}</p>
+    {%- endunless %}
   </div>
 
   <div class="contact__formulaire" id="formulaire">
     {%- comment -%}
-      Formulaire de contact natif Shopify : chaque demande est envoyée par Shopify à l'adresse e-mail
+      Formulaire de contact natif Shopify : chaque demande est envoyée par Shopify à l'adresse e-mail
       de la boutique. La confirmation n'apparaît qu'après la réponse de Shopify (form.posted_successfully?).
     {%- endcomment -%}
-    {%- form 'contact', id: 'contact-form', class: 'form', novalidate: 'novalidate' -%}
+    {%- form 'contact', id: form_id, class: 'form js-formulaire', novalidate: 'novalidate' -%}
       {%- if form.posted_successfully? -%}
         <div class="confirmation" data-confirmation tabindex="-1">
           <p class="label">Demande envoyée</p>
@@ -37,28 +52,34 @@
         </div>
       {%- else -%}
         {%- if form.errors -%}
-          <p class="notice notice--erreur" role="alert">Votre demande n'a pas pu être envoyée : {{ form.errors | default_errors }}</p>
+          <p class="notice notice--erreur" role="alert">Votre demande n'a pas pu être envoyée : {{ form.errors | default_errors }}</p>
         {%- endif -%}
         <div class="form__grille">
           <div class="field">
-            <label for="f-nom">Nom et prénom</label>
-            <input id="f-nom" name="contact[name]" type="text" autocomplete="name" required data-msg="Indiquez votre nom et votre prénom." value="{{ form.name }}">
-            <p class="field__erreur" id="f-nom-erreur" hidden></p>
+            <label for="f-nom-{{ sid }}">{{ s.libelle_nom | default: 'Nom et prénom' }}</label>
+            <input id="f-nom-{{ sid }}" name="contact[name]" type="text" autocomplete="name" required data-msg="Indiquez votre nom et votre prénom." value="{{ form.name }}">
+            <p class="field__erreur" id="f-nom-{{ sid }}-erreur" hidden></p>
           </div>
           <div class="field">
-            <label for="f-email">Adresse e-mail</label>
-            <input id="f-email" name="contact[email]" type="email" autocomplete="email" inputmode="email" required data-msg="Indiquez une adresse e-mail valide, par exemple nom@domaine.fr." value="{{ form.email }}">
-            <p class="field__erreur" id="f-email-erreur" hidden></p>
+            <label for="f-email-{{ sid }}">{{ s.libelle_email | default: 'Adresse e-mail' }}</label>
+            <input id="f-email-{{ sid }}" name="contact[email]" type="email" autocomplete="email" inputmode="email" required data-msg="Indiquez une adresse e-mail valide, par exemple nom@domaine.fr." value="{{ form.email }}">
+            <p class="field__erreur" id="f-email-{{ sid }}-erreur" hidden></p>
           </div>
+          {%- unless s.afficher_telephone == false %}
           <div class="field">
-            <label for="f-tel">Téléphone <span class="facultatif">(facultatif)</span></label>
-            <input id="f-tel" name="contact[phone]" type="tel" autocomplete="tel" inputmode="tel" pattern="[0-9+().\s\-]{6,}" data-msg="Ce numéro ne semble pas valide." value="{{ form.phone }}">
-            <p class="field__erreur" id="f-tel-erreur" hidden></p>
+            <label for="f-tel-{{ sid }}">Téléphone{% unless s.telephone_requis %} <span class="facultatif">(facultatif)</span>{% endunless %}</label>
+            <input id="f-tel-{{ sid }}" name="contact[phone]" type="tel" autocomplete="tel" inputmode="tel" pattern="[0-9+().\s\-]{6,}"{% if s.telephone_requis %} required{% endif %} data-msg="{% if s.telephone_requis %}Indiquez un numéro de téléphone valide.{% else %}Ce numéro ne semble pas valide.{% endif %}" value="{{ form.phone }}">
+            <p class="field__erreur" id="f-tel-{{ sid }}-erreur" hidden></p>
           </div>
+          {%- endunless -%}
+          {%- unless s.afficher_service == false %}
           <div class="field">
-            <label for="f-service">Service souhaité</label>
-            <select id="f-service" name="contact[Service souhaité]" required data-msg="Choisissez le service souhaité.">
-              <option value="" selected disabled>Choisir un service</option>
+            <label for="f-service-{{ sid }}">{{ s.libelle_service | default: 'Service souhaité' }}{% unless s.service_requis %} <span class="facultatif">(facultatif)</span>{% endunless %}</label>
+            <select id="f-service-{{ sid }}" name="contact[{{ s.libelle_service | default: 'Service souhaité' | escape }}]"{% if s.service_requis %} required{% endif %} data-msg="Choisissez le service souhaité.">
+              <option value="" selected{% if s.service_requis %} disabled{% endif %}>{{ s.placeholder_service | default: 'Choisir un service' }}</option>
+              {%- if motifs_net != blank -%}
+                {%- for m in motifs -%}{%- assign m_net = m | strip -%}{%- if m_net != blank %}<option value="{{ m_net | escape }}">{{ m_net }}</option>{% endif -%}{%- endfor -%}
+              {%- else -%}
               {%- for i in (1..4) -%}
                 {%- liquid
                   assign k_nom = 'p' | append: i | append: '_nom'
@@ -77,31 +98,42 @@
                 -%}
                 <option value="{{ libelle | escape }}" data-id="{{ ancre }}">{{ libelle }}</option>
               {%- endfor -%}
+              {%- endif -%}
             </select>
-            <p class="field__erreur" id="f-service-erreur" hidden></p>
+            <p class="field__erreur" id="f-service-{{ sid }}-erreur" hidden></p>
           </div>
+          {%- endunless -%}
+          {%- unless s.afficher_vehicule == false %}
           <div class="field">
-            <label for="f-vehicule">Marque et modèle <span class="facultatif">(facultatif)</span></label>
-            <input id="f-vehicule" name="contact[Marque et modèle]" type="text" autocomplete="off">
+            <label for="f-vehicule-{{ sid }}">Marque et modèle <span class="facultatif">(facultatif)</span></label>
+            <input id="f-vehicule-{{ sid }}" name="contact[Marque et modèle]" type="text" autocomplete="off">
           </div>
+          {%- endunless -%}
+          {%- unless s.afficher_date == false %}
           <div class="field">
-            <label for="f-date">Date souhaitée <span class="facultatif">(facultatif)</span></label>
-            <input id="f-date" name="contact[Date souhaitée]" type="date" data-msg="Choisissez une date à venir.">
-            <p class="field__erreur" id="f-date-erreur" hidden></p>
+            <label for="f-date-{{ sid }}">Date souhaitée <span class="facultatif">(facultatif)</span></label>
+            <input id="f-date-{{ sid }}" name="contact[Date souhaitée]" type="date" data-msg="Choisissez une date à venir.">
+            <p class="field__erreur" id="f-date-{{ sid }}-erreur" hidden></p>
           </div>
+          {%- endunless -%}
+          {%- unless s.afficher_message == false %}
           <div class="field field--large">
-            <label for="f-message">Message <span class="facultatif">(facultatif)</span></label>
-            <textarea id="f-message" name="contact[body]" rows="5">{{ form.body }}</textarea>
+            <label for="f-message-{{ sid }}">Message{% unless s.message_requis %} <span class="facultatif">(facultatif)</span>{% endunless %}</label>
+            <textarea id="f-message-{{ sid }}" name="contact[body]" rows="5"{% if s.message_requis %} required data-msg="Écrivez votre message."{% endif %}>{{ form.body }}</textarea>
+            {%- if s.message_requis %}<p class="field__erreur" id="f-message-{{ sid }}-erreur" hidden></p>{% endif %}
           </div>
+          {%- endunless -%}
+          {%- unless s.afficher_consentement == false %}
           <div class="field field--large field--case">
-            <input id="f-accord" name="contact[Consentement]" type="checkbox" value="Oui, politique de confidentialité acceptée" required data-msg="Votre accord est nécessaire pour envoyer la demande.">
-            <label for="f-accord">J'accepte que les informations saisies soient utilisées pour répondre à ma demande, conformément à la <a href="{{ u_confidentialite }}">politique de confidentialité</a>.</label>
-            <p class="field__erreur" id="f-accord-erreur" hidden></p>
+            <input id="f-accord-{{ sid }}" name="contact[Consentement]" type="checkbox" value="Oui, politique de confidentialité acceptée" required data-msg="Votre accord est nécessaire pour envoyer la demande.">
+            <label for="f-accord-{{ sid }}">J'accepte que les informations saisies soient utilisées pour répondre à ma demande, conformément à la <a href="{{ u_confidentialite }}">politique de confidentialité</a>.</label>
+            <p class="field__erreur" id="f-accord-{{ sid }}-erreur" hidden></p>
           </div>
+          {%- endunless %}
         </div>
         <div class="form__pied">
           <div class="form__statut" data-statut role="status" aria-live="polite"></div>
-          <button class="btn btn--primary" type="submit" data-envoyer><span data-libelle>Envoyer la demande</span>{% render 'icon-arrow' %}</button>
+          <button class="btn btn--{{ style_b }}" type="submit" data-envoyer><span data-libelle>{{ s.bouton_texte | default: 'Envoyer la demande' }}</span>{% render 'icon-arrow' %}</button>
         </div>
       {%- endif -%}
     {%- endform -%}
@@ -112,12 +144,442 @@
 {
   "name": "Contact",
   "settings": [
-    { "type": "paragraph", "content": "Les demandes sont envoyées par Shopify à l'adresse e-mail de la boutique. Coordonnées et réseaux : Réglages du thème." },
-    { "type": "text", "id": "surtitre", "label": "Surtitre", "default": "Contact" },
-    { "type": "inline_richtext", "id": "titre", "label": "Titre", "default": "Parlons de votre <em>véhicule</em>." },
-    { "type": "text", "id": "texte", "label": "Introduction", "default": "Rendez-vous, devis ou simple question : décrivez votre demande, nous vous répondrons." },
-    { "type": "text", "id": "confirmation_titre", "label": "Titre de confirmation", "default": "Merci, votre demande est bien partie." },
-    { "type": "text", "id": "confirmation_texte", "label": "Texte de confirmation", "default": "Nous l'avons reçue et vous répondrons dans les meilleurs délais." }
+    {
+      "type": "paragraph",
+      "content": "Les demandes sont envoyées par Shopify à l'adresse e-mail de la boutique. Coordonnées et réseaux : Réglages du thème."
+    },
+    {
+      "type": "text",
+      "id": "surtitre",
+      "label": "Surtitre",
+      "default": "Contact"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titre",
+      "label": "Titre",
+      "default": "Parlons de votre <em>véhicule</em>."
+    },
+    {
+      "type": "text",
+      "id": "texte",
+      "label": "Introduction",
+      "default": "Rendez-vous, devis ou simple question : décrivez votre demande, nous vous répondrons."
+    },
+    {
+      "type": "text",
+      "id": "confirmation_titre",
+      "label": "Titre de confirmation",
+      "default": "Merci, votre demande est bien partie."
+    },
+    {
+      "type": "text",
+      "id": "confirmation_texte",
+      "label": "Texte de confirmation",
+      "default": "Nous l'avons reçue et vous répondrons dans les meilleurs délais."
+    },
+    {
+      "type": "header",
+      "content": "Champs du formulaire"
+    },
+    {
+      "type": "text",
+      "id": "libelle_nom",
+      "label": "Libellé du nom",
+      "default": "Nom et prénom"
+    },
+    {
+      "type": "text",
+      "id": "libelle_email",
+      "label": "Libellé de l'e-mail",
+      "default": "Adresse e-mail"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_telephone",
+      "label": "Téléphone",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "telephone_requis",
+      "label": "Téléphone obligatoire",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_service",
+      "label": "Motif de la demande",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "libelle_service",
+      "label": "Libellé du motif",
+      "default": "Service souhaité"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_service",
+      "label": "Texte du choix vide",
+      "default": "Choisir un service"
+    },
+    {
+      "type": "textarea",
+      "id": "motifs",
+      "label": "Motifs proposés (un par ligne)",
+      "info": "Vide = les prestations des réglages du thème."
+    },
+    {
+      "type": "checkbox",
+      "id": "service_requis",
+      "label": "Motif obligatoire",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_vehicule",
+      "label": "Marque et modèle",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_date",
+      "label": "Date souhaitée",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_message",
+      "label": "Message",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "message_requis",
+      "label": "Message obligatoire",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_consentement",
+      "label": "Case de consentement (recommandée, RGPD)",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "bouton_texte",
+      "label": "Texte du bouton",
+      "default": "Envoyer la demande"
+    },
+    {
+      "type": "select",
+      "id": "bouton_style",
+      "label": "Style du bouton",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Style par défaut du thème"
+        },
+        {
+          "value": "primary",
+          "label": "Plein"
+        },
+        {
+          "value": "secondary",
+          "label": "Contour"
+        },
+        {
+          "value": "minimal",
+          "label": "Minimaliste"
+        },
+        {
+          "value": "fleche",
+          "label": "Texte avec flèche"
+        },
+        {
+          "value": "premium",
+          "label": "Premium automobile"
+        }
+      ],
+      "default": "primary"
+    },
+    {
+      "type": "header",
+      "content": "Informations affichées"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_coordonnees",
+      "label": "Coordonnées",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_horaires",
+      "label": "Horaires",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_reseaux",
+      "label": "Réseaux sociaux",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "balise_titre",
+      "label": "Niveau du titre",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1 (page Contact)"
+        },
+        {
+          "value": "h2",
+          "label": "H2 (formulaire ajouté à une autre page)"
+        }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "select",
+      "id": "taille_titre",
+      "label": "Taille du titre",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "s",
+          "label": "Petite"
+        },
+        {
+          "value": "m",
+          "label": "Moyenne"
+        },
+        {
+          "value": "l",
+          "label": "Grande"
+        },
+        {
+          "value": "xl",
+          "label": "Très grande"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "select",
+      "id": "largeur",
+      "label": "Largeur du contenu",
+      "options": [
+        {
+          "value": "contenu",
+          "label": "Largeur du thème"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "pleine",
+          "label": "Pleine largeur"
+        },
+        {
+          "value": "bord",
+          "label": "Bord à bord (sans marges)"
+        }
+      ],
+      "default": "contenu"
+    },
+    {
+      "type": "select",
+      "id": "espace_haut",
+      "label": "Espacement en haut",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_bas",
+      "label": "Espacement en bas",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_mobile",
+      "label": "Espacements sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Proportionnels"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petits"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyens"
+        },
+        {
+          "value": "grand",
+          "label": "Grands"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_haut",
+      "label": "Filet en haut",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_bas",
+      "label": "Filet en bas",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Formulaire de contact",
+      "settings": {
+        "balise_titre": "h2"
+      }
+    }
   ]
 }
 {% endschema %}

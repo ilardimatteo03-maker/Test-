@@ -1,0 +1,41 @@
+{%- liquid
+  assign s = section.settings
+  assign u_services = pages['services'].url | default: '/pages/services'
+  capture style_cartes
+    if s.colonnes_d != 3
+      echo '--cols: ' | append: s.colonnes_d | append: ';'
+    endif
+    if s.colonnes_m != 1
+      echo ' --cols-m: ' | append: s.colonnes_m | append: '; --cartes-gap-m: var(--gouttiere);'
+    endif
+    if s.ratio != blank and s.ratio != '4 / 5'
+      echo ' --ratio: ' | append: s.ratio | append: ';'
+    endif
+    if s.ratio_m != blank and s.ratio_m != 'defaut'
+      echo ' --ratio-m: ' | append: s.ratio_m | append: ';'
+    endif
+  endcapture
+-%}
+{% render 'section-style', section: section %}
+<section class="section" aria-labelledby="services-titre-{{ section.id }}">
+  <div class="wrap">
+    {%- if s.surtitre != blank or s.titre != blank %}
+    <div class="tete-section">
+      {%- if section.settings.surtitre != blank %}<p class="label">{{ section.settings.surtitre }}</p>{% endif -%}
+      <h2 id="services-titre-{{ section.id }}">{{ section.settings.titre }}</h2>
+    </div>
+    {%- endif %}
+    <div class="cartes{% unless s.penombre %} cartes--sans-penombre{% endunless %}"{% if style_cartes != blank %} style="{{ style_cartes | strip }}"{% endif %}>
+      {%- for i in (1..4) -%}
+        {%- assign k_accueil = 'p' | append: i | append: '_accueil' -%}
+        {%- if settings[k_accueil] -%}{% render 'prestation', i: i, mode: 'carte', afficher_prix: s.afficher_prix, afficher_lien: s.afficher_lien, afficher_duree: s.afficher_duree %}{%- endif -%}
+      {%- endfor -%}
+    </div>
+    {%- if s.afficher_pied %}
+    <div class="cartes__pied">
+      {%- if section.settings.pro != blank %}<p>{{ section.settings.pro }}</p>{% endif -%}
+      {%- if s.lien != blank %}<a class="lien" href="{{ u_services }}"><span>{{ section.settings.lien }}</span>{% render 'icon-arrow' %}</a>{% endif %}
+    </div>
+    {%- endif %}
+  </div>
+</section>

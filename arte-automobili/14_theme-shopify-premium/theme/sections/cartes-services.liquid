@@ -1,20 +1,42 @@
-{%- assign u_services = pages['services'].url | default: '/pages/services' -%}
+{%- liquid
+  assign s = section.settings
+  assign u_services = pages['services'].url | default: '/pages/services'
+  capture style_cartes
+    if s.colonnes_d != 3
+      echo '--cols: ' | append: s.colonnes_d | append: ';'
+    endif
+    if s.colonnes_m != 1
+      echo ' --cols-m: ' | append: s.colonnes_m | append: '; --cartes-gap-m: var(--gouttiere);'
+    endif
+    if s.ratio != blank and s.ratio != '4 / 5'
+      echo ' --ratio: ' | append: s.ratio | append: ';'
+    endif
+    if s.ratio_m != blank and s.ratio_m != 'defaut'
+      echo ' --ratio-m: ' | append: s.ratio_m | append: ';'
+    endif
+  endcapture
+-%}
+{% render 'section-style', section: section %}
 <section class="section" aria-labelledby="services-titre-{{ section.id }}">
   <div class="wrap">
+    {%- if s.surtitre != blank or s.titre != blank %}
     <div class="tete-section">
       {%- if section.settings.surtitre != blank %}<p class="label">{{ section.settings.surtitre }}</p>{% endif -%}
       <h2 id="services-titre-{{ section.id }}">{{ section.settings.titre }}</h2>
     </div>
-    <div class="cartes">
+    {%- endif %}
+    <div class="cartes{% unless s.penombre %} cartes--sans-penombre{% endunless %}"{% if style_cartes != blank %} style="{{ style_cartes | strip }}"{% endif %}>
       {%- for i in (1..4) -%}
         {%- assign k_accueil = 'p' | append: i | append: '_accueil' -%}
-        {%- if settings[k_accueil] -%}{% render 'prestation', i: i, mode: 'carte' %}{%- endif -%}
+        {%- if settings[k_accueil] -%}{% render 'prestation', i: i, mode: 'carte', afficher_prix: s.afficher_prix, afficher_lien: s.afficher_lien, afficher_duree: s.afficher_duree %}{%- endif -%}
       {%- endfor -%}
     </div>
+    {%- if s.afficher_pied %}
     <div class="cartes__pied">
       {%- if section.settings.pro != blank %}<p>{{ section.settings.pro }}</p>{% endif -%}
-      <a class="lien" href="{{ u_services }}"><span>{{ section.settings.lien }}</span>{% render 'icon-arrow' %}</a>
+      {%- if s.lien != blank %}<a class="lien" href="{{ u_services }}"><span>{{ section.settings.lien }}</span>{% render 'icon-arrow' %}</a>{% endif %}
     </div>
+    {%- endif %}
   </div>
 </section>
 
@@ -22,12 +44,438 @@
 {
   "name": "Cartes de prestations",
   "settings": [
-    { "type": "paragraph", "content": "Noms, prix et photos : Réglages du thème › Prestations et tarifs." },
-    { "type": "text", "id": "surtitre", "label": "Surtitre", "default": "Prestations" },
-    { "type": "inline_richtext", "id": "titre", "label": "Titre", "default": "Trois formules, une même <em>exigence</em>." },
-    { "type": "text", "id": "pro", "label": "Phrase sous les cartes", "default": "Professionnels et flottes de véhicules : prestations sur devis." },
-    { "type": "text", "id": "lien", "label": "Lien vers la page Services", "default": "Tous les services et tarifs" }
+    {
+      "type": "paragraph",
+      "content": "Noms, prix et photos : Réglages du thème › Prestations et tarifs."
+    },
+    {
+      "type": "text",
+      "id": "surtitre",
+      "label": "Surtitre",
+      "default": "Prestations"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titre",
+      "label": "Titre",
+      "default": "Trois formules, une même <em>exigence</em>."
+    },
+    {
+      "type": "text",
+      "id": "pro",
+      "label": "Phrase sous les cartes",
+      "default": "Professionnels et flottes de véhicules : prestations sur devis."
+    },
+    {
+      "type": "text",
+      "id": "lien",
+      "label": "Lien vers la page Services",
+      "default": "Tous les services et tarifs"
+    },
+    {
+      "type": "header",
+      "content": "Cartes"
+    },
+    {
+      "type": "range",
+      "id": "colonnes_d",
+      "label": "Colonnes sur ordinateur",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "colonnes_m",
+      "label": "Colonnes sur mobile",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "select",
+      "id": "ratio",
+      "label": "Format des images",
+      "options": [
+        {
+          "value": "4 / 5",
+          "label": "Portrait 4:5"
+        },
+        {
+          "value": "3 / 4",
+          "label": "Portrait 3:4"
+        },
+        {
+          "value": "1 / 1",
+          "label": "Carré"
+        },
+        {
+          "value": "4 / 3",
+          "label": "Paysage 4:3"
+        },
+        {
+          "value": "3 / 2",
+          "label": "Paysage 3:2"
+        },
+        {
+          "value": "16 / 10",
+          "label": "Paysage 16:10"
+        },
+        {
+          "value": "16 / 9",
+          "label": "Panoramique 16:9"
+        }
+      ],
+      "default": "4 / 5"
+    },
+    {
+      "type": "select",
+      "id": "ratio_m",
+      "label": "Format des images sur mobile",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Paysage 4:3 (par défaut)"
+        },
+        {
+          "value": "4 / 5",
+          "label": "Portrait 4:5"
+        },
+        {
+          "value": "3 / 4",
+          "label": "Portrait 3:4"
+        },
+        {
+          "value": "1 / 1",
+          "label": "Carré"
+        },
+        {
+          "value": "4 / 3",
+          "label": "Paysage 4:3"
+        },
+        {
+          "value": "3 / 2",
+          "label": "Paysage 3:2"
+        },
+        {
+          "value": "16 / 10",
+          "label": "Paysage 16:10"
+        },
+        {
+          "value": "16 / 9",
+          "label": "Panoramique 16:9"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_prix",
+      "label": "Afficher les prix",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_duree",
+      "label": "Afficher la durée indicative",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_lien",
+      "label": "Afficher « Voir la prestation »",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "penombre",
+      "label": "Pénombre : les autres cartes s'estompent au survol",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_pied",
+      "label": "Afficher la ligne sous les cartes",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "taille_titre",
+      "label": "Taille du titre",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "s",
+          "label": "Petite"
+        },
+        {
+          "value": "m",
+          "label": "Moyenne"
+        },
+        {
+          "value": "l",
+          "label": "Grande"
+        },
+        {
+          "value": "xl",
+          "label": "Très grande"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "fond_image",
+      "label": "Image d'arrière-plan (facultative)"
+    },
+    {
+      "type": "range",
+      "id": "fond_voile",
+      "label": "Voile sur l'image d'arrière-plan",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "default": 60,
+      "unit": "%"
+    },
+    {
+      "type": "select",
+      "id": "largeur",
+      "label": "Largeur du contenu",
+      "options": [
+        {
+          "value": "contenu",
+          "label": "Largeur du thème"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "pleine",
+          "label": "Pleine largeur"
+        },
+        {
+          "value": "bord",
+          "label": "Bord à bord (sans marges)"
+        }
+      ],
+      "default": "contenu"
+    },
+    {
+      "type": "text_alignment",
+      "id": "alignement",
+      "label": "Alignement du texte",
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "alignement_mobile",
+      "label": "Alignement sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Comme sur ordinateur"
+        },
+        {
+          "value": "left",
+          "label": "À gauche"
+        },
+        {
+          "value": "center",
+          "label": "Centré"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "select",
+      "id": "espace_haut",
+      "label": "Espacement en haut",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_bas",
+      "label": "Espacement en bas",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_mobile",
+      "label": "Espacements sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Proportionnels"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petits"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyens"
+        },
+        {
+          "value": "grand",
+          "label": "Grands"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_haut",
+      "label": "Filet en haut",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_bas",
+      "label": "Filet en bas",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
   ],
-  "presets": [{ "name": "Cartes de prestations" }]
+  "presets": [
+    {
+      "name": "Cartes de prestations"
+    }
+  ]
 }
 {% endschema %}

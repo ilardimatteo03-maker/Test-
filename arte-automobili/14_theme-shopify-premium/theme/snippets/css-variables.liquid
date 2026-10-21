@@ -1,0 +1,128 @@
+{%- comment -%}
+  Variables CSS du thème, calculées depuis les réglages (Personnaliser › Réglages du thème).
+  Les valeurs par défaut reproduisent exactement la charte Arte Automobili.
+{%- endcomment -%}
+{%- liquid
+  assign marque_titres = '"Bodoni Moda", Didot, "Bodoni 72", "Times New Roman", serif'
+  assign marque_texte = 'Archivo, "Helvetica Neue", Arial, sans-serif'
+  assign marque_mono = '"DM Mono", ui-monospace, Menlo, monospace'
+  if settings.police_titres_source == 'shopify' and settings.police_titres != blank
+    assign f_titres = settings.police_titres.family | append: ', ' | append: settings.police_titres.fallback_families
+  else
+    assign f_titres = marque_titres
+  endif
+  if settings.police_texte_source == 'shopify' and settings.police_texte != blank
+    assign f_texte = settings.police_texte.family | append: ', ' | append: settings.police_texte.fallback_families
+  else
+    assign f_texte = marque_texte
+  endif
+  if settings.police_chiffres == 'texte'
+    assign f_mono = f_texte
+  else
+    assign f_mono = marque_mono
+  endif
+  case settings.densite
+    when 'compacte'
+      assign densite = 0.75
+    when 'aeree'
+      assign densite = 1.2
+    else
+      assign densite = 1
+  endcase
+  case settings.anim_vitesse
+    when 'lente'
+      assign vitesse = 1.4
+    when 'rapide'
+      assign vitesse = 0.6
+    else
+      assign vitesse = 1
+  endcase
+-%}
+{%- if settings.police_titres_source == 'shopify' and settings.police_titres != blank -%}
+  {%- assign titres_italique = settings.police_titres | font_modify: 'style', 'italic' -%}
+  <style>
+    {{ settings.police_titres | font_face: font_display: 'swap' }}
+    {%- if titres_italique %}{{ titres_italique | font_face: font_display: 'swap' }}{% endif %}
+  </style>
+{%- endif -%}
+{%- if settings.police_texte_source == 'shopify' and settings.police_texte != blank -%}
+  {%- assign texte_gras = settings.police_texte | font_modify: 'weight', 'bolder' -%}
+  <style>
+    {{ settings.police_texte | font_face: font_display: 'swap' }}
+    {%- if texte_gras %}{{ texte_gras | font_face: font_display: 'swap' }}{% endif %}
+  </style>
+{%- endif -%}
+<style>
+  :root {
+    --nero: {{ settings.color_nero }};
+    --bianco: {{ settings.color_bianco }};
+    --verde: {{ settings.color_verde }};
+    --verdaccio: {{ settings.color_verdaccio }};
+    --argento: {{ settings.color_argento }};
+    --travertino: {{ settings.color_travertino }};
+    --nero-rgb: {{ settings.color_nero | color_extract: 'red' }}, {{ settings.color_nero | color_extract: 'green' }}, {{ settings.color_nero | color_extract: 'blue' }};
+    --bianco-rgb: {{ settings.color_bianco | color_extract: 'red' }}, {{ settings.color_bianco | color_extract: 'green' }}, {{ settings.color_bianco | color_extract: 'blue' }};
+    --g-lien: {{ settings.couleur_liens }};
+    --g-survol: {{ settings.couleur_survol }};
+    --g-bordure: {{ settings.couleur_bordures }};
+    --g-filet: rgba({{ settings.couleur_bordures | color_extract: 'red' }}, {{ settings.couleur_bordures | color_extract: 'green' }}, {{ settings.couleur_bordures | color_extract: 'blue' }}, .28);
+    --g-btn-fond: {{ settings.btn1_fond }};
+    --g-btn-texte: {{ settings.btn1_texte }};
+    --g-btn-bordure: {{ settings.btn1_bordure }};
+    --g-btn2-texte: {{ settings.btn2_texte }};
+    --g-btn2-bordure: {{ settings.btn2_bordure }};
+    --c-sur-accent: var(--bianco);
+    {% render 'palette', palette: 'nero' %}
+
+    --serif: {{ f_titres }};
+    --sans: {{ f_texte }};
+    --mono: {{ f_mono }};
+    {%- case settings.police_boutons -%}
+      {%- when 'texte' %} --btn-font: var(--sans); --btn-stretch: 100%;
+      {%- when 'titres' %} --btn-font: var(--serif); --btn-stretch: 100%;
+      {%- else %} --btn-font: var(--sans); --btn-stretch: 125%;
+    {%- endcase -%}
+    {%- case settings.police_menus -%}
+      {%- when 'texte' %} --nav-font: var(--sans); --nav-stretch: 100%;
+      {%- when 'titres' %} --nav-font: var(--serif); --nav-stretch: 100%;
+      {%- else %} --nav-font: var(--sans); --nav-stretch: 125%;
+    {%- endcase %}
+    --titre-poids: {{ settings.titres_poids }};
+    --titre-lh: {{ settings.titres_interlignage | divided_by: 100.0 }};
+    --titre-ls: {{ settings.titres_espacement | divided_by: 100.0 }}em;
+    --titre-transform: {% if settings.titres_majuscules %}uppercase{% else %}none{% endif %};
+    --titres-align: {{ settings.titres_alignement | default: 'left' }};
+    --texte-poids: {{ settings.texte_poids }};
+    --texte-lh: {{ settings.texte_interlignage | divided_by: 100.0 }};
+    --texte-taille: {{ settings.texte_taille_d }}px;
+    {%- for n in (1..6) -%}
+      {%- assign k_d = 'h' | append: n | append: '_d' -%}
+      {%- assign k_m = 'h' | append: n | append: '_m' -%}
+      {%- if n == 1 %}{% assign base = 1529.4 %}{% else %}{% assign base = 1450.0 %}{% endif %}
+    --h{{ n }}: clamp({{ settings[k_m] }}px, {{ settings[k_d] | times: 100.0 | divided_by: base | round: 3 }}vw, {{ settings[k_d] }}px);
+    {%- endfor %}
+
+    --max: {{ settings.largeur_max }}px;
+    --pad: clamp({{ settings.marge_m }}px, 5vw, {{ settings.marge_d }}px);
+    --densite: {{ densite }};
+    --esp-section: clamp({{ settings.espacement_m | times: densite }}px, {{ 11 | times: densite }}vw, {{ settings.espacement_d | times: densite }}px);
+    --rayon: {{ settings.rayon }}px;
+    --bordure-ep: {{ settings.bordure_ep }}px;
+    --gouttiere: clamp({{ settings.gouttiere_m }}px, 2vw, {{ settings.gouttiere_d }}px);
+    --logo-l: {{ settings.logo_largeur_d }}px;
+    --logo-l-m: {{ settings.logo_largeur_m }}px;
+
+    --btn-h: {{ settings.btn_hauteur }}px;
+    --btn-px: {{ settings.btn_padding }}px;
+    --btn-fs: {{ settings.btn_taille }}px;
+    --btn-poids: {{ settings.btn_poids }};
+    --btn-ls: {{ settings.btn_espacement | divided_by: 100.0 }}em;
+    --btn-transform: {% if settings.btn_majuscules %}uppercase{% else %}none{% endif %};
+    --btn-rayon: {{ settings.btn_rayon }}px;
+
+    --vitesse: {{ vitesse }};
+  }
+  @media (max-width: 760px) {
+    :root { --texte-taille: {{ settings.texte_taille_m }}px; }
+  }
+</style>

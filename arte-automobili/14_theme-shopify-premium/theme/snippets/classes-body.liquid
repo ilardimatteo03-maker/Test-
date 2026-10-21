@@ -1,0 +1,5 @@
+{%- comment -%} Classes du <body> qui traduisent les réglages Boutons et Animations. {%- endcomment -%}
+btn-survol--{{ settings.btn_survol | default: 'inverser' }} anim-apparition--{{ settings.anim_apparition | default: 'montee' }} anim-images--{{ settings.anim_images | default: 'zoom' }}
+{%- unless settings.anim_lame %} anim-lame--off{% endunless -%}
+{%- unless settings.anim_actives %} anim-off{% endunless -%}
+{%- unless settings.anim_mobile %} anim-mobile-off{% endunless -%}

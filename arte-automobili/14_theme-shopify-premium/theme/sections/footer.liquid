@@ -1,50 +1,104 @@
 {%- liquid
-  assign a_contact = false
-  if settings.telephone != blank or settings.email != blank or settings.adresse != blank or settings.zone != blank or settings.horaires != blank
-    assign a_contact = true
-  endif
-  assign a_reseaux = false
-  if settings.instagram != blank or settings.facebook != blank or settings.tiktok != blank or settings.linkedin != blank
-    assign a_reseaux = true
+  assign s = section.settings
+  assign annee = 'now' | date: '%Y'
+  assign copyright = s.copyright | default: '© [annee] [boutique]' | replace: '[annee]', annee | replace: '[boutique]', shop.name
+  assign clair = false
+  if s.palette == 'bianco' or s.palette == 'travertino'
+    assign clair = true
   endif
 -%}
-<footer class="footer">
+{% render 'section-style', section: section %}
+<footer class="footer footer--{{ s.alignement_footer | default: 'gauche' }}{% unless s.filet_haut %} footer--sans-filet{% endunless %}" style="--footer-cols: {{ s.colonnes | default: 3 }}; --footer-logo-h: {{ s.logo_hauteur | default: 112 }}px;">
   <div class="wrap footer__grid">
-    <div class="footer__brand">
-      <a href="{{ routes.root_url }}" aria-label="{{ shop.name }}, retour à l'accueil">
-        <img src="{{ 'logo-vertical-bianco.svg' | asset_url }}" alt="" width="289" height="407" loading="lazy">
-      </a>
-      {%- if settings.signature != blank %}<p>{{ settings.signature }}</p>{% endif -%}
-    </div>
-    <nav class="footer__col" aria-label="Pages du site">
-      <p class="label">Pages</p>
-      <ul>{% render 'liens' %}</ul>
-    </nav>
-    {%- if a_contact -%}
-      <div class="footer__col">
-        <p class="label">Contact</p>
-        <ul>
-          {%- if settings.telephone != blank %}<li><a href="tel:{{ settings.telephone | remove: ' ' | remove: '.' }}">{{ settings.telephone }}</a></li>{% endif -%}
-          {%- if settings.email != blank %}<li><a href="mailto:{{ settings.email }}">{{ settings.email }}</a></li>{% endif -%}
-          {%- if settings.adresse != blank %}<li>{{ settings.adresse }}</li>{% endif -%}
-          {%- if settings.zone != blank %}<li>{{ settings.zone }}</li>{% endif -%}
-          {%- if settings.horaires != blank %}<li>{{ settings.horaires }}</li>{% endif -%}
-        </ul>
-      </div>
-    {%- endif -%}
-    {%- if a_reseaux -%}
-      <div class="footer__col">
-        <p class="label">Suivre</p>
-        <ul>{% render 'reseaux', element: 'li' %}</ul>
-      </div>
-    {%- endif -%}
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'logo' -%}
+          <div class="footer__brand" {{ block.shopify_attributes }}>
+            {%- if block.settings.afficher_logo -%}
+              <a href="{{ routes.root_url }}" aria-label="{{ shop.name }}, retour à l'accueil">
+                {%- if settings.logo_secondaire != blank -%}
+                  {{ settings.logo_secondaire | image_url: width: 600 | image_tag: alt: '', loading: 'lazy', widths: '200, 400, 600', sizes: '300px' }}
+                {%- elsif clair -%}
+                  <img src="{{ 'logo-vertical-nero.svg' | asset_url }}" alt="" width="289" height="407" loading="lazy">
+                {%- else -%}
+                  <img src="{{ 'logo-vertical-bianco.svg' | asset_url }}" alt="" width="289" height="407" loading="lazy">
+                {%- endif -%}
+              </a>
+            {%- endif -%}
+            {%- if block.settings.afficher_signature and settings.signature != blank %}<p>{{ settings.signature }}</p>{% endif -%}
+            {%- if block.settings.description != blank %}<div class="footer__description rte">{{ block.settings.description }}</div>{% endif -%}
+          </div>
+        {%- when 'menu' -%}
+          {%- assign menu = linklists[block.settings.menu] -%}
+          <nav class="footer__col" aria-label="{{ block.settings.titre | default: 'Pages du site' | escape }}" {{ block.shopify_attributes }}>
+            {%- if block.settings.titre != blank %}<p class="label">{{ block.settings.titre }}</p>{% endif -%}
+            <ul>
+              {%- if menu != blank and menu.links.size > 0 -%}
+                {%- for link in menu.links -%}<li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>{%- endfor -%}
+              {%- else -%}
+                {% render 'liens' %}
+              {%- endif -%}
+            </ul>
+          </nav>
+        {%- when 'coordonnees' -%}
+          {%- if settings.telephone != blank or settings.email != blank or settings.adresse != blank or settings.zone != blank or settings.horaires != blank -%}
+            <div class="footer__col" {{ block.shopify_attributes }}>
+              {%- if block.settings.titre != blank %}<p class="label">{{ block.settings.titre }}</p>{% endif -%}
+              <ul>
+                {%- if settings.telephone != blank %}<li><a href="tel:{{ settings.telephone | remove: ' ' | remove: '.' }}">{{ settings.telephone }}</a></li>{% endif -%}
+                {%- if settings.email != blank %}<li><a href="mailto:{{ settings.email }}">{{ settings.email }}</a></li>{% endif -%}
+                {%- if settings.adresse != blank %}<li>{{ settings.adresse }}</li>{% endif -%}
+                {%- if settings.zone != blank %}<li>{{ settings.zone }}</li>{% endif -%}
+                {%- if settings.horaires != blank and block.settings.afficher_horaires %}<li>{{ settings.horaires }}</li>{% endif -%}
+              </ul>
+            </div>
+          {%- endif -%}
+        {%- when 'reseaux' -%}
+          {%- if settings.instagram != blank or settings.facebook != blank or settings.tiktok != blank or settings.linkedin != blank or settings.youtube != blank or settings.whatsapp != blank -%}
+            <div class="footer__col" {{ block.shopify_attributes }}>
+              {%- if block.settings.titre != blank %}<p class="label">{{ block.settings.titre }}</p>{% endif -%}
+              {%- if block.settings.style == 'icones' -%}
+                <p class="footer__icones">{% render 'reseaux', icones: true %}</p>
+              {%- else -%}
+                <ul>{% render 'reseaux', element: 'li' %}</ul>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- when 'texte' -%}
+          <div class="footer__col" {{ block.shopify_attributes }}>
+            {%- if block.settings.titre != blank %}<p class="label">{{ block.settings.titre }}</p>{% endif -%}
+            <div class="rte footer__texte">{{ block.settings.texte }}</div>
+          </div>
+        {%- when 'newsletter' -%}
+          <div class="footer__col footer__newsletter" {{ block.shopify_attributes }}>
+            {%- if block.settings.titre != blank %}<p class="label">{{ block.settings.titre }}</p>{% endif -%}
+            {%- if block.settings.texte != blank %}<p class="footer__texte">{{ block.settings.texte }}</p>{% endif -%}
+            {% render 'formulaire-email', id: block.id, bouton: block.settings.bouton, confirmation: block.settings.confirmation, mention: block.settings.mention, tags: 'newsletter' %}
+          </div>
+      {%- endcase -%}
+    {%- endfor -%}
   </div>
   <div class="wrap footer__legal">
-    <span>© {{ 'now' | date: '%Y' }} {{ shop.name }}</span>
-    {%- if shop.policies.size > 0 -%}
+    <span>{{ copyright }}</span>
+    {%- liquid
+      assign a_legal = false
+      if s.afficher_politiques and shop.policies.size > 0
+        assign a_legal = true
+      endif
+      if linklists[s.menu_legal].links.size > 0
+        assign a_legal = true
+      endif
+    -%}
+    {%- if a_legal -%}
       <nav aria-label="Informations légales">
-        {%- for policy in shop.policies -%}<a href="{{ policy.url }}">{{ policy.title }}</a>{%- endfor -%}
+        {%- if s.afficher_politiques -%}{%- for policy in shop.policies -%}<a href="{{ policy.url }}">{{ policy.title }}</a>{%- endfor -%}{%- endif -%}
+        {%- for link in linklists[s.menu_legal].links -%}<a href="{{ link.url }}">{{ link.title | escape }}</a>{%- endfor -%}
       </nav>
+    {%- endif -%}
+    {%- if s.paiements and shop.enabled_payment_types.size > 0 -%}
+      <ul class="footer__paiements" aria-label="Moyens de paiement acceptés">
+        {%- for type in shop.enabled_payment_types -%}<li>{{ type | payment_type_svg_tag: class: 'icone-paiement' }}</li>{%- endfor -%}
+      </ul>
     {%- endif -%}
   </div>
 </footer>
@@ -53,8 +107,67 @@
 {
   "name": "Pied de page",
   "class": "section-footer",
+  "max_blocks": 8,
   "settings": [
-    { "type": "paragraph", "content": "Coordonnées et réseaux : Réglages du thème. Liens légaux : politiques de la boutique (Paramètres › Politiques)." }
-  ]
+    { "type": "paragraph", "content": "Ajoutez, masquez ou réordonnez les colonnes avec les blocs. Coordonnées et réseaux : Réglages du thème. Liens légaux : politiques de la boutique (Paramètres › Politiques)." },
+    { "type": "range", "id": "colonnes", "label": "Nombre de colonnes à côté du logo", "min": 1, "max": 5, "step": 1, "default": 3 },
+    { "type": "select", "id": "alignement_footer", "label": "Alignement du texte", "default": "gauche", "options": [
+      { "value": "gauche", "label": "À gauche" }, { "value": "centre", "label": "Centré" }
+    ] },
+    { "type": "range", "id": "logo_hauteur", "label": "Hauteur du logo", "min": 48, "max": 200, "step": 4, "unit": "px", "default": 112 },
+    { "type": "checkbox", "id": "filet_haut", "label": "Filet en haut du pied de page", "default": true },
+    { "type": "header", "content": "Barre inférieure" },
+    { "type": "text", "id": "copyright", "label": "Mention de copyright", "default": "© [annee] [boutique]", "info": "[annee] et [boutique] sont remplacés automatiquement." },
+    { "type": "checkbox", "id": "afficher_politiques", "label": "Afficher les politiques (mentions légales, confidentialité, conditions générales…)", "default": true },
+    { "type": "link_list", "id": "menu_legal", "label": "Liens supplémentaires (facultatif)" },
+    { "type": "checkbox", "id": "paiements", "label": "Afficher les moyens de paiement", "default": false },
+    { "type": "header", "content": "Mise en forme de la section" },
+    { "type": "select", "id": "palette", "label": "Couleurs", "default": "defaut", "options": [
+      { "value": "defaut", "label": "Fond général du site" }, { "value": "nero", "label": "Nero (sombre)" }, { "value": "verdaccio", "label": "Verdaccio (gris profond)" },
+      { "value": "verde", "label": "Verde (vert de marque)" }, { "value": "bianco", "label": "Bianco (clair)" }, { "value": "travertino", "label": "Travertino (clair chaud)" }, { "value": "perso", "label": "Personnalisées" }
+    ] },
+    { "type": "color", "id": "couleur_fond", "label": "Fond personnalisé", "visible_if": "{{ section.settings.palette == 'perso' }}" },
+    { "type": "color", "id": "couleur_texte", "label": "Texte personnalisé", "visible_if": "{{ section.settings.palette == 'perso' }}" },
+    { "type": "select", "id": "espace_haut", "label": "Espacement en haut", "default": "defaut", "options": [
+      { "value": "defaut", "label": "Par défaut" }, { "value": "petit", "label": "Petit" }, { "value": "moyen", "label": "Moyen" }, { "value": "grand", "label": "Grand" }
+    ] }
+  ],
+  "blocks": [
+    { "type": "logo", "name": "Logo et signature", "limit": 1, "settings": [
+      { "type": "checkbox", "id": "afficher_logo", "label": "Afficher le logo", "default": true },
+      { "type": "checkbox", "id": "afficher_signature", "label": "Afficher la signature", "default": true, "info": "Signature : Réglages du thème › Identité visuelle." },
+      { "type": "richtext", "id": "description", "label": "Description (facultative)" }
+    ] },
+    { "type": "menu", "name": "Menu", "settings": [
+      { "type": "text", "id": "titre", "label": "Titre", "default": "Pages" },
+      { "type": "link_list", "id": "menu", "label": "Menu", "info": "Vide = les quatre pages du site." }
+    ] },
+    { "type": "coordonnees", "name": "Coordonnées", "limit": 1, "settings": [
+      { "type": "text", "id": "titre", "label": "Titre", "default": "Contact" },
+      { "type": "checkbox", "id": "afficher_horaires", "label": "Afficher les horaires", "default": true },
+      { "type": "paragraph", "content": "Masqué tant qu'aucune coordonnée n'est renseignée (Réglages du thème › Coordonnées)." }
+    ] },
+    { "type": "reseaux", "name": "Réseaux sociaux", "limit": 1, "settings": [
+      { "type": "text", "id": "titre", "label": "Titre", "default": "Suivre" },
+      { "type": "select", "id": "style", "label": "Affichage", "default": "texte", "options": [ { "value": "texte", "label": "Noms" }, { "value": "icones", "label": "Icônes" } ] }
+    ] },
+    { "type": "texte", "name": "Texte", "settings": [
+      { "type": "text", "id": "titre", "label": "Titre", "default": "À propos" },
+      { "type": "richtext", "id": "texte", "label": "Texte", "default": "<p>Ajoutez ici un texte court.</p>" }
+    ] },
+    { "type": "newsletter", "name": "Newsletter", "limit": 1, "settings": [
+      { "type": "text", "id": "titre", "label": "Titre", "default": "Newsletter" },
+      { "type": "text", "id": "texte", "label": "Texte", "default": "Recevez nos nouvelles, rarement et utilement." },
+      { "type": "text", "id": "bouton", "label": "Bouton", "default": "S'inscrire" },
+      { "type": "text", "id": "confirmation", "label": "Message de confirmation", "default": "Merci, votre inscription est enregistrée." },
+      { "type": "text", "id": "mention", "label": "Mention sous le champ", "default": "Désinscription possible à tout moment." },
+      { "type": "paragraph", "content": "Les inscrits sont enregistrés dans Clients, avec l'accord marketing et le tag « newsletter »." }
+    ] }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "logo" }, { "type": "menu" }, { "type": "coordonnees" }, { "type": "reseaux" }
+    ]
+  }
 }
 {% endschema %}

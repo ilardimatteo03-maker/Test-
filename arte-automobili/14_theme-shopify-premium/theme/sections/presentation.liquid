@@ -1,12 +1,22 @@
-{%- assign u_services = pages['services'].url | default: '/pages/services' -%}
-<section class="presentation wrap" aria-labelledby="presentation-titre-{{ section.id }}">
+{%- liquid
+  assign s = section.settings
+  assign u_services = pages['services'].url | default: '/pages/services'
+  assign style_b = s.bouton_style | default: 'primary'
+  if style_b == 'defaut'
+    assign style_b = settings.btn_style_defaut
+  endif
+-%}
+{% render 'section-style', section: section %}
+<section class="presentation wrap{% if s.position_image == 'droite' %} presentation--image-droite{% endif %}" aria-labelledby="presentation-titre-{{ section.id }}"{% if s.ratio != blank and s.ratio != '4 / 5' %} style="--ratio: {{ s.ratio }};"{% endif %}>
   <div class="presentation__media">
     {%- render 'image-asset', image: section.settings.image, nom: 'presentation', largeurs: '800,1080', largeur: 1080, hauteur: 1350, sizes: '(min-width: 990px) 50vw, 100vw', alt: section.settings.alt, eager: true -%}
   </div>
   <div class="presentation__corps">
     {%- if section.settings.surtitre != blank %}<p class="label">{{ section.settings.surtitre }}</p>{% endif -%}
-    <h1 id="presentation-titre-{{ section.id }}">{{ section.settings.titre }}</h1>
+    <{{ s.balise_titre | default: 'h1' }} class="presentation__titre" id="presentation-titre-{{ section.id }}">{{ section.settings.titre }}</{{ s.balise_titre | default: 'h1' }}>
+    {%- if s.texte != blank %}
     <p class="presentation__texte">{{ section.settings.texte }}</p>
+    {%- endif -%}
     {%- if section.blocks.size > 0 -%}
       <ul class="valeurs">
         {%- for block in section.blocks -%}
@@ -14,7 +24,9 @@
         {%- endfor -%}
       </ul>
     {%- endif -%}
-    <a class="btn btn--primary" href="{{ u_services }}">{{ section.settings.bouton }}{% render 'icon-arrow' %}</a>
+    {%- if s.bouton != blank %}
+    <a class="btn btn--{{ style_b }}" href="{{ s.bouton_lien | default: u_services }}">{{ section.settings.bouton }}{% render 'icon-arrow' %}</a>
+    {%- endif %}
   </div>
 </section>
 
@@ -22,18 +34,429 @@
 {
   "name": "Présentation",
   "settings": [
-    { "type": "image_picker", "id": "image", "label": "Image (portrait 4:5)" },
-    { "type": "text", "id": "alt", "label": "Description de l'image", "default": "Optique avant d'un coupé blanc, éclairée par une ligne de lumière" },
-    { "type": "text", "id": "surtitre", "label": "Surtitre", "default": "Présentation" },
-    { "type": "inline_richtext", "id": "titre", "label": "Titre", "default": "La passion du <em>détail</em>." },
-    { "type": "textarea", "id": "texte", "label": "Texte (provisoire, à personnaliser)", "default": "Chez Arte Automobili, nous pensons qu'un véhicule bien entretenu se reconnaît à ses détails. Chaque prestation est menée avec calme et méthode, pour vous rendre un véhicule propre, soigné et agréable à retrouver." },
-    { "type": "text", "id": "bouton", "label": "Bouton (vers Services)", "default": "Découvrir nos services" }
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image (portrait 4:5)"
+    },
+    {
+      "type": "text",
+      "id": "alt",
+      "label": "Description de l'image",
+      "default": "Optique avant d'un coupé blanc, éclairée par une ligne de lumière"
+    },
+    {
+      "type": "text",
+      "id": "surtitre",
+      "label": "Surtitre",
+      "default": "Présentation"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titre",
+      "label": "Titre",
+      "default": "La passion du <em>détail</em>."
+    },
+    {
+      "type": "textarea",
+      "id": "texte",
+      "label": "Texte (provisoire, à personnaliser)",
+      "default": "Chez Arte Automobili, nous pensons qu'un véhicule bien entretenu se reconnaît à ses détails. Chaque prestation est menée avec calme et méthode, pour vous rendre un véhicule propre, soigné et agréable à retrouver."
+    },
+    {
+      "type": "text",
+      "id": "bouton",
+      "label": "Bouton (vers Services)",
+      "default": "Découvrir nos services"
+    },
+    {
+      "type": "url",
+      "id": "bouton_lien",
+      "label": "Lien du bouton",
+      "info": "Vide = page Services."
+    },
+    {
+      "type": "select",
+      "id": "bouton_style",
+      "label": "Style du bouton",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Style par défaut du thème"
+        },
+        {
+          "value": "primary",
+          "label": "Plein"
+        },
+        {
+          "value": "secondary",
+          "label": "Contour"
+        },
+        {
+          "value": "minimal",
+          "label": "Minimaliste"
+        },
+        {
+          "value": "fleche",
+          "label": "Texte avec flèche"
+        },
+        {
+          "value": "premium",
+          "label": "Premium automobile"
+        }
+      ],
+      "default": "primary"
+    },
+    {
+      "type": "header",
+      "content": "Mise en page"
+    },
+    {
+      "type": "select",
+      "id": "position_image",
+      "label": "Position de l'image",
+      "options": [
+        {
+          "value": "gauche",
+          "label": "À gauche"
+        },
+        {
+          "value": "droite",
+          "label": "À droite"
+        }
+      ],
+      "default": "gauche"
+    },
+    {
+      "type": "select",
+      "id": "ratio",
+      "label": "Format de l'image",
+      "options": [
+        {
+          "value": "4 / 5",
+          "label": "Portrait 4:5"
+        },
+        {
+          "value": "3 / 4",
+          "label": "Portrait 3:4"
+        },
+        {
+          "value": "1 / 1",
+          "label": "Carré"
+        },
+        {
+          "value": "4 / 3",
+          "label": "Paysage 4:3"
+        },
+        {
+          "value": "3 / 2",
+          "label": "Paysage 3:2"
+        },
+        {
+          "value": "16 / 10",
+          "label": "Paysage 16:10"
+        },
+        {
+          "value": "16 / 9",
+          "label": "Panoramique 16:9"
+        }
+      ],
+      "default": "4 / 5"
+    },
+    {
+      "type": "select",
+      "id": "balise_titre",
+      "label": "Niveau du titre",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1 (titre de la page)"
+        },
+        {
+          "value": "h2",
+          "label": "H2 (section secondaire)"
+        }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "select",
+      "id": "taille_titre",
+      "label": "Taille du titre",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "s",
+          "label": "Petite"
+        },
+        {
+          "value": "m",
+          "label": "Moyenne"
+        },
+        {
+          "value": "l",
+          "label": "Grande"
+        },
+        {
+          "value": "xl",
+          "label": "Très grande"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "select",
+      "id": "largeur",
+      "label": "Largeur du contenu",
+      "options": [
+        {
+          "value": "contenu",
+          "label": "Largeur du thème"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "pleine",
+          "label": "Pleine largeur"
+        },
+        {
+          "value": "bord",
+          "label": "Bord à bord (sans marges)"
+        }
+      ],
+      "default": "contenu"
+    },
+    {
+      "type": "select",
+      "id": "espace_haut",
+      "label": "Espacement en haut",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_bas",
+      "label": "Espacement en bas",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_mobile",
+      "label": "Espacements sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Proportionnels"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petits"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyens"
+        },
+        {
+          "value": "grand",
+          "label": "Grands"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_haut",
+      "label": "Filet en haut",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_bas",
+      "label": "Filet en bas",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
   ],
   "blocks": [
-    { "type": "valeur", "name": "Valeur", "limit": 4, "settings": [
-      { "type": "text", "id": "titre", "label": "Titre", "default": "Précision" },
-      { "type": "text", "id": "texte", "label": "Phrase", "default": "Une méthode rigoureuse, appliquée à chaque surface." }
-    ] }
+    {
+      "type": "valeur",
+      "name": "Valeur",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "titre",
+          "label": "Titre",
+          "default": "Précision"
+        },
+        {
+          "type": "text",
+          "id": "texte",
+          "label": "Phrase",
+          "default": "Une méthode rigoureuse, appliquée à chaque surface."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Présentation de l'entreprise",
+      "settings": {
+        "balise_titre": "h2"
+      },
+      "blocks": [
+        {
+          "type": "valeur"
+        },
+        {
+          "type": "valeur",
+          "settings": {
+            "titre": "Soin",
+            "texte": "Des gestes attentifs, respectueux de chaque matériau."
+          }
+        },
+        {
+          "type": "valeur",
+          "settings": {
+            "titre": "Exigence",
+            "texte": "Le même niveau d'attention, quel que soit le véhicule."
+          }
+        }
+      ]
+    }
   ]
 }
 {% endschema %}

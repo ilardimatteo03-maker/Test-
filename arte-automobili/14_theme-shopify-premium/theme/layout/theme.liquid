@@ -39,16 +39,16 @@
       @font-face { font-family: 'DM Mono'; src: url('{{ 'DMMono-Light.woff2' | asset_url }}') format('woff2'); font-weight: 300; font-display: swap; }
     </style>
     {{ 'base.css' | asset_url | stylesheet_tag }}
-    {%- comment -%} Couleurs des réglages du thème, après la feuille de style pour la remplacer {%- endcomment -%}
-    <style>
-      :root { --nero: {{ settings.color_nero }}; --bianco: {{ settings.color_bianco }}; --verde: {{ settings.color_verde }}; --verdaccio: {{ settings.color_verdaccio }}; --argento: {{ settings.color_argento }}; }
-    </style>
+    {{ 'sections.css' | asset_url | stylesheet_tag }}
+    {%- comment -%} Réglages du thème (couleurs, polices, tailles, boutons…), après les feuilles de style pour les remplacer {%- endcomment -%}
+    {% render 'css-variables' %}
     <script>document.documentElement.classList.add('js');</script>
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
+    <script src="{{ 'composants.js' | asset_url }}" defer></script>
     {%- if template.name == 'index' -%}{% render 'donnees-structurees' %}{%- endif -%}
     {{ content_for_header }}
   </head>
-  <body class="template-{{ template.name }}{% if template.suffix %} template-{{ template.name }}-{{ template.suffix }}{% endif %}">
+  <body class="template-{{ template.name }}{% if template.suffix %} template-{{ template.name }}-{{ template.suffix }}{% endif %} {% render 'classes-body' %}">
     <a class="skip" href="#contenu">{{ 'general.skip' | t }}</a>
     {% sections 'header-group' %}
     <main id="contenu" tabindex="-1">

@@ -1,0 +1,91 @@
+{%- liquid
+  assign s = section.settings
+  assign u_services = pages['services'].url | default: '/pages/services'
+  assign u_contact = pages['contact'].url | default: '/pages/contact'
+  assign video = false
+  if s.type_media == 'video'
+    if s.video != blank or s.video_url != blank
+      assign video = true
+    endif
+  endif
+  case s.position_image
+    when 'centre'
+      assign pos = '50% 50%'
+    when 'gauche'
+      assign pos = '0% 50%'
+  endcase
+  case s.position_image_mobile
+    when 'centre'
+      assign pos_m = '50% 50%'
+    when 'gauche'
+      assign pos_m = '8% 50%'
+  endcase
+  case s.hauteur
+    when 'grand'
+      assign h = 'max(85svh, 560px)'
+    when 'moyen'
+      assign h = 'max(70svh, 480px)'
+    when 'adapte'
+      assign h = 'auto'
+  endcase
+-%}
+{% render 'section-style', section: section %}
+{%- if pos or pos_m or h or s.intensite_ombre != 100 or s.largeur_titre != 11 -%}
+<style>
+  #shopify-section-{{ section.id }} .hero {
+    {%- if pos %} --hero-pos: {{ pos }};{% endif -%}
+    {%- if pos_m %} --hero-pos-m: {{ pos_m }};{% endif -%}
+    {%- if h %} --hero-h: {{ h }};{% endif -%}
+    {%- if s.intensite_ombre != 100 %} --hero-ombre: {{ s.intensite_ombre | divided_by: 100.0 }};{% endif -%}
+    {%- if s.largeur_titre != 11 %} --hero-titre-l: {{ s.largeur_titre }}ch;{% endif %}
+  }
+</style>
+{%- endif -%}
+<section class="hero{% if s.disposition != blank and s.disposition != 'linea' %} hero--{{ s.disposition }}{% endif %}{% if s.alignement_texte == 'centre' %} hero--align-centre{% endif %}{% if s.hauteur == 'adapte' %} hero--adapte{% endif %}" aria-labelledby="hero-titre-{{ section.id }}">
+  <div class="hero__media">
+    {%- if video -%}
+      {%- if s.video != blank -%}
+        {{ s.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, image_size: '2400x', class: 'hero__video' }}
+      {%- elsif s.video_url.type == 'youtube' -%}
+        <iframe class="hero__iframe" src="https://www.youtube-nocookie.com/embed/{{ s.video_url.id }}?autoplay=1&mute=1&loop=1&playlist={{ s.video_url.id }}&controls=0&playsinline=1&rel=0&modestbranding=1" title="{{ s.alt | escape }}" allow="autoplay; encrypted-media" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
+      {%- else -%}
+        <iframe class="hero__iframe" src="https://player.vimeo.com/video/{{ s.video_url.id }}?background=1&autoplay=1&loop=1&muted=1" title="{{ s.alt | escape }}" allow="autoplay" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
+      {%- endif -%}
+    {%- elsif s.image_mobile != blank -%}
+      <picture>
+        <source media="(max-width: 760px)" srcset="{{ s.image_mobile | image_url: width: 800 }} 800w, {{ s.image_mobile | image_url: width: 1200 }} 1200w" sizes="100vw">
+        {%- render 'image-asset', image: s.image, nom: 'accueil-hero', largeurs: '1200,2400', largeur: 2400, hauteur: 1350, sizes: '(max-width: 760px) 220vw, 100vw', alt: s.alt, eager: true -%}
+      </picture>
+    {%- else -%}
+    {%- render 'image-asset', image: section.settings.image, nom: 'accueil-hero', largeurs: '1200,2400', largeur: 2400, hauteur: 1350, sizes: '(max-width: 760px) 220vw, 100vw', alt: section.settings.alt, eager: true -%}
+    {%- endif %}
+  </div>
+  {%- if s.intensite_ombre != 0 %}
+  <div class="hero__ombre" aria-hidden="true"></div>
+  {%- endif -%}
+  {%- if s.afficher_lame %}
+  <div class="hero__lame" aria-hidden="true"></div>
+  {%- endif %}
+  <div class="wrap hero__corps">
+    <h1 class="hero__titre" id="hero-titre-{{ section.id }}">{{ section.settings.titre }}</h1>
+    {%- if s.afficher_reflet %}
+    <div class="hero__reflet" aria-hidden="true"><span class="hero__titre">{{ section.settings.titre }}</span></div>
+    {%- endif -%}
+    {%- if s.afficher_linea %}
+    <hr class="linea">
+    {%- endif %}
+    <div class="hero__infos">
+      {%- if s.texte != blank %}
+      <p>{{ section.settings.texte }}</p>
+      {%- endif %}
+      <div class="actions">
+        {%- if s.bouton_1 != blank %}
+        <a class="btn btn--{{ s.style_1 | default: 'primary' }}" href="{{ s.lien_1 | default: u_services }}">{{ section.settings.bouton_1 }}{% if s.style_1 == 'fleche' or s.style_1 == 'premium' %}{% render 'icon-arrow' %}{% endif %}</a>
+        {%- endif -%}
+        {%- if s.bouton_2 != blank %}
+        <a class="btn btn--{{ s.style_2 | default: 'secondary' }}" href="{{ s.lien_2 | default: u_contact }}">{{ section.settings.bouton_2 }}{% if s.style_2 == 'fleche' or s.style_2 == 'premium' %}{% render 'icon-arrow' %}{% endif %}</a>
+        {%- endif %}
+      </div>
+    </div>
+  </div>
+</section>

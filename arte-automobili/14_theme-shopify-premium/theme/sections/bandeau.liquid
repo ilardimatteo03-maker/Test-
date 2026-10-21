@@ -1,8 +1,33 @@
-{%- assign u_contact = pages['contact'].url | default: '/pages/contact' -%}
-<section class="bandeau" aria-labelledby="bandeau-titre-{{ section.id }}">
+{%- liquid
+  assign s = section.settings
+  assign u_contact = pages['contact'].url | default: '/pages/contact'
+  assign style_1 = s.bouton_style | default: 'primary'
+  if style_1 == 'defaut'
+    assign style_1 = settings.btn_style_defaut
+  endif
+-%}
+{% render 'section-style', section: section %}
+<section class="bandeau{% if s.disposition == 'centre' %} bandeau--centre{% endif %}" aria-labelledby="bandeau-titre-{{ section.id }}">
   <div class="wrap bandeau__in">
+    {%- if s.surtitre != blank or s.texte != blank %}
+    <div class="bandeau__texte">
+      {%- if s.surtitre != blank %}<p class="label">{{ s.surtitre }}</p>{% endif %}
+      <h2 id="bandeau-titre-{{ section.id }}">{{ section.settings.titre }}</h2>
+      {%- if s.texte != blank %}<p class="bandeau__para">{{ s.texte }}</p>{% endif %}
+    </div>
+    {%- else %}
     <h2 id="bandeau-titre-{{ section.id }}">{{ section.settings.titre }}</h2>
-    <a class="btn btn--primary" href="{{ u_contact }}">{{ section.settings.bouton }}{% render 'icon-arrow' %}</a>
+    {%- endif -%}
+    {%- if s.bouton2_texte != blank %}
+    <div class="actions">
+    {%- endif %}
+    {%- if s.bouton != blank %}
+    <a class="btn btn--{{ style_1 }}" href="{{ s.bouton_lien | default: u_contact }}">{{ section.settings.bouton }}{% if s.afficher_fleche %}{% render 'icon-arrow' %}{% endif %}</a>
+    {%- endif -%}
+    {%- if s.bouton2_texte != blank %}
+      {% render 'bouton', texte: s.bouton2_texte, lien: s.bouton2_lien, style: s.bouton2_style %}
+    </div>
+    {%- endif %}
   </div>
 </section>
 
@@ -10,9 +35,414 @@
 {
   "name": "Bandeau final",
   "settings": [
-    { "type": "text", "id": "titre", "label": "Titre", "default": "Votre véhicule mérite le meilleur." },
-    { "type": "text", "id": "bouton", "label": "Bouton (vers Contact)", "default": "Prendre rendez-vous" }
+    {
+      "type": "text",
+      "id": "titre",
+      "label": "Titre",
+      "default": "Votre véhicule mérite le meilleur."
+    },
+    {
+      "type": "text",
+      "id": "bouton",
+      "label": "Bouton (vers Contact)",
+      "default": "Prendre rendez-vous"
+    },
+    {
+      "type": "url",
+      "id": "bouton_lien",
+      "label": "Lien du bouton",
+      "info": "Vide = page Contact."
+    },
+    {
+      "type": "select",
+      "id": "bouton_style",
+      "label": "Style du bouton",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Style par défaut du thème"
+        },
+        {
+          "value": "primary",
+          "label": "Plein"
+        },
+        {
+          "value": "secondary",
+          "label": "Contour"
+        },
+        {
+          "value": "minimal",
+          "label": "Minimaliste"
+        },
+        {
+          "value": "fleche",
+          "label": "Texte avec flèche"
+        },
+        {
+          "value": "premium",
+          "label": "Premium automobile"
+        }
+      ],
+      "default": "primary"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_fleche",
+      "label": "Flèche dans le bouton",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "surtitre",
+      "label": "Surtitre (facultatif)"
+    },
+    {
+      "type": "textarea",
+      "id": "texte",
+      "label": "Texte (facultatif)"
+    },
+    {
+      "type": "header",
+      "content": "Second bouton (facultatif)"
+    },
+    {
+      "type": "text",
+      "id": "bouton2_texte",
+      "label": "Texte"
+    },
+    {
+      "type": "url",
+      "id": "bouton2_lien",
+      "label": "Lien"
+    },
+    {
+      "type": "select",
+      "id": "bouton2_style",
+      "label": "Style",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Style par défaut du thème"
+        },
+        {
+          "value": "primary",
+          "label": "Plein"
+        },
+        {
+          "value": "secondary",
+          "label": "Contour"
+        },
+        {
+          "value": "minimal",
+          "label": "Minimaliste"
+        },
+        {
+          "value": "fleche",
+          "label": "Texte avec flèche"
+        },
+        {
+          "value": "premium",
+          "label": "Premium automobile"
+        }
+      ],
+      "default": "secondary"
+    },
+    {
+      "type": "header",
+      "content": "Mise en page"
+    },
+    {
+      "type": "select",
+      "id": "disposition",
+      "label": "Disposition",
+      "options": [
+        {
+          "value": "cote",
+          "label": "Titre et bouton côte à côte"
+        },
+        {
+          "value": "centre",
+          "label": "Centrée"
+        }
+      ],
+      "default": "cote"
+    },
+    {
+      "type": "select",
+      "id": "taille_titre",
+      "label": "Taille du titre",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "s",
+          "label": "Petite"
+        },
+        {
+          "value": "m",
+          "label": "Moyenne"
+        },
+        {
+          "value": "l",
+          "label": "Grande"
+        },
+        {
+          "value": "xl",
+          "label": "Très grande"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "verde"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "fond_image",
+      "label": "Image d'arrière-plan (facultative)"
+    },
+    {
+      "type": "range",
+      "id": "fond_voile",
+      "label": "Voile sur l'image d'arrière-plan",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "default": 60,
+      "unit": "%"
+    },
+    {
+      "type": "select",
+      "id": "largeur",
+      "label": "Largeur du contenu",
+      "options": [
+        {
+          "value": "contenu",
+          "label": "Largeur du thème"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "pleine",
+          "label": "Pleine largeur"
+        },
+        {
+          "value": "bord",
+          "label": "Bord à bord (sans marges)"
+        }
+      ],
+      "default": "contenu"
+    },
+    {
+      "type": "select",
+      "id": "espace_haut",
+      "label": "Espacement en haut",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_bas",
+      "label": "Espacement en bas",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_mobile",
+      "label": "Espacements sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Proportionnels"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petits"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyens"
+        },
+        {
+          "value": "grand",
+          "label": "Grands"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_haut",
+      "label": "Filet en haut",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_bas",
+      "label": "Filet en bas",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
   ],
-  "presets": [{ "name": "Bandeau final" }]
+  "presets": [
+    {
+      "name": "Bandeau final"
+    },
+    {
+      "name": "Appel à l'action",
+      "settings": {
+        "titre": "Prêt à redonner l'éclat du premier jour ?",
+        "disposition": "centre",
+        "palette": "verdaccio"
+      }
+    },
+    {
+      "name": "Bannière de prise de rendez-vous",
+      "settings": {
+        "surtitre": "Rendez-vous",
+        "titre": "Réservez votre créneau.",
+        "texte": "Choisissez votre prestation, nous confirmons rapidement.",
+        "bouton": "Prendre rendez-vous"
+      }
+    },
+    {
+      "name": "Bandeau promotionnel",
+      "settings": {
+        "titre": "Offre du moment",
+        "texte": "Décrivez ici votre offre.",
+        "palette": "bianco",
+        "bouton": "En profiter"
+      }
+    }
+  ]
 }
 {% endschema %}

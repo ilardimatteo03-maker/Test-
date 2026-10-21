@@ -1,0 +1,78 @@
+{%- liquid
+  assign s = section.settings
+  assign annonces = section.blocks | where: 'type', 'annonce'
+-%}
+{% render 'section-style', section: section %}
+{%- if annonces.size > 0 -%}
+<div class="annonce annonce--{{ s.style }}{% if s.majuscules %} annonce--capitales{% endif %}" data-annonce role="region" aria-label="Annonces" style="--annonce-fs: {{ s.taille }}px; --annonce-h: {{ s.hauteur }}px; --annonce-duree: {{ s.vitesse | times: annonces.size }}s;">
+  <div class="wrap annonce__in">
+    {%- case s.style -%}
+      {%- when 'defilement' -%}
+        <div class="annonce__piste" aria-hidden="false">
+          {%- for i in (1..2) -%}
+            <ul class="annonce__groupe"{% if i == 2 %} aria-hidden="true"{% endif %}>
+              {%- for block in annonces -%}
+                <li class="annonce__item" {{ block.shopify_attributes }}>
+                  {%- if block.settings.lien != blank %}<a href="{{ block.settings.lien }}"{% if i == 2 %} tabindex="-1"{% endif %}>{{ block.settings.texte }}</a>{% else %}<span>{{ block.settings.texte }}</span>{% endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <annonce-rotation class="annonce__rotation" data-intervalle="{{ s.intervalle | times: 1000 }}"{% if s.style == 'fixe' %} data-fixe{% endif %}>
+          {%- if annonces.size > 1 and s.style != 'fixe' -%}
+            <button class="annonce__fleche" type="button" data-prec aria-label="Annonce précédente">{% render 'icone', nom: 'chevron', taille: 16, classe: 'annonce__icone-prec' %}</button>
+          {%- endif -%}
+          <div class="annonce__liste" aria-live="polite">
+            {%- for block in annonces -%}
+              <p class="annonce__item{% if forloop.first %} is-active{% endif %}" {{ block.shopify_attributes }}{% unless forloop.first %} hidden{% endunless %}>
+                {%- if block.settings.lien != blank %}<a href="{{ block.settings.lien }}">{{ block.settings.texte }}</a>{% else %}{{ block.settings.texte }}{% endif -%}
+              </p>
+            {%- endfor -%}
+          </div>
+          {%- if annonces.size > 1 and s.style != 'fixe' -%}
+            <button class="annonce__fleche" type="button" data-suiv aria-label="Annonce suivante">{% render 'icone', nom: 'chevron', taille: 16, classe: 'annonce__icone-suiv' %}</button>
+          {%- endif -%}
+        </annonce-rotation>
+    {%- endcase -%}
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Barre d'annonce",
+  "class": "section-annonce",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "select", "id": "style", "label": "Affichage", "default": "rotation", "options": [
+      { "value": "rotation", "label": "Une annonce à la fois, en alternance" },
+      { "value": "defilement", "label": "Bandeau qui défile" },
+      { "value": "fixe", "label": "Première annonce seulement" }
+    ] },
+    { "type": "range", "id": "intervalle", "label": "Durée d'affichage de chaque annonce", "min": 3, "max": 12, "step": 1, "unit": "s", "default": 5, "visible_if": "{{ section.settings.style == 'rotation' }}" },
+    { "type": "range", "id": "vitesse", "label": "Vitesse du défilement (secondes par annonce)", "min": 4, "max": 30, "step": 1, "unit": "s", "default": 12, "visible_if": "{{ section.settings.style == 'defilement' }}" },
+    { "type": "range", "id": "taille", "label": "Taille du texte", "min": 11, "max": 16, "step": 1, "unit": "px", "default": 12 },
+    { "type": "checkbox", "id": "majuscules", "label": "En majuscules", "default": true },
+    { "type": "range", "id": "hauteur", "label": "Hauteur", "min": 32, "max": 60, "step": 2, "unit": "px", "default": 40 },
+    { "type": "header", "content": "Mise en forme de la section" },
+    { "type": "select", "id": "palette", "label": "Couleurs", "default": "verde", "options": [
+      { "value": "defaut", "label": "Fond général du site" }, { "value": "nero", "label": "Nero (sombre)" }, { "value": "verdaccio", "label": "Verdaccio (gris profond)" },
+      { "value": "verde", "label": "Verde (vert de marque)" }, { "value": "bianco", "label": "Bianco (clair)" }, { "value": "travertino", "label": "Travertino (clair chaud)" }, { "value": "perso", "label": "Personnalisées" }
+    ] },
+    { "type": "color", "id": "couleur_fond", "label": "Fond personnalisé", "visible_if": "{{ section.settings.palette == 'perso' }}" },
+    { "type": "color", "id": "couleur_texte", "label": "Texte personnalisé", "visible_if": "{{ section.settings.palette == 'perso' }}" },
+    { "type": "checkbox", "id": "afficher_ordinateur", "label": "Afficher sur ordinateur et tablette", "default": true },
+    { "type": "checkbox", "id": "afficher_mobile", "label": "Afficher sur mobile", "default": true }
+  ],
+  "blocks": [
+    { "type": "annonce", "name": "Annonce", "settings": [
+      { "type": "text", "id": "texte", "label": "Texte", "default": "Prise de rendez-vous en ligne" },
+      { "type": "url", "id": "lien", "label": "Lien (facultatif)" }
+    ] }
+  ],
+  "presets": [ { "name": "Barre d'annonce", "blocks": [ { "type": "annonce" } ] } ],
+  "enabled_on": { "groups": ["header"] }
+}
+{% endschema %}
