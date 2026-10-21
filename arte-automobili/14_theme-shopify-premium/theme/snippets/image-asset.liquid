@@ -1,0 +1,21 @@
+{%- comment -%}
+  Image responsive. Si « image » (image téléversée dans Shopify) est fournie, elle est utilisée ;
+  sinon le visuel du thème « nom-LARGEUR.jpg » pour chaque largeur de « largeurs ».
+  Paramètres : image, nom, largeurs ("800,1600"), largeur, hauteur, sizes, alt, eager (true/false), style.
+{%- endcomment -%}
+{%- liquid
+  if eager
+    assign chargement = 'eager'
+    assign priorite = 'high'
+  else
+    assign chargement = 'lazy'
+    assign priorite = 'auto'
+  endif
+-%}
+{%- if image != blank -%}
+  {{ image | image_url: width: 2400 | image_tag: widths: '480, 800, 1200, 1600, 2400', sizes: sizes, alt: alt, loading: chargement, fetchpriority: priorite, style: style }}
+{%- else -%}
+  {%- assign ls = largeurs | split: ',' -%}
+  {%- capture srcset -%}{%- for l in ls -%}{{ nom | append: '-' | append: l | append: '.jpg' | asset_url }} {{ l }}w{% unless forloop.last %}, {% endunless %}{%- endfor -%}{%- endcapture -%}
+  <img src="{{ nom | append: '-' | append: ls.last | append: '.jpg' | asset_url }}" srcset="{{ srcset }}" sizes="{{ sizes }}" alt="{{ alt | escape }}" width="{{ largeur }}" height="{{ hauteur }}" loading="{{ chargement }}" fetchpriority="{{ priorite }}" decoding="async"{% if style %} style="{{ style }}"{% endif %}>
+{%- endif -%}

@@ -1,0 +1,21 @@
+<section class="section section--tight"><div class="wrap" style="max-width:560px">
+  <div class="page-head" style="padding-top:0"><h1 class="h2">Connexion</h1></div>
+  {%- form 'customer_login', novalidate: 'novalidate' -%}
+    {%- if form.errors -%}<p class="notice notice--error">{{ form.errors | default_errors }}</p>{%- endif -%}
+    <div class="field" style="margin-bottom:22px"><label for="email">E-mail</label><input id="email" type="email" name="customer[email]" autocomplete="email" required></div>
+    <div class="field" style="margin-bottom:28px"><label for="password">Mot de passe</label><input id="password" type="password" name="customer[password]" autocomplete="current-password" required></div>
+    <button class="btn btn--primary" type="submit">Se connecter</button>
+    <p style="margin-top:24px"><a class="link" href="#recover" onclick="document.getElementById('recover').hidden=false;return false;">Mot de passe oublié</a> &nbsp; <a class="link" href="{{ routes.account_register_url }}">Créer un compte</a></p>
+  {%- endform -%}
+  <div id="recover" hidden style="margin-top:40px">
+    {%- form 'recover_customer_password' -%}
+      {%- if form.posted_successfully? -%}<p class="notice">Un e-mail de réinitialisation vous a été envoyé.</p>{%- endif -%}
+      <div class="field" style="margin-bottom:22px"><label for="recover-email">E-mail</label><input id="recover-email" type="email" name="email" autocomplete="email" required></div>
+      <button class="btn btn--secondary" type="submit">Réinitialiser</button>
+    {%- endform -%}
+  </div>
+  {%- if shop.checkout.guest_login -%}
+    <hr class="linea" style="margin:40px 0 28px">
+    {%- form 'guest_login' -%}<button class="btn btn--secondary" type="submit">Continuer sans compte</button>{%- endform -%}
+  {%- endif -%}
+</div></section>

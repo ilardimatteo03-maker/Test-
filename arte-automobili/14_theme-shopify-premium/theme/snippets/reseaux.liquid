@@ -1,0 +1,12 @@
+{%- comment -%} Liens vers les réseaux renseignés dans les réglages. Paramètre : element ("li" ou vide). {%- endcomment -%}
+{%- liquid
+  assign noms = 'Instagram|Facebook|TikTok|LinkedIn' | split: '|'
+  assign cles = 'instagram|facebook|tiktok|linkedin' | split: '|'
+-%}
+{%- for cle in cles -%}
+  {%- if settings[cle] != blank -%}
+    {%- if element == 'li' %}<li>{% endif -%}
+    <a href="{{ settings[cle] }}" rel="noopener" target="_blank">{{ noms[forloop.index0] }}<span class="visually-hidden"> (nouvel onglet)</span></a>
+    {%- if element == 'li' %}</li>{% endif -%}
+  {%- endif -%}
+{%- endfor -%}

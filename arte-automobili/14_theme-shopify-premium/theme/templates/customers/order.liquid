@@ -1,0 +1,19 @@
+<section class="section section--tight"><div class="wrap">
+  <p class="crumbs"><a href="{{ routes.account_url }}">Compte</a> / {{ order.name }}</p>
+  <div class="page-head" style="padding-top:0"><h1 class="h2">Commande <em>{{ order.name }}</em></h1>
+    <p class="mono" style="margin:12px 0 0;font-size:13px;color:var(--argento)">{{ order.created_at | date: '%d.%m.%Y' }} · {{ order.financial_status_label | upcase }} · {{ order.fulfillment_status_label | upcase }}</p></div>
+  {%- for item in order.line_items -%}
+    <div class="cart-row" style="grid-template-columns:minmax(0,1fr) auto auto">
+      <span class="cart-row__title">{{ item.title }}</span><span class="mono">× {{ item.quantity }}</span><span class="price">{{ item.final_line_price | money }}</span>
+    </div>
+  {%- endfor -%}
+  <div class="cart-sum" style="position:static;margin-top:32px;max-width:480px;margin-left:auto">
+    <div style="display:flex;justify-content:space-between"><span>Sous-total</span><span class="price">{{ order.line_items_subtotal_price | money }}</span></div>
+    {%- for s in order.shipping_methods -%}<div style="display:flex;justify-content:space-between"><span>{{ s.title }}</span><span class="price">{{ s.price | money }}</span></div>{%- endfor -%}
+    <div class="cart-sum__total"><span>Total</span><span>{{ order.total_price | money }}</span></div>
+  </div>
+  <div class="grid-2" style="margin-top:48px;align-items:start">
+    <div><p class="label">Livraison</p><p>{{ order.shipping_address | format_address }}</p></div>
+    <div><p class="label">Facturation</p><p>{{ order.billing_address | format_address }}</p></div>
+  </div>
+</div></section>

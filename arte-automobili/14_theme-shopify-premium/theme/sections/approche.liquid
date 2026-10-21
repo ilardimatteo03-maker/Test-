@@ -1,0 +1,26 @@
+<section class="section section--filet approche" aria-labelledby="approche-titre-{{ section.id }}">
+  <div class="wrap approche__grille">
+    <div class="approche__texte reveal">
+      {%- if section.settings.surtitre != blank %}<p class="label">{{ section.settings.surtitre }}</p>{% endif -%}
+      <h2 id="approche-titre-{{ section.id }}">{{ section.settings.titre }}</h2>
+      {%- if section.settings.texte != blank %}<p>{{ section.settings.texte }}</p>{% endif -%}
+    </div>
+    <div class="approche__media reveal">
+      {%- render 'image-asset', image: section.settings.image, nom: 'accueil-approche', largeurs: '800,1080', largeur: 1080, hauteur: 1350, sizes: '(min-width: 990px) 40vw, 100vw', alt: section.settings.alt -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Approche",
+  "settings": [
+    { "type": "text", "id": "surtitre", "label": "Surtitre", "default": "Notre approche" },
+    { "type": "inline_richtext", "id": "titre", "label": "Titre", "default": "Chaque surface mérite la même <em>attention</em>." },
+    { "type": "text", "id": "texte", "label": "Phrase", "default": "Nous traitons chaque véhicule avec méthode, de la première surface à la dernière finition." },
+    { "type": "image_picker", "id": "image", "label": "Image (portrait 4:5)" },
+    { "type": "text", "id": "alt", "label": "Description de l'image", "default": "Jante sombre d'un coupé noir, soulignée par un filet de lumière" }
+  ],
+  "presets": [{ "name": "Approche" }]
+}
+{% endschema %}

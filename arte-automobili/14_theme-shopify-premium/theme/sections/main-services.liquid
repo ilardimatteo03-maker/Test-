@@ -1,0 +1,22 @@
+<header class="entete wrap">
+  {%- if section.settings.surtitre != blank %}<p class="label">{{ section.settings.surtitre }}</p>{% endif -%}
+  <h1>{{ section.settings.titre }}</h1>
+  {%- if section.settings.texte != blank %}<p class="entete__texte">{{ section.settings.texte }}</p>{% endif -%}
+</header>
+<div class="wrap prestations">
+  {%- for i in (1..4) -%}{% render 'prestation', i: i, mode: 'ligne' %}{%- endfor -%}
+  {%- if section.settings.note != blank %}<p class="note">{{ section.settings.note }}</p>{% endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Services et tarifs",
+  "settings": [
+    { "type": "paragraph", "content": "Noms, prix, descriptions et photos : Réglages du thème › Prestations et tarifs." },
+    { "type": "text", "id": "surtitre", "label": "Surtitre", "default": "Services" },
+    { "type": "inline_richtext", "id": "titre", "label": "Titre", "default": "Services et <em>tarifs</em>." },
+    { "type": "text", "id": "texte", "label": "Introduction", "default": "Des prestations claires, des tarifs affichés." },
+    { "type": "textarea", "id": "note", "label": "Note sous les prestations", "default": "Les modalités de prise en charge et les éventuelles prestations complémentaires sont à confirmer lors de la réservation." }
+  ]
+}
+{% endschema %}
