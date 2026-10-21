@@ -1,0 +1,28 @@
+{%- assign s = section.settings -%}
+{% render 'section-style', section: section %}
+<section class="section s-avant-apres"{% if s.titre != blank %} aria-labelledby="titre-{{ section.id }}"{% endif %}>
+  <div class="wrap">
+    {% render 'tete-section', s: s, id: section.id %}
+    <div class="grille s-avant-apres__grille" style="{% render 'grille-style', s: s %}">
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        <figure class="s-avant-apres__item reveal" {{ block.shopify_attributes }}>
+          <avant-apres class="comparateur media-cadre" style="--position: {{ b.position }}%;">
+            <div class="comparateur__apres">
+              {% render 'media', image: b.image_apres, alt: b.alt_apres, sizes: '(min-width: 990px) 50vw, 100vw' %}
+              <span class="comparateur__etiquette comparateur__etiquette--apres" aria-hidden="true">{{ s.libelle_apres }}</span>
+            </div>
+            <div class="comparateur__avant" aria-hidden="false">
+              {% render 'media', image: b.image_avant, alt: b.alt_avant, sizes: '(min-width: 990px) 50vw, 100vw' %}
+              <span class="comparateur__etiquette comparateur__etiquette--avant" aria-hidden="true">{{ s.libelle_avant }}</span>
+            </div>
+            <span class="comparateur__poignee" aria-hidden="true"><span></span></span>
+            <label class="visually-hidden" for="cmp-{{ block.id }}">Comparer {{ s.libelle_avant | downcase }} et {{ s.libelle_apres | downcase }}</label>
+            <input class="comparateur__curseur" id="cmp-{{ block.id }}" type="range" min="0" max="100" value="{{ b.position }}" step="1">
+          </avant-apres>
+          {%- if b.legende != blank %}<figcaption class="s-avant-apres__legende">{{ b.legende }}</figcaption>{% endif -%}
+        </figure>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>

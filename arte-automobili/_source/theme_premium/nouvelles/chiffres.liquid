@@ -1,0 +1,21 @@
+{%- assign s = section.settings -%}
+{% render 'section-style', section: section %}
+<section class="section s-chiffres"{% if s.titre != blank %} aria-labelledby="titre-{{ section.id }}"{% endif %}>
+  <div class="wrap">
+    {% render 'tete-section', s: s, id: section.id %}
+    <dl class="grille s-chiffres__grille" style="{% render 'grille-style', s: s %}">
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        <div class="s-chiffres__item reveal" {{ block.shopify_attributes }}>
+          <dt class="s-chiffres__libelle">{{ b.libelle }}</dt>
+          <dd class="s-chiffres__valeur">
+            {%- if b.prefixe != blank %}<span class="s-chiffres__affixe">{{ b.prefixe }}</span>{% endif -%}
+            {%- if s.compteur -%}<compteur-anime data-valeur="{{ b.valeur }}">{{ b.valeur }}</compteur-anime>{%- else -%}{{ b.valeur }}{%- endif -%}
+            {%- if b.suffixe != blank %}<span class="s-chiffres__affixe">{{ b.suffixe }}</span>{% endif -%}
+          </dd>
+          {%- if b.detail != blank %}<dd class="s-chiffres__detail">{{ b.detail }}</dd>{% endif -%}
+        </div>
+      {%- endfor -%}
+    </dl>
+  </div>
+</section>

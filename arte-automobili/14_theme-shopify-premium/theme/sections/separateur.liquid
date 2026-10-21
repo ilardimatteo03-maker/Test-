@@ -1,0 +1,155 @@
+{%- assign s = section.settings -%}
+{% render 'section-style', section: section %}
+<div class="s-separateur s-separateur--{{ s.style }}" style="--sep-h: {{ s.espacement }}px; --sep-h-m: {{ s.espacement_m }}px;" role="presentation">
+  <div class="{% if s.pleine_largeur %}s-separateur__plein{% else %}wrap{% endif %}">
+    {%- case s.style -%}
+      {%- when 'monogramme' -%}
+        <div class="s-separateur__monogramme"><span></span><img src="{{ 'monogramme-bianco.svg' | asset_url }}" alt="" width="24" height="32" loading="lazy"><span></span></div>
+      {%- when 'lame' -%}
+        <div class="s-separateur__lame"></div>
+      {%- when 'court' -%}
+        <hr class="s-separateur__court">
+      {%- else -%}
+        <hr class="s-separateur__filet">
+    {%- endcase -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Séparateur",
+  "tag": "div",
+  "class": "section-bibliotheque",
+  "settings": [
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Style",
+      "options": [
+        {
+          "value": "filet",
+          "label": "Filet fin"
+        },
+        {
+          "value": "monogramme",
+          "label": "Filet et monogramme"
+        },
+        {
+          "value": "lame",
+          "label": "Lame de lumière"
+        },
+        {
+          "value": "court",
+          "label": "Filet court centré"
+        }
+      ],
+      "default": "filet"
+    },
+    {
+      "type": "checkbox",
+      "id": "pleine_largeur",
+      "label": "Pleine largeur",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "espacement",
+      "label": "Espace au-dessus et au-dessous (ordinateur)",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "default": 48,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "espacement_m",
+      "label": "Espace au-dessus et au-dessous (mobile)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Séparateur"
+    }
+  ]
+}
+{% endschema %}

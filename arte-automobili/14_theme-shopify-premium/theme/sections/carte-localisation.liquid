@@ -1,0 +1,383 @@
+{%- liquid
+  assign s = section.settings
+  assign adresse = s.adresse | default: settings.adresse
+  assign url_carte = adresse | url_encode | prepend: 'https://maps.google.com/maps?q=' | append: '&z=' | append: s.zoom | append: '&output=embed'
+  assign url_itineraire = adresse | url_encode | prepend: 'https://www.google.com/maps/dir/?api=1&destination='
+-%}
+{% render 'section-style', section: section %}
+<section class="section s-carte s-carte--{{ s.disposition }}"{% if s.titre != blank %} aria-labelledby="titre-{{ section.id }}"{% endif %}>
+  <div class="wrap s-carte__grille">
+    {%- if s.titre != blank or s.texte != blank or s.surtitre != blank or s.afficher_adresse -%}
+      <div class="s-carte__texte">
+        {% render 'tete-section', s: s, id: section.id %}
+        {%- if s.afficher_adresse and adresse != blank %}<p class="s-carte__adresse">{% render 'icone', nom: 'localisation', taille: 20 %}<span>{{ adresse }}</span></p>{% endif -%}
+        {%- if adresse != blank %}<div class="actions">{% render 'bouton', texte: s.bouton_itineraire, lien: url_itineraire, style: 'secondary', icone: 'localisation', nouvel_onglet: true %}</div>{% endif -%}
+      </div>
+    {%- endif -%}
+    <div class="s-carte__cadre" style="--carte-h: {{ s.hauteur }}px;">
+      {%- if adresse != blank -%}
+        <carte-differee class="s-carte__differee" data-src="{{ url_carte }}" data-titre="Carte : {{ adresse | escape }}"{% if s.chargement_clic == false %} data-auto{% endif %}>
+          {%- if s.image != blank %}{% render 'media', image: s.image, alt: '', sizes: '100vw' %}{% endif -%}
+          <div class="s-carte__consentement">
+            <p>{{ s.texte_consentement }}</p>
+            <button class="btn btn--secondary btn--petit" type="button" data-charger>{% render 'icone', nom: 'localisation', taille: 18, classe: 'icon icon--fixe' %}<span>Afficher la carte</span></button>
+          </div>
+        </carte-differee>
+      {%- elsif request.design_mode -%}
+        <p class="notice">Indiquez une adresse ici ou dans Réglages du thème › Coordonnées pour afficher la carte.</p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Carte et localisation",
+  "tag": "div",
+  "class": "section-bibliotheque",
+  "settings": [
+    {
+      "type": "text",
+      "id": "surtitre",
+      "label": "Surtitre",
+      "default": "Accès"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titre",
+      "label": "Titre",
+      "default": "Nous <em>trouver</em>."
+    },
+    {
+      "type": "richtext",
+      "id": "texte",
+      "label": "Texte d'introduction"
+    },
+    {
+      "type": "text",
+      "id": "adresse",
+      "label": "Adresse affichée sur la carte",
+      "info": "Vide = adresse des Réglages du thème."
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_adresse",
+      "label": "Afficher l'adresse en texte",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "bouton_itineraire",
+      "label": "Texte du bouton d'itinéraire",
+      "default": "Itinéraire"
+    },
+    {
+      "type": "range",
+      "id": "zoom",
+      "label": "Niveau de zoom",
+      "min": 8,
+      "max": 19,
+      "step": 1,
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "hauteur",
+      "label": "Hauteur de la carte",
+      "min": 240,
+      "max": 720,
+      "step": 20,
+      "default": 440,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "disposition",
+      "label": "Disposition",
+      "options": [
+        {
+          "value": "cote",
+          "label": "Texte à côté de la carte"
+        },
+        {
+          "value": "pile",
+          "label": "Texte au-dessus"
+        },
+        {
+          "value": "carte",
+          "label": "Carte seule"
+        }
+      ],
+      "default": "cote"
+    },
+    {
+      "type": "checkbox",
+      "id": "chargement_clic",
+      "label": "Charger la carte seulement au clic (recommandé, RGPD)",
+      "default": true,
+      "info": "Google Maps dépose des cookies : le visiteur choisit de l'afficher."
+    },
+    {
+      "type": "text",
+      "id": "texte_consentement",
+      "label": "Texte avant chargement",
+      "default": "La carte est fournie par Google Maps."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image de fond avant chargement (facultative)"
+    },
+    {
+      "type": "select",
+      "id": "taille_titre",
+      "label": "Taille du titre",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "s",
+          "label": "Petite"
+        },
+        {
+          "value": "m",
+          "label": "Moyenne"
+        },
+        {
+          "value": "l",
+          "label": "Grande"
+        },
+        {
+          "value": "xl",
+          "label": "Très grande"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "fond_image",
+      "label": "Image d'arrière-plan (facultative)"
+    },
+    {
+      "type": "range",
+      "id": "fond_voile",
+      "label": "Voile sur l'image d'arrière-plan",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "default": 60,
+      "unit": "%"
+    },
+    {
+      "type": "select",
+      "id": "largeur",
+      "label": "Largeur du contenu",
+      "options": [
+        {
+          "value": "contenu",
+          "label": "Largeur du thème"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "pleine",
+          "label": "Pleine largeur"
+        },
+        {
+          "value": "bord",
+          "label": "Bord à bord (sans marges)"
+        }
+      ],
+      "default": "contenu"
+    },
+    {
+      "type": "select",
+      "id": "espace_haut",
+      "label": "Espacement en haut",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_bas",
+      "label": "Espacement en bas",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_mobile",
+      "label": "Espacements sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Proportionnels"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petits"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyens"
+        },
+        {
+          "value": "grand",
+          "label": "Grands"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_haut",
+      "label": "Filet en haut",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_bas",
+      "label": "Filet en bas",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Carte et localisation"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,409 @@
+{%- liquid
+  assign s = section.settings
+  assign horaires = section.blocks | where: 'type', 'horaire'
+  assign a_coord = false
+  if settings.telephone != blank or settings.email != blank or settings.adresse != blank or settings.zone != blank
+    assign a_coord = true
+  endif
+  assign lien_tel = settings.telephone | remove: ' ' | remove: '.' | prepend: 'tel:'
+  assign lien_mail = settings.email | prepend: 'mailto:'
+-%}
+{% render 'section-style', section: section %}
+<section class="section s-coordonnees s-coordonnees--{{ s.disposition }}"{% if s.titre != blank %} aria-labelledby="titre-{{ section.id }}"{% endif %}>
+  <div class="wrap s-coordonnees__grille">
+    <div class="s-coordonnees__intro">
+      {% render 'tete-section', s: s, id: section.id %}
+      {%- if s.afficher_boutons -%}
+        <div class="actions">
+          {%- if settings.telephone != blank %}{% render 'bouton', texte: s.bouton_appeler, lien: lien_tel, style: 'primary', icone: 'telephone' %}{% endif -%}
+          {%- if settings.email != blank %}{% render 'bouton', texte: s.bouton_ecrire, lien: lien_mail, style: 'secondary', icone: 'email' %}{% endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+    <div class="s-coordonnees__carte{% if s.disposition == 'carte' %} sur-accent{% endif %}">
+      {%- if a_coord -%}
+        <dl class="coordonnees s-coordonnees__liste">
+          {%- if settings.telephone != blank %}<div><dt>{% render 'icone', nom: 'telephone', taille: 18 %}Téléphone</dt><dd><a href="tel:{{ settings.telephone | remove: ' ' | remove: '.' }}">{{ settings.telephone }}</a></dd></div>{% endif -%}
+          {%- if settings.email != blank %}<div><dt>{% render 'icone', nom: 'email', taille: 18 %}E-mail</dt><dd><a href="mailto:{{ settings.email }}">{{ settings.email }}</a></dd></div>{% endif -%}
+          {%- if settings.adresse != blank %}<div><dt>{% render 'icone', nom: 'localisation', taille: 18 %}Adresse</dt><dd>{{ settings.adresse }}</dd></div>{% endif -%}
+          {%- if settings.zone != blank %}<div><dt>{% render 'icone', nom: 'collecte-livraison', taille: 18 %}Zone</dt><dd>{{ settings.zone }}</dd></div>{% endif -%}
+        </dl>
+      {%- elsif request.design_mode -%}
+        <p class="notice">Renseignez vos coordonnées dans Réglages du thème › Coordonnées : elles s'afficheront ici.</p>
+      {%- endif -%}
+      {%- if horaires.size > 0 -%}
+        <div class="s-coordonnees__horaires">
+          <p class="label">{% render 'icone', nom: 'horaires', taille: 16 %} {{ s.titre_horaires }}</p>
+          <dl>
+            {%- for block in horaires -%}
+              <div {{ block.shopify_attributes }}><dt>{{ block.settings.jours }}</dt><dd>{{ block.settings.heures }}</dd></div>
+            {%- endfor -%}
+          </dl>
+        </div>
+      {%- elsif settings.horaires != blank -%}
+        <div class="s-coordonnees__horaires"><p class="label">{% render 'icone', nom: 'horaires', taille: 16 %} {{ s.titre_horaires }}</p><p>{{ settings.horaires }}</p></div>
+      {%- endif -%}
+      {%- if s.afficher_reseaux %}<p class="s-coordonnees__reseaux">{% render 'reseaux', icones: true %}</p>{% endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Coordonnées et horaires",
+  "tag": "div",
+  "class": "section-bibliotheque",
+  "settings": [
+    {
+      "type": "text",
+      "id": "surtitre",
+      "label": "Surtitre",
+      "default": "Nous trouver"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titre",
+      "label": "Titre",
+      "default": "Coordonnées et <em>horaires</em>."
+    },
+    {
+      "type": "richtext",
+      "id": "texte",
+      "label": "Texte d'introduction"
+    },
+    {
+      "type": "paragraph",
+      "content": "Les coordonnées viennent de Réglages du thème › Coordonnées. Ajoutez un bloc par ligne d'horaires."
+    },
+    {
+      "type": "select",
+      "id": "disposition",
+      "label": "Disposition",
+      "options": [
+        {
+          "value": "colonnes",
+          "label": "Deux colonnes"
+        },
+        {
+          "value": "carte",
+          "label": "Encadré Verde (carte de contact)"
+        }
+      ],
+      "default": "colonnes"
+    },
+    {
+      "type": "text",
+      "id": "titre_horaires",
+      "label": "Titre des horaires",
+      "default": "Horaires"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_boutons",
+      "label": "Boutons Appeler / Écrire",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "bouton_appeler",
+      "label": "Texte du bouton d'appel",
+      "default": "Appeler"
+    },
+    {
+      "type": "text",
+      "id": "bouton_ecrire",
+      "label": "Texte du bouton e-mail",
+      "default": "Écrire"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_reseaux",
+      "label": "Réseaux sociaux",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "taille_titre",
+      "label": "Taille du titre",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "s",
+          "label": "Petite"
+        },
+        {
+          "value": "m",
+          "label": "Moyenne"
+        },
+        {
+          "value": "l",
+          "label": "Grande"
+        },
+        {
+          "value": "xl",
+          "label": "Très grande"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "fond_image",
+      "label": "Image d'arrière-plan (facultative)"
+    },
+    {
+      "type": "range",
+      "id": "fond_voile",
+      "label": "Voile sur l'image d'arrière-plan",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "default": 60,
+      "unit": "%"
+    },
+    {
+      "type": "select",
+      "id": "largeur",
+      "label": "Largeur du contenu",
+      "options": [
+        {
+          "value": "contenu",
+          "label": "Largeur du thème"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "pleine",
+          "label": "Pleine largeur"
+        },
+        {
+          "value": "bord",
+          "label": "Bord à bord (sans marges)"
+        }
+      ],
+      "default": "contenu"
+    },
+    {
+      "type": "select",
+      "id": "espace_haut",
+      "label": "Espacement en haut",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_bas",
+      "label": "Espacement en bas",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_mobile",
+      "label": "Espacements sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Proportionnels"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petits"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyens"
+        },
+        {
+          "value": "grand",
+          "label": "Grands"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_haut",
+      "label": "Filet en haut",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_bas",
+      "label": "Filet en bas",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "horaire",
+      "name": "Ligne d'horaires",
+      "settings": [
+        {
+          "type": "text",
+          "id": "jours",
+          "label": "Jours",
+          "default": "Lundi – vendredi"
+        },
+        {
+          "type": "text",
+          "id": "heures",
+          "label": "Heures",
+          "default": "[Horaires à compléter]"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Coordonnées et horaires",
+      "blocks": [
+        {
+          "type": "horaire"
+        }
+      ]
+    },
+    {
+      "name": "Carte de contact",
+      "settings": {
+        "disposition": "carte",
+        "titre": "Parlons de votre <em>véhicule</em>."
+      }
+    }
+  ]
+}
+{% endschema %}

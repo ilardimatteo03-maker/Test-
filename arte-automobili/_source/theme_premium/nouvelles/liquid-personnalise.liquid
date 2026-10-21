@@ -1,0 +1,7 @@
+{%- assign s = section.settings -%}
+{% render 'section-style', section: section %}
+<div class="s-liquid{% if s.marges %} section{% endif %}">
+  <div class="{% if s.conteneur %}wrap{% endif %}">
+    {{ s.code }}
+  </div>
+</div>

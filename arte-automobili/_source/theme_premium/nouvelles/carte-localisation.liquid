@@ -1,0 +1,31 @@
+{%- liquid
+  assign s = section.settings
+  assign adresse = s.adresse | default: settings.adresse
+  assign url_carte = adresse | url_encode | prepend: 'https://maps.google.com/maps?q=' | append: '&z=' | append: s.zoom | append: '&output=embed'
+  assign url_itineraire = adresse | url_encode | prepend: 'https://www.google.com/maps/dir/?api=1&destination='
+-%}
+{% render 'section-style', section: section %}
+<section class="section s-carte s-carte--{{ s.disposition }}"{% if s.titre != blank %} aria-labelledby="titre-{{ section.id }}"{% endif %}>
+  <div class="wrap s-carte__grille">
+    {%- if s.titre != blank or s.texte != blank or s.surtitre != blank or s.afficher_adresse -%}
+      <div class="s-carte__texte">
+        {% render 'tete-section', s: s, id: section.id %}
+        {%- if s.afficher_adresse and adresse != blank %}<p class="s-carte__adresse">{% render 'icone', nom: 'localisation', taille: 20 %}<span>{{ adresse }}</span></p>{% endif -%}
+        {%- if adresse != blank %}<div class="actions">{% render 'bouton', texte: s.bouton_itineraire, lien: url_itineraire, style: 'secondary', icone: 'localisation', nouvel_onglet: true %}</div>{% endif -%}
+      </div>
+    {%- endif -%}
+    <div class="s-carte__cadre" style="--carte-h: {{ s.hauteur }}px;">
+      {%- if adresse != blank -%}
+        <carte-differee class="s-carte__differee" data-src="{{ url_carte }}" data-titre="Carte : {{ adresse | escape }}"{% if s.chargement_clic == false %} data-auto{% endif %}>
+          {%- if s.image != blank %}{% render 'media', image: s.image, alt: '', sizes: '100vw' %}{% endif -%}
+          <div class="s-carte__consentement">
+            <p>{{ s.texte_consentement }}</p>
+            <button class="btn btn--secondary btn--petit" type="button" data-charger>{% render 'icone', nom: 'localisation', taille: 18, classe: 'icon icon--fixe' %}<span>Afficher la carte</span></button>
+          </div>
+        </carte-differee>
+      {%- elsif request.design_mode -%}
+        <p class="notice">Indiquez une adresse ici ou dans Réglages du thème › Coordonnées pour afficher la carte.</p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>

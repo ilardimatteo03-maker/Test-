@@ -49,13 +49,13 @@
       {%- when 'l' %} --titre-taille: var(--h1);
       {%- when 'xl' %} --titre-taille: calc(var(--h1) * 1.2);
     {%- endcase -%}
-    {%- if s.alignement != blank %} --sec-align: {{ s.alignement }};{% endif %}
+    {%- if s.alignement != blank %} --sec-align: {{ s.alignement }};{% render 'alignement-vars', a: s.alignement %}{% endif %}
   }
   @media (max-width: 760px) {
     {{ sel }} {
       {%- if pt_m != '' %} --sec-pt: {{ pt_m | times: 1 }}px;{% endif -%}
       {%- if pb_m != '' %} --sec-pb: {{ pb_m | times: 1 }}px;{% endif -%}
-      {%- if s.alignement_mobile != blank and s.alignement_mobile != 'auto' %} --sec-align: {{ s.alignement_mobile }};{% endif %}
+      {%- if s.alignement_mobile != blank and s.alignement_mobile != 'auto' %} --sec-align: {{ s.alignement_mobile }};{% render 'alignement-vars', a: s.alignement_mobile %}{% endif %}
     }
     {%- if s.afficher_mobile == false %} {{ sel }} { display: none; }{% endif %}
   }

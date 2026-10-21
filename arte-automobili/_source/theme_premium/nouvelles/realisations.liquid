@@ -1,0 +1,34 @@
+{%- assign s = section.settings -%}
+{% render 'section-style', section: section %}
+<section class="section s-realisations"{% if s.titre != blank %} aria-labelledby="titre-{{ section.id }}"{% endif %}>
+  <div class="wrap">
+    {% render 'tete-section', s: s, id: section.id %}
+    <ul class="grille s-realisations__grille s-realisations--{{ s.legende }}" style="{% render 'grille-style', s: s %}" role="list">
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        {%- if b.image != blank or request.design_mode -%}
+          <li class="s-realisations__item reveal" {{ block.shopify_attributes }}>
+            <figure class="s-realisations__figure">
+              {%- if s.agrandir and b.image != blank -%}
+                <button class="s-realisations__agrandir media-cadre" type="button" data-agrandir="{{ b.image | image_url: width: 2400 }}" data-legende="{{ b.titre | escape }}" aria-label="Agrandir : {{ b.titre | default: b.image.alt | escape }}">
+                  {% render 'media', image: b.image, alt: b.titre, sizes: '(min-width: 990px) 33vw, (min-width: 760px) 50vw, 100vw' %}
+                </button>
+              {%- else -%}
+                <div class="media-cadre">{% render 'media', image: b.image, alt: b.titre, sizes: '(min-width: 990px) 33vw, (min-width: 760px) 50vw, 100vw' %}</div>
+              {%- endif -%}
+              {%- if b.titre != blank or b.prestation != blank or b.texte != blank -%}
+                <figcaption class="s-realisations__legende">
+                  {%- if b.prestation != blank %}<span class="s-realisations__presta">{{ b.prestation }}</span>{% endif -%}
+                  {%- if b.titre != blank %}<span class="s-realisations__titre">{{ b.titre }}</span>{% endif -%}
+                  {%- if b.texte != blank %}<span class="s-realisations__texte">{{ b.texte }}</span>{% endif -%}
+                  {%- if b.lien != blank %}<a class="lien" href="{{ b.lien }}"><span>{{ b.lien_texte | default: 'Voir' }}</span>{% render 'icon-arrow' %}</a>{% endif -%}
+                </figcaption>
+              {%- endif -%}
+            </figure>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+  {%- if s.agrandir %}{% render 'visionneuse' %}{% endif -%}
+</section>

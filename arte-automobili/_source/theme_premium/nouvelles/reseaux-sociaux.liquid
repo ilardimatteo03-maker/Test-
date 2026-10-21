@@ -1,0 +1,13 @@
+{%- assign s = section.settings -%}
+{% render 'section-style', section: section %}
+<section class="section s-reseaux s-reseaux--{{ s.style }}"{% if s.titre != blank %} aria-labelledby="titre-{{ section.id }}"{% endif %}>
+  <div class="wrap">
+    {% render 'tete-section', s: s, id: section.id %}
+    {%- capture liens -%}{% if s.style == 'icones' %}{% render 'reseaux', icones: true %}{% else %}{% render 'reseaux', avec_nom: true %}{% endif %}{%- endcapture -%}
+    {%- if liens != blank -%}
+      <p class="s-reseaux__liens" style="--reseau-taille: {{ s.taille }}px;">{{ liens }}</p>
+    {%- elsif request.design_mode -%}
+      <p class="notice">Ajoutez vos profils dans Réglages du thème › Réseaux sociaux.</p>
+    {%- endif -%}
+  </div>
+</section>

@@ -1,0 +1,400 @@
+{%- assign s = section.settings -%}
+{% render 'section-style', section: section %}
+<section class="section s-chiffres"{% if s.titre != blank %} aria-labelledby="titre-{{ section.id }}"{% endif %}>
+  <div class="wrap">
+    {% render 'tete-section', s: s, id: section.id %}
+    <dl class="grille s-chiffres__grille" style="{% render 'grille-style', s: s %}">
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        <div class="s-chiffres__item reveal" {{ block.shopify_attributes }}>
+          <dt class="s-chiffres__libelle">{{ b.libelle }}</dt>
+          <dd class="s-chiffres__valeur">
+            {%- if b.prefixe != blank %}<span class="s-chiffres__affixe">{{ b.prefixe }}</span>{% endif -%}
+            {%- if s.compteur -%}<compteur-anime data-valeur="{{ b.valeur }}">{{ b.valeur }}</compteur-anime>{%- else -%}{{ b.valeur }}{%- endif -%}
+            {%- if b.suffixe != blank %}<span class="s-chiffres__affixe">{{ b.suffixe }}</span>{% endif -%}
+          </dd>
+          {%- if b.detail != blank %}<dd class="s-chiffres__detail">{{ b.detail }}</dd>{% endif -%}
+        </div>
+      {%- endfor -%}
+    </dl>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Chiffres clés",
+  "tag": "div",
+  "class": "section-bibliotheque",
+  "settings": [
+    {
+      "type": "text",
+      "id": "surtitre",
+      "label": "Surtitre",
+      "default": ""
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titre",
+      "label": "Titre"
+    },
+    {
+      "type": "richtext",
+      "id": "texte",
+      "label": "Texte d'introduction"
+    },
+    {
+      "type": "paragraph",
+      "content": "N'affichez que des chiffres exacts et vérifiables."
+    },
+    {
+      "type": "range",
+      "id": "colonnes_d",
+      "label": "Colonnes sur ordinateur",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "colonnes_m",
+      "label": "Colonnes sur mobile",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "checkbox",
+      "id": "compteur",
+      "label": "Animer les chiffres à l'apparition",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "taille_titre",
+      "label": "Taille du titre",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "s",
+          "label": "Petite"
+        },
+        {
+          "value": "m",
+          "label": "Moyenne"
+        },
+        {
+          "value": "l",
+          "label": "Grande"
+        },
+        {
+          "value": "xl",
+          "label": "Très grande"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "fond_image",
+      "label": "Image d'arrière-plan (facultative)"
+    },
+    {
+      "type": "range",
+      "id": "fond_voile",
+      "label": "Voile sur l'image d'arrière-plan",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "default": 60,
+      "unit": "%"
+    },
+    {
+      "type": "select",
+      "id": "largeur",
+      "label": "Largeur du contenu",
+      "options": [
+        {
+          "value": "contenu",
+          "label": "Largeur du thème"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "pleine",
+          "label": "Pleine largeur"
+        },
+        {
+          "value": "bord",
+          "label": "Bord à bord (sans marges)"
+        }
+      ],
+      "default": "contenu"
+    },
+    {
+      "type": "text_alignment",
+      "id": "alignement",
+      "label": "Alignement du texte",
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "alignement_mobile",
+      "label": "Alignement sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Comme sur ordinateur"
+        },
+        {
+          "value": "left",
+          "label": "À gauche"
+        },
+        {
+          "value": "center",
+          "label": "Centré"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "select",
+      "id": "espace_haut",
+      "label": "Espacement en haut",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_bas",
+      "label": "Espacement en bas",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_mobile",
+      "label": "Espacements sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Proportionnels"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petits"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyens"
+        },
+        {
+          "value": "grand",
+          "label": "Grands"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_haut",
+      "label": "Filet en haut",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_bas",
+      "label": "Filet en bas",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "chiffre",
+      "name": "Chiffre",
+      "settings": [
+        {
+          "type": "text",
+          "id": "valeur",
+          "label": "Valeur",
+          "info": "Nombre seul, ex. 100 ou 4,9.",
+          "default": "100"
+        },
+        {
+          "type": "text",
+          "id": "prefixe",
+          "label": "Avant le nombre (facultatif)"
+        },
+        {
+          "type": "text",
+          "id": "suffixe",
+          "label": "Après le nombre (facultatif)",
+          "default": "%"
+        },
+        {
+          "type": "text",
+          "id": "libelle",
+          "label": "Libellé",
+          "default": "[Libellé à compléter]"
+        },
+        {
+          "type": "text",
+          "id": "detail",
+          "label": "Précision (facultative)"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Chiffres clés",
+      "blocks": [
+        {
+          "type": "chiffre"
+        },
+        {
+          "type": "chiffre"
+        },
+        {
+          "type": "chiffre"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

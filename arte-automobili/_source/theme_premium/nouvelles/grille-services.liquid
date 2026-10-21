@@ -1,0 +1,104 @@
+{%- liquid
+  assign s = section.settings
+  assign u_contact = pages['contact'].url | default: '/pages/contact'
+-%}
+{% render 'section-style', section: section %}
+<section class="section s-services" aria-labelledby="titre-{{ section.id }}">
+  <div class="wrap">
+    {% render 'tete-section', s: s, id: section.id %}
+    <div class="grille s-services__grille s-services--{{ s.style_carte }}" style="{% render 'grille-style', s: s %}">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign b = block.settings
+          if b.source == 'perso'
+            assign nom = b.nom
+            assign prix = b.prix
+            assign desc = b.description
+            assign duree = b.duree
+            assign inclus = b.inclus
+            assign image = b.image
+            assign alt = b.nom
+            assign bouton = b.bouton
+            assign lien = b.lien | default: u_contact
+            assign visuel = ''
+          else
+            assign k = 'p' | append: b.source
+            assign k_nom = k | append: '_nom'
+            assign k_prix = k | append: '_prix'
+            assign k_mode = k | append: '_prix_mode'
+            assign k_desc = k | append: '_description'
+            assign k_duree = k | append: '_duree'
+            assign k_inclus = k | append: '_inclus'
+            assign k_image = k | append: '_image'
+            assign k_alt = k | append: '_alt'
+            assign k_bouton = k | append: '_bouton'
+            assign nom = settings[k_nom]
+            assign prix = settings[k_prix]
+            if settings[k_mode] == 'devis'
+              assign prix = 'Sur devis'
+            elsif settings[k_mode] == 'masquer'
+              assign prix = ''
+            endif
+            assign desc = settings[k_desc]
+            assign duree = settings[k_duree]
+            assign inclus = settings[k_inclus]
+            assign image = settings[k_image]
+            assign alt = settings[k_alt]
+            assign bouton = settings[k_bouton]
+            case b.source
+              when '1'
+                assign visuel = 'service-interieur'
+                assign ancre = 'interieur'
+              when '2'
+                assign visuel = 'service-exterieur'
+                assign ancre = 'exterieur'
+              when '3'
+                assign visuel = 'service-complet'
+                assign ancre = 'complet'
+              else
+                assign visuel = 'service-professionnels'
+                assign ancre = 'professionnels'
+            endcase
+            assign lien = u_contact | append: '?service=' | append: ancre
+          endif
+          if s.masquer_prix
+            assign prix = ''
+          endif
+          assign lignes = inclus | newline_to_br | split: '<br />'
+        -%}
+        <article class="s-services__carte reveal{% if b.mise_en_avant %} s-services__carte--avant{% endif %}" {{ block.shopify_attributes }}>
+          {%- if s.afficher_images -%}
+            <div class="s-services__media media-cadre">
+              {%- if image != blank -%}
+                {% render 'media', image: image, alt: alt, sizes: '(min-width: 990px) 33vw, (min-width: 760px) 50vw, 100vw' %}
+              {%- elsif visuel != '' -%}
+                {%- render 'image-asset', nom: visuel, largeurs: '800', largeur: 800, hauteur: 600, sizes: '(min-width: 990px) 33vw, 100vw', alt: alt -%}
+              {%- elsif request.design_mode -%}
+                {{ 'image' | placeholder_svg_tag: 'repere' }}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+          <div class="s-services__corps">
+            {%- if b.mise_en_avant and b.mention != blank %}<p class="s-services__mention">{{ b.mention }}</p>{% endif -%}
+            <div class="s-services__ligne">
+              <h3 class="s-services__nom">{{ nom | escape | replace: ' + ', ' <span class="plus">+</span> ' }}</h3>
+              {%- if prix != blank %}<p class="s-services__prix">{{ prix }}</p>{% endif -%}
+            </div>
+            {%- if s.afficher_duree and duree != blank %}<p class="s-services__duree">{% render 'icone', nom: 'horaires', taille: 16 %}<span>{{ duree }}</span></p>{% endif -%}
+            {%- if s.afficher_description and desc != blank %}<p class="s-services__desc">{{ desc }}</p>{% endif -%}
+            {%- assign inclus_net = inclus | strip -%}
+            {%- if s.afficher_inclus and inclus_net != blank -%}
+              <ul class="s-services__inclus">
+                {%- for l in lignes -%}{%- assign l_net = l | strip -%}{%- if l_net != blank %}<li>{% render 'icone', nom: 'coche', taille: 16 %}<span>{{ l_net }}</span></li>{% endif -%}{%- endfor -%}
+              </ul>
+            {%- endif -%}
+            {%- if s.afficher_bouton and bouton != blank -%}
+              <div class="s-services__action">{% render 'bouton', texte: bouton, lien: lien, style: s.style_bouton, taille: 'petit' %}</div>
+            {%- endif -%}
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+    {%- if s.note != blank %}<p class="note s-services__note">{{ s.note }}</p>{% endif -%}
+  </div>
+</section>

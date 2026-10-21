@@ -1,0 +1,28 @@
+{%- assign s = section.settings -%}
+{% render 'section-style', section: section %}
+<section class="section s-faq s-faq--{{ s.disposition }}"{% if s.titre != blank %} aria-labelledby="titre-{{ section.id }}"{% endif %}>
+  <div class="wrap s-faq__grille">
+    {% render 'tete-section', s: s, id: section.id %}
+    <faq-accordeon class="s-faq__liste"{% if s.un_seul %} data-un-seul{% endif %}>
+      {%- for block in section.blocks -%}
+        <details class="s-faq__item reveal" {{ block.shopify_attributes }}{% if s.premier_ouvert and forloop.first %} open{% endif %}>
+          <summary class="s-faq__question"><span>{{ block.settings.question }}</span>{% render 'icone', nom: 'plus', taille: 20, classe: 's-faq__icone' %}</summary>
+          <div class="s-faq__reponse rte">{{ block.settings.reponse }}</div>
+        </details>
+      {%- endfor -%}
+    </faq-accordeon>
+  </div>
+</section>
+{%- if s.donnees_structurees and section.blocks.size > 0 -%}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {%- for block in section.blocks -%}
+        { "@type": "Question", "name": {{ block.settings.question | json }}, "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.reponse | strip_html | json }} } }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  }
+</script>
+{%- endif -%}

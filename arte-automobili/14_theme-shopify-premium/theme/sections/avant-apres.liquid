@@ -1,0 +1,450 @@
+{%- assign s = section.settings -%}
+{% render 'section-style', section: section %}
+<section class="section s-avant-apres"{% if s.titre != blank %} aria-labelledby="titre-{{ section.id }}"{% endif %}>
+  <div class="wrap">
+    {% render 'tete-section', s: s, id: section.id %}
+    <div class="grille s-avant-apres__grille" style="{% render 'grille-style', s: s %}">
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        <figure class="s-avant-apres__item reveal" {{ block.shopify_attributes }}>
+          <avant-apres class="comparateur media-cadre" style="--position: {{ b.position }}%;">
+            <div class="comparateur__apres">
+              {% render 'media', image: b.image_apres, alt: b.alt_apres, sizes: '(min-width: 990px) 50vw, 100vw' %}
+              <span class="comparateur__etiquette comparateur__etiquette--apres" aria-hidden="true">{{ s.libelle_apres }}</span>
+            </div>
+            <div class="comparateur__avant" aria-hidden="false">
+              {% render 'media', image: b.image_avant, alt: b.alt_avant, sizes: '(min-width: 990px) 50vw, 100vw' %}
+              <span class="comparateur__etiquette comparateur__etiquette--avant" aria-hidden="true">{{ s.libelle_avant }}</span>
+            </div>
+            <span class="comparateur__poignee" aria-hidden="true"><span></span></span>
+            <label class="visually-hidden" for="cmp-{{ block.id }}">Comparer {{ s.libelle_avant | downcase }} et {{ s.libelle_apres | downcase }}</label>
+            <input class="comparateur__curseur" id="cmp-{{ block.id }}" type="range" min="0" max="100" value="{{ b.position }}" step="1">
+          </avant-apres>
+          {%- if b.legende != blank %}<figcaption class="s-avant-apres__legende">{{ b.legende }}</figcaption>{% endif -%}
+        </figure>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Avant / après",
+  "tag": "div",
+  "class": "section-bibliotheque",
+  "settings": [
+    {
+      "type": "text",
+      "id": "surtitre",
+      "label": "Surtitre",
+      "default": "Avant / après"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titre",
+      "label": "Titre",
+      "default": "La différence se <em>voit</em>."
+    },
+    {
+      "type": "richtext",
+      "id": "texte",
+      "label": "Texte d'introduction"
+    },
+    {
+      "type": "paragraph",
+      "content": "Faites glisser le curseur pour comparer. Utilisez deux photos prises sous le même angle et le même éclairage."
+    },
+    {
+      "type": "text",
+      "id": "libelle_avant",
+      "label": "Libellé « avant »",
+      "default": "Avant"
+    },
+    {
+      "type": "text",
+      "id": "libelle_apres",
+      "label": "Libellé « après »",
+      "default": "Après"
+    },
+    {
+      "type": "range",
+      "id": "colonnes_d",
+      "label": "Colonnes sur ordinateur",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "colonnes_m",
+      "label": "Colonnes sur mobile",
+      "min": 1,
+      "max": 1,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "select",
+      "id": "ratio",
+      "label": "Format des images",
+      "options": [
+        {
+          "value": "4 / 5",
+          "label": "Portrait 4:5"
+        },
+        {
+          "value": "3 / 4",
+          "label": "Portrait 3:4"
+        },
+        {
+          "value": "1 / 1",
+          "label": "Carré"
+        },
+        {
+          "value": "4 / 3",
+          "label": "Paysage 4:3"
+        },
+        {
+          "value": "3 / 2",
+          "label": "Paysage 3:2"
+        },
+        {
+          "value": "16 / 10",
+          "label": "Paysage 16:10"
+        },
+        {
+          "value": "16 / 9",
+          "label": "Panoramique 16:9"
+        }
+      ],
+      "default": "3 / 2"
+    },
+    {
+      "type": "select",
+      "id": "taille_titre",
+      "label": "Taille du titre",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "s",
+          "label": "Petite"
+        },
+        {
+          "value": "m",
+          "label": "Moyenne"
+        },
+        {
+          "value": "l",
+          "label": "Grande"
+        },
+        {
+          "value": "xl",
+          "label": "Très grande"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "fond_image",
+      "label": "Image d'arrière-plan (facultative)"
+    },
+    {
+      "type": "range",
+      "id": "fond_voile",
+      "label": "Voile sur l'image d'arrière-plan",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "default": 60,
+      "unit": "%"
+    },
+    {
+      "type": "select",
+      "id": "largeur",
+      "label": "Largeur du contenu",
+      "options": [
+        {
+          "value": "contenu",
+          "label": "Largeur du thème"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "pleine",
+          "label": "Pleine largeur"
+        },
+        {
+          "value": "bord",
+          "label": "Bord à bord (sans marges)"
+        }
+      ],
+      "default": "contenu"
+    },
+    {
+      "type": "text_alignment",
+      "id": "alignement",
+      "label": "Alignement du texte",
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "alignement_mobile",
+      "label": "Alignement sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Comme sur ordinateur"
+        },
+        {
+          "value": "left",
+          "label": "À gauche"
+        },
+        {
+          "value": "center",
+          "label": "Centré"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "select",
+      "id": "espace_haut",
+      "label": "Espacement en haut",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_bas",
+      "label": "Espacement en bas",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_mobile",
+      "label": "Espacements sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Proportionnels"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petits"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyens"
+        },
+        {
+          "value": "grand",
+          "label": "Grands"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_haut",
+      "label": "Filet en haut",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_bas",
+      "label": "Filet en bas",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "comparaison",
+      "name": "Comparaison",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_avant",
+          "label": "Photo avant"
+        },
+        {
+          "type": "text",
+          "id": "alt_avant",
+          "label": "Description de la photo avant"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_apres",
+          "label": "Photo après"
+        },
+        {
+          "type": "text",
+          "id": "alt_apres",
+          "label": "Description de la photo après"
+        },
+        {
+          "type": "range",
+          "id": "position",
+          "label": "Position de départ du curseur",
+          "min": 10,
+          "max": 90,
+          "step": 5,
+          "default": 50,
+          "unit": "%"
+        },
+        {
+          "type": "text",
+          "id": "legende",
+          "label": "Légende (facultative)"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Avant / après",
+      "blocks": [
+        {
+          "type": "comparaison"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

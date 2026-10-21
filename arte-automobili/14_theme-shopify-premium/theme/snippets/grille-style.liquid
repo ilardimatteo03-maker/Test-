@@ -1,0 +1,10 @@
+{%- comment -%} Variables d'une grille : colonnes ordinateur / tablette / mobile, format des images. Paramètre : s (réglages). {%- endcomment -%}
+{%- liquid
+  assign c = s.colonnes_d | default: 3
+  assign cm = s.colonnes_m | default: 1
+  assign ct = c
+  if c > 2
+    assign ct = 2
+  endif
+-%}
+--cols: {{ c }}; --cols-t: {{ ct }}; --cols-m: {{ cm }};{% if s.ratio != blank %} --ratio: {{ s.ratio }};{% endif %}

@@ -1,0 +1,23 @@
+{%- assign s = section.settings -%}
+{% render 'section-style', section: section %}
+<section class="section s-logos{% if s.niveaux_gris %} s-logos--gris{% endif %}"{% if s.titre != blank %} aria-labelledby="titre-{{ section.id }}"{% endif %}>
+  <div class="wrap">
+    {% render 'tete-section', s: s, id: section.id %}
+    <ul class="grille s-logos__grille" style="{% render 'grille-style', s: s %} --logo-h: {{ s.hauteur }}px;" role="list">
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        {%- if b.image != blank or request.design_mode -%}
+          <li class="s-logos__item reveal" {{ block.shopify_attributes }}>
+            {%- if b.lien != blank %}<a href="{{ b.lien }}" rel="noopener" target="_blank" aria-label="{{ b.nom | escape }} (nouvel onglet)">{% endif -%}
+            {%- if b.image != blank -%}
+              {{ b.image | image_url: width: 480 | image_tag: alt: b.nom, loading: 'lazy', widths: '240, 480', sizes: '240px' }}
+            {%- else -%}
+              {{ 'logo' | placeholder_svg_tag: 'repere repere--logo' }}
+            {%- endif -%}
+            {%- if b.lien != blank %}</a>{% endif -%}
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>

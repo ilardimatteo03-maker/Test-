@@ -1,0 +1,800 @@
+{%- liquid
+  assign s = section.settings
+  assign a_video = false
+  if s.video != blank or s.video_url != blank
+    assign a_video = true
+  endif
+-%}
+{% render 'section-style', section: section %}
+<section class="s-video s-video--{{ s.disposition }}{% unless s.disposition == 'plein' %} section{% endunless %}" style="--video-h: {{ s.hauteur }}svh; --voile: {{ s.voile | divided_by: 100.0 }};{% if s.ratio != 'auto' %} --ratio: {{ s.ratio }};{% endif %}">
+  <div class="{% if s.disposition == 'plein' %}s-video__scene{% else %}wrap s-video__grille{% endif %}">
+    <div class="s-video__media media-cadre">
+      {%- if a_video -%}
+        {%- if s.video != blank -%}
+          {%- if s.lecture_auto -%}
+            {{ s.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, image_size: '2400x', class: 's-video__fichier' }}
+          {%- else -%}
+            {{ s.video | video_tag: controls: true, playsinline: true, image_size: '2400x', class: 's-video__fichier' }}
+          {%- endif -%}
+        {%- else -%}
+          <video-externe class="s-video__externe" data-type="{{ s.video_url.type }}" data-id="{{ s.video_url.id }}" data-auto="{{ s.lecture_auto }}">
+            {%- if s.lecture_auto -%}
+              <iframe src="{% if s.video_url.type == 'youtube' %}https://www.youtube-nocookie.com/embed/{{ s.video_url.id }}?autoplay=1&mute=1&loop=1&playlist={{ s.video_url.id }}&controls=0&playsinline=1&rel=0{% else %}https://player.vimeo.com/video/{{ s.video_url.id }}?background=1&autoplay=1&loop=1&muted=1{% endif %}" title="{{ s.titre_video | default: 'Vidéo' | escape }}" allow="autoplay; encrypted-media; picture-in-picture" loading="lazy" tabindex="-1"></iframe>
+            {%- else -%}
+              <button class="s-video__lecture" type="button" data-lire aria-label="Lire la vidéo : {{ s.titre_video | default: 'vidéo' | escape }}">
+                {%- if s.image != blank %}{% render 'media', image: s.image, alt: '', sizes: '100vw' %}{% endif -%}
+                <span class="s-video__bouton">{% render 'icone', nom: 'lecture', taille: 28 %}</span>
+              </button>
+            {%- endif -%}
+          </video-externe>
+        {%- endif -%}
+      {%- elsif s.image != blank -%}
+        {% render 'media', image: s.image, alt: s.titre_video, sizes: '100vw' %}
+      {%- elsif request.design_mode -%}
+        {{ 'lifestyle-2' | placeholder_svg_tag: 'repere' }}
+      {%- endif -%}
+      {%- if s.disposition == 'plein' %}<div class="s-video__voile" aria-hidden="true"></div>{% endif -%}
+    </div>
+    {%- if section.blocks.size > 0 -%}
+      <div class="s-video__contenu contenu s-video__contenu--{{ s.position_contenu }}{% if s.disposition == 'plein' %} wrap{% endif %}">
+        {%- for block in section.blocks -%}{% render 'bloc-contenu', block: block %}{%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Vidéo",
+  "tag": "div",
+  "class": "section-bibliotheque",
+  "settings": [
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Vidéo hébergée sur Shopify"
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "label": "…ou lien YouTube / Vimeo",
+      "accept": [
+        "youtube",
+        "vimeo"
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image de couverture"
+    },
+    {
+      "type": "text",
+      "id": "titre_video",
+      "label": "Titre de la vidéo (accessibilité)",
+      "default": "Arte Automobili"
+    },
+    {
+      "type": "checkbox",
+      "id": "lecture_auto",
+      "label": "Lecture automatique sans son, en boucle",
+      "default": true,
+      "info": "Sinon, un bouton lecture s'affiche."
+    },
+    {
+      "type": "header",
+      "content": "Mise en page"
+    },
+    {
+      "type": "select",
+      "id": "disposition",
+      "label": "Disposition",
+      "options": [
+        {
+          "value": "plein",
+          "label": "Plein écran"
+        },
+        {
+          "value": "gauche",
+          "label": "Vidéo à gauche, texte à droite"
+        },
+        {
+          "value": "droite",
+          "label": "Vidéo à droite, texte à gauche"
+        }
+      ],
+      "default": "plein"
+    },
+    {
+      "type": "range",
+      "id": "hauteur",
+      "label": "Hauteur en plein écran",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "default": 80,
+      "info": "En pourcentage de la hauteur de l'écran.",
+      "unit": "%"
+    },
+    {
+      "type": "select",
+      "id": "ratio",
+      "label": "Format (vidéo avec texte)",
+      "options": [
+        {
+          "value": "4 / 5",
+          "label": "Portrait 4:5"
+        },
+        {
+          "value": "3 / 4",
+          "label": "Portrait 3:4"
+        },
+        {
+          "value": "1 / 1",
+          "label": "Carré"
+        },
+        {
+          "value": "4 / 3",
+          "label": "Paysage 4:3"
+        },
+        {
+          "value": "3 / 2",
+          "label": "Paysage 3:2"
+        },
+        {
+          "value": "16 / 10",
+          "label": "Paysage 16:10"
+        },
+        {
+          "value": "16 / 9",
+          "label": "Panoramique 16:9"
+        },
+        {
+          "value": "auto",
+          "label": "Format d'origine"
+        }
+      ],
+      "default": "16 / 9"
+    },
+    {
+      "type": "range",
+      "id": "voile",
+      "label": "Voile sombre sur la vidéo",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "default": 35,
+      "unit": "%"
+    },
+    {
+      "type": "select",
+      "id": "position_contenu",
+      "label": "Position du texte (plein écran)",
+      "options": [
+        {
+          "value": "centre",
+          "label": "Au centre"
+        },
+        {
+          "value": "bas-gauche",
+          "label": "En bas à gauche"
+        },
+        {
+          "value": "bas-centre",
+          "label": "En bas au centre"
+        }
+      ],
+      "default": "bas-gauche"
+    },
+    {
+      "type": "select",
+      "id": "taille_titre",
+      "label": "Taille du titre",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "s",
+          "label": "Petite"
+        },
+        {
+          "value": "m",
+          "label": "Moyenne"
+        },
+        {
+          "value": "l",
+          "label": "Grande"
+        },
+        {
+          "value": "xl",
+          "label": "Très grande"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "select",
+      "id": "largeur",
+      "label": "Largeur du contenu",
+      "options": [
+        {
+          "value": "contenu",
+          "label": "Largeur du thème"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "pleine",
+          "label": "Pleine largeur"
+        },
+        {
+          "value": "bord",
+          "label": "Bord à bord (sans marges)"
+        }
+      ],
+      "default": "contenu"
+    },
+    {
+      "type": "text_alignment",
+      "id": "alignement",
+      "label": "Alignement du texte",
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "alignement_mobile",
+      "label": "Alignement sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Comme sur ordinateur"
+        },
+        {
+          "value": "left",
+          "label": "À gauche"
+        },
+        {
+          "value": "center",
+          "label": "Centré"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "select",
+      "id": "espace_haut",
+      "label": "Espacement en haut",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_bas",
+      "label": "Espacement en bas",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_mobile",
+      "label": "Espacements sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Proportionnels"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petits"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyens"
+        },
+        {
+          "value": "grand",
+          "label": "Grands"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_haut",
+      "label": "Filet en haut",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_bas",
+      "label": "Filet en bas",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "surtitre",
+      "name": "Surtitre",
+      "settings": [
+        {
+          "type": "text",
+          "id": "texte",
+          "label": "Texte",
+          "default": "Surtitre"
+        }
+      ]
+    },
+    {
+      "type": "titre",
+      "name": "Titre",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "texte",
+          "label": "Texte",
+          "default": "Un titre <em>élégant</em>.",
+          "info": "Mettez un mot en italique pour l'accentuer."
+        },
+        {
+          "type": "select",
+          "id": "taille",
+          "label": "Taille",
+          "options": [
+            {
+              "value": "h1",
+              "label": "Très grande (H1)"
+            },
+            {
+              "value": "h2",
+              "label": "Grande (H2)"
+            },
+            {
+              "value": "h3",
+              "label": "Moyenne (H3)"
+            },
+            {
+              "value": "h4",
+              "label": "Petite (H4)"
+            }
+          ],
+          "default": "h2"
+        },
+        {
+          "type": "select",
+          "id": "balise",
+          "label": "Niveau de titre (référencement)",
+          "options": [
+            {
+              "value": "h2",
+              "label": "H2"
+            },
+            {
+              "value": "h3",
+              "label": "H3"
+            },
+            {
+              "value": "h1",
+              "label": "H1 (une seule fois par page)"
+            }
+          ],
+          "default": "h2"
+        }
+      ]
+    },
+    {
+      "type": "texte",
+      "name": "Texte",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "texte",
+          "label": "Texte",
+          "default": "<p>Décrivez ici votre savoir-faire en quelques phrases.</p>"
+        },
+        {
+          "type": "select",
+          "id": "taille",
+          "label": "Taille",
+          "options": [
+            {
+              "value": "petit",
+              "label": "Petite"
+            },
+            {
+              "value": "normal",
+              "label": "Normale"
+            },
+            {
+              "value": "grand",
+              "label": "Grande"
+            }
+          ],
+          "default": "normal"
+        }
+      ]
+    },
+    {
+      "type": "liste",
+      "name": "Liste à puces",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "elements",
+          "label": "Éléments (un par ligne)",
+          "default": "Premier point\nDeuxième point\nTroisième point"
+        },
+        {
+          "type": "select",
+          "id": "puce",
+          "label": "Puce",
+          "options": [
+            {
+              "value": "coche",
+              "label": "Coche"
+            },
+            {
+              "value": "tiret",
+              "label": "Tiret"
+            },
+            {
+              "value": "numero",
+              "label": "Numéro"
+            }
+          ],
+          "default": "coche"
+        }
+      ]
+    },
+    {
+      "type": "bouton",
+      "name": "Bouton",
+      "settings": [
+        {
+          "type": "text",
+          "id": "texte",
+          "label": "Texte",
+          "default": "Prendre rendez-vous"
+        },
+        {
+          "type": "url",
+          "id": "lien",
+          "label": "Lien"
+        },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Style",
+          "options": [
+            {
+              "value": "defaut",
+              "label": "Style par défaut du thème"
+            },
+            {
+              "value": "primary",
+              "label": "Plein"
+            },
+            {
+              "value": "secondary",
+              "label": "Contour"
+            },
+            {
+              "value": "minimal",
+              "label": "Minimaliste"
+            },
+            {
+              "value": "fleche",
+              "label": "Texte avec flèche"
+            },
+            {
+              "value": "premium",
+              "label": "Premium automobile"
+            }
+          ],
+          "default": "defaut"
+        },
+        {
+          "type": "select",
+          "id": "taille",
+          "label": "Taille",
+          "options": [
+            {
+              "value": "petit",
+              "label": "Petite"
+            },
+            {
+              "value": "moyen",
+              "label": "Moyenne"
+            },
+            {
+              "value": "grand",
+              "label": "Grande"
+            }
+          ],
+          "default": "moyen"
+        },
+        {
+          "type": "select",
+          "id": "icone",
+          "label": "Icône",
+          "options": [
+            {
+              "value": "aucune",
+              "label": "Aucune"
+            },
+            {
+              "value": "fleche",
+              "label": "Flèche"
+            },
+            {
+              "value": "rendez-vous",
+              "label": "Calendrier"
+            },
+            {
+              "value": "telephone",
+              "label": "Téléphone"
+            },
+            {
+              "value": "email",
+              "label": "E-mail"
+            },
+            {
+              "value": "localisation",
+              "label": "Adresse"
+            }
+          ],
+          "default": "aucune"
+        },
+        {
+          "type": "checkbox",
+          "id": "pleine_largeur",
+          "label": "Pleine largeur",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "nouvel_onglet",
+          "label": "Ouvrir dans un nouvel onglet",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Couleurs du bouton (facultatives)"
+        },
+        {
+          "type": "color",
+          "id": "fond",
+          "label": "Fond"
+        },
+        {
+          "type": "color",
+          "id": "couleur",
+          "label": "Texte"
+        },
+        {
+          "type": "color",
+          "id": "bordure",
+          "label": "Bordure"
+        },
+        {
+          "type": "select",
+          "id": "rayon",
+          "label": "Arrondi",
+          "options": [
+            {
+              "value": "theme",
+              "label": "Celui du thème"
+            },
+            {
+              "value": "0",
+              "label": "Angles vifs"
+            },
+            {
+              "value": "6",
+              "label": "Léger"
+            },
+            {
+              "value": "16",
+              "label": "Prononcé"
+            },
+            {
+              "value": "999",
+              "label": "Pilule"
+            }
+          ],
+          "default": "theme"
+        }
+      ]
+    },
+    {
+      "type": "espace",
+      "name": "Espace",
+      "settings": [
+        {
+          "type": "range",
+          "id": "hauteur",
+          "label": "Hauteur",
+          "min": 0,
+          "max": 120,
+          "step": 4,
+          "default": 24,
+          "unit": "px"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Vidéo plein écran",
+      "blocks": [
+        {
+          "type": "titre",
+          "settings": {
+            "texte": "L'art du <em>détail</em>.",
+            "taille": "h1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Vidéo avec texte",
+      "settings": {
+        "disposition": "gauche",
+        "lecture_auto": false
+      },
+      "blocks": [
+        {
+          "type": "surtitre",
+          "settings": {
+            "texte": "En images"
+          }
+        },
+        {
+          "type": "titre",
+          "settings": {
+            "texte": "Un rituel <em>précis</em>."
+          }
+        },
+        {
+          "type": "texte"
+        },
+        {
+          "type": "bouton"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

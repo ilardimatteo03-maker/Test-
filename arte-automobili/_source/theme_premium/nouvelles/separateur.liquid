@@ -1,0 +1,16 @@
+{%- assign s = section.settings -%}
+{% render 'section-style', section: section %}
+<div class="s-separateur s-separateur--{{ s.style }}" style="--sep-h: {{ s.espacement }}px; --sep-h-m: {{ s.espacement_m }}px;" role="presentation">
+  <div class="{% if s.pleine_largeur %}s-separateur__plein{% else %}wrap{% endif %}">
+    {%- case s.style -%}
+      {%- when 'monogramme' -%}
+        <div class="s-separateur__monogramme"><span></span><img src="{{ 'monogramme-bianco.svg' | asset_url }}" alt="" width="24" height="32" loading="lazy"><span></span></div>
+      {%- when 'lame' -%}
+        <div class="s-separateur__lame"></div>
+      {%- when 'court' -%}
+        <hr class="s-separateur__court">
+      {%- else -%}
+        <hr class="s-separateur__filet">
+    {%- endcase -%}
+  </div>
+</div>

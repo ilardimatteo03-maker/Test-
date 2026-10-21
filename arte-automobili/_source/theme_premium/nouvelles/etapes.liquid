@@ -1,0 +1,23 @@
+{%- assign s = section.settings -%}
+{% render 'section-style', section: section %}
+<section class="section s-etapes s-etapes--{{ s.disposition }}"{% if s.titre != blank %} aria-labelledby="titre-{{ section.id }}"{% endif %}>
+  <div class="wrap">
+    {% render 'tete-section', s: s, id: section.id %}
+    <ol class="grille s-etapes__liste" style="{% render 'grille-style', s: s %}">
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        <li class="s-etapes__item reveal" {{ block.shopify_attributes }}>
+          <span class="s-etapes__repere" aria-hidden="true">
+            {%- case s.numerotation -%}
+              {%- when 'icone' %}{% render 'icone', nom: b.icone, taille: 28 %}
+              {%- when 'romain' %}{% assign romains = 'I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII' | split: ',' %}{{ romains[forloop.index0] }}
+              {%- else %}{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}
+            {%- endcase -%}
+          </span>
+          <h3 class="s-etapes__titre">{{ b.titre }}</h3>
+          {%- if b.texte != blank %}<p class="s-etapes__texte">{{ b.texte }}</p>{% endif -%}
+        </li>
+      {%- endfor -%}
+    </ol>
+  </div>
+</section>

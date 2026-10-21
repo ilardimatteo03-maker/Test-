@@ -1,0 +1,125 @@
+{
+  "sections": {
+    "banniere": {
+      "type": "hero",
+      "settings": {
+        "titre": "Notre <em>histoire</em>.",
+        "texte": "Racontez ici en une phrase ce qui vous anime.",
+        "bouton_1": "Découvrir nos services",
+        "bouton_2": "",
+        "hauteur": "moyen",
+        "afficher_lame": false
+      }
+    },
+    "presentation": {
+      "type": "image-texte",
+      "blocks": {
+        "s": {
+          "type": "surtitre",
+          "settings": {
+            "texte": "Arte Automobili"
+          }
+        },
+        "t": {
+          "type": "titre",
+          "settings": {
+            "texte": "La passion du <em>détail</em>.",
+            "taille": "h2",
+            "balise": "h2"
+          }
+        },
+        "x": {
+          "type": "texte",
+          "settings": {
+            "texte": "<p>Présentez ici votre parcours, votre atelier et votre façon de travailler. Ce texte est un exemple à remplacer.</p>",
+            "taille": "grand"
+          }
+        }
+      },
+      "block_order": [
+        "s",
+        "t",
+        "x"
+      ],
+      "settings": {
+        "position_image": "droite"
+      }
+    },
+    "valeurs": {
+      "type": "cartes-icones",
+      "blocks": {
+        "v1": {
+          "type": "carte",
+          "settings": {
+            "icone": "inspection-lumiere",
+            "titre": "Précision",
+            "texte": "Une méthode rigoureuse, appliquée à chaque surface."
+          }
+        },
+        "v2": {
+          "type": "carte",
+          "settings": {
+            "icone": "goutte",
+            "titre": "Soin",
+            "texte": "Des gestes attentifs, respectueux de chaque matériau."
+          }
+        },
+        "v3": {
+          "type": "carte",
+          "settings": {
+            "icone": "eclat",
+            "titre": "Exigence",
+            "texte": "Le même niveau d'attention, quel que soit le véhicule."
+          }
+        }
+      },
+      "block_order": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "settings": {
+        "surtitre": "Valeurs",
+        "titre": "Nos <em>engagements</em>."
+      }
+    },
+    "realisations": {
+      "type": "realisations",
+      "blocks": {
+        "r1": {
+          "type": "realisation",
+          "settings": {}
+        },
+        "r2": {
+          "type": "realisation",
+          "settings": {}
+        },
+        "r3": {
+          "type": "realisation",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "settings": {},
+      "disabled": true
+    },
+    "contact": {
+      "type": "bandeau",
+      "settings": {
+        "titre": "Parlons de votre véhicule.",
+        "bouton": "Nous contacter"
+      }
+    }
+  },
+  "order": [
+    "banniere",
+    "presentation",
+    "valeurs",
+    "realisations",
+    "contact"
+  ]
+}

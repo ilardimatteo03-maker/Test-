@@ -1,0 +1,20 @@
+{%- assign s = section.settings -%}
+{% render 'section-style', section: section %}
+<section class="section s-galerie"{% if s.titre != blank %} aria-labelledby="titre-{{ section.id }}"{% endif %}>
+  <div class="wrap">
+    {% render 'tete-section', s: s, id: section.id %}
+    <ul class="grille s-galerie__grille{% if s.mosaique %} s-galerie--mosaique{% endif %}" style="{% render 'grille-style', s: s %} --galerie-gap: {{ s.espacement }}px;" role="list">
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        {%- if b.image != blank or request.design_mode -%}
+          <li class="s-galerie__item reveal{% if b.large %} s-galerie__item--large{% endif %}" {{ block.shopify_attributes }}>
+            {%- if b.lien != blank %}<a href="{{ b.lien }}" class="s-galerie__lien">{% endif -%}
+            <div class="media-cadre">{% render 'media', image: b.image, alt: b.legende, sizes: '(min-width: 990px) 33vw, 50vw' %}</div>
+            {%- if b.legende != blank and s.afficher_legendes %}<p class="s-galerie__legende">{{ b.legende }}</p>{% endif -%}
+            {%- if b.lien != blank %}</a>{% endif -%}
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>

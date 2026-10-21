@@ -1,0 +1,27 @@
+{%- assign s = section.settings -%}
+{% render 'section-style', section: section %}
+<section class="section s-icones s-icones--{{ s.disposition }}"{% if s.titre != blank %} aria-labelledby="titre-{{ section.id }}"{% endif %}>
+  <div class="wrap">
+    {% render 'tete-section', s: s, id: section.id %}
+    <ul class="grille s-icones__grille" style="{% render 'grille-style', s: s %}" role="list">
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        <li class="s-icones__item reveal" {{ block.shopify_attributes }}>
+          {%- if b.lien != blank %}<a class="s-icones__lien" href="{{ b.lien }}">{% endif -%}
+          <span class="s-icones__icone" aria-hidden="true">
+            {%- if b.image != blank -%}
+              {{ b.image | image_url: width: 160 | image_tag: alt: '', loading: 'lazy', width: 48, height: 48 }}
+            {%- else -%}
+              {% render 'icone', nom: b.icone, taille: s.taille_icone %}
+            {%- endif -%}
+          </span>
+          <span class="s-icones__texte">
+            {%- if b.titre != blank %}<span class="s-icones__titre">{{ b.titre }}</span>{% endif -%}
+            {%- if b.texte != blank %}<span class="s-icones__desc">{{ b.texte }}</span>{% endif -%}
+          </span>
+          {%- if b.lien != blank %}</a>{% endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>

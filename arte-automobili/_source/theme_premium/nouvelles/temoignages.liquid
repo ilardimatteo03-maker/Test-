@@ -1,0 +1,36 @@
+{%- assign s = section.settings -%}
+{% render 'section-style', section: section %}
+<section class="section s-temoignages s-temoignages--{{ s.disposition }}"{% if s.titre != blank %} aria-labelledby="titre-{{ section.id }}"{% endif %}>
+  <div class="wrap">
+    {% render 'tete-section', s: s, id: section.id %}
+    {%- if s.note_globale != blank -%}
+      <p class="s-temoignages__globale">
+        <span class="s-temoignages__etoiles" aria-hidden="true">{% for i in (1..5) %}{% render 'icone', nom: 'etoile', taille: 18 %}{% endfor %}</span>
+        <span>{{ s.note_globale }}</span>
+        {%- if s.source_lien != blank %} <a class="lien" href="{{ s.source_lien }}" rel="noopener" target="_blank"><span>{{ s.source_texte | default: 'Voir les avis' }}</span><span class="visually-hidden"> (nouvel onglet)</span></a>{% endif -%}
+      </p>
+    {%- endif -%}
+    <ul class="grille s-temoignages__grille" style="{% render 'grille-style', s: s %}" role="list">
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        <li class="s-temoignages__item reveal" {{ block.shopify_attributes }}>
+          <figure class="s-temoignages__carte">
+            {%- if s.afficher_etoiles and b.note > 0 -%}
+              <p class="s-temoignages__etoiles" role="img" aria-label="{{ b.note }} sur 5">
+                {%- for i in (1..5) -%}<span class="{% if i > b.note %}is-vide{% endif %}">{% render 'icone', nom: 'etoile', taille: 18 %}</span>{%- endfor -%}
+              </p>
+            {%- endif -%}
+            <blockquote class="s-temoignages__citation">{{ b.citation }}</blockquote>
+            <figcaption class="s-temoignages__auteur">
+              {%- if b.photo != blank %}{{ b.photo | image_url: width: 120 | image_tag: alt: '', loading: 'lazy', width: 48, height: 48, class: 's-temoignages__photo' }}{% endif -%}
+              <span>
+                <span class="s-temoignages__nom">{{ b.auteur }}</span>
+                {%- if b.detail != blank %}<span class="s-temoignages__detail">{{ b.detail }}</span>{% endif -%}
+              </span>
+            </figcaption>
+          </figure>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>

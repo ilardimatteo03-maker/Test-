@@ -1,0 +1,24 @@
+{
+  "layout": "password",
+  "sections": {
+    "lancement": {
+      "type": "main-password",
+      "settings": {
+        "mise_en_scene": "cinema",
+        "logo_style": "vertical",
+        "type_fond": "image",
+        "lame": true,
+        "surtitre": "Ouverture prochaine",
+        "titre": "L'art du détail <em>arrive</em>.",
+        "afficher_linea": true,
+        "texte": "Arte Automobili ouvre bientôt. Laissez-nous votre adresse : nous vous préviendrons dès l'ouverture.",
+        "liste_attente": true,
+        "afficher_reseaux": true,
+        "position": "centre"
+      }
+    }
+  },
+  "order": [
+    "lancement"
+  ]
+}

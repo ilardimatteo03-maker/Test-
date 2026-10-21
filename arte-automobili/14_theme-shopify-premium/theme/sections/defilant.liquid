@@ -1,0 +1,342 @@
+{%- assign s = section.settings -%}
+{% render 'section-style', section: section %}
+<section class="s-defilant s-defilant--{{ s.taille }}{% if s.inverse %} s-defilant--inverse{% endif %}" style="--defile-duree: {{ s.vitesse }}s; --sec-pt-defaut: {{ s.espacement }}px;" aria-label="{{ s.libelle | default: 'Bandeau défilant' | escape }}">
+  <div class="s-defilant__piste">
+    {%- for i in (1..2) -%}
+      <ul class="s-defilant__groupe"{% if i == 2 %} aria-hidden="true"{% endif %} role="list">
+        {%- for block in section.blocks -%}
+          <li class="s-defilant__item" {% if i == 1 %}{{ block.shopify_attributes }}{% endif %}>
+            {%- if block.settings.lien != blank %}<a href="{{ block.settings.lien }}"{% if i == 2 %} tabindex="-1"{% endif %}>{{ block.settings.texte }}</a>{% else %}{{ block.settings.texte }}{% endif -%}
+            <span class="s-defilant__sep s-defilant__sep--{{ s.separateur }}" aria-hidden="true">
+              {%- case s.separateur -%}
+                {%- when 'monogramme' %}<img src="{{ 'monogramme-bianco.svg' | asset_url }}" alt="" width="18" height="24" loading="lazy">
+                {%- when 'losange' %}◆
+                {%- when 'point' %}·
+                {%- when 'filet' %}<span></span>
+              {%- endcase -%}
+            </span>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bandeau défilant",
+  "tag": "div",
+  "class": "section-bibliotheque",
+  "settings": [
+    {
+      "type": "text",
+      "id": "libelle",
+      "label": "Nom du bandeau (accessibilité)",
+      "default": "Engagements"
+    },
+    {
+      "type": "select",
+      "id": "taille",
+      "label": "Taille du texte",
+      "options": [
+        {
+          "value": "petit",
+          "label": "Petite (capitales)"
+        },
+        {
+          "value": "grand",
+          "label": "Grande (Bodoni)"
+        }
+      ],
+      "default": "grand"
+    },
+    {
+      "type": "range",
+      "id": "vitesse",
+      "label": "Durée d'un tour",
+      "min": 10,
+      "max": 80,
+      "step": 2,
+      "default": 36,
+      "unit": "s"
+    },
+    {
+      "type": "checkbox",
+      "id": "inverse",
+      "label": "Défiler vers la droite",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "separateur",
+      "label": "Séparateur",
+      "options": [
+        {
+          "value": "losange",
+          "label": "Losange"
+        },
+        {
+          "value": "monogramme",
+          "label": "Monogramme"
+        },
+        {
+          "value": "point",
+          "label": "Point"
+        },
+        {
+          "value": "filet",
+          "label": "Filet"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        }
+      ],
+      "default": "losange"
+    },
+    {
+      "type": "range",
+      "id": "espacement",
+      "label": "Hauteur intérieure",
+      "min": 8,
+      "max": 80,
+      "step": 4,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "select",
+      "id": "espace_haut",
+      "label": "Espacement en haut",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_bas",
+      "label": "Espacement en bas",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_mobile",
+      "label": "Espacements sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Proportionnels"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petits"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyens"
+        },
+        {
+          "value": "grand",
+          "label": "Grands"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_haut",
+      "label": "Filet en haut",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_bas",
+      "label": "Filet en bas",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "texte",
+      "name": "Texte",
+      "settings": [
+        {
+          "type": "text",
+          "id": "texte",
+          "label": "Texte",
+          "default": "Précision"
+        },
+        {
+          "type": "url",
+          "id": "lien",
+          "label": "Lien (facultatif)"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Bandeau défilant",
+      "settings": {
+        "bordure_haut": true,
+        "bordure_bas": true
+      },
+      "blocks": [
+        {
+          "type": "texte",
+          "settings": {
+            "texte": "Précision"
+          }
+        },
+        {
+          "type": "texte",
+          "settings": {
+            "texte": "Soin"
+          }
+        },
+        {
+          "type": "texte",
+          "settings": {
+            "texte": "Exigence"
+          }
+        },
+        {
+          "type": "texte",
+          "settings": {
+            "texte": "Lavage intérieur et extérieur"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

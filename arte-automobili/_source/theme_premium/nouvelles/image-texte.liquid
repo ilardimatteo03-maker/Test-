@@ -1,0 +1,18 @@
+{%- assign s = section.settings -%}
+{% render 'section-style', section: section %}
+<section class="section s-image-texte{% if s.image == blank and s.video == blank and request.design_mode != true %} s-image-texte--sans-media{% endif %} s-image-texte--{{ s.position_image }} s-image-texte--v-{{ s.alignement_vertical }}{% if s.image_mobile_premier %} s-image-texte--image-premier{% endif %}" style="--media-l: {{ s.largeur_image }}%;{% if s.ratio != 'auto' %} --ratio: {{ s.ratio }};{% endif %}">
+  <div class="wrap s-image-texte__grille">
+    {%- if s.image != blank or s.video != blank or request.design_mode %}
+    <div class="s-image-texte__media media-cadre{% if s.ratio == 'auto' %} media-cadre--auto{% endif %} reveal">
+      {%- if s.video != blank -%}
+        {{ s.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, image_size: '1600x' }}
+      {%- else -%}
+        {% render 'media', image: s.image, alt: s.alt, sizes: '(min-width: 990px) 50vw, 100vw' %}
+      {%- endif -%}
+    </div>
+    {%- endif %}
+    <div class="s-image-texte__contenu contenu reveal">
+      {%- for block in section.blocks -%}{% render 'bloc-contenu', block: block %}{%- endfor -%}
+    </div>
+  </div>
+</section>

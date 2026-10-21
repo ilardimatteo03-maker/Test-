@@ -1,0 +1,49 @@
+{%- liquid
+  assign s = section.settings
+  assign horaires = section.blocks | where: 'type', 'horaire'
+  assign a_coord = false
+  if settings.telephone != blank or settings.email != blank or settings.adresse != blank or settings.zone != blank
+    assign a_coord = true
+  endif
+  assign lien_tel = settings.telephone | remove: ' ' | remove: '.' | prepend: 'tel:'
+  assign lien_mail = settings.email | prepend: 'mailto:'
+-%}
+{% render 'section-style', section: section %}
+<section class="section s-coordonnees s-coordonnees--{{ s.disposition }}"{% if s.titre != blank %} aria-labelledby="titre-{{ section.id }}"{% endif %}>
+  <div class="wrap s-coordonnees__grille">
+    <div class="s-coordonnees__intro">
+      {% render 'tete-section', s: s, id: section.id %}
+      {%- if s.afficher_boutons -%}
+        <div class="actions">
+          {%- if settings.telephone != blank %}{% render 'bouton', texte: s.bouton_appeler, lien: lien_tel, style: 'primary', icone: 'telephone' %}{% endif -%}
+          {%- if settings.email != blank %}{% render 'bouton', texte: s.bouton_ecrire, lien: lien_mail, style: 'secondary', icone: 'email' %}{% endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+    <div class="s-coordonnees__carte{% if s.disposition == 'carte' %} sur-accent{% endif %}">
+      {%- if a_coord -%}
+        <dl class="coordonnees s-coordonnees__liste">
+          {%- if settings.telephone != blank %}<div><dt>{% render 'icone', nom: 'telephone', taille: 18 %}Téléphone</dt><dd><a href="tel:{{ settings.telephone | remove: ' ' | remove: '.' }}">{{ settings.telephone }}</a></dd></div>{% endif -%}
+          {%- if settings.email != blank %}<div><dt>{% render 'icone', nom: 'email', taille: 18 %}E-mail</dt><dd><a href="mailto:{{ settings.email }}">{{ settings.email }}</a></dd></div>{% endif -%}
+          {%- if settings.adresse != blank %}<div><dt>{% render 'icone', nom: 'localisation', taille: 18 %}Adresse</dt><dd>{{ settings.adresse }}</dd></div>{% endif -%}
+          {%- if settings.zone != blank %}<div><dt>{% render 'icone', nom: 'collecte-livraison', taille: 18 %}Zone</dt><dd>{{ settings.zone }}</dd></div>{% endif -%}
+        </dl>
+      {%- elsif request.design_mode -%}
+        <p class="notice">Renseignez vos coordonnées dans Réglages du thème › Coordonnées : elles s'afficheront ici.</p>
+      {%- endif -%}
+      {%- if horaires.size > 0 -%}
+        <div class="s-coordonnees__horaires">
+          <p class="label">{% render 'icone', nom: 'horaires', taille: 16 %} {{ s.titre_horaires }}</p>
+          <dl>
+            {%- for block in horaires -%}
+              <div {{ block.shopify_attributes }}><dt>{{ block.settings.jours }}</dt><dd>{{ block.settings.heures }}</dd></div>
+            {%- endfor -%}
+          </dl>
+        </div>
+      {%- elsif settings.horaires != blank -%}
+        <div class="s-coordonnees__horaires"><p class="label">{% render 'icone', nom: 'horaires', taille: 16 %} {{ s.titre_horaires }}</p><p>{{ settings.horaires }}</p></div>
+      {%- endif -%}
+      {%- if s.afficher_reseaux %}<p class="s-coordonnees__reseaux">{% render 'reseaux', icones: true %}</p>{% endif -%}
+    </div>
+  </div>
+</section>

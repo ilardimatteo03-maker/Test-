@@ -1,0 +1,44 @@
+{%- liquid
+  assign s = section.settings
+  assign a_video = false
+  if s.video != blank or s.video_url != blank
+    assign a_video = true
+  endif
+-%}
+{% render 'section-style', section: section %}
+<section class="s-video s-video--{{ s.disposition }}{% unless s.disposition == 'plein' %} section{% endunless %}" style="--video-h: {{ s.hauteur }}svh; --voile: {{ s.voile | divided_by: 100.0 }};{% if s.ratio != 'auto' %} --ratio: {{ s.ratio }};{% endif %}">
+  <div class="{% if s.disposition == 'plein' %}s-video__scene{% else %}wrap s-video__grille{% endif %}">
+    <div class="s-video__media media-cadre">
+      {%- if a_video -%}
+        {%- if s.video != blank -%}
+          {%- if s.lecture_auto -%}
+            {{ s.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, image_size: '2400x', class: 's-video__fichier' }}
+          {%- else -%}
+            {{ s.video | video_tag: controls: true, playsinline: true, image_size: '2400x', class: 's-video__fichier' }}
+          {%- endif -%}
+        {%- else -%}
+          <video-externe class="s-video__externe" data-type="{{ s.video_url.type }}" data-id="{{ s.video_url.id }}" data-auto="{{ s.lecture_auto }}">
+            {%- if s.lecture_auto -%}
+              <iframe src="{% if s.video_url.type == 'youtube' %}https://www.youtube-nocookie.com/embed/{{ s.video_url.id }}?autoplay=1&mute=1&loop=1&playlist={{ s.video_url.id }}&controls=0&playsinline=1&rel=0{% else %}https://player.vimeo.com/video/{{ s.video_url.id }}?background=1&autoplay=1&loop=1&muted=1{% endif %}" title="{{ s.titre_video | default: 'Vidéo' | escape }}" allow="autoplay; encrypted-media; picture-in-picture" loading="lazy" tabindex="-1"></iframe>
+            {%- else -%}
+              <button class="s-video__lecture" type="button" data-lire aria-label="Lire la vidéo : {{ s.titre_video | default: 'vidéo' | escape }}">
+                {%- if s.image != blank %}{% render 'media', image: s.image, alt: '', sizes: '100vw' %}{% endif -%}
+                <span class="s-video__bouton">{% render 'icone', nom: 'lecture', taille: 28 %}</span>
+              </button>
+            {%- endif -%}
+          </video-externe>
+        {%- endif -%}
+      {%- elsif s.image != blank -%}
+        {% render 'media', image: s.image, alt: s.titre_video, sizes: '100vw' %}
+      {%- elsif request.design_mode -%}
+        {{ 'lifestyle-2' | placeholder_svg_tag: 'repere' }}
+      {%- endif -%}
+      {%- if s.disposition == 'plein' %}<div class="s-video__voile" aria-hidden="true"></div>{% endif -%}
+    </div>
+    {%- if section.blocks.size > 0 -%}
+      <div class="s-video__contenu contenu s-video__contenu--{{ s.position_contenu }}{% if s.disposition == 'plein' %} wrap{% endif %}">
+        {%- for block in section.blocks -%}{% render 'bloc-contenu', block: block %}{%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>

@@ -171,7 +171,7 @@ def prestation_ajouts(i):
 AIDE = {"name": "Aide : pages et sections", "settings": [
     para("Pour ajouter une section : ouvrez une page dans l'éditeur, puis « Ajouter une section ». Chaque section peut être masquée (icône œil), dupliquée, déplacée ou supprimée."),
     para("Modèles de page fournis : « services », « presentation », « contact », « histoire » (présentation complète) et « lancement » (page Coming Soon sans en-tête). Attribuez-les depuis Boutique en ligne › Pages."),
-    para("Page Coming Soon de toute la boutique : activez la protection par mot de passe (Boutique en ligne › Préférences). La page mot de passe utilise alors la section « Page de lancement »."),
+    para("Page Coming Soon de toute la boutique : activez la protection par mot de passe (Boutique en ligne › Préférences). La page mot de passe utilise alors la section « Page de lancement » : mise en scène « Sobre » (page actuelle) ou « Cinématographique » (plein écran)."),
 ]}
 
 
