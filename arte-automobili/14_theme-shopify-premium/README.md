@@ -23,6 +23,16 @@ et une page « Programme de fidélité », sans application. Activation et usage
 
 ---
 
+## Correctif d'import (page d'accueil en 404)
+
+Les premières versions importées affichaient une page 404 à la place de l'accueil. À l'import, Shopify refusait
+silencieusement les sections contenant un réglage à curseur de **deux positions seulement** (par exemple
+« colonnes sur mobile : 1 ou 2 »). Les modèles qui utilisaient ces sections étaient refusés aussi, dont celui de l'accueil
+(`index.json`). Les outils de contrôle de Shopify ne signalent pas ce cas. Ces réglages sont désormais des listes
+déroulantes (12 sections corrigées), et les scripts de génération bloquent tout curseur de moins de 4 positions.
+
+---
+
 ## 1. Ce qui a été préservé
 
 Avant toute modification, l'export du thème (21 octobre 2026, 14 h 27) a été analysé fichier par fichier.

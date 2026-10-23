@@ -22,9 +22,15 @@ def txt(id, label, default=None, **kw):
     return s
 def rng(id, label, mn, mx, step, default, unit=None, **kw):
     assert (mx - mn) / step <= 101 and abs(((default - mn) / step) - round((default - mn) / step)) < 1e-9, id
+    # Shopify refuse à l'import les sections dont un curseur n'a que 2 positions (ex. 1 à 2) :
+    # au-dessous de 4 positions, utiliser une liste (sel_nombre).
+    assert (mx - mn) / step >= 3, f"{id} : curseur trop court, utiliser sel_nombre"
     s = {"type": "range", "id": id, "label": label, "min": mn, "max": mx, "step": step, "default": default, **kw}
     if unit: s["unit"] = unit
     return s
+def sel_nombre(id, label, valeurs, defaut, **kw):
+    """Liste de nombres (valeurs texte « 1 », « 2 »…) à la place d'un curseur trop court."""
+    return sel(id, label, [(str(v), str(v)) for v in valeurs], str(defaut), **kw)
 def hdr(t): return {"type": "header", "content": t}
 def para(t): return {"type": "paragraph", "content": t}
 

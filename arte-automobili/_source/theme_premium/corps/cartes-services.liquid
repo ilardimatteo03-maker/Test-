@@ -2,11 +2,13 @@
   assign s = section.settings
   assign u_services = pages['services'].url | default: '/pages/services'
   capture style_cartes
-    if s.colonnes_d != 3
-      echo '--cols: ' | append: s.colonnes_d | append: ';'
+    assign cols_d = s.colonnes_d | default: 3 | plus: 0
+    assign cols_m = s.colonnes_m | default: 1 | plus: 0
+    if cols_d != 3
+      echo '--cols: ' | append: cols_d | append: ';'
     endif
-    if s.colonnes_m != 1
-      echo ' --cols-m: ' | append: s.colonnes_m | append: '; --cartes-gap-m: var(--gouttiere);'
+    if cols_m != 1
+      echo ' --cols-m: ' | append: cols_m | append: '; --cartes-gap-m: var(--gouttiere);'
     endif
     if s.ratio != blank and s.ratio != '4 / 5'
       echo ' --ratio: ' | append: s.ratio | append: ';'

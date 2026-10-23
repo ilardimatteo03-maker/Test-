@@ -3,7 +3,7 @@ et schéma = réglages existants recopiés tels quels + nouveaux réglages + mis
 import json
 from pathlib import Path
 
-from communs import (RATIOS, STYLES_BOUTON, chk, communs, ecrire_schema, hdr, para, rng, schema_de, sel, taille_titre, txt)
+from communs import (RATIOS, STYLES_BOUTON, chk, communs, ecrire_schema, hdr, para, rng, schema_de, sel, sel_nombre, taille_titre, txt)
 
 ICI = Path(__file__).parent
 STYLES_SIMPLES = [s for s in STYLES_BOUTON if s[0] != "defaut"]
@@ -37,8 +37,8 @@ def ajouts():
         ],
         "cartes-services": [
             hdr("Cartes"),
-            rng("colonnes_d", "Colonnes sur ordinateur", 2, 4, 1, 3),
-            rng("colonnes_m", "Colonnes sur mobile", 1, 2, 1, 1),
+            sel_nombre("colonnes_d", "Colonnes sur ordinateur", [2, 3, 4], 3),
+            sel_nombre("colonnes_m", "Colonnes sur mobile", [1, 2], 1),
             sel("ratio", "Format des images", [r for r in RATIOS if r[0] != "auto"], "4 / 5"),
             sel("ratio_m", "Format des images sur mobile", [("defaut", "Paysage 4:3 (par défaut)")] + [r for r in RATIOS if r[0] != "auto"], "defaut"),
             chk("afficher_prix", "Afficher les prix", True),

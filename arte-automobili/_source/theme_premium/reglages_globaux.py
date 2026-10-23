@@ -113,7 +113,7 @@ MISE_EN_PAGE = {"name": "Mise en page", "settings": [
         "Agit sur tous les espacements verticaux."),
     hdr("Formes"),
     rng("rayon", "Arrondi des images, cartes et encadrés", 0, 24, 1, 0, "px", "0 = angles vifs, signature de la marque."),
-    rng("bordure_ep", "Épaisseur des bordures et filets", 1, 3, 1, 1, "px"),
+    {"type": "range", "id": "bordure_ep", "label": "Épaisseur des bordures et filets", "min": 1, "max": 3, "step": 1, "default": 1, "unit": "px"},
     rng("gouttiere_d", "Espacement entre les cartes", 8, 64, 2, 28, "px"),
 ]}
 

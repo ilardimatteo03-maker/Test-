@@ -2,7 +2,7 @@
 import json
 from pathlib import Path
 
-from communs import (RATIOS, STYLES_BOUTON, bloc_bouton, bloc_espace, bloc_liste, bloc_surtitre, bloc_texte, bloc_titre,
+from communs import (sel_nombre, RATIOS, STYLES_BOUTON, bloc_bouton, bloc_espace, bloc_liste, bloc_surtitre, bloc_texte, bloc_titre,
                      blocs_contenu, chk, communs, hdr, para, rng, sel, taille_titre, txt)
 
 ICI = Path(__file__).parent
@@ -18,7 +18,13 @@ def entete(surtitre="", titre="", texte=None):
 
 
 def colonnes(d=3, m=1, maxd=4, maxm=2):
-    return [rng("colonnes_d", "Colonnes sur ordinateur", 1, maxd, 1, d), rng("colonnes_m", "Colonnes sur mobile", 1, maxm, 1, m)]
+    """Curseur si au moins 4 positions, sinon liste (Shopify refuse les curseurs trop courts)."""
+    out = [rng("colonnes_d", "Colonnes sur ordinateur", 1, maxd, 1, d) if maxd - 1 >= 3
+           else sel_nombre("colonnes_d", "Colonnes sur ordinateur", range(1, maxd + 1), d)]
+    if maxm > 1:
+        out.append(rng("colonnes_m", "Colonnes sur mobile", 1, maxm, 1, m) if maxm - 1 >= 3
+                   else sel_nombre("colonnes_m", "Colonnes sur mobile", range(1, maxm + 1), m))
+    return out
 
 
 def schema(name, settings, blocks=None, presets=None, max_blocks=None, **extra):

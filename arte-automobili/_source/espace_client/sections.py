@@ -9,7 +9,7 @@ from pathlib import Path
 
 ICI = Path(__file__).resolve().parent
 sys.path.insert(0, str(ICI.parent / "theme_premium"))
-from communs import sel, chk, txt, rng, hdr, para, taille_titre, communs, STYLES_BOUTON  # noqa: E402
+from communs import sel, sel_nombre, chk, txt, rng, hdr, para, taille_titre, communs, STYLES_BOUTON  # noqa: E402
 
 THEME = ICI.parents[1] / "14_theme-shopify-premium" / "theme"
 
@@ -145,8 +145,8 @@ DONNEES = [("points", "Points disponibles"), ("niveau", "Niveau de fidélité"),
 section("ec-apercu", "Mon espace : synthèse", [
     ancre("apercu"),
 ] + tete("Vue d'ensemble", "En un coup d'<em>œil</em>.") + [
-    rng("colonnes", "Colonnes sur ordinateur", 2, 4, 1, 3),
-    rng("colonnes_m", "Colonnes sur mobile", 1, 2, 1, 1),
+    sel_nombre("colonnes", "Colonnes sur ordinateur", [2, 3, 4], 3),
+    sel_nombre("colonnes_m", "Colonnes sur mobile", [1, 2], 1),
 ] + communs(**COMMUNS), blocks=[
     {"type": "tuile", "name": "Carte de synthèse", "settings": [
         sel("donnee", "Information affichée", DONNEES, "points"),
@@ -277,7 +277,7 @@ section("ec-prestations", "Mon espace : prestations", [
 section("ec-recompenses", "Récompenses de fidélité", [
     ancre("recompenses"),
 ] + tete("Récompenses", "Vos <em>avantages</em>.") + [
-    rng("colonnes", "Colonnes sur ordinateur", 2, 4, 1, 3),
+    sel_nombre("colonnes", "Colonnes sur ordinateur", [2, 3, 4], 3),
     chk("afficher_etat", "Indiquer au client connecté si la récompense est disponible", True),
     txt("libelle_disponible", "Libellé « disponible »", "Disponible"),
     txt("message_manque", "Message s'il manque des points", "Encore [reste] [points]", info="[reste] et [points] sont remplacés automatiquement."),
@@ -300,7 +300,7 @@ section("ec-recompenses", "Récompenses de fidélité", [
 section("ec-profil", "Mon espace : profil", [
     ancre("profil"),
 ] + tete("Mon profil", "Profil et <em>paramètres</em>.") + [
-    rng("colonnes", "Colonnes sur ordinateur", 1, 3, 1, 2),
+    sel_nombre("colonnes", "Colonnes sur ordinateur", [1, 2, 3], 2),
     para("Les informations personnelles, adresses et préférences se modifient dans les pages de compte sécurisées de Shopify."),
 ] + communs(**COMMUNS), blocks=[
     {"type": "infos", "name": "Mes informations", "limit": 1, "settings": [
