@@ -1,5 +1,13 @@
 # Espace client et programme de fidélité : audit et plan
 
+> **Décisions prises (23 octobre 2026) :**
+> - aucune application ;
+> - paiement sur place ;
+> - une commande Shopify créée après chaque prestation ;
+> - feu vert pour l'étape 1, réalisée : voir `README.md`.
+>
+> Les présélections d'applications ci-dessous restent valables pour une évolution future (créneaux en temps réel, carte Wallet).
+
 Phases 1 et 2 de la mission. **Aucun fichier du thème n'a été modifié.** Ce document décrit l'existant, les contraintes
 réelles de Shopify en 2026, l'architecture proposée, les coûts et les décisions qui vous reviennent avant tout développement.
 

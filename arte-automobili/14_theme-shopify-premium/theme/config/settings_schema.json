@@ -2,7 +2,7 @@
   {
     "name": "theme_info",
     "theme_name": "Arte Automobili — Vitrine",
-    "theme_version": "2.0.0",
+    "theme_version": "2.1.0",
     "theme_author": "Arte Automobili",
     "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
     "theme_support_url": "https://help.shopify.com"
@@ -1379,6 +1379,166 @@
         "id": "mention_avant",
         "label": "Mention de la prestation valorisée",
         "default": "Formule complète"
+      }
+    ]
+  },
+  {
+    "name": "Programme de fidélité",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Le programme fonctionne sans application. Vous gérez les points dans la fiche de chaque client (Clients › fiche › Métachamps) ou automatiquement avec Shopify Flow. Le thème affiche ces données dans l'espace client. Guide complet : README de l'espace client."
+      },
+      {
+        "type": "text",
+        "id": "fid_nom",
+        "label": "Nom du programme",
+        "default": "Arte Club"
+      },
+      {
+        "type": "text",
+        "id": "fid_points_nom",
+        "label": "Nom des points",
+        "info": "Au pluriel, en minuscules. Ex. : points, crédits, miles.",
+        "default": "points"
+      },
+      {
+        "type": "header",
+        "content": "Niveaux"
+      },
+      {
+        "type": "select",
+        "id": "fid_base",
+        "label": "Le niveau dépend de",
+        "options": [
+          {
+            "value": "prestations",
+            "label": "Nombre de prestations (commandes Shopify)"
+          },
+          {
+            "value": "montant",
+            "label": "Montant total dépensé (commandes Shopify)"
+          },
+          {
+            "value": "points_cumules",
+            "label": "Points cumulés (métachamp arte.points_cumules)"
+          }
+        ],
+        "default": "prestations",
+        "info": "Calculé par Shopify à l'affichage, jamais dans le navigateur. Un niveau saisi dans le métachamp arte.niveau a priorité."
+      },
+      {
+        "type": "header",
+        "content": "Niveau 1"
+      },
+      {
+        "type": "text",
+        "id": "fid_n1_nom",
+        "label": "Nom",
+        "default": "Bianco"
+      },
+      {
+        "type": "color",
+        "id": "fid_n1_fond",
+        "label": "Couleur de la carte",
+        "default": "#EEEDE7"
+      },
+      {
+        "type": "color",
+        "id": "fid_n1_texte",
+        "label": "Couleur du texte de la carte",
+        "default": "#0D0F0E"
+      },
+      {
+        "type": "header",
+        "content": "Niveau 2"
+      },
+      {
+        "type": "text",
+        "id": "fid_n2_nom",
+        "label": "Nom",
+        "default": "Argento"
+      },
+      {
+        "type": "number",
+        "id": "fid_n2_seuil",
+        "label": "À partir de",
+        "default": 3,
+        "info": "Selon le critère choisi : nombre de prestations, euros ou points."
+      },
+      {
+        "type": "color",
+        "id": "fid_n2_fond",
+        "label": "Couleur de la carte",
+        "default": "#8E9592"
+      },
+      {
+        "type": "color",
+        "id": "fid_n2_texte",
+        "label": "Couleur du texte de la carte",
+        "default": "#0D0F0E"
+      },
+      {
+        "type": "header",
+        "content": "Niveau 3"
+      },
+      {
+        "type": "text",
+        "id": "fid_n3_nom",
+        "label": "Nom",
+        "default": "Verde"
+      },
+      {
+        "type": "number",
+        "id": "fid_n3_seuil",
+        "label": "À partir de",
+        "default": 6,
+        "info": "Selon le critère choisi : nombre de prestations, euros ou points."
+      },
+      {
+        "type": "color",
+        "id": "fid_n3_fond",
+        "label": "Couleur de la carte",
+        "default": "#1F3D35"
+      },
+      {
+        "type": "color",
+        "id": "fid_n3_texte",
+        "label": "Couleur du texte de la carte",
+        "default": "#EEEDE7"
+      },
+      {
+        "type": "header",
+        "content": "Niveau 4"
+      },
+      {
+        "type": "text",
+        "id": "fid_n4_nom",
+        "label": "Nom",
+        "default": "Nero"
+      },
+      {
+        "type": "number",
+        "id": "fid_n4_seuil",
+        "label": "À partir de",
+        "default": 10,
+        "info": "Selon le critère choisi : nombre de prestations, euros ou points."
+      },
+      {
+        "type": "color",
+        "id": "fid_n4_fond",
+        "label": "Couleur de la carte",
+        "default": "#0D0F0E"
+      },
+      {
+        "type": "color",
+        "id": "fid_n4_texte",
+        "label": "Couleur du texte de la carte",
+        "default": "#EEEDE7"
+      },
+      {
+        "type": "paragraph",
+        "content": "Les valeurs proposées (3, 6 et 10 prestations) sont des exemples : adaptez-les à votre programme."
       }
     ]
   },

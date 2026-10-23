@@ -1,0 +1,41 @@
+{%- liquid
+  assign login = routes.storefront_login_url | default: routes.account_login_url
+-%}
+{%- if d[0] != 'client' -%}
+{{ 'espace-client.css' | asset_url | stylesheet_tag }}
+{% render 'section-style', section: section %}
+<section class="ec wrap ec-acces{% unless s.afficher_carte %} ec-acces--sans-carte{% endunless %}" aria-labelledby="ec-acces-{{ section.id }}">
+  <div>
+    {%- if demo -%}
+      <p class="ec-demo">{% render 'icone', nom: 'eclat', taille: 14 %}Visible uniquement par les visiteurs non connectés</p>
+      {%- unless shop.customer_accounts_enabled -%}
+        <p class="notice">Les comptes clients sont désactivés : activez-les dans Paramètres › Comptes clients pour afficher les boutons de connexion.</p>
+      {%- endunless -%}
+    {%- endif -%}
+    {%- if s.surtitre != blank %}<p class="label">{{ s.surtitre }}</p>{% endif -%}
+    <h1 id="ec-acces-{{ section.id }}">{{ s.titre }}</h1>
+    {%- if s.texte != blank %}<p class="ec-acces__texte">{{ s.texte }}</p>{% endif -%}
+    {%- if section.blocks.size > 0 -%}
+      <ul class="ec-acces__avantages">
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}>
+            {% render 'icone', nom: block.settings.icone %}
+            <strong>{{ block.settings.titre }}</strong>
+            {%- if block.settings.texte != blank %}<p>{{ block.settings.texte }}</p>{% endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+    {%- if shop.customer_accounts_enabled -%}
+      <div class="ec-acces__actions">
+        {% render 'bouton', texte: s.bouton_connexion, lien: login, style: s.style_connexion, icone: 'profil' %}
+        {% render 'bouton', texte: s.bouton_inscription, lien: routes.account_register_url, style: 'secondary' %}
+      </div>
+    {%- endif -%}
+    {%- if s.mention != blank %}<p class="ec-acces__mention">{{ s.mention }}</p>{% endif -%}
+  </div>
+  {%- if s.afficher_carte -%}
+    <div class="ec-acces__carte" aria-hidden="true">{% render 'ec-carte-visuel', d: d, illustration: true %}</div>
+  {%- endif -%}
+</section>
+{%- endif -%}

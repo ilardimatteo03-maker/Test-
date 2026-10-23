@@ -1,0 +1,47 @@
+{%- if d[0] != 'visiteur' -%}
+{{ 'espace-client.css' | asset_url | stylesheet_tag }}
+{% render 'section-style', section: section %}
+<section class="ec section" id="{{ ancre }}" aria-labelledby="{{ titre_id }}">
+  <div class="wrap">
+    {% render 'ec-entete', s: s, id: titre_id, demo: demo %}
+    <ul class="ec-tuiles" style="--cols: {{ s.colonnes }}; --cols-m: {{ s.colonnes_m }};">
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        <li class="ec-tuile ec-tuile--{{ b.apparence }}" {{ block.shopify_attributes }}>
+          <div class="ec-tuile__tete"><p class="ec-tuile__titre">{{ b.titre }}</p>{% render 'icone', nom: b.icone, taille: 22 %}</div>
+          {%- case b.donnee -%}
+            {%- when 'points' -%}
+              <p class="ec-tuile__valeur">{{ d[6] }} <small>{{ d[25] }}</small></p>
+            {%- when 'niveau' -%}
+              <p class="ec-tuile__valeur ec-tuile__valeur--texte">{{ d[9] }}</p>
+            {%- when 'progression' -%}
+              {%- if d[12] != blank -%}
+                <p class="ec-tuile__valeur ec-tuile__valeur--texte">{{ d[13] }}</p>
+                <p class="ec-tuile__texte">avant le niveau {{ d[12] }}</p>
+                <div class="ec-barre" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ d[14] }}" aria-label="Progression vers le niveau {{ d[12] | escape }}"><span style="--p: {{ d[14] }}%"></span></div>
+              {%- else -%}
+                <p class="ec-tuile__valeur ec-tuile__valeur--texte">{{ b.vide | default: 'Niveau le plus élevé atteint.' }}</p>
+              {%- endif -%}
+            {%- when 'rdv' -%}
+              {%- if d[18] != blank -%}
+                <p class="ec-tuile__valeur ec-tuile__valeur--texte">{% render 'ec-date', date: d[18], format: 'long' %}</p>
+                <p class="ec-tuile__texte">{% if d[18].size > 10 %}{% render 'ec-date', date: d[18], format: 'heure' %} · {% endif %}{{ d[19] | escape }}</p>
+                {%- if d[20] != blank %}<p>{% render 'ec-statut', statut: d[20] %}</p>{% endif -%}
+              {%- else -%}
+                <p class="ec-tuile__texte">{{ b.vide }}</p>
+              {%- endif -%}
+            {%- when 'prestations' -%}
+              <p class="ec-tuile__valeur">{{ d[15] }} <small>{% if d[15] == '1' %}prestation{% else %}prestations{% endif %}</small></p>
+              {%- if d[22] != blank %}<p class="ec-tuile__texte">Dernière : {{ d[23] | escape }}, {% render 'ec-date', date: d[22] %}</p>{% elsif b.vide != blank %}<p class="ec-tuile__texte">{{ b.vide }}</p>{% endif -%}
+            {%- when 'carte' -%}
+              <p class="ec-tuile__valeur ec-tuile__valeur--texte">{{ settings.fid_nom }}</p>
+              <p class="ec-tuile__texte ec-mono">{{ d[5] }}</p>
+          {%- endcase -%}
+          {%- if b.texte != blank %}<p class="ec-tuile__texte">{{ b.texte }}</p>{% endif -%}
+          {%- if b.lien_texte != blank and b.cible != blank %}<a class="ec-lien ec-tuile__lien" href="{{ b.cible }}">{{ b.lien_texte }}{% render 'icone', nom: 'fleche', taille: 16 %}</a>{% endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+{%- endif -%}

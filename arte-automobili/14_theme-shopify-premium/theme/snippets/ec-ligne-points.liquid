@@ -1,0 +1,17 @@
+{%- comment -%}
+  Une opération de l'historique des points.
+  Paramètres : ligne (« AAAA-MM-JJ | libellé | +60 | 160 », saisie dans le métachamp arte.historique_points),
+  solde (true pour afficher le solde), unite (nom des points, pour les lecteurs d'écran).
+{%- endcomment -%}
+{%- liquid
+  assign p = ligne | split: '|'
+  assign pts = p[2] | strip
+  assign signe = pts | slice: 0
+  assign reste = p[3] | strip
+-%}
+<li>
+  <span class="ec-histo__date">{% render 'ec-date', date: p[0] %}</span>
+  <span class="ec-histo__libelle">{{ p[1] | strip | escape }}</span>
+  <span class="ec-histo__points{% if signe == '-' %} ec-histo__points--moins{% endif %}">{{ pts | escape }}<span class="visually-hidden"> {{ unite }}</span></span>
+  {%- if solde %}<span class="ec-histo__solde">{% if reste != blank %}Solde {{ reste | escape }}{% endif %}</span>{% endif -%}
+</li>

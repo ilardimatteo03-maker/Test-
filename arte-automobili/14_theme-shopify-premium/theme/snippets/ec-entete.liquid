@@ -1,0 +1,18 @@
+{%- comment -%}
+  En-tête d'une section de l'espace client : bandeau d'aperçu (éditeur), surtitre, titre, texte, action facultative.
+  Paramètres : s (réglages de la section), id (identifiant du titre), demo (true dans l'éditeur sans client connecté),
+  action (HTML facultatif affiché à droite du titre).
+{%- endcomment -%}
+{%- if demo -%}
+  <p class="ec-demo">{% render 'icone', nom: 'eclat', taille: 14 %}Aperçu de l'éditeur · données fictives, jamais affichées aux clients</p>
+{%- endif -%}
+{%- if s.surtitre != blank or s.titre != blank or s.texte != blank or action != blank -%}
+  <div class="ec-entete">
+    <div>
+      {%- if s.surtitre != blank %}<p class="label">{{ s.surtitre }}</p>{% endif -%}
+      {%- if s.titre != blank %}<h2 id="{{ id }}">{{ s.titre }}</h2>{% endif -%}
+    </div>
+    {{- action -}}
+    {%- if s.texte != blank %}<p class="ec-entete__texte">{{ s.texte }}</p>{% endif -%}
+  </div>
+{%- endif -%}

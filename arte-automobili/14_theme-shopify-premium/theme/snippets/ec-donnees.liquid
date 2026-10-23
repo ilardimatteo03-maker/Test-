@@ -1,0 +1,195 @@
+{%- comment -%}
+  Données de l'espace client, lues par Shopify au moment de l'affichage (jamais calculées dans le navigateur).
+  Seul endroit du thème qui lit les métachamps client « arte.* » : pour changer de source, ne modifier que ce fichier.
+
+  Sources :
+  - objet customer (natif) : prénom, nom, e-mail, commandes, montant dépensé ;
+  - métachamps client, saisis dans Clients › fiche client, ou par Shopify Flow :
+    arte.points (entier), arte.points_cumules (entier), arte.niveau (texte, facultatif),
+    arte.message (texte), arte.rendez_vous, arte.historique_points, arte.vehicules (texte multiligne).
+
+  Dans l'éditeur de thème sans client connecté, renvoie des données fictives d'aperçu (état « demo »),
+  jamais affichées sur la boutique en ligne.
+
+  Sortie : une chaîne dont les champs sont séparés par « §§ », dans cet ordre :
+   0 état (client, demo, visiteur)   1 prénom          2 nom             3 e-mail
+   4 identifiant client              5 numéro affiché  6 points          7 valeur du critère de niveau
+   8 rang du niveau (1 à 4)          9 nom du niveau  10 couleur carte  11 couleur texte carte
+  12 niveau suivant                 13 reste (texte)  14 progression %  15 nombre de prestations
+  16 message personnel              17 lien du QR     18 prochain rendez-vous : date
+  19 prochain rendez-vous : prestation                20 prochain rendez-vous : statut
+  21 nombre de rendez-vous à venir  22 dernière prestation : date      23 dernière prestation : titre
+  24 points cumulés                 25 nom des points 26 rendez-vous (brut)
+  27 historique des points (brut)   28 véhicules (brut)
+{%- endcomment -%}
+{%- capture nl %}
+{% endcapture -%}
+{%- liquid
+  assign etat = 'visiteur'
+  if customer
+    assign etat = 'client'
+  elsif request.design_mode
+    assign etat = 'demo'
+  endif
+  assign maintenant = 'now' | date: '%s' | plus: 0
+  assign points_nom = settings.fid_points_nom | default: 'points'
+
+  if etat == 'client'
+    assign prenom = customer.first_name | default: customer.name
+    assign nom = customer.name
+    assign email = customer.email
+    assign cid = customer.id | append: ''
+    assign points = customer.metafields.arte.points.value | default: 0 | plus: 0
+    assign cumules = customer.metafields.arte.points_cumules.value | default: points | plus: 0
+    assign nb_prestations = customer.orders_count | default: 0 | plus: 0
+    assign depense = customer.total_spent | default: 0 | divided_by: 100
+    assign niveau_force = customer.metafields.arte.niveau.value | strip | downcase
+    assign message = customer.metafields.arte.message.value | strip
+    assign rdv_brut = customer.metafields.arte.rendez_vous.value
+    assign histo_brut = customer.metafields.arte.historique_points.value
+    assign vehicules_brut = customer.metafields.arte.vehicules.value
+    if customer.last_order
+      assign derniere_date = customer.last_order.created_at
+      assign derniere_titre = customer.last_order.line_items.first.title
+    endif
+  elsif etat == 'demo'
+    assign prenom = 'Matteo'
+    assign nom = 'Matteo Rossi'
+    assign email = 'matteo.rossi@exemple.be'
+    assign cid = '7350041829176'
+    assign points = 180
+    assign cumules = 340
+    assign nb_prestations = 4
+    assign depense = 340
+    assign message = 'Aperçu : votre message personnel au client s’affiche ici.'
+    assign j9 = maintenant | plus: 777600 | date: '%Y-%m-%d'
+    assign j30 = maintenant | plus: 2592000 | date: '%Y-%m-%d'
+    assign p20 = maintenant | minus: 1728000 | date: '%Y-%m-%d'
+    assign p75 = maintenant | minus: 6480000 | date: '%Y-%m-%d'
+    assign p140 = maintenant | minus: 12096000 | date: '%Y-%m-%d'
+    assign rdv_brut = j9 | append: ' 10:00 | Lavage intérieur + extérieur | Confirmé | Porsche 911 Carrera' | append: nl | append: j30 | append: ' 14:30 | Lavage extérieur | En attente | Porsche 911 Carrera' | append: nl | append: p20 | append: ' 09:00 | Lavage intérieur | Terminé | Porsche 911 Carrera'
+    assign histo_brut = p140 | append: ' | Bonus de bienvenue | +50 | 50' | append: nl | append: p75 | append: ' | Lavage intérieur + extérieur | +100 | 150' | append: nl | append: p20 | append: ' | Lavage intérieur | +60 | 210' | append: nl | append: p20 | append: ' | Récompense utilisée | -30 | 180'
+    assign vehicules_brut = 'Porsche 911 Carrera | 1-ABC-123' | append: nl | append: 'Fiat 500 | '
+    assign derniere_date = p20
+    assign derniere_titre = 'Lavage intérieur'
+  endif
+
+  if etat != 'visiteur'
+    case settings.fid_base
+      when 'montant'
+        assign base = depense
+        assign unite_s = '€'
+        assign unite_p = '€'
+      when 'points_cumules'
+        assign base = cumules
+        assign unite_s = points_nom
+        assign unite_p = points_nom
+      else
+        assign base = nb_prestations
+        assign unite_s = 'prestation'
+        assign unite_p = 'prestations'
+    endcase
+
+    assign idx = 1
+    for i in (2..4)
+      assign k = 'fid_n' | append: i | append: '_seuil'
+      assign seuil = settings[k]
+      if seuil != blank and base >= seuil
+        assign idx = i
+      endif
+    endfor
+    if niveau_force != blank
+      for i in (1..4)
+        assign k = 'fid_n' | append: i | append: '_nom'
+        assign n = settings[k] | strip | downcase
+        if n == niveau_force
+          assign idx = i
+        endif
+      endfor
+    endif
+
+    assign k = 'fid_n' | append: idx | append: '_nom'
+    assign niveau_nom = settings[k]
+    assign k = 'fid_n' | append: idx | append: '_fond'
+    assign niveau_fond = settings[k] | default: '#0D0F0E'
+    assign k = 'fid_n' | append: idx | append: '_texte'
+    assign niveau_texte = settings[k] | default: '#EEEDE7'
+
+    assign seuil_actuel = 0
+    if idx > 1
+      assign k = 'fid_n' | append: idx | append: '_seuil'
+      assign seuil_actuel = settings[k] | default: 0
+    endif
+    assign suivant_nom = ''
+    assign reste_texte = ''
+    assign progression = 100
+    if idx < 4
+      assign j = idx | plus: 1
+      assign k = 'fid_n' | append: j | append: '_seuil'
+      assign suivant_seuil = settings[k]
+      if suivant_seuil != blank
+        assign k = 'fid_n' | append: j | append: '_nom'
+        assign suivant_nom = settings[k]
+        assign reste = suivant_seuil | minus: base
+        if reste < 0
+          assign reste = 0
+        endif
+        if reste == 1
+          assign reste_texte = reste | append: ' ' | append: unite_s
+        else
+          assign reste_texte = reste | append: ' ' | append: unite_p
+        endif
+        assign ecart = suivant_seuil | minus: seuil_actuel
+        if ecart > 0
+          assign progression = base | minus: seuil_actuel | times: 100 | divided_by: ecart
+        endif
+        if progression < 0
+          assign progression = 0
+        elsif progression > 100
+          assign progression = 100
+        endif
+      endif
+    endif
+
+    assign fin = cid | slice: -8, 8
+    assign moitie1 = fin | slice: 0, 4
+    assign moitie2 = fin | slice: 4, 4
+    assign id_affiche = 'N° ' | append: moitie1 | append: ' ' | append: moitie2
+    assign boutique = shop.permanent_domain | remove: '.myshopify.com'
+    assign qr_url = 'https://admin.shopify.com/store/' | append: boutique | append: '/customers/' | append: cid
+
+    assign rdv_date = ''
+    assign rdv_prestation = ''
+    assign rdv_statut = ''
+    assign rdv_epoch = 9999999999
+    assign nb_rdv = 0
+    assign lignes = rdv_brut | newline_to_br | split: '<br />'
+    for l in lignes
+      assign p = l | split: '|'
+      assign d = p[0] | strip
+      if d == blank
+        continue
+      endif
+      assign test = d | date: 'x%Yx'
+      if test == d
+        continue
+      endif
+      assign e = d | date: '%s' | plus: 0
+      assign statut = p[2] | strip | downcase
+      if e >= maintenant and e > 0
+        unless statut contains 'annul'
+          assign nb_rdv = nb_rdv | plus: 1
+          if e < rdv_epoch
+            assign rdv_epoch = e
+            assign rdv_date = d
+            assign rdv_prestation = p[1] | strip
+            assign rdv_statut = p[2] | strip
+          endif
+        endunless
+      endif
+    endfor
+  endif
+
+  assign sep = '§§'
+  echo etat | append: sep | append: prenom | append: sep | append: nom | append: sep | append: email | append: sep | append: cid | append: sep | append: id_affiche | append: sep | append: points | append: sep | append: base | append: sep | append: idx | append: sep | append: niveau_nom | append: sep | append: niveau_fond | append: sep | append: niveau_texte | append: sep | append: suivant_nom | append: sep | append: reste_texte | append: sep | append: progression | append: sep | append: nb_prestations | append: sep | append: message | append: sep | append: qr_url | append: sep | append: rdv_date | append: sep | append: rdv_prestation | append: sep | append: rdv_statut | append: sep | append: nb_rdv | append: sep | append: derniere_date | append: sep | append: derniere_titre | append: sep | append: cumules | append: sep | append: points_nom | append: sep | append: rdv_brut | append: sep | append: histo_brut | append: sep | append: vehicules_brut
+-%}

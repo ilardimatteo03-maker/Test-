@@ -1,0 +1,41 @@
+{%- liquid
+  assign salut = s.salutation
+  if s.salutation_mode == 'heure'
+    assign h = 'now' | date: '%H' | plus: 0
+    if h >= 5 and h < 12
+      assign salut = s.salutation_matin | default: s.salutation
+    elsif h >= 18 or h < 5
+      assign salut = s.salutation_soir | default: s.salutation
+    endif
+  endif
+  assign l1 = s.cible_1 | default: '#reserver'
+  assign l2 = s.cible_2 | default: '#fidelite'
+-%}
+{%- if d[0] != 'visiteur' -%}
+{{ 'espace-client.css' | asset_url | stylesheet_tag }}
+{% render 'section-style', section: section %}
+<section class="ec wrap ec-bienvenue" aria-labelledby="ec-bienvenue-{{ section.id }}">
+  {%- if demo %}<p class="ec-demo">{% render 'icone', nom: 'eclat', taille: 14 %}Aperçu de l'éditeur · données fictives, jamais affichées aux clients</p>{% endif -%}
+  <div class="ec-bienvenue__grille">
+    <div>
+      <h1 class="ec-bienvenue__salut" id="ec-bienvenue-{{ section.id }}">{{ salut }} <em>{{ d[1] | escape }}</em>.</h1>
+      {%- if s.phrase != blank %}<p class="ec-bienvenue__phrase">{{ s.phrase }}</p>{% endif -%}
+      <ul class="ec-bienvenue__puces">
+        {%- if s.afficher_niveau %}<li class="ec-puce ec-puce--niveau" style="--puce-fond: {{ d[10] }}; --puce-texte: {{ d[11] }};">{% render 'icone', nom: 'niveau', taille: 16 %}{{ settings.fid_nom }} · {{ d[9] }}</li>{% endif -%}
+        {%- if s.afficher_points %}<li class="ec-puce">{% render 'icone', nom: 'etoile', taille: 16 %}{{ d[6] }} {{ d[25] }}</li>{% endif -%}
+        {%- if s.afficher_rdv and d[18] != blank %}<li class="ec-puce">{% render 'icone', nom: 'rendez-vous', taille: 16 %}{% render 'ec-date', date: d[18], format: 'jour' %} · {% render 'ec-date', date: d[18], format: 'heure' %}</li>{% endif -%}
+      </ul>
+    </div>
+    <div class="ec-bienvenue__actions">
+      {% render 'bouton', texte: s.bouton_1, lien: l1, style: s.style_1, icone: 'rendez-vous' %}
+      {% render 'bouton', texte: s.bouton_2, lien: l2, style: s.style_2 %}
+    </div>
+  </div>
+  {%- if s.afficher_message and d[16] != blank -%}
+    <div class="ec-notification" role="status">{% render 'icone', nom: 'cloche', taille: 20 %}<p>{{ d[16] | escape }}</p></div>
+  {%- endif -%}
+  {%- if s.notification != blank -%}
+    <div class="ec-notification">{% render 'icone', nom: 'eclat', taille: 20 %}<p>{{ s.notification }}{% if s.notification_lien != blank %} <a href="{{ s.notification_lien }}">{{ s.notification_lien_texte | default: 'En savoir plus' }}</a>{% endif %}</p></div>
+  {%- endif -%}
+</section>
+{%- endif -%}

@@ -1,0 +1,321 @@
+{
+  "sections": {
+    "acces": {
+      "type": "ec-acces",
+      "settings": {},
+      "blocks": {
+        "acces_1": {
+          "type": "avantage",
+          "settings": {
+            "icone": "carte",
+            "titre": "Votre carte de fidélité",
+            "texte": "Des points à chaque prestation et un niveau qui progresse avec vous."
+          }
+        },
+        "acces_2": {
+          "type": "avantage",
+          "settings": {
+            "icone": "rendez-vous",
+            "titre": "Vos rendez-vous",
+            "texte": "Demandez un créneau et retrouvez vos rendez-vous à venir."
+          }
+        },
+        "acces_3": {
+          "type": "avantage",
+          "settings": {
+            "icone": "historique",
+            "titre": "Votre historique",
+            "texte": "Toutes vos prestations, au même endroit."
+          }
+        }
+      },
+      "block_order": [
+        "acces_1",
+        "acces_2",
+        "acces_3"
+      ]
+    },
+    "navigation": {
+      "type": "ec-navigation",
+      "settings": {},
+      "blocks": {
+        "navigation_1": {
+          "type": "rubrique",
+          "settings": {
+            "libelle": "Vue d'ensemble",
+            "libelle_mobile": "Aperçu",
+            "icone": "tableau",
+            "cible": "#apercu",
+            "mobile": true
+          }
+        },
+        "navigation_2": {
+          "type": "rubrique",
+          "settings": {
+            "libelle": "Ma fidélité",
+            "libelle_mobile": "Carte",
+            "icone": "carte",
+            "cible": "#fidelite",
+            "mobile": true
+          }
+        },
+        "navigation_3": {
+          "type": "rubrique",
+          "settings": {
+            "libelle": "Prendre rendez-vous",
+            "libelle_mobile": "Réserver",
+            "icone": "rendez-vous",
+            "cible": "#reserver",
+            "mobile": true
+          }
+        },
+        "navigation_4": {
+          "type": "rubrique",
+          "settings": {
+            "libelle": "Mes rendez-vous",
+            "icone": "horaires",
+            "cible": "#rendez-vous",
+            "mobile": false
+          }
+        },
+        "navigation_5": {
+          "type": "rubrique",
+          "settings": {
+            "libelle": "Mes prestations",
+            "icone": "historique",
+            "cible": "#prestations",
+            "mobile": false
+          }
+        },
+        "navigation_6": {
+          "type": "rubrique",
+          "settings": {
+            "libelle": "Mes récompenses",
+            "icone": "cadeau",
+            "cible": "#recompenses",
+            "mobile": false
+          }
+        },
+        "navigation_7": {
+          "type": "rubrique",
+          "settings": {
+            "libelle": "Mon profil",
+            "libelle_mobile": "Profil",
+            "icone": "profil",
+            "cible": "#profil",
+            "mobile": true
+          }
+        },
+        "navigation_8": {
+          "type": "rubrique",
+          "settings": {
+            "libelle": "Paramètres",
+            "icone": "reglages",
+            "cible": "#parametres",
+            "mobile": false
+          }
+        }
+      },
+      "block_order": [
+        "navigation_1",
+        "navigation_2",
+        "navigation_3",
+        "navigation_4",
+        "navigation_5",
+        "navigation_6",
+        "navigation_7",
+        "navigation_8"
+      ]
+    },
+    "bienvenue": {
+      "type": "ec-bienvenue",
+      "settings": {}
+    },
+    "apercu": {
+      "type": "ec-apercu",
+      "settings": {},
+      "blocks": {
+        "apercu_1": {
+          "type": "tuile",
+          "settings": {
+            "donnee": "points",
+            "titre": "Mes points",
+            "icone": "etoile",
+            "texte": "Disponibles sur votre carte.",
+            "lien_texte": "Voir l'historique",
+            "cible": "#historique",
+            "apparence": "contour"
+          }
+        },
+        "apercu_2": {
+          "type": "tuile",
+          "settings": {
+            "donnee": "progression",
+            "titre": "Prochain niveau",
+            "icone": "niveau",
+            "vide": "Vous avez atteint le niveau le plus élevé.",
+            "lien_texte": "Les avantages par niveau",
+            "cible": "/pages/fidelite",
+            "apparence": "contour"
+          }
+        },
+        "apercu_3": {
+          "type": "tuile",
+          "settings": {
+            "donnee": "rdv",
+            "titre": "Prochain rendez-vous",
+            "icone": "rendez-vous",
+            "vide": "Aucun rendez-vous prévu pour le moment.",
+            "lien_texte": "Prendre rendez-vous",
+            "cible": "#reserver",
+            "apparence": "plein"
+          }
+        },
+        "apercu_4": {
+          "type": "tuile",
+          "settings": {
+            "donnee": "prestations",
+            "titre": "Mes prestations",
+            "icone": "historique",
+            "vide": "Votre première prestation apparaîtra ici.",
+            "lien_texte": "Voir l'historique",
+            "cible": "#prestations",
+            "apparence": "contour"
+          }
+        },
+        "apercu_5": {
+          "type": "tuile",
+          "settings": {
+            "donnee": "carte",
+            "titre": "Ma carte de fidélité",
+            "icone": "carte",
+            "texte": "À présenter lors de chaque visite à l'atelier.",
+            "lien_texte": "Afficher ma carte",
+            "cible": "#fidelite",
+            "apparence": "accent"
+          }
+        },
+        "apercu_6": {
+          "type": "tuile",
+          "settings": {
+            "donnee": "libre",
+            "titre": "Mes avantages",
+            "icone": "cadeau",
+            "texte": "Échangez vos points contre des avantages réservés aux membres.",
+            "lien_texte": "Voir les récompenses",
+            "cible": "#recompenses",
+            "apparence": "contour"
+          }
+        }
+      },
+      "block_order": [
+        "apercu_1",
+        "apercu_2",
+        "apercu_3",
+        "apercu_4",
+        "apercu_5",
+        "apercu_6"
+      ]
+    },
+    "carte": {
+      "type": "ec-carte",
+      "settings": {}
+    },
+    "historique": {
+      "type": "ec-historique-points",
+      "settings": {}
+    },
+    "reserver": {
+      "type": "ec-reservation",
+      "settings": {}
+    },
+    "rendez_vous": {
+      "type": "ec-rendez-vous",
+      "settings": {}
+    },
+    "prestations": {
+      "type": "ec-prestations",
+      "settings": {}
+    },
+    "recompenses": {
+      "type": "ec-recompenses",
+      "settings": {},
+      "blocks": {
+        "recompenses_1": {
+          "type": "recompense",
+          "settings": {
+            "points": 100,
+            "titre": "Avantage fidélité",
+            "texte": "Désodorisation de l'habitacle offerte lors de votre prochaine prestation.",
+            "icone": "cadeau"
+          }
+        },
+        "recompenses_2": {
+          "type": "recompense",
+          "settings": {
+            "points": 250,
+            "titre": "Réduction sur une prestation",
+            "texte": "15 € de réduction sur la prestation de votre choix.",
+            "icone": "etoile"
+          }
+        },
+        "recompenses_3": {
+          "type": "recompense",
+          "settings": {
+            "points": 500,
+            "titre": "Avantage premium",
+            "texte": "Un lavage intérieur offert.",
+            "condition": "Sur rendez-vous.",
+            "icone": "eclat"
+          }
+        }
+      },
+      "block_order": [
+        "recompenses_1",
+        "recompenses_2",
+        "recompenses_3"
+      ]
+    },
+    "profil": {
+      "type": "ec-profil",
+      "settings": {},
+      "blocks": {
+        "profil_1": {
+          "type": "infos"
+        },
+        "profil_2": {
+          "type": "communication"
+        },
+        "profil_3": {
+          "type": "garage"
+        },
+        "profil_4": {
+          "type": "compte"
+        },
+        "profil_5": {
+          "type": "deconnexion"
+        }
+      },
+      "block_order": [
+        "profil_1",
+        "profil_2",
+        "profil_3",
+        "profil_4",
+        "profil_5"
+      ]
+    }
+  },
+  "order": [
+    "acces",
+    "navigation",
+    "bienvenue",
+    "apercu",
+    "carte",
+    "historique",
+    "reserver",
+    "rendez_vous",
+    "prestations",
+    "recompenses",
+    "profil"
+  ]
+}

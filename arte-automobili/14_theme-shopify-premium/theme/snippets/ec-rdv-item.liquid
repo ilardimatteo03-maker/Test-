@@ -1,0 +1,24 @@
+{%- comment -%}
+  Un rendez-vous de la liste « Mes rendez-vous ».
+  Paramètres : ligne (« AAAA-MM-JJ HH:MM | Prestation | Statut | Véhicule », saisie dans le métachamp arte.rendez_vous), passe.
+{%- endcomment -%}
+{%- liquid
+  assign p = ligne | split: '|'
+  assign dt = p[0] | strip
+  assign prestation = p[1] | strip
+  assign statut = p[2] | strip
+  assign vehicule = p[3] | strip
+  assign mois_c = 'janv.,févr.,mars,avr.,mai,juin,juil.,août,sept.,oct.,nov.,déc.' | split: ','
+  assign m = dt | date: '%m' | plus: 0 | minus: 1
+-%}
+<li class="ec-rdv{% if passe %} ec-rdv--passe{% endif %}">
+  <div class="ec-rdv__date" aria-hidden="true">
+    <span class="ec-rdv__jour">{{ dt | date: '%d' }}</span>
+    <span class="ec-rdv__mois">{{ mois_c[m] }} {{ dt | date: '%Y' }}</span>
+  </div>
+  <div>
+    <p class="ec-rdv__titre">{{ prestation | default: 'Rendez-vous' | escape }}</p>
+    <p class="ec-rdv__meta">{% render 'ec-date', date: dt, format: 'long' %}{% if dt.size > 10 %} · {% render 'ec-date', date: dt, format: 'heure' %}{% endif %}{% if vehicule != blank %} · {{ vehicule | escape }}{% endif %}</p>
+  </div>
+  {%- if statut != blank %}{% render 'ec-statut', statut: statut %}{% endif -%}
+</li>

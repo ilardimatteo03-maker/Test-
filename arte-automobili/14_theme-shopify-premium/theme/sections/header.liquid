@@ -75,6 +75,15 @@
       <ul>{% render 'liens', menu: menu, prefixe: 'd' %}</ul>
     </nav>
     <div class="header__actions">
+      {%- if s.compte_afficher and shop.customer_accounts_enabled -%}
+        {%- liquid
+          assign u_compte = s.compte_lien
+          if u_compte == blank
+            assign u_compte = pages['espace-client'].url | default: routes.account_url
+          endif
+        -%}
+        <a class="header__compte" href="{{ u_compte }}">{% render 'icone', nom: 'profil', taille: 22 %}<span class="{% if s.compte_style == 'libelle' %}header__compte-libelle{% else %}visually-hidden{% endif %}">{{ s.compte_libelle | default: 'Mon espace' }}</span></a>
+      {%- endif -%}
       {%- if s.cta_label != blank -%}
         <a class="btn btn--ghost btn--small header__cta" href="{{ s.cta_lien | default: u_contact }}">{{ s.cta_label }}</a>
       {%- endif -%}
@@ -154,7 +163,14 @@
     { "type": "checkbox", "id": "menu_mobile_numeros", "label": "Numéroter les liens (01, 02…)", "default": true },
     { "type": "checkbox", "id": "menu_mobile_cta", "label": "Bouton de rendez-vous dans le menu mobile", "default": true },
     { "type": "checkbox", "id": "menu_mobile_reseaux", "label": "Réseaux sociaux dans le menu mobile", "default": false },
-    { "type": "checkbox", "id": "mobile_cta", "label": "Bouton de rendez-vous visible dans la barre sur mobile", "default": false }
+    { "type": "checkbox", "id": "mobile_cta", "label": "Bouton de rendez-vous visible dans la barre sur mobile", "default": false },
+    { "type": "header", "content": "Espace client" },
+    { "type": "checkbox", "id": "compte_afficher", "label": "Afficher l'accès à l'espace client", "default": false, "info": "Nécessite les comptes clients (Paramètres › Comptes clients)." },
+    { "type": "select", "id": "compte_style", "label": "Affichage", "default": "icone", "options": [
+      { "value": "icone", "label": "Icône seule" }, { "value": "libelle", "label": "Icône et libellé" }
+    ], "visible_if": "{{ section.settings.compte_afficher }}" },
+    { "type": "text", "id": "compte_libelle", "label": "Libellé", "default": "Mon espace", "visible_if": "{{ section.settings.compte_afficher }}" },
+    { "type": "url", "id": "compte_lien", "label": "Lien", "info": "Vide = page dont l'identifiant est « espace-client », sinon le compte Shopify.", "visible_if": "{{ section.settings.compte_afficher }}" }
   ]
 }
 {% endschema %}

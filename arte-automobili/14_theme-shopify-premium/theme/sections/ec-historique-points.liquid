@@ -1,0 +1,318 @@
+{%- capture ec -%}{% render 'ec-donnees' %}{%- endcapture -%}
+{%- liquid
+  assign d = ec | split: '§§'
+  assign s = section.settings
+  assign demo = false
+  if d[0] == 'demo'
+    assign demo = true
+  endif
+  assign ancre = s.ancre | default: section.id | handleize
+  assign titre_id = 'ec-titre-' | append: section.id
+-%}
+{%- if d[0] != 'visiteur' -%}
+{{ 'espace-client.css' | asset_url | stylesheet_tag }}
+{% render 'section-style', section: section %}
+{%- liquid
+  assign lignes = d[27] | newline_to_br | split: '<br />'
+  assign cles = ''
+  for l in lignes
+    assign p = l | split: '|'
+    assign dt = p[0] | strip
+    if dt == blank
+      continue
+    endif
+    assign e = dt | date: '%s' | plus: 0
+    assign e_txt = e | prepend: '0000000000' | slice: -10, 10
+    assign i_txt = forloop.index0 | prepend: '0000' | slice: -4, 4
+    assign cles = cles | append: e_txt | append: '-' | append: i_txt | append: '¶'
+  endfor
+  assign tri = cles | split: '¶' | sort | reverse
+  assign max = s.nombre | default: 6
+-%}
+<section class="ec section" id="{{ ancre }}" aria-labelledby="{{ titre_id }}">
+  <div class="wrap">
+    {% render 'ec-entete', s: s, id: titre_id, demo: demo %}
+    {%- if tri.size > 0 -%}
+      <ul class="ec-histo">
+        {%- for c in tri limit: max -%}
+          {%- assign i = c | split: '-' | last | plus: 0 -%}
+          {% render 'ec-ligne-points', ligne: lignes[i], solde: s.afficher_solde, unite: d[25] %}
+        {%- endfor -%}
+      </ul>
+      {%- if tri.size > max -%}
+        <details class="ec-histo-suite">
+          <summary class="ec-lien">{{ s.libelle_tout | default: 'Voir tout l’historique' }}</summary>
+          <ul class="ec-histo">
+            {%- for c in tri offset: max -%}
+              {%- assign i = c | split: '-' | last | plus: 0 -%}
+              {% render 'ec-ligne-points', ligne: lignes[i], solde: s.afficher_solde, unite: d[25] %}
+            {%- endfor -%}
+          </ul>
+        </details>
+      {%- endif -%}
+    {%- elsif s.vide != blank -%}
+      <p class="ec-vide">{{ s.vide }}</p>
+    {%- endif -%}
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Mon espace : points",
+  "tag": "div",
+  "class": "section-ec",
+  "settings": [
+    {
+      "type": "text",
+      "id": "ancre",
+      "label": "Identifiant de la section (ancre)",
+      "info": "Sert de cible à la navigation : #historique. Lettres, chiffres et tirets.",
+      "default": "historique"
+    },
+    {
+      "type": "text",
+      "id": "surtitre",
+      "label": "Surtitre",
+      "default": "Ma fidélité"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titre",
+      "label": "Titre",
+      "default": "Historique des <em>points</em>."
+    },
+    {
+      "type": "textarea",
+      "id": "texte",
+      "label": "Texte"
+    },
+    {
+      "type": "range",
+      "id": "nombre",
+      "label": "Opérations affichées avant « Voir tout »",
+      "min": 3,
+      "max": 30,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_solde",
+      "label": "Afficher le solde après chaque opération",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "libelle_tout",
+      "label": "Texte du lien « Voir tout »",
+      "default": "Voir tout l'historique"
+    },
+    {
+      "type": "text",
+      "id": "vide",
+      "label": "Texte s'il n'y a aucune opération",
+      "default": "Aucune opération pour le moment : vos points apparaîtront ici après votre première prestation."
+    },
+    {
+      "type": "paragraph",
+      "content": "Les opérations viennent du métachamp arte.historique_points de la fiche client (une ligne par opération : date | libellé | points | solde)."
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "select",
+      "id": "largeur",
+      "label": "Largeur du contenu",
+      "options": [
+        {
+          "value": "contenu",
+          "label": "Largeur du thème"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "pleine",
+          "label": "Pleine largeur"
+        },
+        {
+          "value": "bord",
+          "label": "Bord à bord (sans marges)"
+        }
+      ],
+      "default": "contenu"
+    },
+    {
+      "type": "select",
+      "id": "espace_haut",
+      "label": "Espacement en haut",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_bas",
+      "label": "Espacement en bas",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_mobile",
+      "label": "Espacements sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Proportionnels"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petits"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyens"
+        },
+        {
+          "value": "grand",
+          "label": "Grands"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mon espace : points"
+    }
+  ]
+}
+{% endschema %}

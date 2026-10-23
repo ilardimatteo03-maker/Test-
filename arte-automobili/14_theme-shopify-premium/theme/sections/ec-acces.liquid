@@ -1,0 +1,567 @@
+{%- capture ec -%}{% render 'ec-donnees' %}{%- endcapture -%}
+{%- liquid
+  assign d = ec | split: '§§'
+  assign s = section.settings
+  assign demo = false
+  if d[0] == 'demo'
+    assign demo = true
+  endif
+-%}
+{%- liquid
+  assign login = routes.storefront_login_url | default: routes.account_login_url
+-%}
+{%- if d[0] != 'client' -%}
+{{ 'espace-client.css' | asset_url | stylesheet_tag }}
+{% render 'section-style', section: section %}
+<section class="ec wrap ec-acces{% unless s.afficher_carte %} ec-acces--sans-carte{% endunless %}" aria-labelledby="ec-acces-{{ section.id }}">
+  <div>
+    {%- if demo -%}
+      <p class="ec-demo">{% render 'icone', nom: 'eclat', taille: 14 %}Visible uniquement par les visiteurs non connectés</p>
+      {%- unless shop.customer_accounts_enabled -%}
+        <p class="notice">Les comptes clients sont désactivés : activez-les dans Paramètres › Comptes clients pour afficher les boutons de connexion.</p>
+      {%- endunless -%}
+    {%- endif -%}
+    {%- if s.surtitre != blank %}<p class="label">{{ s.surtitre }}</p>{% endif -%}
+    <h1 id="ec-acces-{{ section.id }}">{{ s.titre }}</h1>
+    {%- if s.texte != blank %}<p class="ec-acces__texte">{{ s.texte }}</p>{% endif -%}
+    {%- if section.blocks.size > 0 -%}
+      <ul class="ec-acces__avantages">
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}>
+            {% render 'icone', nom: block.settings.icone %}
+            <strong>{{ block.settings.titre }}</strong>
+            {%- if block.settings.texte != blank %}<p>{{ block.settings.texte }}</p>{% endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+    {%- if shop.customer_accounts_enabled -%}
+      <div class="ec-acces__actions">
+        {% render 'bouton', texte: s.bouton_connexion, lien: login, style: s.style_connexion, icone: 'profil' %}
+        {% render 'bouton', texte: s.bouton_inscription, lien: routes.account_register_url, style: 'secondary' %}
+      </div>
+    {%- endif -%}
+    {%- if s.mention != blank %}<p class="ec-acces__mention">{{ s.mention }}</p>{% endif -%}
+  </div>
+  {%- if s.afficher_carte -%}
+    <div class="ec-acces__carte" aria-hidden="true">{% render 'ec-carte-visuel', d: d, illustration: true %}</div>
+  {%- endif -%}
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Mon espace : accès",
+  "tag": "div",
+  "class": "section-ec",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Visible uniquement par les visiteurs non connectés. La connexion est celle de Shopify (code envoyé par e-mail)."
+    },
+    {
+      "type": "text",
+      "id": "surtitre",
+      "label": "Surtitre",
+      "default": "Espace client"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titre",
+      "label": "Titre",
+      "default": "Votre espace <em>Arte Club</em>."
+    },
+    {
+      "type": "textarea",
+      "id": "texte",
+      "label": "Texte",
+      "default": "Votre carte de fidélité, vos points, vos rendez-vous et l'historique de vos prestations, réunis au même endroit."
+    },
+    {
+      "type": "text",
+      "id": "bouton_connexion",
+      "label": "Bouton de connexion",
+      "default": "Se connecter"
+    },
+    {
+      "type": "select",
+      "id": "style_connexion",
+      "label": "Style du bouton de connexion",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Style par défaut du thème"
+        },
+        {
+          "value": "primary",
+          "label": "Plein"
+        },
+        {
+          "value": "secondary",
+          "label": "Contour"
+        },
+        {
+          "value": "minimal",
+          "label": "Minimaliste"
+        },
+        {
+          "value": "fleche",
+          "label": "Texte avec flèche"
+        },
+        {
+          "value": "premium",
+          "label": "Premium automobile"
+        }
+      ],
+      "default": "primary"
+    },
+    {
+      "type": "text",
+      "id": "bouton_inscription",
+      "label": "Bouton d'inscription",
+      "info": "Vide = bouton masqué.",
+      "default": "Créer un compte"
+    },
+    {
+      "type": "text",
+      "id": "mention",
+      "label": "Mention sous les boutons",
+      "default": "Connexion par un code envoyé à votre adresse e-mail : aucun mot de passe à retenir."
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_carte",
+      "label": "Afficher une carte d'exemple",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "taille_titre",
+      "label": "Taille du titre",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "s",
+          "label": "Petite"
+        },
+        {
+          "value": "m",
+          "label": "Moyenne"
+        },
+        {
+          "value": "l",
+          "label": "Grande"
+        },
+        {
+          "value": "xl",
+          "label": "Très grande"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "fond_image",
+      "label": "Image d'arrière-plan (facultative)"
+    },
+    {
+      "type": "range",
+      "id": "fond_voile",
+      "label": "Voile sur l'image d'arrière-plan",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "default": 60,
+      "unit": "%"
+    },
+    {
+      "type": "select",
+      "id": "largeur",
+      "label": "Largeur du contenu",
+      "options": [
+        {
+          "value": "contenu",
+          "label": "Largeur du thème"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "pleine",
+          "label": "Pleine largeur"
+        },
+        {
+          "value": "bord",
+          "label": "Bord à bord (sans marges)"
+        }
+      ],
+      "default": "contenu"
+    },
+    {
+      "type": "select",
+      "id": "espace_haut",
+      "label": "Espacement en haut",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_bas",
+      "label": "Espacement en bas",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_mobile",
+      "label": "Espacements sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Proportionnels"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petits"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyens"
+        },
+        {
+          "value": "grand",
+          "label": "Grands"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "avantage",
+      "name": "Avantage",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icone",
+          "label": "Icône",
+          "options": [
+            {
+              "value": "lavage-exterieur",
+              "label": "Lavage extérieur"
+            },
+            {
+              "value": "decontamination",
+              "label": "Décontamination"
+            },
+            {
+              "value": "correction-vernis",
+              "label": "Correction de vernis"
+            },
+            {
+              "value": "protection-ceramique",
+              "label": "Protection céramique"
+            },
+            {
+              "value": "interieur",
+              "label": "Habitacle"
+            },
+            {
+              "value": "cuir",
+              "label": "Soin du cuir"
+            },
+            {
+              "value": "jantes",
+              "label": "Jantes et étriers"
+            },
+            {
+              "value": "vitrage",
+              "label": "Vitrage"
+            },
+            {
+              "value": "moteur",
+              "label": "Compartiment moteur"
+            },
+            {
+              "value": "inspection-lumiere",
+              "label": "Contrôle sous lumière"
+            },
+            {
+              "value": "rendez-vous",
+              "label": "Rendez-vous"
+            },
+            {
+              "value": "horaires",
+              "label": "Horaires"
+            },
+            {
+              "value": "devis",
+              "label": "Devis"
+            },
+            {
+              "value": "localisation",
+              "label": "Adresse"
+            },
+            {
+              "value": "telephone",
+              "label": "Téléphone"
+            },
+            {
+              "value": "email",
+              "label": "E-mail"
+            },
+            {
+              "value": "collecte-livraison",
+              "label": "Collecte et livraison"
+            },
+            {
+              "value": "coche",
+              "label": "Coche"
+            },
+            {
+              "value": "etoile",
+              "label": "Étoile"
+            },
+            {
+              "value": "bouclier",
+              "label": "Bouclier"
+            },
+            {
+              "value": "goutte",
+              "label": "Goutte"
+            },
+            {
+              "value": "eclat",
+              "label": "Éclat"
+            },
+            {
+              "value": "voiture",
+              "label": "Voiture"
+            },
+            {
+              "value": "cle",
+              "label": "Clé"
+            },
+            {
+              "value": "profil",
+              "label": "Profil"
+            },
+            {
+              "value": "cadeau",
+              "label": "Cadeau"
+            },
+            {
+              "value": "carte",
+              "label": "Carte de fidélité"
+            },
+            {
+              "value": "historique",
+              "label": "Historique"
+            },
+            {
+              "value": "reglages",
+              "label": "Réglages"
+            },
+            {
+              "value": "tableau",
+              "label": "Tableau de bord"
+            },
+            {
+              "value": "niveau",
+              "label": "Niveau"
+            },
+            {
+              "value": "cloche",
+              "label": "Notification"
+            },
+            {
+              "value": "qr",
+              "label": "QR code"
+            },
+            {
+              "value": "deconnexion",
+              "label": "Déconnexion"
+            }
+          ],
+          "default": "carte"
+        },
+        {
+          "type": "text",
+          "id": "titre",
+          "label": "Titre",
+          "default": "Votre carte de fidélité"
+        },
+        {
+          "type": "textarea",
+          "id": "texte",
+          "label": "Texte"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Mon espace : accès",
+      "blocks": [
+        {
+          "type": "avantage",
+          "settings": {
+            "icone": "carte",
+            "titre": "Votre carte de fidélité",
+            "texte": "Des points à chaque prestation et un niveau qui progresse avec vous."
+          }
+        },
+        {
+          "type": "avantage",
+          "settings": {
+            "icone": "rendez-vous",
+            "titre": "Vos rendez-vous",
+            "texte": "Demandez un créneau et retrouvez vos rendez-vous à venir."
+          }
+        },
+        {
+          "type": "avantage",
+          "settings": {
+            "icone": "historique",
+            "titre": "Votre historique",
+            "texte": "Toutes vos prestations, au même endroit."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

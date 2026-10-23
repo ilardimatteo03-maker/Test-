@@ -1,0 +1,48 @@
+{%- if d[0] != 'visiteur' -%}
+{{ 'espace-client.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'ec-qrcode.js' | asset_url }}" defer></script>
+<script src="{{ 'espace-client.js' | asset_url }}" defer></script>
+{% render 'section-style', section: section %}
+<section class="ec section" id="{{ ancre }}" aria-labelledby="{{ titre_id }}">
+  <div class="wrap">
+    {% render 'ec-entete', s: s, id: titre_id, demo: demo %}
+    <div class="ec-fidelite{% unless s.afficher_details %} ec-fidelite--carte-seule{% endunless %}">
+      <div class="ec-fidelite__carte">{% render 'ec-carte-visuel', d: d, s: s %}</div>
+      <div class="ec-fidelite__details">
+        {%- if s.afficher_details -%}
+          <div>
+            <p class="label">{{ settings.fid_nom }}</p>
+            <p class="ec-fidelite__niveau">Niveau <em>{{ d[9] }}</em></p>
+          </div>
+          <div class="ec-progression">
+            {%- if d[12] != blank -%}
+              <p>{{ s.message_progression | replace: '[reste]', d[13] | replace: '[niveau]', d[12] }}</p>
+              <div class="ec-barre" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ d[14] }}" aria-label="Progression vers le niveau {{ d[12] | escape }}"><span style="--p: {{ d[14] }}%"></span></div>
+              <div class="ec-progression__bornes" aria-hidden="true"><span>{{ d[9] }}</span><span>{{ d[12] }}</span></div>
+            {%- elsif s.message_max != blank -%}
+              <p>{{ s.message_max }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+        {%- if s.qr == 'bouton' -%}
+          <div class="ec-fidelite__actions">
+            <button class="btn btn--primary" type="button" data-ec-presenter="ec-presentation-{{ section.id }}" aria-haspopup="dialog">{% render 'icone', nom: 'qr', taille: 18, classe: 'icon icon--fixe' %}<span>{{ s.bouton_presenter | default: 'Présenter ma carte' }}</span></button>
+          </div>
+          {%- if s.qr_texte != blank %}<p class="ec-entete__texte">{{ s.qr_texte }}</p>{% endif -%}
+        {%- endif -%}
+      </div>
+    </div>
+    {%- if s.qr == 'bouton' -%}
+      <dialog class="ec-presentation" id="ec-presentation-{{ section.id }}" aria-labelledby="ec-presentation-titre-{{ section.id }}">
+        <button class="ec-presentation__fermer" type="button" data-ec-fermer aria-label="Fermer">{% render 'icone', nom: 'fermer', taille: 22 %}</button>
+        <div class="ec-presentation__corps">
+          <p class="label" id="ec-presentation-titre-{{ section.id }}">{{ settings.fid_nom }}</p>
+          {% render 'ec-carte-visuel', d: d, s: s, grand: true, sans_qr: true %}
+          <ec-qr class="ec-presentation__qr" data-valeur="{{ d[17] | escape }}" data-marge="4" data-libelle="Code de la carte {{ d[5] | escape }}"></ec-qr>
+          {%- if s.qr_texte != blank %}<p>{{ s.qr_texte }}</p>{% endif -%}
+        </div>
+      </dialog>
+    {%- endif -%}
+  </div>
+</section>
+{%- endif -%}

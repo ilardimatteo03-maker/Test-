@@ -1,0 +1,87 @@
+{%- if d[0] != 'visiteur' -%}
+{{ 'espace-client.css' | asset_url | stylesheet_tag }}
+{% render 'section-style', section: section %}
+{%- assign cible = s.cible_reserver | default: '#reserver' -%}
+<section class="ec section" id="{{ ancre }}" aria-labelledby="{{ titre_id }}">
+  <div class="wrap">
+    {% render 'ec-entete', s: s, id: titre_id, demo: demo %}
+    {%- if d[0] == 'client' -%}
+      {%- paginate customer.orders by s.par_page -%}
+        {%- if customer.orders.size > 0 -%}
+          <ul class="ec-prestations">
+            {%- for order in customer.orders -%}
+              {%- liquid
+                assign titres = order.line_items | map: 'title' | join: ', '
+                assign premier = order.line_items.first.title | downcase
+                assign service = ''
+                assign meilleur = 0
+                for i in (1..4)
+                  assign k_nom = 'p' | append: i | append: '_nom'
+                  assign n = settings[k_nom] | downcase
+                  if n != blank and premier contains n and n.size > meilleur
+                    assign meilleur = n.size
+                    case i
+                      when 1
+                        assign service = 'interieur'
+                      when 2
+                        assign service = 'exterieur'
+                      when 3
+                        assign service = 'complet'
+                      else
+                        assign service = 'professionnels'
+                    endcase
+                  endif
+                endfor
+                if order.cancelled
+                  assign statut = 'Annulée'
+                else
+                  case order.financial_status
+                    when 'paid'
+                      assign statut = 'Payée'
+                    when 'pending'
+                      assign statut = 'Paiement à venir'
+                    when 'refunded'
+                      assign statut = 'Remboursée'
+                    when 'partially_refunded'
+                      assign statut = 'Partiellement remboursée'
+                    else
+                      assign statut = order.financial_status_label
+                  endcase
+                endif
+                assign u = order.customer_order_url | default: order.customer_url
+              -%}
+              <li class="ec-prestation">
+                <span class="ec-prestation__date">{% render 'ec-date', date: order.created_at %}</span>
+                <div>
+                  <p class="ec-prestation__titre">{{ titres | escape }}</p>
+                  <p class="ec-prestation__meta">{{ order.name }}{% if s.afficher_statut %} · {{ statut }}{% endif %}</p>
+                </div>
+                {%- if s.afficher_montant %}<span class="ec-prestation__montant">{{ order.total_price | money }}</span>{% endif -%}
+                <div class="ec-prestation__actions">
+                  {%- if s.bouton_reserver != blank and order.cancelled != true %}<a class="ec-lien" href="{% if service != blank %}?service={{ service }}{% endif %}{{ cible }}">{{ s.bouton_reserver }}</a>{% endif -%}
+                  {%- if s.afficher_detail and u != blank %}<a class="ec-lien" href="{{ u }}">Détail<span class="visually-hidden"> de la commande {{ order.name }}</span></a>{% endif -%}
+                </div>
+              </li>
+            {%- endfor -%}
+          </ul>
+          {%- if paginate.pages > 1 %}<nav class="ec-pagination" aria-label="Pages de l'historique">{{ paginate | default_pagination: next: 'Suivantes', previous: 'Précédentes' }}</nav>{% endif -%}
+        {%- elsif s.vide != blank -%}
+          <p class="ec-vide">{{ s.vide }}</p>
+        {%- endif -%}
+      {%- endpaginate -%}
+    {%- else -%}
+      {%- liquid
+        assign maintenant = 'now' | date: '%s' | plus: 0
+        assign j20 = maintenant | minus: 1728000
+        assign j75 = maintenant | minus: 6480000
+        assign j140 = maintenant | minus: 12096000
+      -%}
+      <ul class="ec-prestations">
+        <li class="ec-prestation"><span class="ec-prestation__date">{% render 'ec-date', date: j20 %}</span><div><p class="ec-prestation__titre">{{ settings.p1_nom }}</p><p class="ec-prestation__meta">#1024{% if s.afficher_statut %} · Payée{% endif %}</p></div>{% if s.afficher_montant %}<span class="ec-prestation__montant">60,00 €</span>{% endif %}<div class="ec-prestation__actions">{% if s.bouton_reserver != blank %}<a class="ec-lien" href="?service=interieur{{ cible }}">{{ s.bouton_reserver }}</a>{% endif %}</div></li>
+        <li class="ec-prestation"><span class="ec-prestation__date">{% render 'ec-date', date: j75 %}</span><div><p class="ec-prestation__titre">{{ settings.p3_nom }}</p><p class="ec-prestation__meta">#1011{% if s.afficher_statut %} · Payée{% endif %}</p></div>{% if s.afficher_montant %}<span class="ec-prestation__montant">100,00 €</span>{% endif %}<div class="ec-prestation__actions">{% if s.bouton_reserver != blank %}<a class="ec-lien" href="?service=complet{{ cible }}">{{ s.bouton_reserver }}</a>{% endif %}</div></li>
+        <li class="ec-prestation"><span class="ec-prestation__date">{% render 'ec-date', date: j140 %}</span><div><p class="ec-prestation__titre">{{ settings.p2_nom }}</p><p class="ec-prestation__meta">#1003{% if s.afficher_statut %} · Payée{% endif %}</p></div>{% if s.afficher_montant %}<span class="ec-prestation__montant">60,00 €</span>{% endif %}<div class="ec-prestation__actions">{% if s.bouton_reserver != blank %}<a class="ec-lien" href="?service=exterieur{{ cible }}">{{ s.bouton_reserver }}</a>{% endif %}</div></li>
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+{%- endif -%}

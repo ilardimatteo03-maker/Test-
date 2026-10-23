@@ -1,0 +1,47 @@
+{{ 'espace-client.css' | asset_url | stylesheet_tag }}
+{% render 'section-style', section: section %}
+{%- liquid
+  case settings.fid_base
+    when 'montant'
+      assign unite = '€ dépensés'
+    when 'points_cumules'
+      assign unite = d[25] | append: ' cumulés'
+    else
+      assign unite = 'prestations'
+  endcase
+  assign rang = d[8] | plus: 0
+-%}
+<section class="ec section" id="{{ ancre }}" aria-labelledby="{{ titre_id }}">
+  <div class="wrap">
+    {% render 'ec-entete', s: s, id: titre_id %}
+    <ul class="fid-niveaux">
+      {%- for i in (1..4) -%}
+        {%- liquid
+          assign k_nom = 'fid_n' | append: i | append: '_nom'
+          assign k_seuil = 'fid_n' | append: i | append: '_seuil'
+          assign k_fond = 'fid_n' | append: i | append: '_fond'
+          assign k_texte = 'fid_n' | append: i | append: '_texte'
+          assign seuil = settings[k_seuil]
+          assign actuel = false
+          if d[0] != 'visiteur' and rang == i
+            assign actuel = true
+          endif
+        -%}
+        {%- if i == 1 or seuil != blank -%}
+          <li class="fid-niveau{% if actuel %} fid-niveau--actuel{% endif %}">
+            <div class="fid-niveau__pastille" style="--n-fond: {{ settings[k_fond] }}; --n-texte: {{ settings[k_texte] }};" aria-hidden="true"><span>{{ settings[k_nom] }}</span><small>{{ settings.fid_nom }}</small></div>
+            <p class="fid-niveau__seuil">{% if i == 1 %}{{ s.libelle_seuil_1 }}{% else %}{{ s.modele_seuil | replace: '[seuil]', seuil | replace: '[unite]', unite }}{% endif %}</p>
+            <h3 class="fid-niveau__titre">{{ settings[k_nom] }}</h3>
+            {%- if actuel and s.afficher_actuel %}<span class="ec-statut ec-statut--confirme fid-niveau__actuel">{{ s.libelle_actuel }}</span>{% endif -%}
+            <ul>
+              {%- for block in section.blocks -%}
+                {%- assign bn = block.settings.niveau | plus: 0 -%}
+                {%- if bn == i %}<li {{ block.shopify_attributes }}>{% render 'icone', nom: block.settings.icone, taille: 18 %}<span>{{ block.settings.texte }}</span></li>{% endif -%}
+              {%- endfor -%}
+            </ul>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>

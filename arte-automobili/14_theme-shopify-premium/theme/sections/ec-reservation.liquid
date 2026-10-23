@@ -1,0 +1,609 @@
+{%- capture ec -%}{% render 'ec-donnees' %}{%- endcapture -%}
+{%- liquid
+  assign d = ec | split: '§§'
+  assign s = section.settings
+  assign demo = false
+  if d[0] == 'demo'
+    assign demo = true
+  endif
+  assign ancre = s.ancre | default: section.id | handleize
+  assign titre_id = 'ec-titre-' | append: section.id
+-%}
+{%- if d[0] != 'visiteur' -%}
+{{ 'espace-client.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'espace-client.js' | asset_url }}" defer></script>
+{% render 'section-style', section: section %}
+{%- liquid
+  assign sid = section.id
+  assign form_id = 'ec-rdv-' | append: sid
+  assign style_b = s.style_bouton | default: 'primary'
+  if style_b == 'defaut'
+    assign style_b = settings.btn_style_defaut | default: 'primary'
+  endif
+  assign moments = s.moments | newline_to_br | split: '<br />'
+  assign moments_net = s.moments | strip
+  assign types = s.types | newline_to_br | split: '<br />'
+  assign types_net = s.types | strip
+  assign vehicules = d[28] | newline_to_br | split: '<br />'
+  assign vehicules_net = d[28] | strip
+-%}
+<section class="ec section" id="{{ ancre }}" aria-labelledby="{{ titre_id }}">
+  <div class="wrap">
+    <div class="ec-reservation{% if s.disposition == 'seul' %} ec-reservation--seul{% endif %}">
+      <div class="ec-reservation__info">
+        {% render 'ec-entete', s: s, id: titre_id, demo: demo %}
+        {%- if s.introduction != blank %}<div class="rte">{{ s.introduction }}</div>{% endif -%}
+        {%- if s.note != blank %}<p class="ec-reservation__note">{% render 'icone', nom: 'horaires', taille: 20 %}<span>{{ s.note }}</span></p>{% endif -%}
+        {%- if s.conditions != blank %}<div class="rte">{{ s.conditions }}</div>{% endif -%}
+      </div>
+      <div>
+        {%- comment -%}
+          Demande envoyée par le formulaire de contact natif de Shopify, à l'adresse e-mail de la boutique.
+          Le rendez-vous n'est confirmé qu'après réponse de l'atelier : aucun créneau n'est réservé automatiquement.
+        {%- endcomment -%}
+        {%- form 'contact', id: form_id, class: 'form js-formulaire', novalidate: 'novalidate' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="ec-confirmation" data-confirmation tabindex="-1">
+              {% render 'icone', nom: 'coche', taille: 28 %}
+              <h3>{{ s.confirmation_titre }}</h3>
+              <p>{{ s.confirmation_texte }}</p>
+            </div>
+          {%- else -%}
+            {%- if form.errors -%}
+              <p class="notice notice--erreur" role="alert">Votre demande n'a pas pu être envoyée : {{ form.errors | default_errors }}</p>
+            {%- endif -%}
+            <input type="hidden" name="contact[email]" value="{{ d[3] | escape }}">
+            <input type="hidden" name="contact[name]" value="{{ d[2] | escape }}">
+            <input type="hidden" name="contact[Objet]" value="Demande de rendez-vous (espace client)">
+            <input type="hidden" name="contact[Numéro de membre]" value="{{ d[5] | escape }}">
+            <fieldset class="ec-choix-prestation">
+              <legend>Prestation</legend>
+              {%- assign premier = true -%}
+              {%- for i in (1..4) -%}
+                {%- liquid
+                  assign k = 'p' | append: i
+                  assign k_nom = k | append: '_nom'
+                  assign k_form = k | append: '_formulaire'
+                  assign k_prix = k | append: '_prix'
+                  assign k_mode = k | append: '_prix_mode'
+                  assign k_duree = k | append: '_duree'
+                  assign nom_p = settings[k_form] | default: settings[k_nom]
+                  case i
+                    when 1
+                      assign id_p = 'interieur'
+                    when 2
+                      assign id_p = 'exterieur'
+                    when 3
+                      assign id_p = 'complet'
+                    else
+                      assign id_p = 'professionnels'
+                  endcase
+                  assign montrer = true
+                  if settings[k_nom] == blank
+                    assign montrer = false
+                  endif
+                  if i == 4 and s.afficher_pro == false
+                    assign montrer = false
+                  endif
+                  case settings[k_mode]
+                    when 'devis'
+                      assign prix = 'Sur devis'
+                    when 'masquer'
+                      assign prix = ''
+                    else
+                      assign prix = settings[k_prix]
+                  endcase
+                -%}
+                {%- if montrer -%}
+                  <label class="ec-choix">
+                    <input type="radio" name="contact[Prestation]" value="{{ nom_p | escape }}" data-id="{{ id_p }}"{% if premier %} checked{% endif %}>
+                    <span class="ec-choix__nom">{{ settings[k_nom] }}</span>
+                    {%- if s.afficher_duree and settings[k_duree] != blank %}<span class="ec-choix__meta">{{ settings[k_duree] }}</span>{% endif -%}
+                    {%- if s.afficher_prix and prix != blank %}<span class="ec-choix__prix">{{ prix }}</span>{% endif -%}
+                  </label>
+                  {%- assign premier = false -%}
+                {%- endif -%}
+              {%- endfor -%}
+            </fieldset>
+            <div class="form__grille">
+              {%- if s.champ_date -%}
+                <div class="field">
+                  <label for="ec-date-{{ sid }}">Date souhaitée</label>
+                  <input id="ec-date-{{ sid }}" type="date" name="contact[Date souhaitée]" required data-msg="Choisissez une date à venir.">
+                  <p class="field__erreur" id="ec-date-{{ sid }}-erreur" hidden></p>
+                </div>
+              {%- endif -%}
+              {%- if s.champ_moment and moments_net != blank -%}
+                <div class="field">
+                  <label for="ec-moment-{{ sid }}">Moment de la journée</label>
+                  <select id="ec-moment-{{ sid }}" name="contact[Moment souhaité]">
+                    {%- for m in moments -%}{%- assign mn = m | strip -%}{%- if mn != blank %}<option value="{{ mn | escape }}">{{ mn }}</option>{% endif -%}{%- endfor -%}
+                  </select>
+                </div>
+              {%- endif -%}
+              {%- if s.champ_date2 -%}
+                <div class="field">
+                  <label for="ec-date2-{{ sid }}">Autre date possible <span class="facultatif">(facultatif)</span></label>
+                  <input id="ec-date2-{{ sid }}" type="date" name="contact[Autre date possible]" data-msg="Choisissez une date à venir.">
+                  <p class="field__erreur" id="ec-date2-{{ sid }}-erreur" hidden></p>
+                </div>
+              {%- endif -%}
+              {%- if s.champ_telephone -%}
+                <div class="field">
+                  <label for="ec-tel-{{ sid }}">Téléphone <span class="facultatif">(facultatif)</span></label>
+                  <input id="ec-tel-{{ sid }}" type="tel" name="contact[phone]" autocomplete="tel" inputmode="tel" pattern="[0-9+().\s\-]{6,}" value="{{ customer.phone }}" data-msg="Ce numéro ne semble pas valide.">
+                  <p class="field__erreur" id="ec-tel-{{ sid }}-erreur" hidden></p>
+                </div>
+              {%- endif -%}
+              {%- if s.champ_vehicule -%}
+                {%- if vehicules_net != blank -%}
+                  <div class="field">
+                    <label for="ec-vehicule-{{ sid }}">Véhicule</label>
+                    <select id="ec-vehicule-{{ sid }}" name="contact[Véhicule]">
+                      {%- for v in vehicules -%}
+                        {%- assign vp = v | split: '|' -%}{%- assign vn = vp[0] | strip -%}{%- assign pl = vp[1] | strip -%}
+                        {%- if vn != blank %}<option value="{{ v | strip | escape }}">{{ vn }}{% if pl != blank %} · {{ pl }}{% endif %}</option>{% endif -%}
+                      {%- endfor -%}
+                      <option value="Autre véhicule">Un autre véhicule</option>
+                    </select>
+                  </div>
+                {%- endif -%}
+                <div class="field">
+                  <label for="ec-marque-{{ sid }}">{% if vehicules_net != blank %}Autre véhicule : marque et modèle{% else %}Marque et modèle{% endif %} <span class="facultatif">(facultatif)</span></label>
+                  <input id="ec-marque-{{ sid }}" type="text" name="contact[Marque et modèle]" autocomplete="off">
+                </div>
+              {%- endif -%}
+              {%- if s.champ_type and types_net != blank -%}
+                <div class="field">
+                  <label for="ec-type-{{ sid }}">Type de véhicule <span class="facultatif">(facultatif)</span></label>
+                  <select id="ec-type-{{ sid }}" name="contact[Type de véhicule]">
+                    <option value="">Choisir</option>
+                    {%- for t in types -%}{%- assign tn = t | strip -%}{%- if tn != blank %}<option value="{{ tn | escape }}">{{ tn }}</option>{% endif -%}{%- endfor -%}
+                  </select>
+                </div>
+              {%- endif -%}
+              {%- if s.champ_plaque -%}
+                <div class="field">
+                  <label for="ec-plaque-{{ sid }}">Immatriculation <span class="facultatif">(facultatif)</span></label>
+                  <input id="ec-plaque-{{ sid }}" type="text" name="contact[Immatriculation]" autocomplete="off" autocapitalize="characters">
+                </div>
+              {%- endif -%}
+              {%- if s.champ_message -%}
+                <div class="field field--large">
+                  <label for="ec-message-{{ sid }}">Demandes particulières <span class="facultatif">(facultatif)</span></label>
+                  <textarea id="ec-message-{{ sid }}" name="contact[body]" rows="4"></textarea>
+                </div>
+              {%- endif -%}
+              {%- if s.consentement -%}
+                <div class="field field--large field--case">
+                  <input id="ec-accord-{{ sid }}" name="contact[Conditions acceptées]" type="checkbox" value="Oui" required data-msg="Votre accord est nécessaire pour envoyer la demande.">
+                  <label for="ec-accord-{{ sid }}">{{ s.texte_consentement }}</label>
+                  <p class="field__erreur" id="ec-accord-{{ sid }}-erreur" hidden></p>
+                </div>
+              {%- endif -%}
+            </div>
+            <div class="form__pied">
+              <div class="form__statut" data-statut role="status" aria-live="polite"></div>
+              <button class="btn btn--{{ style_b }}" type="submit" data-envoyer><span data-libelle>{{ s.bouton | default: 'Envoyer ma demande' }}</span>{% render 'icon-arrow' %}</button>
+            </div>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Mon espace : réservation",
+  "tag": "div",
+  "class": "section-ec",
+  "settings": [
+    {
+      "type": "text",
+      "id": "ancre",
+      "label": "Identifiant de la section (ancre)",
+      "info": "Sert de cible à la navigation : #reserver. Lettres, chiffres et tirets.",
+      "default": "reserver"
+    },
+    {
+      "type": "text",
+      "id": "surtitre",
+      "label": "Surtitre",
+      "default": "Rendez-vous"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titre",
+      "label": "Titre",
+      "default": "Demander un <em>rendez-vous</em>."
+    },
+    {
+      "type": "richtext",
+      "id": "introduction",
+      "label": "Introduction",
+      "default": "<p>Choisissez votre prestation et vos disponibilités : nous vous confirmons le créneau par e-mail ou par téléphone.</p>"
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Note",
+      "default": "Il s'agit d'une demande : votre rendez-vous est confirmé par notre équipe."
+    },
+    {
+      "type": "richtext",
+      "id": "conditions",
+      "label": "Conditions",
+      "default": "<p>Paiement sur place. Modification ou annulation gratuite jusqu'à 24 heures avant le rendez-vous.</p>"
+    },
+    {
+      "type": "select",
+      "id": "disposition",
+      "label": "Disposition",
+      "options": [
+        {
+          "value": "cote",
+          "label": "Texte à gauche, formulaire à droite"
+        },
+        {
+          "value": "seul",
+          "label": "Texte au-dessus du formulaire"
+        }
+      ],
+      "default": "cote"
+    },
+    {
+      "type": "header",
+      "content": "Prestations"
+    },
+    {
+      "type": "paragraph",
+      "content": "Noms, prix et durées : Réglages du thème › Prestations et tarifs."
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_prix",
+      "label": "Afficher les prix",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_duree",
+      "label": "Afficher les durées",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_pro",
+      "label": "Proposer la prestation professionnelle (sur devis)",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Champs du formulaire"
+    },
+    {
+      "type": "checkbox",
+      "id": "champ_date",
+      "label": "Date souhaitée (obligatoire)",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "champ_date2",
+      "label": "Autre date possible",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "champ_moment",
+      "label": "Moment de la journée",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "moments",
+      "label": "Moments proposés (un par ligne)",
+      "default": "Matin\nAprès-midi\nIndifférent"
+    },
+    {
+      "type": "checkbox",
+      "id": "champ_telephone",
+      "label": "Téléphone",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "champ_vehicule",
+      "label": "Véhicule (véhicules enregistrés, marque et modèle)",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "champ_type",
+      "label": "Type de véhicule",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "types",
+      "label": "Types proposés (un par ligne)",
+      "default": "Citadine\nBerline\nBreak\nSUV\nCoupé ou cabriolet\nUtilitaire"
+    },
+    {
+      "type": "checkbox",
+      "id": "champ_plaque",
+      "label": "Immatriculation",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "champ_message",
+      "label": "Demandes particulières",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "consentement",
+      "label": "Case d'accord (recommandée)",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "texte_consentement",
+      "label": "Texte de la case d'accord",
+      "default": "J'accepte les conditions de rendez-vous et l'utilisation de ces informations pour organiser ma prestation."
+    },
+    {
+      "type": "header",
+      "content": "Envoi"
+    },
+    {
+      "type": "text",
+      "id": "bouton",
+      "label": "Texte du bouton",
+      "default": "Envoyer ma demande"
+    },
+    {
+      "type": "select",
+      "id": "style_bouton",
+      "label": "Style du bouton",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Style par défaut du thème"
+        },
+        {
+          "value": "primary",
+          "label": "Plein"
+        },
+        {
+          "value": "secondary",
+          "label": "Contour"
+        },
+        {
+          "value": "minimal",
+          "label": "Minimaliste"
+        },
+        {
+          "value": "fleche",
+          "label": "Texte avec flèche"
+        },
+        {
+          "value": "premium",
+          "label": "Premium automobile"
+        }
+      ],
+      "default": "primary"
+    },
+    {
+      "type": "text",
+      "id": "confirmation_titre",
+      "label": "Titre de confirmation",
+      "default": "Demande envoyée."
+    },
+    {
+      "type": "text",
+      "id": "confirmation_texte",
+      "label": "Texte de confirmation",
+      "default": "Merci. Nous revenons vers vous rapidement pour confirmer votre rendez-vous."
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "select",
+      "id": "largeur",
+      "label": "Largeur du contenu",
+      "options": [
+        {
+          "value": "contenu",
+          "label": "Largeur du thème"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "pleine",
+          "label": "Pleine largeur"
+        },
+        {
+          "value": "bord",
+          "label": "Bord à bord (sans marges)"
+        }
+      ],
+      "default": "contenu"
+    },
+    {
+      "type": "select",
+      "id": "espace_haut",
+      "label": "Espacement en haut",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_bas",
+      "label": "Espacement en bas",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_mobile",
+      "label": "Espacements sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Proportionnels"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petits"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyens"
+        },
+        {
+          "value": "grand",
+          "label": "Grands"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mon espace : réservation"
+    }
+  ]
+}
+{% endschema %}

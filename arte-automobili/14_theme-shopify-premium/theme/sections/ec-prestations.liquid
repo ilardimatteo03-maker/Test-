@@ -1,0 +1,378 @@
+{%- capture ec -%}{% render 'ec-donnees' %}{%- endcapture -%}
+{%- liquid
+  assign d = ec | split: '§§'
+  assign s = section.settings
+  assign demo = false
+  if d[0] == 'demo'
+    assign demo = true
+  endif
+  assign ancre = s.ancre | default: section.id | handleize
+  assign titre_id = 'ec-titre-' | append: section.id
+-%}
+{%- if d[0] != 'visiteur' -%}
+{{ 'espace-client.css' | asset_url | stylesheet_tag }}
+{% render 'section-style', section: section %}
+{%- assign cible = s.cible_reserver | default: '#reserver' -%}
+<section class="ec section" id="{{ ancre }}" aria-labelledby="{{ titre_id }}">
+  <div class="wrap">
+    {% render 'ec-entete', s: s, id: titre_id, demo: demo %}
+    {%- if d[0] == 'client' -%}
+      {%- paginate customer.orders by s.par_page -%}
+        {%- if customer.orders.size > 0 -%}
+          <ul class="ec-prestations">
+            {%- for order in customer.orders -%}
+              {%- liquid
+                assign titres = order.line_items | map: 'title' | join: ', '
+                assign premier = order.line_items.first.title | downcase
+                assign service = ''
+                assign meilleur = 0
+                for i in (1..4)
+                  assign k_nom = 'p' | append: i | append: '_nom'
+                  assign n = settings[k_nom] | downcase
+                  if n != blank and premier contains n and n.size > meilleur
+                    assign meilleur = n.size
+                    case i
+                      when 1
+                        assign service = 'interieur'
+                      when 2
+                        assign service = 'exterieur'
+                      when 3
+                        assign service = 'complet'
+                      else
+                        assign service = 'professionnels'
+                    endcase
+                  endif
+                endfor
+                if order.cancelled
+                  assign statut = 'Annulée'
+                else
+                  case order.financial_status
+                    when 'paid'
+                      assign statut = 'Payée'
+                    when 'pending'
+                      assign statut = 'Paiement à venir'
+                    when 'refunded'
+                      assign statut = 'Remboursée'
+                    when 'partially_refunded'
+                      assign statut = 'Partiellement remboursée'
+                    else
+                      assign statut = order.financial_status_label
+                  endcase
+                endif
+                assign u = order.customer_order_url | default: order.customer_url
+              -%}
+              <li class="ec-prestation">
+                <span class="ec-prestation__date">{% render 'ec-date', date: order.created_at %}</span>
+                <div>
+                  <p class="ec-prestation__titre">{{ titres | escape }}</p>
+                  <p class="ec-prestation__meta">{{ order.name }}{% if s.afficher_statut %} · {{ statut }}{% endif %}</p>
+                </div>
+                {%- if s.afficher_montant %}<span class="ec-prestation__montant">{{ order.total_price | money }}</span>{% endif -%}
+                <div class="ec-prestation__actions">
+                  {%- if s.bouton_reserver != blank and order.cancelled != true %}<a class="ec-lien" href="{% if service != blank %}?service={{ service }}{% endif %}{{ cible }}">{{ s.bouton_reserver }}</a>{% endif -%}
+                  {%- if s.afficher_detail and u != blank %}<a class="ec-lien" href="{{ u }}">Détail<span class="visually-hidden"> de la commande {{ order.name }}</span></a>{% endif -%}
+                </div>
+              </li>
+            {%- endfor -%}
+          </ul>
+          {%- if paginate.pages > 1 %}<nav class="ec-pagination" aria-label="Pages de l'historique">{{ paginate | default_pagination: next: 'Suivantes', previous: 'Précédentes' }}</nav>{% endif -%}
+        {%- elsif s.vide != blank -%}
+          <p class="ec-vide">{{ s.vide }}</p>
+        {%- endif -%}
+      {%- endpaginate -%}
+    {%- else -%}
+      {%- liquid
+        assign maintenant = 'now' | date: '%s' | plus: 0
+        assign j20 = maintenant | minus: 1728000
+        assign j75 = maintenant | minus: 6480000
+        assign j140 = maintenant | minus: 12096000
+      -%}
+      <ul class="ec-prestations">
+        <li class="ec-prestation"><span class="ec-prestation__date">{% render 'ec-date', date: j20 %}</span><div><p class="ec-prestation__titre">{{ settings.p1_nom }}</p><p class="ec-prestation__meta">#1024{% if s.afficher_statut %} · Payée{% endif %}</p></div>{% if s.afficher_montant %}<span class="ec-prestation__montant">60,00 €</span>{% endif %}<div class="ec-prestation__actions">{% if s.bouton_reserver != blank %}<a class="ec-lien" href="?service=interieur{{ cible }}">{{ s.bouton_reserver }}</a>{% endif %}</div></li>
+        <li class="ec-prestation"><span class="ec-prestation__date">{% render 'ec-date', date: j75 %}</span><div><p class="ec-prestation__titre">{{ settings.p3_nom }}</p><p class="ec-prestation__meta">#1011{% if s.afficher_statut %} · Payée{% endif %}</p></div>{% if s.afficher_montant %}<span class="ec-prestation__montant">100,00 €</span>{% endif %}<div class="ec-prestation__actions">{% if s.bouton_reserver != blank %}<a class="ec-lien" href="?service=complet{{ cible }}">{{ s.bouton_reserver }}</a>{% endif %}</div></li>
+        <li class="ec-prestation"><span class="ec-prestation__date">{% render 'ec-date', date: j140 %}</span><div><p class="ec-prestation__titre">{{ settings.p2_nom }}</p><p class="ec-prestation__meta">#1003{% if s.afficher_statut %} · Payée{% endif %}</p></div>{% if s.afficher_montant %}<span class="ec-prestation__montant">60,00 €</span>{% endif %}<div class="ec-prestation__actions">{% if s.bouton_reserver != blank %}<a class="ec-lien" href="?service=exterieur{{ cible }}">{{ s.bouton_reserver }}</a>{% endif %}</div></li>
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Mon espace : prestations",
+  "tag": "div",
+  "class": "section-ec",
+  "settings": [
+    {
+      "type": "text",
+      "id": "ancre",
+      "label": "Identifiant de la section (ancre)",
+      "info": "Sert de cible à la navigation : #prestations. Lettres, chiffres et tirets.",
+      "default": "prestations"
+    },
+    {
+      "type": "text",
+      "id": "surtitre",
+      "label": "Surtitre",
+      "default": "Historique"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titre",
+      "label": "Titre",
+      "default": "Mes <em>prestations</em>."
+    },
+    {
+      "type": "textarea",
+      "id": "texte",
+      "label": "Texte"
+    },
+    {
+      "type": "paragraph",
+      "content": "Liste des commandes du client. Après chaque prestation payée sur place, créez une commande dans Commandes › Créer une commande."
+    },
+    {
+      "type": "range",
+      "id": "par_page",
+      "label": "Prestations par page",
+      "min": 3,
+      "max": 24,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_montant",
+      "label": "Montant",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_statut",
+      "label": "Statut du paiement",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_detail",
+      "label": "Lien vers le détail de la commande",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "bouton_reserver",
+      "label": "Bouton « Réserver à nouveau »",
+      "info": "Vide = bouton masqué. Présélectionne la même prestation.",
+      "default": "Réserver à nouveau"
+    },
+    {
+      "type": "text",
+      "id": "cible_reserver",
+      "label": "Cible du bouton",
+      "info": "Ancre de cette page (ex. #reserver) ou adresse (ex. /pages/contact).",
+      "default": "#reserver"
+    },
+    {
+      "type": "text",
+      "id": "vide",
+      "label": "Texte s'il n'y a aucune prestation",
+      "default": "Vos prestations apparaîtront ici après votre premier passage à l'atelier."
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "select",
+      "id": "largeur",
+      "label": "Largeur du contenu",
+      "options": [
+        {
+          "value": "contenu",
+          "label": "Largeur du thème"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "pleine",
+          "label": "Pleine largeur"
+        },
+        {
+          "value": "bord",
+          "label": "Bord à bord (sans marges)"
+        }
+      ],
+      "default": "contenu"
+    },
+    {
+      "type": "select",
+      "id": "espace_haut",
+      "label": "Espacement en haut",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_bas",
+      "label": "Espacement en bas",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_mobile",
+      "label": "Espacements sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Proportionnels"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petits"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyens"
+        },
+        {
+          "value": "grand",
+          "label": "Grands"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mon espace : prestations"
+    }
+  ]
+}
+{% endschema %}

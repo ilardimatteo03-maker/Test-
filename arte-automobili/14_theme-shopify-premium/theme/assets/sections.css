@@ -454,3 +454,8 @@ h2.contact__titre { font-size: var(--titre-taille, clamp(36px, 4.4vw, 64px)); ma
 .mot-de-passe__extras .lancement__coordonnees { justify-content: flex-start; }
 .mot-de-passe__extras .lancement__reseaux { margin-left: -10px; }
 .s-image-texte--sans-media .s-image-texte__grille { grid-template-columns: minmax(0, 1fr); max-width: 860px; }
+
+/* ══ Accès à l'espace client dans l'en-tête (réglage désactivé par défaut) ══ */
+.header__compte { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-width: 44px; min-height: 44px; color: var(--header-texte, currentColor); text-decoration: none; font: var(--nav-poids, 600) var(--nav-fs, 12px)/1 var(--nav-font, var(--sans)); font-stretch: var(--nav-stretch, 125%); letter-spacing: var(--nav-ls, .2em); text-transform: var(--nav-transform, uppercase); transition: opacity .3s var(--ease); }
+.header__compte:hover { opacity: .72; }
+@media (max-width: 760px) { .header__compte-libelle { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } }

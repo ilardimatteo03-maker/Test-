@@ -1,0 +1,369 @@
+{%- capture ec -%}{% render 'ec-donnees' %}{%- endcapture -%}
+{%- liquid
+  assign d = ec | split: '§§'
+  assign s = section.settings
+  assign demo = false
+  if d[0] == 'demo'
+    assign demo = true
+  endif
+  assign ancre = s.ancre | default: section.id | handleize
+  assign titre_id = 'ec-titre-' | append: section.id
+-%}
+{%- if d[0] != 'visiteur' -%}
+{{ 'espace-client.css' | asset_url | stylesheet_tag }}
+{% render 'section-style', section: section %}
+{%- liquid
+  assign maintenant = 'now' | date: '%s' | plus: 0
+  assign lignes = d[26] | newline_to_br | split: '<br />'
+  assign futurs = ''
+  assign passes = ''
+  for l in lignes
+    assign p = l | split: '|'
+    assign dt = p[0] | strip
+    if dt == blank
+      continue
+    endif
+    assign test = dt | date: 'x%Yx'
+    if test == dt
+      continue
+    endif
+    assign e = dt | date: '%s' | plus: 0
+    assign cle = e | prepend: '0000000000' | slice: -10, 10
+    assign i_txt = forloop.index0 | prepend: '0000' | slice: -4, 4
+    assign cle = cle | append: '-' | append: i_txt | append: '¶'
+    if e >= maintenant
+      assign futurs = futurs | append: cle
+    else
+      assign passes = passes | append: cle
+    endif
+  endfor
+  assign futurs = futurs | split: '¶' | sort
+  assign passes = passes | split: '¶' | sort | reverse
+  assign cible_vide = s.cible_vide | default: '#reserver'
+-%}
+<section class="ec section" id="{{ ancre }}" aria-labelledby="{{ titre_id }}">
+  <div class="wrap">
+    {% render 'ec-entete', s: s, id: titre_id, demo: demo %}
+    {%- if futurs.size > 0 -%}
+      <ul class="ec-rdv-liste">
+        {%- for c in futurs -%}
+          {%- assign i = c | split: '-' | last | plus: 0 -%}
+          {% render 'ec-rdv-item', ligne: lignes[i] %}
+        {%- endfor -%}
+      </ul>
+    {%- else -%}
+      <div class="ec-vide">
+        <p>{{ s.vide }}</p>
+        {% render 'bouton', texte: s.bouton_vide, lien: cible_vide, style: 'secondary' %}
+      </div>
+    {%- endif -%}
+    {%- if s.afficher_passes and passes.size > 0 -%}
+      <p class="label ec-rdv__sous-titre">{{ s.titre_passes }}</p>
+      <ul class="ec-rdv-liste">
+        {%- for c in passes limit: s.nombre_passes -%}
+          {%- assign i = c | split: '-' | last | plus: 0 -%}
+          {% render 'ec-rdv-item', ligne: lignes[i], passe: true %}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+    {%- if s.aide != blank or s.afficher_contacts -%}
+      <div class="ec-rdv-aide">
+        {%- if s.aide != blank %}<p>{{ s.aide }}</p>{% endif -%}
+        {%- if s.afficher_contacts -%}
+          <div class="ec-rdv-aide__contacts">
+            {%- if settings.telephone != blank %}<a class="ec-lien" href="tel:{{ settings.telephone | remove: ' ' | remove: '.' }}">{% render 'icone', nom: 'telephone', taille: 18 %}{{ settings.telephone }}</a>{% endif -%}
+            {%- if settings.whatsapp != blank %}<a class="ec-lien" href="{{ settings.whatsapp }}" target="_blank" rel="noopener">{% render 'icone', nom: 'whatsapp', taille: 18 %}WhatsApp<span class="visually-hidden"> (nouvel onglet)</span></a>{% endif -%}
+            {%- if settings.email != blank %}<a class="ec-lien" href="mailto:{{ settings.email }}">{% render 'icone', nom: 'email', taille: 18 %}{{ settings.email }}</a>{% endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Mon espace : rendez-vous",
+  "tag": "div",
+  "class": "section-ec",
+  "settings": [
+    {
+      "type": "text",
+      "id": "ancre",
+      "label": "Identifiant de la section (ancre)",
+      "info": "Sert de cible à la navigation : #rendez-vous. Lettres, chiffres et tirets.",
+      "default": "rendez-vous"
+    },
+    {
+      "type": "text",
+      "id": "surtitre",
+      "label": "Surtitre",
+      "default": "Rendez-vous"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titre",
+      "label": "Titre",
+      "default": "Mes <em>rendez-vous</em>."
+    },
+    {
+      "type": "textarea",
+      "id": "texte",
+      "label": "Texte"
+    },
+    {
+      "type": "paragraph",
+      "content": "Les rendez-vous viennent du métachamp arte.rendez_vous de la fiche client (une ligne par rendez-vous : AAAA-MM-JJ HH:MM | prestation | statut | véhicule)."
+    },
+    {
+      "type": "text",
+      "id": "vide",
+      "label": "Texte s'il n'y a aucun rendez-vous à venir",
+      "default": "Aucun rendez-vous à venir."
+    },
+    {
+      "type": "text",
+      "id": "bouton_vide",
+      "label": "Bouton",
+      "default": "Prendre rendez-vous"
+    },
+    {
+      "type": "text",
+      "id": "cible_vide",
+      "label": "Cible du bouton",
+      "info": "Ancre de cette page (ex. #reserver) ou adresse (ex. /pages/contact).",
+      "default": "#reserver"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_passes",
+      "label": "Afficher les rendez-vous passés",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "titre_passes",
+      "label": "Titre des rendez-vous passés",
+      "default": "Rendez-vous passés"
+    },
+    {
+      "type": "range",
+      "id": "nombre_passes",
+      "label": "Rendez-vous passés affichés",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "text",
+      "id": "aide",
+      "label": "Aide à la modification",
+      "default": "Pour modifier ou annuler un rendez-vous, contactez-nous au moins 24 heures à l'avance."
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_contacts",
+      "label": "Afficher téléphone, WhatsApp et e-mail",
+      "default": true,
+      "info": "Coordonnées : Réglages du thème."
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "select",
+      "id": "largeur",
+      "label": "Largeur du contenu",
+      "options": [
+        {
+          "value": "contenu",
+          "label": "Largeur du thème"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "pleine",
+          "label": "Pleine largeur"
+        },
+        {
+          "value": "bord",
+          "label": "Bord à bord (sans marges)"
+        }
+      ],
+      "default": "contenu"
+    },
+    {
+      "type": "select",
+      "id": "espace_haut",
+      "label": "Espacement en haut",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_bas",
+      "label": "Espacement en bas",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_mobile",
+      "label": "Espacements sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Proportionnels"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petits"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyens"
+        },
+        {
+          "value": "grand",
+          "label": "Grands"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mon espace : rendez-vous"
+    }
+  ]
+}
+{% endschema %}

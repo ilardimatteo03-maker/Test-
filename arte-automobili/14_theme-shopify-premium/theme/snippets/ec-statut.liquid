@@ -1,0 +1,16 @@
+{%- comment -%}
+  Pastille de statut d'un rendez-vous, d'après le texte saisi dans la fiche client.
+  Paramètre : statut. Reconnaît « confirmé », « en attente », « terminé » et « annulé » (majuscules et accents indifférents).
+{%- endcomment -%}
+{%- liquid
+  assign t = statut | downcase
+  assign c = 'attente'
+  if t contains 'confirm'
+    assign c = 'confirme'
+  elsif t contains 'termin' or t contains 'effectu' or t contains 'honor'
+    assign c = 'termine'
+  elsif t contains 'annul'
+    assign c = 'annule'
+  endif
+-%}
+<span class="ec-statut ec-statut--{{ c }}">{{ statut | escape }}</span>

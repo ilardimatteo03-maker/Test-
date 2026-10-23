@@ -1,0 +1,540 @@
+{%- capture ec -%}{% render 'ec-donnees' %}{%- endcapture -%}
+{%- liquid
+  assign d = ec | split: '§§'
+  assign s = section.settings
+  assign demo = false
+  if d[0] == 'demo'
+    assign demo = true
+  endif
+  assign ancre = s.ancre | default: section.id | handleize
+  assign titre_id = 'ec-titre-' | append: section.id
+-%}
+{{ 'espace-client.css' | asset_url | stylesheet_tag }}
+{% render 'section-style', section: section %}
+{%- liquid
+  assign solde = d[6] | plus: 0
+  assign connecte = false
+  if d[0] != 'visiteur'
+    assign connecte = true
+  endif
+-%}
+<section class="ec section" id="{{ ancre }}" aria-labelledby="{{ titre_id }}">
+  <div class="wrap">
+    {% render 'ec-entete', s: s, id: titre_id, demo: demo %}
+    {%- if section.blocks.size > 0 -%}
+      <ul class="ec-recompenses" style="--cols: {{ s.colonnes }};">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign b = block.settings
+            assign cout = b.points | default: 0
+            assign dispo = false
+            if connecte and solde >= cout
+              assign dispo = true
+            endif
+            assign reste = cout | minus: solde
+            assign prog = 100
+            if cout > 0
+              assign prog = solde | times: 100 | divided_by: cout
+            endif
+            if prog > 100
+              assign prog = 100
+            endif
+          -%}
+          <li class="ec-recompense{% if dispo %} ec-recompense--disponible{% endif %}" {{ block.shopify_attributes }}>
+            <div class="ec-tuile__tete">
+              <p class="ec-recompense__palier"><span class="ec-recompense__points">{{ cout }}</span><span class="ec-recompense__unite">{{ d[25] }}</span></p>
+              {% render 'icone', nom: b.icone, taille: 24 %}
+            </div>
+            <h3 class="ec-recompense__titre">{{ b.titre }}</h3>
+            {%- if b.texte != blank %}<p class="ec-recompense__texte">{{ b.texte }}</p>{% endif -%}
+            {%- if b.condition != blank %}<p class="ec-recompense__condition">{{ b.condition }}</p>{% endif -%}
+            {%- if s.afficher_etat and connecte -%}
+              <div class="ec-recompense__etat">
+                {%- if dispo -%}
+                  <span class="ec-statut ec-statut--confirme">{{ s.libelle_disponible }}</span>
+                {%- else -%}
+                  <span>{{ s.message_manque | replace: '[reste]', reste | replace: '[points]', d[25] }}</span>
+                  <div class="ec-barre" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ prog }}" aria-label="Progression vers {{ b.titre | escape }}"><span style="--p: {{ prog }}%"></span></div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+    {%- if s.mention != blank %}<p class="ec-recompenses-mention">{% render 'icone', nom: 'carte', taille: 20 %}<span>{{ s.mention }}</span></p>{% endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Récompenses de fidélité",
+  "tag": "div",
+  "class": "section-ec",
+  "settings": [
+    {
+      "type": "text",
+      "id": "ancre",
+      "label": "Identifiant de la section (ancre)",
+      "info": "Sert de cible à la navigation : #recompenses. Lettres, chiffres et tirets.",
+      "default": "recompenses"
+    },
+    {
+      "type": "text",
+      "id": "surtitre",
+      "label": "Surtitre",
+      "default": "Récompenses"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titre",
+      "label": "Titre",
+      "default": "Vos <em>avantages</em>."
+    },
+    {
+      "type": "textarea",
+      "id": "texte",
+      "label": "Texte"
+    },
+    {
+      "type": "range",
+      "id": "colonnes",
+      "label": "Colonnes sur ordinateur",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_etat",
+      "label": "Indiquer au client connecté si la récompense est disponible",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "libelle_disponible",
+      "label": "Libellé « disponible »",
+      "default": "Disponible"
+    },
+    {
+      "type": "text",
+      "id": "message_manque",
+      "label": "Message s'il manque des points",
+      "info": "[reste] et [points] sont remplacés automatiquement.",
+      "default": "Encore [reste] [points]"
+    },
+    {
+      "type": "text",
+      "id": "mention",
+      "label": "Mention",
+      "default": "Pour utiliser une récompense, présentez votre carte lors de votre prochaine visite : nous déduisons les points de votre solde."
+    },
+    {
+      "type": "paragraph",
+      "content": "Les paliers proposés (100, 250 et 500 points) sont des exemples à adapter. Les points sont déduits par vos soins dans la fiche client."
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "select",
+      "id": "largeur",
+      "label": "Largeur du contenu",
+      "options": [
+        {
+          "value": "contenu",
+          "label": "Largeur du thème"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "pleine",
+          "label": "Pleine largeur"
+        },
+        {
+          "value": "bord",
+          "label": "Bord à bord (sans marges)"
+        }
+      ],
+      "default": "contenu"
+    },
+    {
+      "type": "select",
+      "id": "espace_haut",
+      "label": "Espacement en haut",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_bas",
+      "label": "Espacement en bas",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_mobile",
+      "label": "Espacements sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Proportionnels"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petits"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyens"
+        },
+        {
+          "value": "grand",
+          "label": "Grands"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "recompense",
+      "name": "Récompense",
+      "settings": [
+        {
+          "type": "number",
+          "id": "points",
+          "label": "Points nécessaires",
+          "default": 100
+        },
+        {
+          "type": "text",
+          "id": "titre",
+          "label": "Titre",
+          "default": "Avantage fidélité"
+        },
+        {
+          "type": "textarea",
+          "id": "texte",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "condition",
+          "label": "Condition (facultative)",
+          "info": "Ex. : « Valable sur rendez-vous, non cumulable »."
+        },
+        {
+          "type": "select",
+          "id": "icone",
+          "label": "Icône",
+          "options": [
+            {
+              "value": "lavage-exterieur",
+              "label": "Lavage extérieur"
+            },
+            {
+              "value": "decontamination",
+              "label": "Décontamination"
+            },
+            {
+              "value": "correction-vernis",
+              "label": "Correction de vernis"
+            },
+            {
+              "value": "protection-ceramique",
+              "label": "Protection céramique"
+            },
+            {
+              "value": "interieur",
+              "label": "Habitacle"
+            },
+            {
+              "value": "cuir",
+              "label": "Soin du cuir"
+            },
+            {
+              "value": "jantes",
+              "label": "Jantes et étriers"
+            },
+            {
+              "value": "vitrage",
+              "label": "Vitrage"
+            },
+            {
+              "value": "moteur",
+              "label": "Compartiment moteur"
+            },
+            {
+              "value": "inspection-lumiere",
+              "label": "Contrôle sous lumière"
+            },
+            {
+              "value": "rendez-vous",
+              "label": "Rendez-vous"
+            },
+            {
+              "value": "horaires",
+              "label": "Horaires"
+            },
+            {
+              "value": "devis",
+              "label": "Devis"
+            },
+            {
+              "value": "localisation",
+              "label": "Adresse"
+            },
+            {
+              "value": "telephone",
+              "label": "Téléphone"
+            },
+            {
+              "value": "email",
+              "label": "E-mail"
+            },
+            {
+              "value": "collecte-livraison",
+              "label": "Collecte et livraison"
+            },
+            {
+              "value": "coche",
+              "label": "Coche"
+            },
+            {
+              "value": "etoile",
+              "label": "Étoile"
+            },
+            {
+              "value": "bouclier",
+              "label": "Bouclier"
+            },
+            {
+              "value": "goutte",
+              "label": "Goutte"
+            },
+            {
+              "value": "eclat",
+              "label": "Éclat"
+            },
+            {
+              "value": "voiture",
+              "label": "Voiture"
+            },
+            {
+              "value": "cle",
+              "label": "Clé"
+            },
+            {
+              "value": "profil",
+              "label": "Profil"
+            },
+            {
+              "value": "cadeau",
+              "label": "Cadeau"
+            },
+            {
+              "value": "carte",
+              "label": "Carte de fidélité"
+            },
+            {
+              "value": "historique",
+              "label": "Historique"
+            },
+            {
+              "value": "reglages",
+              "label": "Réglages"
+            },
+            {
+              "value": "tableau",
+              "label": "Tableau de bord"
+            },
+            {
+              "value": "niveau",
+              "label": "Niveau"
+            },
+            {
+              "value": "cloche",
+              "label": "Notification"
+            },
+            {
+              "value": "qr",
+              "label": "QR code"
+            },
+            {
+              "value": "deconnexion",
+              "label": "Déconnexion"
+            }
+          ],
+          "default": "cadeau"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Récompenses de fidélité",
+      "blocks": [
+        {
+          "type": "recompense",
+          "settings": {
+            "points": 100,
+            "titre": "Avantage fidélité",
+            "texte": "Désodorisation de l'habitacle offerte lors de votre prochaine prestation.",
+            "icone": "cadeau"
+          }
+        },
+        {
+          "type": "recompense",
+          "settings": {
+            "points": 250,
+            "titre": "Réduction sur une prestation",
+            "texte": "15 € de réduction sur la prestation de votre choix.",
+            "icone": "etoile"
+          }
+        },
+        {
+          "type": "recompense",
+          "settings": {
+            "points": 500,
+            "titre": "Avantage premium",
+            "texte": "Un lavage intérieur offert.",
+            "condition": "Sur rendez-vous.",
+            "icone": "eclat"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

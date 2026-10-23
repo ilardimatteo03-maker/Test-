@@ -1,0 +1,68 @@
+{%- if d[0] != 'visiteur' -%}
+{{ 'espace-client.css' | asset_url | stylesheet_tag }}
+{% render 'section-style', section: section %}
+{%- liquid
+  assign u_profil = routes.account_profile_url | default: routes.account_url
+  assign vehicules = d[28] | newline_to_br | split: '<br />'
+  assign vehicules_net = d[28] | strip
+  assign abonne = false
+  if customer.accepts_marketing or demo
+    assign abonne = true
+  endif
+-%}
+<section class="ec section" id="{{ ancre }}" aria-labelledby="{{ titre_id }}">
+  <div class="wrap">
+    {% render 'ec-entete', s: s, id: titre_id, demo: demo %}
+    <div class="ec-profil" style="--cols: {{ s.colonnes }};">
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        <div class="ec-bloc"{% if b.ancre != blank %} id="{{ b.ancre | handleize }}"{% endif %} {{ block.shopify_attributes }}>
+          {%- case block.type -%}
+            {%- when 'infos' -%}
+              <h3 class="ec-bloc__titre">{% render 'icone', nom: 'profil', taille: 22 %}{{ b.titre }}</h3>
+              <dl>
+                <div><dt>Nom</dt><dd>{{ d[2] | escape }}</dd></div>
+                <div><dt>E-mail</dt><dd>{{ d[3] | escape }}</dd></div>
+                {%- if customer.phone != blank %}<div><dt>Téléphone</dt><dd>{{ customer.phone }}</dd></div>{% endif -%}
+                <div><dt>Carte</dt><dd class="ec-mono">{{ d[5] }}</dd></div>
+              </dl>
+              <div class="ec-bloc__actions"><a class="ec-lien" href="{{ u_profil }}">{{ b.bouton }}</a></div>
+            {%- when 'communication' -%}
+              <h3 class="ec-bloc__titre">{% render 'icone', nom: 'email', taille: 22 %}{{ b.titre }}</h3>
+              <p class="ec-bloc__texte">{% if abonne %}{{ b.texte_oui }}{% else %}{{ b.texte_non }}{% endif %}</p>
+              <div class="ec-bloc__actions"><a class="ec-lien" href="{{ u_profil }}">{{ b.bouton }}</a></div>
+            {%- when 'garage' -%}
+              <h3 class="ec-bloc__titre">{% render 'icone', nom: 'voiture', taille: 22 %}{{ b.titre }}</h3>
+              {%- if vehicules_net != blank -%}
+                <ul>
+                  {%- for v in vehicules -%}
+                    {%- assign vp = v | split: '|' -%}{%- assign vn = vp[0] | strip -%}{%- assign pl = vp[1] | strip -%}
+                    {%- if vn != blank %}<li class="ec-vehicule">{{ vn | escape }}{% if pl != blank %}<span class="ec-vehicule__plaque">{{ pl | escape }}</span>{% endif %}</li>{% endif -%}
+                  {%- endfor -%}
+                </ul>
+              {%- else -%}
+                <p class="ec-bloc__texte">{{ b.vide }}</p>
+              {%- endif -%}
+              {%- if b.texte != blank %}<p class="ec-bloc__texte">{{ b.texte }}</p>{% endif -%}
+            {%- when 'compte' -%}
+              <h3 class="ec-bloc__titre">{% render 'icone', nom: 'reglages', taille: 22 %}{{ b.titre }}</h3>
+              <div class="ec-bloc__actions">
+                <a class="ec-lien" href="{{ routes.account_url }}">{{ b.lien_commandes }}</a>
+                <a class="ec-lien" href="{{ routes.account_addresses_url }}">{{ b.lien_adresses }}</a>
+                <a class="ec-lien" href="{{ u_profil }}">{{ b.lien_profil }}</a>
+              </div>
+            {%- when 'lien' -%}
+              <h3 class="ec-bloc__titre">{% render 'icone', nom: b.icone, taille: 22 %}{{ b.titre }}</h3>
+              {%- if b.texte != blank %}<p class="ec-bloc__texte">{{ b.texte }}</p>{% endif -%}
+              {%- if b.bouton != blank and b.lien != blank %}<div class="ec-bloc__actions"><a class="ec-lien" href="{{ b.lien }}">{{ b.bouton }}</a></div>{% endif -%}
+            {%- when 'deconnexion' -%}
+              <h3 class="ec-bloc__titre">{% render 'icone', nom: 'deconnexion', taille: 22 %}{{ b.titre }}</h3>
+              {%- if b.texte != blank %}<p class="ec-bloc__texte">{{ b.texte }}</p>{% endif -%}
+              <div class="ec-bloc__actions"><a class="ec-lien" href="{{ routes.account_logout_url }}">{{ b.bouton }}</a></div>
+          {%- endcase -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}

@@ -1,0 +1,675 @@
+{%- capture ec -%}{% render 'ec-donnees' %}{%- endcapture -%}
+{%- liquid
+  assign d = ec | split: '§§'
+  assign s = section.settings
+  assign demo = false
+  if d[0] == 'demo'
+    assign demo = true
+  endif
+  assign ancre = s.ancre | default: section.id | handleize
+  assign titre_id = 'ec-titre-' | append: section.id
+-%}
+{%- if d[0] != 'visiteur' -%}
+{{ 'espace-client.css' | asset_url | stylesheet_tag }}
+{% render 'section-style', section: section %}
+{%- liquid
+  assign u_profil = routes.account_profile_url | default: routes.account_url
+  assign vehicules = d[28] | newline_to_br | split: '<br />'
+  assign vehicules_net = d[28] | strip
+  assign abonne = false
+  if customer.accepts_marketing or demo
+    assign abonne = true
+  endif
+-%}
+<section class="ec section" id="{{ ancre }}" aria-labelledby="{{ titre_id }}">
+  <div class="wrap">
+    {% render 'ec-entete', s: s, id: titre_id, demo: demo %}
+    <div class="ec-profil" style="--cols: {{ s.colonnes }};">
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        <div class="ec-bloc"{% if b.ancre != blank %} id="{{ b.ancre | handleize }}"{% endif %} {{ block.shopify_attributes }}>
+          {%- case block.type -%}
+            {%- when 'infos' -%}
+              <h3 class="ec-bloc__titre">{% render 'icone', nom: 'profil', taille: 22 %}{{ b.titre }}</h3>
+              <dl>
+                <div><dt>Nom</dt><dd>{{ d[2] | escape }}</dd></div>
+                <div><dt>E-mail</dt><dd>{{ d[3] | escape }}</dd></div>
+                {%- if customer.phone != blank %}<div><dt>Téléphone</dt><dd>{{ customer.phone }}</dd></div>{% endif -%}
+                <div><dt>Carte</dt><dd class="ec-mono">{{ d[5] }}</dd></div>
+              </dl>
+              <div class="ec-bloc__actions"><a class="ec-lien" href="{{ u_profil }}">{{ b.bouton }}</a></div>
+            {%- when 'communication' -%}
+              <h3 class="ec-bloc__titre">{% render 'icone', nom: 'email', taille: 22 %}{{ b.titre }}</h3>
+              <p class="ec-bloc__texte">{% if abonne %}{{ b.texte_oui }}{% else %}{{ b.texte_non }}{% endif %}</p>
+              <div class="ec-bloc__actions"><a class="ec-lien" href="{{ u_profil }}">{{ b.bouton }}</a></div>
+            {%- when 'garage' -%}
+              <h3 class="ec-bloc__titre">{% render 'icone', nom: 'voiture', taille: 22 %}{{ b.titre }}</h3>
+              {%- if vehicules_net != blank -%}
+                <ul>
+                  {%- for v in vehicules -%}
+                    {%- assign vp = v | split: '|' -%}{%- assign vn = vp[0] | strip -%}{%- assign pl = vp[1] | strip -%}
+                    {%- if vn != blank %}<li class="ec-vehicule">{{ vn | escape }}{% if pl != blank %}<span class="ec-vehicule__plaque">{{ pl | escape }}</span>{% endif %}</li>{% endif -%}
+                  {%- endfor -%}
+                </ul>
+              {%- else -%}
+                <p class="ec-bloc__texte">{{ b.vide }}</p>
+              {%- endif -%}
+              {%- if b.texte != blank %}<p class="ec-bloc__texte">{{ b.texte }}</p>{% endif -%}
+            {%- when 'compte' -%}
+              <h3 class="ec-bloc__titre">{% render 'icone', nom: 'reglages', taille: 22 %}{{ b.titre }}</h3>
+              <div class="ec-bloc__actions">
+                <a class="ec-lien" href="{{ routes.account_url }}">{{ b.lien_commandes }}</a>
+                <a class="ec-lien" href="{{ routes.account_addresses_url }}">{{ b.lien_adresses }}</a>
+                <a class="ec-lien" href="{{ u_profil }}">{{ b.lien_profil }}</a>
+              </div>
+            {%- when 'lien' -%}
+              <h3 class="ec-bloc__titre">{% render 'icone', nom: b.icone, taille: 22 %}{{ b.titre }}</h3>
+              {%- if b.texte != blank %}<p class="ec-bloc__texte">{{ b.texte }}</p>{% endif -%}
+              {%- if b.bouton != blank and b.lien != blank %}<div class="ec-bloc__actions"><a class="ec-lien" href="{{ b.lien }}">{{ b.bouton }}</a></div>{% endif -%}
+            {%- when 'deconnexion' -%}
+              <h3 class="ec-bloc__titre">{% render 'icone', nom: 'deconnexion', taille: 22 %}{{ b.titre }}</h3>
+              {%- if b.texte != blank %}<p class="ec-bloc__texte">{{ b.texte }}</p>{% endif -%}
+              <div class="ec-bloc__actions"><a class="ec-lien" href="{{ routes.account_logout_url }}">{{ b.bouton }}</a></div>
+          {%- endcase -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Mon espace : profil",
+  "tag": "div",
+  "class": "section-ec",
+  "settings": [
+    {
+      "type": "text",
+      "id": "ancre",
+      "label": "Identifiant de la section (ancre)",
+      "info": "Sert de cible à la navigation : #profil. Lettres, chiffres et tirets.",
+      "default": "profil"
+    },
+    {
+      "type": "text",
+      "id": "surtitre",
+      "label": "Surtitre",
+      "default": "Mon profil"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titre",
+      "label": "Titre",
+      "default": "Profil et <em>paramètres</em>."
+    },
+    {
+      "type": "textarea",
+      "id": "texte",
+      "label": "Texte"
+    },
+    {
+      "type": "range",
+      "id": "colonnes",
+      "label": "Colonnes sur ordinateur",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "paragraph",
+      "content": "Les informations personnelles, adresses et préférences se modifient dans les pages de compte sécurisées de Shopify."
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "select",
+      "id": "largeur",
+      "label": "Largeur du contenu",
+      "options": [
+        {
+          "value": "contenu",
+          "label": "Largeur du thème"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "pleine",
+          "label": "Pleine largeur"
+        },
+        {
+          "value": "bord",
+          "label": "Bord à bord (sans marges)"
+        }
+      ],
+      "default": "contenu"
+    },
+    {
+      "type": "select",
+      "id": "espace_haut",
+      "label": "Espacement en haut",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_bas",
+      "label": "Espacement en bas",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_mobile",
+      "label": "Espacements sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Proportionnels"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petits"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyens"
+        },
+        {
+          "value": "grand",
+          "label": "Grands"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "infos",
+      "name": "Mes informations",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "titre",
+          "label": "Titre",
+          "default": "Mes informations"
+        },
+        {
+          "type": "text",
+          "id": "bouton",
+          "label": "Lien",
+          "default": "Modifier mes informations"
+        },
+        {
+          "type": "text",
+          "id": "ancre",
+          "label": "Ancre (facultative)"
+        }
+      ]
+    },
+    {
+      "type": "communication",
+      "name": "Communications",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "titre",
+          "label": "Titre",
+          "default": "Communications"
+        },
+        {
+          "type": "text",
+          "id": "texte_oui",
+          "label": "Texte si le client est abonné",
+          "default": "Vous recevez nos nouvelles et offres réservées aux membres par e-mail."
+        },
+        {
+          "type": "text",
+          "id": "texte_non",
+          "label": "Texte si le client n'est pas abonné",
+          "default": "Vous ne recevez pas nos e-mails d'information."
+        },
+        {
+          "type": "text",
+          "id": "bouton",
+          "label": "Lien",
+          "default": "Gérer mes préférences"
+        },
+        {
+          "type": "text",
+          "id": "ancre",
+          "label": "Ancre",
+          "default": "parametres"
+        }
+      ]
+    },
+    {
+      "type": "garage",
+      "name": "Mon garage",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "titre",
+          "label": "Titre",
+          "default": "Mon garage"
+        },
+        {
+          "type": "text",
+          "id": "vide",
+          "label": "Texte sans véhicule",
+          "default": "Aucun véhicule enregistré pour le moment."
+        },
+        {
+          "type": "textarea",
+          "id": "texte",
+          "label": "Texte",
+          "default": "Un nouveau véhicule ? Indiquez-le dans votre prochaine demande de rendez-vous : nous l'ajoutons à votre garage."
+        },
+        {
+          "type": "text",
+          "id": "ancre",
+          "label": "Ancre (facultative)",
+          "default": "garage"
+        }
+      ]
+    },
+    {
+      "type": "compte",
+      "name": "Mon compte Shopify",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "titre",
+          "label": "Titre",
+          "default": "Mon compte"
+        },
+        {
+          "type": "text",
+          "id": "lien_commandes",
+          "label": "Lien commandes",
+          "default": "Mes commandes"
+        },
+        {
+          "type": "text",
+          "id": "lien_adresses",
+          "label": "Lien adresses",
+          "default": "Mes adresses"
+        },
+        {
+          "type": "text",
+          "id": "lien_profil",
+          "label": "Lien profil",
+          "default": "Mon profil"
+        },
+        {
+          "type": "text",
+          "id": "ancre",
+          "label": "Ancre (facultative)"
+        }
+      ]
+    },
+    {
+      "type": "lien",
+      "name": "Lien personnalisé",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icone",
+          "label": "Icône",
+          "options": [
+            {
+              "value": "lavage-exterieur",
+              "label": "Lavage extérieur"
+            },
+            {
+              "value": "decontamination",
+              "label": "Décontamination"
+            },
+            {
+              "value": "correction-vernis",
+              "label": "Correction de vernis"
+            },
+            {
+              "value": "protection-ceramique",
+              "label": "Protection céramique"
+            },
+            {
+              "value": "interieur",
+              "label": "Habitacle"
+            },
+            {
+              "value": "cuir",
+              "label": "Soin du cuir"
+            },
+            {
+              "value": "jantes",
+              "label": "Jantes et étriers"
+            },
+            {
+              "value": "vitrage",
+              "label": "Vitrage"
+            },
+            {
+              "value": "moteur",
+              "label": "Compartiment moteur"
+            },
+            {
+              "value": "inspection-lumiere",
+              "label": "Contrôle sous lumière"
+            },
+            {
+              "value": "rendez-vous",
+              "label": "Rendez-vous"
+            },
+            {
+              "value": "horaires",
+              "label": "Horaires"
+            },
+            {
+              "value": "devis",
+              "label": "Devis"
+            },
+            {
+              "value": "localisation",
+              "label": "Adresse"
+            },
+            {
+              "value": "telephone",
+              "label": "Téléphone"
+            },
+            {
+              "value": "email",
+              "label": "E-mail"
+            },
+            {
+              "value": "collecte-livraison",
+              "label": "Collecte et livraison"
+            },
+            {
+              "value": "coche",
+              "label": "Coche"
+            },
+            {
+              "value": "etoile",
+              "label": "Étoile"
+            },
+            {
+              "value": "bouclier",
+              "label": "Bouclier"
+            },
+            {
+              "value": "goutte",
+              "label": "Goutte"
+            },
+            {
+              "value": "eclat",
+              "label": "Éclat"
+            },
+            {
+              "value": "voiture",
+              "label": "Voiture"
+            },
+            {
+              "value": "cle",
+              "label": "Clé"
+            },
+            {
+              "value": "profil",
+              "label": "Profil"
+            },
+            {
+              "value": "cadeau",
+              "label": "Cadeau"
+            },
+            {
+              "value": "carte",
+              "label": "Carte de fidélité"
+            },
+            {
+              "value": "historique",
+              "label": "Historique"
+            },
+            {
+              "value": "reglages",
+              "label": "Réglages"
+            },
+            {
+              "value": "tableau",
+              "label": "Tableau de bord"
+            },
+            {
+              "value": "niveau",
+              "label": "Niveau"
+            },
+            {
+              "value": "cloche",
+              "label": "Notification"
+            },
+            {
+              "value": "qr",
+              "label": "QR code"
+            },
+            {
+              "value": "deconnexion",
+              "label": "Déconnexion"
+            }
+          ],
+          "default": "devis"
+        },
+        {
+          "type": "text",
+          "id": "titre",
+          "label": "Titre",
+          "default": "Besoin d'aide ?"
+        },
+        {
+          "type": "textarea",
+          "id": "texte",
+          "label": "Texte"
+        },
+        {
+          "type": "text",
+          "id": "bouton",
+          "label": "Texte du lien",
+          "default": "Nous contacter"
+        },
+        {
+          "type": "url",
+          "id": "lien",
+          "label": "Lien"
+        },
+        {
+          "type": "text",
+          "id": "ancre",
+          "label": "Ancre (facultative)"
+        }
+      ]
+    },
+    {
+      "type": "deconnexion",
+      "name": "Déconnexion",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "titre",
+          "label": "Titre",
+          "default": "Déconnexion"
+        },
+        {
+          "type": "textarea",
+          "id": "texte",
+          "label": "Texte"
+        },
+        {
+          "type": "text",
+          "id": "bouton",
+          "label": "Lien",
+          "default": "Se déconnecter"
+        },
+        {
+          "type": "text",
+          "id": "ancre",
+          "label": "Ancre (facultative)"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Mon espace : profil",
+      "blocks": [
+        {
+          "type": "infos"
+        },
+        {
+          "type": "communication"
+        },
+        {
+          "type": "garage"
+        },
+        {
+          "type": "compte"
+        },
+        {
+          "type": "deconnexion"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

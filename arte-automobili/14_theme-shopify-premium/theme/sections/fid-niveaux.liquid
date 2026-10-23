@@ -1,0 +1,554 @@
+{%- capture ec -%}{% render 'ec-donnees' %}{%- endcapture -%}
+{%- liquid
+  assign d = ec | split: '§§'
+  assign s = section.settings
+  assign ancre = s.ancre | default: section.id | handleize
+  assign titre_id = 'ec-titre-' | append: section.id
+-%}
+{{ 'espace-client.css' | asset_url | stylesheet_tag }}
+{% render 'section-style', section: section %}
+{%- liquid
+  case settings.fid_base
+    when 'montant'
+      assign unite = '€ dépensés'
+    when 'points_cumules'
+      assign unite = d[25] | append: ' cumulés'
+    else
+      assign unite = 'prestations'
+  endcase
+  assign rang = d[8] | plus: 0
+-%}
+<section class="ec section" id="{{ ancre }}" aria-labelledby="{{ titre_id }}">
+  <div class="wrap">
+    {% render 'ec-entete', s: s, id: titre_id %}
+    <ul class="fid-niveaux">
+      {%- for i in (1..4) -%}
+        {%- liquid
+          assign k_nom = 'fid_n' | append: i | append: '_nom'
+          assign k_seuil = 'fid_n' | append: i | append: '_seuil'
+          assign k_fond = 'fid_n' | append: i | append: '_fond'
+          assign k_texte = 'fid_n' | append: i | append: '_texte'
+          assign seuil = settings[k_seuil]
+          assign actuel = false
+          if d[0] != 'visiteur' and rang == i
+            assign actuel = true
+          endif
+        -%}
+        {%- if i == 1 or seuil != blank -%}
+          <li class="fid-niveau{% if actuel %} fid-niveau--actuel{% endif %}">
+            <div class="fid-niveau__pastille" style="--n-fond: {{ settings[k_fond] }}; --n-texte: {{ settings[k_texte] }};" aria-hidden="true"><span>{{ settings[k_nom] }}</span><small>{{ settings.fid_nom }}</small></div>
+            <p class="fid-niveau__seuil">{% if i == 1 %}{{ s.libelle_seuil_1 }}{% else %}{{ s.modele_seuil | replace: '[seuil]', seuil | replace: '[unite]', unite }}{% endif %}</p>
+            <h3 class="fid-niveau__titre">{{ settings[k_nom] }}</h3>
+            {%- if actuel and s.afficher_actuel %}<span class="ec-statut ec-statut--confirme fid-niveau__actuel">{{ s.libelle_actuel }}</span>{% endif -%}
+            <ul>
+              {%- for block in section.blocks -%}
+                {%- assign bn = block.settings.niveau | plus: 0 -%}
+                {%- if bn == i %}<li {{ block.shopify_attributes }}>{% render 'icone', nom: block.settings.icone, taille: 18 %}<span>{{ block.settings.texte }}</span></li>{% endif -%}
+              {%- endfor -%}
+            </ul>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Programme : niveaux",
+  "tag": "div",
+  "class": "section-ec",
+  "settings": [
+    {
+      "type": "text",
+      "id": "ancre",
+      "label": "Identifiant de la section (ancre)",
+      "info": "Sert de cible à la navigation : #niveaux. Lettres, chiffres et tirets.",
+      "default": "niveaux"
+    },
+    {
+      "type": "text",
+      "id": "surtitre",
+      "label": "Surtitre",
+      "default": "Niveaux"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titre",
+      "label": "Titre",
+      "default": "Quatre niveaux, une même <em>exigence</em>."
+    },
+    {
+      "type": "textarea",
+      "id": "texte",
+      "label": "Texte",
+      "default": "Votre niveau évolue avec vos visites et vous ouvre des attentions réservées aux membres."
+    },
+    {
+      "type": "paragraph",
+      "content": "Noms, seuils et couleurs des niveaux : Réglages du thème › Programme de fidélité."
+    },
+    {
+      "type": "text",
+      "id": "libelle_seuil_1",
+      "label": "Seuil du premier niveau",
+      "default": "Dès la création de votre compte"
+    },
+    {
+      "type": "text",
+      "id": "modele_seuil",
+      "label": "Seuil des niveaux suivants",
+      "info": "[seuil] et [unite] sont remplacés automatiquement.",
+      "default": "Dès [seuil] [unite]"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_actuel",
+      "label": "Signaler son niveau au client connecté",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "libelle_actuel",
+      "label": "Libellé",
+      "default": "Votre niveau"
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "select",
+      "id": "largeur",
+      "label": "Largeur du contenu",
+      "options": [
+        {
+          "value": "contenu",
+          "label": "Largeur du thème"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "pleine",
+          "label": "Pleine largeur"
+        },
+        {
+          "value": "bord",
+          "label": "Bord à bord (sans marges)"
+        }
+      ],
+      "default": "contenu"
+    },
+    {
+      "type": "select",
+      "id": "espace_haut",
+      "label": "Espacement en haut",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_bas",
+      "label": "Espacement en bas",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_mobile",
+      "label": "Espacements sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Proportionnels"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petits"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyens"
+        },
+        {
+          "value": "grand",
+          "label": "Grands"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "avantage",
+      "name": "Avantage",
+      "settings": [
+        {
+          "type": "select",
+          "id": "niveau",
+          "label": "Niveau",
+          "options": [
+            {
+              "value": "1",
+              "label": "Niveau 1"
+            },
+            {
+              "value": "2",
+              "label": "Niveau 2"
+            },
+            {
+              "value": "3",
+              "label": "Niveau 3"
+            },
+            {
+              "value": "4",
+              "label": "Niveau 4"
+            }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "text",
+          "id": "texte",
+          "label": "Avantage",
+          "default": "Carte de fidélité digitale"
+        },
+        {
+          "type": "select",
+          "id": "icone",
+          "label": "Icône",
+          "options": [
+            {
+              "value": "lavage-exterieur",
+              "label": "Lavage extérieur"
+            },
+            {
+              "value": "decontamination",
+              "label": "Décontamination"
+            },
+            {
+              "value": "correction-vernis",
+              "label": "Correction de vernis"
+            },
+            {
+              "value": "protection-ceramique",
+              "label": "Protection céramique"
+            },
+            {
+              "value": "interieur",
+              "label": "Habitacle"
+            },
+            {
+              "value": "cuir",
+              "label": "Soin du cuir"
+            },
+            {
+              "value": "jantes",
+              "label": "Jantes et étriers"
+            },
+            {
+              "value": "vitrage",
+              "label": "Vitrage"
+            },
+            {
+              "value": "moteur",
+              "label": "Compartiment moteur"
+            },
+            {
+              "value": "inspection-lumiere",
+              "label": "Contrôle sous lumière"
+            },
+            {
+              "value": "rendez-vous",
+              "label": "Rendez-vous"
+            },
+            {
+              "value": "horaires",
+              "label": "Horaires"
+            },
+            {
+              "value": "devis",
+              "label": "Devis"
+            },
+            {
+              "value": "localisation",
+              "label": "Adresse"
+            },
+            {
+              "value": "telephone",
+              "label": "Téléphone"
+            },
+            {
+              "value": "email",
+              "label": "E-mail"
+            },
+            {
+              "value": "collecte-livraison",
+              "label": "Collecte et livraison"
+            },
+            {
+              "value": "coche",
+              "label": "Coche"
+            },
+            {
+              "value": "etoile",
+              "label": "Étoile"
+            },
+            {
+              "value": "bouclier",
+              "label": "Bouclier"
+            },
+            {
+              "value": "goutte",
+              "label": "Goutte"
+            },
+            {
+              "value": "eclat",
+              "label": "Éclat"
+            },
+            {
+              "value": "voiture",
+              "label": "Voiture"
+            },
+            {
+              "value": "cle",
+              "label": "Clé"
+            },
+            {
+              "value": "profil",
+              "label": "Profil"
+            },
+            {
+              "value": "cadeau",
+              "label": "Cadeau"
+            },
+            {
+              "value": "carte",
+              "label": "Carte de fidélité"
+            },
+            {
+              "value": "historique",
+              "label": "Historique"
+            },
+            {
+              "value": "reglages",
+              "label": "Réglages"
+            },
+            {
+              "value": "tableau",
+              "label": "Tableau de bord"
+            },
+            {
+              "value": "niveau",
+              "label": "Niveau"
+            },
+            {
+              "value": "cloche",
+              "label": "Notification"
+            },
+            {
+              "value": "qr",
+              "label": "QR code"
+            },
+            {
+              "value": "deconnexion",
+              "label": "Déconnexion"
+            }
+          ],
+          "default": "coche"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 24,
+  "presets": [
+    {
+      "name": "Programme : niveaux",
+      "blocks": [
+        {
+          "type": "avantage",
+          "settings": {
+            "niveau": "1",
+            "texte": "Carte de fidélité digitale"
+          }
+        },
+        {
+          "type": "avantage",
+          "settings": {
+            "niveau": "1",
+            "texte": "Points sur chaque prestation"
+          }
+        },
+        {
+          "type": "avantage",
+          "settings": {
+            "niveau": "2",
+            "texte": "Tous les avantages Bianco"
+          }
+        },
+        {
+          "type": "avantage",
+          "settings": {
+            "niveau": "2",
+            "texte": "Bonus de points à chaque visite"
+          }
+        },
+        {
+          "type": "avantage",
+          "settings": {
+            "niveau": "3",
+            "texte": "Tous les avantages Argento"
+          }
+        },
+        {
+          "type": "avantage",
+          "settings": {
+            "niveau": "3",
+            "texte": "Créneaux prioritaires"
+          }
+        },
+        {
+          "type": "avantage",
+          "settings": {
+            "niveau": "4",
+            "texte": "Tous les avantages Verde"
+          }
+        },
+        {
+          "type": "avantage",
+          "settings": {
+            "niveau": "4",
+            "texte": "Attention personnalisée à chaque visite"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

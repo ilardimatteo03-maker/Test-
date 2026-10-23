@@ -1,0 +1,17 @@
+{%- if d[0] != 'visiteur' -%}
+{{ 'espace-client.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'espace-client.js' | asset_url }}" defer></script>
+{% render 'section-style', section: section %}
+<nav class="ec ec-nav{% if s.style_ordinateur == 'laterale' %} ec-nav--laterale{% endif %}{% if s.style_mobile == 'barre' %} ec-nav--mobile-barre{% endif %}{% unless s.afficher_icones %} ec-nav--sans-icones{% endunless %}" aria-label="{{ s.titre | default: 'Espace client' | escape }}" style="--ec-nav-l: {{ s.largeur_laterale }}px;">
+  <div class="wrap">
+    {%- if s.titre != blank %}<p class="label ec-nav__titre">{{ s.titre }}</p>{% endif -%}
+    <ul>
+      {%- for block in section.blocks -%}
+        <li{% if block.settings.mobile %} class="ec-nav__mobile"{% endif %} {{ block.shopify_attributes }}>
+          <a href="{{ block.settings.cible | default: '#' }}">{% render 'icone', nom: block.settings.icone %}<span class="ec-nav__libelle">{{ block.settings.libelle }}</span>{% if block.settings.libelle_mobile != blank %}<span class="ec-nav__court" aria-hidden="true">{{ block.settings.libelle_mobile }}</span>{% endif %}</a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</nav>
+{%- endif -%}

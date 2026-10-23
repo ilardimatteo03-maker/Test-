@@ -1,4 +1,4 @@
-# Arte Automobili : thème Shopify enrichi (version 2.0.0)
+# Arte Automobili : thème Shopify enrichi (version 2.1.0)
 
 Copie de développement du thème **arte-automobili-vitrine-theme**, enrichie pour être réglable depuis l'éditeur de thème.
 Les personnalisations déjà faites sur la boutique ont été conservées.
@@ -13,6 +13,13 @@ pour le vérifier en aperçu avant toute décision.
 | `theme/` | Les mêmes fichiers, décompressés (copie de développement). |
 | `sauvegarde/` | L'export d'origine, intact, et sa procédure de restauration. |
 | `apercus/` | Captures de la page de lancement, avec des données de test, en mise en scène cinématographique et sobre. |
+
+---
+
+## Espace client (2.1.0)
+
+La version 2.1.0 ajoute un espace client et le programme de fidélité Arte Club : 12 sections, une page « Espace client »
+et une page « Programme de fidélité », sans application. Activation et usage : `../15_espace-client/README.md`.
 
 ---
 

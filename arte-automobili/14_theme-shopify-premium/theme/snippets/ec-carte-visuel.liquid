@@ -1,0 +1,95 @@
+{%- comment -%}
+  Visuel de la carte de fidélité Arte Automobili.
+  Paramètres :
+  - d : données de l'espace client (tableau issu de « ec-donnees ») ;
+  - s : réglages de la section « Carte de fidélité » (facultatif : valeurs par défaut sinon) ;
+  - grand : true dans la fenêtre « Présenter ma carte » ;
+  - sans_qr : true pour ne pas afficher le QR code sur la carte (il est alors affiché à part, en grand) ;
+  - illustration : true pour une carte d'exemple, sans données client (section « Accès à l'espace »).
+{%- endcomment -%}
+{%- liquid
+  assign format = s.format | default: 'horizontal'
+  assign fond_mode = s.fond | default: 'niveau'
+  assign motif = s.motif | default: 'linea_monogramme'
+  assign ombre = s.ombre | default: 'douce'
+  assign rayon = s.rayon | default: 18
+  assign police = s.police_points | default: 'mono'
+  assign logo = s.logo | default: 'monogramme'
+  assign logo_taille = s.logo_taille | default: 100
+  assign logo_position = s.logo_position | default: 'gauche'
+  assign qr_mode = s.qr | default: 'bouton'
+  assign reflet = true
+  if s.reflet == false
+    assign reflet = false
+  endif
+  assign programme = settings.fid_nom | default: 'Arte Club'
+
+  if illustration
+    assign fond = settings.fid_n4_fond | default: '#0D0F0E'
+    assign texte = settings.fid_n4_texte | default: '#EEEDE7'
+    assign niveau = settings.fid_n4_nom
+    assign titulaire = 'Votre nom'
+    assign numero = 'N° 0000 0000'
+    assign points = '0'
+    assign points_nom = settings.fid_points_nom | default: 'points'
+  else
+    assign fond = d[10]
+    assign texte = d[11]
+    assign niveau = d[9]
+    assign titulaire = d[2]
+    assign numero = d[5]
+    assign points = d[6]
+    assign points_nom = d[25]
+  endif
+  if fond_mode == 'perso' or fond_mode == 'image'
+    assign texte = s.carte_texte | default: texte
+  endif
+  assign lum = texte | color_brightness
+  if lum < 128
+    assign variante = 'nero'
+  else
+    assign variante = 'bianco'
+  endif
+  if sans_qr
+    assign qr_mode = 'aucun'
+  endif
+-%}
+<div class="ec-carte ec-carte--{{ format }} ec-carte--motif-{{ motif }} ec-carte--ombre-{{ ombre }} ec-carte--logo-{{ logo_position }}{% if reflet %} ec-carte--reflet{% endif %}{% if grand %} ec-carte--grand{% endif %}"
+  style="--carte-fond: {{ fond }}; --carte-texte: {{ texte }}; --carte-rayon: {{ rayon }}px; --carte-logo: {{ logo_taille }};{% if fond_mode == 'perso' and s.degrade != blank %} --carte-degrade: {{ s.degrade }};{% endif %}"
+  role="group" aria-label="Carte {{ programme | escape }}{% unless illustration %} de {{ titulaire | escape }}{% endunless %}">
+  {%- if fond_mode == 'image' and s.image != blank -%}
+    {{ s.image | image_url: width: 1200 | image_tag: class: 'ec-carte__image', alt: '', loading: 'lazy', widths: '600, 900, 1200', sizes: '(max-width: 760px) 92vw, 480px' }}
+  {%- endif -%}
+  {%- if motif contains 'monogramme' -%}
+    <img class="ec-carte__filigrane{% if variante == 'nero' %} ec-carte__filigrane--sombre{% endif %}" src="{{ 'monogramme-bianco.svg' | asset_url }}" alt="" width="60" height="80" loading="lazy">
+  {%- endif -%}
+  <div class="ec-carte__haut">
+    {%- case logo -%}
+      {%- when 'aucun' -%}
+      {%- when 'televerse' -%}
+        {%- if settings.logo != blank %}{{ settings.logo | image_url: width: 400 | image_tag: class: 'ec-carte__logo ec-carte__logo--image', alt: shop.name, loading: 'lazy' }}{% endif -%}
+      {%- when 'principal' -%}
+        <img class="ec-carte__logo ec-carte__logo--large" src="{{ 'logo-principal-' | append: variante | append: '.svg' | asset_url }}" alt="{{ shop.name }}" width="479" height="151" loading="lazy">
+      {%- when 'vertical' -%}
+        <img class="ec-carte__logo" src="{{ 'logo-vertical-' | append: variante | append: '.svg' | asset_url }}" alt="{{ shop.name }}" width="289" height="407" loading="lazy">
+      {%- else -%}
+        <img class="ec-carte__logo ec-carte__logo--monogramme{% if variante == 'nero' %} ec-carte__filigrane--sombre{% endif %}" src="{{ 'monogramme-bianco.svg' | asset_url }}" alt="{{ shop.name }}" width="60" height="80" loading="lazy">
+    {%- endcase -%}
+    <div class="ec-carte__programme">
+      {%- unless s.afficher_programme == false %}<span class="ec-carte__nom-programme">{{ programme }}</span>{% endunless -%}
+      {%- unless s.afficher_niveau == false %}<span class="ec-carte__niveau">{{ niveau }}</span>{% endunless -%}
+    </div>
+  </div>
+  {%- unless s.afficher_points == false -%}
+    <p class="ec-carte__solde ec-carte__solde--{{ police }}"><span class="ec-carte__points">{{ points }}</span> <span class="ec-carte__points-nom">{{ points_nom }}</span></p>
+  {%- endunless -%}
+  <div class="ec-carte__bas">
+    <div class="ec-carte__identite">
+      {%- unless s.afficher_nom == false %}<span class="ec-carte__titulaire">{{ titulaire }}</span>{% endunless -%}
+      {%- unless s.afficher_id == false %}<span class="ec-carte__numero">{{ numero }}</span>{% endunless -%}
+    </div>
+    {%- if qr_mode == 'carte' and illustration != true -%}
+      <ec-qr class="ec-carte__qr" data-valeur="{{ d[17] | escape }}" data-libelle="Code de la carte {{ numero | escape }}"></ec-qr>
+    {%- endif -%}
+  </div>
+</div>

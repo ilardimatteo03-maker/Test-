@@ -1,0 +1,427 @@
+{%- capture ec -%}{% render 'ec-donnees' %}{%- endcapture -%}
+{%- liquid
+  assign d = ec | split: '§§'
+  assign s = section.settings
+-%}
+{%- if d[0] != 'visiteur' -%}
+{{ 'espace-client.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'espace-client.js' | asset_url }}" defer></script>
+{% render 'section-style', section: section %}
+<nav class="ec ec-nav{% if s.style_ordinateur == 'laterale' %} ec-nav--laterale{% endif %}{% if s.style_mobile == 'barre' %} ec-nav--mobile-barre{% endif %}{% unless s.afficher_icones %} ec-nav--sans-icones{% endunless %}" aria-label="{{ s.titre | default: 'Espace client' | escape }}" style="--ec-nav-l: {{ s.largeur_laterale }}px;">
+  <div class="wrap">
+    {%- if s.titre != blank %}<p class="label ec-nav__titre">{{ s.titre }}</p>{% endif -%}
+    <ul>
+      {%- for block in section.blocks -%}
+        <li{% if block.settings.mobile %} class="ec-nav__mobile"{% endif %} {{ block.shopify_attributes }}>
+          <a href="{{ block.settings.cible | default: '#' }}">{% render 'icone', nom: block.settings.icone %}<span class="ec-nav__libelle">{{ block.settings.libelle }}</span>{% if block.settings.libelle_mobile != blank %}<span class="ec-nav__court" aria-hidden="true">{{ block.settings.libelle_mobile }}</span>{% endif %}</a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</nav>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Mon espace : navigation",
+  "tag": "div",
+  "class": "section-ec section-ec-nav",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Chaque rubrique pointe vers une section de la page (ancre, ex. #fidelite) ou vers une autre page."
+    },
+    {
+      "type": "text",
+      "id": "titre",
+      "label": "Titre",
+      "default": "Mon espace"
+    },
+    {
+      "type": "select",
+      "id": "style_ordinateur",
+      "label": "Sur ordinateur",
+      "options": [
+        {
+          "value": "laterale",
+          "label": "Colonne latérale"
+        },
+        {
+          "value": "onglets",
+          "label": "Onglets sous l'en-tête"
+        }
+      ],
+      "default": "laterale"
+    },
+    {
+      "type": "range",
+      "id": "largeur_laterale",
+      "label": "Largeur de la colonne latérale",
+      "min": 200,
+      "max": 320,
+      "step": 4,
+      "default": 248,
+      "visible_if": "{{ section.settings.style_ordinateur == 'laterale' }}",
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "style_mobile",
+      "label": "Sur mobile et tablette",
+      "options": [
+        {
+          "value": "barre",
+          "label": "Barre d'onglets en bas de l'écran"
+        },
+        {
+          "value": "onglets",
+          "label": "Onglets défilants sous l'en-tête"
+        }
+      ],
+      "default": "barre",
+      "info": "Barre en bas : seules les rubriques cochées « Dans la barre mobile » y figurent (4 ou 5 conseillées)."
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_icones",
+      "label": "Afficher les icônes",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "rubrique",
+      "name": "Rubrique",
+      "settings": [
+        {
+          "type": "text",
+          "id": "libelle",
+          "label": "Libellé",
+          "default": "Rubrique"
+        },
+        {
+          "type": "text",
+          "id": "libelle_mobile",
+          "label": "Libellé court (barre mobile)",
+          "info": "Vide = libellé complet. Un mot conseillé : Aperçu, Carte, Réserver…"
+        },
+        {
+          "type": "select",
+          "id": "icone",
+          "label": "Icône",
+          "options": [
+            {
+              "value": "lavage-exterieur",
+              "label": "Lavage extérieur"
+            },
+            {
+              "value": "decontamination",
+              "label": "Décontamination"
+            },
+            {
+              "value": "correction-vernis",
+              "label": "Correction de vernis"
+            },
+            {
+              "value": "protection-ceramique",
+              "label": "Protection céramique"
+            },
+            {
+              "value": "interieur",
+              "label": "Habitacle"
+            },
+            {
+              "value": "cuir",
+              "label": "Soin du cuir"
+            },
+            {
+              "value": "jantes",
+              "label": "Jantes et étriers"
+            },
+            {
+              "value": "vitrage",
+              "label": "Vitrage"
+            },
+            {
+              "value": "moteur",
+              "label": "Compartiment moteur"
+            },
+            {
+              "value": "inspection-lumiere",
+              "label": "Contrôle sous lumière"
+            },
+            {
+              "value": "rendez-vous",
+              "label": "Rendez-vous"
+            },
+            {
+              "value": "horaires",
+              "label": "Horaires"
+            },
+            {
+              "value": "devis",
+              "label": "Devis"
+            },
+            {
+              "value": "localisation",
+              "label": "Adresse"
+            },
+            {
+              "value": "telephone",
+              "label": "Téléphone"
+            },
+            {
+              "value": "email",
+              "label": "E-mail"
+            },
+            {
+              "value": "collecte-livraison",
+              "label": "Collecte et livraison"
+            },
+            {
+              "value": "coche",
+              "label": "Coche"
+            },
+            {
+              "value": "etoile",
+              "label": "Étoile"
+            },
+            {
+              "value": "bouclier",
+              "label": "Bouclier"
+            },
+            {
+              "value": "goutte",
+              "label": "Goutte"
+            },
+            {
+              "value": "eclat",
+              "label": "Éclat"
+            },
+            {
+              "value": "voiture",
+              "label": "Voiture"
+            },
+            {
+              "value": "cle",
+              "label": "Clé"
+            },
+            {
+              "value": "profil",
+              "label": "Profil"
+            },
+            {
+              "value": "cadeau",
+              "label": "Cadeau"
+            },
+            {
+              "value": "carte",
+              "label": "Carte de fidélité"
+            },
+            {
+              "value": "historique",
+              "label": "Historique"
+            },
+            {
+              "value": "reglages",
+              "label": "Réglages"
+            },
+            {
+              "value": "tableau",
+              "label": "Tableau de bord"
+            },
+            {
+              "value": "niveau",
+              "label": "Niveau"
+            },
+            {
+              "value": "cloche",
+              "label": "Notification"
+            },
+            {
+              "value": "qr",
+              "label": "QR code"
+            },
+            {
+              "value": "deconnexion",
+              "label": "Déconnexion"
+            }
+          ],
+          "default": "tableau"
+        },
+        {
+          "type": "text",
+          "id": "cible",
+          "label": "Cible",
+          "info": "Ancre de cette page (ex. #reserver) ou adresse (ex. /pages/contact).",
+          "default": "#apercu"
+        },
+        {
+          "type": "checkbox",
+          "id": "mobile",
+          "label": "Dans la barre mobile",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Mon espace : navigation",
+      "blocks": [
+        {
+          "type": "rubrique",
+          "settings": {
+            "libelle": "Vue d'ensemble",
+            "libelle_mobile": "Aperçu",
+            "icone": "tableau",
+            "cible": "#apercu",
+            "mobile": true
+          }
+        },
+        {
+          "type": "rubrique",
+          "settings": {
+            "libelle": "Ma fidélité",
+            "libelle_mobile": "Carte",
+            "icone": "carte",
+            "cible": "#fidelite",
+            "mobile": true
+          }
+        },
+        {
+          "type": "rubrique",
+          "settings": {
+            "libelle": "Prendre rendez-vous",
+            "libelle_mobile": "Réserver",
+            "icone": "rendez-vous",
+            "cible": "#reserver",
+            "mobile": true
+          }
+        },
+        {
+          "type": "rubrique",
+          "settings": {
+            "libelle": "Mes rendez-vous",
+            "icone": "horaires",
+            "cible": "#rendez-vous",
+            "mobile": false
+          }
+        },
+        {
+          "type": "rubrique",
+          "settings": {
+            "libelle": "Mes prestations",
+            "icone": "historique",
+            "cible": "#prestations",
+            "mobile": false
+          }
+        },
+        {
+          "type": "rubrique",
+          "settings": {
+            "libelle": "Mes récompenses",
+            "icone": "cadeau",
+            "cible": "#recompenses",
+            "mobile": false
+          }
+        },
+        {
+          "type": "rubrique",
+          "settings": {
+            "libelle": "Mon profil",
+            "libelle_mobile": "Profil",
+            "icone": "profil",
+            "cible": "#profil",
+            "mobile": true
+          }
+        },
+        {
+          "type": "rubrique",
+          "settings": {
+            "libelle": "Paramètres",
+            "icone": "reglages",
+            "cible": "#parametres",
+            "mobile": false
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

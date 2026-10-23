@@ -1,0 +1,56 @@
+{{ 'espace-client.css' | asset_url | stylesheet_tag }}
+{% render 'section-style', section: section %}
+{%- liquid
+  assign solde = d[6] | plus: 0
+  assign connecte = false
+  if d[0] != 'visiteur'
+    assign connecte = true
+  endif
+-%}
+<section class="ec section" id="{{ ancre }}" aria-labelledby="{{ titre_id }}">
+  <div class="wrap">
+    {% render 'ec-entete', s: s, id: titre_id, demo: demo %}
+    {%- if section.blocks.size > 0 -%}
+      <ul class="ec-recompenses" style="--cols: {{ s.colonnes }};">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign b = block.settings
+            assign cout = b.points | default: 0
+            assign dispo = false
+            if connecte and solde >= cout
+              assign dispo = true
+            endif
+            assign reste = cout | minus: solde
+            assign prog = 100
+            if cout > 0
+              assign prog = solde | times: 100 | divided_by: cout
+            endif
+            if prog > 100
+              assign prog = 100
+            endif
+          -%}
+          <li class="ec-recompense{% if dispo %} ec-recompense--disponible{% endif %}" {{ block.shopify_attributes }}>
+            <div class="ec-tuile__tete">
+              <p class="ec-recompense__palier"><span class="ec-recompense__points">{{ cout }}</span><span class="ec-recompense__unite">{{ d[25] }}</span></p>
+              {% render 'icone', nom: b.icone, taille: 24 %}
+            </div>
+            <h3 class="ec-recompense__titre">{{ b.titre }}</h3>
+            {%- if b.texte != blank %}<p class="ec-recompense__texte">{{ b.texte }}</p>{% endif -%}
+            {%- if b.condition != blank %}<p class="ec-recompense__condition">{{ b.condition }}</p>{% endif -%}
+            {%- if s.afficher_etat and connecte -%}
+              <div class="ec-recompense__etat">
+                {%- if dispo -%}
+                  <span class="ec-statut ec-statut--confirme">{{ s.libelle_disponible }}</span>
+                {%- else -%}
+                  <span>{{ s.message_manque | replace: '[reste]', reste | replace: '[points]', d[25] }}</span>
+                  <div class="ec-barre" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ prog }}" aria-label="Progression vers {{ b.titre | escape }}"><span style="--p: {{ prog }}%"></span></div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+    {%- if s.mention != blank %}<p class="ec-recompenses-mention">{% render 'icone', nom: 'carte', taille: 20 %}<span>{{ s.mention }}</span></p>{% endif -%}
+  </div>
+</section>

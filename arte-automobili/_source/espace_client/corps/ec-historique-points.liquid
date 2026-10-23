@@ -1,0 +1,47 @@
+{%- if d[0] != 'visiteur' -%}
+{{ 'espace-client.css' | asset_url | stylesheet_tag }}
+{% render 'section-style', section: section %}
+{%- liquid
+  assign lignes = d[27] | newline_to_br | split: '<br />'
+  assign cles = ''
+  for l in lignes
+    assign p = l | split: '|'
+    assign dt = p[0] | strip
+    if dt == blank
+      continue
+    endif
+    assign e = dt | date: '%s' | plus: 0
+    assign e_txt = e | prepend: '0000000000' | slice: -10, 10
+    assign i_txt = forloop.index0 | prepend: '0000' | slice: -4, 4
+    assign cles = cles | append: e_txt | append: '-' | append: i_txt | append: '¶'
+  endfor
+  assign tri = cles | split: '¶' | sort | reverse
+  assign max = s.nombre | default: 6
+-%}
+<section class="ec section" id="{{ ancre }}" aria-labelledby="{{ titre_id }}">
+  <div class="wrap">
+    {% render 'ec-entete', s: s, id: titre_id, demo: demo %}
+    {%- if tri.size > 0 -%}
+      <ul class="ec-histo">
+        {%- for c in tri limit: max -%}
+          {%- assign i = c | split: '-' | last | plus: 0 -%}
+          {% render 'ec-ligne-points', ligne: lignes[i], solde: s.afficher_solde, unite: d[25] %}
+        {%- endfor -%}
+      </ul>
+      {%- if tri.size > max -%}
+        <details class="ec-histo-suite">
+          <summary class="ec-lien">{{ s.libelle_tout | default: 'Voir tout l’historique' }}</summary>
+          <ul class="ec-histo">
+            {%- for c in tri offset: max -%}
+              {%- assign i = c | split: '-' | last | plus: 0 -%}
+              {% render 'ec-ligne-points', ligne: lignes[i], solde: s.afficher_solde, unite: d[25] %}
+            {%- endfor -%}
+          </ul>
+        </details>
+      {%- endif -%}
+    {%- elsif s.vide != blank -%}
+      <p class="ec-vide">{{ s.vide }}</p>
+    {%- endif -%}
+  </div>
+</section>
+{%- endif -%}

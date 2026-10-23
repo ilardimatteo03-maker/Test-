@@ -209,5 +209,5 @@ def patch(schema):
              "Mobile et tablette", "Coordonnées", "Réseaux sociaux", "Prestations et tarifs", "Aide : pages et sections"]
     schema.sort(key=lambda g: ordre.index(g["name"]) if g["name"] in ordre else 99)
     schema[0]["theme_name"] = "Arte Automobili — Vitrine"
-    schema[0]["theme_version"] = "2.0.0"
+    schema[0]["theme_version"] = "2.1.0"
     return schema

@@ -1,0 +1,72 @@
+{%- if d[0] != 'visiteur' -%}
+{{ 'espace-client.css' | asset_url | stylesheet_tag }}
+{% render 'section-style', section: section %}
+{%- liquid
+  assign maintenant = 'now' | date: '%s' | plus: 0
+  assign lignes = d[26] | newline_to_br | split: '<br />'
+  assign futurs = ''
+  assign passes = ''
+  for l in lignes
+    assign p = l | split: '|'
+    assign dt = p[0] | strip
+    if dt == blank
+      continue
+    endif
+    assign test = dt | date: 'x%Yx'
+    if test == dt
+      continue
+    endif
+    assign e = dt | date: '%s' | plus: 0
+    assign cle = e | prepend: '0000000000' | slice: -10, 10
+    assign i_txt = forloop.index0 | prepend: '0000' | slice: -4, 4
+    assign cle = cle | append: '-' | append: i_txt | append: '¶'
+    if e >= maintenant
+      assign futurs = futurs | append: cle
+    else
+      assign passes = passes | append: cle
+    endif
+  endfor
+  assign futurs = futurs | split: '¶' | sort
+  assign passes = passes | split: '¶' | sort | reverse
+  assign cible_vide = s.cible_vide | default: '#reserver'
+-%}
+<section class="ec section" id="{{ ancre }}" aria-labelledby="{{ titre_id }}">
+  <div class="wrap">
+    {% render 'ec-entete', s: s, id: titre_id, demo: demo %}
+    {%- if futurs.size > 0 -%}
+      <ul class="ec-rdv-liste">
+        {%- for c in futurs -%}
+          {%- assign i = c | split: '-' | last | plus: 0 -%}
+          {% render 'ec-rdv-item', ligne: lignes[i] %}
+        {%- endfor -%}
+      </ul>
+    {%- else -%}
+      <div class="ec-vide">
+        <p>{{ s.vide }}</p>
+        {% render 'bouton', texte: s.bouton_vide, lien: cible_vide, style: 'secondary' %}
+      </div>
+    {%- endif -%}
+    {%- if s.afficher_passes and passes.size > 0 -%}
+      <p class="label ec-rdv__sous-titre">{{ s.titre_passes }}</p>
+      <ul class="ec-rdv-liste">
+        {%- for c in passes limit: s.nombre_passes -%}
+          {%- assign i = c | split: '-' | last | plus: 0 -%}
+          {% render 'ec-rdv-item', ligne: lignes[i], passe: true %}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+    {%- if s.aide != blank or s.afficher_contacts -%}
+      <div class="ec-rdv-aide">
+        {%- if s.aide != blank %}<p>{{ s.aide }}</p>{% endif -%}
+        {%- if s.afficher_contacts -%}
+          <div class="ec-rdv-aide__contacts">
+            {%- if settings.telephone != blank %}<a class="ec-lien" href="tel:{{ settings.telephone | remove: ' ' | remove: '.' }}">{% render 'icone', nom: 'telephone', taille: 18 %}{{ settings.telephone }}</a>{% endif -%}
+            {%- if settings.whatsapp != blank %}<a class="ec-lien" href="{{ settings.whatsapp }}" target="_blank" rel="noopener">{% render 'icone', nom: 'whatsapp', taille: 18 %}WhatsApp<span class="visually-hidden"> (nouvel onglet)</span></a>{% endif -%}
+            {%- if settings.email != blank %}<a class="ec-lien" href="mailto:{{ settings.email }}">{% render 'icone', nom: 'email', taille: 18 %}{{ settings.email }}</a>{% endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+{%- endif -%}

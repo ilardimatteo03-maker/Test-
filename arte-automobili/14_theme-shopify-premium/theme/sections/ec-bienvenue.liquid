@@ -1,0 +1,485 @@
+{%- capture ec -%}{% render 'ec-donnees' %}{%- endcapture -%}
+{%- liquid
+  assign d = ec | split: '§§'
+  assign s = section.settings
+  assign demo = false
+  if d[0] == 'demo'
+    assign demo = true
+  endif
+-%}
+{%- liquid
+  assign salut = s.salutation
+  if s.salutation_mode == 'heure'
+    assign h = 'now' | date: '%H' | plus: 0
+    if h >= 5 and h < 12
+      assign salut = s.salutation_matin | default: s.salutation
+    elsif h >= 18 or h < 5
+      assign salut = s.salutation_soir | default: s.salutation
+    endif
+  endif
+  assign l1 = s.cible_1 | default: '#reserver'
+  assign l2 = s.cible_2 | default: '#fidelite'
+-%}
+{%- if d[0] != 'visiteur' -%}
+{{ 'espace-client.css' | asset_url | stylesheet_tag }}
+{% render 'section-style', section: section %}
+<section class="ec wrap ec-bienvenue" aria-labelledby="ec-bienvenue-{{ section.id }}">
+  {%- if demo %}<p class="ec-demo">{% render 'icone', nom: 'eclat', taille: 14 %}Aperçu de l'éditeur · données fictives, jamais affichées aux clients</p>{% endif -%}
+  <div class="ec-bienvenue__grille">
+    <div>
+      <h1 class="ec-bienvenue__salut" id="ec-bienvenue-{{ section.id }}">{{ salut }} <em>{{ d[1] | escape }}</em>.</h1>
+      {%- if s.phrase != blank %}<p class="ec-bienvenue__phrase">{{ s.phrase }}</p>{% endif -%}
+      <ul class="ec-bienvenue__puces">
+        {%- if s.afficher_niveau %}<li class="ec-puce ec-puce--niveau" style="--puce-fond: {{ d[10] }}; --puce-texte: {{ d[11] }};">{% render 'icone', nom: 'niveau', taille: 16 %}{{ settings.fid_nom }} · {{ d[9] }}</li>{% endif -%}
+        {%- if s.afficher_points %}<li class="ec-puce">{% render 'icone', nom: 'etoile', taille: 16 %}{{ d[6] }} {{ d[25] }}</li>{% endif -%}
+        {%- if s.afficher_rdv and d[18] != blank %}<li class="ec-puce">{% render 'icone', nom: 'rendez-vous', taille: 16 %}{% render 'ec-date', date: d[18], format: 'jour' %} · {% render 'ec-date', date: d[18], format: 'heure' %}</li>{% endif -%}
+      </ul>
+    </div>
+    <div class="ec-bienvenue__actions">
+      {% render 'bouton', texte: s.bouton_1, lien: l1, style: s.style_1, icone: 'rendez-vous' %}
+      {% render 'bouton', texte: s.bouton_2, lien: l2, style: s.style_2 %}
+    </div>
+  </div>
+  {%- if s.afficher_message and d[16] != blank -%}
+    <div class="ec-notification" role="status">{% render 'icone', nom: 'cloche', taille: 20 %}<p>{{ d[16] | escape }}</p></div>
+  {%- endif -%}
+  {%- if s.notification != blank -%}
+    <div class="ec-notification">{% render 'icone', nom: 'eclat', taille: 20 %}<p>{{ s.notification }}{% if s.notification_lien != blank %} <a href="{{ s.notification_lien }}">{{ s.notification_lien_texte | default: 'En savoir plus' }}</a>{% endif %}</p></div>
+  {%- endif -%}
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Mon espace : bienvenue",
+  "tag": "div",
+  "class": "section-ec",
+  "settings": [
+    {
+      "type": "select",
+      "id": "salutation_mode",
+      "label": "Salutation",
+      "options": [
+        {
+          "value": "fixe",
+          "label": "Toujours la même"
+        },
+        {
+          "value": "heure",
+          "label": "Selon l'heure de la journée"
+        }
+      ],
+      "default": "fixe"
+    },
+    {
+      "type": "text",
+      "id": "salutation",
+      "label": "Salutation",
+      "info": "Suivie du prénom du client : « Benvenuto, Matteo. »",
+      "default": "Benvenuto,"
+    },
+    {
+      "type": "text",
+      "id": "salutation_matin",
+      "label": "Salutation le matin (5 h – 12 h)",
+      "visible_if": "{{ section.settings.salutation_mode == 'heure' }}",
+      "default": "Buongiorno,"
+    },
+    {
+      "type": "text",
+      "id": "salutation_soir",
+      "label": "Salutation le soir (18 h – 5 h)",
+      "visible_if": "{{ section.settings.salutation_mode == 'heure' }}",
+      "default": "Buonasera,"
+    },
+    {
+      "type": "text",
+      "id": "phrase",
+      "label": "Phrase d'accueil",
+      "default": "Votre véhicule mérite l'excellence."
+    },
+    {
+      "type": "select",
+      "id": "taille_titre",
+      "label": "Taille du titre",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "s",
+          "label": "Petite"
+        },
+        {
+          "value": "m",
+          "label": "Moyenne"
+        },
+        {
+          "value": "l",
+          "label": "Grande"
+        },
+        {
+          "value": "xl",
+          "label": "Très grande"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "header",
+      "content": "Informations affichées"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_niveau",
+      "label": "Niveau de fidélité",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_points",
+      "label": "Points disponibles",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_rdv",
+      "label": "Prochain rendez-vous",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_message",
+      "label": "Message personnel du client",
+      "default": true,
+      "info": "Texte saisi dans le métachamp arte.message de la fiche client (ex. « Votre bonus anniversaire est disponible »)."
+    },
+    {
+      "type": "header",
+      "content": "Notification pour tous les clients"
+    },
+    {
+      "type": "text",
+      "id": "notification",
+      "label": "Texte",
+      "info": "Vide = aucune notification. Ex. : « Fermeture exceptionnelle le 1er novembre »."
+    },
+    {
+      "type": "url",
+      "id": "notification_lien",
+      "label": "Lien (facultatif)"
+    },
+    {
+      "type": "text",
+      "id": "notification_lien_texte",
+      "label": "Texte du lien",
+      "default": "En savoir plus"
+    },
+    {
+      "type": "header",
+      "content": "Boutons"
+    },
+    {
+      "type": "text",
+      "id": "bouton_1",
+      "label": "Bouton principal",
+      "default": "Prendre rendez-vous"
+    },
+    {
+      "type": "text",
+      "id": "cible_1",
+      "label": "Cible du bouton principal",
+      "info": "Ancre de cette page (ex. #reserver) ou adresse (ex. /pages/contact).",
+      "default": "#reserver"
+    },
+    {
+      "type": "select",
+      "id": "style_1",
+      "label": "Style du bouton principal",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Style par défaut du thème"
+        },
+        {
+          "value": "primary",
+          "label": "Plein"
+        },
+        {
+          "value": "secondary",
+          "label": "Contour"
+        },
+        {
+          "value": "minimal",
+          "label": "Minimaliste"
+        },
+        {
+          "value": "fleche",
+          "label": "Texte avec flèche"
+        },
+        {
+          "value": "premium",
+          "label": "Premium automobile"
+        }
+      ],
+      "default": "primary"
+    },
+    {
+      "type": "text",
+      "id": "bouton_2",
+      "label": "Bouton secondaire",
+      "default": "Ma carte de fidélité"
+    },
+    {
+      "type": "text",
+      "id": "cible_2",
+      "label": "Cible du bouton secondaire",
+      "info": "Ancre de cette page (ex. #reserver) ou adresse (ex. /pages/contact).",
+      "default": "#fidelite"
+    },
+    {
+      "type": "select",
+      "id": "style_2",
+      "label": "Style du bouton secondaire",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Style par défaut du thème"
+        },
+        {
+          "value": "primary",
+          "label": "Plein"
+        },
+        {
+          "value": "secondary",
+          "label": "Contour"
+        },
+        {
+          "value": "minimal",
+          "label": "Minimaliste"
+        },
+        {
+          "value": "fleche",
+          "label": "Texte avec flèche"
+        },
+        {
+          "value": "premium",
+          "label": "Premium automobile"
+        }
+      ],
+      "default": "secondary"
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "fond_image",
+      "label": "Image d'arrière-plan (facultative)"
+    },
+    {
+      "type": "range",
+      "id": "fond_voile",
+      "label": "Voile sur l'image d'arrière-plan",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "default": 60,
+      "unit": "%"
+    },
+    {
+      "type": "select",
+      "id": "largeur",
+      "label": "Largeur du contenu",
+      "options": [
+        {
+          "value": "contenu",
+          "label": "Largeur du thème"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "pleine",
+          "label": "Pleine largeur"
+        },
+        {
+          "value": "bord",
+          "label": "Bord à bord (sans marges)"
+        }
+      ],
+      "default": "contenu"
+    },
+    {
+      "type": "select",
+      "id": "espace_haut",
+      "label": "Espacement en haut",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_bas",
+      "label": "Espacement en bas",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_mobile",
+      "label": "Espacements sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Proportionnels"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petits"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyens"
+        },
+        {
+          "value": "grand",
+          "label": "Grands"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mon espace : bienvenue"
+    }
+  ]
+}
+{% endschema %}
