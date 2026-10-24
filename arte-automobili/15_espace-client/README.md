@@ -69,6 +69,16 @@ Aperçus dans `apercus/` :
    club, le nom des points, le critère de niveau (prestations, montant dépensé ou points cumulés), ainsi que le nom, le
    seuil et la couleur des 4 niveaux. Les valeurs proposées (3, 6 et 10 prestations) sont des exemples.
 
+### 2 bis. Arriver sur l'espace client après la connexion
+- Les boutons « Se connecter » et « Créer un compte » de l'espace client renvoient sur l'espace après la connexion
+  (paramètre `return_to` de Shopify). Si le client se connecte ailleurs, Shopify ouvre ses propres pages de compte
+  (Commandes, Profil).
+- Pour relier ces pages à votre espace : **Contenu › Menus** (ou Boutique en ligne › Navigation), menu du **compte
+  client**. Ajoutez un lien « Mon espace Arte Club » vers `/pages/espace-client`. Vous pouvez aussi faire pointer le
+  lien « Boutique » vers cette page. C'est un réglage de la boutique : à faire par vous.
+- Tant que le thème n'est pas publié, le retour après connexion peut ouvrir le site publié (l'ancien thème) au lieu de
+  l'aperçu. Le comportement définitif se vérifie une fois le thème publié.
+
 ---
 
 ## 3. Au quotidien

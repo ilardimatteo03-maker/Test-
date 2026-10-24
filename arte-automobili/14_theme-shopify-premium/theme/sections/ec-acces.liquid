@@ -7,8 +7,24 @@
     assign demo = true
   endif
 -%}
+{%- comment -%}
+  Connexion avec retour sur cette page (paramètre return_to, nouveaux comptes clients) :
+  sans lui, Shopify ouvre ses pages de compte (Commandes, Profil) après la connexion.
+  Avec les nouveaux comptes, la même page sert à se connecter et à créer un compte.
+{%- endcomment -%}
 {%- liquid
-  assign login = routes.storefront_login_url | default: routes.account_login_url
+  assign retour = request.path | default: '/pages/espace-client' | url_encode
+  if routes.storefront_login_url != blank
+    assign sep = '?'
+    if routes.storefront_login_url contains '?'
+      assign sep = '&'
+    endif
+    assign login = routes.storefront_login_url | append: sep | append: 'return_to=' | append: retour
+    assign inscription = login
+  else
+    assign login = routes.account_login_url
+    assign inscription = routes.account_register_url
+  endif
 -%}
 {%- if d[0] != 'client' -%}
 {{ 'espace-client.css' | asset_url | stylesheet_tag }}
@@ -38,7 +54,7 @@
     {%- if shop.customer_accounts_enabled -%}
       <div class="ec-acces__actions">
         {% render 'bouton', texte: s.bouton_connexion, lien: login, style: s.style_connexion, icone: 'profil' %}
-        {% render 'bouton', texte: s.bouton_inscription, lien: routes.account_register_url, style: 'secondary' %}
+        {% render 'bouton', texte: s.bouton_inscription, lien: inscription, style: 'secondary' %}
       </div>
     {%- endif -%}
     {%- if s.mention != blank %}<p class="ec-acces__mention">{{ s.mention }}</p>{% endif -%}

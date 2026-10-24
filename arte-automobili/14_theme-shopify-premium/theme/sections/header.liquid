@@ -170,7 +170,7 @@
       { "value": "icone", "label": "Icône seule" }, { "value": "libelle", "label": "Icône et libellé" }
     ], "visible_if": "{{ section.settings.compte_afficher }}" },
     { "type": "text", "id": "compte_libelle", "label": "Libellé", "default": "Mon espace", "visible_if": "{{ section.settings.compte_afficher }}" },
-    { "type": "url", "id": "compte_lien", "label": "Lien", "info": "Vide = page dont l'identifiant est « espace-client », sinon le compte Shopify.", "visible_if": "{{ section.settings.compte_afficher }}" }
+    { "type": "url", "id": "compte_lien", "label": "Lien", "info": "Vide = page dont l'adresse se termine par « espace-client ». Sinon, choisissez ici votre page Espace client.", "visible_if": "{{ section.settings.compte_afficher }}" }
   ]
 }
 {% endschema %}
