@@ -1,0 +1,1112 @@
+{%- comment -%}
+  Suppléments de prestation : une carte de suppléments (liste élégante ou grille), regroupés par catégories.
+  Les blocs « Catégorie » regroupent les blocs « Supplément » qui les suivent. Filtres facultatifs par catégorie.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign u_contact = pages['contact'].url | default: '/pages/contact'
+  assign lien_bouton = s.bouton_lien | default: u_contact
+  assign nb_cat = 0
+  for block in section.blocks
+    if block.type == 'categorie'
+      assign nb_cat = nb_cat | plus: 1
+    endif
+  endfor
+  assign filtres = false
+  if s.filtres and nb_cat > 1
+    assign filtres = true
+  endif
+  assign balise_nom = 'h3'
+  if nb_cat > 0
+    assign balise_nom = 'h4'
+  endif
+-%}
+{{ 'supplements.css' | asset_url | stylesheet_tag }}
+{%- if filtres %}<script src="{{ 'supplements.js' | asset_url }}" defer></script>{% endif -%}
+{% render 'section-style', section: section %}
+<section class="section s-supp s-supp--{{ s.disposition }} s-supp--cols-{{ s.colonnes_d }}" style="--supp-cols: {{ s.colonnes_d }};"{% if s.titre != blank %} aria-labelledby="titre-{{ section.id }}"{% endif %}>
+  <div class="wrap">
+    {% render 'tete-section', s: s, id: section.id %}
+    {%- if filtres -%}
+      <supplements-filtres class="s-supp__filtres" role="group" aria-label="Filtrer les suppléments par catégorie">
+        <button type="button" class="s-supp__filtre" data-filtre="tout" aria-pressed="true">{{ s.libelle_tous | default: 'Tout voir' }}</button>
+        {%- assign k = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'categorie' -%}
+            {%- assign k = k | plus: 1 -%}
+            <button type="button" class="s-supp__filtre" data-filtre="{{ section.id }}-{{ k }}" aria-pressed="false">{{ block.settings.titre }}</button>
+          {%- endif -%}
+        {%- endfor -%}
+      </supplements-filtres>
+    {%- endif -%}
+    <div class="s-supp__groupes">
+      {%- for g in (0..nb_cat) -%}
+        {%- liquid
+          assign cat = nil
+          assign k = 0
+          assign nb_items = 0
+          for block in section.blocks
+            if block.type == 'categorie'
+              assign k = k | plus: 1
+              if k == g
+                assign cat = block
+              endif
+            elsif k == g
+              assign nb_items = nb_items | plus: 1
+            endif
+          endfor
+        -%}
+        {%- if g == 0 and nb_items == 0 %}{% continue %}{% endif -%}
+        <div class="s-supp__groupe" data-groupe="{{ section.id }}-{{ g }}"{% if cat %} {{ cat.shopify_attributes }}{% endif %}>
+          {%- if cat -%}
+            <div class="s-supp__cat">
+              <h3 class="s-supp__cat-titre">{{ cat.settings.titre }}</h3>
+              {%- if cat.settings.texte != blank %}<p class="s-supp__cat-texte">{{ cat.settings.texte }}</p>{% endif -%}
+            </div>
+          {%- endif -%}
+          {%- if nb_items > 0 -%}
+            <ul class="s-supp__liste" role="list">
+              {%- assign k = 0 -%}
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'categorie' -%}
+                  {%- assign k = k | plus: 1 -%}
+                {%- elsif k == g -%}
+                  {%- liquid
+                    assign b = block.settings
+                    case b.badge
+                      when 'populaire'
+                        assign badge = 'Le plus demandé'
+                      when 'recommande'
+                        assign badge = 'Recommandé'
+                      when 'nouveau'
+                        assign badge = 'Nouveau'
+                      when 'exclusif'
+                        assign badge = 'Exclusif'
+                      else
+                        assign badge = ''
+                    endcase
+                  -%}
+                  <li class="s-supp__item reveal{% if b.image != blank and s.disposition == 'cartes' %} s-supp__item--image{% endif %}" {{ block.shopify_attributes }}>
+                    {%- if b.image != blank and s.disposition == 'cartes' -%}
+                      <div class="s-supp__image">{{ b.image | image_url: width: 900 | image_tag: alt: b.image.alt, loading: 'lazy', widths: '450, 900', sizes: '(min-width: 990px) 33vw, 100vw' }}</div>
+                    {%- elsif s.afficher_icones and b.icone != 'aucune' -%}
+                      <span class="s-supp__icone" aria-hidden="true">{% render 'icone', nom: b.icone, taille: 26 %}</span>
+                    {%- endif -%}
+                    <div class="s-supp__corps">
+                      <div class="s-supp__ligne">
+                        <{{ balise_nom }} class="s-supp__nom">{{ b.nom }}</{{ balise_nom }}>
+                        <span class="s-supp__pointilles" aria-hidden="true"></span>
+                        {%- if s.afficher_prix and b.prix != blank %}<span class="s-supp__prix">{{ b.prix }}</span>{% endif -%}
+                      </div>
+                      {%- if s.afficher_badges and badge != blank %}<span class="s-supp__badge">{{ badge }}</span>{% endif -%}
+                      {%- if s.afficher_descriptions and b.description != blank %}<p class="s-supp__desc">{{ b.description }}</p>{% endif -%}
+                      {%- if s.afficher_durees and b.duree != blank %}<p class="s-supp__duree">{% render 'icone', nom: 'horaires', taille: 14 %}<span>{{ b.duree }}</span></p>{% endif -%}
+                      {%- if b.lien != blank %}<a class="lien s-supp__lien" href="{{ b.lien }}"><span>{{ b.lien_texte | default: 'En savoir plus' }}</span>{% render 'icon-arrow' %}</a>{% endif -%}
+                    </div>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if s.mention != blank or s.bouton != blank -%}
+      <div class="s-supp__pied">
+        {%- if s.mention != blank %}<p class="s-supp__mention">{{ s.mention }}</p>{% endif -%}
+        {% render 'bouton', texte: s.bouton, lien: lien_bouton, style: s.bouton_style %}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Suppléments de prestation",
+  "tag": "div",
+  "class": "section-bibliotheque",
+  "settings": [
+    {
+      "type": "text",
+      "id": "surtitre",
+      "label": "Surtitre",
+      "default": "Suppléments"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titre",
+      "label": "Titre",
+      "default": "Sublimez votre <em>prestation</em>."
+    },
+    {
+      "type": "richtext",
+      "id": "texte",
+      "label": "Texte d'introduction",
+      "default": "<p>Ajoutez un ou plusieurs suppléments à votre lavage, selon les besoins de votre véhicule.</p>"
+    },
+    {
+      "type": "paragraph",
+      "content": "Prix et durées proposés à titre indicatif : adaptez-les avant de publier. Les blocs « Catégorie » regroupent les suppléments qui les suivent ; ajoutez, supprimez ou réordonnez librement."
+    },
+    {
+      "type": "header",
+      "content": "Présentation"
+    },
+    {
+      "type": "select",
+      "id": "disposition",
+      "label": "Disposition",
+      "options": [
+        {
+          "value": "carte",
+          "label": "Carte élégante (liste avec prix)"
+        },
+        {
+          "value": "cartes",
+          "label": "Grille de cartes"
+        }
+      ],
+      "default": "carte"
+    },
+    {
+      "type": "range",
+      "id": "colonnes_d",
+      "label": "Colonnes sur ordinateur",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2,
+      "info": "Carte élégante : colonnes de catégories. Grille : cartes par ligne. Une colonne sur mobile."
+    },
+    {
+      "type": "checkbox",
+      "id": "filtres",
+      "label": "Filtres par catégorie",
+      "default": true,
+      "info": "Affichés à partir de deux catégories."
+    },
+    {
+      "type": "text",
+      "id": "libelle_tous",
+      "label": "Libellé du filtre « tout »",
+      "default": "Tout voir"
+    },
+    {
+      "type": "header",
+      "content": "Informations affichées"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_icones",
+      "label": "Icônes",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_descriptions",
+      "label": "Descriptions",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_prix",
+      "label": "Prix",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_durees",
+      "label": "Durées",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_badges",
+      "label": "Badges (Le plus demandé, Nouveau…)",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Pied de section"
+    },
+    {
+      "type": "text",
+      "id": "mention",
+      "label": "Mention",
+      "default": "Suppléments réalisés en complément d'une prestation. Prix TVA comprise, à confirmer selon l'état du véhicule."
+    },
+    {
+      "type": "text",
+      "id": "bouton",
+      "label": "Bouton",
+      "info": "Vide = bouton masqué.",
+      "default": "Demander un rendez-vous"
+    },
+    {
+      "type": "url",
+      "id": "bouton_lien",
+      "label": "Lien du bouton",
+      "info": "Vide = page Contact."
+    },
+    {
+      "type": "select",
+      "id": "bouton_style",
+      "label": "Style du bouton",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Style par défaut du thème"
+        },
+        {
+          "value": "primary",
+          "label": "Plein"
+        },
+        {
+          "value": "secondary",
+          "label": "Contour"
+        },
+        {
+          "value": "minimal",
+          "label": "Minimaliste"
+        },
+        {
+          "value": "fleche",
+          "label": "Texte avec flèche"
+        },
+        {
+          "value": "premium",
+          "label": "Premium automobile"
+        }
+      ],
+      "default": "primary"
+    },
+    {
+      "type": "select",
+      "id": "taille_titre",
+      "label": "Taille du titre",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "s",
+          "label": "Petite"
+        },
+        {
+          "value": "m",
+          "label": "Moyenne"
+        },
+        {
+          "value": "l",
+          "label": "Grande"
+        },
+        {
+          "value": "xl",
+          "label": "Très grande"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "header",
+      "content": "Mise en forme de la section"
+    },
+    {
+      "type": "select",
+      "id": "palette",
+      "label": "Couleurs de la section",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Fond général du site"
+        },
+        {
+          "value": "nero",
+          "label": "Nero (sombre)"
+        },
+        {
+          "value": "verdaccio",
+          "label": "Verdaccio (gris profond)"
+        },
+        {
+          "value": "verde",
+          "label": "Verde (vert de marque)"
+        },
+        {
+          "value": "bianco",
+          "label": "Bianco (clair)"
+        },
+        {
+          "value": "travertino",
+          "label": "Travertino (clair chaud)"
+        },
+        {
+          "value": "perso",
+          "label": "Personnalisées"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "color",
+      "id": "couleur_fond",
+      "label": "Fond personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_texte",
+      "label": "Texte personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "color",
+      "id": "couleur_accent",
+      "label": "Accent personnalisé",
+      "visible_if": "{{ section.settings.palette == 'perso' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "fond_image",
+      "label": "Image d'arrière-plan (facultative)"
+    },
+    {
+      "type": "range",
+      "id": "fond_voile",
+      "label": "Voile sur l'image d'arrière-plan",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "default": 60,
+      "unit": "%"
+    },
+    {
+      "type": "select",
+      "id": "largeur",
+      "label": "Largeur du contenu",
+      "options": [
+        {
+          "value": "contenu",
+          "label": "Largeur du thème"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "pleine",
+          "label": "Pleine largeur"
+        },
+        {
+          "value": "bord",
+          "label": "Bord à bord (sans marges)"
+        }
+      ],
+      "default": "contenu"
+    },
+    {
+      "type": "select",
+      "id": "espace_haut",
+      "label": "Espacement en haut",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_bas",
+      "label": "Espacement en bas",
+      "options": [
+        {
+          "value": "defaut",
+          "label": "Par défaut"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petit"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyen"
+        },
+        {
+          "value": "grand",
+          "label": "Grand"
+        },
+        {
+          "value": "tres-grand",
+          "label": "Très grand"
+        }
+      ],
+      "default": "defaut"
+    },
+    {
+      "type": "select",
+      "id": "espace_mobile",
+      "label": "Espacements sur mobile",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Proportionnels"
+        },
+        {
+          "value": "aucun",
+          "label": "Aucun"
+        },
+        {
+          "value": "petit",
+          "label": "Petits"
+        },
+        {
+          "value": "moyen",
+          "label": "Moyens"
+        },
+        {
+          "value": "grand",
+          "label": "Grands"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_haut",
+      "label": "Filet en haut",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "bordure_bas",
+      "label": "Filet en bas",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Visibilité"
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_ordinateur",
+      "label": "Afficher sur ordinateur et tablette",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "afficher_mobile",
+      "label": "Afficher sur mobile",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "categorie",
+      "name": "Catégorie",
+      "settings": [
+        {
+          "type": "text",
+          "id": "titre",
+          "label": "Titre",
+          "default": "Nouvelle catégorie"
+        },
+        {
+          "type": "text",
+          "id": "texte",
+          "label": "Description (facultative)"
+        }
+      ]
+    },
+    {
+      "type": "supplement",
+      "name": "Supplément",
+      "settings": [
+        {
+          "type": "text",
+          "id": "nom",
+          "label": "Nom",
+          "default": "Nouveau supplément"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "prix",
+          "label": "Prix affiché",
+          "info": "Texte libre : « 25 € », « dès 40 € », « Sur devis », « Offert »…",
+          "default": "Sur devis"
+        },
+        {
+          "type": "text",
+          "id": "duree",
+          "label": "Durée indicative (facultative)"
+        },
+        {
+          "type": "select",
+          "id": "icone",
+          "label": "Icône",
+          "options": [
+            {
+              "value": "aucune",
+              "label": "Aucune icône"
+            },
+            {
+              "value": "lavage-exterieur",
+              "label": "Lavage extérieur"
+            },
+            {
+              "value": "decontamination",
+              "label": "Décontamination"
+            },
+            {
+              "value": "correction-vernis",
+              "label": "Correction de vernis"
+            },
+            {
+              "value": "protection-ceramique",
+              "label": "Protection céramique"
+            },
+            {
+              "value": "interieur",
+              "label": "Habitacle"
+            },
+            {
+              "value": "cuir",
+              "label": "Soin du cuir"
+            },
+            {
+              "value": "jantes",
+              "label": "Jantes et étriers"
+            },
+            {
+              "value": "vitrage",
+              "label": "Vitrage"
+            },
+            {
+              "value": "moteur",
+              "label": "Compartiment moteur"
+            },
+            {
+              "value": "inspection-lumiere",
+              "label": "Contrôle sous lumière"
+            },
+            {
+              "value": "rendez-vous",
+              "label": "Rendez-vous"
+            },
+            {
+              "value": "horaires",
+              "label": "Horaires"
+            },
+            {
+              "value": "devis",
+              "label": "Devis"
+            },
+            {
+              "value": "localisation",
+              "label": "Adresse"
+            },
+            {
+              "value": "telephone",
+              "label": "Téléphone"
+            },
+            {
+              "value": "email",
+              "label": "E-mail"
+            },
+            {
+              "value": "collecte-livraison",
+              "label": "Collecte et livraison"
+            },
+            {
+              "value": "coche",
+              "label": "Coche"
+            },
+            {
+              "value": "etoile",
+              "label": "Étoile"
+            },
+            {
+              "value": "bouclier",
+              "label": "Bouclier"
+            },
+            {
+              "value": "goutte",
+              "label": "Goutte"
+            },
+            {
+              "value": "eclat",
+              "label": "Éclat"
+            },
+            {
+              "value": "voiture",
+              "label": "Voiture"
+            },
+            {
+              "value": "cle",
+              "label": "Clé"
+            },
+            {
+              "value": "phare",
+              "label": "Phare"
+            },
+            {
+              "value": "patte",
+              "label": "Poils d'animaux"
+            },
+            {
+              "value": "vapeur",
+              "label": "Vapeur"
+            },
+            {
+              "value": "ozone",
+              "label": "Ozone et odeurs"
+            }
+          ],
+          "default": "eclat"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Photo (grille de cartes uniquement, facultative)"
+        },
+        {
+          "type": "select",
+          "id": "badge",
+          "label": "Badge",
+          "options": [
+            {
+              "value": "aucun",
+              "label": "Aucun"
+            },
+            {
+              "value": "populaire",
+              "label": "Le plus demandé"
+            },
+            {
+              "value": "recommande",
+              "label": "Recommandé"
+            },
+            {
+              "value": "nouveau",
+              "label": "Nouveau"
+            },
+            {
+              "value": "exclusif",
+              "label": "Exclusif"
+            }
+          ],
+          "default": "aucun"
+        },
+        {
+          "type": "url",
+          "id": "lien",
+          "label": "Lien (facultatif)"
+        },
+        {
+          "type": "text",
+          "id": "lien_texte",
+          "label": "Texte du lien",
+          "default": "En savoir plus"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 50,
+  "presets": [
+    {
+      "name": "Suppléments de prestation",
+      "blocks": [
+        {
+          "type": "categorie",
+          "settings": {
+            "titre": "Intérieur",
+            "texte": "Pour un habitacle sain, net et agréable."
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Shampooing des sièges et moquettes",
+            "description": "Injection-extraction en profondeur des tissus : taches, saleté incrustée et odeurs.",
+            "prix": "dès 40 €",
+            "duree": "45 min",
+            "icone": "interieur",
+            "badge": "populaire"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Soin complet du cuir",
+            "description": "Nettoyage doux puis nourrissage, pour préserver la souplesse et la teinte du cuir.",
+            "prix": "35 €",
+            "duree": "30 min",
+            "icone": "cuir",
+            "badge": "aucun"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Désinfection à la vapeur",
+            "description": "Volant, commandes, poignées et aérations assainis sans produit agressif.",
+            "prix": "20 €",
+            "duree": "20 min",
+            "icone": "vapeur",
+            "badge": "aucun"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Traitement anti-odeurs à l'ozone",
+            "description": "Élimine durablement les odeurs de tabac, d'animaux ou d'humidité.",
+            "prix": "30 €",
+            "duree": "45 min",
+            "icone": "ozone",
+            "badge": "aucun"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Retrait des poils d'animaux",
+            "description": "Brossage et aspiration spécifiques des tissus et des moquettes.",
+            "prix": "dès 20 €",
+            "duree": "20 min",
+            "icone": "patte",
+            "badge": "aucun"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Nettoyage du ciel de toit",
+            "description": "Nettoyage délicat du pavillon, sans détremper la garniture.",
+            "prix": "25 €",
+            "duree": "20 min",
+            "icone": "interieur",
+            "badge": "aucun"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Siège enfant",
+            "description": "Nettoyage et désinfection du siège et de ses sangles.",
+            "prix": "15 €",
+            "duree": "15 min",
+            "icone": "interieur",
+            "badge": "aucun"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Protection des tissus",
+            "description": "Traitement imperméabilisant contre les taches et les liquides renversés.",
+            "prix": "30 €",
+            "duree": "15 min",
+            "icone": "bouclier",
+            "badge": "aucun"
+          }
+        },
+        {
+          "type": "categorie",
+          "settings": {
+            "titre": "Extérieur",
+            "texte": "Pour une carrosserie lisse, nette et brillante."
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Décontamination de la carrosserie",
+            "description": "Retrait des particules ferreuses et des résidus incrustés, à l'argile et au décontaminant.",
+            "prix": "40 €",
+            "duree": "40 min",
+            "icone": "decontamination",
+            "badge": "recommande"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Rénovation des phares",
+            "description": "Ponçage et polissage des optiques jaunies ou ternies, puis protection.",
+            "prix": "45 €",
+            "duree": "45 min",
+            "icone": "phare",
+            "badge": "aucun"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Jantes et étriers en profondeur",
+            "description": "Nettoyage minutieux des jantes, des étriers et des passages de roue.",
+            "prix": "25 €",
+            "duree": "30 min",
+            "icone": "jantes",
+            "badge": "aucun"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Traitement des vitres",
+            "description": "Revêtement hydrophobe : la pluie perle et la visibilité s'améliore.",
+            "prix": "20 €",
+            "duree": "15 min",
+            "icone": "vitrage",
+            "badge": "aucun"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Rénovation des plastiques extérieurs",
+            "description": "Ravive les plastiques grisés et les protège des UV.",
+            "prix": "20 €",
+            "duree": "20 min",
+            "icone": "eclat",
+            "badge": "aucun"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Insectes, goudron et sève",
+            "description": "Retrait ciblé des salissures tenaces, sans agresser le vernis.",
+            "prix": "15 €",
+            "duree": "15 min",
+            "icone": "goutte",
+            "badge": "aucun"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Compartiment moteur",
+            "description": "Dégraissage et nettoyage maîtrisé, puis protection des plastiques.",
+            "prix": "30 €",
+            "duree": "30 min",
+            "icone": "moteur",
+            "badge": "aucun"
+          }
+        },
+        {
+          "type": "categorie",
+          "settings": {
+            "titre": "Protection et finition",
+            "texte": "Pour prolonger l'éclat du premier jour."
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Cire de protection",
+            "description": "Cire de finition pour un brillant profond et quelques semaines de protection.",
+            "prix": "30 €",
+            "duree": "30 min",
+            "icone": "lavage-exterieur",
+            "badge": "aucun"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Polissage de finition",
+            "description": "Polissage en une étape pour atténuer les micro-rayures et raviver la brillance.",
+            "prix": "Sur devis",
+            "duree": "2 à 3 h",
+            "icone": "correction-vernis",
+            "badge": "aucun"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Protection céramique",
+            "description": "Revêtement longue durée : brillance, entretien facilité et protection renforcée.",
+            "prix": "Sur devis",
+            "duree": "1 jour",
+            "icone": "protection-ceramique",
+            "badge": "exclusif"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Contrôle sous lumière",
+            "description": "Inspection de la peinture sous éclairage dédié, avec des conseils personnalisés.",
+            "prix": "15 €",
+            "duree": "15 min",
+            "icone": "inspection-lumiere",
+            "badge": "aucun"
+          }
+        },
+        {
+          "type": "categorie",
+          "settings": {
+            "titre": "Services",
+            "texte": "Pour vous simplifier la vie."
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Collecte et livraison du véhicule",
+            "description": "Nous venons chercher votre véhicule et vous le ramenons, propre.",
+            "prix": "dès 15 €",
+            "duree": "Selon la distance",
+            "icone": "collecte-livraison",
+            "badge": "aucun"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Préparation à la vente",
+            "description": "Remise en beauté complète avant une vente ou une restitution de leasing.",
+            "prix": "Sur devis",
+            "duree": "Selon le véhicule",
+            "icone": "voiture",
+            "badge": "aucun"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Entretien régulier",
+            "description": "Un passage programmé à intervalles réguliers, à tarif préférentiel.",
+            "prix": "Sur devis",
+            "duree": "",
+            "icone": "rendez-vous",
+            "badge": "nouveau"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Suppléments en grille",
+      "settings": {
+        "disposition": "cartes",
+        "colonnes_d": 3,
+        "filtres": false,
+        "titre": "Nos suppléments <em>les plus demandés</em>."
+      },
+      "blocks": [
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Shampooing des sièges et moquettes",
+            "description": "Injection-extraction en profondeur des tissus : taches, saleté incrustée et odeurs.",
+            "prix": "dès 40 €",
+            "duree": "45 min",
+            "icone": "interieur",
+            "badge": "populaire"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Décontamination de la carrosserie",
+            "description": "Retrait des particules ferreuses et des résidus incrustés, à l'argile et au décontaminant.",
+            "prix": "40 €",
+            "duree": "40 min",
+            "icone": "decontamination",
+            "badge": "recommande"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Protection céramique",
+            "description": "Revêtement longue durée : brillance, entretien facilité et protection renforcée.",
+            "prix": "Sur devis",
+            "duree": "1 jour",
+            "icone": "protection-ceramique",
+            "badge": "exclusif"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Entretien régulier",
+            "description": "Un passage programmé à intervalles réguliers, à tarif préférentiel.",
+            "prix": "Sur devis",
+            "duree": "",
+            "icone": "rendez-vous",
+            "badge": "nouveau"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Soin complet du cuir",
+            "description": "Nettoyage doux puis nourrissage, pour préserver la souplesse et la teinte du cuir.",
+            "prix": "35 €",
+            "duree": "30 min",
+            "icone": "cuir",
+            "badge": "aucun"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Traitement anti-odeurs à l'ozone",
+            "description": "Élimine durablement les odeurs de tabac, d'animaux ou d'humidité.",
+            "prix": "30 €",
+            "duree": "45 min",
+            "icone": "ozone",
+            "badge": "aucun"
+          }
+        },
+        {
+          "type": "supplement",
+          "settings": {
+            "nom": "Rénovation des phares",
+            "description": "Ponçage et polissage des optiques jaunies ou ternies, puis protection.",
+            "prix": "45 €",
+            "duree": "45 min",
+            "icone": "phare",
+            "badge": "aucun"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

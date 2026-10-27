@@ -23,6 +23,37 @@ et une page « Programme de fidélité », sans application. Activation et usage
 
 ---
 
+## Suppléments de prestation
+
+Nouvelle section **« Suppléments de prestation »**, à ajouter où vous voulez depuis l'éditeur (Ajouter une section).
+Elle ne modifie aucune page existante.
+
+- **Contenu proposé :** 22 suppléments, répartis en 4 catégories.
+  - Intérieur : shampooing, cuir, vapeur, ozone, poils d'animaux, ciel de toit, siège enfant, protection des tissus.
+  - Extérieur : décontamination, phares, jantes, vitres, plastiques, insectes et goudron, moteur.
+  - Protection et finition : cire, polissage, céramique, contrôle sous lumière.
+  - Services : collecte et livraison, préparation à la vente, entretien régulier.
+- **Prix et durées indicatifs**, à adapter : chaque supplément est un bloc (nom, description, prix libre comme
+  « dès 40 € » ou « Sur devis », durée, icône, photo, badge, lien).
+- **Deux présentations :**
+  - « Carte élégante » : liste avec pointillés jusqu'au prix, catégories en colonnes ;
+  - « Grille de cartes ».
+- **Filtres par catégorie**, badges (Le plus demandé, Recommandé, Nouveau, Exclusif), mention et bouton vers le Contact.
+- **Deux variantes prêtes à l'emploi :**
+  - « Suppléments de prestation » : la carte complète ;
+  - « Suppléments en grille » : les 7 suppléments mis en avant.
+- **Modèle de page facultatif `supplements` :** créez une page « Suppléments » et choisissez ce modèle.
+
+Fichiers ajoutés :
+- `sections/supplements.liquid` ;
+- `assets/supplements.css` et `assets/supplements.js`, chargés uniquement par cette section ;
+- `templates/page.supplements.json`.
+
+S'y ajoutent 4 icônes dans `snippets/icone.liquid` : phare, poils d'animaux, vapeur, ozone. Aperçus :
+`apercus/supplements-*.jpg`.
+
+---
+
 ## Correctif d'import (page d'accueil en 404)
 
 Les premières versions importées affichaient une page 404 à la place de l'accueil. À l'import, Shopify refusait

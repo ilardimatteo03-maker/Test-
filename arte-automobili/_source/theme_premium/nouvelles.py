@@ -313,11 +313,100 @@ SECTIONS["main-password"] = schema("Page de lancement", [
     [{"name": "Page de lancement", "settings": CINEMA}])
 
 
+# ── Suppléments de prestation ──
+ICONES_SUPP = [{"value": "aucune", "label": "Aucune icône"}] + ICONES + [
+    {"value": v, "label": l} for v, l in [("phare", "Phare"), ("patte", "Poils d'animaux"), ("vapeur", "Vapeur"), ("ozone", "Ozone et odeurs")]]
+BADGES = [("aucun", "Aucun"), ("populaire", "Le plus demandé"), ("recommande", "Recommandé"), ("nouveau", "Nouveau"), ("exclusif", "Exclusif")]
+
+
+def supp(nom, description, prix, duree, icone, badge="aucun"):
+    assert any(i["value"] == icone for i in ICONES_SUPP), icone
+    return {"type": "supplement", "settings": {"nom": nom, "description": description, "prix": prix, "duree": duree, "icone": icone, "badge": badge}}
+
+
+def cat(titre, texte):
+    return {"type": "categorie", "settings": {"titre": titre, "texte": texte}}
+
+
+SUPPLEMENTS = [
+    cat("Intérieur", "Pour un habitacle sain, net et agréable."),
+    supp("Shampooing des sièges et moquettes", "Injection-extraction en profondeur des tissus : taches, saleté incrustée et odeurs.", "dès 40 €", "45 min", "interieur", "populaire"),
+    supp("Soin complet du cuir", "Nettoyage doux puis nourrissage, pour préserver la souplesse et la teinte du cuir.", "35 €", "30 min", "cuir"),
+    supp("Désinfection à la vapeur", "Volant, commandes, poignées et aérations assainis sans produit agressif.", "20 €", "20 min", "vapeur"),
+    supp("Traitement anti-odeurs à l'ozone", "Élimine durablement les odeurs de tabac, d'animaux ou d'humidité.", "30 €", "45 min", "ozone"),
+    supp("Retrait des poils d'animaux", "Brossage et aspiration spécifiques des tissus et des moquettes.", "dès 20 €", "20 min", "patte"),
+    supp("Nettoyage du ciel de toit", "Nettoyage délicat du pavillon, sans détremper la garniture.", "25 €", "20 min", "interieur"),
+    supp("Siège enfant", "Nettoyage et désinfection du siège et de ses sangles.", "15 €", "15 min", "interieur"),
+    supp("Protection des tissus", "Traitement imperméabilisant contre les taches et les liquides renversés.", "30 €", "15 min", "bouclier"),
+    cat("Extérieur", "Pour une carrosserie lisse, nette et brillante."),
+    supp("Décontamination de la carrosserie", "Retrait des particules ferreuses et des résidus incrustés, à l'argile et au décontaminant.", "40 €", "40 min", "decontamination", "recommande"),
+    supp("Rénovation des phares", "Ponçage et polissage des optiques jaunies ou ternies, puis protection.", "45 €", "45 min", "phare"),
+    supp("Jantes et étriers en profondeur", "Nettoyage minutieux des jantes, des étriers et des passages de roue.", "25 €", "30 min", "jantes"),
+    supp("Traitement des vitres", "Revêtement hydrophobe : la pluie perle et la visibilité s'améliore.", "20 €", "15 min", "vitrage"),
+    supp("Rénovation des plastiques extérieurs", "Ravive les plastiques grisés et les protège des UV.", "20 €", "20 min", "eclat"),
+    supp("Insectes, goudron et sève", "Retrait ciblé des salissures tenaces, sans agresser le vernis.", "15 €", "15 min", "goutte"),
+    supp("Compartiment moteur", "Dégraissage et nettoyage maîtrisé, puis protection des plastiques.", "30 €", "30 min", "moteur"),
+    cat("Protection et finition", "Pour prolonger l'éclat du premier jour."),
+    supp("Cire de protection", "Cire de finition pour un brillant profond et quelques semaines de protection.", "30 €", "30 min", "lavage-exterieur"),
+    supp("Polissage de finition", "Polissage en une étape pour atténuer les micro-rayures et raviver la brillance.", "Sur devis", "2 à 3 h", "correction-vernis"),
+    supp("Protection céramique", "Revêtement longue durée : brillance, entretien facilité et protection renforcée.", "Sur devis", "1 jour", "protection-ceramique", "exclusif"),
+    supp("Contrôle sous lumière", "Inspection de la peinture sous éclairage dédié, avec des conseils personnalisés.", "15 €", "15 min", "inspection-lumiere"),
+    cat("Services", "Pour vous simplifier la vie."),
+    supp("Collecte et livraison du véhicule", "Nous venons chercher votre véhicule et vous le ramenons, propre.", "dès 15 €", "Selon la distance", "collecte-livraison"),
+    supp("Préparation à la vente", "Remise en beauté complète avant une vente ou une restitution de leasing.", "Sur devis", "Selon le véhicule", "voiture"),
+    supp("Entretien régulier", "Un passage programmé à intervalles réguliers, à tarif préférentiel.", "Sur devis", "", "rendez-vous", "nouveau"),
+]
+
+SECTIONS["supplements"] = schema("Suppléments de prestation", entete(
+    "Suppléments", "Sublimez votre <em>prestation</em>.",
+    "<p>Ajoutez un ou plusieurs suppléments à votre lavage, selon les besoins de votre véhicule.</p>") + [
+    para("Prix et durées proposés à titre indicatif : adaptez-les avant de publier. Les blocs « Catégorie » regroupent "
+         "les suppléments qui les suivent ; ajoutez, supprimez ou réordonnez librement."),
+    hdr("Présentation"),
+    sel("disposition", "Disposition", [("carte", "Carte élégante (liste avec prix)"), ("cartes", "Grille de cartes")], "carte"),
+    rng("colonnes_d", "Colonnes sur ordinateur", 1, 4, 1, 2, info="Carte élégante : colonnes de catégories. Grille : cartes par ligne. Une colonne sur mobile."),
+    chk("filtres", "Filtres par catégorie", True, info="Affichés à partir de deux catégories."),
+    txt("libelle_tous", "Libellé du filtre « tout »", "Tout voir"),
+    hdr("Informations affichées"),
+    chk("afficher_icones", "Icônes", True), chk("afficher_descriptions", "Descriptions", True),
+    chk("afficher_prix", "Prix", True), chk("afficher_durees", "Durées", True), chk("afficher_badges", "Badges (Le plus demandé, Nouveau…)", True),
+    hdr("Pied de section"),
+    txt("mention", "Mention", "Suppléments réalisés en complément d'une prestation. Prix TVA comprise, à confirmer selon l'état du véhicule."),
+    txt("bouton", "Bouton", "Demander un rendez-vous", info="Vide = bouton masqué."),
+    {"type": "url", "id": "bouton_lien", "label": "Lien du bouton", "info": "Vide = page Contact."},
+    sel("bouton_style", "Style du bouton", STYLES_BOUTON, "primary"),
+    taille_titre(),
+] + communs(), [
+    {"type": "categorie", "name": "Catégorie", "settings": [
+        txt("titre", "Titre", "Nouvelle catégorie"), txt("texte", "Description (facultative)")]},
+    {"type": "supplement", "name": "Supplément", "settings": [
+        txt("nom", "Nom", "Nouveau supplément"),
+        {"type": "textarea", "id": "description", "label": "Description"},
+        txt("prix", "Prix affiché", "Sur devis", info="Texte libre : « 25 € », « dès 40 € », « Sur devis », « Offert »…"),
+        txt("duree", "Durée indicative (facultative)"),
+        {"type": "select", "id": "icone", "label": "Icône", "options": ICONES_SUPP, "default": "eclat"},
+        {"type": "image_picker", "id": "image", "label": "Photo (grille de cartes uniquement, facultative)"},
+        sel("badge", "Badge", BADGES, "aucun"),
+        {"type": "url", "id": "lien", "label": "Lien (facultatif)"},
+        txt("lien_texte", "Texte du lien", "En savoir plus")]},
+], [
+    {"name": "Suppléments de prestation", "blocks": SUPPLEMENTS},
+    {"name": "Suppléments en grille", "settings": {"disposition": "cartes", "colonnes_d": 3, "filtres": False, "titre": "Nos suppléments <em>les plus demandés</em>."},
+     "blocks": [b for b in SUPPLEMENTS if b["type"] == "supplement" and b["settings"]["badge"] != "aucun"]
+               + [b for b in SUPPLEMENTS if b["settings"].get("nom") in ("Soin complet du cuir", "Rénovation des phares", "Traitement anti-odeurs à l'ozone")]},
+], max_blocks=50)
+
+
 def generer(theme):
     for nom, sch in SECTIONS.items():
         corps = (ICI / "nouvelles" / f"{nom}.liquid").read_text().rstrip()
         f = theme / "sections" / f"{nom}.liquid"
         f.write_text(corps + "\n\n{% schema %}\n" + json.dumps(sch, ensure_ascii=False, indent=2) + "\n{% endschema %}\n")
+    # modèle de page facultatif « supplements » (nouvelle page, aucune page existante modifiée)
+    p = SECTIONS["supplements"]["presets"][0]
+    sec = {"type": "supplements", "blocks": {f"s{i + 1}": b for i, b in enumerate(p["blocks"])}, "settings": {}}
+    sec["block_order"] = list(sec["blocks"])
+    (theme / "templates" / "page.supplements.json").write_text(json.dumps({"sections": {"supplements": sec}, "order": ["supplements"]}, ensure_ascii=False, indent=2) + "\n")
     print(len(SECTIONS), "sections écrites")
 
 

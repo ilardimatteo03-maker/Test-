@@ -1,0 +1,311 @@
+{
+  "sections": {
+    "supplements": {
+      "type": "supplements",
+      "blocks": {
+        "s1": {
+          "type": "categorie",
+          "settings": {
+            "titre": "Intérieur",
+            "texte": "Pour un habitacle sain, net et agréable."
+          }
+        },
+        "s2": {
+          "type": "supplement",
+          "settings": {
+            "nom": "Shampooing des sièges et moquettes",
+            "description": "Injection-extraction en profondeur des tissus : taches, saleté incrustée et odeurs.",
+            "prix": "dès 40 €",
+            "duree": "45 min",
+            "icone": "interieur",
+            "badge": "populaire"
+          }
+        },
+        "s3": {
+          "type": "supplement",
+          "settings": {
+            "nom": "Soin complet du cuir",
+            "description": "Nettoyage doux puis nourrissage, pour préserver la souplesse et la teinte du cuir.",
+            "prix": "35 €",
+            "duree": "30 min",
+            "icone": "cuir",
+            "badge": "aucun"
+          }
+        },
+        "s4": {
+          "type": "supplement",
+          "settings": {
+            "nom": "Désinfection à la vapeur",
+            "description": "Volant, commandes, poignées et aérations assainis sans produit agressif.",
+            "prix": "20 €",
+            "duree": "20 min",
+            "icone": "vapeur",
+            "badge": "aucun"
+          }
+        },
+        "s5": {
+          "type": "supplement",
+          "settings": {
+            "nom": "Traitement anti-odeurs à l'ozone",
+            "description": "Élimine durablement les odeurs de tabac, d'animaux ou d'humidité.",
+            "prix": "30 €",
+            "duree": "45 min",
+            "icone": "ozone",
+            "badge": "aucun"
+          }
+        },
+        "s6": {
+          "type": "supplement",
+          "settings": {
+            "nom": "Retrait des poils d'animaux",
+            "description": "Brossage et aspiration spécifiques des tissus et des moquettes.",
+            "prix": "dès 20 €",
+            "duree": "20 min",
+            "icone": "patte",
+            "badge": "aucun"
+          }
+        },
+        "s7": {
+          "type": "supplement",
+          "settings": {
+            "nom": "Nettoyage du ciel de toit",
+            "description": "Nettoyage délicat du pavillon, sans détremper la garniture.",
+            "prix": "25 €",
+            "duree": "20 min",
+            "icone": "interieur",
+            "badge": "aucun"
+          }
+        },
+        "s8": {
+          "type": "supplement",
+          "settings": {
+            "nom": "Siège enfant",
+            "description": "Nettoyage et désinfection du siège et de ses sangles.",
+            "prix": "15 €",
+            "duree": "15 min",
+            "icone": "interieur",
+            "badge": "aucun"
+          }
+        },
+        "s9": {
+          "type": "supplement",
+          "settings": {
+            "nom": "Protection des tissus",
+            "description": "Traitement imperméabilisant contre les taches et les liquides renversés.",
+            "prix": "30 €",
+            "duree": "15 min",
+            "icone": "bouclier",
+            "badge": "aucun"
+          }
+        },
+        "s10": {
+          "type": "categorie",
+          "settings": {
+            "titre": "Extérieur",
+            "texte": "Pour une carrosserie lisse, nette et brillante."
+          }
+        },
+        "s11": {
+          "type": "supplement",
+          "settings": {
+            "nom": "Décontamination de la carrosserie",
+            "description": "Retrait des particules ferreuses et des résidus incrustés, à l'argile et au décontaminant.",
+            "prix": "40 €",
+            "duree": "40 min",
+            "icone": "decontamination",
+            "badge": "recommande"
+          }
+        },
+        "s12": {
+          "type": "supplement",
+          "settings": {
+            "nom": "Rénovation des phares",
+            "description": "Ponçage et polissage des optiques jaunies ou ternies, puis protection.",
+            "prix": "45 €",
+            "duree": "45 min",
+            "icone": "phare",
+            "badge": "aucun"
+          }
+        },
+        "s13": {
+          "type": "supplement",
+          "settings": {
+            "nom": "Jantes et étriers en profondeur",
+            "description": "Nettoyage minutieux des jantes, des étriers et des passages de roue.",
+            "prix": "25 €",
+            "duree": "30 min",
+            "icone": "jantes",
+            "badge": "aucun"
+          }
+        },
+        "s14": {
+          "type": "supplement",
+          "settings": {
+            "nom": "Traitement des vitres",
+            "description": "Revêtement hydrophobe : la pluie perle et la visibilité s'améliore.",
+            "prix": "20 €",
+            "duree": "15 min",
+            "icone": "vitrage",
+            "badge": "aucun"
+          }
+        },
+        "s15": {
+          "type": "supplement",
+          "settings": {
+            "nom": "Rénovation des plastiques extérieurs",
+            "description": "Ravive les plastiques grisés et les protège des UV.",
+            "prix": "20 €",
+            "duree": "20 min",
+            "icone": "eclat",
+            "badge": "aucun"
+          }
+        },
+        "s16": {
+          "type": "supplement",
+          "settings": {
+            "nom": "Insectes, goudron et sève",
+            "description": "Retrait ciblé des salissures tenaces, sans agresser le vernis.",
+            "prix": "15 €",
+            "duree": "15 min",
+            "icone": "goutte",
+            "badge": "aucun"
+          }
+        },
+        "s17": {
+          "type": "supplement",
+          "settings": {
+            "nom": "Compartiment moteur",
+            "description": "Dégraissage et nettoyage maîtrisé, puis protection des plastiques.",
+            "prix": "30 €",
+            "duree": "30 min",
+            "icone": "moteur",
+            "badge": "aucun"
+          }
+        },
+        "s18": {
+          "type": "categorie",
+          "settings": {
+            "titre": "Protection et finition",
+            "texte": "Pour prolonger l'éclat du premier jour."
+          }
+        },
+        "s19": {
+          "type": "supplement",
+          "settings": {
+            "nom": "Cire de protection",
+            "description": "Cire de finition pour un brillant profond et quelques semaines de protection.",
+            "prix": "30 €",
+            "duree": "30 min",
+            "icone": "lavage-exterieur",
+            "badge": "aucun"
+          }
+        },
+        "s20": {
+          "type": "supplement",
+          "settings": {
+            "nom": "Polissage de finition",
+            "description": "Polissage en une étape pour atténuer les micro-rayures et raviver la brillance.",
+            "prix": "Sur devis",
+            "duree": "2 à 3 h",
+            "icone": "correction-vernis",
+            "badge": "aucun"
+          }
+        },
+        "s21": {
+          "type": "supplement",
+          "settings": {
+            "nom": "Protection céramique",
+            "description": "Revêtement longue durée : brillance, entretien facilité et protection renforcée.",
+            "prix": "Sur devis",
+            "duree": "1 jour",
+            "icone": "protection-ceramique",
+            "badge": "exclusif"
+          }
+        },
+        "s22": {
+          "type": "supplement",
+          "settings": {
+            "nom": "Contrôle sous lumière",
+            "description": "Inspection de la peinture sous éclairage dédié, avec des conseils personnalisés.",
+            "prix": "15 €",
+            "duree": "15 min",
+            "icone": "inspection-lumiere",
+            "badge": "aucun"
+          }
+        },
+        "s23": {
+          "type": "categorie",
+          "settings": {
+            "titre": "Services",
+            "texte": "Pour vous simplifier la vie."
+          }
+        },
+        "s24": {
+          "type": "supplement",
+          "settings": {
+            "nom": "Collecte et livraison du véhicule",
+            "description": "Nous venons chercher votre véhicule et vous le ramenons, propre.",
+            "prix": "dès 15 €",
+            "duree": "Selon la distance",
+            "icone": "collecte-livraison",
+            "badge": "aucun"
+          }
+        },
+        "s25": {
+          "type": "supplement",
+          "settings": {
+            "nom": "Préparation à la vente",
+            "description": "Remise en beauté complète avant une vente ou une restitution de leasing.",
+            "prix": "Sur devis",
+            "duree": "Selon le véhicule",
+            "icone": "voiture",
+            "badge": "aucun"
+          }
+        },
+        "s26": {
+          "type": "supplement",
+          "settings": {
+            "nom": "Entretien régulier",
+            "description": "Un passage programmé à intervalles réguliers, à tarif préférentiel.",
+            "prix": "Sur devis",
+            "duree": "",
+            "icone": "rendez-vous",
+            "badge": "nouveau"
+          }
+        }
+      },
+      "settings": {},
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11",
+        "s12",
+        "s13",
+        "s14",
+        "s15",
+        "s16",
+        "s17",
+        "s18",
+        "s19",
+        "s20",
+        "s21",
+        "s22",
+        "s23",
+        "s24",
+        "s25",
+        "s26"
+      ]
+    }
+  },
+  "order": [
+    "supplements"
+  ]
+}
