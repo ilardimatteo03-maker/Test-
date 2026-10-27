@@ -4,7 +4,7 @@ const require = createRequire(import.meta.url);
 const { chromium } = require(join(execSync('npm root -g').toString().trim(), 'playwright'));
 const dossier = resolve(dirname(fileURLToPath(import.meta.url)), '../../17_tarifs');
 const b = await chromium.launch();
-for (const nom of ['tarifs-arte-automobili', 'tarifs-arte-automobili-impression']) {
+for (const nom of ['tarifs-arte-automobili']) {
   const p = await b.newPage();
   await p.goto('file://' + join(dossier, nom + '.html'), { waitUntil: 'load' });
   await p.evaluate(() => document.fonts.ready);
@@ -13,10 +13,10 @@ for (const nom of ['tarifs-arte-automobili', 'tarifs-arte-automobili-impression'
   const deborde = await p.evaluate(() => {
     const pg = document.querySelector('.page').getBoundingClientRect();
     const hors = [...document.querySelectorAll('.page *')].some(e => !e.closest('.filigrane') && e.getBoundingClientRect().bottom > pg.bottom + 1);
-    const notes = document.querySelector('.notes').getBoundingClientRect(), pied = document.querySelector('footer').getBoundingClientRect();
-    const th = [...document.querySelectorAll('thead th .eyebrow')].map(e => e.getBoundingClientRect());
-    const entetes = th.some((r, i) => i && r.left < th[i - 1].right + 4);
-    return hors || notes.bottom > pied.top - 4 || entetes;
+    const th = [...document.querySelectorAll('thead th')].filter(e => e.textContent.trim()).map(e => e.firstChild);
+    const r = th.map(n => { const g = document.createRange(); g.selectNodeContents(n); return g.getBoundingClientRect(); });
+    const entetes = r.some((x, i) => i && x.left < r[i - 1].right + 4);
+    return hors || entetes;
   });
   await p.pdf({ path: join(dossier, nom + '.pdf'), format: 'A4', printBackground: true, preferCSSPageSize: true, margin: { top: 0, right: 0, bottom: 0, left: 0 } });
   console.log(nom, '| polices chargées :', [...new Set(polices)].join(', '), '| débordement :', deborde);
