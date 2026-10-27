@@ -90,7 +90,7 @@
                     {%- if b.image != blank and s.disposition == 'cartes' -%}
                       <div class="s-supp__image">{{ b.image | image_url: width: 900 | image_tag: alt: b.image.alt, loading: 'lazy', widths: '450, 900', sizes: '(min-width: 990px) 33vw, 100vw' }}</div>
                     {%- elsif s.afficher_icones and b.icone != 'aucune' -%}
-                      <span class="s-supp__icone" aria-hidden="true">{% render 'icone', nom: b.icone, taille: 26 %}</span>
+                      <span class="s-supp__icone" aria-hidden="true">{% render 'icone-supplement', nom: b.icone, taille: 26 %}</span>
                     {%- endif -%}
                     <div class="s-supp__corps">
                       <div class="s-supp__ligne">
