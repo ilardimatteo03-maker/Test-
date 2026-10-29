@@ -1,0 +1,29 @@
+{
+  "type": "devis",
+  "date": "2026-10-29",
+  "client": {
+    "type": "particulier",
+    "nom": "Sophie Lambert",
+    "rue": "Rue de l'Exemple 12",
+    "code_postal": "7100",
+    "ville": "La Louvière",
+    "telephone": "+32 470 00 00 00",
+    "email": "sophie.lambert@example.com"
+  },
+  "vehicule": {
+    "modele": "Volkswagen Golf · gris",
+    "immatriculation": "1-ABC-123",
+    "remarque": "Poils de chien sur la banquette arrière"
+  },
+  "lignes": [
+    {
+      "code": "complet"
+    },
+    {
+      "code": "shampooing"
+    },
+    {
+      "code": "poils"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "_lisez_moi": "Source unique des données commerciales d'Arte Automobili, utilisée pour les devis, offres de prix, factures et listes de prix. Les prix sont saisis TVA comprise (TVAC), comme sur le site ; les prix professionnels HTVA en sont déduits (TVAC / 1,21, arrondi au centime). Toute valeur entre crochets [ ] reste à compléter.",
+  "mise_a_jour": "2026-10-29",
+  "entreprise": {
+    "nom": "Arte Automobili",
+    "denomination_legale": "[Dénomination légale et forme juridique]",
+    "rue": "Rue Lait Beurré [n°]",
+    "code_postal": "7100",
+    "ville": "La Louvière",
+    "pays": "Belgique",
+    "numero_entreprise": "[BE 0XXX.XXX.XXX]",
+    "rpm": "",
+    "telephone": "[Téléphone]",
+    "email": "[E-mail]",
+    "site": "arteautomobili.be",
+    "iban": "[BE00 0000 0000 0000]",
+    "bic": "[BIC]",
+    "horaires": "Du lundi au samedi, de 9 h à 18 h. Fermé le dimanche.",
+    "signature": "L'arte del riflesso."
+  },
+  "tva": {
+    "taux": 21,
+    "regime_franchise": false,
+    "mention_franchise": "Régime particulier de franchise des petites entreprises — TVA non applicable."
+  },
+  "conditions": {
+    "validite_devis_jours": 30,
+    "validite_offre_jours": 30,
+    "echeance_facture_jours": 15,
+    "paiement": "Paiement sur place, à la remise du véhicule.",
+    "devis": "Prix établis d'après l'état du véhicule décrit ci-dessus. Tout travail supplémentaire fait l'objet d'un accord préalable.",
+    "offre": "Tarifs professionnels hors TVA. Planning et fréquence des passages définis d'un commun accord.",
+    "retard": "Toute facture impayée à l'échéance peut entraîner des intérêts de retard au taux légal."
+  },
+  "numerotation": {
+    "devis": "D-{annee}-{n:03d}",
+    "offre": "OP-{annee}-{n:03d}",
+    "facture": "F-{annee}-{n:04d}"
+  },
+  "prestations": [
+    {"code": "interieur", "categorie": "Intérieur", "nom": "Lavage intérieur", "description": "Nettoyage et remise au propre de l'intérieur du véhicule, avec une attention particulière portée aux surfaces et aux finitions.", "duree": "1 h", "prix_tvac": 45},
+    {"code": "exterieur", "categorie": "Extérieur", "nom": "Lavage extérieur", "description": "Nettoyage extérieur soigné pour retrouver un véhicule propre et une finition impeccable.", "duree": "45 min", "prix_tvac": 40},
+    {"code": "complet", "categorie": "Formule complète", "nom": "Lavage intérieur + extérieur", "description": "Une prestation complète pour prendre soin de l'intérieur et de l'extérieur du véhicule.", "duree": "1 h 45", "prix_tvac": 75},
+    {"code": "pack-arte", "categorie": "Formule premium", "nom": "Pack ARTE", "description": "La formule premium Arte Automobili.", "duree": "3 h", "prix_tvac": 135},
+    {"code": "pro", "categorie": "Professionnels", "nom": "Services pour les professionnels", "description": "Solutions de nettoyage automobile adaptées aux besoins des professionnels et des flottes de véhicules.", "duree": "", "prix_tvac": null}
+  ],
+  "_supplements": "Prix et durées proposés à titre indicatif dans la section « Suppléments de prestation » : à confirmer. Un prix « dès » est un prix de départ ; null = sur devis.",
+  "supplements": [
+    {"code": "shampooing", "categorie": "Intérieur", "nom": "Shampooing des sièges et moquettes", "description": "Injection-extraction en profondeur des tissus : taches, saleté incrustée et odeurs.", "duree": "45 min", "prix_tvac": 40, "des": true},
+    {"code": "cuir", "categorie": "Intérieur", "nom": "Soin complet du cuir", "description": "Nettoyage doux puis nourrissage, pour préserver la souplesse et la teinte du cuir.", "duree": "30 min", "prix_tvac": 35},
+    {"code": "vapeur", "categorie": "Intérieur", "nom": "Désinfection à la vapeur", "description": "Volant, commandes, poignées et aérations assainis sans produit agressif.", "duree": "20 min", "prix_tvac": 20},
+    {"code": "ozone", "categorie": "Intérieur", "nom": "Traitement anti-odeurs à l'ozone", "description": "Élimine durablement les odeurs de tabac, d'animaux ou d'humidité.", "duree": "45 min", "prix_tvac": 30},
+    {"code": "poils", "categorie": "Intérieur", "nom": "Retrait des poils d'animaux", "description": "Brossage et aspiration spécifiques des tissus et des moquettes.", "duree": "20 min", "prix_tvac": 20, "des": true},
+    {"code": "ciel", "categorie": "Intérieur", "nom": "Nettoyage du ciel de toit", "description": "Nettoyage délicat du pavillon, sans détremper la garniture.", "duree": "20 min", "prix_tvac": 25},
+    {"code": "siege-enfant", "categorie": "Intérieur", "nom": "Siège enfant", "description": "Nettoyage et désinfection du siège et de ses sangles.", "duree": "15 min", "prix_tvac": 15},
+    {"code": "tissus", "categorie": "Intérieur", "nom": "Protection des tissus", "description": "Traitement imperméabilisant contre les taches et les liquides renversés.", "duree": "15 min", "prix_tvac": 30},
+    {"code": "decontamination", "categorie": "Extérieur", "nom": "Décontamination de la carrosserie", "description": "Retrait des particules ferreuses et des résidus incrustés, à l'argile et au décontaminant.", "duree": "40 min", "prix_tvac": 40},
+    {"code": "phares", "categorie": "Extérieur", "nom": "Rénovation des phares", "description": "Ponçage et polissage des optiques jaunies ou ternies, puis protection.", "duree": "45 min", "prix_tvac": 45},
+    {"code": "jantes", "categorie": "Extérieur", "nom": "Jantes et étriers en profondeur", "description": "Nettoyage minutieux des jantes, des étriers et des passages de roue.", "duree": "30 min", "prix_tvac": 25},
+    {"code": "vitres", "categorie": "Extérieur", "nom": "Traitement des vitres", "description": "Revêtement hydrophobe : la pluie perle et la visibilité s'améliore.", "duree": "15 min", "prix_tvac": 20},
+    {"code": "plastiques", "categorie": "Extérieur", "nom": "Rénovation des plastiques extérieurs", "description": "Ravive les plastiques grisés et les protège des UV.", "duree": "20 min", "prix_tvac": 20},
+    {"code": "insectes", "categorie": "Extérieur", "nom": "Insectes, goudron et sève", "description": "Retrait ciblé des salissures tenaces, sans agresser le vernis.", "duree": "15 min", "prix_tvac": 15},
+    {"code": "moteur", "categorie": "Extérieur", "nom": "Compartiment moteur", "description": "Dégraissage et nettoyage maîtrisé, puis protection des plastiques.", "duree": "30 min", "prix_tvac": 30},
+    {"code": "cire", "categorie": "Protection et finition", "nom": "Cire de protection", "description": "Cire de finition pour un brillant profond et quelques semaines de protection.", "duree": "30 min", "prix_tvac": 30},
+    {"code": "polissage", "categorie": "Protection et finition", "nom": "Polissage de finition", "description": "Polissage en une étape pour atténuer les micro-rayures et raviver la brillance.", "duree": "2 à 3 h", "prix_tvac": null},
+    {"code": "ceramique", "categorie": "Protection et finition", "nom": "Protection céramique", "description": "Revêtement longue durée : brillance, entretien facilité et protection renforcée.", "duree": "1 jour", "prix_tvac": null},
+    {"code": "inspection", "categorie": "Protection et finition", "nom": "Contrôle sous lumière", "description": "Inspection de la peinture sous éclairage dédié, avec des conseils personnalisés.", "duree": "15 min", "prix_tvac": 15},
+    {"code": "collecte", "categorie": "Services", "nom": "Collecte et livraison du véhicule", "description": "Nous venons chercher votre véhicule et vous le ramenons, propre.", "duree": "Selon la distance", "prix_tvac": 15, "des": true},
+    {"code": "vente", "categorie": "Services", "nom": "Préparation à la vente", "description": "Remise en beauté complète avant une vente ou une restitution de leasing.", "duree": "Selon le véhicule", "prix_tvac": null},
+    {"code": "entretien", "categorie": "Services", "nom": "Entretien régulier", "description": "Un passage programmé à intervalles réguliers, à tarif préférentiel.", "duree": "", "prix_tvac": null}
+  ]
+}

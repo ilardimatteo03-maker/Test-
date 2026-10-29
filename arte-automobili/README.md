@@ -37,6 +37,11 @@ arte-automobili/
 ├── 11_ton-de-voix/            Tous les textes de marque en Markdown, prêts à copier
 ├── 12_boutique-shopify/       Thème boutique (produits d'entretien), catalogue CSV, visuels produits
 ├── 13_site-shopify/           Le site vitrine en thème Shopify (4 pages, formulaire natif) — voir son README
+├── 14_theme-shopify-premium/  Thème Shopify enrichi (sections, réglages globaux, page de lancement)
+├── 15_espace-client/          Espace client et programme de fidélité : audit, plan, mode d'emploi
+├── 16_supplements/            Section « Suppléments de prestation » ajoutée à ton propre thème
+├── 17_tarifs/                 Grille tarifaire A4 (particuliers TVAC, professionnels HTVA)
+├── 18_documents/              Devis, offres de prix, factures, listes de prix — voir son README
 └── _source/                   Scripts qui régénèrent l'ensemble
 ```
 

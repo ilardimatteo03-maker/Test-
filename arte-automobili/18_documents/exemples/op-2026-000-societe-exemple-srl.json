@@ -1,0 +1,27 @@
+{
+  "type": "offre",
+  "date": "2026-10-29",
+  "client": {
+    "type": "professionnel",
+    "societe": "Société Exemple SRL",
+    "nom": "Thomas Dubois",
+    "rue": "Chaussée de l'Exemple 100",
+    "code_postal": "7100",
+    "ville": "La Louvière",
+    "email": "flotte@example.com",
+    "tva": "BE 0000.000.000"
+  },
+  "objet": "Entretien d'une flotte de six véhicules de société, par passage",
+  "lignes": [
+    {
+      "code": "complet",
+      "quantite": 4,
+      "description": "Véhicules de direction."
+    },
+    {
+      "code": "exterieur",
+      "quantite": 2,
+      "description": "Véhicules utilitaires."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "type": "facture",
+  "date": "2026-10-29",
+  "date_prestation": "2026-10-28",
+  "client": {
+    "type": "particulier",
+    "nom": "Marc Lefèvre",
+    "rue": "Avenue de l'Exemple 45",
+    "code_postal": "7100",
+    "ville": "La Louvière",
+    "email": "marc.lefevre@example.com"
+  },
+  "vehicule": {
+    "modele": "BMW Série 3 Touring · noir",
+    "immatriculation": "2-XYZ-789"
+  },
+  "lignes": [
+    {
+      "code": "pack-arte"
+    },
+    {
+      "code": "ozone"
+    }
+  ],
+  "paiement": {
+    "date": "2026-10-28"
+  }
+}

@@ -1,0 +1,23 @@
+[
+  {"numero": "D-2026-000", "demande": {
+    "type": "devis", "date": "2026-10-29",
+    "client": {"type": "particulier", "nom": "Sophie Lambert", "rue": "Rue de l'Exemple 12", "code_postal": "7100", "ville": "La Louvière",
+               "telephone": "+32 470 00 00 00", "email": "sophie.lambert@example.com"},
+    "vehicule": {"modele": "Volkswagen Golf · gris", "immatriculation": "1-ABC-123", "remarque": "Poils de chien sur la banquette arrière"},
+    "lignes": [{"code": "complet"}, {"code": "shampooing"}, {"code": "poils"}]}},
+  {"numero": "OP-2026-000", "demande": {
+    "type": "offre", "date": "2026-10-29",
+    "client": {"type": "professionnel", "societe": "Société Exemple SRL", "nom": "Thomas Dubois", "rue": "Chaussée de l'Exemple 100",
+               "code_postal": "7100", "ville": "La Louvière", "email": "flotte@example.com", "tva": "BE 0000.000.000"},
+    "objet": "Entretien d'une flotte de six véhicules de société, par passage",
+    "lignes": [{"code": "complet", "quantite": 4, "description": "Véhicules de direction."},
+               {"code": "exterieur", "quantite": 2, "description": "Véhicules utilitaires."}]}},
+  {"numero": "F-2026-0000", "demande": {
+    "type": "facture", "date": "2026-10-29", "date_prestation": "2026-10-28",
+    "client": {"type": "particulier", "nom": "Marc Lefèvre", "rue": "Avenue de l'Exemple 45", "code_postal": "7100", "ville": "La Louvière",
+               "email": "marc.lefevre@example.com"},
+    "vehicule": {"modele": "BMW Série 3 Touring · noir", "immatriculation": "2-XYZ-789"},
+    "lignes": [{"code": "pack-arte"}, {"code": "ozone"}],
+    "paiement": {"date": "2026-10-28"}}},
+  {"numero": null, "demande": {"type": "liste", "date": "2026-10-29"}}
+]

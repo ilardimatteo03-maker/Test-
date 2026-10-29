@@ -3,8 +3,8 @@
 Prix particuliers TTC relevés sur le site ; prix professionnels hors TVA = TTC / 1,21 (TVA belge 21 %),
 arrondis au centime. Sortie : 17_tarifs/*.html et *.pdf.
 """
+import json
 import re
-import subprocess
 from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 
@@ -13,11 +13,10 @@ SORTIE = BASE / "17_tarifs"
 ASSETS = BASE / "14_theme-shopify-premium" / "theme" / "assets"
 TVA = Decimal("1.21")
 
+DONNEES = json.loads((BASE / "_source" / "documents" / "donnees.json").read_text())  # source unique des prix
 PRESTATIONS = [  # libellé, nom, durée, prix TTC, mise en avant
-    ("Intérieur", "Lavage intérieur", "1 h", 45, False),
-    ("Extérieur", "Lavage extérieur", "45 min", 40, False),
-    ("Formule complète", "Lavage intérieur <i>+</i> extérieur", "1 h 45", 75, False),
-    ("Formule premium", "Pack <i>ARTE</i>", "3 h", 135, True),
+    (x["categorie"], x["nom"].replace("+", "<i>+</i>").replace("ARTE", "<i>ARTE</i>"), x["duree"], x["prix_tvac"], x["code"] == "pack-arte")
+    for x in DONNEES["prestations"] if x["prix_tvac"] is not None
 ]
 PRO = "Solutions de nettoyage automobile adaptées aux besoins des professionnels et des flottes de véhicules."
 
