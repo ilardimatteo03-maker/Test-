@@ -15,7 +15,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from glyphs import font, text_path  # noqa: E402
 from kit import ROOT, logo_g  # noqa: E402
 
-SORTIE = ROOT / "19_carte-de-visite"
+SORTIE = ROOT / "19_carte-de-visite" / "proposition-blanche"
 D = json.loads((ROOT / "_source" / "documents" / "donnees.json").read_text())
 CW, CH, BL = 85.0, 55.0, 3.0  # format fini et fonds perdus, en mm
 M = 6.5                        # marge intérieure (zone de sécurité ≥ 5 mm)

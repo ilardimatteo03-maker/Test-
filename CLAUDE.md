@@ -15,4 +15,5 @@ Quand l'utilisateur donne un client et des prestations, procède ainsi :
 
 ## Cartes de visite
 
-- Le générateur est `arte-automobili/_source/carte_visite/carte.py`. Il produit une carte par personne de `equipe` dans `donnees.json`, dans `arte-automobili/19_carte-de-visite/`.
+- La carte officielle est le design de l'utilisateur (`19_carte-de-visite/design-original/`), recomposé en 85 × 55 mm par `arte-automobili/_source/carte_visite/carte_arte.py`.
+- La proposition blanche est générée par `arte-automobili/_source/carte_visite/carte.py`, une carte par personne de `equipe` dans `donnees.json`, dans `19_carte-de-visite/proposition-blanche/`.

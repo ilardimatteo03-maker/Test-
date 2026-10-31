@@ -71,6 +71,8 @@ Tout est dans un seul fichier : [`_source/documents/donnees.json`](../_source/do
 
 **Entreprise** :
 - adresse : Rue Lait Beurré, 7100 La Louvière ;
+- téléphone : +32 492 53 42 30 ;
+- e-mail : arteautomobili@gmail.com ;
 - horaires : du lundi au samedi, de 9 h à 18 h ;
 - site : arteautomobili.be ;
 - signature : « L'arte del riflesso. ».
@@ -88,8 +90,7 @@ Ces valeurs figurent entre crochets sur les documents tant que tu ne me les as p
 - dénomination légale et forme juridique, par exemple « Arte Automobili SRL » ;
 - numéro de la rue ;
 - numéro d'entreprise ou de TVA (BE 0…) ;
-- IBAN et BIC ;
-- téléphone et e-mail.
+- IBAN et BIC.
 
 À confirmer aussi :
 
