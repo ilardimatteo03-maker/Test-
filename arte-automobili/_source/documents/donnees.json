@@ -18,6 +18,10 @@
     "horaires": "Du lundi au samedi, de 9 h à 18 h. Fermé le dimanche.",
     "signature": "L'arte del riflesso."
   },
+  "_equipe": "Une carte de visite par personne. Téléphone et e-mail vides = ceux de l'entreprise ; fonction facultative.",
+  "equipe": [
+    {"nom": "[Prénom Nom]", "fonction": "", "telephone": "", "email": ""}
+  ],
   "tva": {
     "taux": 21,
     "regime_franchise": false,

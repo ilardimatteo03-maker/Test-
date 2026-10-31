@@ -12,3 +12,7 @@ Quand l'utilisateur donne un client et des prestations, procède ainsi :
 3. Écris la demande en JSON, au format décrit en tête de `arte-automobili/_source/documents/documents.py`, puis lance `python3 arte-automobili/_source/documents/documents.py <demande.json>`.
 4. Le numéro est attribué depuis `arte-automobili/18_documents/compteurs.json`. Commite et pousse ce compteur avec le document, pour garder une numérotation continue.
 5. N'invente jamais les coordonnées légales de l'entreprise : les valeurs entre crochets restent à fournir par l'utilisateur.
+
+## Cartes de visite
+
+- Le générateur est `arte-automobili/_source/carte_visite/carte.py`. Il produit une carte par personne de `equipe` dans `donnees.json`, dans `arte-automobili/19_carte-de-visite/`.

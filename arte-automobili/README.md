@@ -42,6 +42,7 @@ arte-automobili/
 ├── 16_supplements/            Section « Suppléments de prestation » ajoutée à ton propre thème
 ├── 17_tarifs/                 Grille tarifaire A4 (particuliers TVAC, professionnels HTVA)
 ├── 18_documents/              Devis, offres de prix, factures, listes de prix — voir son README
+├── 19_carte-de-visite/        Carte de visite 85 × 55 mm, version blanche, prête pour l'imprimeur
 └── _source/                   Scripts qui régénèrent l'ensemble
 ```
 
