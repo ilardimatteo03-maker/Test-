@@ -13,17 +13,17 @@
   "vehicule": {
     "modele": "Volkswagen Golf · gris",
     "immatriculation": "1-ABC-123",
-    "remarque": "Poils de chien sur la banquette arrière"
+    "remarque": "Sièges en tissu tachés, plastiques ternis"
   },
   "lignes": [
     {
       "code": "complet"
     },
     {
-      "code": "shampooing"
+      "code": "tissus"
     },
     {
-      "code": "poils"
+      "code": "plastiques"
     }
   ]
 }

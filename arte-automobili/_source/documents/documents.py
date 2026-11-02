@@ -211,14 +211,16 @@ footer{{margin-top:auto;padding-top:6mm}}
 footer p{{margin:0;padding-top:3mm;border-top:.5pt solid #D6D3CA;font:400 6.6pt/1.7 'DM Mono',monospace;letter-spacing:.03em;color:#5E6461}}
 footer span{{white-space:nowrap}}
 footer i{{font-family:'Bodoni Moda',serif;font-size:8.5pt;letter-spacing:0;color:#0D0F0E}}
-.liste td{{padding:4.2mm 0}}
-.liste td.n{{width:34mm;font-size:10.5pt}}
+.liste td{{padding:3.6mm 0}}
+.liste th.n,.liste td.n{{width:40mm}}
+.liste td.n{{font-size:10.5pt}}
 .liste .duree{{font:300 7.6pt/1 'DM Mono',monospace;color:#5E6461;margin-left:2.5mm}}
 .liste.compacte td{{padding:1.55mm 0}}
 .liste.compacte td .nom{{display:inline;font-size:9.6pt}}
 .liste.compacte td.n{{font-size:9pt}}
 .liste .cat td{{padding:4.5mm 0 1.6mm;border-bottom:.6pt solid #0D0F0E;font:600 6.6pt/1.4 Archivo,sans-serif;font-stretch:125%;letter-spacing:.22em;text-transform:uppercase}}
 .liste .cat:first-child td{{padding-top:0}}
+h2.suivant{{margin-top:12mm;padding-bottom:3mm;border-bottom:.6pt solid #0D0F0E;margin-bottom:0}}
 """
 
 
@@ -368,7 +370,7 @@ def document(t, demande, numero, dossier):
 
 
 def liste(demande, dossier):
-    """Liste de prix : prestations (page 1) puis suppléments (page 2), particuliers TVAC et professionnels HTVA."""
+    """Liste de prix sur une page : prestations puis options supplémentaires, particuliers TVAC et professionnels HTVA."""
     d = date.fromisoformat(demande["date"])
     c = demande.get("client")
     meta_html = f"<dt>En vigueur le</dt><dd>{jour(d)}</dd>"
@@ -383,19 +385,20 @@ def liste(demande, dossier):
     entete = ("<thead><tr><th></th><th class='n'>Particuliers<small>TVAC</small></th>"
               "<th class='n'>Professionnels<small>HTVA</small></th></tr></thead>")
     prest = "".join(f"""
-      <tr><td><span class="nom">{e(x['nom']).replace('ARTE', '<i>ARTE</i>')}{f'<span class="duree">{e(x["duree"])}</span>' if x['duree'] else ''}</span>
-        <span class="desc">{typo(e(x['description']))}</span></td>{prix(x)}</tr>""" for x in D["prestations"])
+      <tr><td><span class="nom">{e(x['nom']).replace('ARTE', '<i>ARTE</i>')}{f'<span class="duree">{e(x["duree"])}</span>' if x['duree'] else ''}</span></td>{prix(x)}</tr>""" for x in D["prestations"])
 
     supp, cat = [], None
+    une_categorie = len({x["categorie"] for x in D["supplements"]}) == 1  # le titre suffit alors
     for x in D["supplements"]:
-        if x["categorie"] != cat:
+        if x["categorie"] != cat and not une_categorie:
             cat = x["categorie"]
             supp.append(f"<tr class='cat'><td colspan='3'>{e(cat)}</td></tr>")
         duree = f'<span class="duree">{e(x["duree"])}</span>' if x["duree"] else ""
         supp.append(f"<tr><td><span class='nom'>{e(x['nom'])}</span>{duree}</td>{prix(x)}</tr>")
 
     tva = D["tva"]["mention_franchise"] if D["tva"]["regime_franchise"] else f"TVA {D['tva']['taux']} % comprise pour les particuliers, en sus pour les professionnels."
-    mentions = typo(e(f"Prix en euros. {tva} {D['conditions']['deplacement']} {D['conditions']['paiement']} {D['entreprise']['horaires']}"))
+    mentions = typo(e(f"Prix en euros. {tva} Les options supplémentaires sont toutes comprises dans le Pack ARTE. "
+                      f"{D['conditions']['deplacement']} {D['conditions']['paiement']} {D['entreprise']['horaires']}"))
     return f"""<!doctype html><html lang="fr"><head><meta charset="utf-8">
 <title>Liste de prix — Arte Automobili</title><style>{css(dossier)}</style></head><body>
 <section class="feuille">
@@ -404,12 +407,9 @@ def liste(demande, dossier):
   {pour}
   <h2>Prestations</h2>
   <table class="liste">{entete}<tbody>{prest}</tbody></table>
+  <h2 class="suivant">Options supplémentaires</h2>
+  <table class="liste compacte suite"><tbody>{''.join(supp)}</tbody></table>
   <section class="infos"><div><p class="eyebrow">Conditions</p><p>{mentions}</p></div></section>
-  {pied()}
-</section>
-<section class="feuille">
-  <header class="suite"><h2>Suppléments</h2>{logo(26)}</header>
-  <table class="liste compacte">{entete}<tbody>{''.join(supp)}</tbody></table>
   {pied()}
 </section>
 </body></html>"""

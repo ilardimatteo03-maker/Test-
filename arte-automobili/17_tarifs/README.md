@@ -12,9 +12,13 @@ Contenu : le logo, le titre, les 4 prestations avec deux prix, et une ligne pour
 
 Prix particuliers relevés sur le site. Prix professionnels = prix TVAC ÷ 1,21 (TVA belge de 21 %), arrondis au centime.
 
-## Story Instagram
+## Stories Instagram
 
-`story-instagram-tarifs.png` (1080 × 1920 px) : le logo, « Tarifs. », les 5 formules avec leur prix TTC et l'adresse du site, sur fond noir comme le site.
+Deux stories de 1080 × 1920 px, sur fond noir comme le site, qui se suivent en série :
+
+- `story-instagram-tarifs.png` : le logo, « Tarifs. », les 5 formules avec leur prix TTC et l'adresse du site ;
+- `story-instagram-options.png` : la même mise en page, avec « Options. » et les 6 options supplémentaires.
+
 Le contenu évite les zones couvertes par l'interface d'Instagram (250 px en haut, 340 px en bas).
 
 ## Modifier
@@ -22,5 +26,5 @@ Les prix sont dans [`_source/documents/donnees.json`](../_source/documents/donne
 
 ```bash
 python3 _source/tarifs/tarifs.py && node _source/tarifs/pdf.mjs   # grille A4
-python3 _source/tarifs/story.py                                   # story Instagram
+python3 _source/tarifs/story.py                                   # les deux stories Instagram
 ```

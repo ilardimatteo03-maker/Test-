@@ -9,7 +9,7 @@ Ce dossier contient les quatre documents commerciaux d'Arte Automobili, dans la 
 | Devis (particulier) | [exemples/d-2026-000-sophie-lambert.pdf](exemples/d-2026-000-sophie-lambert.pdf) |
 | Offre de prix (professionnel) | [exemples/op-2026-000-societe-exemple-srl.pdf](exemples/op-2026-000-societe-exemple-srl.pdf) |
 | Facture (particulier, réglée sur place) | [exemples/f-2026-0000-marc-lefevre.pdf](exemples/f-2026-0000-marc-lefevre.pdf) |
-| Liste de prix (2 pages) | [exemples/liste-de-prix-2026-10-29.pdf](exemples/liste-de-prix-2026-10-29.pdf) |
+| Liste de prix (1 page) | [exemples/liste-de-prix-2026-10-29.pdf](exemples/liste-de-prix-2026-10-29.pdf) |
 
 Les clients des exemples sont fictifs. Leurs numéros se terminent par 000, donc tes vrais documents commencent à 001.
 
@@ -67,7 +67,7 @@ Tout est dans un seul fichier : [`_source/documents/donnees.json`](../_source/do
 | Pack ARTE | 3 h | 150 € | 123,97 € |
 | Pack PROFESSIONNEL | — | Sur devis | Sur devis |
 
-**Suppléments** : 22 suppléments, ceux de la section « Suppléments de prestation ».
+**Options supplémentaires**, celles du site : entretien de la céramique, des cuirs, des tissus, des plastiques et des capotes de cabriolet (35 € TVAC chacune, 45 min), véhicule fortement encrassé (sur devis). Elles sont toutes comprises dans le Pack ARTE.
 
 **Déplacement** : prestation à domicile, frais à partir de 20 km, 0,35 € TVAC par km (code `deplacement`, quantité = km facturés).
 
@@ -94,10 +94,6 @@ Ces valeurs figurent entre crochets sur les documents tant que tu ne me les as p
 - numéro de la rue ;
 - numéro d'entreprise ou de TVA (BE 0…) ;
 - IBAN et BIC.
-
-À confirmer aussi :
-
-- **Prix des suppléments.** Ce sont les prix indicatifs que j'ai proposés dans la section. Indique-moi les tiens.
 
 ## Règles belges intégrées
 

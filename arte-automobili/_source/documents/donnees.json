@@ -58,29 +58,13 @@
   "frais": [
     {"code": "deplacement", "categorie": "Frais", "nom": "Frais de déplacement", "description": "Au-delà de 20 km, par kilomètre.", "duree": "", "prix_tvac": 0.35}
   ],
-  "_supplements": "Prix et durées proposés à titre indicatif dans la section « Suppléments de prestation » : à confirmer. Un prix « dès » est un prix de départ ; null = sur devis.",
+  "_supplements": "Options supplémentaires du site (relevées le 2 novembre 2026). Elles sont toutes comprises dans le Pack ARTE. null = sur devis.",
   "supplements": [
-    {"code": "shampooing", "categorie": "Intérieur", "nom": "Shampooing des sièges et moquettes", "description": "Injection-extraction en profondeur des tissus : taches, saleté incrustée et odeurs.", "duree": "45 min", "prix_tvac": 40, "des": true},
-    {"code": "cuir", "categorie": "Intérieur", "nom": "Soin complet du cuir", "description": "Nettoyage doux puis nourrissage, pour préserver la souplesse et la teinte du cuir.", "duree": "30 min", "prix_tvac": 35},
-    {"code": "vapeur", "categorie": "Intérieur", "nom": "Désinfection à la vapeur", "description": "Volant, commandes, poignées et aérations assainis sans produit agressif.", "duree": "20 min", "prix_tvac": 20},
-    {"code": "ozone", "categorie": "Intérieur", "nom": "Traitement anti-odeurs à l'ozone", "description": "Élimine durablement les odeurs de tabac, d'animaux ou d'humidité.", "duree": "45 min", "prix_tvac": 30},
-    {"code": "poils", "categorie": "Intérieur", "nom": "Retrait des poils d'animaux", "description": "Brossage et aspiration spécifiques des tissus et des moquettes.", "duree": "20 min", "prix_tvac": 20, "des": true},
-    {"code": "ciel", "categorie": "Intérieur", "nom": "Nettoyage du ciel de toit", "description": "Nettoyage délicat du pavillon, sans détremper la garniture.", "duree": "20 min", "prix_tvac": 25},
-    {"code": "siege-enfant", "categorie": "Intérieur", "nom": "Siège enfant", "description": "Nettoyage et désinfection du siège et de ses sangles.", "duree": "15 min", "prix_tvac": 15},
-    {"code": "tissus", "categorie": "Intérieur", "nom": "Protection des tissus", "description": "Traitement imperméabilisant contre les taches et les liquides renversés.", "duree": "15 min", "prix_tvac": 30},
-    {"code": "decontamination", "categorie": "Extérieur", "nom": "Décontamination de la carrosserie", "description": "Retrait des particules ferreuses et des résidus incrustés, à l'argile et au décontaminant.", "duree": "40 min", "prix_tvac": 40},
-    {"code": "phares", "categorie": "Extérieur", "nom": "Rénovation des phares", "description": "Ponçage et polissage des optiques jaunies ou ternies, puis protection.", "duree": "45 min", "prix_tvac": 45},
-    {"code": "jantes", "categorie": "Extérieur", "nom": "Jantes et étriers en profondeur", "description": "Nettoyage minutieux des jantes, des étriers et des passages de roue.", "duree": "30 min", "prix_tvac": 25},
-    {"code": "vitres", "categorie": "Extérieur", "nom": "Traitement des vitres", "description": "Revêtement hydrophobe : la pluie perle et la visibilité s'améliore.", "duree": "15 min", "prix_tvac": 20},
-    {"code": "plastiques", "categorie": "Extérieur", "nom": "Rénovation des plastiques extérieurs", "description": "Ravive les plastiques grisés et les protège des UV.", "duree": "20 min", "prix_tvac": 20},
-    {"code": "insectes", "categorie": "Extérieur", "nom": "Insectes, goudron et sève", "description": "Retrait ciblé des salissures tenaces, sans agresser le vernis.", "duree": "15 min", "prix_tvac": 15},
-    {"code": "moteur", "categorie": "Extérieur", "nom": "Compartiment moteur", "description": "Dégraissage et nettoyage maîtrisé, puis protection des plastiques.", "duree": "30 min", "prix_tvac": 30},
-    {"code": "cire", "categorie": "Protection et finition", "nom": "Cire de protection", "description": "Cire de finition pour un brillant profond et quelques semaines de protection.", "duree": "30 min", "prix_tvac": 30},
-    {"code": "polissage", "categorie": "Protection et finition", "nom": "Polissage de finition", "description": "Polissage en une étape pour atténuer les micro-rayures et raviver la brillance.", "duree": "2 à 3 h", "prix_tvac": null},
-    {"code": "ceramique", "categorie": "Protection et finition", "nom": "Protection céramique", "description": "Revêtement longue durée : brillance, entretien facilité et protection renforcée.", "duree": "1 jour", "prix_tvac": null},
-    {"code": "inspection", "categorie": "Protection et finition", "nom": "Contrôle sous lumière", "description": "Inspection de la peinture sous éclairage dédié, avec des conseils personnalisés.", "duree": "15 min", "prix_tvac": 15},
-    {"code": "collecte", "categorie": "Services", "nom": "Collecte et livraison du véhicule", "description": "Nous venons chercher votre véhicule et vous le ramenons, propre.", "duree": "Selon la distance", "prix_tvac": 15, "des": true},
-    {"code": "vente", "categorie": "Services", "nom": "Préparation à la vente", "description": "Remise en beauté complète avant une vente ou une restitution de leasing.", "duree": "Selon le véhicule", "prix_tvac": null},
-    {"code": "entretien", "categorie": "Services", "nom": "Entretien régulier", "description": "Un passage programmé à intervalles réguliers, à tarif préférentiel.", "duree": "", "prix_tvac": null}
+    {"code": "ceramique", "categorie": "Options supplémentaires", "nom": "Entretien de la céramique", "description": "", "duree": "45 min", "prix_tvac": 35},
+    {"code": "cuirs", "categorie": "Options supplémentaires", "nom": "Entretien des cuirs", "description": "", "duree": "45 min", "prix_tvac": 35},
+    {"code": "tissus", "categorie": "Options supplémentaires", "nom": "Entretien des tissus", "description": "", "duree": "45 min", "prix_tvac": 35},
+    {"code": "plastiques", "categorie": "Options supplémentaires", "nom": "Entretien des plastiques", "description": "", "duree": "45 min", "prix_tvac": 35},
+    {"code": "capote", "categorie": "Options supplémentaires", "nom": "Entretien des capotes de cabriolet", "description": "", "duree": "45 min", "prix_tvac": 35},
+    {"code": "encrasse", "categorie": "Options supplémentaires", "nom": "Véhicule fortement encrassé", "description": "", "duree": "", "prix_tvac": null}
   ]
 }
