@@ -1,6 +1,6 @@
 {
   "_lisez_moi": "Source unique des données commerciales d'Arte Automobili, utilisée pour les devis, offres de prix, factures et listes de prix. Les prix sont saisis TVA comprise (TVAC), comme sur le site ; les prix professionnels HTVA en sont déduits (TVAC / 1,21, arrondi au centime). Toute valeur entre crochets [ ] reste à compléter.",
-  "mise_a_jour": "2026-10-29",
+  "mise_a_jour": "2026-11-02",
   "entreprise": {
     "nom": "Arte Automobili",
     "denomination_legale": "[Dénomination légale et forme juridique]",
@@ -32,6 +32,7 @@
     "validite_offre_jours": 30,
     "echeance_facture_jours": 15,
     "paiement": "Paiement sur place, à la remise du véhicule.",
+    "deplacement": "Prestation à domicile. Frais de déplacement à partir de 20 km : 0,35 € TVAC par km.",
     "devis": "Prix établis d'après l'état du véhicule décrit ci-dessus. Tout travail supplémentaire fait l'objet d'un accord préalable.",
     "offre": "Tarifs professionnels hors TVA. Planning et fréquence des passages définis d'un commun accord.",
     "retard": "Toute facture impayée à l'échéance peut entraîner des intérêts de retard au taux légal."
@@ -42,11 +43,20 @@
     "facture": "F-{annee}-{n:04d}"
   },
   "prestations": [
-    {"code": "interieur", "categorie": "Intérieur", "nom": "Lavage intérieur", "description": "Nettoyage et remise au propre de l'intérieur du véhicule, avec une attention particulière portée aux surfaces et aux finitions.", "duree": "1 h", "prix_tvac": 45},
-    {"code": "exterieur", "categorie": "Extérieur", "nom": "Lavage extérieur", "description": "Nettoyage extérieur soigné pour retrouver un véhicule propre et une finition impeccable.", "duree": "45 min", "prix_tvac": 40},
-    {"code": "complet", "categorie": "Formule complète", "nom": "Lavage intérieur + extérieur", "description": "Une prestation complète pour prendre soin de l'intérieur et de l'extérieur du véhicule.", "duree": "1 h 45", "prix_tvac": 75},
-    {"code": "pack-arte", "categorie": "Formule premium", "nom": "Pack ARTE", "description": "La formule premium Arte Automobili.", "duree": "3 h", "prix_tvac": 135},
-    {"code": "pro", "categorie": "Professionnels", "nom": "Services pour les professionnels", "description": "Solutions de nettoyage automobile adaptées aux besoins des professionnels et des flottes de véhicules.", "duree": "", "prix_tvac": null}
+    {"code": "interieur", "categorie": "Intérieur", "nom": "Lavage intérieur", "description": "Nettoyage et remise au propre de l'intérieur du véhicule, avec une attention particulière portée aux surfaces et aux finitions.", "duree": "1 h", "prix_tvac": 45,
+     "inclus": ["Aspiration complète de l'habitacle et du coffre.", "Dépoussiérage du tableau de bord, de la console centrale et des plastiques.", "Nettoyage des surfaces intérieures accessibles.", "Nettoyage des vitres intérieures.", "Nettoyage des tapis et des moquettes.", "Nettoyage et entretien léger des sièges en cuir ou en tissu, selon leur matière."]},
+    {"code": "exterieur", "categorie": "Extérieur", "nom": "Lavage extérieur", "description": "Nettoyage extérieur soigné pour retrouver un véhicule propre et une finition impeccable.", "duree": "45 min", "prix_tvac": 40,
+     "inclus": ["Prélavage et lavage manuel de la carrosserie.", "Nettoyage des jantes et des pneus.", "Nettoyage des passages de portes et des encadrements accessibles.", "Nettoyage des vitres extérieures.", "Séchage minutieux avec microfibres adaptées.", "Finition des pneus."]},
+    {"code": "complet", "categorie": "Formule complète", "nom": "Lavage intérieur + extérieur", "description": "Une prestation complète pour prendre soin de l'intérieur et de l'extérieur du véhicule.", "duree": "1 h 45", "prix_tvac": 75,
+     "inclus": ["Lavage intérieur.", "Lavage extérieur."]},
+    {"code": "pack-arte", "categorie": "Formule premium", "nom": "Pack ARTE", "description": "Lavage intérieur et extérieur, avec tous les entretiens proposés en options supplémentaires.", "duree": "3 h", "prix_tvac": 150,
+     "inclus": ["Lavage intérieur.", "Lavage extérieur.", "Tous les entretiens disponibles en options supplémentaires sont compris dans cette formule."]},
+    {"code": "pro", "categorie": "Professionnels", "nom": "Pack PROFESSIONNEL", "description": "Solutions de nettoyage automobile adaptées aux besoins des professionnels et des flottes de véhicules.", "duree": "", "prix_tvac": null,
+     "inclus": ["Flotte de véhicules.", "Utilitaires.", "Service personnalisé."]}
+  ],
+  "_frais": "Frais facturables sur un document. Déplacement : quantité = nombre de km facturés (au-delà des 20 premiers).",
+  "frais": [
+    {"code": "deplacement", "categorie": "Frais", "nom": "Frais de déplacement", "description": "Au-delà de 20 km, par kilomètre.", "duree": "", "prix_tvac": 0.35}
   ],
   "_supplements": "Prix et durées proposés à titre indicatif dans la section « Suppléments de prestation » : à confirmer. Un prix « dès » est un prix de départ ; null = sur devis.",
   "supplements": [

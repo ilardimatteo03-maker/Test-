@@ -57,17 +57,19 @@ Une remise en pourcentage est possible, par exemple « remise flotte 10 % ».
 
 Tout est dans un seul fichier : [`_source/documents/donnees.json`](../_source/documents/donnees.json). Ce fichier alimente aussi la grille tarifaire de `17_tarifs`.
 
-**Prestations**, prix TVAC du catalogue (HTVA = TVAC / 1,21) :
+**Prestations**, prix TTC du site au 2 novembre 2026 (HTVA = TVAC / 1,21), avec la liste de ce qui est compris, reprise du site :
 
 | Prestation | Durée | Particuliers TVAC | Professionnels HTVA |
 |---|---|---|---|
 | Lavage intérieur | 1 h | 45 € | 37,19 € |
 | Lavage extérieur | 45 min | 40 € | 33,06 € |
 | Lavage intérieur + extérieur | 1 h 45 | 75 € | 61,98 € |
-| Pack ARTE | 3 h | 135 € | 111,57 € |
-| Services pour les professionnels | — | Sur devis | Sur devis |
+| Pack ARTE | 3 h | 150 € | 123,97 € |
+| Pack PROFESSIONNEL | — | Sur devis | Sur devis |
 
 **Suppléments** : 22 suppléments, ceux de la section « Suppléments de prestation ».
+
+**Déplacement** : prestation à domicile, frais à partir de 20 km, 0,35 € TVAC par km (code `deplacement`, quantité = km facturés).
 
 **Entreprise** :
 - adresse : Rue Lait Beurré, 7100 La Louvière ;
@@ -80,6 +82,7 @@ Tout est dans un seul fichier : [`_source/documents/donnees.json`](../_source/do
 **Conditions** :
 - validité de 30 jours pour les devis et les offres ;
 - paiement sur place ;
+- frais de déplacement au-delà de 20 km ;
 - échéance de 15 jours pour une facture non réglée ;
 - TVA 21 %.
 
@@ -95,8 +98,6 @@ Ces valeurs figurent entre crochets sur les documents tant que tu ne me les as p
 À confirmer aussi :
 
 - **Prix des suppléments.** Ce sont les prix indicatifs que j'ai proposés dans la section. Indique-moi les tiens.
-- **Contenu du Pack ARTE.** Il est décrit pour l'instant comme « La formule premium Arte Automobili ».
-- **Prix affichés par le thème.** Les réglages de ton thème exporté le 27 octobre affichent 60 €, 60 € et 100 € pour les trois lavages. Ton catalogue affiche 45 €, 40 € et 75 €. Les documents utilisent les prix du catalogue. Vérifie lequel est à jour sur le site.
 
 ## Règles belges intégrées
 

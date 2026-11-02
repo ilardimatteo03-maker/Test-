@@ -13,7 +13,8 @@ Format d'une demande (voir 18_documents/README.md) :
      "vehicule": {"modele": "...", "immatriculation": "...", "remarque": "..."},
      "objet": "...", "note": "...",
      "lignes": [{"code": "complet"}, {"code": "shampooing", "quantite": 2},
-                {"libelle": "Polissage de finition", "prix_tvac": 180}, {"code": "polissage", "prix_htva": 150}],
+                {"libelle": "Polissage de finition", "prix_tvac": 180}, {"code": "polissage", "prix_htva": 150},
+                {"code": "deplacement", "quantite": 12}],         # km facturés au-delà des 20 premiers
      "remise": {"libelle": "Remise flotte", "pct": 10},     # facultatif
      "date_prestation": "2026-10-28",                        # facture
      "paiement": {"date": "2026-10-28", "mode": "Bancontact"}}  # facture réglée ; sinon échéance et virement
@@ -99,10 +100,11 @@ def communication_structuree(numero):
 # ---------------------------------------------------------------- lignes et totaux
 
 def catalogue(code):
-    for x in D["prestations"] + D["supplements"]:
+    tout = D["prestations"] + D["supplements"] + D.get("frais", [])
+    for x in tout:
         if x["code"] == code:
             return x
-    raise SystemExit(f"Code inconnu : {code!r}. Codes valides : {', '.join(x['code'] for x in D['prestations'] + D['supplements'])}")
+    raise SystemExit(f"Code inconnu : {code!r}. Codes valides : {', '.join(x['code'] for x in tout)}")
 
 
 def lignes(demande, pro):
@@ -393,7 +395,7 @@ def liste(demande, dossier):
         supp.append(f"<tr><td><span class='nom'>{e(x['nom'])}</span>{duree}</td>{prix(x)}</tr>")
 
     tva = D["tva"]["mention_franchise"] if D["tva"]["regime_franchise"] else f"TVA {D['tva']['taux']} % comprise pour les particuliers, en sus pour les professionnels."
-    mentions = typo(e(f"Prix en euros. {tva} {D['conditions']['paiement']} {D['entreprise']['horaires']}"))
+    mentions = typo(e(f"Prix en euros. {tva} {D['conditions']['deplacement']} {D['conditions']['paiement']} {D['entreprise']['horaires']}"))
     return f"""<!doctype html><html lang="fr"><head><meta charset="utf-8">
 <title>Liste de prix — Arte Automobili</title><style>{css(dossier)}</style></head><body>
 <section class="feuille">
