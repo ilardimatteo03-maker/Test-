@@ -15,7 +15,10 @@
     "site": "arteautomobili.be",
     "iban": "[BE00 0000 0000 0000]",
     "bic": "[BIC]",
-    "horaires": "Du lundi au samedi, de 9 h à 18 h. Fermé le dimanche.",
+    "horaires": "Tous les jours, de 9 h à 18 h, uniquement sur rendez-vous.",
+    "horaires_jours": [["Lundi", "09h00 – 18h00"], ["Mardi", "09h00 – 18h00"], ["Mercredi", "09h00 – 18h00"], ["Jeudi", "09h00 – 18h00"],
+                       ["Vendredi", "09h00 – 18h00"], ["Samedi", "09h00 – 18h00"], ["Dimanche", "09h00 – 18h00"]],
+    "horaires_mention": "Uniquement sur rendez-vous",
     "signature": "L'arte del riflesso."
   },
   "_equipe": "Une carte de visite par personne. Téléphone et e-mail vides = ceux de l'entreprise ; fonction facultative.",

@@ -75,7 +75,7 @@ Tout est dans un seul fichier : [`_source/documents/donnees.json`](../_source/do
 - adresse : Rue Lait Beurré, 7100 La Louvière ;
 - téléphone : +32 492 53 42 30 ;
 - e-mail : arteautomobili@gmail.com ;
-- horaires : du lundi au samedi, de 9 h à 18 h ;
+- horaires : tous les jours, de 9 h à 18 h, uniquement sur rendez-vous ;
 - site : arteautomobili.be ;
 - signature : « L'arte del riflesso. ».
 

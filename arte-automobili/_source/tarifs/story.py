@@ -1,8 +1,7 @@
-"""Stories Instagram « Tarifs » et « Options » (1080 × 1920 px), version minimale sur fond Nero, comme le site.
+"""Stories Instagram « Tarifs », « Options » et « Horaires » (1080 × 1920 px), en série, minimales, sur fond Nero comme le site.
 
-Les prestations, les options supplémentaires et les prix TTC viennent de _source/documents/donnees.json. Le contenu
-reste hors des zones couvertes par l'interface d'Instagram (250 px en haut, 340 px en bas).
-Sorties : 17_tarifs/story-instagram-tarifs.png et 17_tarifs/story-instagram-options.png
+Prestations, options, prix TTC et horaires viennent de _source/documents/donnees.json. Le contenu reste hors des zones
+couvertes par l'interface d'Instagram (250 px en haut, 340 px en bas). Sorties : 17_tarifs/story-instagram-<nom>.png
 """
 import json
 import re
@@ -22,11 +21,11 @@ def prix(x):
     return f"{x['prix_tvac']:g} €".replace(".", ",")
 
 
-def page(titre, elements):
+def page(titre, lignes, etiquette, serre=False):
+    """lignes : paires (libellé, valeur) ; etiquette : mention en capitales au-dessus de la liste."""
     logo = re.sub(r"<title>.*?</title>", "", LOGO.read_text())
     logo = re.sub(r'\swidth="[^"]+"\s+height="[^"]+"', ' width="300"', logo, count=1)
-    lignes = "".join(f'<li><span class="nom">{x["nom"]}</span><span class="prix">{prix(x)}</span></li>'
-                     for x in elements)
+    lignes = "".join(f'<li><span class="nom">{g}</span><span class="prix">{d}</span></li>' for g, d in lignes)
     return f"""<!doctype html><html lang="fr"><head><meta charset="utf-8"><style>
 @font-face{{font-family:'Bodoni Moda';src:url('../03_typographie/polices/BodoniModa%5Bopsz,wght%5D.ttf') format('truetype');font-weight:400 900;font-style:normal}}
 @font-face{{font-family:'Bodoni Moda';src:url('../03_typographie/polices/BodoniModa-Italic%5Bopsz,wght%5D.ttf') format('truetype');font-weight:400 900;font-style:italic}}
@@ -43,6 +42,7 @@ h1 i{{font-style:italic}}
 .ttc{{display:flex;justify-content:flex-end;padding-bottom:22px;border-bottom:1.5px solid #EEEDE7;
       font:600 19px/1 Archivo,sans-serif;font-stretch:125%;letter-spacing:.24em;text-transform:uppercase;color:#8E9592}}
 ul{{list-style:none}}
+ul.serre li{{padding:29px 0 27px}}
 li{{display:flex;justify-content:space-between;align-items:baseline;gap:32px;padding:36px 0 34px;border-bottom:1px solid rgba(238,237,231,.16)}}
 .nom{{font:400 44px/1.1 'Bodoni Moda',serif;white-space:nowrap}}
 .prix{{flex:none;font:300 42px/1 'DM Mono',monospace;letter-spacing:.02em}}
@@ -50,19 +50,24 @@ footer{{margin-top:auto;text-align:center;font:400 26px/1 'DM Mono',monospace;le
 </style></head><body><main>
   <div class="logo">{logo}</div>
   <h1>{titre}<i>.</i></h1>
-  <p class="ttc">Prix TTC</p>
-  <ul>{lignes}</ul>
+  <p class="ttc">{etiquette}</p>
+  <ul{' class="serre"' if serre else ''}>{lignes}</ul>
   <footer>{D["entreprise"]["site"]}</footer>
 </main></body></html>"""
 
 
-STORIES = [("tarifs", "Tarifs", D["prestations"]), ("options", "Options", D["supplements"])]
+X = D["entreprise"]
+STORIES = [  # nom de fichier, titre, lignes, étiquette, espacement resserré (7 lignes)
+    ("tarifs", "Tarifs", [(x["nom"], prix(x)) for x in D["prestations"]], "Prix TTC", False),
+    ("options", "Options", [(x["nom"], prix(x)) for x in D["supplements"]], "Prix TTC", False),
+    ("horaires", "Horaires", X["horaires_jours"], X["horaires_mention"], True),
+]
 
 if __name__ == "__main__":
     jobs, temp = [], []
-    for nom, titre, elements in STORIES:
+    for nom, titre, lignes, etiquette, serre in STORIES:
         html = SORTIE / f"_story-{nom}.html"
-        html.write_text(page(titre, elements))
+        html.write_text(page(titre, lignes, etiquette, serre))
         temp.append(html)
         jobs.append({"in": str(html), "out": str(SORTIE / f"story-instagram-{nom}.png"), "w": SW, "h": SH})
     jf = SORTIE / "_jobs.json"
@@ -72,5 +77,5 @@ if __name__ == "__main__":
     finally:
         for f in temp + [jf]:
             f.unlink()
-    for nom, titre, elements in STORIES:
-        print(f"story {nom} :", ", ".join(f"{x['nom']} {prix(x)}" for x in elements))
+    for nom, titre, lignes, etiquette, serre in STORIES:
+        print(f"story {nom} :", ", ".join(f"{g} {d}" for g, d in lignes))
