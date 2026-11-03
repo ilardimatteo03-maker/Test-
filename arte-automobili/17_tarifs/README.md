@@ -5,10 +5,10 @@ Contenu : le logo, le titre, les 4 prestations avec deux prix, et une ligne pour
 
 | Prestation | Particuliers (TVAC) | Professionnels (HTVA) |
 | --- | --- | --- |
-| Lavage intérieur | 45 € | 37,19 € |
-| Lavage extérieur | 40 € | 33,06 € |
-| Lavage intérieur + extérieur | 75 € | 61,98 € |
-| Pack ARTE | 150 € | 123,97 € |
+| Lavage intérieur | 65 € | 53,72 € |
+| Lavage extérieur | 45 € | 37,19 € |
+| Lavage intérieur + extérieur | 100 € | 82,64 € |
+| Pack ARTE | 175 € | 144,63 € |
 
 Prix particuliers relevés sur le site. Prix professionnels = prix TVAC ÷ 1,21 (TVA belge de 21 %), arrondis au centime.
 

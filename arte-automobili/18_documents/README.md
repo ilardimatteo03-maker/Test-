@@ -57,17 +57,17 @@ Une remise en pourcentage est possible, par exemple « remise flotte 10 % ».
 
 Tout est dans un seul fichier : [`_source/documents/donnees.json`](../_source/documents/donnees.json). Ce fichier alimente aussi la grille tarifaire de `17_tarifs`.
 
-**Prestations**, prix TTC du site au 2 novembre 2026 (HTVA = TVAC / 1,21), avec la liste de ce qui est compris, reprise du site :
+**Prestations**, prix TTC au 3 novembre 2026 (HTVA = TVAC / 1,21), avec la liste de ce qui est compris, reprise du site :
 
 | Prestation | Durée | Particuliers TVAC | Professionnels HTVA |
 |---|---|---|---|
-| Lavage intérieur | 1 h | 45 € | 37,19 € |
-| Lavage extérieur | 45 min | 40 € | 33,06 € |
-| Lavage intérieur + extérieur | 1 h 45 | 75 € | 61,98 € |
-| Pack ARTE | 3 h | 150 € | 123,97 € |
+| Lavage intérieur | 1 h | 65 € | 53,72 € |
+| Lavage extérieur | 45 min | 45 € | 37,19 € |
+| Lavage intérieur + extérieur | 1 h 45 | 100 € | 82,64 € |
+| Pack ARTE | 3 h | 175 € | 144,63 € |
 | Pack PROFESSIONNEL | — | Sur devis | Sur devis |
 
-**Options supplémentaires**, celles du site : entretien de la céramique, des cuirs, des tissus, des plastiques et des capotes de cabriolet (35 € TVAC chacune, 45 min), véhicule fortement encrassé (sur devis). Elles sont toutes comprises dans le Pack ARTE.
+**Options supplémentaires**, celles du site : entretien de la céramique, des cuirs, des tissus, des plastiques et des capotes de cabriolet (45 € TVAC chacune, 45 min), véhicule fortement encrassé (sur devis). Elles sont toutes comprises dans le Pack ARTE.
 
 **Déplacement** : prestation à domicile, frais à partir de 20 km, 0,35 € TVAC par km (code `deplacement`, quantité = km facturés).
 

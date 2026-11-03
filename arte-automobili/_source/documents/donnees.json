@@ -1,6 +1,6 @@
 {
   "_lisez_moi": "Source unique des données commerciales d'Arte Automobili, utilisée pour les devis, offres de prix, factures et listes de prix. Les prix sont saisis TVA comprise (TVAC), comme sur le site ; les prix professionnels HTVA en sont déduits (TVAC / 1,21, arrondi au centime). Toute valeur entre crochets [ ] reste à compléter.",
-  "mise_a_jour": "2026-11-02",
+  "mise_a_jour": "2026-11-03",
   "entreprise": {
     "nom": "Arte Automobili",
     "denomination_legale": "[Dénomination légale et forme juridique]",
@@ -46,13 +46,13 @@
     "facture": "F-{annee}-{n:04d}"
   },
   "prestations": [
-    {"code": "interieur", "categorie": "Intérieur", "nom": "Lavage intérieur", "description": "Nettoyage et remise au propre de l'intérieur du véhicule, avec une attention particulière portée aux surfaces et aux finitions.", "duree": "1 h", "prix_tvac": 45,
+    {"code": "interieur", "categorie": "Intérieur", "nom": "Lavage intérieur", "description": "Nettoyage et remise au propre de l'intérieur du véhicule, avec une attention particulière portée aux surfaces et aux finitions.", "duree": "1 h", "prix_tvac": 65,
      "inclus": ["Aspiration complète de l'habitacle et du coffre.", "Dépoussiérage du tableau de bord, de la console centrale et des plastiques.", "Nettoyage des surfaces intérieures accessibles.", "Nettoyage des vitres intérieures.", "Nettoyage des tapis et des moquettes.", "Nettoyage et entretien léger des sièges en cuir ou en tissu, selon leur matière."]},
-    {"code": "exterieur", "categorie": "Extérieur", "nom": "Lavage extérieur", "description": "Nettoyage extérieur soigné pour retrouver un véhicule propre et une finition impeccable.", "duree": "45 min", "prix_tvac": 40,
+    {"code": "exterieur", "categorie": "Extérieur", "nom": "Lavage extérieur", "description": "Nettoyage extérieur soigné pour retrouver un véhicule propre et une finition impeccable.", "duree": "45 min", "prix_tvac": 45,
      "inclus": ["Prélavage et lavage manuel de la carrosserie.", "Nettoyage des jantes et des pneus.", "Nettoyage des passages de portes et des encadrements accessibles.", "Nettoyage des vitres extérieures.", "Séchage minutieux avec microfibres adaptées.", "Finition des pneus."]},
-    {"code": "complet", "categorie": "Formule complète", "nom": "Lavage intérieur + extérieur", "description": "Une prestation complète pour prendre soin de l'intérieur et de l'extérieur du véhicule.", "duree": "1 h 45", "prix_tvac": 75,
+    {"code": "complet", "categorie": "Formule complète", "nom": "Lavage intérieur + extérieur", "description": "Une prestation complète pour prendre soin de l'intérieur et de l'extérieur du véhicule.", "duree": "1 h 45", "prix_tvac": 100,
      "inclus": ["Lavage intérieur.", "Lavage extérieur."]},
-    {"code": "pack-arte", "categorie": "Formule premium", "nom": "Pack ARTE", "description": "Lavage intérieur et extérieur, avec tous les entretiens proposés en options supplémentaires.", "duree": "3 h", "prix_tvac": 150,
+    {"code": "pack-arte", "categorie": "Formule premium", "nom": "Pack ARTE", "description": "Lavage intérieur et extérieur, avec tous les entretiens proposés en options supplémentaires.", "duree": "3 h", "prix_tvac": 175,
      "inclus": ["Lavage intérieur.", "Lavage extérieur.", "Tous les entretiens disponibles en options supplémentaires sont compris dans cette formule."]},
     {"code": "pro", "categorie": "Professionnels", "nom": "Pack PROFESSIONNEL", "description": "Solutions de nettoyage automobile adaptées aux besoins des professionnels et des flottes de véhicules.", "duree": "", "prix_tvac": null,
      "inclus": ["Flotte de véhicules.", "Utilitaires.", "Service personnalisé."]}
@@ -61,13 +61,13 @@
   "frais": [
     {"code": "deplacement", "categorie": "Frais", "nom": "Frais de déplacement", "description": "Au-delà de 20 km, par kilomètre.", "duree": "", "prix_tvac": 0.35}
   ],
-  "_supplements": "Options supplémentaires du site (relevées le 2 novembre 2026). Elles sont toutes comprises dans le Pack ARTE. null = sur devis.",
+  "_supplements": "Options supplémentaires du site (prix du 3 novembre 2026). Elles sont toutes comprises dans le Pack ARTE. null = sur devis.",
   "supplements": [
-    {"code": "ceramique", "categorie": "Options supplémentaires", "nom": "Entretien de la céramique", "description": "", "duree": "45 min", "prix_tvac": 35},
-    {"code": "cuirs", "categorie": "Options supplémentaires", "nom": "Entretien des cuirs", "description": "", "duree": "45 min", "prix_tvac": 35},
-    {"code": "tissus", "categorie": "Options supplémentaires", "nom": "Entretien des tissus", "description": "", "duree": "45 min", "prix_tvac": 35},
-    {"code": "plastiques", "categorie": "Options supplémentaires", "nom": "Entretien des plastiques", "description": "", "duree": "45 min", "prix_tvac": 35},
-    {"code": "capote", "categorie": "Options supplémentaires", "nom": "Entretien des capotes de cabriolet", "description": "", "duree": "45 min", "prix_tvac": 35},
+    {"code": "ceramique", "categorie": "Options supplémentaires", "nom": "Entretien de la céramique", "description": "", "duree": "45 min", "prix_tvac": 45},
+    {"code": "cuirs", "categorie": "Options supplémentaires", "nom": "Entretien des cuirs", "description": "", "duree": "45 min", "prix_tvac": 45},
+    {"code": "tissus", "categorie": "Options supplémentaires", "nom": "Entretien des tissus", "description": "", "duree": "45 min", "prix_tvac": 45},
+    {"code": "plastiques", "categorie": "Options supplémentaires", "nom": "Entretien des plastiques", "description": "", "duree": "45 min", "prix_tvac": 45},
+    {"code": "capote", "categorie": "Options supplémentaires", "nom": "Entretien des capotes de cabriolet", "description": "", "duree": "45 min", "prix_tvac": 45},
     {"code": "encrasse", "categorie": "Options supplémentaires", "nom": "Véhicule fortement encrassé", "description": "", "duree": "", "prix_tvac": null}
   ]
 }
