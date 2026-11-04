@@ -1,4 +1,4 @@
-"""Stories Instagram « Tarifs », « Options » et « Horaires » (1080 × 1920 px), en série, minimales, sur fond Nero comme le site.
+"""Stories Instagram « Tarifs », « Options », « Horaires » et « Logo » (1080 × 1920 px), en série, minimales, sur fond Nero.
 
 Prestations, options, prix TTC et horaires viennent de _source/documents/donnees.json. Le contenu reste hors des zones
 couvertes par l'interface d'Instagram (250 px en haut, 340 px en bas). Sorties : 17_tarifs/story-instagram-<nom>.png
@@ -12,6 +12,7 @@ BASE = Path(__file__).resolve().parents[2]  # dossier arte-automobili
 SORTIE = BASE / "17_tarifs"
 D = json.loads((BASE / "_source" / "documents" / "donnees.json").read_text())
 LOGO = BASE / "14_theme-shopify-premium" / "theme" / "assets" / "logo-principal-bianco.svg"
+LOGO_VERTICAL = BASE / "14_theme-shopify-premium" / "theme" / "assets" / "logo-vertical-bianco.svg"
 SW, SH, HAUT, BAS = 1080, 1920, 250, 340
 
 
@@ -56,6 +57,16 @@ footer{{margin-top:auto;text-align:center;font:400 26px/1 'DM Mono',monospace;le
 </main></body></html>"""
 
 
+def page_logo():
+    """Le logo vertical seul (monogramme et nom), centré : rien d'autre."""
+    logo = re.sub(r"<title>.*?</title>", "", LOGO_VERTICAL.read_text())
+    logo = re.sub(r'\swidth="[^"]+"\s+height="[^"]+"', ' width="400"', logo, count=1)
+    return (f"<!doctype html><html lang='fr'><head><meta charset='utf-8'><style>*{{margin:0;padding:0}}"
+            f"html,body{{width:{SW}px;height:{SH}px;background:#0D0F0E}}"
+            f"body{{display:flex;align-items:center;justify-content:center}}svg{{display:block}}</style></head>"
+            f"<body>{logo}</body></html>")
+
+
 X = D["entreprise"]
 STORIES = [  # nom de fichier, titre, lignes, étiquette, espacement resserré (7 lignes)
     ("tarifs", "Tarifs", [(x["nom"], prix(x)) for x in D["prestations"]], "Prix TTC", False),
@@ -65,9 +76,10 @@ STORIES = [  # nom de fichier, titre, lignes, étiquette, espacement resserré (
 
 if __name__ == "__main__":
     jobs, temp = [], []
-    for nom, titre, lignes, etiquette, serre in STORIES:
+    pages = [(nom, page(titre, lignes, etiquette, serre)) for nom, titre, lignes, etiquette, serre in STORIES]
+    for nom, contenu in pages + [("logo", page_logo())]:
         html = SORTIE / f"_story-{nom}.html"
-        html.write_text(page(titre, lignes, etiquette, serre))
+        html.write_text(contenu)
         temp.append(html)
         jobs.append({"in": str(html), "out": str(SORTIE / f"story-instagram-{nom}.png"), "w": SW, "h": SH})
     jf = SORTIE / "_jobs.json"

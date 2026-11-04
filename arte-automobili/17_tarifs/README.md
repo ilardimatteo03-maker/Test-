@@ -14,11 +14,12 @@ Prix particuliers relevés sur le site. Prix professionnels = prix TVAC ÷ 1,21 
 
 ## Stories Instagram
 
-Trois stories de 1080 × 1920 px, sur fond noir comme le site, qui se suivent en série :
+Quatre stories de 1080 × 1920 px, sur fond noir comme le site, qui se suivent en série :
 
 - `story-instagram-tarifs.png` : le logo, « Tarifs. », les 5 formules avec leur prix TTC et l'adresse du site ;
 - `story-instagram-options.png` : la même mise en page, avec « Options. » et les 6 options supplémentaires ;
 - `story-instagram-horaires.png` : « Horaires. », les 7 jours de 09h00 à 18h00, uniquement sur rendez-vous.
+- `story-instagram-logo.png` : le logo vertical seul, centré, sans aucun texte en plus.
 
 Le contenu évite les zones couvertes par l'interface d'Instagram (250 px en haut, 340 px en bas).
 
@@ -27,5 +28,5 @@ Les prix sont dans [`_source/documents/donnees.json`](../_source/documents/donne
 
 ```bash
 python3 _source/tarifs/tarifs.py && node _source/tarifs/pdf.mjs   # grille A4
-python3 _source/tarifs/story.py                                   # les trois stories Instagram
+python3 _source/tarifs/story.py                                   # les quatre stories Instagram
 ```
