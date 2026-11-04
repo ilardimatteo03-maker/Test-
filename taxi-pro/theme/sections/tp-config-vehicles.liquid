@@ -1,0 +1,104 @@
+{%- comment -%}
+  Configuration Taxi Pro — Véhicules réservables (étape « Véhicule » du formulaire).
+  Chaque véhicule : capacité, photo, description, équipements et règle de prix.
+{%- endcomment -%}
+<script type="application/json" data-tp-config="vehicles">
+[
+{%- for block in section.blocks -%}
+  {%- liquid
+    assign img = ''
+    assign img_2x = ''
+    if block.settings.image != blank
+      assign img = block.settings.image | image_url: width: 640 | prepend: 'https:'
+      assign img_2x = block.settings.image | image_url: width: 1200 | prepend: 'https:'
+    endif
+  -%}
+  {
+    "id": {{ block.settings.code | default: block.settings.name | handleize | json }},
+    "enabled": {{ block.settings.enabled | json }},
+    "name": {{ block.settings.name | json }},
+    "description": {{ block.settings.description | json }},
+    "image": {{ img | json }},
+    "image2x": {{ img_2x | json }},
+    "imageAlt": {{ block.settings.image.alt | default: block.settings.name | json }},
+    "badge": {{ block.settings.badge | json }},
+    "passengers": {{ block.settings.passengers | json }},
+    "luggage": {{ block.settings.luggage | json }},
+    "equipment": {{ block.settings.equipment | json }},
+    "pricing": {
+      "mode": {{ block.settings.pricing_mode | json }},
+      "multiplier": {{ block.settings.multiplier | json }},
+      "base": {{ block.settings.base | json }},
+      "perKm": {{ block.settings.per_km | json }},
+      "perMin": {{ block.settings.per_min | json }},
+      "minimum": {{ block.settings.minimum | json }},
+      "hourlyRate": {{ block.settings.hourly_rate | json }},
+      "surcharge": {{ block.settings.surcharge | json }}
+    }
+  }{% unless forloop.last %},{% endunless %}
+{%- endfor -%}
+]
+</script>
+{%- if request.design_mode -%}
+  <div class="tp-config-panel" {{ section.shopify_attributes }}>
+    <strong>Configuration Taxi Pro · Véhicules</strong> : {{ section.blocks.size }} véhicule(s)
+    {%- if section.blocks.size > 0 %} :
+      {% for block in section.blocks %}{{ block.settings.name }} ({{ block.settings.passengers }} pl.){% unless block.settings.enabled %} — masqué{% endunless %}{% unless forloop.last %}, {% endunless %}{% endfor %}.
+    {%- else %} <span class="tp-warn">Ajoutez au moins un véhicule pour activer la réservation.</span>{% endif %}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Véhicules (tarifs)",
+  "tag": "div",
+  "class": "tp-config",
+  "max_blocks": 20,
+  "enabled_on": { "groups": ["custom.taxi-config"] },
+  "settings": [
+    { "type": "paragraph", "content": "Véhicules proposés à l'étape « Véhicule ». Le prix de chacun est calculé à partir du tarif général, multiplié par son coefficient, ou avec son propre tarif." }
+  ],
+  "blocks": [
+    {
+      "type": "vehicle",
+      "name": "Véhicule",
+      "settings": [
+        { "type": "checkbox", "id": "enabled", "label": "Proposer ce véhicule", "default": true },
+        { "type": "text", "id": "name", "label": "Nom", "default": "Berline" },
+        { "type": "text", "id": "code", "label": "Code", "info": "Identifiant court sans espace (ex. van). Utilisé par les forfaits (« prix par véhicule »)." },
+        { "type": "image_picker", "id": "image", "label": "Photo", "info": "Format paysage, véhicule détouré ou sur fond neutre." },
+        { "type": "textarea", "id": "description", "label": "Description" },
+        { "type": "text", "id": "badge", "label": "Badge", "info": "Ex. : Le plus demandé, Premium." },
+        { "type": "number", "id": "passengers", "label": "Nombre maximum de passagers", "default": 4 },
+        { "type": "number", "id": "luggage", "label": "Nombre maximum de bagages", "default": 3 },
+        { "type": "text", "id": "equipment", "label": "Équipements", "info": "Séparés par des virgules : Wi-Fi, Climatisation, Chargeurs…" },
+        { "type": "header", "content": "Prix" },
+        {
+          "type": "select", "id": "pricing_mode", "label": "Règle de prix",
+          "options": [
+            { "value": "multiplier", "label": "Tarif général × coefficient" },
+            { "value": "custom", "label": "Tarif propre à ce véhicule" }
+          ],
+          "default": "multiplier"
+        },
+        { "type": "text", "id": "multiplier", "label": "Coefficient", "default": "1", "info": "1 = tarif général ; 1,4 = +40 %." },
+        { "type": "text", "id": "base", "label": "Prise en charge (tarif propre)", "info": "Champs vides : valeur du tarif général." },
+        { "type": "text", "id": "per_km", "label": "Prix au km (tarif propre)" },
+        { "type": "text", "id": "per_min", "label": "Prix par minute (tarif propre)" },
+        { "type": "text", "id": "minimum", "label": "Minimum de facturation (tarif propre)" },
+        { "type": "text", "id": "hourly_rate", "label": "Tarif horaire (mise à disposition)", "info": "Vide : tarif horaire de la prestation ou général, avec le coefficient." },
+        { "type": "text", "id": "surcharge", "label": "Supplément fixe par trajet" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Véhicules (tarifs)",
+      "blocks": [
+        { "type": "vehicle", "settings": { "name": "Berline", "code": "berline", "passengers": 4, "luggage": 3 } },
+        { "type": "vehicle", "settings": { "name": "Van", "code": "van", "passengers": 8, "luggage": 8, "multiplier": "1,4" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

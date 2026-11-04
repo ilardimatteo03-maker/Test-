@@ -1,0 +1,88 @@
+{
+  "settings": {
+    "version": 1,
+    "currency": "EUR",
+    "locale": "fr-BE",
+    "timezone": "Europe/Brussels",
+    "vatRate": "6",
+    "tariff": {
+      "base": "5",
+      "perKm": "2",
+      "perMin": "0,30",
+      "perMinEnabled": false,
+      "minimum": "12",
+      "rounding": "0.1",
+      "roundingMode": "nearest"
+    },
+    "surcharges": {
+      "combine": "max",
+      "night": { "enabled": true, "start": "22:00", "end": "06:00", "type": "percent", "value": "20", "priority": 10 },
+      "weekend": { "enabled": true, "saturday": false, "sunday": true, "type": "percent", "value": "15", "priority": 20 },
+      "holiday": { "enabled": true, "dates": "01-01\neaster+1\n05-01\neaster+39\neaster+50\n07-21\n08-15\n11-01\n11-11\n12-25", "type": "percent", "value": "25", "priority": 30 },
+      "airport": { "enabled": true, "amount": "10" },
+      "passengers": { "enabled": true, "included": 4, "amount": "5" },
+      "luggage": { "enabled": true, "included": 3, "amount": "2" },
+      "waiting": { "enabled": true, "perMin": "0,50", "freeMin": 5 },
+      "tolls": { "enabled": true }
+    },
+    "roundTrip": { "enabled": true, "discount": "10" },
+    "hourly": { "rate": "45", "minHours": "2" },
+    "geo": {
+      "lat": "50.8467", "lng": "4.3525", "radiusKm": "60",
+      "areaRule": "either", "outOfArea": "quote",
+      "maxDistanceKm": "800", "maxDistanceAction": "quote"
+    },
+    "booking": {
+      "immediate": true,
+      "scheduled": true,
+      "leadMin": 60,
+      "maxDays": 180,
+      "maxPassengers": 8,
+      "maxLuggage": 10,
+      "hours": { "always": true, "mon": "", "tue": "", "wed": "", "thu": "", "fri": "", "sat": "", "sun": "" },
+      "payment": { "request": true, "driver": true, "online": true, "deposit": true, "default": "request", "depositPercent": "30" }
+    }
+  },
+  "vehicles": [
+    { "id": "berline", "name": "Berline", "description": "Confortable pour 4 passagers.", "passengers": 4, "luggage": 3, "equipment": "Climatisation, Wi-Fi, Chargeurs", "pricing": { "mode": "multiplier", "multiplier": "1" }, "enabled": true },
+    { "id": "break", "name": "Break", "passengers": 4, "luggage": 5, "pricing": { "mode": "multiplier", "multiplier": "1,1" }, "enabled": true },
+    { "id": "van", "name": "Van 8 places", "passengers": 8, "luggage": 8, "pricing": { "mode": "multiplier", "multiplier": "1.4", "hourlyRate": "60" }, "enabled": true },
+    { "id": "luxe", "name": "Classe affaires", "passengers": 3, "luggage": 3, "pricing": { "mode": "custom", "base": "10", "perKm": "3", "minimum": "25", "surcharge": "" }, "enabled": true },
+    { "id": "limousine", "name": "Limousine (désactivée)", "passengers": 6, "luggage": 4, "pricing": { "mode": "multiplier", "multiplier": "3" }, "enabled": false }
+  ],
+  "options": [
+    { "id": "siege-bebe", "name": "Siège bébé", "type": "fixed", "price": "10", "enabled": true },
+    { "id": "rehausseur", "name": "Rehausseur", "type": "per_unit", "price": "5", "maxQty": 2, "enabled": true },
+    { "id": "bagage-volumineux", "name": "Bagage volumineux", "type": "per_unit", "price": "8", "maxQty": 3, "enabled": true },
+    { "id": "pancarte", "name": "Accueil avec pancarte", "type": "fixed", "price": "15", "services": "aeroport", "enabled": true },
+    { "id": "premium", "name": "Service premium", "type": "percent", "price": "10", "enabled": true },
+    { "id": "eau", "name": "Bouteilles d'eau", "type": "fixed", "price": "0", "enabled": true }
+  ],
+  "services": [
+    { "id": "taxi", "name": "Taxi classique", "mode": "meter", "enabled": true },
+    { "id": "aeroport", "name": "Transfert aéroport", "mode": "meter", "airport": true, "enabled": true },
+    { "id": "evenement", "name": "Transport événementiel", "mode": "meter", "multiplier": "1.2", "enabled": true },
+    { "id": "mise-a-disposition", "name": "Mise à disposition", "mode": "hourly", "minHours": "2", "enabled": true },
+    { "id": "forfait-mariage", "name": "Forfait mariage", "mode": "fixed", "fixedPrice": "250", "enabled": true },
+    { "id": "sur-mesure", "name": "Sur mesure", "mode": "quote", "enabled": true },
+    { "id": "inactif", "name": "Prestation désactivée", "mode": "meter", "enabled": false }
+  ],
+  "zones": [
+    { "id": "bru", "name": "Brussels Airport", "type": "airport", "lat": "50.9010", "lng": "4.4844", "radiusKm": "3", "enabled": true },
+    { "id": "crl", "name": "Brussels South Charleroi Airport", "type": "airport", "lat": "50.4592", "lng": "4.4538", "radiusKm": "3", "surcharge": "12", "enabled": true },
+    { "id": "bxl", "name": "Bruxelles-Capitale", "type": "area", "lat": "50.8467", "lng": "4.3525", "radiusKm": "8", "enabled": true },
+    { "id": "midi", "name": "Gare du Midi", "type": "station", "lat": "50.8357", "lng": "4.3360", "radiusKm": "0.4", "surcharge": "3", "appliesOn": "pickup", "enabled": true },
+    { "id": "lux", "name": "Luxembourg-Ville", "type": "pricing", "lat": "49.6116", "lng": "6.1319", "radiusKm": "15", "perKm": "2,60", "base": "6", "tolls": "", "priority": 10, "enabled": true },
+    { "id": "pietonnier", "name": "Piétonnier", "type": "forbidden", "polygon": "50.8480,4.3505\n50.8480,4.3545\n50.8455,4.3545\n50.8455,4.3505", "enabled": true }
+  ],
+  "routes": [
+    { "id": "bxl-bru", "name": "Bruxelles ↔ Brussels Airport", "from": "bxl", "to": "bru", "bidirectional": true, "price": "45", "vehiclePrices": "van:65", "priority": 50, "applySurcharges": false, "enabled": true },
+    { "id": "midi-bru", "name": "Gare du Midi → Brussels Airport", "from": "midi", "to": "bru", "bidirectional": false, "price": "40", "priority": 60, "enabled": true },
+    { "id": "bxl-crl", "name": "Bruxelles ↔ Charleroi Airport", "from": "bxl", "to": "crl", "bidirectional": true, "price": "85", "tolls": "0", "priority": 50, "applySurcharges": true, "enabled": true },
+    { "id": "any-lux", "name": "Toute adresse → Luxembourg", "from": "*", "to": "lux", "bidirectional": false, "price": "390", "tolls": "4,50", "priority": 5, "enabled": true }
+  ],
+  "timeRules": [
+    { "id": "pointe", "name": "Heures de pointe", "days": "lun,mar,mer,jeu,ven", "start": "07:00", "end": "09:00", "type": "percent", "value": "10", "priority": 5, "enabled": true },
+    { "id": "reveillon", "name": "Réveillon", "dates": "12-31", "start": "20:00", "end": "00:00", "type": "percent", "value": "50", "priority": 90, "enabled": true }
+  ]
+}

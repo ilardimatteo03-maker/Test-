@@ -1,0 +1,23 @@
+{%- comment -%} Liens vers les réseaux sociaux renseignés dans Paramètres du thème › Identité. {%- endcomment -%}
+{%- liquid
+  assign company = settings.company_name | default: shop.name
+  assign networks = 'facebook,instagram,linkedin,tiktok,youtube,x,google' | split: ','
+  assign names = 'Facebook,Instagram,LinkedIn,TikTok,YouTube,X,Google' | split: ','
+  assign has_any = false
+  for n in networks
+    assign key = 'social_' | append: n
+    if settings[key] != blank
+      assign has_any = true
+    endif
+  endfor
+-%}
+{%- if has_any -%}
+  <ul class="social-list">
+    {%- for n in networks -%}
+      {%- assign key = 'social_' | append: n -%}
+      {%- if settings[key] != blank -%}
+        <li><a href="{{ settings[key] }}" target="_blank" rel="noopener" aria-label="{{ 'accessibility.social' | t: name: company, network: names[forloop.index0] }}">{% render 'icon', name: n %}</a></li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+{%- endif -%}

@@ -1,0 +1,35 @@
+{%- comment -%}
+  Carte intégrée (Google Maps sans clé ou OpenStreetMap), chargée après un clic si consent est vrai.
+  Paramètres : provider ('google' | 'osm'), query (adresse ou lieu), lat, lng, zoom, title, ratio, consent
+{%- endcomment -%}
+{%- liquid
+  assign zoom = zoom | default: 11
+  if provider == 'osm'
+    assign la = lat | replace: ',', '.' | plus: 0
+    assign ln = lng | replace: ',', '.' | plus: 0
+    assign d = 0.6 | divided_by: zoom
+    assign min_lng = ln | minus: d
+    assign max_lng = ln | plus: d
+    assign min_lat = la | minus: d
+    assign max_lat = la | plus: d
+    capture map_url
+      echo 'https://www.openstreetmap.org/export/embed.html?bbox=' | append: min_lng | append: '%2C' | append: min_lat | append: '%2C' | append: max_lng | append: '%2C' | append: max_lat | append: '&layer=mapnik&marker=' | append: la | append: '%2C' | append: ln
+    endcapture
+  else
+    assign q = query | url_encode
+    capture map_url
+      echo 'https://maps.google.com/maps?q=' | append: q | append: '&z=' | append: zoom | append: '&output=embed'
+    endcapture
+  endif
+-%}
+<div class="map-frame" style="--ratio: {{ ratio | default: '4 / 3' }}">
+  {%- if consent -%}
+    <div class="map-consent">
+      {% render 'icon', name: 'map', class: 'icon map-consent__icon' %}
+      <p class="text-muted" style="margin:0; max-width: 34ch">{{ 'general.map_consent' | t }}</p>
+      <button type="button" class="btn btn--small" data-map-load="{{ map_url | strip }}" data-map-title="{{ title | escape }}">{{ 'general.load_map' | t }}</button>
+    </div>
+  {%- else -%}
+    <iframe src="{{ map_url | strip }}" title="{{ title | escape }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  {%- endif -%}
+</div>

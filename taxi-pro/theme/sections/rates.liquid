@@ -1,0 +1,138 @@
+{%- comment -%}
+  Grille tarifaire publique, générée à partir des réglages du thème (Tarifs, Majorations)
+  et des forfaits de « Configuration Taxi Pro ». Rien n'est saisi deux fois.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign cur = settings.currency | default: 'EUR'
+-%}
+<script src="{{ 'tp-pricing.js' | asset_url }}" defer></script>
+<section class="section scheme-{{ s.color_scheme }}" style="--pad-top: {{ s.padding_top }}px; --pad-bottom: {{ s.padding_bottom }}px;" data-tp-rates>
+  <div class="container container--narrow">
+    {% render 'section-head', eyebrow: s.eyebrow, heading: s.heading, text: s.text, align: 'center' %}
+    <table class="rate-table reveal">
+      <caption class="visually-hidden">{{ s.heading }}</caption>
+      <tbody>
+        <tr><th scope="row">{{ s.label_base }}</th><td data-tp-money="{{ settings.tariff_base }}">{{ settings.tariff_base }} {{ cur }}</td></tr>
+        <tr><th scope="row">{{ s.label_km }}</th><td><span data-tp-money="{{ settings.tariff_per_km }}">{{ settings.tariff_per_km }} {{ cur }}</span> / km</td></tr>
+        {%- if settings.tariff_per_min_enabled -%}
+          <tr><th scope="row">{{ s.label_min }}</th><td><span data-tp-money="{{ settings.tariff_per_min }}">{{ settings.tariff_per_min }} {{ cur }}</span> / min</td></tr>
+        {%- endif -%}
+        {%- if settings.tariff_minimum != blank and settings.tariff_minimum != '0' -%}
+          <tr><th scope="row">{{ s.label_minimum }}</th><td data-tp-money="{{ settings.tariff_minimum }}">{{ settings.tariff_minimum }} {{ cur }}</td></tr>
+        {%- endif -%}
+        {%- if settings.night_enabled -%}
+          <tr><th scope="row">{{ s.label_night }}<small>{{ settings.night_start }} – {{ settings.night_end }}</small></th><td>+ {% if settings.night_type == 'percent' %}{{ settings.night_value }} %{% else %}<span data-tp-money="{{ settings.night_value }}">{{ settings.night_value }} {{ cur }}</span>{% endif %}</td></tr>
+        {%- endif -%}
+        {%- if settings.weekend_enabled -%}
+          <tr><th scope="row">{{ s.label_weekend }}<small>{% if settings.weekend_saturday %}{{ 'days.sat' | t }}{% if settings.weekend_sunday %}, {% endif %}{% endif %}{% if settings.weekend_sunday %}{{ 'days.sun' | t }}{% endif %}</small></th><td>+ {% if settings.weekend_type == 'percent' %}{{ settings.weekend_value }} %{% else %}<span data-tp-money="{{ settings.weekend_value }}">{{ settings.weekend_value }} {{ cur }}</span>{% endif %}</td></tr>
+        {%- endif -%}
+        {%- if settings.holiday_enabled -%}
+          <tr><th scope="row">{{ s.label_holiday }}</th><td>+ {% if settings.holiday_type == 'percent' %}{{ settings.holiday_value }} %{% else %}<span data-tp-money="{{ settings.holiday_value }}">{{ settings.holiday_value }} {{ cur }}</span>{% endif %}</td></tr>
+        {%- endif -%}
+        {%- if settings.airport_enabled -%}
+          <tr><th scope="row">{{ s.label_airport }}</th><td>+ <span data-tp-money="{{ settings.airport_amount }}">{{ settings.airport_amount }} {{ cur }}</span></td></tr>
+        {%- endif -%}
+        {%- if settings.waiting_enabled -%}
+          <tr><th scope="row">{{ s.label_waiting }}{% if settings.waiting_free_min > 0 %}<small>{{ s.label_waiting_free | replace: '[n]', settings.waiting_free_min }}</small>{% endif %}</th><td><span data-tp-money="{{ settings.waiting_per_min }}">{{ settings.waiting_per_min }} {{ cur }}</span> / min</td></tr>
+        {%- endif -%}
+        {%- if settings.passengers_enabled -%}
+          <tr><th scope="row">{{ s.label_passengers | replace: '[n]', settings.passengers_included }}</th><td>+ <span data-tp-money="{{ settings.passengers_amount }}">{{ settings.passengers_amount }} {{ cur }}</span></td></tr>
+        {%- endif -%}
+        {%- if settings.luggage_enabled -%}
+          <tr><th scope="row">{{ s.label_luggage | replace: '[n]', settings.luggage_included }}</th><td>+ <span data-tp-money="{{ settings.luggage_amount }}">{{ settings.luggage_amount }} {{ cur }}</span></td></tr>
+        {%- endif -%}
+        {%- if settings.hourly_rate != blank -%}
+          <tr><th scope="row">{{ s.label_hourly }}<small>{{ s.label_hourly_min | replace: '[n]', settings.hourly_min_hours }}</small></th><td><span data-tp-money="{{ settings.hourly_rate }}">{{ settings.hourly_rate }} {{ cur }}</span> / h</td></tr>
+        {%- endif -%}
+        {%- for block in section.blocks -%}
+          <tr {{ block.shopify_attributes }}><th scope="row">{{ block.settings.label }}{% if block.settings.note != blank %}<small>{{ block.settings.note }}</small>{% endif %}</th><td>{{ block.settings.value }}</td></tr>
+        {%- endfor -%}
+      </tbody>
+    </table>
+
+    {%- if s.show_routes -%}
+      <div data-tp-public-routes hidden>
+        <h3 class="h3" style="margin-top: 3rem">{{ s.routes_heading }}</h3>
+        <table class="rate-table"><tbody></tbody></table>
+      </div>
+    {%- endif -%}
+    {%- if s.note != blank -%}<div class="rte text-muted" style="margin-top: 2rem; font-size: .9rem">{{ s.note }}</div>{%- endif -%}
+    {%- if settings.price_suffix != blank -%}<p class="text-muted" style="font-size: .85rem">{{ 'general.price_suffix_note' | t: suffix: settings.price_suffix }}</p>{%- endif -%}
+  </div>
+</section>
+<script>
+  (function () {
+    function run() {
+      var P = window.TaxiProPricing, root = document.querySelector('[data-tp-rates]');
+      if (!P || !root) return;
+      var raw = { settings: {} , routes: [], vehicles: [] };
+      document.querySelectorAll('script[data-tp-config]').forEach(function (el) {
+        try { var k = el.getAttribute('data-tp-config'), v = JSON.parse(el.textContent); raw[k] = Array.isArray(raw[k]) ? raw[k].concat(v) : v; } catch (e) {}
+      });
+      var cfg = P.normalizeConfig(raw);
+      root.querySelectorAll('[data-tp-money]').forEach(function (el) {
+        var n = P.num(el.getAttribute('data-tp-money'), null);
+        if (n !== null) el.textContent = P.formatMoney(n, cfg);
+      });
+      var box = root.querySelector('[data-tp-public-routes]');
+      if (!box) return;
+      var pub = (raw.routes || []).filter(function (r) { return r.enabled !== false && r.showPublic !== false; });
+      if (!pub.length) return;
+      box.querySelector('tbody').innerHTML = pub.map(function (r) {
+        var esc = function (v) { return String(v || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+        return '<tr><th scope="row">' + esc(r.name) + '</th><td>' + esc(P.formatMoney(P.num(r.price, 0), cfg)) + '</td></tr>';
+      }).join('');
+      box.hidden = false;
+    }
+    if (document.readyState === 'complete') run(); else window.addEventListener('load', run);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Grille tarifaire",
+  "tag": "div",
+  "class": "section-rates",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "paragraph", "content": "Les montants sont lus dans Paramètres du thème › Tarifs et Majorations, et dans les forfaits de « Configuration Taxi Pro ». Seuls les libellés se modifient ici." },
+    { "type": "text", "id": "eyebrow", "label": "Surtitre" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Nos tarifs, en toute transparence" },
+    { "type": "richtext", "id": "text", "label": "Texte" },
+    { "type": "header", "content": "Libellés" },
+    { "type": "text", "id": "label_base", "label": "Prise en charge", "default": "Prise en charge" },
+    { "type": "text", "id": "label_km", "label": "Prix au kilomètre", "default": "Prix au kilomètre" },
+    { "type": "text", "id": "label_min", "label": "Prix par minute", "default": "Durée du trajet" },
+    { "type": "text", "id": "label_minimum", "label": "Minimum", "default": "Course minimum" },
+    { "type": "text", "id": "label_night", "label": "Nuit", "default": "Supplément de nuit" },
+    { "type": "text", "id": "label_weekend", "label": "Week-end", "default": "Supplément week-end" },
+    { "type": "text", "id": "label_holiday", "label": "Jours fériés", "default": "Supplément jours fériés" },
+    { "type": "text", "id": "label_airport", "label": "Aéroport", "default": "Supplément aéroport" },
+    { "type": "text", "id": "label_waiting", "label": "Attente", "default": "Attente" },
+    { "type": "text", "id": "label_waiting_free", "label": "Attente offerte", "default": "[n] premières minutes offertes" },
+    { "type": "text", "id": "label_passengers", "label": "Passager supplémentaire", "default": "Par passager au-delà de [n]" },
+    { "type": "text", "id": "label_luggage", "label": "Bagage supplémentaire", "default": "Par bagage au-delà de [n]" },
+    { "type": "text", "id": "label_hourly", "label": "Mise à disposition", "default": "Mise à disposition" },
+    { "type": "text", "id": "label_hourly_min", "label": "Durée minimale", "default": "Minimum [n] h" },
+    { "type": "header", "content": "Forfaits" },
+    { "type": "checkbox", "id": "show_routes", "label": "Afficher les forfaits publics", "default": true },
+    { "type": "text", "id": "routes_heading", "label": "Titre des forfaits", "default": "Forfaits" },
+    { "type": "richtext", "id": "note", "label": "Note", "default": "<p>Les prix des véhicules de catégorie supérieure sont calculés automatiquement lors de la réservation.</p>" },
+    { "type": "select", "id": "color_scheme", "label": "Couleurs", "options": [ { "value": "default", "label": "Principal" }, { "value": "alt", "label": "Secondaire" }, { "value": "inverse", "label": "Contrasté" } ], "default": "default" },
+    { "type": "range", "id": "padding_top", "label": "Marge haute", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Marge basse", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 }
+  ],
+  "blocks": [
+    {
+      "type": "row", "name": "Ligne libre",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Libellé", "default": "Animal de compagnie" },
+        { "type": "text", "id": "note", "label": "Précision" },
+        { "type": "text", "id": "value", "label": "Valeur affichée", "default": "Gratuit" }
+      ]
+    }
+  ],
+  "presets": [{"name": "Grille tarifaire", "settings": {"eyebrow": "Tarifs"}}]
+}
+{% endschema %}

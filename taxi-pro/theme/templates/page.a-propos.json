@@ -1,0 +1,205 @@
+{
+  "sections": {
+    "header": {
+      "type": "page-header",
+      "settings": {
+        "eyebrow": "À propos",
+        "text": "<p>Une entreprise locale, des chauffeurs passionnés.</p>",
+        "color_scheme": "inverse",
+        "breadcrumbs": true,
+        "padding_top": 96,
+        "padding_bottom": 72
+      }
+    },
+    "story": {
+      "type": "image-text",
+      "settings": {
+        "eyebrow": "Notre histoire",
+        "heading": "Une entreprise familiale au service de vos trajets",
+        "text": "<p>Présentez ici votre histoire : la création de l'entreprise, son évolution, ce qui vous rend fiers. Racontez ce qui fait la différence pour vos clients.</p>",
+        "image_position": "left",
+        "ratio": "4 / 5",
+        "color_scheme": "default",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "point_1": {
+          "type": "point",
+          "settings": {
+            "text": "Chauffeurs professionnels et licenciés"
+          }
+        },
+        "point_2": {
+          "type": "point",
+          "settings": {
+            "text": "Véhicules récents et entretenus"
+          }
+        },
+        "point_3": {
+          "type": "point",
+          "settings": {
+            "text": "Prix transparents, sans surprise"
+          }
+        }
+      },
+      "block_order": [
+        "point_1",
+        "point_2",
+        "point_3"
+      ]
+    },
+    "commitments": {
+      "type": "features",
+      "settings": {
+        "eyebrow": "Nos engagements",
+        "heading": "Ce que nous vous promettons",
+        "align": "center",
+        "style": "boxed",
+        "columns": "3",
+        "color_scheme": "alt",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "euro",
+            "title": "Prix annoncé à l'avance",
+            "text": "<p>Le prix est calculé avant la réservation, selon nos tarifs publics.</p>"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "clock",
+            "title": "Ponctualité",
+            "text": "<p>Votre chauffeur arrive à l'heure, et suit votre vol en cas de retard.</p>"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "title": "Chauffeurs professionnels",
+            "text": "<p>Licenciés, expérimentés, discrets et courtois.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3"
+      ]
+    },
+    "stats": {
+      "type": "stats",
+      "settings": {
+        "animate": true,
+        "divided": true,
+        "color_scheme": "inverse",
+        "padding_top": 72,
+        "padding_bottom": 72
+      },
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "value": "15",
+            "suffix": " ans",
+            "label": "d'expérience"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "value": "24",
+            "suffix": " h/24",
+            "label": "disponibles, 7 jours sur 7"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "value": "4.9",
+            "suffix": "/5",
+            "label": "note moyenne de nos clients"
+          }
+        },
+        "stat_4": {
+          "type": "stat",
+          "settings": {
+            "value": "12000",
+            "prefix": "+",
+            "label": "courses par an"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4"
+      ]
+    },
+    "team": {
+      "type": "team",
+      "settings": {
+        "eyebrow": "L'équipe",
+        "heading": "Des chauffeurs à votre écoute",
+        "columns": "4",
+        "color_scheme": "default",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "member_1": {
+          "type": "member",
+          "settings": {
+            "name": "Prénom N.",
+            "role": "Fondateur et chauffeur",
+            "languages": "Français, English, Nederlands"
+          }
+        },
+        "member_2": {
+          "type": "member",
+          "settings": {
+            "name": "Prénom N.",
+            "role": "Chauffeur",
+            "languages": "Français, English"
+          }
+        },
+        "member_3": {
+          "type": "member",
+          "settings": {
+            "name": "Prénom N.",
+            "role": "Chauffeuse",
+            "languages": "Français, Deutsch"
+          }
+        },
+        "member_4": {
+          "type": "member",
+          "settings": {
+            "name": "Prénom N.",
+            "role": "Réservations",
+            "languages": "Français, English"
+          }
+        }
+      },
+      "block_order": [
+        "member_1",
+        "member_2",
+        "member_3",
+        "member_4"
+      ]
+    }
+  },
+  "order": [
+    "header",
+    "story",
+    "commitments",
+    "stats",
+    "team"
+  ]
+}

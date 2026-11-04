@@ -1,0 +1,104 @@
+{%- comment -%}
+  Configuration Taxi Pro — Zones géographiques.
+  Types : aéroport, gare, zone tarifaire, zone de référence (forfaits), zone d'intervention, zone interdite.
+  Forme : cercle (centre + rayon) ou polygone (une ligne « latitude, longitude » par sommet).
+{%- endcomment -%}
+<script type="application/json" data-tp-config="zones">
+[
+{%- for block in section.blocks -%}
+  {
+    "id": {{ block.settings.code | default: block.settings.name | handleize | json }},
+    "enabled": {{ block.settings.enabled | json }},
+    "name": {{ block.settings.name | json }},
+    "type": {{ block.settings.type | json }},
+    "lat": {{ block.settings.lat | json }},
+    "lng": {{ block.settings.lng | json }},
+    "radiusKm": {{ block.settings.radius_km | json }},
+    "polygon": {{ block.settings.polygon | json }},
+    "appliesOn": {{ block.settings.applies_on | json }},
+    "surcharge": {{ block.settings.surcharge | json }},
+    "multiplier": {{ block.settings.multiplier | json }},
+    "base": {{ block.settings.base | json }},
+    "perKm": {{ block.settings.per_km | json }},
+    "perMin": {{ block.settings.per_min | json }},
+    "minimum": {{ block.settings.minimum | json }},
+    "tolls": {{ block.settings.tolls | json }},
+    "priority": {{ block.settings.priority | json }},
+    "showPublic": {{ block.settings.show_public | json }}
+  }{% unless forloop.last %},{% endunless %}
+{%- endfor -%}
+]
+</script>
+{%- if request.design_mode -%}
+  <div class="tp-config-panel" {{ section.shopify_attributes }}>
+    <strong>Configuration Taxi Pro · Zones</strong> : {{ section.blocks.size }} zone(s)
+    {%- if section.blocks.size > 0 %} :
+      {% for block in section.blocks %}{{ block.settings.name }} [{{ block.settings.code | default: block.settings.name | handleize }}]{% if block.settings.polygon == blank and block.settings.lat == blank %} <span class="tp-warn">(coordonnées manquantes)</span>{% endif %}{% unless forloop.last %}, {% endunless %}{% endfor %}.
+    {%- endif %}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Zones (tarifs)",
+  "tag": "div",
+  "class": "tp-config",
+  "max_blocks": 50,
+  "enabled_on": { "groups": ["custom.taxi-config"] },
+  "settings": [
+    { "type": "paragraph", "content": "Coordonnées : dans Google Maps, clic droit sur un lieu puis cliquez sur les chiffres pour les copier (latitude, longitude). En cas de règles concurrentes, la zone tarifaire de plus haute priorité s'applique." }
+  ],
+  "blocks": [
+    {
+      "type": "zone",
+      "name": "Zone",
+      "settings": [
+        { "type": "checkbox", "id": "enabled", "label": "Activer cette zone", "default": true },
+        { "type": "text", "id": "name", "label": "Nom", "default": "Aéroport" },
+        { "type": "text", "id": "code", "label": "Code", "info": "Identifiant court sans espace (ex. bru). Les forfaits désignent leurs zones par ce code." },
+        {
+          "type": "select", "id": "type", "label": "Type",
+          "options": [
+            { "value": "airport", "label": "Aéroport (supplément aéroport, numéro de vol)" },
+            { "value": "station", "label": "Gare (supplément éventuel)" },
+            { "value": "pricing", "label": "Zone tarifaire (tarif propre)" },
+            { "value": "area", "label": "Zone de référence (pour les forfaits)" },
+            { "value": "service", "label": "Zone d'intervention supplémentaire" },
+            { "value": "forbidden", "label": "Zone interdite (non desservie)" }
+          ],
+          "default": "airport"
+        },
+        { "type": "header", "content": "Forme" },
+        { "type": "text", "id": "lat", "label": "Latitude du centre", "info": "Ex. : 50.9010" },
+        { "type": "text", "id": "lng", "label": "Longitude du centre", "info": "Ex. : 4.4844" },
+        { "type": "text", "id": "radius_km", "label": "Rayon (km)", "default": "3" },
+        { "type": "textarea", "id": "polygon", "label": "Ou polygone (facultatif)", "info": "Une ligne « latitude, longitude » par sommet, 3 sommets minimum. Remplace le cercle." },
+        {
+          "type": "select", "id": "applies_on", "label": "S'applique quand",
+          "options": [
+            { "value": "either", "label": "Le départ ou l'arrivée est dans la zone" },
+            { "value": "pickup", "label": "Le départ est dans la zone" },
+            { "value": "dropoff", "label": "L'arrivée est dans la zone" },
+            { "value": "both", "label": "Le départ et l'arrivée sont dans la zone" }
+          ],
+          "default": "either",
+          "info": "Pour les gares et zones tarifaires. Le supplément aéroport s'applique au départ comme à l'arrivée."
+        },
+        { "type": "header", "content": "Prix (champs vides = sans effet)" },
+        { "type": "text", "id": "surcharge", "label": "Supplément fixe", "info": "Aéroport : remplace le montant par défaut des réglages." },
+        { "type": "text", "id": "multiplier", "label": "Coefficient (zone tarifaire)" },
+        { "type": "text", "id": "base", "label": "Prise en charge (zone tarifaire)" },
+        { "type": "text", "id": "per_km", "label": "Prix au km (zone tarifaire)" },
+        { "type": "text", "id": "per_min", "label": "Prix par minute (zone tarifaire)" },
+        { "type": "text", "id": "minimum", "label": "Minimum (zone tarifaire)" },
+        { "type": "text", "id": "tolls", "label": "Péages (zone tarifaire)" },
+        { "type": "number", "id": "priority", "label": "Priorité", "default": 10, "info": "La zone tarifaire de plus haute priorité l'emporte." },
+        { "type": "checkbox", "id": "show_public", "label": "Afficher dans la liste des zones desservies", "default": true }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Zones (tarifs)" }
+  ]
+}
+{% endschema %}

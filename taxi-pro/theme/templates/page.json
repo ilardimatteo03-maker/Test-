@@ -1,0 +1,27 @@
+{
+  "sections": {
+    "header": {
+      "type": "page-header",
+      "settings": {
+        "color_scheme": "alt",
+        "breadcrumbs": true,
+        "padding_top": 88,
+        "padding_bottom": 48
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "show_title": false,
+        "show_legal": false,
+        "color_scheme": "default",
+        "padding_top": 56,
+        "padding_bottom": 96
+      }
+    }
+  },
+  "order": [
+    "header",
+    "main"
+  ]
+}

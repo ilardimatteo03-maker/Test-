@@ -1,0 +1,21 @@
+<section class="section scheme-default" style="--pad-top: 96px; --pad-bottom: 96px;">
+  <div class="container">
+    <h1 class="h2">{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}<div class="rte lead">{{ collection.description }}</div>{%- endif -%}
+    {%- paginate collection.products by 12 -%}
+      {%- if collection.products.size == 0 -%}<p class="text-muted">{{ 'pages.products_empty' | t }}</p>{%- endif -%}
+      <div class="grid product-grid" style="--cols: 4; margin-top: 2rem">
+        {%- for product in collection.products -%}
+          <a class="card card--hover" href="{{ product.url }}">
+            <div class="card__media" style="--ratio: 1 / 1">{%- if product.featured_image -%}{{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 25vw, 50vw', widths: '300, 450, 600', alt: product.featured_image.alt | default: product.title }}{%- else -%}<div class="media-placeholder">{% render 'icon', name: 'card' %}</div>{%- endif -%}</div>
+            <div class="card__body"><h2 class="card__title">{{ product.title }}</h2><p class="price" style="margin:0">{{ product.price | money }}</p></div>
+          </a>
+        {%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 -%}<div class="pagination">{{ paginate | default_pagination }}</div>{%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+{% schema %}
+{ "name": "Collection", "tag": "div", "class": "section-main-collection", "settings": [] }
+{% endschema %}

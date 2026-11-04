@@ -1,0 +1,29 @@
+{%- comment -%}
+  Champ d'adresse avec autocomplétion (piloté par assets/tp-booking.js).
+  Paramètres : key ('pickup' | 'dropoff'), uid (identifiant unique), label, placeholder, locate (booléen), icon
+{%- endcomment -%}
+<div class="tp-address" data-tp-address="{{ key }}">
+  <label class="field__label" for="{{ uid }}-{{ key }}">{{ label }}</label>
+  <div class="tp-address__control">
+    <span class="tp-address__icon tp-address__icon--{{ key }}" aria-hidden="true"></span>
+    <input
+      class="input tp-address__input"
+      id="{{ uid }}-{{ key }}"
+      name="{{ key }}"
+      type="text"
+      inputmode="search"
+      enterkeyhint="search"
+      spellcheck="false"
+      placeholder="{{ placeholder }}"
+      data-tp-input
+    >
+    <span class="tp-address__spinner tp-spinner" aria-hidden="true"></span>
+    {%- if locate -%}
+      <button type="button" class="tp-address__locate" data-tp-locate aria-label="{{ 'taxi.booking.locate' | t }}" title="{{ 'taxi.booking.locate' | t }}">
+        {%- render 'icon', name: 'locate' -%}
+      </button>
+    {%- endif -%}
+    <ul class="tp-ac" role="listbox" aria-label="{{ label }}" data-tp-listbox hidden></ul>
+  </div>
+  <p class="tp-address__status" data-tp-address-status aria-live="polite"></p>
+</div>

@@ -1,0 +1,77 @@
+{%- comment -%}
+  Variables CSS du thème.
+  1. snippets/palette.liquid : préréglage choisi + couleurs personnalisées.
+  2. Typographie, arrondis, ombres et espacements viennent des réglages du thème.
+{%- endcomment -%}
+{%- liquid
+  assign heading_font = settings.type_heading_font
+  assign heading_weight = heading_font.weight
+  if settings.type_heading_weight == 'bolder'
+    assign heading_font_alt = heading_font | font_modify: 'weight', 'bolder'
+    if heading_font_alt
+      assign heading_weight = heading_font_alt.weight
+    endif
+  elsif settings.type_heading_weight == 'lighter'
+    assign heading_font_alt = heading_font | font_modify: 'weight', 'lighter'
+    if heading_font_alt
+      assign heading_weight = heading_font_alt.weight
+    endif
+  endif
+  assign body_font = settings.type_body_font
+  assign body_font_bold = body_font | font_modify: 'weight', 'bold'
+  assign body_font_medium = body_font | font_modify: 'weight', '+100'
+  assign body_font_italic = body_font | font_modify: 'style', 'italic'
+
+  case settings.shadow_strength
+    when 'none'
+      assign shadow_sm = 'none'
+      assign shadow_lg = 'none'
+    when 'strong'
+      assign shadow_sm = '0 6px 18px rgba(0,0,0,.18)'
+      assign shadow_lg = '0 24px 60px rgba(0,0,0,.28)'
+    else
+      assign shadow_sm = '0 2px 10px rgba(0,0,0,.08)'
+      assign shadow_lg = '0 18px 48px rgba(0,0,0,.14)'
+  endcase
+-%}
+<style>
+  {{ heading_font | font_face: font_display: 'swap' }}
+  {%- if heading_font_alt %}{{ heading_font_alt | font_face: font_display: 'swap' }}{% endif %}
+  {{ body_font | font_face: font_display: 'swap' }}
+  {%- if body_font_bold %}{{ body_font_bold | font_face: font_display: 'swap' }}{% endif %}
+  {%- if body_font_medium %}{{ body_font_medium | font_face: font_display: 'swap' }}{% endif %}
+  {%- if body_font_italic %}{{ body_font_italic | font_face: font_display: 'swap' }}{% endif %}
+
+  :root {
+    {% render 'palette', format: 'css' %}
+    --c-success: {{ settings.color_success | default: '#1F8A5B' }};
+    --c-error: {{ settings.color_error | default: '#C8372D' }};
+
+    --font-heading: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+    --font-heading-weight: {{ heading_weight }};
+    --font-heading-style: {{ heading_font.style }};
+    --font-body: {{ body_font.family }}, {{ body_font.fallback_families }};
+    --font-body-weight: {{ body_font.weight }};
+    --font-body-weight-medium: {{ body_font_medium.weight | default: 500 }};
+    --font-body-weight-bold: {{ body_font_bold.weight | default: 700 }};
+    --heading-scale: {{ settings.type_heading_scale | divided_by: 100.0 }};
+    --heading-case: {{ settings.type_heading_case }};
+    --heading-spacing: {{ settings.type_heading_spacing | divided_by: 100.0 }}em;
+    --eyebrow-case: {{ settings.type_eyebrow_case }};
+    --eyebrow-spacing: {% if settings.type_eyebrow_case == 'uppercase' %}.16em{% else %}.01em{% endif %};
+    --body-size: {{ settings.type_body_size }}px;
+
+    --radius-btn: {{ settings.radius_buttons }}px;
+    --radius-card: {{ settings.radius_cards }}px;
+    --radius-input: {{ settings.radius_inputs }}px;
+    --btn-case: {{ settings.button_case }};
+    --btn-spacing: {% if settings.button_case == 'uppercase' %}.12em{% else %}0{% endif %};
+    --shadow-sm: {{ shadow_sm }};
+    --shadow-lg: {{ shadow_lg }};
+
+    --page-width: {{ settings.page_width }}px;
+    --space-scale: {{ settings.spacing_scale | divided_by: 100.0 }};
+    --logo-width: {{ settings.logo_width }}px;
+    --logo-width-mobile: {{ settings.logo_width_mobile }}px;
+  }
+</style>

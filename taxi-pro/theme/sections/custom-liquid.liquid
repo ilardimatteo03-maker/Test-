@@ -1,0 +1,19 @@
+{%- assign s = section.settings -%}
+<div class="section scheme-{{ s.color_scheme }}" style="--pad-top: {{ s.padding_top }}px; --pad-bottom: {{ s.padding_bottom }}px;">
+  <div class="container">{{ s.custom_liquid }}</div>
+</div>
+
+{% schema %}
+{
+  "name": "Liquid personnalisé",
+  "tag": "section",
+  "class": "section-custom-liquid",
+  "settings": [
+    { "type": "liquid", "id": "custom_liquid", "label": "Code Liquid ou HTML", "info": "Pour intégrer un widget d'avis, un outil de suivi ou une application." },
+    { "type": "select", "id": "color_scheme", "label": "Couleurs", "options": [ { "value": "default", "label": "Principal" }, { "value": "alt", "label": "Secondaire" }, { "value": "inverse", "label": "Contrasté" } ], "default": "default" },
+    { "type": "range", "id": "padding_top", "label": "Marge haute", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "label": "Marge basse", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 48 }
+  ],
+  "presets": [ { "name": "Liquid personnalisé" } ]
+}
+{% endschema %}

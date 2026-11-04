@@ -1,0 +1,112 @@
+{
+  "sections": {
+    "header": {
+      "type": "page-header",
+      "settings": {
+        "eyebrow": "Réservation",
+        "text": "<p>Calculez votre prix et réservez en quelques étapes.</p>",
+        "align": "left",
+        "breadcrumbs": true,
+        "color_scheme": "inverse",
+        "padding_top": 88,
+        "padding_bottom": 56
+      }
+    },
+    "booking": {
+      "type": "booking",
+      "settings": {
+        "align": "left",
+        "anchor": "reservation",
+        "show_aside": true,
+        "show_help": true,
+        "help_text": "Une question ? Appelez-nous.",
+        "color_scheme": "alt",
+        "width": "default",
+        "padding_top": 56,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "point_1": {
+          "type": "point",
+          "settings": {
+            "icon": "euro",
+            "text": "Prix calculé selon nos tarifs, sans surprise"
+          }
+        },
+        "point_2": {
+          "type": "point",
+          "settings": {
+            "icon": "shield",
+            "text": "Chauffeurs professionnels et licenciés"
+          }
+        },
+        "point_3": {
+          "type": "point",
+          "settings": {
+            "icon": "headset",
+            "text": "Confirmation par e-mail ou par téléphone"
+          }
+        }
+      },
+      "block_order": [
+        "point_1",
+        "point_2",
+        "point_3"
+      ]
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "eyebrow": "Questions fréquentes",
+        "heading": "Avant de réserver",
+        "layout": "split",
+        "open_first": false,
+        "structured_data": true,
+        "color_scheme": "default",
+        "padding_top": 88,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "question_1": {
+          "type": "question",
+          "settings": {
+            "question": "Comment est calculé le prix ?",
+            "answer": "<p>Le prix comprend une prise en charge et un prix au kilomètre, auxquels s'ajoutent les éventuels suppléments (nuit, dimanche, aéroport, options). Certains trajets fréquents ont un prix fixe. Le détail est affiché avant la réservation.</p>"
+          }
+        },
+        "question_2": {
+          "type": "question",
+          "settings": {
+            "question": "Ma réservation est-elle confirmée immédiatement ?",
+            "answer": "<p>Vous recevez un accusé de réception dès l'envoi. La réservation est confirmée après vérification de la disponibilité ou dès réception du paiement en ligne.</p>"
+          }
+        },
+        "question_3": {
+          "type": "question",
+          "settings": {
+            "question": "Que se passe-t-il si mon vol est en retard ?",
+            "answer": "<p>Indiquez votre numéro de vol : nous suivons votre arrivée et adaptons l'heure de prise en charge.</p>"
+          }
+        },
+        "question_4": {
+          "type": "question",
+          "settings": {
+            "question": "Puis-je payer par carte ?",
+            "answer": "<p>Oui : en ligne lors de la réservation ou à bord du véhicule. Les espèces sont également acceptées.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_1",
+        "question_2",
+        "question_3",
+        "question_4"
+      ]
+    }
+  },
+  "order": [
+    "header",
+    "booking",
+    "faq"
+  ]
+}

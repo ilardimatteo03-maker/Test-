@@ -1,0 +1,19 @@
+{%- comment -%}
+  Sélecteur de quantité accessible (boutons − / +).
+  Paramètres : key, uid, label, value, min, max, icon
+{%- endcomment -%}
+<div class="field">
+  <label class="field__label" for="{{ uid }}-{{ key }}">{{ label }}</label>
+  <div class="tp-stepper" data-tp-stepper="{{ key }}">
+    <button type="button" class="tp-stepper__btn" data-tp-dec aria-label="{{ 'taxi.booking.decrease' | t }} : {{ label }}">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 12h12"/></svg>
+    </button>
+    <span class="tp-stepper__value">
+      {%- if icon != blank %}{% render 'icon', name: icon %}{% endif -%}
+      <input id="{{ uid }}-{{ key }}" type="number" inputmode="numeric" name="{{ key }}" value="{{ value | default: 0 }}" min="{{ min | default: 0 }}" max="{{ max | default: 99 }}">
+    </span>
+    <button type="button" class="tp-stepper__btn" data-tp-inc aria-label="{{ 'taxi.booking.increase' | t }} : {{ label }}">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg>
+    </button>
+  </div>
+</div>

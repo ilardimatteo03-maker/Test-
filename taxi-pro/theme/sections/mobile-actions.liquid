@@ -1,0 +1,44 @@
+{%- comment -%}
+  Barre d'actions mobile (appeler, réserver, WhatsApp) et bouton WhatsApp flottant.
+  Masquée automatiquement sur les pages qui contiennent le module de réservation.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign phone_href = settings.company_phone | remove: ' ' | remove: '.' | remove: '-' | remove: '(' | remove: ')' | remove: '/'
+  assign wa = settings.company_whatsapp | remove: '+' | remove: ' '
+  assign cta_url = s.book_link | default: settings.booking_page.url | default: '#reservation'
+-%}
+{%- if s.show_bar -%}
+  <div class="mobile-bar scheme-{{ s.color_scheme }}" data-mobile-bar>
+    {%- if settings.company_phone != blank -%}
+      <a class="btn btn--secondary" href="tel:{{ phone_href }}">{% render 'icon', name: 'phone' %}{{ s.call_label }}</a>
+    {%- endif -%}
+    {%- if s.show_whatsapp_bar and wa != blank -%}
+      <a class="btn btn--secondary" href="https://wa.me/{{ wa }}" target="_blank" rel="noopener">{% render 'icon', name: 'whatsapp' %}{{ 'general.whatsapp' | t }}</a>
+    {%- endif -%}
+    <a class="btn" href="{{ cta_url }}">{{ s.book_label }}</a>
+  </div>
+  <script>document.body.classList.add('has-mobile-bar');</script>
+{%- endif -%}
+{%- if s.show_whatsapp_float and wa != blank -%}
+  <a class="floating-whatsapp" href="https://wa.me/{{ wa }}" target="_blank" rel="noopener" aria-label="WhatsApp">{% render 'icon', name: 'whatsapp' %}</a>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Actions rapides mobile",
+  "tag": "div",
+  "class": "section-mobile-actions",
+  "enabled_on": { "groups": ["footer"] },
+  "settings": [
+    { "type": "checkbox", "id": "show_bar", "label": "Barre « Appeler / Réserver » en bas de l'écran mobile", "default": true },
+    { "type": "text", "id": "call_label", "label": "Texte du bouton d'appel", "default": "Appeler" },
+    { "type": "text", "id": "book_label", "label": "Texte du bouton de réservation", "default": "Réserver" },
+    { "type": "url", "id": "book_link", "label": "Lien de réservation", "info": "Vide : page de réservation des réglages du thème." },
+    { "type": "checkbox", "id": "show_whatsapp_bar", "label": "Bouton WhatsApp dans la barre", "default": false },
+    { "type": "checkbox", "id": "show_whatsapp_float", "label": "Bouton WhatsApp flottant", "default": false, "info": "Nécessite un numéro WhatsApp dans les réglages du thème." },
+    { "type": "select", "id": "color_scheme", "label": "Couleurs", "options": [ { "value": "default", "label": "Principal" }, { "value": "alt", "label": "Secondaire" }, { "value": "inverse", "label": "Contrasté" } ], "default": "default" }
+  ],
+  "presets": [ { "name": "Actions rapides mobile" } ]
+}
+{% endschema %}

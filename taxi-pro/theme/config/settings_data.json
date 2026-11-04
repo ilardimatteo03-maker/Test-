@@ -1,0 +1,84 @@
+{
+  "current": {
+    "style_preset": "premium_black",
+    "type_heading_font": "cormorant_n6",
+    "type_body_font": "outfit_n4",
+    "type_heading_scale": 105,
+    "type_heading_case": "none",
+    "radius_buttons": 2,
+    "radius_cards": 4,
+    "radius_inputs": 2,
+    "button_case": "uppercase",
+    "card_style": "bordered"
+  },
+  "presets": {
+    "Premium Black": {
+      "style_preset": "premium_black",
+      "type_heading_font": "cormorant_n6",
+      "type_body_font": "outfit_n4",
+      "type_heading_scale": 105,
+      "type_heading_case": "none",
+      "radius_buttons": 2,
+      "radius_cards": 4,
+      "radius_inputs": 2,
+      "button_case": "uppercase",
+      "card_style": "bordered"
+    },
+    "Corporate": {
+      "style_preset": "corporate",
+      "type_heading_font": "archivo_n7",
+      "type_body_font": "archivo_n4",
+      "type_heading_scale": 95,
+      "type_heading_case": "none",
+      "type_heading_spacing": -2,
+      "radius_buttons": 8,
+      "radius_cards": 12,
+      "radius_inputs": 8,
+      "button_case": "none",
+      "card_style": "elevated"
+    },
+    "Modern Taxi": {
+      "style_preset": "modern_taxi",
+      "type_heading_font": "outfit_n7",
+      "type_body_font": "outfit_n4",
+      "type_heading_scale": 100,
+      "type_heading_case": "none",
+      "type_heading_spacing": -2,
+      "radius_buttons": 40,
+      "radius_cards": 20,
+      "radius_inputs": 12,
+      "button_case": "none",
+      "card_style": "flat",
+      "button_style": "shadow"
+    },
+    "Luxury Chauffeur": {
+      "style_preset": "luxury_chauffeur",
+      "type_heading_font": "playfair_display_n4",
+      "type_body_font": "geist_n4",
+      "type_heading_scale": 105,
+      "type_heading_case": "none",
+      "radius_buttons": 0,
+      "radius_cards": 0,
+      "radius_inputs": 0,
+      "button_case": "uppercase",
+      "input_style": "underline",
+      "card_style": "bordered",
+      "shadow_strength": "none"
+    },
+    "Minimal": {
+      "style_preset": "minimal",
+      "type_heading_font": "geist_n5",
+      "type_body_font": "geist_n4",
+      "type_heading_scale": 90,
+      "type_heading_case": "none",
+      "type_heading_spacing": -3,
+      "radius_buttons": 6,
+      "radius_cards": 8,
+      "radius_inputs": 6,
+      "button_case": "none",
+      "card_style": "bordered",
+      "shadow_strength": "none",
+      "animations": "subtle"
+    }
+  }
+}

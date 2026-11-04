@@ -1,0 +1,626 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow": "Taxi & chauffeur privé · 24 h/24",
+        "heading": "Votre taxi, réservé en un instant.",
+        "subheading": "<p>Prix affiché avant de réserver, chauffeurs professionnels, transferts aéroport et longues distances.</p>",
+        "button_label": "Réserver un taxi",
+        "show_call": true,
+        "show_widget": true,
+        "widget_position": "side",
+        "widget_title": "Estimez votre course",
+        "widget_button": "Voir les prix",
+        "height": "large",
+        "overlay": 55,
+        "align": "left",
+        "align_y": "center",
+        "color_scheme": "default"
+      },
+      "blocks": {
+        "trust_1": {
+          "type": "trust",
+          "settings": {
+            "icon": "euro",
+            "text": "Prix connu à l'avance"
+          }
+        },
+        "trust_2": {
+          "type": "trust",
+          "settings": {
+            "icon": "clock",
+            "text": "Disponible 24 h/24"
+          }
+        },
+        "trust_3": {
+          "type": "trust",
+          "settings": {
+            "icon": "plane",
+            "text": "Suivi des vols"
+          }
+        }
+      },
+      "block_order": [
+        "trust_1",
+        "trust_2",
+        "trust_3"
+      ]
+    },
+    "services": {
+      "type": "services",
+      "settings": {
+        "eyebrow": "Nos services",
+        "heading": "Un trajet pour chaque besoin",
+        "align": "left",
+        "link_label": "Tous nos services",
+        "link_url": "/pages/services",
+        "layout": "cards",
+        "columns": "3",
+        "card_media": "icon",
+        "show_book": true,
+        "book_label": "Réserver",
+        "color_scheme": "default",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "service_1": {
+          "type": "service",
+          "settings": {
+            "icon": "car",
+            "title": "Taxi classique",
+            "code": "taxi",
+            "text": "<p>Vos trajets du quotidien, en ville comme en périphérie, de jour comme de nuit.</p>",
+            "features": "Prise en charge rapide\nPaiement par carte à bord\nTous trajets, même courts"
+          }
+        },
+        "service_2": {
+          "type": "service",
+          "settings": {
+            "icon": "plane",
+            "title": "Transfert aéroport",
+            "code": "aeroport",
+            "text": "<p>Suivi de vol, accueil personnalisé et prix fixes vers les aéroports.</p>",
+            "features": "Suivi de votre vol\nAccueil avec pancarte sur demande\nForfaits aéroport"
+          }
+        },
+        "service_3": {
+          "type": "service",
+          "settings": {
+            "icon": "briefcase",
+            "title": "Transport professionnel",
+            "code": "affaires",
+            "text": "<p>Rendez-vous d'affaires et séminaires, facturation au nom de votre société.</p>",
+            "features": "Facture société\nVéhicules premium\nChauffeurs discrets"
+          }
+        },
+        "service_4": {
+          "type": "service",
+          "settings": {
+            "icon": "route",
+            "title": "Longue distance",
+            "code": "longue-distance",
+            "text": "<p>Trajets interurbains et vers l'étranger, en toute sérénité.</p>",
+            "features": "Belgique, France, Luxembourg, Pays-Bas\nPauses à la demande\nPrix sur devis au-delà de la zone"
+          }
+        },
+        "service_5": {
+          "type": "service",
+          "settings": {
+            "icon": "party",
+            "title": "Transport événementiel",
+            "code": "evenement",
+            "text": "<p>Mariages, galas, concerts : un chauffeur dédié à votre événement.</p>",
+            "features": "Véhicules décorés sur demande\nNavettes pour vos invités\nRetour en toute sécurité"
+          }
+        },
+        "service_6": {
+          "type": "service",
+          "settings": {
+            "icon": "clock",
+            "title": "Mise à disposition",
+            "code": "mise-a-disposition",
+            "text": "<p>Un chauffeur et son véhicule à l'heure, pour toutes vos étapes.</p>",
+            "features": "Tarif horaire\nItinéraire libre\nAttente incluse"
+          }
+        }
+      },
+      "block_order": [
+        "service_1",
+        "service_2",
+        "service_3",
+        "service_4",
+        "service_5",
+        "service_6"
+      ]
+    },
+    "steps": {
+      "type": "steps",
+      "settings": {
+        "eyebrow": "Simple et rapide",
+        "heading": "Réserver en trois étapes",
+        "align": "left",
+        "color_scheme": "alt",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Indiquez votre trajet",
+            "text": "<p>Départ, arrivée, date et heure : la distance est calculée automatiquement.</p>"
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Choisissez votre véhicule",
+            "text": "<p>Le prix de chaque véhicule s'affiche avant de réserver.</p>"
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Confirmez",
+            "text": "<p>Payez en ligne ou à bord. Vous recevez la confirmation par e-mail.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ]
+    },
+    "fleet": {
+      "type": "fleet",
+      "settings": {
+        "eyebrow": "Notre flotte",
+        "heading": "Des véhicules récents et entretenus",
+        "align": "left",
+        "link_label": "Voir la flotte",
+        "link_url": "/pages/vehicules",
+        "layout": "cards",
+        "columns": "4",
+        "show_book": true,
+        "book_label": "Réserver ce véhicule",
+        "color_scheme": "default",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "vehicle_1": {
+          "type": "vehicle",
+          "settings": {
+            "name": "Berline",
+            "code": "berline",
+            "models": "Toyota Camry hybride ou similaire",
+            "passengers": 4,
+            "luggage": 3,
+            "badge": "Le plus demandé",
+            "text": "<p>Confortable et discrète, idéale en ville et vers l'aéroport.</p>",
+            "equipment": "Climatisation\nChargeurs USB\nEau offerte"
+          }
+        },
+        "vehicle_2": {
+          "type": "vehicle",
+          "settings": {
+            "name": "Break",
+            "code": "break",
+            "models": "Skoda Superb Combi ou similaire",
+            "passengers": 4,
+            "luggage": 5,
+            "text": "<p>Plus de place pour les bagages, parfait pour les départs en vacances.</p>",
+            "equipment": "Climatisation\nGrand coffre"
+          }
+        },
+        "vehicle_3": {
+          "type": "vehicle",
+          "settings": {
+            "name": "Van 8 places",
+            "code": "van",
+            "models": "Mercedes Classe V ou similaire",
+            "passengers": 8,
+            "luggage": 8,
+            "text": "<p>Pour les familles et les groupes, avec de la place pour tous les bagages.</p>",
+            "equipment": "Climatisation\nWi-Fi\nPortes coulissantes"
+          }
+        },
+        "vehicle_4": {
+          "type": "vehicle",
+          "settings": {
+            "name": "Classe affaires",
+            "code": "affaires",
+            "models": "Mercedes Classe E ou similaire",
+            "passengers": 3,
+            "luggage": 3,
+            "badge": "Premium",
+            "text": "<p>Berline premium, chauffeur en tenue, presse et Wi-Fi à bord.</p>",
+            "equipment": "Wi-Fi\nSièges cuir\nPresse du jour"
+          }
+        }
+      },
+      "block_order": [
+        "vehicle_1",
+        "vehicle_2",
+        "vehicle_3",
+        "vehicle_4"
+      ]
+    },
+    "features": {
+      "type": "features",
+      "settings": {
+        "eyebrow": "Pourquoi nous choisir",
+        "heading": "Le confort d'un chauffeur, la simplicité d'un taxi",
+        "align": "center",
+        "style": "boxed",
+        "columns": "3",
+        "color_scheme": "alt",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "euro",
+            "title": "Prix annoncé à l'avance",
+            "text": "<p>Le prix est calculé avant la réservation, selon nos tarifs publics.</p>"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "clock",
+            "title": "Ponctualité",
+            "text": "<p>Votre chauffeur arrive à l'heure, et suit votre vol en cas de retard.</p>"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "title": "Chauffeurs professionnels",
+            "text": "<p>Licenciés, expérimentés, discrets et courtois.</p>"
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "card",
+            "title": "Paiement simple",
+            "text": "<p>En ligne, par carte ou en espèces à bord.</p>"
+          }
+        },
+        "feature_5": {
+          "type": "feature",
+          "settings": {
+            "icon": "headset",
+            "title": "Joignables 24 h/24",
+            "text": "<p>Une question, un changement ? Nous répondons à toute heure.</p>"
+          }
+        },
+        "feature_6": {
+          "type": "feature",
+          "settings": {
+            "icon": "award",
+            "title": "Véhicules entretenus",
+            "text": "<p>Récents, propres et contrôlés régulièrement.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4",
+        "feature_5",
+        "feature_6"
+      ]
+    },
+    "stats": {
+      "type": "stats",
+      "settings": {
+        "animate": true,
+        "divided": true,
+        "align": "left",
+        "color_scheme": "inverse",
+        "padding_top": 72,
+        "padding_bottom": 72
+      },
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "value": "15",
+            "suffix": " ans",
+            "label": "d'expérience"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "value": "24",
+            "suffix": " h/24",
+            "label": "disponibles, 7 jours sur 7"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "value": "4.9",
+            "suffix": "/5",
+            "label": "note moyenne de nos clients"
+          }
+        },
+        "stat_4": {
+          "type": "stat",
+          "settings": {
+            "value": "12000",
+            "prefix": "+",
+            "label": "courses par an"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4"
+      ]
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {
+        "eyebrow": "Avis clients",
+        "heading": "Ils nous font confiance",
+        "rating": "4,9",
+        "rating_text": "sur Google",
+        "google_label": "Voir tous les avis",
+        "per_view": "3",
+        "color_scheme": "default",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "quote": "Chauffeur ponctuel et très aimable. Le prix annoncé à la réservation était exactement celui payé.",
+            "author": "Sophie D.",
+            "meta": "Transfert aéroport"
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "quote": "Réservation en deux minutes depuis mon téléphone, véhicule impeccable. Je recommande.",
+            "author": "Marc V.",
+            "meta": "Taxi classique"
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "quote": "Nous utilisons ce service pour nos clients en visite : fiable, discret, facture au nom de la société.",
+            "author": "Claire M.",
+            "meta": "Transport professionnel"
+          }
+        },
+        "review_4": {
+          "type": "review",
+          "settings": {
+            "rating": 4,
+            "quote": "Le van 8 places était parfait pour la famille et les bagages. Merci !",
+            "author": "Ahmed B.",
+            "meta": "Départ en vacances"
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4"
+      ]
+    },
+    "zones": {
+      "type": "zones",
+      "settings": {
+        "eyebrow": "Zones desservies",
+        "heading": "Partout dans la région, et au-delà",
+        "text": "<p>Nous assurons vos trajets en ville, vers les aéroports et les gares, et sur longue distance.</p>",
+        "note": "<p>Votre destination n'est pas dans la liste ? Demandez un devis : nous allons partout.</p>",
+        "button_label": "Calculer mon trajet",
+        "show_map": true,
+        "map_provider": "osm",
+        "map_zoom": 10,
+        "map_consent": true,
+        "color_scheme": "alt",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "zone_1": {
+          "type": "zone",
+          "settings": {
+            "name": "Bruxelles",
+            "icon": "building"
+          }
+        },
+        "zone_2": {
+          "type": "zone",
+          "settings": {
+            "name": "Brussels Airport",
+            "icon": "plane"
+          }
+        },
+        "zone_3": {
+          "type": "zone",
+          "settings": {
+            "name": "Charleroi Airport",
+            "icon": "plane"
+          }
+        },
+        "zone_4": {
+          "type": "zone",
+          "settings": {
+            "name": "Gare du Midi",
+            "icon": "train"
+          }
+        },
+        "zone_5": {
+          "type": "zone",
+          "settings": {
+            "name": "Gare du Nord",
+            "icon": "train"
+          }
+        },
+        "zone_6": {
+          "type": "zone",
+          "settings": {
+            "name": "Louvain",
+            "icon": "pin"
+          }
+        },
+        "zone_7": {
+          "type": "zone",
+          "settings": {
+            "name": "Wavre",
+            "icon": "pin"
+          }
+        },
+        "zone_8": {
+          "type": "zone",
+          "settings": {
+            "name": "Anvers",
+            "icon": "pin"
+          }
+        },
+        "zone_9": {
+          "type": "zone",
+          "settings": {
+            "name": "Luxembourg",
+            "icon": "globe"
+          }
+        },
+        "zone_10": {
+          "type": "zone",
+          "settings": {
+            "name": "Paris",
+            "icon": "globe"
+          }
+        }
+      },
+      "block_order": [
+        "zone_1",
+        "zone_2",
+        "zone_3",
+        "zone_4",
+        "zone_5",
+        "zone_6",
+        "zone_7",
+        "zone_8",
+        "zone_9",
+        "zone_10"
+      ]
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "eyebrow": "Questions fréquentes",
+        "heading": "Tout savoir avant de réserver",
+        "button_label": "Nous contacter",
+        "button_link": "/pages/contact",
+        "layout": "split",
+        "open_first": true,
+        "structured_data": true,
+        "color_scheme": "default",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "question_1": {
+          "type": "question",
+          "settings": {
+            "question": "Comment est calculé le prix ?",
+            "answer": "<p>Le prix comprend une prise en charge et un prix au kilomètre, auxquels s'ajoutent les éventuels suppléments (nuit, dimanche, aéroport, options). Certains trajets fréquents ont un prix fixe. Le détail est affiché avant la réservation.</p>"
+          }
+        },
+        "question_2": {
+          "type": "question",
+          "settings": {
+            "question": "Ma réservation est-elle confirmée immédiatement ?",
+            "answer": "<p>Vous recevez un accusé de réception dès l'envoi. La réservation est confirmée après vérification de la disponibilité ou dès réception du paiement en ligne.</p>"
+          }
+        },
+        "question_3": {
+          "type": "question",
+          "settings": {
+            "question": "Que se passe-t-il si mon vol est en retard ?",
+            "answer": "<p>Indiquez votre numéro de vol : nous suivons votre arrivée et adaptons l'heure de prise en charge.</p>"
+          }
+        },
+        "question_4": {
+          "type": "question",
+          "settings": {
+            "question": "Puis-je payer par carte ?",
+            "answer": "<p>Oui : en ligne lors de la réservation ou à bord du véhicule. Les espèces sont également acceptées.</p>"
+          }
+        },
+        "question_5": {
+          "type": "question",
+          "settings": {
+            "question": "Proposez-vous des sièges pour enfants ?",
+            "answer": "<p>Oui : sièges bébé, sièges enfant et rehausseurs, en option lors de la réservation.</p>"
+          }
+        },
+        "question_6": {
+          "type": "question",
+          "settings": {
+            "question": "Comment modifier ou annuler une réservation ?",
+            "answer": "<p>Contactez-nous par téléphone ou par e-mail en indiquant votre référence de réservation.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_1",
+        "question_2",
+        "question_3",
+        "question_4",
+        "question_5",
+        "question_6"
+      ]
+    },
+    "cta": {
+      "type": "cta-banner",
+      "settings": {
+        "eyebrow": "24 h/24, 7 j/7",
+        "heading": "Besoin d'un taxi maintenant ?",
+        "text": "<p>Réservez en ligne en deux minutes ou appelez-nous directement.</p>",
+        "button_label": "Réserver en ligne",
+        "show_phone": true,
+        "color_scheme": "accent",
+        "padding_top": 48,
+        "padding_bottom": 96
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "services",
+    "steps",
+    "fleet",
+    "features",
+    "stats",
+    "testimonials",
+    "zones",
+    "faq",
+    "cta"
+  ]
+}

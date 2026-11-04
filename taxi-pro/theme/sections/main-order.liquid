@@ -1,0 +1,18 @@
+<section class="section scheme-default" style="--pad-top: 96px; --pad-bottom: 96px;">
+  <div class="container container--narrow">
+    <p><a href="{{ routes.account_url }}">{{ 'customer.back_account' | t }}</a></p>
+    <h1 class="h2">{{ 'customer.order' | t: name: order.name }}</h1>
+    <p class="text-muted">{{ order.created_at | time_tag: format: 'date_at_time' }} · {{ order.financial_status_label }}</p>
+    <table class="rate-table"><tbody>
+      {%- for line_item in order.line_items -%}
+        <tr><th scope="row">{{ line_item.title }} × {{ line_item.quantity }}
+          {%- for p in line_item.properties -%}{%- unless p.last == blank -%}<small>{{ p.first }} : {{ p.last }}</small>{%- endunless -%}{%- endfor -%}
+        </th><td>{{ line_item.final_line_price | money }}</td></tr>
+      {%- endfor -%}
+      <tr><th scope="row">{{ 'customer.total' | t }}</th><td>{{ order.total_price | money }}</td></tr>
+    </tbody></table>
+  </div>
+</section>
+{% schema %}
+{ "name": "Commande", "tag": "div", "class": "section-main-order", "settings": [] }
+{% endschema %}

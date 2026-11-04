@@ -1,0 +1,14 @@
+<section class="section scheme-default" style="--pad-top: 96px; --pad-bottom: 96px;">
+  <div class="container" style="max-width: 520px">
+    <h1 class="h2">{{ 'customer.activate_title' | t }}</h1>
+    {%- form 'activate_customer_password', class: 'form-grid' -%}
+      {{ form.errors | default_errors }}
+      <div class="field"><label class="field__label" for="ActivatePassword">{{ 'customer.new_password' | t }}</label><input class="input" type="password" id="ActivatePassword" name="customer[password]" autocomplete="new-password" required></div>
+      <div class="field"><label class="field__label" for="ActivateConfirm">{{ 'customer.password' | t }}</label><input class="input" type="password" id="ActivateConfirm" name="customer[password_confirmation]" autocomplete="new-password" required></div>
+      <button class="btn" type="submit">{{ 'customer.activate_submit' | t }}</button>
+    {%- endform -%}
+  </div>
+</section>
+{% schema %}
+{ "name": "Activation du compte", "tag": "div", "class": "section-main-activate", "settings": [] }
+{% endschema %}

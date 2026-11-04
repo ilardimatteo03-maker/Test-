@@ -1,0 +1,35 @@
+{%- comment -%}
+  Page produit minimale (cartes cadeaux, bons de course…). Le thème n'est pas conçu pour la vente de produits,
+  mais reste compatible avec le panier et le paiement Shopify.
+{%- endcomment -%}
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+<section class="section scheme-default" style="--pad-top: 96px; --pad-bottom: 96px;">
+  <div class="container">
+    <div class="media-text">
+      <div class="media-text__media" style="--ratio: 1 / 1">
+        {%- if product.featured_image -%}{{ product.featured_image | image_url: width: 1200 | image_tag: loading: 'eager', sizes: '(min-width: 990px) 50vw, 100vw', widths: '600, 900, 1200', alt: product.featured_image.alt | default: product.title }}{%- else -%}<div class="media-placeholder">{% render 'icon', name: 'card' %}</div>{%- endif -%}
+      </div>
+      <div class="media-text__content">
+        <h1 class="h2">{{ product.title }}</h1>
+        <p class="h3 price" style="color: var(--link)">{{ current_variant.price | money }}</p>
+        <div class="rte" style="margin: 1.5rem 0">{{ product.description }}</div>
+        {%- form 'product', product -%}
+          {%- if product.has_only_default_variant -%}
+            <input type="hidden" name="id" value="{{ current_variant.id }}">
+          {%- else -%}
+            <div class="field" style="margin-bottom: 1rem">
+              <label class="field__label" for="ProductVariant">{{ product.options | join: ' / ' }}</label>
+              <select class="select" id="ProductVariant" name="id">
+                {%- for variant in product.variants -%}<option value="{{ variant.id }}"{% if variant == current_variant %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} – {{ variant.price | money }}</option>{%- endfor -%}
+              </select>
+            </div>
+          {%- endif -%}
+          <button class="btn btn--large" type="submit"{% unless current_variant.available %} disabled{% endunless %}>{% if current_variant.available %}{{ 'pages.add_to_cart' | t }}{% else %}{{ 'pages.sold_out' | t }}{% endif %}</button>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{ "name": "Produit", "tag": "div", "class": "section-main-product", "settings": [] }
+{% endschema %}

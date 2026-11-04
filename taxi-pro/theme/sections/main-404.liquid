@@ -1,0 +1,14 @@
+<section class="section scheme-default" style="--pad-top: 120px; --pad-bottom: 120px;">
+  <div class="container container--narrow empty-state">
+    <p class="eyebrow" style="justify-content:center">404</p>
+    <h1 class="h1">{{ 'pages.not_found_title' | t }}</h1>
+    <p class="lead" style="margin-inline:auto">{{ 'pages.not_found_text' | t }}</p>
+    <div class="btn-row" style="justify-content:center; margin-top: 2rem">
+      <a class="btn" href="{{ routes.root_url }}">{{ 'general.back_home' | t }}</a>
+      {%- if settings.booking_page != blank -%}<a class="btn btn--secondary" href="{{ settings.booking_page.url }}">{{ 'general.book_now' | t }}</a>{%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{ "name": "Page 404", "tag": "div", "class": "section-main-404", "settings": [] }
+{% endschema %}

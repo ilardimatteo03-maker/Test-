@@ -1,0 +1,85 @@
+{
+  "sections": {
+    "header": {
+      "type": "page-header",
+      "settings": {
+        "eyebrow": "Aide",
+        "text": "<p>Les réponses aux questions les plus fréquentes.</p>",
+        "color_scheme": "inverse",
+        "breadcrumbs": true,
+        "padding_top": 96,
+        "padding_bottom": 72
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "heading": "Questions fréquentes",
+        "layout": "stacked",
+        "open_first": true,
+        "structured_data": true,
+        "button_label": "Une autre question ?",
+        "button_link": "/pages/contact",
+        "color_scheme": "default",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "question_1": {
+          "type": "question",
+          "settings": {
+            "question": "Comment est calculé le prix ?",
+            "answer": "<p>Le prix comprend une prise en charge et un prix au kilomètre, auxquels s'ajoutent les éventuels suppléments (nuit, dimanche, aéroport, options). Certains trajets fréquents ont un prix fixe. Le détail est affiché avant la réservation.</p>"
+          }
+        },
+        "question_2": {
+          "type": "question",
+          "settings": {
+            "question": "Ma réservation est-elle confirmée immédiatement ?",
+            "answer": "<p>Vous recevez un accusé de réception dès l'envoi. La réservation est confirmée après vérification de la disponibilité ou dès réception du paiement en ligne.</p>"
+          }
+        },
+        "question_3": {
+          "type": "question",
+          "settings": {
+            "question": "Que se passe-t-il si mon vol est en retard ?",
+            "answer": "<p>Indiquez votre numéro de vol : nous suivons votre arrivée et adaptons l'heure de prise en charge.</p>"
+          }
+        },
+        "question_4": {
+          "type": "question",
+          "settings": {
+            "question": "Puis-je payer par carte ?",
+            "answer": "<p>Oui : en ligne lors de la réservation ou à bord du véhicule. Les espèces sont également acceptées.</p>"
+          }
+        },
+        "question_5": {
+          "type": "question",
+          "settings": {
+            "question": "Proposez-vous des sièges pour enfants ?",
+            "answer": "<p>Oui : sièges bébé, sièges enfant et rehausseurs, en option lors de la réservation.</p>"
+          }
+        },
+        "question_6": {
+          "type": "question",
+          "settings": {
+            "question": "Comment modifier ou annuler une réservation ?",
+            "answer": "<p>Contactez-nous par téléphone ou par e-mail en indiquant votre référence de réservation.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_1",
+        "question_2",
+        "question_3",
+        "question_4",
+        "question_5",
+        "question_6"
+      ]
+    }
+  },
+  "order": [
+    "header",
+    "faq"
+  ]
+}

@@ -1,0 +1,64 @@
+{%- comment -%} Équipe : photo, nom, rôle, langues parlées. {%- endcomment -%}
+{%- assign s = section.settings -%}
+<section class="section scheme-{{ s.color_scheme }}" style="--pad-top: {{ s.padding_top }}px; --pad-bottom: {{ s.padding_bottom }}px;">
+  <div class="container">
+    {% render 'section-head', eyebrow: s.eyebrow, heading: s.heading, text: s.text, align: s.align %}
+    <div class="grid" style="--cols: {{ s.columns }}; --cols-tablet: 3; --cols-mobile: 2;">
+      {%- for block in section.blocks -%}
+        <div class="team-card reveal" style="--i: {{ forloop.index0 | modulo: 4 }}" {{ block.shopify_attributes }}>
+          <div class="team-card__media">
+            {%- if block.settings.photo != blank -%}
+              {{ block.settings.photo | image_url: width: 600 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 25vw, 50vw', widths: '300, 450, 600', alt: block.settings.name }}
+            {%- else -%}
+              <div class="media-placeholder">{% render 'icon', name: 'user' %}</div>
+            {%- endif -%}
+          </div>
+          <h3 class="h4" style="margin-bottom: .2rem">{{ block.settings.name }}</h3>
+          <p class="team-card__role" style="margin: 0">{{ block.settings.role }}</p>
+          {%- if block.settings.languages != blank -%}<p class="text-muted" style="font-size: .85rem; margin-top: .3rem">{% render 'icon', name: 'globe' %} {{ block.settings.languages }}</p>{%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Équipe",
+  "tag": "div",
+  "class": "section-team",
+  "max_blocks": 16,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "L'équipe" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Des chauffeurs à votre écoute" },
+    { "type": "richtext", "id": "text", "label": "Texte" },
+    { "type": "select", "id": "align", "label": "Alignement du titre", "options": [ { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centré" } ], "default": "left" },
+    { "type": "select", "id": "columns", "label": "Colonnes", "options": [ { "value": "3", "label": "3" }, { "value": "4", "label": "4" } ], "default": "4" },
+    { "type": "select", "id": "color_scheme", "label": "Couleurs", "options": [ { "value": "default", "label": "Principal" }, { "value": "alt", "label": "Secondaire" }, { "value": "inverse", "label": "Contrasté" } ], "default": "default" },
+    { "type": "range", "id": "padding_top", "label": "Marge haute", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Marge basse", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 }
+  ],
+  "blocks": [
+    {
+      "type": "member", "name": "Membre",
+      "settings": [
+        { "type": "image_picker", "id": "photo", "label": "Photo" },
+        { "type": "text", "id": "name", "label": "Nom", "default": "Prénom N." },
+        { "type": "text", "id": "role", "label": "Rôle", "default": "Chauffeur" },
+        { "type": "text", "id": "languages", "label": "Langues parlées", "default": "Français, English" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Équipe",
+      "blocks": [
+        { "type": "member", "settings": { "name": "Prénom N.", "role": "Fondateur et chauffeur" } },
+        { "type": "member", "settings": { "name": "Prénom N.", "role": "Chauffeur" } },
+        { "type": "member", "settings": { "name": "Prénom N.", "role": "Chauffeur" } },
+        { "type": "member", "settings": { "name": "Prénom N.", "role": "Réservations" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

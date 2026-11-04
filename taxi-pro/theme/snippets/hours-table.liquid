@@ -1,0 +1,19 @@
+{%- comment -%} Tableau des horaires (Paramètres du thème › Réservation › Horaires de disponibilité). {%- endcomment -%}
+{%- if settings.hours_always -%}
+  <p class="hours-always">{% render 'icon', name: 'clock' %} {{ 'general.available_24_7' | t }}</p>
+{%- else -%}
+  {%- assign days = 'mon,tue,wed,thu,fri,sat,sun' | split: ',' -%}
+  <table class="hours-table">
+    <caption class="visually-hidden">{{ 'general.hours' | t }}</caption>
+    <tbody>
+      {%- for d in days -%}
+        {%- assign key = 'hours_' | append: d -%}
+        {%- assign label = 'days.' | append: d -%}
+        <tr data-hours-day="{{ d }}">
+          <th scope="row">{{ label | t }}</th>
+          <td>{% if settings[key] != blank %}{{ settings[key] | replace: '-', ' – ' | replace: ',', ' · ' }}{% else %}{{ 'general.closed' | t }}{% endif %}</td>
+        </tr>
+      {%- endfor -%}
+    </tbody>
+  </table>
+{%- endif -%}

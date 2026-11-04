@@ -1,0 +1,17 @@
+{%- comment -%}
+  En-tête de section commun.
+  Paramètres : eyebrow, heading, text (richtext), align ('left' | 'center'), link_label, link_url, tag ('h2' par défaut)
+{%- endcomment -%}
+{%- assign tag = tag | default: 'h2' -%}
+{%- if eyebrow != blank or heading != blank or text != blank -%}
+  <div class="section-head{% if align == 'center' %} text-center{% endif %}{% if link_label != blank %} section-head__row{% endif %}">
+    <div>
+      {%- if eyebrow != blank -%}<p class="eyebrow reveal">{{ eyebrow }}</p>{%- endif -%}
+      {%- if heading != blank -%}<{{ tag }} class="h2 reveal" style="--i: 1">{{ heading }}</{{ tag }}>{%- endif -%}
+      {%- if text != blank -%}<div class="lead rte reveal" style="--i: 2">{{ text }}</div>{%- endif -%}
+    </div>
+    {%- if link_label != blank -%}
+      <a class="link-arrow reveal" href="{{ link_url | default: '#' }}">{{ link_label }}{% render 'icon', name: 'arrow-right' %}</a>
+    {%- endif -%}
+  </div>
+{%- endif -%}

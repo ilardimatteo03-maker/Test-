@@ -1,0 +1,37 @@
+{%- comment -%} Carte : adresse de l'entreprise ou lieu au choix (Google Maps ou OpenStreetMap). {%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  capture default_query
+    echo settings.company_street | append: ', ' | append: settings.company_postcode | append: ' ' | append: settings.company_city
+  endcapture
+  assign query = s.query | default: default_query
+-%}
+<section class="section scheme-{{ s.color_scheme }}" style="--pad-top: {{ s.padding_top }}px; --pad-bottom: {{ s.padding_bottom }}px;">
+  <div class="container{% if s.full_width %} container--wide{% endif %}">
+    {% render 'section-head', eyebrow: s.eyebrow, heading: s.heading, text: s.text %}
+    {% render 'map-embed', provider: s.provider, query: query, lat: settings.geo_lat, lng: settings.geo_lng, zoom: s.zoom, title: s.heading, ratio: s.ratio, consent: s.consent %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Carte",
+  "tag": "div",
+  "class": "section-map",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre" },
+    { "type": "text", "id": "heading", "label": "Titre" },
+    { "type": "richtext", "id": "text", "label": "Texte" },
+    { "type": "select", "id": "provider", "label": "Carte", "options": [ { "value": "google", "label": "Google Maps (adresse)" }, { "value": "osm", "label": "OpenStreetMap (coordonnées de la base)" } ], "default": "google" },
+    { "type": "text", "id": "query", "label": "Adresse ou lieu (Google Maps)", "info": "Vide : adresse des réglages du thème." },
+    { "type": "range", "id": "zoom", "label": "Zoom", "min": 6, "max": 18, "step": 1, "default": 14 },
+    { "type": "select", "id": "ratio", "label": "Format", "options": [ { "value": "16 / 9", "label": "Paysage" }, { "value": "21 / 9", "label": "Bandeau" }, { "value": "4 / 3", "label": "Classique" } ], "default": "21 / 9" },
+    { "type": "checkbox", "id": "full_width", "label": "Pleine largeur", "default": false },
+    { "type": "checkbox", "id": "consent", "label": "Charger la carte après un clic (RGPD)", "default": true },
+    { "type": "select", "id": "color_scheme", "label": "Couleurs", "options": [ { "value": "default", "label": "Principal" }, { "value": "alt", "label": "Secondaire" }, { "value": "inverse", "label": "Contrasté" } ], "default": "default" },
+    { "type": "range", "id": "padding_top", "label": "Marge haute", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "label": "Marge basse", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 }
+  ],
+  "presets": [{"name": "Carte", "settings": {"heading": "Nous trouver"}}]
+}
+{% endschema %}

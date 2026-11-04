@@ -1,0 +1,15 @@
+{
+  "name": "taxi-pro-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Service de réservation TAXI PRO : validation serveur des prix, réservations, paiements (Shopify, Stripe), e-mails, rappels, agenda.",
+  "type": "module",
+  "engines": { "node": ">=18.17" },
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test test/*.test.mjs",
+    "sync-engine": "node scripts/sync-engine.mjs"
+  },
+  "license": "UNLICENSED"
+}

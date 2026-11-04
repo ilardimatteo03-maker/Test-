@@ -1,0 +1,85 @@
+{%- comment -%} Avis clients en carrousel, note globale et lien vers la fiche Google. {%- endcomment -%}
+{%- assign s = section.settings -%}
+{%- assign slider_label = 'accessibility.slider' | t -%}
+<section class="section scheme-{{ s.color_scheme }}" style="--pad-top: {{ s.padding_top }}px; --pad-bottom: {{ s.padding_bottom }}px;">
+  <div class="container" data-slider>
+    <div class="section-head section-head__row">
+      <div>
+        {%- if s.eyebrow != blank -%}<p class="eyebrow reveal">{{ s.eyebrow }}</p>{%- endif -%}
+        {%- if s.heading != blank -%}<h2 class="h2 reveal" style="--i: 1">{{ s.heading }}</h2>{%- endif -%}
+        {%- if s.rating != blank -%}
+          <div class="rating-summary reveal" style="--i: 2">
+            <strong>{{ s.rating }}</strong>
+            <span class="testimonial__stars" role="img" aria-label="{{ 'accessibility.rating' | t: rating: s.rating }}">{%- for i in (1..5) -%}{% render 'icon', name: 'star' %}{%- endfor -%}</span>
+            {%- if s.rating_text != blank -%}<span class="text-muted">{{ s.rating_text }}</span>{%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="flex-center">
+        {%- if settings.social_google != blank and s.google_label != blank -%}<a class="link-arrow" href="{{ settings.social_google }}" target="_blank" rel="noopener">{{ s.google_label }}{% render 'icon', name: 'arrow-right' %}</a>{%- endif -%}
+        <div class="slider__nav">
+          <button type="button" class="slider__btn" data-slider-prev aria-label="{{ 'accessibility.slider_prev' | t }}">{% render 'icon', name: 'arrow-left' %}</button>
+          <button type="button" class="slider__btn" data-slider-next aria-label="{{ 'accessibility.slider_next' | t }}">{% render 'icon', name: 'arrow-right' %}</button>
+        </div>
+      </div>
+    </div>
+    <div class="slider__track" data-slider-track style="--per-view: {{ s.per_view }};" role="region" aria-label="{{ s.heading | default: slider_label | escape }}" tabindex="0">
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        <figure class="testimonial reveal" style="--i: {{ forloop.index0 | modulo: 3 }}; margin: 0;" {{ block.shopify_attributes }}>
+          <div class="testimonial__stars" role="img" aria-label="{{ 'accessibility.rating' | t: rating: b.rating }}">
+            {%- for i in (1..b.rating) -%}{% render 'icon', name: 'star' %}{%- endfor -%}
+          </div>
+          <blockquote class="testimonial__quote">{{ b.quote }}</blockquote>
+          <figcaption class="testimonial__author">
+            {%- if b.photo != blank -%}{{ b.photo | image_url: width: 120 | image_tag: loading: 'lazy', alt: b.author }}{%- endif -%}
+            <span><span class="testimonial__name">{{ b.author }}</span><br><span class="testimonial__meta">{{ b.meta }}</span></span>
+          </figcaption>
+        </figure>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Avis clients",
+  "tag": "div",
+  "class": "section-testimonials",
+  "max_blocks": 16,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "Avis clients" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Ils nous font confiance" },
+    { "type": "text", "id": "rating", "label": "Note moyenne", "default": "4,9", "info": "Indiquez votre note réelle (fiche Google par exemple)." },
+    { "type": "text", "id": "rating_text", "label": "Texte de la note", "default": "sur Google" },
+    { "type": "text", "id": "google_label", "label": "Lien vers les avis", "default": "Voir tous les avis", "info": "Utilise l'URL « Fiche Google » des réglages du thème." },
+    { "type": "select", "id": "per_view", "label": "Avis visibles (ordinateur)", "options": [ { "value": "2", "label": "2" }, { "value": "3", "label": "3" } ], "default": "3" },
+    { "type": "select", "id": "color_scheme", "label": "Couleurs", "options": [ { "value": "default", "label": "Principal" }, { "value": "alt", "label": "Secondaire" }, { "value": "inverse", "label": "Contrasté" } ], "default": "default" },
+    { "type": "range", "id": "padding_top", "label": "Marge haute", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Marge basse", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 }
+  ],
+  "blocks": [
+    {
+      "type": "review", "name": "Avis",
+      "settings": [
+        { "type": "range", "id": "rating", "label": "Note", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "textarea", "id": "quote", "label": "Avis", "default": "Chauffeur ponctuel et très aimable. Le prix annoncé à la réservation était exactement celui payé." },
+        { "type": "text", "id": "author", "label": "Auteur", "default": "Sophie D." },
+        { "type": "text", "id": "meta", "label": "Précision", "default": "Transfert aéroport" },
+        { "type": "image_picker", "id": "photo", "label": "Photo (facultative)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Avis clients",
+      "blocks": [
+        { "type": "review", "settings": { "quote": "Chauffeur ponctuel et très aimable. Le prix annoncé à la réservation était exactement celui payé.", "author": "Sophie D.", "meta": "Transfert aéroport" } },
+        { "type": "review", "settings": { "quote": "Réservation en deux minutes depuis mon téléphone, véhicule impeccable. Je recommande.", "author": "Marc V.", "meta": "Taxi classique" } },
+        { "type": "review", "settings": { "quote": "Nous utilisons ce service pour nos clients en visite : fiable, discret, facture au nom de la société.", "author": "Claire M.", "meta": "Transport professionnel" } },
+        { "type": "review", "settings": { "quote": "Le van 8 places était parfait pour la famille et les bagages. Merci !", "author": "Ahmed B.", "meta": "Départ en vacances" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

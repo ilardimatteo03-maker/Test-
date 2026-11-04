@@ -1,0 +1,89 @@
+{%- comment -%} Zones desservies : liste de villes, aéroports et gares, avec carte facultative. {%- endcomment -%}
+{%- assign s = section.settings -%}
+<section class="section scheme-{{ s.color_scheme }}" style="--pad-top: {{ s.padding_top }}px; --pad-bottom: {{ s.padding_bottom }}px;">
+  <div class="container">
+    <div class="zones-layout{% if s.show_map %} zones-layout--map{% endif %}">
+      <div>
+        {% render 'section-head', eyebrow: s.eyebrow, heading: s.heading, text: s.text %}
+        <ul class="chips reveal" style="--i: 2">
+          {%- for block in section.blocks -%}
+            <li {{ block.shopify_attributes }}>
+              {%- if block.settings.link != blank -%}
+                <a class="chip" href="{{ block.settings.link }}" style="text-decoration:none">{% render 'icon', name: block.settings.icon %}{{ block.settings.name }}</a>
+              {%- else -%}
+                <span class="chip">{% render 'icon', name: block.settings.icon %}{{ block.settings.name }}</span>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+        {%- if s.note != blank -%}<div class="rte text-muted reveal" style="margin-top: 1.6rem; --i: 3">{{ s.note }}</div>{%- endif -%}
+        {%- if s.button_label != blank -%}
+          <div class="btn-row" style="margin-top: 2rem"><a class="btn" href="{{ s.button_link | default: settings.booking_page.url | default: '#reservation' }}">{{ s.button_label }}</a></div>
+        {%- endif -%}
+      </div>
+      {%- if s.show_map -%}
+        <div class="reveal" style="--i: 1">
+          {%- if s.image != blank -%}
+            <div class="media-text__media" style="--ratio: 4 / 3">{{ s.image | image_url: width: 1200 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 55vw, 100vw', widths: '600, 900, 1200', alt: s.image.alt | default: s.heading }}</div>
+          {%- else -%}
+            {%- assign map_query = s.map_query | default: settings.company_city -%}
+            {% render 'map-embed', provider: s.map_provider, query: map_query, lat: settings.geo_lat, lng: settings.geo_lng, zoom: s.map_zoom, title: s.heading, consent: s.map_consent %}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Zones desservies",
+  "tag": "div",
+  "class": "section-zones",
+  "max_blocks": 40,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "Zones desservies" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Partout dans la région, et au-delà" },
+    { "type": "richtext", "id": "text", "label": "Texte", "default": "<p>Nous assurons vos trajets en ville, vers les aéroports et les gares, et sur longue distance.</p>" },
+    { "type": "richtext", "id": "note", "label": "Note", "default": "<p>Votre destination n'est pas dans la liste ? Demandez un devis : nous allons partout.</p>" },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "Calculer mon trajet" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton" },
+    { "type": "header", "content": "Carte" },
+    { "type": "checkbox", "id": "show_map", "label": "Afficher une carte ou une image", "default": true },
+    { "type": "image_picker", "id": "image", "label": "Image à la place de la carte" },
+    { "type": "select", "id": "map_provider", "label": "Carte", "options": [ { "value": "osm", "label": "OpenStreetMap (centrée sur votre base)" }, { "value": "google", "label": "Google Maps (recherche par lieu)" } ], "default": "osm" },
+    { "type": "text", "id": "map_query", "label": "Lieu affiché (Google Maps)", "info": "Vide : ville des réglages du thème." },
+    { "type": "range", "id": "map_zoom", "label": "Zoom", "min": 6, "max": 15, "step": 1, "default": 10 },
+    { "type": "checkbox", "id": "map_consent", "label": "Charger la carte après un clic (RGPD)", "default": true },
+    { "type": "select", "id": "color_scheme", "label": "Couleurs", "options": [ { "value": "default", "label": "Principal" }, { "value": "alt", "label": "Secondaire" }, { "value": "inverse", "label": "Contrasté" } ], "default": "alt" },
+    { "type": "range", "id": "padding_top", "label": "Marge haute", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Marge basse", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 }
+  ],
+  "blocks": [
+    {
+      "type": "zone", "name": "Zone",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Nom", "default": "Bruxelles" },
+        { "type": "select", "id": "icon", "label": "Icône", "options": [ { "value": "pin", "label": "Lieu" }, { "value": "plane", "label": "Aéroport" }, { "value": "train", "label": "Gare" }, { "value": "building", "label": "Ville" }, { "value": "globe", "label": "International" } ], "default": "pin" },
+        { "type": "url", "id": "link", "label": "Lien (facultatif)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Zones desservies",
+      "blocks": [
+        { "type": "zone", "settings": { "name": "Bruxelles", "icon": "building" } },
+        { "type": "zone", "settings": { "name": "Brussels Airport", "icon": "plane" } },
+        { "type": "zone", "settings": { "name": "Charleroi Airport", "icon": "plane" } },
+        { "type": "zone", "settings": { "name": "Gare du Midi", "icon": "train" } },
+        { "type": "zone", "settings": { "name": "Louvain", "icon": "pin" } },
+        { "type": "zone", "settings": { "name": "Wavre", "icon": "pin" } },
+        { "type": "zone", "settings": { "name": "Anvers", "icon": "pin" } },
+        { "type": "zone", "settings": { "name": "Luxembourg", "icon": "globe" } },
+        { "type": "zone", "settings": { "name": "Paris", "icon": "globe" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,30 @@
+{
+  "type": "header",
+  "name": "En-tête",
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "settings": {
+        "text": "Disponible 24 h/24, 7 j/7 · Transferts aéroport à prix fixe",
+        "show_contact": true,
+        "color_scheme": "accent"
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "menu": "main-menu",
+        "sticky": true,
+        "transparent_home": true,
+        "show_phone": true,
+        "cta_label": "Réserver",
+        "height": 84,
+        "color_scheme": "default"
+      }
+    }
+  },
+  "order": [
+    "announcement",
+    "header"
+  ]
+}

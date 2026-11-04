@@ -1,0 +1,477 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "TAXI PRO",
+    "theme_version": "1.0.0",
+    "theme_author": "TAXI PRO",
+    "theme_documentation_url": "https://github.com/ilardimatteo03-maker/test-/tree/main/taxi-pro/docs",
+    "theme_support_url": "https://github.com/ilardimatteo03-maker/test-/issues"
+  },
+  {
+    "name": "Style et préréglages",
+    "settings": [
+      {
+        "type": "select",
+        "id": "style_preset",
+        "label": "Préréglage de style",
+        "options": [
+          { "value": "premium_black", "label": "Premium Black (noir, blanc, doré)" },
+          { "value": "corporate", "label": "Corporate (bleu marine, blanc)" },
+          { "value": "modern_taxi", "label": "Modern Taxi (jaune, noir, blanc)" },
+          { "value": "luxury_chauffeur", "label": "Luxury Chauffeur (noir, beige, gris)" },
+          { "value": "minimal", "label": "Minimal (blanc, gris, noir)" }
+        ],
+        "default": "premium_black",
+        "info": "Fixe la palette de base. Chaque couleur renseignée ci-dessous remplace celle du préréglage."
+      },
+      { "type": "header", "content": "Couleurs personnalisées (facultatives)" },
+      { "type": "paragraph", "content": "Laissez une couleur vide pour conserver celle du préréglage. Pour revenir au préréglage, effacez la couleur." },
+      { "type": "color", "id": "color_background", "label": "Fond principal" },
+      { "type": "color", "id": "color_surface", "label": "Fond secondaire (cartes, sections alternées)" },
+      { "type": "color", "id": "color_text", "label": "Texte" },
+      { "type": "color", "id": "color_muted", "label": "Texte secondaire" },
+      { "type": "color", "id": "color_border", "label": "Bordures" },
+      { "type": "color", "id": "color_accent", "label": "Couleur d'accent (boutons, prix)" },
+      { "type": "color", "id": "color_accent_text", "label": "Texte sur la couleur d'accent" },
+      { "type": "color", "id": "color_inverse_bg", "label": "Fond des sections contrastées" },
+      { "type": "color", "id": "color_inverse_text", "label": "Texte des sections contrastées" },
+      { "type": "header", "content": "Couleurs d'état" },
+      { "type": "color", "id": "color_success", "label": "Succès", "default": "#1F8A5B" },
+      { "type": "color", "id": "color_error", "label": "Erreur", "default": "#C8372D" }
+    ]
+  },
+  {
+    "name": "Typographie",
+    "settings": [
+      { "type": "font_picker", "id": "type_heading_font", "label": "Police des titres", "default": "cormorant_n6" },
+      {
+        "type": "select",
+        "id": "type_heading_weight",
+        "label": "Graisse des titres",
+        "options": [
+          { "value": "base", "label": "Celle de la police choisie" },
+          { "value": "lighter", "label": "Plus fine" },
+          { "value": "bolder", "label": "Plus grasse" }
+        ],
+        "default": "base"
+      },
+      {
+        "type": "range",
+        "id": "type_heading_scale",
+        "label": "Taille des titres",
+        "min": 80, "max": 130, "step": 5, "unit": "%", "default": 100
+      },
+      {
+        "type": "select",
+        "id": "type_heading_case",
+        "label": "Casse des titres",
+        "options": [
+          { "value": "none", "label": "Normale" },
+          { "value": "uppercase", "label": "Majuscules" }
+        ],
+        "default": "none"
+      },
+      {
+        "type": "range",
+        "id": "type_heading_spacing",
+        "label": "Espacement des lettres des titres",
+        "min": -4, "max": 12, "step": 1, "unit": "%", "default": 0
+      },
+      { "type": "font_picker", "id": "type_body_font", "label": "Police du texte", "default": "outfit_n4" },
+      {
+        "type": "range",
+        "id": "type_body_size",
+        "label": "Taille du texte",
+        "min": 14, "max": 19, "step": 1, "unit": "px", "default": 16
+      },
+      {
+        "type": "select",
+        "id": "type_eyebrow_case",
+        "label": "Surtitres",
+        "options": [
+          { "value": "uppercase", "label": "Majuscules espacées" },
+          { "value": "none", "label": "Casse normale" }
+        ],
+        "default": "uppercase"
+      }
+    ]
+  },
+  {
+    "name": "Formes, espacements et animations",
+    "settings": [
+      { "type": "header", "content": "Arrondis" },
+      { "type": "range", "id": "radius_buttons", "label": "Boutons", "min": 0, "max": 40, "step": 2, "unit": "px", "default": 2 },
+      { "type": "range", "id": "radius_cards", "label": "Cartes et images", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 4 },
+      { "type": "range", "id": "radius_inputs", "label": "Champs de formulaire", "min": 0, "max": 24, "step": 2, "unit": "px", "default": 2 },
+      { "type": "header", "content": "Boutons" },
+      {
+        "type": "select",
+        "id": "button_style",
+        "label": "Style des boutons principaux",
+        "options": [
+          { "value": "filled", "label": "Plein" },
+          { "value": "outline", "label": "Contour" },
+          { "value": "shadow", "label": "Plein avec ombre" }
+        ],
+        "default": "filled"
+      },
+      {
+        "type": "select",
+        "id": "button_case",
+        "label": "Texte des boutons",
+        "options": [
+          { "value": "none", "label": "Normal" },
+          { "value": "uppercase", "label": "Majuscules" }
+        ],
+        "default": "uppercase"
+      },
+      { "type": "header", "content": "Formulaires" },
+      {
+        "type": "select",
+        "id": "input_style",
+        "label": "Style des champs",
+        "options": [
+          { "value": "outlined", "label": "Bordure complète" },
+          { "value": "filled", "label": "Fond plein" },
+          { "value": "underline", "label": "Souligné" }
+        ],
+        "default": "outlined"
+      },
+      { "type": "header", "content": "Cartes et ombres" },
+      {
+        "type": "select",
+        "id": "card_style",
+        "label": "Style des cartes",
+        "options": [
+          { "value": "bordered", "label": "Bordure fine" },
+          { "value": "elevated", "label": "Ombre portée" },
+          { "value": "flat", "label": "À plat" }
+        ],
+        "default": "bordered"
+      },
+      {
+        "type": "select",
+        "id": "shadow_strength",
+        "label": "Intensité des ombres",
+        "options": [
+          { "value": "none", "label": "Aucune" },
+          { "value": "soft", "label": "Douce" },
+          { "value": "strong", "label": "Marquée" }
+        ],
+        "default": "soft"
+      },
+      { "type": "header", "content": "Mise en page" },
+      { "type": "range", "id": "page_width", "label": "Largeur maximale du contenu", "min": 1000, "max": 1600, "step": 40, "unit": "px", "default": 1240 },
+      { "type": "range", "id": "spacing_scale", "label": "Espacement entre les sections", "min": 60, "max": 140, "step": 10, "unit": "%", "default": 100 },
+      { "type": "header", "content": "Animations" },
+      {
+        "type": "select",
+        "id": "animations",
+        "label": "Animations à l'apparition",
+        "options": [
+          { "value": "none", "label": "Aucune" },
+          { "value": "subtle", "label": "Discrètes" },
+          { "value": "rich", "label": "Marquées" }
+        ],
+        "default": "subtle",
+        "info": "Désactivées automatiquement si le visiteur a demandé à réduire les animations."
+      }
+    ]
+  },
+  {
+    "name": "Identité de l'entreprise",
+    "settings": [
+      { "type": "text", "id": "company_name", "label": "Nom commercial", "info": "Laissez vide pour utiliser le nom de la boutique." },
+      { "type": "image_picker", "id": "logo", "label": "Logo (fonds clairs)" },
+      { "type": "image_picker", "id": "logo_inverse", "label": "Logo (fonds sombres)", "info": "Utilisé sur l'en-tête transparent et les fonds foncés." },
+      { "type": "range", "id": "logo_width", "label": "Largeur du logo sur ordinateur", "min": 60, "max": 300, "step": 10, "unit": "px", "default": 150 },
+      { "type": "range", "id": "logo_width_mobile", "label": "Largeur du logo sur mobile", "min": 50, "max": 200, "step": 10, "unit": "px", "default": 110 },
+      { "type": "image_picker", "id": "favicon", "label": "Favicon", "info": "Image carrée de 32 × 32 px minimum." },
+      { "type": "header", "content": "Coordonnées" },
+      { "type": "text", "id": "company_phone", "label": "Téléphone affiché", "default": "+32 2 000 00 00" },
+      { "type": "text", "id": "company_whatsapp", "label": "Numéro WhatsApp (format international)", "info": "Exemple : 32470000000. Laissez vide pour masquer le bouton WhatsApp." },
+      { "type": "text", "id": "company_email", "label": "E-mail de contact", "default": "contact@exemple.be" },
+      { "type": "text", "id": "company_street", "label": "Adresse", "default": "Rue de l'Exemple 1" },
+      { "type": "text", "id": "company_postcode", "label": "Code postal", "default": "1000" },
+      { "type": "text", "id": "company_city", "label": "Ville", "default": "Bruxelles" },
+      { "type": "text", "id": "company_country", "label": "Pays", "default": "Belgique" },
+      { "type": "text", "id": "company_country_code", "label": "Code pays (ISO, 2 lettres)", "default": "BE" },
+      { "type": "header", "content": "Mentions légales" },
+      { "type": "text", "id": "company_legal_name", "label": "Raison sociale", "info": "Ex. : Taxi Exemple SRL" },
+      { "type": "text", "id": "company_number_label", "label": "Intitulé du numéro d'entreprise", "default": "N° d'entreprise", "info": "Belgique : N° BCE ; France : SIRET ; Luxembourg : RCS." },
+      { "type": "text", "id": "company_number", "label": "Numéro d'entreprise" },
+      { "type": "text", "id": "company_vat", "label": "Numéro de TVA" },
+      { "type": "text", "id": "company_license", "label": "Licence ou autorisation d'exploitation", "info": "Ex. : licence taxi n°, carte VTC, registre des transports." },
+      { "type": "textarea", "id": "company_legal_extra", "label": "Informations légales complémentaires" },
+      { "type": "header", "content": "Réseaux sociaux et avis" },
+      { "type": "url", "id": "social_facebook", "label": "Facebook" },
+      { "type": "url", "id": "social_instagram", "label": "Instagram" },
+      { "type": "url", "id": "social_linkedin", "label": "LinkedIn" },
+      { "type": "url", "id": "social_tiktok", "label": "TikTok" },
+      { "type": "url", "id": "social_youtube", "label": "YouTube" },
+      { "type": "url", "id": "social_x", "label": "X (Twitter)" },
+      { "type": "url", "id": "social_google", "label": "Fiche Google (avis)" }
+    ]
+  },
+  {
+    "name": "Tarifs",
+    "settings": [
+      { "type": "paragraph", "content": "Ces valeurs alimentent le calculateur. Les montants acceptent la virgule (2,15) ou le point (2.15). Les véhicules, forfaits, zones et options se règlent dans le groupe « Configuration Taxi Pro », en bas de la liste des sections de chaque page." },
+      { "type": "text", "id": "currency", "label": "Devise (code ISO)", "default": "EUR", "info": "EUR, CHF, GBP, USD, CAD, MAD…" },
+      { "type": "text", "id": "number_locale", "label": "Format des montants (code régional)", "info": "Ex. : fr-BE, fr-FR, nl-BE, de-LU. Laissez vide pour suivre la langue du visiteur." },
+      { "type": "text", "id": "price_suffix", "label": "Mention après les prix", "default": "TVAC", "info": "Ex. : TVAC, TTC, HT." },
+      { "type": "text", "id": "vat_rate", "label": "Taux de TVA inclus dans les prix (%)", "default": "6", "info": "Sert à afficher la part de TVA. Belgique : 6 % ; France : 10 % ; Luxembourg : 3 %. Mettez 0 pour ne pas l'afficher." },
+      { "type": "header", "content": "Tarif au kilomètre (tarif général)" },
+      { "type": "text", "id": "tariff_base", "label": "Prix de prise en charge", "default": "5" },
+      { "type": "text", "id": "tariff_per_km", "label": "Prix au kilomètre", "default": "2" },
+      { "type": "checkbox", "id": "tariff_per_min_enabled", "label": "Facturer aussi la durée du trajet", "default": false },
+      { "type": "text", "id": "tariff_per_min", "label": "Prix par minute de trajet", "default": "0,30" },
+      { "type": "text", "id": "tariff_minimum", "label": "Minimum de facturation", "default": "12" },
+      { "type": "header", "content": "Arrondi du prix total" },
+      {
+        "type": "select",
+        "id": "tariff_rounding",
+        "label": "Arrondir au",
+        "options": [
+          { "value": "0.01", "label": "Centime" },
+          { "value": "0.1", "label": "10 centimes" },
+          { "value": "0.5", "label": "50 centimes" },
+          { "value": "1", "label": "Euro (unité) entier" }
+        ],
+        "default": "0.1"
+      },
+      {
+        "type": "select",
+        "id": "tariff_rounding_mode",
+        "label": "Sens de l'arrondi",
+        "options": [
+          { "value": "nearest", "label": "Au plus proche" },
+          { "value": "up", "label": "Au-dessus" },
+          { "value": "down", "label": "En dessous" }
+        ],
+        "default": "nearest"
+      },
+      { "type": "header", "content": "Affichage" },
+      { "type": "text", "id": "price_note", "label": "Mention sous le prix", "default": "Prix calculé selon nos tarifs en vigueur. Péages éventuels et attente non prévue facturés en sus." },
+      { "type": "checkbox", "id": "show_price_breakdown", "label": "Afficher le détail du calcul", "default": true }
+    ]
+  },
+  {
+    "name": "Majorations et suppléments",
+    "settings": [
+      { "type": "paragraph", "content": "Chaque supplément peut être désactivé individuellement. Pourcentages appliqués au prix de la course (hors options)." },
+      {
+        "type": "select",
+        "id": "surcharge_combine",
+        "label": "Si plusieurs majorations horaires s'appliquent",
+        "options": [
+          { "value": "max", "label": "Appliquer seulement la plus forte" },
+          { "value": "sum", "label": "Les additionner" },
+          { "value": "priority", "label": "Appliquer celle de plus haute priorité" }
+        ],
+        "default": "max",
+        "info": "Majorations horaires : nuit, week-end, jours fériés et plages personnalisées."
+      },
+      { "type": "header", "content": "Nuit" },
+      { "type": "checkbox", "id": "night_enabled", "label": "Activer le supplément de nuit", "default": true },
+      { "type": "text", "id": "night_start", "label": "Début (HH:MM)", "default": "22:00" },
+      { "type": "text", "id": "night_end", "label": "Fin (HH:MM)", "default": "06:00" },
+      { "type": "select", "id": "night_type", "label": "Type", "options": [ { "value": "percent", "label": "Pourcentage" }, { "value": "fixed", "label": "Montant fixe" } ], "default": "percent" },
+      { "type": "text", "id": "night_value", "label": "Valeur", "default": "20" },
+      { "type": "number", "id": "night_priority", "label": "Priorité", "default": 10 },
+      { "type": "header", "content": "Week-end" },
+      { "type": "checkbox", "id": "weekend_enabled", "label": "Activer le supplément week-end", "default": true },
+      { "type": "checkbox", "id": "weekend_saturday", "label": "Le samedi", "default": false },
+      { "type": "checkbox", "id": "weekend_sunday", "label": "Le dimanche", "default": true },
+      { "type": "select", "id": "weekend_type", "label": "Type", "options": [ { "value": "percent", "label": "Pourcentage" }, { "value": "fixed", "label": "Montant fixe" } ], "default": "percent" },
+      { "type": "text", "id": "weekend_value", "label": "Valeur", "default": "15" },
+      { "type": "number", "id": "weekend_priority", "label": "Priorité", "default": 20 },
+      { "type": "header", "content": "Jours fériés" },
+      { "type": "checkbox", "id": "holiday_enabled", "label": "Activer le supplément jours fériés", "default": true },
+      {
+        "type": "textarea",
+        "id": "holiday_dates",
+        "label": "Jours fériés (un par ligne)",
+        "default": "01-01\neaster+1\n05-01\neaster+39\neaster+50\n07-21\n08-15\n11-01\n11-11\n12-25",
+        "info": "MM-JJ : chaque année. AAAA-MM-JJ : date précise. easter+1 : lundi de Pâques, easter+39 : Ascension, easter+50 : lundi de Pentecôte. Valeurs par défaut : Belgique."
+      },
+      { "type": "select", "id": "holiday_type", "label": "Type", "options": [ { "value": "percent", "label": "Pourcentage" }, { "value": "fixed", "label": "Montant fixe" } ], "default": "percent" },
+      { "type": "text", "id": "holiday_value", "label": "Valeur", "default": "25" },
+      { "type": "number", "id": "holiday_priority", "label": "Priorité", "default": 30 },
+      { "type": "header", "content": "Aéroport" },
+      { "type": "checkbox", "id": "airport_enabled", "label": "Activer le supplément aéroport", "default": true },
+      { "type": "text", "id": "airport_amount", "label": "Montant par défaut", "default": "10", "info": "S'applique aux zones de type « Aéroport ». Chaque zone peut avoir son propre montant." },
+      { "type": "header", "content": "Passagers et bagages" },
+      { "type": "checkbox", "id": "passengers_enabled", "label": "Supplément par passager supplémentaire", "default": false },
+      { "type": "number", "id": "passengers_included", "label": "Passagers inclus", "default": 4 },
+      { "type": "text", "id": "passengers_amount", "label": "Montant par passager en plus", "default": "5" },
+      { "type": "checkbox", "id": "luggage_enabled", "label": "Supplément par bagage supplémentaire", "default": false },
+      { "type": "number", "id": "luggage_included", "label": "Bagages inclus", "default": 2 },
+      { "type": "text", "id": "luggage_amount", "label": "Montant par bagage en plus", "default": "2" },
+      { "type": "header", "content": "Attente et péages" },
+      { "type": "checkbox", "id": "waiting_enabled", "label": "Facturer l'attente prévue", "default": true },
+      { "type": "text", "id": "waiting_per_min", "label": "Prix par minute d'attente", "default": "0,50" },
+      { "type": "number", "id": "waiting_free_min", "label": "Minutes d'attente offertes", "default": 5 },
+      { "type": "checkbox", "id": "tolls_enabled", "label": "Ajouter les péages définis sur les forfaits et zones", "default": true },
+      { "type": "header", "content": "Aller-retour" },
+      { "type": "checkbox", "id": "round_trip_enabled", "label": "Proposer l'aller-retour", "default": true },
+      { "type": "text", "id": "round_trip_discount", "label": "Remise sur l'aller-retour (%)", "default": "0" },
+      { "type": "header", "content": "Mise à disposition (tarif horaire)" },
+      { "type": "text", "id": "hourly_rate", "label": "Tarif horaire par défaut", "default": "45" },
+      { "type": "text", "id": "hourly_min_hours", "label": "Durée minimale (heures)", "default": "2" }
+    ]
+  },
+  {
+    "name": "Zone géographique",
+    "settings": [
+      { "type": "text", "id": "geo_countries", "label": "Pays proposés dans l'autocomplétion", "default": "be,fr,lu,nl,de", "info": "Codes ISO à 2 lettres séparés par des virgules (15 au maximum avec Google)." },
+      { "type": "text", "id": "geo_timezone", "label": "Fuseau horaire", "default": "Europe/Brussels", "info": "Format IANA : Europe/Brussels, Europe/Paris, Europe/Luxembourg…" },
+      { "type": "header", "content": "Base et zone d'intervention" },
+      { "type": "text", "id": "geo_lat", "label": "Latitude de la base", "default": "50.8467", "info": "Dans Google Maps, clic droit sur votre adresse : le premier nombre est la latitude." },
+      { "type": "text", "id": "geo_lng", "label": "Longitude de la base", "default": "4.3525" },
+      { "type": "text", "id": "geo_radius_km", "label": "Rayon d'intervention (km)", "default": "60", "info": "0 = pas de limite. Les zones de type « Zone d'intervention » s'ajoutent à ce rayon." },
+      {
+        "type": "select",
+        "id": "geo_area_rule",
+        "label": "Le trajet est accepté si",
+        "options": [
+          { "value": "either", "label": "Le départ ou l'arrivée est dans la zone" },
+          { "value": "pickup", "label": "Le départ est dans la zone" },
+          { "value": "both", "label": "Le départ et l'arrivée sont dans la zone" }
+        ],
+        "default": "either"
+      },
+      {
+        "type": "select",
+        "id": "geo_out_of_area",
+        "label": "Hors zone",
+        "options": [
+          { "value": "quote", "label": "Proposer une demande de devis" },
+          { "value": "block", "label": "Refuser la réservation" }
+        ],
+        "default": "quote"
+      },
+      { "type": "text", "id": "geo_max_distance_km", "label": "Distance maximale d'un trajet (km)", "default": "0", "info": "0 = pas de limite." },
+      {
+        "type": "select",
+        "id": "geo_max_distance_action",
+        "label": "Au-delà de la distance maximale",
+        "options": [
+          { "value": "quote", "label": "Proposer une demande de devis" },
+          { "value": "block", "label": "Refuser la réservation" }
+        ],
+        "default": "quote"
+      }
+    ]
+  },
+  {
+    "name": "Réservation",
+    "settings": [
+      { "type": "page", "id": "booking_page", "label": "Page de réservation", "info": "Page qui utilise le modèle « reservation ». Le formulaire rapide de l'accueil y envoie le visiteur." },
+      { "type": "header", "content": "Types de réservation" },
+      { "type": "checkbox", "id": "booking_immediate", "label": "Réservation immédiate (dès que possible)", "default": true },
+      { "type": "checkbox", "id": "booking_scheduled", "label": "Réservation programmée", "default": true },
+      { "type": "number", "id": "booking_lead_min", "label": "Délai minimum avant la prise en charge (minutes)", "default": 60 },
+      { "type": "number", "id": "booking_max_days", "label": "Réservation possible jusqu'à (jours à l'avance)", "default": 180 },
+      { "type": "number", "id": "booking_max_passengers", "label": "Nombre maximum de passagers", "default": 8 },
+      { "type": "number", "id": "booking_max_luggage", "label": "Nombre maximum de bagages", "default": 10 },
+      { "type": "header", "content": "Horaires de disponibilité" },
+      { "type": "checkbox", "id": "hours_always", "label": "Disponible 24 h/24, 7 j/7", "default": true },
+      { "type": "paragraph", "content": "Sinon, une ou plusieurs plages par jour, par exemple « 06:00-12:00, 14:00-02:00 ». Laissez vide pour un jour fermé. Ces horaires sont aussi affichés sur la page Contact." },
+      { "type": "text", "id": "hours_mon", "label": "Lundi", "default": "06:00-23:00" },
+      { "type": "text", "id": "hours_tue", "label": "Mardi", "default": "06:00-23:00" },
+      { "type": "text", "id": "hours_wed", "label": "Mercredi", "default": "06:00-23:00" },
+      { "type": "text", "id": "hours_thu", "label": "Jeudi", "default": "06:00-23:00" },
+      { "type": "text", "id": "hours_fri", "label": "Vendredi", "default": "06:00-02:00" },
+      { "type": "text", "id": "hours_sat", "label": "Samedi", "default": "08:00-02:00" },
+      { "type": "text", "id": "hours_sun", "label": "Dimanche", "default": "08:00-23:00" },
+      { "type": "header", "content": "Paiement et confirmation" },
+      { "type": "paragraph", "content": "Le paiement en ligne et l'acompte nécessitent le service de réservation (backend) : voir l'onglet « Cartes et intégrations ». Sans lui, seules les demandes de réservation sont envoyées, par le formulaire de contact Shopify." },
+      { "type": "checkbox", "id": "payment_request", "label": "Demande de réservation sans paiement", "default": true },
+      { "type": "checkbox", "id": "payment_driver", "label": "Paiement au chauffeur", "default": true },
+      { "type": "checkbox", "id": "payment_online", "label": "Paiement en ligne de la totalité", "default": false },
+      { "type": "checkbox", "id": "payment_deposit", "label": "Acompte à la réservation", "default": false },
+      { "type": "text", "id": "payment_deposit_percent", "label": "Acompte (%)", "default": "30" },
+      {
+        "type": "select",
+        "id": "payment_default",
+        "label": "Mode proposé par défaut",
+        "options": [
+          { "value": "request", "label": "Demande sans paiement" },
+          { "value": "driver", "label": "Paiement au chauffeur" },
+          { "value": "online", "label": "Paiement en ligne" },
+          { "value": "deposit", "label": "Acompte" }
+        ],
+        "default": "request"
+      },
+      { "type": "header", "content": "Formulaire" },
+      {
+        "type": "select",
+        "id": "booking_flight_field",
+        "label": "Champ « numéro de vol »",
+        "options": [
+          { "value": "airport", "label": "Pour les trajets aéroport" },
+          { "value": "always", "label": "Toujours" },
+          { "value": "never", "label": "Jamais" }
+        ],
+        "default": "airport"
+      },
+      { "type": "checkbox", "id": "booking_waiting_field", "label": "Demander le temps d'attente prévu", "default": false },
+      { "type": "checkbox", "id": "booking_require_terms", "label": "Exiger l'acceptation des conditions générales", "default": true },
+      { "type": "page", "id": "terms_page", "label": "Page des conditions générales" },
+      { "type": "page", "id": "privacy_page", "label": "Page de confidentialité" }
+    ]
+  },
+  {
+    "name": "Cartes et intégrations",
+    "settings": [
+      { "type": "paragraph", "content": "N'indiquez ici que des clés publiques destinées au navigateur, restreintes à votre domaine. Les clés secrètes (paiement, e-mails, calcul d'itinéraire serveur) se configurent uniquement sur le service de réservation." },
+      {
+        "type": "select",
+        "id": "geo_autocomplete",
+        "label": "Autocomplétion des adresses",
+        "options": [
+          { "value": "google", "label": "Google Places (clé requise)" },
+          { "value": "mapbox", "label": "Mapbox Search (jeton requis)" },
+          { "value": "photon", "label": "OpenStreetMap / Photon (démonstration)" },
+          { "value": "none", "label": "Désactivée (saisie libre, prix sur devis)" }
+        ],
+        "default": "photon",
+        "info": "Photon est gratuit mais réservé aux tests et aux faibles volumes. En production, utilisez Google ou Mapbox."
+      },
+      {
+        "type": "select",
+        "id": "geo_routing",
+        "label": "Calcul de la distance et de la durée",
+        "options": [
+          { "value": "backend", "label": "Service de réservation (recommandé)" },
+          { "value": "google", "label": "Google Maps (navigateur)" },
+          { "value": "mapbox", "label": "Mapbox Directions (navigateur)" },
+          { "value": "osrm", "label": "OSRM / OpenStreetMap (démonstration)" }
+        ],
+        "default": "osrm",
+        "info": "Le serveur OSRM public est une démonstration sans garantie. Le prix est toujours recalculé par le service de réservation avant paiement."
+      },
+      { "type": "text", "id": "google_maps_key", "label": "Clé Google Maps (navigateur)", "info": "Clé restreinte par référent HTTP à votre domaine, API Maps JavaScript et Places (New) activées." },
+      { "type": "text", "id": "mapbox_token", "label": "Jeton public Mapbox (pk.…)", "info": "Jeton public restreint à votre domaine (URL restrictions)." },
+      { "type": "header", "content": "Carte" },
+      { "type": "checkbox", "id": "map_enabled", "label": "Afficher la carte du trajet", "default": true },
+      { "type": "text", "id": "map_tiles_url", "label": "URL des tuiles (cartes hors Google)", "default": "https://tile.openstreetmap.org/{z}/{x}/{y}.png" },
+      { "type": "text", "id": "map_tiles_attribution", "label": "Attribution des tuiles", "default": "© OpenStreetMap" },
+      { "type": "header", "content": "Service de réservation (backend)" },
+      { "type": "text", "id": "backend_url", "label": "URL du service de réservation", "info": "Ex. : https://reservations.votre-domaine.be. Active le paiement en ligne, les e-mails au client, la validation serveur des prix et le suivi des réservations." },
+      { "type": "header", "content": "Repli" },
+      { "type": "checkbox", "id": "geo_estimate_fallback", "label": "Si l'itinéraire est indisponible, estimer la distance à vol d'oiseau", "default": false, "info": "Le prix est alors signalé comme estimation à confirmer." },
+      { "type": "text", "id": "geo_road_factor", "label": "Coefficient route / vol d'oiseau", "default": "1,3" }
+    ]
+  },
+  {
+    "name": "Référencement et partage",
+    "settings": [
+      { "type": "image_picker", "id": "share_image", "label": "Image de partage par défaut", "info": "1200 × 630 px conseillé. Utilisée quand une page n'a pas d'image." },
+      { "type": "checkbox", "id": "structured_data", "label": "Données structurées « TaxiService » pour Google", "default": true },
+      { "type": "text", "id": "seo_price_range", "label": "Gamme de prix (données structurées)", "default": "€€" },
+      { "type": "text", "id": "seo_area_served", "label": "Zone desservie (données structurées)", "default": "Bruxelles et Belgique" }
+    ]
+  }
+]

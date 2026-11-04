@@ -1,0 +1,35 @@
+{%- liquid
+  assign s = section.settings
+  assign phone_href = settings.company_phone | remove: ' ' | remove: '.' | remove: '-' | remove: '(' | remove: ')' | remove: '/'
+-%}
+{%- if s.text != blank -%}
+  <div class="announcement scheme-{{ s.color_scheme }}">
+    <div class="container announcement__inner{% if s.show_contact %} announcement__inner--split{% endif %}">
+      <p style="margin:0">
+        {%- if s.link != blank -%}<a href="{{ s.link }}">{{ s.text }}</a>{%- else -%}{{ s.text }}{%- endif -%}
+      </p>
+      {%- if s.show_contact -%}
+        <div class="announcement__extra">
+          {%- if settings.company_phone != blank -%}<a href="tel:{{ phone_href }}">{{ settings.company_phone }}</a>{%- endif -%}
+          {%- if settings.company_email != blank -%}<a href="mailto:{{ settings.company_email }}">{{ settings.company_email }}</a>{%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Barre d'annonce",
+  "tag": "div",
+  "class": "section-announcement",
+  "enabled_on": { "groups": ["header"] },
+  "settings": [
+    { "type": "text", "id": "text", "label": "Texte", "default": "Disponible 24 h/24, 7 j/7 · Transferts aéroport à prix fixe" },
+    { "type": "url", "id": "link", "label": "Lien" },
+    { "type": "checkbox", "id": "show_contact", "label": "Afficher téléphone et e-mail (ordinateur)", "default": true },
+    { "type": "select", "id": "color_scheme", "label": "Couleurs", "options": [ { "value": "default", "label": "Principal" }, { "value": "alt", "label": "Secondaire" }, { "value": "inverse", "label": "Contrasté" }, { "value": "accent", "label": "Accent" } ], "default": "accent" }
+  ],
+  "presets": [ { "name": "Barre d'annonce" } ]
+}
+{% endschema %}

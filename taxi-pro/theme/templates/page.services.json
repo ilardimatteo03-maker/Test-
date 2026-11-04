@@ -1,0 +1,126 @@
+{
+  "sections": {
+    "header": {
+      "type": "page-header",
+      "settings": {
+        "eyebrow": "Nos services",
+        "text": "<p>Du taxi de tous les jours au chauffeur privé : une solution pour chaque trajet.</p>",
+        "color_scheme": "inverse",
+        "breadcrumbs": true,
+        "padding_top": 96,
+        "padding_bottom": 72
+      }
+    },
+    "services": {
+      "type": "services",
+      "settings": {
+        "layout": "detailed",
+        "show_book": true,
+        "book_label": "Réserver ce service",
+        "color_scheme": "default",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "service_1": {
+          "type": "service",
+          "settings": {
+            "icon": "car",
+            "title": "Taxi classique",
+            "code": "taxi",
+            "text": "<p>Vos trajets du quotidien, en ville comme en périphérie, de jour comme de nuit.</p>",
+            "features": "Prise en charge rapide\nPaiement par carte à bord\nTous trajets, même courts"
+          }
+        },
+        "service_2": {
+          "type": "service",
+          "settings": {
+            "icon": "plane",
+            "title": "Transfert aéroport",
+            "code": "aeroport",
+            "text": "<p>Suivi de vol, accueil personnalisé et prix fixes vers les aéroports.</p>",
+            "features": "Suivi de votre vol\nAccueil avec pancarte sur demande\nForfaits aéroport"
+          }
+        },
+        "service_3": {
+          "type": "service",
+          "settings": {
+            "icon": "briefcase",
+            "title": "Transport professionnel",
+            "code": "affaires",
+            "text": "<p>Rendez-vous d'affaires et séminaires, facturation au nom de votre société.</p>",
+            "features": "Facture société\nVéhicules premium\nChauffeurs discrets"
+          }
+        },
+        "service_4": {
+          "type": "service",
+          "settings": {
+            "icon": "route",
+            "title": "Longue distance",
+            "code": "longue-distance",
+            "text": "<p>Trajets interurbains et vers l'étranger, en toute sérénité.</p>",
+            "features": "Belgique, France, Luxembourg, Pays-Bas\nPauses à la demande\nPrix sur devis au-delà de la zone"
+          }
+        },
+        "service_5": {
+          "type": "service",
+          "settings": {
+            "icon": "party",
+            "title": "Transport événementiel",
+            "code": "evenement",
+            "text": "<p>Mariages, galas, concerts : un chauffeur dédié à votre événement.</p>",
+            "features": "Véhicules décorés sur demande\nNavettes pour vos invités\nRetour en toute sécurité"
+          }
+        },
+        "service_6": {
+          "type": "service",
+          "settings": {
+            "icon": "clock",
+            "title": "Mise à disposition",
+            "code": "mise-a-disposition",
+            "text": "<p>Un chauffeur et son véhicule à l'heure, pour toutes vos étapes.</p>",
+            "features": "Tarif horaire\nItinéraire libre\nAttente incluse"
+          }
+        },
+        "service_7": {
+          "type": "service",
+          "settings": {
+            "icon": "shield",
+            "title": "Transport privé",
+            "code": "prive",
+            "text": "<p>Chauffeur privé discret, véhicule haut de gamme, confidentialité assurée.</p>",
+            "features": "Chauffeur en tenue\nConfidentialité\nVéhicules haut de gamme"
+          }
+        }
+      },
+      "block_order": [
+        "service_1",
+        "service_2",
+        "service_3",
+        "service_4",
+        "service_5",
+        "service_6",
+        "service_7"
+      ]
+    },
+    "cta": {
+      "type": "cta-banner",
+      "settings": {
+        "eyebrow": "Sur mesure",
+        "heading": "Un besoin particulier ?",
+        "text": "<p>Groupes, événements, contrats d'entreprise : demandez un devis personnalisé.</p>",
+        "button_label": "Nous contacter",
+        "button_link": "/pages/contact",
+        "show_phone": true,
+        "color_scheme": "inverse",
+        "padding_top": 0,
+        "padding_bottom": 96
+      }
+    }
+  },
+  "order": [
+    "header",
+    "services",
+    "cta"
+  ]
+}

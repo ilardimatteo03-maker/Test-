@@ -1,0 +1,107 @@
+{%- comment -%}
+  Pied de page : identité, coordonnées, menus, réseaux sociaux, informations légales.
+  Coordonnées et mentions proviennent des réglages du thème (Identité de l'entreprise).
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign company = settings.company_name | default: shop.name
+  assign phone_href = settings.company_phone | remove: ' ' | remove: '.' | remove: '-' | remove: '(' | remove: ')' | remove: '/'
+  assign cols = section.blocks.size | plus: 1
+-%}
+<footer class="site-footer section scheme-{{ s.color_scheme }}" style="--pad-top: {{ s.padding_top }}px; --pad-bottom: 32px; --footer-cols: {{ cols }};">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        {%- if settings.logo_inverse != blank and s.color_scheme == 'inverse' -%}
+          {{ settings.logo_inverse | image_url: width: 440 | image_tag: alt: company, loading: 'lazy' }}
+        {%- elsif settings.logo != blank -%}
+          {{ settings.logo | image_url: width: 440 | image_tag: alt: company, loading: 'lazy' }}
+        {%- else -%}
+          <p class="logo-text">{{ company }}</p>
+        {%- endif -%}
+        {%- if s.text != blank -%}<div class="rte text-muted">{{ s.text }}</div>{%- endif -%}
+        {%- if s.show_social -%}{% render 'social-links' %}{%- endif -%}
+      </div>
+
+      {%- for block in section.blocks -%}
+        <div {{ block.shopify_attributes }}>
+          {%- case block.type -%}
+            {%- when 'menu' -%}
+              {%- if block.settings.title != blank -%}<h2>{{ block.settings.title }}</h2>{%- endif -%}
+              {%- if block.settings.menu != blank -%}
+                <ul>{%- for link in block.settings.menu.links -%}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{%- endfor -%}</ul>
+              {%- endif -%}
+            {%- when 'contact' -%}
+              {%- assign contact_title = 'footer.contact' | t -%}
+              <h2>{{ block.settings.title | default: contact_title }}</h2>
+              <div class="contact-lines">
+                {%- if settings.company_phone != blank -%}<a href="tel:{{ phone_href }}">{% render 'icon', name: 'phone' %}{{ settings.company_phone }}</a>{%- endif -%}
+                {%- if settings.company_whatsapp != blank -%}<a href="https://wa.me/{{ settings.company_whatsapp | remove: '+' | remove: ' ' }}" target="_blank" rel="noopener">{% render 'icon', name: 'whatsapp' %}{{ 'general.whatsapp' | t }}</a>{%- endif -%}
+                {%- if settings.company_email != blank -%}<a href="mailto:{{ settings.company_email }}">{% render 'icon', name: 'mail' %}{{ settings.company_email }}</a>{%- endif -%}
+                {%- if settings.company_street != blank -%}<span>{% render 'icon', name: 'pin' %}<span>{{ settings.company_street }}<br>{{ settings.company_postcode }} {{ settings.company_city }}</span></span>{%- endif -%}
+                {%- if block.settings.show_hours -%}
+                  <span>{% render 'icon', name: 'clock' %}<span>{% if settings.hours_always %}{{ 'general.available_24_7' | t }}{% else %}{{ block.settings.hours_text }}{% endif %}</span></span>
+                {%- endif -%}
+              </div>
+            {%- when 'text' -%}
+              {%- if block.settings.title != blank -%}<h2>{{ block.settings.title }}</h2>{%- endif -%}
+              <div class="rte text-muted">{{ block.settings.text }}</div>
+          {%- endcase -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <div class="site-footer__bottom">
+      <p style="margin:0">© {{ 'now' | date: '%Y' }} {{ settings.company_legal_name | default: company }}. {{ 'footer.rights' | t }}</p>
+      <div class="site-footer__legal">
+        {%- if settings.company_number != blank -%}<span>{{ settings.company_number_label }} {{ settings.company_number }}</span>{%- endif -%}
+        {%- if settings.company_vat != blank -%}<span>{{ 'footer.vat' | t }} {{ settings.company_vat }}</span>{%- endif -%}
+        {%- if settings.company_license != blank -%}<span>{{ 'footer.license' | t }} {{ settings.company_license }}</span>{%- endif -%}
+        {%- if s.legal_menu != blank -%}
+          {%- for link in s.legal_menu.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Pied de page",
+  "tag": "div",
+  "class": "section-footer",
+  "enabled_on": { "groups": ["footer"] },
+  "max_blocks": 4,
+  "settings": [
+    { "type": "richtext", "id": "text", "label": "Présentation", "default": "<p>Taxi, transferts aéroport et chauffeur privé. Ponctualité, discrétion et prix annoncé à l'avance.</p>" },
+    { "type": "checkbox", "id": "show_social", "label": "Afficher les réseaux sociaux", "default": true, "info": "Liens dans Paramètres du thème › Identité de l'entreprise." },
+    { "type": "link_list", "id": "legal_menu", "label": "Menu légal (bas de page)", "default": "footer" },
+    { "type": "select", "id": "color_scheme", "label": "Couleurs", "options": [ { "value": "default", "label": "Principal" }, { "value": "alt", "label": "Secondaire" }, { "value": "inverse", "label": "Contrasté" } ], "default": "alt" },
+    { "type": "range", "id": "padding_top", "label": "Marge haute", "min": 24, "max": 120, "step": 8, "unit": "px", "default": 72 }
+  ],
+  "blocks": [
+    {
+      "type": "menu", "name": "Menu",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titre", "default": "Navigation" },
+        { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" }
+      ]
+    },
+    {
+      "type": "contact", "name": "Coordonnées", "limit": 1,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titre", "default": "Contact" },
+        { "type": "checkbox", "id": "show_hours", "label": "Afficher les horaires", "default": true },
+        { "type": "text", "id": "hours_text", "label": "Horaires (si pas 24 h/24)", "default": "Tous les jours de 6 h à 23 h" }
+      ]
+    },
+    {
+      "type": "text", "name": "Texte",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titre", "default": "Paiement" },
+        { "type": "richtext", "id": "text", "label": "Texte", "default": "<p>Espèces, cartes bancaires et paiement en ligne sécurisé.</p>" }
+      ]
+    }
+  ]
+}
+{% endschema %}

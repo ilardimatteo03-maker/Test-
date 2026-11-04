@@ -1,0 +1,28 @@
+<section class="section scheme-default" style="--pad-top: 96px; --pad-bottom: 96px;">
+  <div class="container container--narrow">
+    <h1 class="h2">{{ 'pages.cart_title' | t }}</h1>
+    {%- if cart.item_count == 0 -%}
+      <p class="text-muted">{{ 'pages.cart_empty' | t }}</p>
+      <a class="btn" href="{{ routes.root_url }}">{{ 'general.back_home' | t }}</a>
+    {%- else -%}
+      <form action="{{ routes.cart_url }}" method="post">
+        <table class="rate-table">
+          <tbody>
+            {%- for item in cart.items -%}
+              <tr>
+                <th scope="row"><a href="{{ item.url }}">{{ item.product.title }}</a>{% unless item.product.has_only_default_variant %}<small>{{ item.variant.title }}</small>{% endunless %}</th>
+                <td style="width: 110px"><label class="visually-hidden" for="Qty-{{ item.key }}">{{ 'pages.quantity' | t }}</label><input class="input" id="Qty-{{ item.key }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0"></td>
+                <td>{{ item.final_line_price | money }}<br><a href="{{ item.url_to_remove }}" style="font-size: .8rem; font-family: var(--font-body)">{{ 'pages.remove' | t }}</a></td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+        <p class="h4" style="text-align: right; margin-top: 1.5rem">{{ 'pages.subtotal' | t }} : {{ cart.total_price | money }}</p>
+        <div class="btn-row" style="justify-content: flex-end"><button class="btn btn--large" type="submit" name="checkout">{{ 'pages.checkout' | t }}</button></div>
+      </form>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{ "name": "Panier", "tag": "div", "class": "section-main-cart", "settings": [] }
+{% endschema %}

@@ -1,0 +1,356 @@
+{%- comment -%}
+  Module de réservation complet en 5 étapes.
+  Le balisage est rendu par Liquid (accessible, traduisible) ; assets/tp-booking.js gère le parcours,
+  l'autocomplétion, l'itinéraire, le calcul du prix et l'envoi.
+  Sans service de réservation (backend), la demande part par le formulaire de contact Shopify.
+{%- endcomment -%}
+{{ 'tp-booking.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'tp-pricing.js' | asset_url }}" defer></script>
+<script src="{{ 'tp-geo.js' | asset_url }}" defer></script>
+<script src="{{ 'tp-booking.js' | asset_url }}" defer></script>
+
+{%- liquid
+  assign uid = 'tpb-' | append: section.id
+  assign company = settings.company_name | default: shop.name
+  assign phone_href = settings.company_phone | remove: ' ' | remove: '.' | remove: '-' | remove: '(' | remove: ')' | remove: '/'
+  assign hour_options = '1,2,3,4,5,6,7,8,9,10,12,24' | split: ','
+  assign l_pickup = 'taxi.booking.pickup_label' | t
+  assign p_pickup = 'taxi.booking.pickup_placeholder' | t
+  assign l_dropoff = 'taxi.booking.dropoff_label' | t
+  assign p_dropoff = 'taxi.booking.dropoff_placeholder' | t
+  assign l_passengers = 'taxi.booking.passengers_label' | t
+  assign l_luggage = 'taxi.booking.luggage_label' | t
+-%}
+
+<section
+  id="{{ section.settings.anchor | default: 'reservation' | handleize }}"
+  class="section tp-booking-section scheme-{{ section.settings.color_scheme }}"
+  style="--pad-top: {{ section.settings.padding_top }}px; --pad-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="container{% if section.settings.width == 'narrow' %} container--narrow{% endif %}">
+    {%- if section.settings.heading != blank or section.settings.eyebrow != blank or section.settings.text != blank -%}
+      <div class="section-head{% if section.settings.align == 'center' %} text-center{% endif %}">
+        {%- if section.settings.eyebrow != blank %}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{% endif -%}
+        {%- if section.settings.heading != blank %}<h2 class="h2">{{ section.settings.heading }}</h2>{% endif -%}
+        {%- if section.settings.text != blank %}<div class="lead rte">{{ section.settings.text }}</div>{% endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="tp-booking{% if section.settings.show_aside == false %} tp-booking--no-aside{% endif %}" data-tp-booking>
+      <noscript>
+        <div class="form-status form-status--error">
+          {{ 'taxi.booking.nojs' | t }}
+          {%- if settings.company_phone != blank %} <a href="tel:{{ phone_href }}">{{ settings.company_phone }}</a>{% endif -%}
+        </div>
+      </noscript>
+
+      <div class="form-status form-status--error" data-tp-unavailable hidden>
+        {{ 'taxi.booking.unavailable_config' | t }}
+        {%- if settings.company_phone != blank %} <a href="tel:{{ phone_href }}">{{ settings.company_phone }}</a>{% endif -%}
+      </div>
+
+      {%- if request.design_mode -%}
+        {%- liquid
+          assign design_warnings = ''
+          if settings.geo_autocomplete == 'google' and settings.google_maps_key == blank
+            assign design_warnings = design_warnings | append: '<li>Autocomplétion Google choisie sans clé : Photon est utilisé à la place.</li>'
+          endif
+          if settings.geo_autocomplete == 'mapbox' and settings.mapbox_token == blank
+            assign design_warnings = design_warnings | append: '<li>Autocomplétion Mapbox choisie sans jeton : Photon est utilisé à la place.</li>'
+          endif
+          if settings.geo_routing == 'backend' and settings.backend_url == blank
+            assign design_warnings = design_warnings | append: '<li>Itinéraire « service de réservation » choisi sans URL : OSRM est utilisé à la place.</li>'
+          endif
+          if settings.geo_autocomplete == 'photon' or settings.geo_routing == 'osrm'
+            assign design_warnings = design_warnings | append: '<li>Photon et OSRM sont des services de démonstration : utilisez Google, Mapbox ou le service de réservation en production.</li>'
+          endif
+          if settings.backend_url == blank
+            if settings.payment_online or settings.payment_deposit
+              assign design_warnings = design_warnings | append: '<li>Le paiement en ligne et l’acompte nécessitent le service de réservation : ils restent masqués.</li>'
+            endif
+          endif
+        -%}
+        {%- if design_warnings != blank -%}
+          <div class="tp-config-panel"><strong>Visible uniquement dans l'éditeur.</strong><ul>{{ design_warnings }}</ul></div>
+        {%- endif -%}
+      {%- endif -%}
+
+      <div class="tp-booking__layout">
+        <form class="tp-booking__form" data-tp-form novalidate aria-labelledby="{{ uid }}-progress-label">
+          <p class="visually-hidden" id="{{ uid }}-progress-label">{{ section.settings.heading | default: company }}</p>
+          <ol class="tp-progress" data-tp-progress>
+            {%- assign step_keys = 'trip,vehicle,options,details,summary' | split: ',' -%}
+            {%- for key in step_keys -%}
+              {%- assign step_label = 'taxi.booking.step_' | append: key -%}
+              <li data-step-indicator="{{ forloop.index }}"{% if forloop.first %} class="is-current" aria-current="step"{% endif %}>
+                <button type="button" data-tp-goto="{{ forloop.index }}"{% unless forloop.first %} disabled{% endunless %}>
+                  <span class="tp-progress__num" aria-hidden="true">{{ forloop.index }}</span>
+                  <span class="tp-progress__label">{{ step_label | t }}</span>
+                </button>
+              </li>
+            {%- endfor -%}
+          </ol>
+          <p class="tp-progress__counter" data-tp-step-counter aria-live="polite"></p>
+
+          {%- comment -%} Étape 1 : trajet {%- endcomment -%}
+          <section class="tp-step" data-tp-step="1" aria-labelledby="{{ uid }}-t1">
+            <h3 class="tp-step__title h4" id="{{ uid }}-t1" tabindex="-1">{{ 'taxi.booking.step_trip' | t }}</h3>
+            <p class="tp-note" data-tp-manual-note hidden>{% render 'icon', name: 'info' %}<span>{{ 'taxi.booking.manual_address_note' | t }}</span></p>
+
+            <div class="field" data-tp-services-field>
+              <span class="field__label" id="{{ uid }}-service-label">{{ 'taxi.booking.service_label' | t }}</span>
+              <div class="tp-chips" role="radiogroup" aria-labelledby="{{ uid }}-service-label" data-tp-services></div>
+            </div>
+
+            <div class="tp-addresses">
+              {% render 'tp-address-field', key: 'pickup', uid: uid, label: l_pickup, placeholder: p_pickup, locate: true %}
+              <button type="button" class="tp-swap" data-tp-swap aria-label="{{ 'taxi.booking.swap' | t }}" title="{{ 'taxi.booking.swap' | t }}">{% render 'icon', name: 'swap' %}</button>
+              <div data-tp-dropoff-field>
+                {% render 'tp-address-field', key: 'dropoff', uid: uid, label: l_dropoff, placeholder: p_dropoff, locate: false %}
+              </div>
+            </div>
+
+            <div class="tp-route" data-tp-route aria-live="polite" hidden></div>
+            {%- if settings.map_enabled -%}
+              <div class="tp-map" data-tp-map role="img" aria-label="{{ 'taxi.booking.map_label' | t }}"></div>
+            {%- endif -%}
+
+            <fieldset class="tp-when" data-tp-when-field>
+              <legend class="field__label">{{ 'taxi.booking.when_label' | t }}</legend>
+              <div class="tp-segmented">
+                <label><input type="radio" name="tp-when" value="schedule" checked><span>{% render 'icon', name: 'calendar' %}{{ 'taxi.booking.schedule' | t }}</span></label>
+                <label><input type="radio" name="tp-when" value="asap"><span>{% render 'icon', name: 'clock' %}{{ 'taxi.booking.asap' | t }}</span></label>
+              </div>
+            </fieldset>
+
+            <div class="form-grid form-grid--2 tp-grid-2" data-tp-schedule>
+              <div class="field">
+                <label class="field__label" for="{{ uid }}-date">{{ 'taxi.booking.date_label' | t }}</label>
+                <input class="input" type="date" id="{{ uid }}-date" name="date" required>
+              </div>
+              <div class="field">
+                <label class="field__label" for="{{ uid }}-time">{{ 'taxi.booking.time_label' | t }}</label>
+                <input class="input" type="time" id="{{ uid }}-time" name="time" step="300" required>
+              </div>
+            </div>
+
+            <div class="form-grid form-grid--2 tp-grid-2">
+              {% render 'tp-stepper', key: 'passengers', uid: uid, label: l_passengers, value: 1, min: 1, max: settings.booking_max_passengers, icon: 'users' %}
+              {% render 'tp-stepper', key: 'luggage', uid: uid, label: l_luggage, value: 0, min: 0, max: settings.booking_max_luggage, icon: 'luggage' %}
+            </div>
+
+            <div class="field" data-tp-hours-field hidden>
+              <label class="field__label" for="{{ uid }}-hours">{{ 'taxi.booking.hours_label' | t }}</label>
+              <select class="select" id="{{ uid }}-hours" name="hours">
+                {%- for h in hour_options -%}<option value="{{ h }}">{{ h }} h</option>{%- endfor -%}
+              </select>
+            </div>
+
+            <div class="tp-toggle-row" data-tp-roundtrip-field>
+              <label class="tp-switch-label" for="{{ uid }}-rt">
+                <span>{% render 'icon', name: 'swap' %}{{ 'taxi.booking.round_trip_label' | t }}</span>
+                <span class="tp-switch"><input type="checkbox" id="{{ uid }}-rt" name="roundTrip"><span class="tp-switch__ui" aria-hidden="true"></span></span>
+              </label>
+            </div>
+            <div class="form-grid form-grid--2 tp-grid-2" data-tp-return hidden>
+              <div class="field">
+                <label class="field__label" for="{{ uid }}-rdate">{{ 'taxi.booking.return_date_label' | t }}</label>
+                <input class="input" type="date" id="{{ uid }}-rdate" name="returnDate">
+              </div>
+              <div class="field">
+                <label class="field__label" for="{{ uid }}-rtime">{{ 'taxi.booking.return_time_label' | t }}</label>
+                <input class="input" type="time" id="{{ uid }}-rtime" name="returnTime" step="300">
+              </div>
+            </div>
+
+            <div class="field" data-tp-waiting-field hidden>
+              <label class="field__label" for="{{ uid }}-wait">{{ 'taxi.booking.waiting_label' | t }}</label>
+              <input class="input" type="number" inputmode="numeric" min="0" max="600" step="5" id="{{ uid }}-wait" name="waitingMin" value="0">
+            </div>
+
+            <ul class="tp-errors" data-tp-errors role="alert" hidden></ul>
+          </section>
+
+          {%- comment -%} Étape 2 : véhicule {%- endcomment -%}
+          <section class="tp-step" data-tp-step="2" aria-labelledby="{{ uid }}-t2" hidden>
+            <h3 class="tp-step__title h4" id="{{ uid }}-t2" tabindex="-1">{{ 'taxi.booking.step_vehicle' | t }}</h3>
+            <div class="tp-vehicles" role="radiogroup" aria-labelledby="{{ uid }}-t2" data-tp-vehicles></div>
+            <ul class="tp-errors" data-tp-errors role="alert" hidden></ul>
+          </section>
+
+          {%- comment -%} Étape 3 : options {%- endcomment -%}
+          <section class="tp-step" data-tp-step="3" aria-labelledby="{{ uid }}-t3" hidden>
+            <h3 class="tp-step__title h4" id="{{ uid }}-t3" tabindex="-1">{{ 'taxi.booking.step_options' | t }}</h3>
+            <p class="text-muted">{{ 'taxi.booking.options_intro' | t }}</p>
+            <div class="tp-options" data-tp-options></div>
+            <ul class="tp-errors" data-tp-errors role="alert" hidden></ul>
+          </section>
+
+          {%- comment -%} Étape 4 : coordonnées et règlement {%- endcomment -%}
+          <section class="tp-step" data-tp-step="4" aria-labelledby="{{ uid }}-t4" hidden>
+            <h3 class="tp-step__title h4" id="{{ uid }}-t4" tabindex="-1">{{ 'taxi.booking.step_details' | t }}</h3>
+            <div class="form-grid form-grid--2">
+              <div class="field">
+                <label class="field__label" for="{{ uid }}-fn">{{ 'taxi.booking.first_name' | t }}</label>
+                <input class="input" id="{{ uid }}-fn" name="firstName" autocomplete="given-name" required>
+              </div>
+              <div class="field">
+                <label class="field__label" for="{{ uid }}-ln">{{ 'taxi.booking.last_name' | t }}</label>
+                <input class="input" id="{{ uid }}-ln" name="lastName" autocomplete="family-name" required>
+              </div>
+              <div class="field">
+                <label class="field__label" for="{{ uid }}-em">{{ 'taxi.booking.email' | t }}</label>
+                <input class="input" id="{{ uid }}-em" name="email" type="email" autocomplete="email" inputmode="email" required>
+              </div>
+              <div class="field">
+                <label class="field__label" for="{{ uid }}-ph">{{ 'taxi.booking.phone' | t }}</label>
+                <input class="input" id="{{ uid }}-ph" name="phone" type="tel" autocomplete="tel" inputmode="tel" required>
+              </div>
+              <div class="field span-2" data-tp-flight-field hidden>
+                <label class="field__label" for="{{ uid }}-fl">{{ 'taxi.booking.flight' | t }}</label>
+                <input class="input" id="{{ uid }}-fl" name="flight" placeholder="{{ 'taxi.booking.flight_placeholder' | t }}" autocapitalize="characters" maxlength="20">
+                <span class="field__hint">{{ 'taxi.booking.flight_hint' | t }}</span>
+              </div>
+              <div class="field span-2">
+                <label class="field__label" for="{{ uid }}-cm">{{ 'taxi.booking.comments' | t }}</label>
+                <textarea class="textarea" id="{{ uid }}-cm" name="comments" rows="3" maxlength="1000" placeholder="{{ 'taxi.booking.comments_placeholder' | t }}"></textarea>
+              </div>
+            </div>
+
+            <fieldset class="tp-payments-field">
+              <legend class="field__label">{{ 'taxi.booking.payment_title' | t }}</legend>
+              <div class="tp-payments" data-tp-payments></div>
+            </fieldset>
+
+            {%- if settings.booking_require_terms -%}
+              <label class="checkbox tp-terms" for="{{ uid }}-terms">
+                <input type="checkbox" id="{{ uid }}-terms" name="terms">
+                <span>
+                  {%- if section.settings.terms_text != blank -%}
+                    {{ section.settings.terms_text | remove: '<p>' | remove: '</p>' }}
+                  {%- elsif settings.terms_page != blank -%}
+                    {{ 'taxi.terms.accept_html' | t: url: settings.terms_page.url }}
+                  {%- else -%}
+                    {{ 'taxi.terms.accept' | t }}
+                  {%- endif -%}
+                  {%- if settings.privacy_page != blank %} {{ 'taxi.terms.privacy_html' | t: url: settings.privacy_page.url }}{% endif -%}
+                </span>
+              </label>
+            {%- endif -%}
+            <div class="tp-hp" aria-hidden="true">
+              <label for="{{ uid }}-website">Website</label>
+              <input id="{{ uid }}-website" name="tp_website" tabindex="-1" autocomplete="off">
+            </div>
+            <ul class="tp-errors" data-tp-errors role="alert" hidden></ul>
+          </section>
+
+          {%- comment -%} Étape 5 : récapitulatif et confirmation {%- endcomment -%}
+          <section class="tp-step" data-tp-step="5" aria-labelledby="{{ uid }}-t5" hidden>
+            <h3 class="tp-step__title h4" id="{{ uid }}-t5" tabindex="-1">{{ 'taxi.booking.summary_title' | t }}</h3>
+            <div data-tp-summary></div>
+            <ul class="tp-errors" data-tp-errors role="alert" hidden></ul>
+            <p class="tp-notice">{% render 'icon', name: 'info' %}<span data-tp-notice></span></p>
+            <button type="button" class="btn btn--large btn--block tp-confirm" data-tp-confirm>{{ 'taxi.booking.confirm_request' | t }}</button>
+          </section>
+
+          <div class="tp-nav">
+            <button type="button" class="btn btn--secondary" data-tp-back hidden>{% render 'icon', name: 'arrow-left' %}{{ 'taxi.booking.back' | t }}</button>
+            <button type="button" class="btn tp-nav__next" data-tp-next>{{ 'taxi.booking.next' | t }}{% render 'icon', name: 'arrow-right' %}</button>
+          </div>
+        </form>
+
+        {%- if section.settings.show_aside -%}
+          <aside class="tp-aside" data-tp-aside aria-label="{{ 'taxi.booking.summary_title' | t }}">
+            <div class="tp-aside__card">
+              <p class="tp-aside__label" data-tp-total-label>{{ 'taxi.booking.live_total' | t }}</p>
+              <p class="tp-aside__total" data-tp-total aria-live="polite">—</p>
+              <ul class="tp-aside__recap" data-tp-aside-recap></ul>
+              <div data-tp-aside-price></div>
+              {%- if section.blocks.size > 0 -%}
+                <ul class="tp-aside__points">
+                  {%- for block in section.blocks -%}
+                    <li {{ block.shopify_attributes }}>{% render 'icon', name: block.settings.icon %}<span>{{ block.settings.text }}</span></li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+              {%- if settings.company_phone != blank and section.settings.show_help -%}
+                <p class="tp-aside__help">{{ section.settings.help_text }}<br><a href="tel:{{ phone_href }}">{% render 'icon', name: 'phone' %}{{ settings.company_phone }}</a></p>
+              {%- endif -%}
+            </div>
+          </aside>
+        {%- endif -%}
+      </div>
+
+      <div class="tp-result-wrap" data-tp-result hidden></div>
+
+      <div class="tp-mobilebar" data-tp-mobilebar>
+        <div class="tp-mobilebar__price">
+          <span data-tp-total-label>{{ 'taxi.booking.live_total' | t }}</span>
+          <strong data-tp-total>—</strong>
+        </div>
+        <button type="button" class="btn" data-tp-next>{{ 'taxi.booking.next' | t }}</button>
+      </div>
+
+      {%- comment -%} Repli sans backend : formulaire de contact natif (e-mail à la boutique). {%- endcomment -%}
+      {%- form 'contact', class: 'tp-contact-fallback' -%}
+        {%- if form.posted_successfully? -%}<span data-tp-contact-posted hidden></span>{%- endif -%}
+        <input type="hidden" name="contact[name]" data-tp-contact-field="name">
+        <input type="hidden" name="contact[email]" data-tp-contact-field="email">
+        <input type="hidden" name="contact[phone]" data-tp-contact-field="phone">
+        <input type="hidden" name="contact[Référence]" data-tp-contact-field="ref">
+        <input type="hidden" name="contact[Origine]" value="{{ 'taxi.booking.subject' | t }}">
+        <input type="hidden" name="contact[body]" data-tp-contact-field="body">
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Réservation",
+  "tag": "div",
+  "class": "section-booking",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre" },
+    { "type": "text", "id": "heading", "label": "Titre" },
+    { "type": "richtext", "id": "text", "label": "Texte" },
+    { "type": "select", "id": "align", "label": "Alignement du titre", "options": [ { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centré" } ], "default": "left" },
+    { "type": "text", "id": "anchor", "label": "Ancre de la section", "default": "reservation", "info": "Permet de créer un lien direct, par exemple /pages/reservation#reservation." },
+    { "type": "header", "content": "Colonne récapitulative" },
+    { "type": "checkbox", "id": "show_aside", "label": "Afficher le prix et le récapitulatif à côté du formulaire", "default": true },
+    { "type": "checkbox", "id": "show_help", "label": "Afficher l'aide téléphonique", "default": true },
+    { "type": "text", "id": "help_text", "label": "Texte d'aide", "default": "Une question ? Appelez-nous." },
+    { "type": "header", "content": "Conditions" },
+    { "type": "richtext", "id": "terms_text", "label": "Texte de la case des conditions", "info": "Laissez vide pour un texte automatique avec le lien vers la page des conditions générales." },
+    { "type": "header", "content": "Apparence" },
+    {
+      "type": "select", "id": "color_scheme", "label": "Couleurs",
+      "options": [ { "value": "default", "label": "Principal" }, { "value": "alt", "label": "Secondaire" }, { "value": "inverse", "label": "Contrasté" } ],
+      "default": "alt"
+    },
+    { "type": "select", "id": "width", "label": "Largeur", "options": [ { "value": "default", "label": "Normale" }, { "value": "narrow", "label": "Étroite" } ], "default": "default" },
+    { "type": "range", "id": "padding_top", "label": "Marge haute", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 88 },
+    { "type": "range", "id": "padding_bottom", "label": "Marge basse", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 88 }
+  ],
+  "blocks": [
+    {
+      "type": "point",
+      "name": "Argument",
+      "settings": [
+        {
+          "type": "select", "id": "icon", "label": "Icône",
+          "options": [
+            { "value": "shield", "label": "Bouclier" }, { "value": "check", "label": "Coche" }, { "value": "clock", "label": "Horloge" },
+            { "value": "euro", "label": "Prix" }, { "value": "award", "label": "Récompense" }, { "value": "headset", "label": "Assistance" },
+            { "value": "card", "label": "Carte bancaire" }, { "value": "plane", "label": "Avion" }
+          ],
+          "default": "check"
+        },
+        { "type": "text", "id": "text", "label": "Texte", "default": "Prix annoncé avant réservation" }
+      ]
+    }
+  ],
+  "presets": [{"name": "Réservation", "blocks": [{"type": "point", "settings": {"icon": "euro", "text": "Prix calculé selon nos tarifs, sans surprise"}}, {"type": "point", "settings": {"icon": "shield", "text": "Chauffeurs professionnels et licenciés"}}, {"type": "point", "settings": {"icon": "headset", "text": "Confirmation par e-mail ou par téléphone"}}], "settings": {"text": "<p>Prix calculé instantanément selon nos tarifs. Confirmation par e-mail.</p>", "heading": "Réservez votre course", "eyebrow": "Réservation en ligne"}}]
+}
+{% endschema %}

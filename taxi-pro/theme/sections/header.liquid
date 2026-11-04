@@ -1,0 +1,115 @@
+{%- comment -%}
+  En-tête : logo (réglages du thème), menu, téléphone, bouton de réservation, menu mobile.
+  Option : transparent au-dessus du héros de la page d'accueil.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign company = settings.company_name | default: shop.name
+  assign phone_href = settings.company_phone | remove: ' ' | remove: '.' | remove: '-' | remove: '(' | remove: ')' | remove: '/'
+  assign transparent = false
+  if s.transparent_home and template.name == 'index'
+    assign transparent = true
+  endif
+  assign cta_url = s.cta_link | default: settings.booking_page.url | default: '#reservation'
+-%}
+<style>:root { --header-h: {{ s.height }}px; }</style>
+
+<header
+  class="site-header scheme-{{ s.color_scheme }}{% if s.sticky %} site-header--sticky{% endif %}{% if transparent %} site-header--transparent{% endif %}"
+  data-header
+  {% if transparent %}data-transparent{% endif %}
+  style="--header-height: {{ s.height }}px;"
+>
+  <div class="container site-header__inner">
+    <a class="site-header__logo{% if settings.logo_inverse != blank %} has-inverse{% endif %}" href="{{ routes.root_url }}" aria-label="{{ 'accessibility.logo_link' | t: name: company }}">
+      {%- if settings.logo != blank -%}
+        {{ settings.logo | image_url: width: 600 | image_tag: class: 'logo-default', alt: company, loading: 'eager', widths: '200, 300, 450, 600', sizes: '300px' }}
+        {%- if settings.logo_inverse != blank -%}
+          {{ settings.logo_inverse | image_url: width: 600 | image_tag: class: 'logo-inverse', alt: company, loading: 'eager', widths: '200, 300, 450, 600', sizes: '300px' }}
+        {%- endif -%}
+      {%- else -%}
+        <span class="logo-text">{{ company }}</span>
+      {%- endif -%}
+    </a>
+
+    {%- if s.menu != blank -%}
+      <nav class="site-nav" aria-label="{{ 'general.menu' | t }}">
+        <ul>
+          {%- for link in s.menu.links -%}
+            <li>
+              <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+              {%- if link.links.size > 0 -%}
+                <ul class="submenu">
+                  {%- for child in link.links -%}
+                    <li><a href="{{ child.url }}"{% if child.current %} aria-current="page"{% endif %}>{{ child.title }}</a></li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    {%- endif -%}
+
+    <div class="site-header__actions">
+      {%- if s.show_phone and settings.company_phone != blank -%}
+        <a class="header-phone" href="tel:{{ phone_href }}" aria-label="{{ 'accessibility.phone_link' | t: phone: settings.company_phone }}">{% render 'icon', name: 'phone' %}<span>{{ settings.company_phone }}</span></a>
+      {%- endif -%}
+      {%- if s.cta_label != blank -%}
+        <a class="btn btn--small header-cta" href="{{ cta_url }}">{{ s.cta_label }}</a>
+      {%- endif -%}
+      <button type="button" class="menu-toggle" data-menu-open aria-controls="MobileMenu-{{ section.id }}" aria-expanded="false" aria-label="{{ 'general.open_menu' | t }}">
+        {%- render 'icon', name: 'menu' -%}
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="MobileMenu-{{ section.id }}" data-mobile-menu role="dialog" aria-modal="true" aria-label="{{ 'general.menu' | t }}" hidden>
+  <div class="mobile-menu__top">
+    <span class="logo-text">{{ company }}</span>
+    <button type="button" class="menu-toggle" data-menu-close aria-label="{{ 'general.close_menu' | t }}">{% render 'icon', name: 'close' %}</button>
+  </div>
+  {%- if s.menu != blank -%}
+    <nav aria-label="{{ 'general.menu' | t }}">
+      <ul>
+        {%- for link in s.menu.links -%}
+          <li>
+            <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+            {%- if link.links.size > 0 -%}
+              <ul class="submenu">
+                {%- for child in link.links -%}<li><a href="{{ child.url }}">{{ child.title }}</a></li>{%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+  {%- endif -%}
+  <div class="mobile-menu__footer">
+    {%- if s.cta_label != blank -%}<a class="btn btn--large btn--block" href="{{ cta_url }}">{{ s.cta_label }}</a>{%- endif -%}
+    {%- if settings.company_phone != blank -%}
+      <a class="btn btn--large btn--block btn--secondary" href="tel:{{ phone_href }}">{% render 'icon', name: 'phone' %}{{ settings.company_phone }}</a>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "En-tête",
+  "tag": "div",
+  "class": "section-header",
+  "enabled_on": { "groups": ["header"] },
+  "settings": [
+    { "type": "paragraph", "content": "Le logo se règle dans Paramètres du thème › Identité de l'entreprise." },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "checkbox", "id": "sticky", "label": "En-tête fixe au défilement", "default": true },
+    { "type": "checkbox", "id": "transparent_home", "label": "Transparent au-dessus du héros de l'accueil", "default": true },
+    { "type": "checkbox", "id": "show_phone", "label": "Afficher le téléphone", "default": true },
+    { "type": "text", "id": "cta_label", "label": "Bouton de réservation", "default": "Réserver" },
+    { "type": "url", "id": "cta_link", "label": "Lien du bouton", "info": "Vide : page de réservation des réglages du thème." },
+    { "type": "range", "id": "height", "label": "Hauteur", "min": 60, "max": 120, "step": 4, "unit": "px", "default": 84 },
+    { "type": "select", "id": "color_scheme", "label": "Couleurs", "options": [ { "value": "default", "label": "Principal" }, { "value": "alt", "label": "Secondaire" }, { "value": "inverse", "label": "Contrasté" } ], "default": "default" }
+  ]
+}
+{% endschema %}

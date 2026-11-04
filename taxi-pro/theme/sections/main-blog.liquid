@@ -1,0 +1,26 @@
+<section class="section scheme-default" style="--pad-top: 96px; --pad-bottom: 96px;">
+  <div class="container">
+    <h1 class="h2">{{ blog.title }}</h1>
+    {%- paginate blog.articles by 9 -%}
+      {%- if blog.articles.size == 0 -%}<p class="text-muted">{{ 'pages.blog_empty' | t }}</p>{%- endif -%}
+      <div class="grid" style="--cols: 3; margin-top: 2rem">
+        {%- for article in blog.articles -%}
+          <a class="card card--hover" href="{{ article.url }}">
+            <div class="card__media" style="--ratio: 16 / 10">
+              {%- if article.image -%}{{ article.image | image_url: width: 800 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 33vw, 100vw', widths: '400, 600, 800', alt: article.image.alt | default: article.title }}{%- else -%}<div class="media-placeholder">{% render 'icon', name: 'route' %}</div>{%- endif -%}
+            </div>
+            <div class="card__body">
+              <p class="text-muted" style="margin: 0; font-size: .85rem">{{ article.published_at | time_tag: format: 'date' }}</p>
+              <h2 class="card__title h4">{{ article.title }}</h2>
+              <p class="card__text">{{ article.excerpt_or_content | strip_html | truncatewords: 24 }}</p>
+            </div>
+          </a>
+        {%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 -%}<div class="pagination">{{ paginate | default_pagination }}</div>{%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+{% schema %}
+{ "name": "Blog", "tag": "div", "class": "section-main-blog", "settings": [] }
+{% endschema %}

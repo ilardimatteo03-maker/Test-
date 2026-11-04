@@ -1,0 +1,14 @@
+<section class="section scheme-default" style="--pad-top: 96px; --pad-bottom: 96px;">
+  <div class="container container--narrow">
+    <p><a href="{{ routes.account_url }}">{{ 'customer.back_account' | t }}</a></p>
+    <h1 class="h2">{{ 'customer.addresses' | t }}</h1>
+    {%- paginate customer.addresses by 10 -%}
+      {%- for address in customer.addresses -%}
+        <div class="contact-card" style="margin-bottom: 1rem">{{ address | format_address }}</div>
+      {%- endfor -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+{% schema %}
+{ "name": "Adresses", "tag": "div", "class": "section-main-addresses", "settings": [] }
+{% endschema %}

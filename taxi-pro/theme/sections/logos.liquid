@@ -1,0 +1,48 @@
+{%- comment -%} Logos de partenaires ou de clients. {%- endcomment -%}
+{%- assign s = section.settings -%}
+<section class="section scheme-{{ s.color_scheme }}" style="--pad-top: {{ s.padding_top }}px; --pad-bottom: {{ s.padding_bottom }}px;">
+  <div class="container">
+    {%- if s.heading != blank -%}<p class="text-center text-muted reveal" style="margin-bottom: 2rem; font-size: .9rem; letter-spacing: .08em; text-transform: uppercase;">{{ s.heading }}</p>{%- endif -%}
+    <div class="logos reveal">
+      {%- for block in section.blocks -%}
+        <div {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            {%- if block.settings.link != blank -%}<a href="{{ block.settings.link }}" target="_blank" rel="noopener">{%- endif -%}
+            {{ block.settings.image | image_url: width: 320 | image_tag: loading: 'lazy', alt: block.settings.image.alt | default: block.settings.name }}
+            {%- if block.settings.link != blank -%}</a>{%- endif -%}
+          {%- else -%}
+            <span class="text-muted" style="font-family: var(--font-heading); font-size: 1.3rem;">{{ block.settings.name }}</span>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Logos",
+  "tag": "div",
+  "class": "section-logos",
+  "max_blocks": 16,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Ils nous confient leurs déplacements" },
+    { "type": "select", "id": "color_scheme", "label": "Couleurs", "options": [ { "value": "default", "label": "Principal" }, { "value": "alt", "label": "Secondaire" }, { "value": "inverse", "label": "Contrasté" } ], "default": "default" },
+    { "type": "range", "id": "padding_top", "label": "Marge haute", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 56 },
+    { "type": "range", "id": "padding_bottom", "label": "Marge basse", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 56 }
+  ],
+  "blocks": [
+    {
+      "type": "logo", "name": "Logo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Logo" },
+        { "type": "text", "id": "name", "label": "Nom", "default": "Partenaire" },
+        { "type": "url", "id": "link", "label": "Lien" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Logos", "blocks": [ { "type": "logo", "settings": { "name": "Hôtel Exemple" } }, { "type": "logo", "settings": { "name": "Société Exemple" } }, { "type": "logo", "settings": { "name": "Congrès Exemple" } } ] }
+  ]
+}
+{% endschema %}

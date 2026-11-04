@@ -1,0 +1,58 @@
+{
+  "type": "footer",
+  "name": "Pied de page",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "show_social": true,
+        "legal_menu": "footer",
+        "color_scheme": "alt",
+        "padding_top": 72
+      },
+      "blocks": {
+        "menu_1": {
+          "type": "menu",
+          "settings": {
+            "title": "Navigation",
+            "menu": "main-menu"
+          }
+        },
+        "contact_2": {
+          "type": "contact",
+          "settings": {
+            "title": "Contact",
+            "show_hours": true
+          }
+        },
+        "text_3": {
+          "type": "text",
+          "settings": {
+            "title": "Paiement",
+            "text": "<p>Espèces, cartes bancaires et paiement en ligne sécurisé.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "menu_1",
+        "contact_2",
+        "text_3"
+      ]
+    },
+    "mobile_actions": {
+      "type": "mobile-actions",
+      "settings": {
+        "show_bar": true,
+        "call_label": "Appeler",
+        "book_label": "Réserver",
+        "show_whatsapp_bar": false,
+        "show_whatsapp_float": false,
+        "color_scheme": "default"
+      }
+    }
+  },
+  "order": [
+    "footer",
+    "mobile_actions"
+  ]
+}

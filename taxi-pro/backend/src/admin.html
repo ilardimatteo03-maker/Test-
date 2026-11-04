@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Réservations · TAXI PRO</title>
+<style>
+  :root { --bg: #f5f5f3; --card: #fff; --text: #141414; --muted: #6b6b6b; --line: #e4e4e0; --accent: #141414; --ok: #1f8a5b; --warn: #b7791f; --err: #c8372d; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0f0f10; --card: #18181a; --text: #f1f1ee; --muted: #a0a09a; --line: #2a2a2c; --accent: #f1f1ee; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.5 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); }
+  header { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 16px 20px; background: var(--card); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 2; }
+  h1 { margin: 0; font-size: 18px; }
+  main { padding: 20px; max-width: 1200px; margin: 0 auto; }
+  input, select, textarea, button { font: inherit; color: inherit; }
+  input, select, textarea { padding: 9px 11px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); min-height: 40px; }
+  button, .btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); cursor: pointer; text-decoration: none; min-height: 40px; }
+  button.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+  button.danger { color: var(--err); border-color: color-mix(in srgb, var(--err) 40%, transparent); }
+  .bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 16px; }
+  .grid { display: grid; gap: 10px; }
+  .row { display: grid; grid-template-columns: 130px 1fr auto; gap: 14px; align-items: center; padding: 14px 16px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; cursor: pointer; }
+  .row:hover { border-color: var(--muted); }
+  .ref { font-family: ui-monospace, Menlo, monospace; font-size: 13px; }
+  .muted { color: var(--muted); font-size: 13px; }
+  .pill { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+  .st-pending_validation { background: color-mix(in srgb, var(--warn) 18%, transparent); color: var(--warn); }
+  .st-awaiting_payment { background: color-mix(in srgb, var(--warn) 12%, transparent); color: var(--warn); }
+  .st-confirmed { background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok); }
+  .st-completed { background: color-mix(in srgb, var(--muted) 18%, transparent); color: var(--muted); }
+  .st-cancelled { background: color-mix(in srgb, var(--err) 14%, transparent); color: var(--err); }
+  dialog { width: min(720px, 94vw); border: 1px solid var(--line); border-radius: 14px; background: var(--card); color: var(--text); padding: 0; }
+  dialog::backdrop { background: rgba(0,0,0,.45); }
+  .dlg-head { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+  .dlg-body { padding: 18px 20px; display: grid; gap: 14px; max-height: 70vh; overflow: auto; }
+  dl { display: grid; grid-template-columns: 150px 1fr; gap: 6px 14px; margin: 0; }
+  dt { color: var(--muted); font-size: 13px; }
+  dd { margin: 0; overflow-wrap: anywhere; }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 20px; border-top: 1px solid var(--line); }
+  .login { max-width: 420px; margin: 12vh auto; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px; display: grid; gap: 12px; }
+  .notice { padding: 10px 14px; border-radius: 10px; background: color-mix(in srgb, var(--warn) 12%, transparent); font-size: 14px; }
+  .empty { text-align: center; padding: 40px; color: var(--muted); }
+  @media (max-width: 640px) { .row { grid-template-columns: 1fr auto; } .row .when { display: none; } dl { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div id="login" class="login" hidden>
+  <h1>Réservations</h1>
+  <p class="muted">Identifiant du client et jeton administrateur (ADMIN_TOKEN) configurés sur le service.</p>
+  <label>Identifiant du client <input id="tenant" autocomplete="username"></label>
+  <label>Jeton administrateur <input id="token" type="password" autocomplete="current-password"></label>
+  <button class="primary" id="signin">Se connecter</button>
+  <p id="loginError" class="notice" hidden></p>
+</div>
+
+<div id="app" hidden>
+  <header>
+    <h1>Réservations <span id="tenantName" class="muted"></span></h1>
+    <div class="bar" style="margin:0">
+      <a class="btn" id="calendarLink" href="#" title="Abonnez votre agenda à cette adresse">Flux d'agenda</a>
+      <button id="reminders">Envoyer les rappels dus</button>
+      <button id="refresh">Actualiser</button>
+      <button id="signout">Déconnexion</button>
+    </div>
+  </header>
+  <main>
+    <div class="bar">
+      <select id="filter" aria-label="Filtrer par statut">
+        <option value="active">À traiter et à venir</option>
+        <option value="pending_validation">En attente de confirmation</option>
+        <option value="awaiting_payment">Paiement en attente</option>
+        <option value="confirmed">Confirmées</option>
+        <option value="completed">Terminées</option>
+        <option value="cancelled">Annulées</option>
+        <option value="all">Toutes</option>
+      </select>
+      <input id="search" type="search" placeholder="Référence, nom, e-mail, adresse…" aria-label="Rechercher" style="flex:1;min-width:200px">
+    </div>
+    <div id="list" class="grid"></div>
+  </main>
+</div>
+
+<dialog id="detail">
+  <div class="dlg-head"><strong id="dRef"></strong><button id="dClose" aria-label="Fermer">✕</button></div>
+  <div class="dlg-body" id="dBody"></div>
+  <div class="actions" id="dActions"></div>
+</dialog>
+
+<script>
+(function () {
+  const STATUS = { pending_validation: 'En attente de confirmation', awaiting_payment: 'Paiement en attente', confirmed: 'Confirmée', completed: 'Terminée', cancelled: 'Annulée' };
+  const PAY = { request: 'Demande sans paiement', driver: 'Paiement au chauffeur', online: 'Paiement en ligne', deposit: 'Acompte en ligne' };
+  const $ = (id) => document.getElementById(id);
+  const esc = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const params = new URLSearchParams(location.search);
+  let session = null, bookings = [];
+  try { session = JSON.parse(sessionStorage.getItem('tp-admin') || 'null'); } catch (e) { session = null; }
+  if (params.get('tenant') && (!session || session.tenant !== params.get('tenant'))) session = { tenant: params.get('tenant'), token: session && session.token };
+
+  async function api(path, opts = {}) {
+    const res = await fetch(path + (path.includes('?') ? '&' : '?') + 'tenant=' + encodeURIComponent(session.tenant), {
+      ...opts, headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + session.token, ...(opts.headers || {}) }
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || ('Erreur ' + res.status));
+    return data;
+  }
+  function money(v, cur) { return v == null ? 'Sur devis' : new Intl.NumberFormat('fr-BE', { style: 'currency', currency: cur || 'EUR' }).format(v); }
+  function when(b) { return b.request.immediate ? 'Dès que possible' : (b.quote.datetime || '').replace('T', ' à '); }
+
+  function render() {
+    const f = $('filter').value, q = $('search').value.trim().toLowerCase();
+    const list = bookings.filter((b) => {
+      if (f === 'active' && !['pending_validation', 'awaiting_payment', 'confirmed'].includes(b.status)) return false;
+      if (!['active', 'all'].includes(f) && b.status !== f) return false;
+      if (!q) return true;
+      return [b.ref, b.customer.firstName, b.customer.lastName, b.customer.email, b.customer.phone, b.request.pickup && b.request.pickup.label, b.request.dropoff && b.request.dropoff.label].join(' ').toLowerCase().includes(q);
+    });
+    $('list').innerHTML = list.map((b) => `<div class="row" data-id="${esc(b.id)}" tabindex="0" role="button">
+      <div><div class="ref">${esc(b.ref)}</div><div class="muted when">${esc(when(b))}</div></div>
+      <div><strong>${esc(b.customer.firstName)} ${esc(b.customer.lastName)}</strong><div class="muted">${esc(b.request.pickup && b.request.pickup.label)}${b.request.dropoff ? ' → ' + esc(b.request.dropoff.label) : ''}</div></div>
+      <div style="text-align:right"><span class="pill st-${esc(b.status)}">${esc(STATUS[b.status] || b.status)}</span><div class="muted">${esc(money(b.quote.total, b.payment.currency))}</div></div>
+    </div>`).join('') || '<p class="empty">Aucune réservation.</p>';
+    document.querySelectorAll('.row').forEach((r) => {
+      r.addEventListener('click', () => open(r.dataset.id));
+      r.addEventListener('keydown', (e) => { if (e.key === 'Enter') open(r.dataset.id); });
+    });
+  }
+  function open(id) {
+    const b = bookings.find((x) => x.id === id);
+    if (!b) return;
+    $('dRef').textContent = b.ref + ' · ' + (STATUS[b.status] || b.status);
+    const rows = [
+      ['Client', `${b.customer.firstName} ${b.customer.lastName}`], ['E-mail', b.customer.email], ['Téléphone', b.customer.phone],
+      ['Départ', b.request.pickup && b.request.pickup.label], ['Arrivée', b.request.dropoff && b.request.dropoff.label],
+      ['Prise en charge', when(b)], ['Retour', b.quote.roundTrip ? (b.quote.returnDatetime || '').replace('T', ' à ') : ''],
+      ['Trajet', b.quote.distanceKm ? `${b.quote.distanceKm} km · ${Math.round(b.quote.durationMin || 0)} min` : ''],
+      ['Prestation / véhicule', [b.request.serviceId, b.request.vehicleId].filter(Boolean).join(' / ')],
+      ['Passagers / bagages', `${b.request.passengers} / ${b.request.luggage}`],
+      ['Options', (b.quote.options || []).map((o) => o.name + (o.qty > 1 ? ' × ' + o.qty : '')).join(', ')],
+      ['Vol / train', b.customer.flight], ['Commentaires', b.customer.comments],
+      ['Total', money(b.quote.total, b.payment.currency)], ['Règlement', PAY[b.payment.mode] || b.payment.mode],
+      ['Payé', b.payment.paidAt ? `${money(b.payment.amountPaid, b.payment.currency)} le ${b.payment.paidAt.slice(0, 16).replace('T', ' ')}` : ''],
+      ['Lien de paiement', b.payment.url || ''], ['Créée le', (b.createdAt || '').slice(0, 16).replace('T', ' ')]
+    ].filter((r) => r[1]);
+    const detailLines = (b.quote.lines || []).map((l) => `<div style="display:flex;justify-content:space-between;gap:12px"><span>${esc(l.label)}</span><span>${esc(money(l.amount, b.payment.currency))}</span></div>`).join('');
+    $('dBody').innerHTML = `<dl>${rows.map((r) => `<dt>${esc(r[0])}</dt><dd>${esc(r[1])}</dd>`).join('')}</dl>
+      ${detailLines ? `<details><summary>Détail du prix</summary><div class="grid" style="gap:4px;margin-top:8px">${detailLines}</div></details>` : ''}
+      <label class="grid" style="gap:4px">Nouvelle date et heure de prise en charge <input type="datetime-local" id="dDate" value="${esc(b.quote.datetime || '')}"></label>
+      <label class="grid" style="gap:4px">Note interne <textarea id="dNote" rows="3">${esc(b.adminNote || '')}</textarea></label>
+      <details><summary>Historique</summary><ul>${(b.history || []).map((h) => `<li class="muted">${esc(h.at.slice(0, 16).replace('T', ' '))} · ${esc(STATUS[h.status] || h.status)} ${esc(h.note || '')}</li>`).join('')}</ul></details>`;
+    const act = [];
+    if (b.status === 'pending_validation') act.push('<button class="primary" data-a="confirm">Confirmer et prévenir le client</button>');
+    if (b.status === 'confirmed') act.push('<button data-a="complete">Marquer comme terminée</button>');
+    act.push('<button data-a="update">Enregistrer la modification</button>');
+    if (b.status !== 'cancelled' && b.status !== 'completed') act.push('<button class="danger" data-a="cancel">Annuler et prévenir le client</button>');
+    $('dActions').innerHTML = act.join('');
+    $('dActions').querySelectorAll('button').forEach((btn) => btn.addEventListener('click', () => action(b, btn.dataset.a)));
+    $('detail').showModal();
+  }
+  async function action(b, a) {
+    if (a === 'cancel' && !confirm('Annuler la réservation ' + b.ref + ' ? Le client sera prévenu par e-mail.')) return;
+    const body = a === 'update' ? { datetime: $('dDate').value, adminNote: $('dNote').value } : { note: $('dNote').value };
+    try {
+      const r = await api('/admin/api/bookings/' + encodeURIComponent(b.id) + '/' + a, { method: 'POST', body: JSON.stringify(body) });
+      bookings = bookings.map((x) => (x.id === b.id ? r.booking : x));
+      $('detail').close(); render();
+    } catch (e) { alert(e.message); }
+  }
+  async function load() {
+    try {
+      const d = await api('/admin/api/bookings');
+      bookings = d.bookings;
+      $('tenantName').textContent = '· ' + d.tenant;
+      $('calendarLink').href = '/admin/calendar.ics?tenant=' + encodeURIComponent(session.tenant) + '&token=' + encodeURIComponent(session.token);
+      $('login').hidden = true; $('app').hidden = false;
+      render();
+      const target = location.hash.slice(1);
+      if (target) open(target);
+    } catch (e) {
+      $('app').hidden = true; $('login').hidden = false;
+      if (session && session.token) { $('loginError').textContent = e.message; $('loginError').hidden = false; }
+    }
+  }
+  $('signin').addEventListener('click', () => {
+    session = { tenant: $('tenant').value.trim(), token: $('token').value };
+    try { sessionStorage.setItem('tp-admin', JSON.stringify(session)); } catch (e) { /* sans stockage */ }
+    load();
+  });
+  $('signout').addEventListener('click', () => { try { sessionStorage.removeItem('tp-admin'); } catch (e) {} location.href = '/admin'; });
+  $('refresh').addEventListener('click', load);
+  $('reminders').addEventListener('click', async () => { try { const r = await api('/admin/api/reminders', { method: 'POST', body: '{}' }); alert(r.sent + ' rappel(s) envoyé(s).'); } catch (e) { alert(e.message); } });
+  $('filter').addEventListener('change', render);
+  $('search').addEventListener('input', render);
+  $('dClose').addEventListener('click', () => $('detail').close());
+  if (session && session.tenant) $('tenant').value = session.tenant;
+  if (session && session.token) load(); else $('login').hidden = false;
+  setInterval(() => { if (!$('app').hidden && !$('detail').open) load(); }, 60000);
+})();
+</script>
+</body>
+</html>

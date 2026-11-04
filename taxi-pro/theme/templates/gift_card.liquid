@@ -1,0 +1,26 @@
+{%- layout none -%}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ 'pages.gift_card_title' | t }} – {{ shop.name }}</title>
+    {% render 'css-variables' %}
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+  </head>
+  <body>
+    <main class="section scheme-default" style="--pad-top: 96px; --pad-bottom: 96px;">
+      <div class="container container--narrow text-center">
+        <p class="logo-text">{{ settings.company_name | default: shop.name }}</p>
+        <h1 class="h2">{{ 'pages.gift_card_title' | t }}</h1>
+        <p class="h1" style="color: var(--link)">{{ gift_card.initial_value | money }}</p>
+        {%- assign balance = gift_card.balance | money -%}
+        <p>{{ 'pages.gift_card_balance' | t: balance: balance }}</p>
+        <p>{{ 'pages.gift_card_code' | t }} : <strong>{{ gift_card.code | format_code }}</strong></p>
+        {%- if gift_card.pass_url -%}<p><a href="{{ gift_card.pass_url }}"><img src="{{ 'gift-card/add-to-apple-wallet.svg' | shopify_asset_url }}" width="120" height="40" alt="Apple Wallet" loading="lazy"></a></p>{%- endif -%}
+        <p><a class="btn" href="{{ shop.url }}">{{ 'general.back_home' | t }}</a></p>
+      </div>
+    </main>
+  </body>
+</html>

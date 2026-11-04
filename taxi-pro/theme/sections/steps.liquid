@@ -1,0 +1,52 @@
+{%- comment -%} Comment ça marche : étapes numérotées. {%- endcomment -%}
+{%- assign s = section.settings -%}
+<section class="section scheme-{{ s.color_scheme }}" style="--pad-top: {{ s.padding_top }}px; --pad-bottom: {{ s.padding_bottom }}px;">
+  <div class="container">
+    {% render 'section-head', eyebrow: s.eyebrow, heading: s.heading, text: s.text, align: s.align %}
+    <ol class="grid steps" style="--cols: {{ section.blocks.size | at_most: 4 | at_least: 1 }}; list-style: none; padding: 0; margin: 0;">
+      {%- for block in section.blocks -%}
+        <li class="step reveal" style="--i: {{ forloop.index0 }}" {{ block.shopify_attributes }}>
+          <h3 class="h4">{{ block.settings.title }}</h3>
+          <div class="rte text-muted">{{ block.settings.text }}</div>
+        </li>
+      {%- endfor -%}
+    </ol>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Étapes",
+  "tag": "div",
+  "class": "section-steps",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "Simple et rapide" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Réserver en trois étapes" },
+    { "type": "richtext", "id": "text", "label": "Texte" },
+    { "type": "select", "id": "align", "label": "Alignement du titre", "options": [ { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centré" } ], "default": "left" },
+    { "type": "select", "id": "color_scheme", "label": "Couleurs", "options": [ { "value": "default", "label": "Principal" }, { "value": "alt", "label": "Secondaire" }, { "value": "inverse", "label": "Contrasté" } ], "default": "default" },
+    { "type": "range", "id": "padding_top", "label": "Marge haute", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Marge basse", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 }
+  ],
+  "blocks": [
+    {
+      "type": "step", "name": "Étape",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titre", "default": "Indiquez votre trajet" },
+        { "type": "richtext", "id": "text", "label": "Texte", "default": "<p>Départ, arrivée, date et heure.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Étapes",
+      "blocks": [
+        { "type": "step", "settings": { "title": "Indiquez votre trajet", "text": "<p>Départ, arrivée, date et heure : la distance est calculée automatiquement.</p>" } },
+        { "type": "step", "settings": { "title": "Choisissez votre véhicule", "text": "<p>Le prix de chaque véhicule s'affiche avant de réserver.</p>" } },
+        { "type": "step", "settings": { "title": "Confirmez", "text": "<p>Payez en ligne ou à bord. Vous recevez la confirmation par e-mail.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

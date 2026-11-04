@@ -1,0 +1,41 @@
+{%- comment -%}
+  Contenu de la page (éditeur de pages Shopify). Option : bloc d'identification de l'entreprise,
+  alimenté par les réglages du thème, pour les mentions légales.
+{%- endcomment -%}
+{%- assign s = section.settings -%}
+<section class="section scheme-{{ s.color_scheme }}" style="--pad-top: {{ s.padding_top }}px; --pad-bottom: {{ s.padding_bottom }}px;">
+  <div class="container container--narrow">
+    {%- if s.show_title -%}<h1 class="h2">{{ page.title }}</h1>{%- endif -%}
+    <div class="rte">{{ page.content }}</div>
+    {%- if s.show_legal -%}
+      <div class="legal-identity">
+        <h2 class="h4">{{ 'pages.legal_identity' | t }}</h2>
+        <dl>
+          <dt>{{ 'pages.legal_name' | t }}</dt><dd>{{ settings.company_legal_name | default: settings.company_name | default: shop.name }}</dd>
+          <dt>{{ 'pages.legal_address' | t }}</dt><dd>{{ settings.company_street }}, {{ settings.company_postcode }} {{ settings.company_city }}, {{ settings.company_country }}</dd>
+          {%- if settings.company_number != blank -%}<dt>{{ settings.company_number_label }}</dt><dd>{{ settings.company_number }}</dd>{%- endif -%}
+          {%- if settings.company_vat != blank -%}<dt>{{ 'footer.vat' | t }}</dt><dd>{{ settings.company_vat }}</dd>{%- endif -%}
+          {%- if settings.company_license != blank -%}<dt>{{ 'footer.license' | t }}</dt><dd>{{ settings.company_license }}</dd>{%- endif -%}
+          {%- if settings.company_phone != blank -%}<dt>{{ 'general.phone' | t }}</dt><dd>{{ settings.company_phone }}</dd>{%- endif -%}
+          {%- if settings.company_email != blank -%}<dt>{{ 'general.email' | t }}</dt><dd>{{ settings.company_email }}</dd>{%- endif -%}
+        </dl>
+        {%- if settings.company_legal_extra != blank -%}<p class="text-muted" style="margin: 1rem 0 0">{{ settings.company_legal_extra | newline_to_br }}</p>{%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contenu de la page",
+  "tag": "div",
+  "class": "section-main-page",
+  "settings": [
+    { "type": "checkbox", "id": "show_title", "label": "Afficher le titre", "default": false, "info": "Inutile si la page a une section « En-tête de page »." },
+    { "type": "checkbox", "id": "show_legal", "label": "Ajouter l'identification de l'entreprise", "default": false, "info": "Pour les mentions légales : raison sociale, siège, numéros." },
+    { "type": "select", "id": "color_scheme", "label": "Couleurs", "options": [ { "value": "default", "label": "Principal" }, { "value": "alt", "label": "Secondaire" } ], "default": "default" },
+    { "type": "range", "id": "padding_top", "label": "Marge haute", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 72 },
+    { "type": "range", "id": "padding_bottom", "label": "Marge basse", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 }
+  ]
+}
+{% endschema %}

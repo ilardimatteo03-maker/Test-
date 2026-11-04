@@ -1,0 +1,179 @@
+{%- comment -%}
+  Configuration globale du calculateur, publiée en JSON dans chaque page.
+  - Lue par assets/tp-booking.js (prix instantanés) ;
+  - relue côté serveur par le backend (page /?view=taxi-config) pour valider les prix.
+  Ne contient que des données publiques : tarifs, textes, clés publiques destinées au navigateur.
+{%- endcomment -%}
+{%- liquid
+  assign company = settings.company_name | default: shop.name
+  assign number_locale = settings.number_locale
+  if number_locale == blank
+    assign number_locale = request.locale.iso_code | append: '-' | append: settings.company_country_code
+  endif
+  assign logo_url = ''
+  if settings.logo != blank
+    assign logo_url = settings.logo | image_url: width: 480 | prepend: 'https:'
+  endif
+  assign phone_href = settings.company_phone | remove: ' ' | remove: '.' | remove: '-' | remove: '(' | remove: ')' | remove: '/'
+-%}
+<script type="application/json" data-tp-config="settings">
+{
+  "version": 1,
+  "currency": {{ settings.currency | default: 'EUR' | json }},
+  "locale": {{ number_locale | json }},
+  "language": {{ request.locale.iso_code | json }},
+  "timezone": {{ settings.geo_timezone | json }},
+  "vatRate": {{ settings.vat_rate | json }},
+  "priceSuffix": {{ settings.price_suffix | json }},
+  "priceNote": {{ settings.price_note | json }},
+  "showBreakdown": {{ settings.show_price_breakdown | json }},
+  "company": {
+    "name": {{ company | json }},
+    "legalName": {{ settings.company_legal_name | json }},
+    "phone": {{ settings.company_phone | json }},
+    "phoneHref": {{ phone_href | json }},
+    "email": {{ settings.company_email | json }},
+    "address": {{ settings.company_street | append: ', ' | append: settings.company_postcode | append: ' ' | append: settings.company_city | json }},
+    "country": {{ settings.company_country_code | json }},
+    "vat": {{ settings.company_vat | json }},
+    "number": {{ settings.company_number | json }},
+    "logo": {{ logo_url | json }},
+    "url": {{ shop.url | json }},
+    "colors": {% render 'palette', format: 'json' %}
+  },
+  "tariff": {
+    "base": {{ settings.tariff_base | json }},
+    "perKm": {{ settings.tariff_per_km | json }},
+    "perMin": {{ settings.tariff_per_min | json }},
+    "perMinEnabled": {{ settings.tariff_per_min_enabled | json }},
+    "minimum": {{ settings.tariff_minimum | json }},
+    "rounding": {{ settings.tariff_rounding | json }},
+    "roundingMode": {{ settings.tariff_rounding_mode | json }}
+  },
+  "surcharges": {
+    "combine": {{ settings.surcharge_combine | json }},
+    "night": { "enabled": {{ settings.night_enabled | json }}, "start": {{ settings.night_start | json }}, "end": {{ settings.night_end | json }}, "type": {{ settings.night_type | json }}, "value": {{ settings.night_value | json }}, "priority": {{ settings.night_priority | default: 10 | json }} },
+    "weekend": { "enabled": {{ settings.weekend_enabled | json }}, "saturday": {{ settings.weekend_saturday | json }}, "sunday": {{ settings.weekend_sunday | json }}, "type": {{ settings.weekend_type | json }}, "value": {{ settings.weekend_value | json }}, "priority": {{ settings.weekend_priority | default: 20 | json }} },
+    "holiday": { "enabled": {{ settings.holiday_enabled | json }}, "dates": {{ settings.holiday_dates | json }}, "type": {{ settings.holiday_type | json }}, "value": {{ settings.holiday_value | json }}, "priority": {{ settings.holiday_priority | default: 30 | json }} },
+    "airport": { "enabled": {{ settings.airport_enabled | json }}, "amount": {{ settings.airport_amount | json }} },
+    "passengers": { "enabled": {{ settings.passengers_enabled | json }}, "included": {{ settings.passengers_included | json }}, "amount": {{ settings.passengers_amount | json }} },
+    "luggage": { "enabled": {{ settings.luggage_enabled | json }}, "included": {{ settings.luggage_included | json }}, "amount": {{ settings.luggage_amount | json }} },
+    "waiting": { "enabled": {{ settings.waiting_enabled | json }}, "perMin": {{ settings.waiting_per_min | json }}, "freeMin": {{ settings.waiting_free_min | json }} },
+    "tolls": { "enabled": {{ settings.tolls_enabled | json }} }
+  },
+  "roundTrip": { "enabled": {{ settings.round_trip_enabled | json }}, "discount": {{ settings.round_trip_discount | json }} },
+  "hourly": { "rate": {{ settings.hourly_rate | json }}, "minHours": {{ settings.hourly_min_hours | json }} },
+  "geo": {
+    "countries": {{ settings.geo_countries | json }},
+    "lat": {{ settings.geo_lat | json }},
+    "lng": {{ settings.geo_lng | json }},
+    "radiusKm": {{ settings.geo_radius_km | json }},
+    "areaRule": {{ settings.geo_area_rule | json }},
+    "outOfArea": {{ settings.geo_out_of_area | json }},
+    "maxDistanceKm": {{ settings.geo_max_distance_km | json }},
+    "maxDistanceAction": {{ settings.geo_max_distance_action | json }}
+  },
+  "booking": {
+    "pageUrl": {{ settings.booking_page.url | default: '' | json }},
+    "immediate": {{ settings.booking_immediate | json }},
+    "scheduled": {{ settings.booking_scheduled | json }},
+    "leadMin": {{ settings.booking_lead_min | json }},
+    "maxDays": {{ settings.booking_max_days | json }},
+    "maxPassengers": {{ settings.booking_max_passengers | json }},
+    "maxLuggage": {{ settings.booking_max_luggage | json }},
+    "flightField": {{ settings.booking_flight_field | json }},
+    "waitingField": {{ settings.booking_waiting_field | json }},
+    "requireTerms": {{ settings.booking_require_terms | json }},
+    "hours": {
+      "always": {{ settings.hours_always | json }},
+      "mon": {{ settings.hours_mon | json }}, "tue": {{ settings.hours_tue | json }}, "wed": {{ settings.hours_wed | json }},
+      "thu": {{ settings.hours_thu | json }}, "fri": {{ settings.hours_fri | json }}, "sat": {{ settings.hours_sat | json }}, "sun": {{ settings.hours_sun | json }}
+    },
+    "payment": {
+      "request": {{ settings.payment_request | json }},
+      "driver": {{ settings.payment_driver | json }},
+      "online": {{ settings.payment_online | json }},
+      "deposit": {{ settings.payment_deposit | json }},
+      "default": {{ settings.payment_default | json }},
+      "depositPercent": {{ settings.payment_deposit_percent | json }}
+    }
+  },
+  "integrations": {
+    "autocomplete": {{ settings.geo_autocomplete | json }},
+    "routing": {{ settings.geo_routing | json }},
+    "googleKey": {{ settings.google_maps_key | json }},
+    "mapboxToken": {{ settings.mapbox_token | json }},
+    "mapEnabled": {{ settings.map_enabled | json }},
+    "tilesUrl": {{ settings.map_tiles_url | json }},
+    "tilesAttribution": {{ settings.map_tiles_attribution | json }},
+    "backendUrl": {{ settings.backend_url | json }},
+    "shop": {{ shop.permanent_domain | json }},
+    "estimateFallback": {{ settings.geo_estimate_fallback | json }},
+    "roadFactor": {{ settings.geo_road_factor | json }},
+    "leafletJs": {{ 'leaflet.js' | asset_url | json }},
+    "leafletCss": {{ 'leaflet.css' | asset_url | json }}
+  },
+  "labels": {
+    "base": {{ 'taxi.pricing.base' | t | json }},
+    "distance": {{ 'taxi.pricing.distance' | t | json }},
+    "time": {{ 'taxi.pricing.time' | t | json }},
+    "minimum": {{ 'taxi.pricing.minimum' | t | json }},
+    "route": {{ 'taxi.pricing.route' | t | json }},
+    "hourly": {{ 'taxi.pricing.hourly' | t | json }},
+    "fixed": {{ 'taxi.pricing.fixed' | t | json }},
+    "multiplierVehicle": {{ 'taxi.pricing.multiplier_vehicle' | t | json }},
+    "multiplierZone": {{ 'taxi.pricing.multiplier_zone' | t | json }},
+    "multiplierService": {{ 'taxi.pricing.multiplier_service' | t | json }},
+    "night": {{ 'taxi.pricing.night' | t | json }},
+    "weekend": {{ 'taxi.pricing.weekend' | t | json }},
+    "holiday": {{ 'taxi.pricing.holiday' | t | json }},
+    "timeRule": {{ 'taxi.pricing.time_rule' | t | json }},
+    "airport": {{ 'taxi.pricing.airport' | t | json }},
+    "zone": {{ 'taxi.pricing.zone' | t | json }},
+    "passengers": {{ 'taxi.pricing.passengers' | t | json }},
+    "luggage": {{ 'taxi.pricing.luggage' | t | json }},
+    "tolls": {{ 'taxi.pricing.tolls' | t | json }},
+    "serviceSurcharge": {{ 'taxi.pricing.service_surcharge' | t | json }},
+    "vehicleSurcharge": {{ 'taxi.pricing.vehicle_surcharge' | t | json }},
+    "option": {{ 'taxi.pricing.option' | t | json }},
+    "optionQty": {{ 'taxi.pricing.option_qty' | t | json }},
+    "waiting": {{ 'taxi.pricing.waiting' | t | json }},
+    "roundTripDiscount": {{ 'taxi.pricing.round_trip_discount' | t | json }},
+    "outbound": {{ 'taxi.pricing.outbound' | t | json }},
+    "returnLeg": {{ 'taxi.pricing.return_leg' | t | json }},
+    "rounding": {{ 'taxi.pricing.rounding' | t | json }},
+    "err_ROUTE_REQUIRED": {{ 'taxi.errors.route_required' | t | json }},
+    "err_PICKUP_REQUIRED": {{ 'taxi.errors.pickup_required' | t | json }},
+    "err_DISTANCE_UNAVAILABLE": {{ 'taxi.errors.distance_unavailable' | t | json }},
+    "err_DATETIME_REQUIRED": {{ 'taxi.errors.datetime_required' | t | json }},
+    "err_DATETIME_INVALID": {{ 'taxi.errors.datetime_invalid' | t | json }},
+    "err_LEAD_TIME": {{ 'taxi.errors.lead_time' | t | json }},
+    "err_TOO_FAR": {{ 'taxi.errors.too_far' | t | json }},
+    "err_CLOSED": {{ 'taxi.errors.closed' | t | json }},
+    "err_CLOSED_RETURN": {{ 'taxi.errors.closed_return' | t | json }},
+    "err_IMMEDIATE_DISABLED": {{ 'taxi.errors.immediate_disabled' | t | json }},
+    "err_SCHEDULED_DISABLED": {{ 'taxi.errors.scheduled_disabled' | t | json }},
+    "err_RETURN_REQUIRED": {{ 'taxi.errors.return_required' | t | json }},
+    "err_RETURN_BEFORE": {{ 'taxi.errors.return_before' | t | json }},
+    "err_VEHICLE_REQUIRED": {{ 'taxi.errors.vehicle_required' | t | json }},
+    "err_VEHICLE_UNKNOWN": {{ 'taxi.errors.vehicle_unknown' | t | json }},
+    "err_VEHICLE_CAPACITY": {{ 'taxi.errors.vehicle_capacity' | t | json }},
+    "err_VEHICLE_LUGGAGE": {{ 'taxi.errors.vehicle_luggage' | t | json }},
+    "err_MAX_PASSENGERS": {{ 'taxi.errors.max_passengers' | t | json }},
+    "err_MAX_LUGGAGE": {{ 'taxi.errors.max_luggage' | t | json }},
+    "err_PASSENGERS_MIN": {{ 'taxi.errors.passengers_min' | t | json }},
+    "err_SERVICE_UNKNOWN": {{ 'taxi.errors.service_unknown' | t | json }},
+    "err_OPTION_UNKNOWN": {{ 'taxi.errors.option_unknown' | t | json }},
+    "err_OPTION_QTY": {{ 'taxi.errors.option_qty' | t | json }},
+    "err_FORBIDDEN_ZONE": {{ 'taxi.errors.forbidden_zone' | t | json }},
+    "err_OUT_OF_AREA": {{ 'taxi.errors.out_of_area' | t | json }},
+    "err_MAX_DISTANCE": {{ 'taxi.errors.max_distance' | t | json }},
+    "err_HOURS_REQUIRED": {{ 'taxi.errors.hours_required' | t | json }},
+    "warn_ON_REQUEST": {{ 'taxi.errors.warn_on_request' | t | json }},
+    "warn_OUT_OF_AREA_QUOTE": {{ 'taxi.errors.warn_out_of_area' | t | json }},
+    "warn_MAX_DISTANCE_QUOTE": {{ 'taxi.errors.warn_max_distance' | t | json }},
+    "warn_ESTIMATED_DISTANCE": {{ 'taxi.errors.warn_estimated' | t | json }}
+  },
+  "strings": {% render 'tp-strings' %}
+}
+</script>

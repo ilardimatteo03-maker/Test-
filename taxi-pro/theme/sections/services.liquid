@@ -1,0 +1,139 @@
+{%- comment -%}
+  Présentation des services : cartes (accueil) ou présentation détaillée (page Nos services).
+  Chaque service est un bloc activable ; le « code de réservation » pré-sélectionne la prestation
+  correspondante dans le module de réservation.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign booking_url = settings.booking_page.url | default: '/pages/reservation'
+  assign visible = 0
+  for block in section.blocks
+    if block.settings.enabled
+      assign visible = visible | plus: 1
+    endif
+  endfor
+-%}
+<section class="section scheme-{{ s.color_scheme }}" style="--pad-top: {{ s.padding_top }}px; --pad-bottom: {{ s.padding_bottom }}px;">
+  <div class="container">
+    {% render 'section-head', eyebrow: s.eyebrow, heading: s.heading, text: s.text, align: s.align, link_label: s.link_label, link_url: s.link_url %}
+
+    {%- if s.layout == 'detailed' -%}
+      <div class="stack" style="--stack: clamp(3rem, 2rem + 4vw, 6rem)">
+        {%- for block in section.blocks -%}
+          {%- unless block.settings.enabled -%}{%- continue -%}{%- endunless -%}
+          <article class="media-text{% cycle '', ' media-text--reverse' %}" id="service-{{ block.settings.code | default: block.id | handleize }}" {{ block.shopify_attributes }}>
+            <div class="media-text__media reveal" style="--ratio: 4 / 3">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 50vw, 100vw', widths: '600, 900, 1200, 1400', alt: block.settings.image.alt | default: block.settings.title }}
+              {%- else -%}
+                <div class="media-placeholder">{% render 'icon', name: block.settings.icon %}</div>
+              {%- endif -%}
+            </div>
+            <div class="media-text__content reveal" style="--i: 1">
+              <span class="icon-circle">{% render 'icon', name: block.settings.icon %}</span>
+              <h3 class="h2" style="margin-top: 1.2rem">{{ block.settings.title }}</h3>
+              {%- if block.settings.text != blank -%}<div class="rte lead">{{ block.settings.text }}</div>{%- endif -%}
+              {%- if block.settings.features != blank -%}
+                <ul class="check-list" style="margin: 1.5rem 0">
+                  {%- assign lines = block.settings.features | newline_to_br | split: '<br />' -%}
+                  {%- for line in lines -%}{%- assign l = line | strip -%}{%- if l != blank -%}<li>{% render 'icon', name: 'check' %}<span>{{ l }}</span></li>{%- endif -%}{%- endfor -%}
+                </ul>
+              {%- endif -%}
+              <div class="btn-row">
+                {%- if s.show_book and block.settings.code != blank -%}
+                  <a class="btn" href="{{ booking_url }}?tp_service={{ block.settings.code | handleize }}">{{ s.book_label }}{% render 'icon', name: 'arrow-right' %}</a>
+                {%- endif -%}
+                {%- if block.settings.link_label != blank and block.settings.link != blank -%}
+                  <a class="btn btn--secondary" href="{{ block.settings.link }}">{{ block.settings.link_label }}</a>
+                {%- endif -%}
+              </div>
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="grid" style="--cols: {{ s.columns }}; --cols-tablet: 2;">
+        {%- for block in section.blocks -%}
+          {%- unless block.settings.enabled -%}{%- continue -%}{%- endunless -%}
+          {%- liquid
+            assign href = block.settings.link
+            if href == blank and s.show_book and block.settings.code != blank
+              assign code = block.settings.code | handleize
+              assign href = booking_url | append: '?tp_service=' | append: code
+            endif
+          -%}
+          <article class="card card--hover reveal" style="--i: {{ forloop.index0 | modulo: 4 }}" {{ block.shopify_attributes }}>
+            {%- if s.card_media == 'image' and block.settings.image != blank -%}
+              <div class="card__media" style="--ratio: 4 / 3">
+                {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 33vw, (min-width: 750px) 50vw, 100vw', widths: '400, 600, 900', alt: block.settings.image.alt | default: block.settings.title }}
+              </div>
+            {%- endif -%}
+            <div class="card__body">
+              {%- if s.card_media == 'icon' or block.settings.image == blank -%}<span class="icon-circle">{% render 'icon', name: block.settings.icon %}</span>{%- endif -%}
+              <h3 class="card__title h4">{{ block.settings.title }}</h3>
+              {%- if block.settings.text != blank -%}<div class="card__text rte">{{ block.settings.text }}</div>{%- endif -%}
+              {%- if href != blank -%}
+                <div class="card__footer"><a class="link-arrow" href="{{ href }}">{{ block.settings.link_label | default: s.book_label }}{% render 'icon', name: 'arrow-right' %}<span class="visually-hidden"> : {{ block.settings.title }}</span></a></div>
+              {%- endif -%}
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+    {%- if visible == 0 and request.design_mode -%}<p class="tp-config-panel">Aucun service affiché : ajoutez un bloc ou cochez « Afficher ce service ».</p>{%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Services",
+  "tag": "div",
+  "class": "section-services",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre" },
+    { "type": "text", "id": "heading", "label": "Titre" },
+    { "type": "richtext", "id": "text", "label": "Texte" },
+    { "type": "select", "id": "align", "label": "Alignement du titre", "options": [ { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centré" } ], "default": "left" },
+    { "type": "text", "id": "link_label", "label": "Lien de l'en-tête", "default": "Tous nos services" },
+    { "type": "url", "id": "link_url", "label": "Destination du lien" },
+    { "type": "header", "content": "Présentation" },
+    { "type": "select", "id": "layout", "label": "Mise en page", "options": [ { "value": "cards", "label": "Cartes" }, { "value": "detailed", "label": "Détaillée (image et texte alternés)" } ], "default": "cards" },
+    { "type": "select", "id": "columns", "label": "Colonnes (cartes, ordinateur)", "options": [ { "value": "2", "label": "2" }, { "value": "3", "label": "3" }, { "value": "4", "label": "4" } ], "default": "3" },
+    { "type": "select", "id": "card_media", "label": "Visuel des cartes", "options": [ { "value": "icon", "label": "Icône" }, { "value": "image", "label": "Image (si renseignée)" } ], "default": "icon" },
+    { "type": "checkbox", "id": "show_book", "label": "Bouton « Réserver ce service »", "default": true, "info": "Utilise le code de réservation de chaque service." },
+    { "type": "text", "id": "book_label", "label": "Texte du bouton", "default": "Réserver" },
+    { "type": "header", "content": "Apparence" },
+    { "type": "select", "id": "color_scheme", "label": "Couleurs", "options": [ { "value": "default", "label": "Principal" }, { "value": "alt", "label": "Secondaire" }, { "value": "inverse", "label": "Contrasté" } ], "default": "default" },
+    { "type": "range", "id": "padding_top", "label": "Marge haute", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Marge basse", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 }
+  ],
+  "blocks": [
+    {
+      "type": "service",
+      "name": "Service",
+      "settings": [
+        { "type": "checkbox", "id": "enabled", "label": "Afficher ce service", "default": true },
+        {
+          "type": "select", "id": "icon", "label": "Icône",
+          "options": [
+            { "value": "car", "label": "Voiture" }, { "value": "plane", "label": "Avion" }, { "value": "briefcase", "label": "Affaires" },
+            { "value": "route", "label": "Longue distance" }, { "value": "party", "label": "Événement" }, { "value": "clock", "label": "Mise à disposition" },
+            { "value": "shield", "label": "Privé" }, { "value": "train", "label": "Gare" }, { "value": "ring", "label": "Mariage" },
+            { "value": "van", "label": "Van" }, { "value": "wheelchair", "label": "Accessibilité" }, { "value": "globe", "label": "International" }
+          ],
+          "default": "car"
+        },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Titre", "default": "Taxi classique" },
+        { "type": "richtext", "id": "text", "label": "Description", "default": "<p>Vos trajets du quotidien, en ville comme en périphérie.</p>" },
+        { "type": "textarea", "id": "features", "label": "Points forts (présentation détaillée)", "info": "Un par ligne." },
+        { "type": "text", "id": "code", "label": "Code de réservation", "info": "Code d'une prestation de « Configuration Taxi Pro › Prestations » (ex. aeroport)." },
+        { "type": "text", "id": "link_label", "label": "Texte du lien secondaire" },
+        { "type": "url", "id": "link", "label": "Lien secondaire" }
+      ]
+    }
+  ],
+  "presets": [{"name": "Services", "blocks": [{"type": "service", "settings": {"icon": "car", "title": "Taxi classique", "code": "taxi", "text": "<p>Vos trajets du quotidien, en ville comme en périphérie, de jour comme de nuit.</p>"}}, {"type": "service", "settings": {"icon": "plane", "title": "Transfert aéroport", "code": "aeroport", "text": "<p>Suivi de vol, accueil personnalisé et prix fixes vers les aéroports.</p>"}}, {"type": "service", "settings": {"icon": "briefcase", "title": "Transport professionnel", "code": "affaires", "text": "<p>Rendez-vous d'affaires et séminaires, facturation au nom de votre société.</p>"}}, {"type": "service", "settings": {"icon": "route", "title": "Longue distance", "code": "longue-distance", "text": "<p>Trajets interurbains et vers l'étranger, en toute sérénité.</p>"}}, {"type": "service", "settings": {"icon": "party", "title": "Transport événementiel", "code": "evenement", "text": "<p>Mariages, galas, concerts : un chauffeur dédié à votre événement.</p>"}}, {"type": "service", "settings": {"icon": "clock", "title": "Mise à disposition", "code": "mise-a-disposition", "text": "<p>Un chauffeur et son véhicule à l'heure, pour toutes vos étapes.</p>"}}], "settings": {"heading": "Un trajet pour chaque besoin", "eyebrow": "Nos services"}}]
+}
+{% endschema %}

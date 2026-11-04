@@ -1,0 +1,72 @@
+{%- comment -%}
+  Configuration Taxi Pro — Forfaits de trajet (prix fixes entre deux zones).
+  Un forfait l'emporte sur le tarif kilométrique. Entre plusieurs forfaits, la priorité
+  la plus haute gagne, puis le prix le plus bas.
+{%- endcomment -%}
+<script type="application/json" data-tp-config="routes">
+[
+{%- for block in section.blocks -%}
+  {
+    "id": {{ block.id | json }},
+    "enabled": {{ block.settings.enabled | json }},
+    "name": {{ block.settings.name | json }},
+    "from": {{ block.settings.from | json }},
+    "to": {{ block.settings.to | json }},
+    "bidirectional": {{ block.settings.bidirectional | json }},
+    "price": {{ block.settings.price | json }},
+    "vehiclePrices": {{ block.settings.vehicle_prices | json }},
+    "vehicles": {{ block.settings.vehicles | json }},
+    "services": {{ block.settings.services | json }},
+    "priority": {{ block.settings.priority | json }},
+    "applySurcharges": {{ block.settings.apply_surcharges | json }},
+    "tolls": {{ block.settings.tolls | json }},
+    "showPublic": {{ block.settings.show_public | json }}
+  }{% unless forloop.last %},{% endunless %}
+{%- endfor -%}
+]
+</script>
+{%- if request.design_mode -%}
+  <div class="tp-config-panel" {{ section.shopify_attributes }}>
+    <strong>Configuration Taxi Pro · Forfaits</strong> : {{ section.blocks.size }} forfait(s)
+    {%- if section.blocks.size > 0 %} :
+      {% for block in section.blocks %}{{ block.settings.name }} ({{ block.settings.from }} → {{ block.settings.to }} : {{ block.settings.price }}){% unless forloop.last %}, {% endunless %}{% endfor %}.
+    {%- endif %}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Forfaits (tarifs)",
+  "tag": "div",
+  "class": "tp-config",
+  "max_blocks": 50,
+  "enabled_on": { "groups": ["custom.taxi-config"] },
+  "settings": [
+    { "type": "paragraph", "content": "Prix fixes pour les trajets fréquents. Créez d'abord les zones de départ et d'arrivée dans « Zones (tarifs) », puis indiquez leurs codes ici. « * » signifie « n'importe quelle adresse »." }
+  ],
+  "blocks": [
+    {
+      "type": "route",
+      "name": "Forfait",
+      "settings": [
+        { "type": "checkbox", "id": "enabled", "label": "Activer ce forfait", "default": true },
+        { "type": "text", "id": "name", "label": "Nom affiché", "default": "Centre-ville ↔ Aéroport" },
+        { "type": "text", "id": "from", "label": "Code de la zone de départ", "default": "centre" },
+        { "type": "text", "id": "to", "label": "Code de la zone d'arrivée", "default": "aeroport" },
+        { "type": "checkbox", "id": "bidirectional", "label": "Valable dans les deux sens", "default": true },
+        { "type": "text", "id": "price", "label": "Prix", "default": "45" },
+        { "type": "text", "id": "vehicle_prices", "label": "Prix par véhicule (facultatif)", "info": "Ex. : van:65, affaires:80. Sinon : prix × coefficient du véhicule." },
+        { "type": "text", "id": "vehicles", "label": "Réservé aux véhicules", "info": "Codes séparés par des virgules. Vide = tous." },
+        { "type": "text", "id": "services", "label": "Réservé aux prestations", "info": "Codes séparés par des virgules. Vide = toutes." },
+        { "type": "number", "id": "priority", "label": "Priorité", "default": 50 },
+        { "type": "checkbox", "id": "apply_surcharges", "label": "Appliquer les majorations (nuit, week-end, fériés, aéroport, gare)", "default": false },
+        { "type": "text", "id": "tolls", "label": "Péages inclus dans ce trajet" },
+        { "type": "checkbox", "id": "show_public", "label": "Afficher dans la grille tarifaire publique", "default": true }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Forfaits (tarifs)" }
+  ]
+}
+{% endschema %}

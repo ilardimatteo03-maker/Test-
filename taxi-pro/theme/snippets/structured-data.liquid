@@ -1,0 +1,46 @@
+{%- comment -%}
+  Données structurées schema.org « TaxiService » + « LocalBusiness » à partir de l'identité de l'entreprise.
+  Paramètre : company
+{%- endcomment -%}
+{%- liquid
+  assign same_as = ''
+  assign networks = 'facebook,instagram,linkedin,tiktok,youtube,x,google' | split: ','
+  for n in networks
+    assign key = 'social_' | append: n
+    if settings[key] != blank
+      assign same_as = same_as | append: settings[key] | append: '|'
+    endif
+  endfor
+  assign same_as = same_as | split: '|'
+-%}
+{%- if request.page_type == 'index' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["TaxiService", "LocalBusiness"],
+  "name": {{ company | json }},
+  "url": {{ shop.url | json }},
+  {%- if settings.logo != blank %}"logo": {{ settings.logo | image_url: width: 600 | prepend: 'https:' | json }},
+  "image": {{ settings.logo | image_url: width: 1200 | prepend: 'https:' | json }},{% endif %}
+  {%- if settings.company_phone != blank %}"telephone": {{ settings.company_phone | json }},{% endif %}
+  {%- if settings.company_email != blank %}"email": {{ settings.company_email | json }},{% endif %}
+  "priceRange": {{ settings.seo_price_range | json }},
+  "areaServed": {{ settings.seo_area_served | json }},
+  "provider": { "@type": "LocalBusiness", "name": {{ settings.company_legal_name | default: company | json }} },
+  {%- if settings.geo_lat != blank and settings.geo_lng != blank %}
+  "geo": { "@type": "GeoCoordinates", "latitude": {{ settings.geo_lat | replace: ',', '.' | json }}, "longitude": {{ settings.geo_lng | replace: ',', '.' | json }} },
+  {%- endif %}
+  {%- if settings.hours_always %}
+  "openingHoursSpecification": { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "00:00", "closes": "23:59" },
+  {%- endif %}
+  {%- if same_as.size > 0 %}"sameAs": {{ same_as | json }},{% endif %}
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": {{ settings.company_street | json }},
+    "postalCode": {{ settings.company_postcode | json }},
+    "addressLocality": {{ settings.company_city | json }},
+    "addressCountry": {{ settings.company_country_code | json }}
+  }
+}
+</script>
+{%- endif -%}

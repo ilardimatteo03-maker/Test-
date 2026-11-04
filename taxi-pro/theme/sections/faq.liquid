@@ -1,0 +1,67 @@
+{%- comment -%} Questions fréquentes en accordéon, avec données structurées FAQPage. {%- endcomment -%}
+{%- assign s = section.settings -%}
+<section class="section scheme-{{ s.color_scheme }}" style="--pad-top: {{ s.padding_top }}px; --pad-bottom: {{ s.padding_bottom }}px;">
+  <div class="container{% if s.layout == 'stacked' %} container--narrow{% endif %}">
+    <div class="faq-layout{% if s.layout == 'split' %} faq-layout--split{% endif %}">
+      <div class="section-head{% if s.layout == 'stacked' %} text-center{% endif %}">
+        {%- if s.eyebrow != blank -%}<p class="eyebrow reveal">{{ s.eyebrow }}</p>{%- endif -%}
+        {%- if s.heading != blank -%}<h2 class="h2 reveal" style="--i: 1">{{ s.heading }}</h2>{%- endif -%}
+        {%- if s.text != blank -%}<div class="lead rte reveal" style="--i: 2">{{ s.text }}</div>{%- endif -%}
+        {%- if s.button_label != blank -%}<a class="btn btn--secondary reveal" style="margin-top: 1.4rem; --i: 3" href="{{ s.button_link | default: '/pages/contact' }}">{{ s.button_label }}</a>{%- endif -%}
+      </div>
+      <div class="accordion reveal" style="--i: 1">
+        {%- for block in section.blocks -%}
+          <details name="faq-{{ section.id }}" {{ block.shopify_attributes }}{% if forloop.first and s.open_first %} open{% endif %}>
+            <summary>{{ block.settings.question }}<span class="plus" aria-hidden="true"></span></summary>
+            <div class="accordion__content rte">{{ block.settings.answer }}</div>
+          </details>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+{%- if s.structured_data and section.blocks.size > 0 -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- for block in section.blocks -%}
+    { "@type": "Question", "name": {{ block.settings.question | json }}, "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.answer | json }} } }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "FAQ",
+  "tag": "div",
+  "class": "section-faq",
+  "max_blocks": 30,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Tout savoir avant de réserver" },
+    { "type": "richtext", "id": "text", "label": "Texte" },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "Nous contacter" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton" },
+    { "type": "select", "id": "layout", "label": "Mise en page", "options": [ { "value": "split", "label": "Titre à gauche" }, { "value": "stacked", "label": "Centrée" } ], "default": "split" },
+    { "type": "checkbox", "id": "open_first", "label": "Ouvrir la première question", "default": true },
+    { "type": "checkbox", "id": "structured_data", "label": "Données structurées FAQ pour Google", "default": true, "info": "N'activez qu'une seule section FAQ par page." },
+    { "type": "select", "id": "color_scheme", "label": "Couleurs", "options": [ { "value": "default", "label": "Principal" }, { "value": "alt", "label": "Secondaire" }, { "value": "inverse", "label": "Contrasté" } ], "default": "default" },
+    { "type": "range", "id": "padding_top", "label": "Marge haute", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Marge basse", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 }
+  ],
+  "blocks": [
+    {
+      "type": "question", "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "Comment est calculé le prix ?" },
+        { "type": "richtext", "id": "answer", "label": "Réponse", "default": "<p>Le prix dépend de la distance, de l'heure et du véhicule choisi, selon nos tarifs publics.</p>" }
+      ]
+    }
+  ],
+  "presets": [{"name": "FAQ", "blocks": [{"type": "question", "settings": {"question": "Comment est calculé le prix ?", "answer": "<p>Le prix comprend une prise en charge et un prix au kilomètre, auxquels s'ajoutent les éventuels suppléments (nuit, dimanche, aéroport, options). Certains trajets fréquents ont un prix fixe. Le détail est affiché avant la réservation.</p>"}}, {"type": "question", "settings": {"question": "Ma réservation est-elle confirmée immédiatement ?", "answer": "<p>Vous recevez un accusé de réception dès l'envoi. La réservation est confirmée après vérification de la disponibilité ou dès réception du paiement en ligne.</p>"}}, {"type": "question", "settings": {"question": "Que se passe-t-il si mon vol est en retard ?", "answer": "<p>Indiquez votre numéro de vol : nous suivons votre arrivée et adaptons l'heure de prise en charge.</p>"}}, {"type": "question", "settings": {"question": "Puis-je payer par carte ?", "answer": "<p>Oui : en ligne lors de la réservation ou à bord du véhicule. Les espèces sont également acceptées.</p>"}}, {"type": "question", "settings": {"question": "Proposez-vous des sièges pour enfants ?", "answer": "<p>Oui, sièges bébé, sièges enfant et rehausseurs sont disponibles sur demande, en option lors de la réservation.</p>"}}, {"type": "question", "settings": {"question": "Comment modifier ou annuler une réservation ?", "answer": "<p>Contactez-nous par téléphone ou par e-mail en indiquant votre référence de réservation.</p>"}}], "settings": {"eyebrow": "Questions fréquentes"}}]
+}
+{% endschema %}

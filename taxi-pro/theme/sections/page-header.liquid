@@ -1,0 +1,39 @@
+{%- comment -%} En-tête de page : titre (celui de la page par défaut), sous-titre, image, fil d'Ariane. {%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign title = s.title | default: page.title | default: page_title
+-%}
+<section class="section page-hero{% if s.image != blank %} page-hero--image{% else %} scheme-{{ s.color_scheme }}{% endif %}" style="--pad-top: {{ s.padding_top }}px; --pad-bottom: {{ s.padding_bottom }}px; --overlay: {{ s.overlay | divided_by: 100.0 }};">
+  {%- if s.image != blank -%}
+    <div class="page-hero__media">{{ s.image | image_url: width: 2400 | image_tag: loading: 'eager', sizes: '100vw', widths: '750, 1200, 1800, 2400', alt: '' }}</div>
+  {%- endif -%}
+  <div class="container{% if s.align == 'center' %} text-center{% endif %}">
+    {%- if s.breadcrumbs -%}
+      <nav aria-label="Breadcrumb"><ol class="breadcrumbs"{% if s.align == 'center' %} style="justify-content:center"{% endif %}><li><a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a></li><li aria-current="page">{{ title }}</li></ol></nav>
+    {%- endif -%}
+    {%- if s.eyebrow != blank -%}<p class="eyebrow">{{ s.eyebrow }}</p>{%- endif -%}
+    <h1 class="h1" style="max-width: 18ch;{% if s.align == 'center' %} margin-inline: auto;{% endif %}">{{ title }}</h1>
+    {%- if s.text != blank -%}<div class="lead rte">{{ s.text }}</div>{%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "En-tête de page",
+  "tag": "div",
+  "class": "section-page-header",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Titre", "info": "Vide : titre de la page." },
+    { "type": "text", "id": "eyebrow", "label": "Surtitre" },
+    { "type": "richtext", "id": "text", "label": "Sous-titre" },
+    { "type": "image_picker", "id": "image", "label": "Image de fond" },
+    { "type": "range", "id": "overlay", "label": "Assombrissement", "min": 0, "max": 90, "step": 5, "unit": "%", "default": 55 },
+    { "type": "select", "id": "align", "label": "Alignement", "options": [ { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centré" } ], "default": "left" },
+    { "type": "checkbox", "id": "breadcrumbs", "label": "Fil d'Ariane", "default": true },
+    { "type": "select", "id": "color_scheme", "label": "Couleurs sans image", "options": [ { "value": "default", "label": "Principal" }, { "value": "alt", "label": "Secondaire" }, { "value": "inverse", "label": "Contrasté" } ], "default": "alt" },
+    { "type": "range", "id": "padding_top", "label": "Marge haute", "min": 24, "max": 200, "step": 8, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Marge basse", "min": 24, "max": 200, "step": 8, "unit": "px", "default": 72 }
+  ],
+  "presets": [ { "name": "En-tête de page" } ]
+}
+{% endschema %}

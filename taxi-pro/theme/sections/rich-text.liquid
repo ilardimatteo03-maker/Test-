@@ -1,0 +1,37 @@
+{%- comment -%} Texte riche avec boutons. {%- endcomment -%}
+{%- assign s = section.settings -%}
+<section class="section scheme-{{ s.color_scheme }}" style="--pad-top: {{ s.padding_top }}px; --pad-bottom: {{ s.padding_bottom }}px;">
+  <div class="container container--narrow{% if s.align == 'center' %} text-center{% endif %}">
+    {%- if s.eyebrow != blank -%}<p class="eyebrow reveal">{{ s.eyebrow }}</p>{%- endif -%}
+    {%- if s.heading != blank -%}<h2 class="h2 reveal" style="--i: 1">{{ s.heading }}</h2>{%- endif -%}
+    {%- if s.text != blank -%}<div class="rte lead reveal" style="--i: 2; max-width: none">{{ s.text }}</div>{%- endif -%}
+    {%- if s.button_label != blank or s.button2_label != blank -%}
+      <div class="btn-row reveal" style="margin-top: 2rem; --i: 3">
+        {%- if s.button_label != blank -%}<a class="btn" href="{{ s.button_link | default: '#' }}">{{ s.button_label }}</a>{%- endif -%}
+        {%- if s.button2_label != blank -%}<a class="btn btn--secondary" href="{{ s.button2_link | default: '#' }}">{{ s.button2_label }}</a>{%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Texte",
+  "tag": "div",
+  "class": "section-rich-text",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Nos engagements" },
+    { "type": "richtext", "id": "text", "label": "Texte", "default": "<p>Ponctualité, sécurité, transparence des prix et respect de nos clients.</p>" },
+    { "type": "select", "id": "align", "label": "Alignement", "options": [ { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centré" } ], "default": "center" },
+    { "type": "text", "id": "button_label", "label": "Bouton 1" },
+    { "type": "url", "id": "button_link", "label": "Lien 1" },
+    { "type": "text", "id": "button2_label", "label": "Bouton 2" },
+    { "type": "url", "id": "button2_link", "label": "Lien 2" },
+    { "type": "select", "id": "color_scheme", "label": "Couleurs", "options": [ { "value": "default", "label": "Principal" }, { "value": "alt", "label": "Secondaire" }, { "value": "inverse", "label": "Contrasté" }, { "value": "accent", "label": "Accent" } ], "default": "default" },
+    { "type": "range", "id": "padding_top", "label": "Marge haute", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Marge basse", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 }
+  ],
+  "presets": [ { "name": "Texte" } ]
+}
+{% endschema %}

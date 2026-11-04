@@ -1,0 +1,57 @@
+{%- comment -%} Chiffres clés, avec animation de comptage. {%- endcomment -%}
+{%- assign s = section.settings -%}
+<section class="section scheme-{{ s.color_scheme }}" style="--pad-top: {{ s.padding_top }}px; --pad-bottom: {{ s.padding_bottom }}px;">
+  <div class="container">
+    {% render 'section-head', eyebrow: s.eyebrow, heading: s.heading, text: s.text, align: s.align %}
+    <div class="stats{% if s.divided %} stats--divided{% endif %}{% if s.align == 'center' %} text-center{% endif %}" style="--cols: {{ section.blocks.size | at_most: 4 | at_least: 1 }};">
+      {%- for block in section.blocks -%}
+        <div class="stat reveal" style="--i: {{ forloop.index0 }}" {{ block.shopify_attributes }}>
+          <div class="stat__value" {% if s.animate %}data-count-to="{{ block.settings.value | replace: ',', '.' }}" data-prefix="{{ block.settings.prefix | escape }}" data-suffix="{{ block.settings.suffix | escape }}"{% endif %}>{{ block.settings.prefix }}{{ block.settings.value }}{{ block.settings.suffix }}</div>
+          <div class="stat__label">{{ block.settings.label }}</div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Chiffres clés",
+  "tag": "div",
+  "class": "section-stats",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre" },
+    { "type": "text", "id": "heading", "label": "Titre" },
+    { "type": "richtext", "id": "text", "label": "Texte" },
+    { "type": "select", "id": "align", "label": "Alignement", "options": [ { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centré" } ], "default": "left" },
+    { "type": "checkbox", "id": "animate", "label": "Animer les chiffres", "default": true },
+    { "type": "checkbox", "id": "divided", "label": "Séparateurs verticaux", "default": true },
+    { "type": "select", "id": "color_scheme", "label": "Couleurs", "options": [ { "value": "default", "label": "Principal" }, { "value": "alt", "label": "Secondaire" }, { "value": "inverse", "label": "Contrasté" }, { "value": "accent", "label": "Accent" } ], "default": "inverse" },
+    { "type": "range", "id": "padding_top", "label": "Marge haute", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 72 },
+    { "type": "range", "id": "padding_bottom", "label": "Marge basse", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 72 }
+  ],
+  "blocks": [
+    {
+      "type": "stat", "name": "Chiffre",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Valeur (nombre)", "default": "15" },
+        { "type": "text", "id": "prefix", "label": "Préfixe" },
+        { "type": "text", "id": "suffix", "label": "Suffixe", "info": "Ex. : « ans », « h/24 », « /5 ». Les espaces sont conservés." },
+        { "type": "text", "id": "label", "label": "Libellé", "default": "d'expérience" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Chiffres clés",
+      "blocks": [
+        { "type": "stat", "settings": { "value": "15", "suffix": " ans", "label": "d'expérience" } },
+        { "type": "stat", "settings": { "value": "24", "suffix": " h/24", "label": "disponibles, 7 jours sur 7" } },
+        { "type": "stat", "settings": { "value": "4.9", "suffix": "/5", "label": "note moyenne de nos clients" } },
+        { "type": "stat", "settings": { "value": "12000", "prefix": "+", "label": "courses par an" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

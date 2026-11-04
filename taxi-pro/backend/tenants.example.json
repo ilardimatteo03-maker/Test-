@@ -1,0 +1,25 @@
+[
+  {
+    "id": "taxi-exemple",
+    "shopDomain": "taxi-exemple.myshopify.com",
+    "storefrontUrl": "https://www.taxi-exemple.be",
+    "allowedOrigins": ["https://www.taxi-exemple.be"],
+    "storefrontPassword": "env:TAXI_EXEMPLE_STOREFRONT_PASSWORD",
+    "routing": { "provider": "google", "apiKey": "env:GOOGLE_ROUTES_KEY" },
+    "email": { "provider": "resend", "apiKey": "env:RESEND_API_KEY", "from": "Taxi Exemple <reservations@taxi-exemple.be>", "adminEmail": "planning@taxi-exemple.be" },
+    "payments": { "provider": "shopify", "shopifyAdminToken": "env:TAXI_EXEMPLE_SHOPIFY_TOKEN", "shopifyWebhookSecret": "env:TAXI_EXEMPLE_SHOPIFY_WEBHOOK_SECRET" },
+    "adminToken": "env:TAXI_EXEMPLE_ADMIN_TOKEN",
+    "reminderHours": 24
+  },
+  {
+    "id": "cab-paris",
+    "shopDomain": "cab-paris.myshopify.com",
+    "storefrontUrl": "https://www.cab-paris.fr",
+    "routing": { "provider": "mapbox", "apiKey": "env:MAPBOX_SECRET_TOKEN" },
+    "email": { "provider": "postmark", "apiKey": "env:POSTMARK_TOKEN", "from": "Cab Paris <booking@cab-paris.fr>", "adminEmail": "dispatch@cab-paris.fr" },
+    "payments": { "provider": "stripe", "stripeSecretKey": "env:CAB_PARIS_STRIPE_KEY", "stripeWebhookSecret": "env:CAB_PARIS_STRIPE_WEBHOOK_SECRET" },
+    "adminToken": "env:CAB_PARIS_ADMIN_TOKEN",
+    "webhookUrl": "https://hooks.zapier.com/hooks/catch/000000/abcdef/",
+    "webhookSecret": "env:CAB_PARIS_WEBHOOK_SECRET"
+  }
+]

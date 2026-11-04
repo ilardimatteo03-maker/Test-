@@ -1,0 +1,72 @@
+{%- comment -%} Avantages / engagements : icône, titre, texte. {%- endcomment -%}
+{%- assign s = section.settings -%}
+<section class="section scheme-{{ s.color_scheme }}" style="--pad-top: {{ s.padding_top }}px; --pad-bottom: {{ s.padding_bottom }}px;">
+  <div class="container">
+    {% render 'section-head', eyebrow: s.eyebrow, heading: s.heading, text: s.text, align: s.align %}
+    <div class="grid{% if s.style == 'boxed' %} features--boxed{% endif %}" style="--cols: {{ s.columns }}; --cols-tablet: 2;">
+      {%- for block in section.blocks -%}
+        <div class="feature{% if s.style == 'row' %} feature--row{% endif %} reveal" style="--i: {{ forloop.index0 | modulo: 4 }}" {{ block.shopify_attributes }}>
+          <span class="icon-circle">{% render 'icon', name: block.settings.icon %}</span>
+          <div>
+            <h3 class="feature__title">{{ block.settings.title }}</h3>
+            {%- if block.settings.text != blank -%}<div class="feature__text rte">{{ block.settings.text }}</div>{%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Avantages",
+  "tag": "div",
+  "class": "section-features",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "Pourquoi nous choisir" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Le confort d'un chauffeur, la simplicité d'un taxi" },
+    { "type": "richtext", "id": "text", "label": "Texte" },
+    { "type": "select", "id": "align", "label": "Alignement du titre", "options": [ { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centré" } ], "default": "center" },
+    { "type": "select", "id": "style", "label": "Style", "options": [ { "value": "plain", "label": "Simple" }, { "value": "boxed", "label": "Encadré" }, { "value": "row", "label": "Icône à gauche" } ], "default": "boxed" },
+    { "type": "select", "id": "columns", "label": "Colonnes", "options": [ { "value": "2", "label": "2" }, { "value": "3", "label": "3" }, { "value": "4", "label": "4" } ], "default": "3" },
+    { "type": "select", "id": "color_scheme", "label": "Couleurs", "options": [ { "value": "default", "label": "Principal" }, { "value": "alt", "label": "Secondaire" }, { "value": "inverse", "label": "Contrasté" } ], "default": "default" },
+    { "type": "range", "id": "padding_top", "label": "Marge haute", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Marge basse", "min": 0, "max": 160, "step": 8, "unit": "px", "default": 96 }
+  ],
+  "blocks": [
+    {
+      "type": "feature", "name": "Avantage",
+      "settings": [
+        {
+          "type": "select", "id": "icon", "label": "Icône",
+          "options": [
+            { "value": "euro", "label": "Prix" }, { "value": "clock", "label": "Ponctualité" }, { "value": "shield", "label": "Sécurité" },
+            { "value": "award", "label": "Qualité" }, { "value": "plane", "label": "Avion" }, { "value": "card", "label": "Paiement" },
+            { "value": "headset", "label": "Assistance" }, { "value": "leaf", "label": "Écologie" }, { "value": "wifi", "label": "Wi-Fi" },
+            { "value": "users", "label": "Groupe" }, { "value": "star", "label": "Étoile" }, { "value": "check", "label": "Coche" },
+            { "value": "globe", "label": "Langues" }, { "value": "baby", "label": "Enfants" }, { "value": "wheelchair", "label": "Accessibilité" },
+            { "value": "snow", "label": "Climatisation" }, { "value": "plug", "label": "Chargeurs" }, { "value": "luggage", "label": "Bagages" }
+          ],
+          "default": "euro"
+        },
+        { "type": "text", "id": "title", "label": "Titre", "default": "Prix annoncé à l'avance" },
+        { "type": "richtext", "id": "text", "label": "Texte", "default": "<p>Le prix est calculé avant la réservation, selon nos tarifs.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Avantages",
+      "blocks": [
+        { "type": "feature", "settings": { "icon": "euro", "title": "Prix annoncé à l'avance", "text": "<p>Le prix est calculé avant la réservation, selon nos tarifs publics.</p>" } },
+        { "type": "feature", "settings": { "icon": "clock", "title": "Ponctualité", "text": "<p>Votre chauffeur arrive à l'heure, et suit votre vol en cas de retard.</p>" } },
+        { "type": "feature", "settings": { "icon": "shield", "title": "Chauffeurs professionnels", "text": "<p>Licenciés, expérimentés, discrets et courtois.</p>" } },
+        { "type": "feature", "settings": { "icon": "card", "title": "Paiement simple", "text": "<p>En ligne, par carte ou en espèces à bord.</p>" } },
+        { "type": "feature", "settings": { "icon": "headset", "title": "Joignables 24 h/24", "text": "<p>Une question, un changement ? Nous répondons à toute heure.</p>" } },
+        { "type": "feature", "settings": { "icon": "award", "title": "Véhicules entretenus", "text": "<p>Récents, propres et contrôlés régulièrement.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,91 @@
+{%- comment -%}
+  Configuration Taxi Pro — Plages horaires personnalisées (heures de pointe, réveillon, événements).
+  Elles s'ajoutent aux majorations nuit / week-end / jours fériés des réglages du thème
+  et se combinent selon la règle « Si plusieurs majorations horaires s'appliquent ».
+{%- endcomment -%}
+<script type="application/json" data-tp-config="timeRules">
+[
+{%- for block in section.blocks -%}
+  {%- liquid
+    assign days = ''
+    if block.settings.mon
+      assign days = days | append: 'mon,'
+    endif
+    if block.settings.tue
+      assign days = days | append: 'tue,'
+    endif
+    if block.settings.wed
+      assign days = days | append: 'wed,'
+    endif
+    if block.settings.thu
+      assign days = days | append: 'thu,'
+    endif
+    if block.settings.fri
+      assign days = days | append: 'fri,'
+    endif
+    if block.settings.sat
+      assign days = days | append: 'sat,'
+    endif
+    if block.settings.sun
+      assign days = days | append: 'sun,'
+    endif
+  -%}
+  {
+    "id": {{ block.id | json }},
+    "enabled": {{ block.settings.enabled | json }},
+    "name": {{ block.settings.name | json }},
+    "days": {{ days | json }},
+    "start": {{ block.settings.start | json }},
+    "end": {{ block.settings.end | json }},
+    "dates": {{ block.settings.dates | json }},
+    "type": {{ block.settings.type | json }},
+    "value": {{ block.settings.value | json }},
+    "priority": {{ block.settings.priority | json }}
+  }{% unless forloop.last %},{% endunless %}
+{%- endfor -%}
+]
+</script>
+{%- if request.design_mode -%}
+  <div class="tp-config-panel" {{ section.shopify_attributes }}>
+    <strong>Configuration Taxi Pro · Plages horaires</strong> : {{ section.blocks.size }} plage(s) personnalisée(s).
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Plages horaires (tarifs)",
+  "tag": "div",
+  "class": "tp-config",
+  "max_blocks": 30,
+  "enabled_on": { "groups": ["custom.taxi-config"] },
+  "settings": [
+    { "type": "paragraph", "content": "Majorations personnalisées selon le jour, l'heure ou la date. Aucun jour coché = tous les jours. L'heure de prise en charge détermine la majoration." }
+  ],
+  "blocks": [
+    {
+      "type": "time_rule",
+      "name": "Plage horaire",
+      "settings": [
+        { "type": "checkbox", "id": "enabled", "label": "Activer", "default": true },
+        { "type": "text", "id": "name", "label": "Nom affiché", "default": "Heures de pointe" },
+        { "type": "checkbox", "id": "mon", "label": "Lundi", "default": false },
+        { "type": "checkbox", "id": "tue", "label": "Mardi", "default": false },
+        { "type": "checkbox", "id": "wed", "label": "Mercredi", "default": false },
+        { "type": "checkbox", "id": "thu", "label": "Jeudi", "default": false },
+        { "type": "checkbox", "id": "fri", "label": "Vendredi", "default": false },
+        { "type": "checkbox", "id": "sat", "label": "Samedi", "default": false },
+        { "type": "checkbox", "id": "sun", "label": "Dimanche", "default": false },
+        { "type": "text", "id": "start", "label": "De (HH:MM)", "default": "07:00" },
+        { "type": "text", "id": "end", "label": "À (HH:MM)", "default": "09:00", "info": "00:00 à 00:00 = toute la journée. Une plage peut passer minuit (20:00 à 02:00)." },
+        { "type": "textarea", "id": "dates", "label": "Dates (facultatif)", "info": "Une par ligne : MM-JJ (chaque année) ou AAAA-MM-JJ. Vide = toutes les dates." },
+        { "type": "select", "id": "type", "label": "Type", "options": [ { "value": "percent", "label": "Pourcentage" }, { "value": "fixed", "label": "Montant fixe" } ], "default": "percent" },
+        { "type": "text", "id": "value", "label": "Valeur", "default": "10" },
+        { "type": "number", "id": "priority", "label": "Priorité", "default": 40, "info": "Utilisée si la règle de combinaison est « priorité ». Nuit : 10, week-end : 20, fériés : 30 par défaut." }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Plages horaires (tarifs)" }
+  ]
+}
+{% endschema %}

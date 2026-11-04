@@ -1,0 +1,13 @@
+<section class="section scheme-default" style="--pad-top: 96px; --pad-bottom: 96px;">
+  <div class="container">
+    <h1 class="h2">{{ page_title }}</h1>
+    <div class="grid" style="--cols: 3; margin-top: 2rem">
+      {%- for collection in collections -%}
+        <a class="card card--hover" href="{{ collection.url }}"><div class="card__body"><h2 class="card__title h4">{{ collection.title }}</h2><p class="card__text">{{ collection.products_count }}</p></div></a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{ "name": "Liste des collections", "tag": "div", "class": "section-main-list-collections", "settings": [] }
+{% endschema %}

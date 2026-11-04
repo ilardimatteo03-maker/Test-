@@ -1,0 +1,13 @@
+<article class="section scheme-default" style="--pad-top: 96px; --pad-bottom: 96px;">
+  <div class="container container--narrow">
+    <p class="text-muted"><a href="{{ blog.url }}">{{ blog.title }}</a> · {{ article.published_at | time_tag: format: 'date' }}</p>
+    <h1 class="h1">{{ article.title }}</h1>
+    {%- if article.image -%}
+      <div class="media-text__media" style="--ratio: 16 / 9; margin: 2rem 0">{{ article.image | image_url: width: 1600 | image_tag: loading: 'eager', sizes: '(min-width: 990px) 820px, 100vw', widths: '600, 900, 1200, 1600', alt: article.image.alt | default: article.title }}</div>
+    {%- endif -%}
+    <div class="rte">{{ article.content }}</div>
+  </div>
+</article>
+{% schema %}
+{ "name": "Article", "tag": "div", "class": "section-main-article", "settings": [] }
+{% endschema %}

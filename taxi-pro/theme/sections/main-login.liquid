@@ -1,0 +1,27 @@
+<section class="section scheme-default" style="--pad-top: 96px; --pad-bottom: 96px;">
+  <div class="container" style="max-width: 520px">
+    <div id="recover" hidden>
+      <h1 class="h2">{{ 'customer.reset_title' | t }}</h1>
+      {%- form 'recover_customer_password', class: 'form-grid' -%}
+        {%- if form.posted_successfully? -%}<p class="form-status form-status--success">{{ 'customer.reset_sent' | t }}</p>{%- endif -%}
+        {{ form.errors | default_errors }}
+        <div class="field"><label class="field__label" for="RecoverEmail">{{ 'customer.email' | t }}</label><input class="input" type="email" id="RecoverEmail" name="email" autocomplete="email" required></div>
+        <button class="btn" type="submit">{{ 'customer.reset_submit' | t }}</button>
+        <a href="#login">{{ 'customer.cancel' | t }}</a>
+      {%- endform -%}
+    </div>
+    <div id="login">
+      <h1 class="h2">{{ 'customer.login_title' | t }}</h1>
+      {%- form 'customer_login', class: 'form-grid' -%}
+        {{ form.errors | default_errors }}
+        <div class="field"><label class="field__label" for="CustomerEmail">{{ 'customer.email' | t }}</label><input class="input" type="email" id="CustomerEmail" name="customer[email]" autocomplete="email" required></div>
+        <div class="field"><label class="field__label" for="CustomerPassword">{{ 'customer.password' | t }}</label><input class="input" type="password" id="CustomerPassword" name="customer[password]" autocomplete="current-password" required></div>
+        <button class="btn" type="submit">{{ 'customer.sign_in' | t }}</button>
+        <p style="margin:0"><a href="#recover" onclick="document.getElementById('recover').hidden=false;document.getElementById('login').hidden=true;return false;">{{ 'customer.forgot' | t }}</a> · <a href="{{ routes.account_register_url }}">{{ 'customer.register_title' | t }}</a></p>
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{ "name": "Connexion", "tag": "div", "class": "section-main-login", "settings": [] }
+{% endschema %}

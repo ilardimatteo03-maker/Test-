@@ -1,0 +1,18 @@
+{
+  "name": "taxi-pro-tools",
+  "private": true,
+  "type": "module",
+  "description": "Outils de développement du thème TAXI PRO : contrôle, aperçu local, tests de bout en bout, archive ZIP.",
+  "scripts": {
+    "check": "node check-theme.mjs",
+    "strings": "node gen-strings.mjs",
+    "preview": "node preview/server.mjs",
+    "e2e": "node e2e.mjs",
+    "zip": "node build-zip.mjs"
+  },
+  "devDependencies": {
+    "@shopify/theme-check-node": "3.31.0",
+    "axe-core": "^4.10.2",
+    "liquidjs": "10.25.0"
+  }
+}
