@@ -45,7 +45,8 @@
     "public": "Professionnels",
     "commission_pct": 10,
     "base": "Chiffre d'affaires hors TVA des clients apportés par le partenaire.",
-    "versement": "chaque trimestre"
+    "versement": "chaque trimestre",
+    "inscription": "Inscription préalable obligatoire : seuls les clients recommandés après l'inscription donnent droit à la commission."
   },
   "numerotation": {
     "devis": "D-{annee}-{n:03d}",

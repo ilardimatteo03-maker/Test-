@@ -40,6 +40,7 @@ h1{{font:500 108px/1.05 Archivo,sans-serif;font-stretch:112%;letter-spacing:-.01
 h1 i,.chiffre i{{font-style:normal}}
 .texte{{margin-top:44px;font:400 44px/1.36 Archivo,sans-serif}}
 .texte strong{{font-weight:600}}
+.insecable{{white-space:nowrap}}
 .chiffre{{font:500 {400 if len(PCT) < 2 else 350}px/.92 Archivo,sans-serif;font-stretch:112%;letter-spacing:-.03em;margin-left:-14px}}
 .exemple{{margin-top:56px;padding-top:30px;border-top:1.5px solid #EEEDE7;display:flex;justify-content:space-between;
          font:300 34px/1 'DM Mono',monospace;letter-spacing:.02em}}
@@ -70,16 +71,17 @@ STORIES = [
     <p class="exemple"><span>Exemple</span><span>1&#8239;000&nbsp;€ HTVA → {10 * A['commission_pct']:g}&nbsp;€</span></p>""")),
     ("3-fonctionnement", page(f"""
     <p class="eyebrow">Comment ça marche</p>
-    <h1>En trois temps<i>.</i></h1>
+    <h1>En quatre temps<i>.</i></h1>
     <ol>
-      <li><span class="n">01</span><span class="t">Vous nous recommandez à un client.</span></li>
-      <li><span class="n">02</span><span class="t">Nous réalisons la prestation.</span></li>
-      <li><span class="n">03</span><span class="t">Vous touchez {PCT}&nbsp;% du montant hors&nbsp;TVA, {A['versement']}.</span></li>
+      <li><span class="n">01</span><span class="t">Vous vous inscrivez au programme.</span></li>
+      <li><span class="n">02</span><span class="t">Vous nous recommandez à un client.</span></li>
+      <li><span class="n">03</span><span class="t">Nous réalisons la prestation.</span></li>
+      <li><span class="n">04</span><span class="t">Vous touchez {PCT}&nbsp;% du montant hors&nbsp;TVA, {A['versement']}.</span></li>
     </ol>""")),
     ("4-contact", page(f"""
     <p class="eyebrow">Réservé aux professionnels</p>
     <h1>Devenez<br>partenaire<i>.</i></h1>
-    <p class="texte">Pour plus d'informations, contactez-nous par e-mail ou par téléphone.</p>
+    <p class="texte"><strong>Inscription obligatoire avant toute recommandation.</strong> Pour vous inscrire ou pour plus d'informations, contactez-nous par <span class="insecable">e-mail</span> ou par téléphone.</p>
     <div class="contact"><p>{X['email']}</p><p>{X['telephone']}</p></div>""")),
 ]
 
