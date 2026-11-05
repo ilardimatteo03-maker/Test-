@@ -1,5 +1,5 @@
 {%- comment -%}
-  Configuration Taxi Pro — Options supplémentaires (étape « Options »).
+  Tarifs Taxi Pro (groupe « Pied de page ») — Options supplémentaires (étape « Options »).
   Types : montant fixe, montant à l'unité (quantité), pourcentage de la course.
 {%- endcomment -%}
 <script type="application/json" data-tp-config="options">
@@ -21,7 +21,7 @@
 </script>
 {%- if request.design_mode -%}
   <div class="tp-config-panel" {{ section.shopify_attributes }}>
-    <strong>Configuration Taxi Pro · Options</strong> : {{ section.blocks.size }} option(s).
+    <strong>Tarifs Taxi Pro · Options</strong> : {{ section.blocks.size }} option(s).
   </div>
 {%- endif -%}
 
@@ -31,7 +31,7 @@
   "tag": "div",
   "class": "tp-config",
   "max_blocks": 30,
-  "enabled_on": { "groups": ["custom.taxi-config"] },
+  "enabled_on": { "groups": ["footer"] },
   "settings": [
     { "type": "paragraph", "content": "Options proposées à l'étape « Options ». L'aller-retour se choisit à l'étape « Trajet » et la mise à disposition est une prestation (mode « à l'heure »)." }
   ],

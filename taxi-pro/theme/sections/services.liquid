@@ -1,3 +1,4 @@
+{%- assign booking_fallback = routes.root_url | append: '?view=reservation' | replace: '//?', '/?' -%}
 {%- comment -%}
   Présentation des services : cartes (accueil) ou présentation détaillée (page Nos services).
   Chaque service est un bloc activable ; le « code de réservation » pré-sélectionne la prestation
@@ -5,7 +6,7 @@
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
-  assign booking_url = settings.booking_page.url | default: '/pages/reservation'
+  assign booking_url = settings.booking_page.url | default: booking_fallback
   assign visible = 0
   for block in section.blocks
     if block.settings.enabled
@@ -128,7 +129,7 @@
         { "type": "text", "id": "title", "label": "Titre", "default": "Taxi classique" },
         { "type": "richtext", "id": "text", "label": "Description", "default": "<p>Vos trajets du quotidien, en ville comme en périphérie.</p>" },
         { "type": "textarea", "id": "features", "label": "Points forts (présentation détaillée)", "info": "Un par ligne." },
-        { "type": "text", "id": "code", "label": "Code de réservation", "info": "Code d'une prestation de « Configuration Taxi Pro › Prestations » (ex. aeroport)." },
+        { "type": "text", "id": "code", "label": "Code de réservation", "info": "Code d'une prestation de « Pied de page › Prestations (tarifs) » (ex. aeroport)." },
         { "type": "text", "id": "link_label", "label": "Texte du lien secondaire" },
         { "type": "url", "id": "link", "label": "Lien secondaire" }
       ]

@@ -297,3 +297,8 @@ body.card-bordered .tp-result { border: 1px solid var(--line); }
 body.input-underline .tp-address__input { padding-left: 1.7rem; }
 body.input-underline .tp-address__icon { left: .2rem; }
 body.input-underline .tp-stepper { border-width: 0 0 1px; border-radius: 0; background: transparent; }
+
+/* Confirmation d'envoi affichée quand Shopify renvoie vers une page sans module de réservation */
+.tp-banner { padding: 1.2rem 0; border-bottom: 1px solid var(--line); }
+.tp-banner p { margin: .3rem 0 0; color: var(--muted); }
+.tp-booking > .tp-config-panel { margin-bottom: 1rem; border-radius: var(--radius-card); }

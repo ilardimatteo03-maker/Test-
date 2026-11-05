@@ -1,5 +1,5 @@
 {%- comment -%}
-  Configuration Taxi Pro — Plages horaires personnalisées (heures de pointe, réveillon, événements).
+  Tarifs Taxi Pro (groupe « Pied de page ») — Plages horaires personnalisées (heures de pointe, réveillon, événements).
   Elles s'ajoutent aux majorations nuit / week-end / jours fériés des réglages du thème
   et se combinent selon la règle « Si plusieurs majorations horaires s'appliquent ».
 {%- endcomment -%}
@@ -47,7 +47,7 @@
 </script>
 {%- if request.design_mode -%}
   <div class="tp-config-panel" {{ section.shopify_attributes }}>
-    <strong>Configuration Taxi Pro · Plages horaires</strong> : {{ section.blocks.size }} plage(s) personnalisée(s).
+    <strong>Tarifs Taxi Pro · Plages horaires</strong> : {{ section.blocks.size }} plage(s) personnalisée(s).
   </div>
 {%- endif -%}
 
@@ -57,7 +57,7 @@
   "tag": "div",
   "class": "tp-config",
   "max_blocks": 30,
-  "enabled_on": { "groups": ["custom.taxi-config"] },
+  "enabled_on": { "groups": ["footer"] },
   "settings": [
     { "type": "paragraph", "content": "Majorations personnalisées selon le jour, l'heure ou la date. Aucun jour coché = tous les jours. L'heure de prise en charge détermine la majoration." }
   ],

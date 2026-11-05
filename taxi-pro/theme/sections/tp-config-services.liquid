@@ -1,5 +1,5 @@
 {%- comment -%}
-  Configuration Taxi Pro — Prestations réservables.
+  Tarifs Taxi Pro (groupe « Pied de page ») — Prestations réservables.
   Liste proposée dans le formulaire (« Type de prestation ») et mode de calcul de chacune.
   Section invisible pour les visiteurs : elle publie un JSON lu par le calculateur et par le backend.
 {%- endcomment -%}
@@ -30,8 +30,8 @@
 </script>
 {%- if request.design_mode -%}
   <div class="tp-config-panel" {{ section.shopify_attributes }}>
-    <strong>Configuration Taxi Pro · Prestations</strong> : {{ section.blocks.size }} prestation(s).
-    Section invisible pour les visiteurs, affichée uniquement dans l'éditeur.
+    <strong>Tarifs Taxi Pro · Prestations</strong> : {{ section.blocks.size }} prestation(s).
+    Section invisible pour les visiteurs (bandeau visible uniquement dans l'éditeur).
     {%- if section.blocks.size == 0 %} <span class="tp-warn">Ajoutez au moins une prestation.</span>{% endif -%}
   </div>
 {%- endif -%}
@@ -42,7 +42,7 @@
   "tag": "div",
   "class": "tp-config",
   "max_blocks": 20,
-  "enabled_on": { "groups": ["custom.taxi-config"] },
+  "enabled_on": { "groups": ["footer"] },
   "settings": [
     { "type": "paragraph", "content": "Prestations proposées dans le formulaire de réservation. L'ordre des blocs est l'ordre d'affichage ; la première est sélectionnée par défaut." }
   ],

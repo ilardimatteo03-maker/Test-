@@ -1,5 +1,5 @@
 {%- comment -%}
-  Configuration Taxi Pro — Forfaits de trajet (prix fixes entre deux zones).
+  Tarifs Taxi Pro (groupe « Pied de page ») — Forfaits de trajet (prix fixes entre deux zones).
   Un forfait l'emporte sur le tarif kilométrique. Entre plusieurs forfaits, la priorité
   la plus haute gagne, puis le prix le plus bas.
 {%- endcomment -%}
@@ -27,7 +27,7 @@
 </script>
 {%- if request.design_mode -%}
   <div class="tp-config-panel" {{ section.shopify_attributes }}>
-    <strong>Configuration Taxi Pro · Forfaits</strong> : {{ section.blocks.size }} forfait(s)
+    <strong>Tarifs Taxi Pro · Forfaits</strong> : {{ section.blocks.size }} forfait(s)
     {%- if section.blocks.size > 0 %} :
       {% for block in section.blocks %}{{ block.settings.name }} ({{ block.settings.from }} → {{ block.settings.to }} : {{ block.settings.price }}){% unless forloop.last %}, {% endunless %}{% endfor %}.
     {%- endif %}
@@ -40,7 +40,7 @@
   "tag": "div",
   "class": "tp-config",
   "max_blocks": 50,
-  "enabled_on": { "groups": ["custom.taxi-config"] },
+  "enabled_on": { "groups": ["footer"] },
   "settings": [
     { "type": "paragraph", "content": "Prix fixes pour les trajets fréquents. Créez d'abord les zones de départ et d'arrivée dans « Zones (tarifs) », puis indiquez leurs codes ici. « * » signifie « n'importe quelle adresse »." }
   ],

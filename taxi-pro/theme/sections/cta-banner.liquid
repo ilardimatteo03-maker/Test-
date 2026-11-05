@@ -1,3 +1,4 @@
+{%- assign booking_fallback = routes.root_url | append: '?view=reservation' | replace: '//?', '/?' -%}
 {%- comment -%} Bannière d'appel à l'action : réserver ou appeler. {%- endcomment -%}
 {%- liquid
   assign s = section.settings
@@ -13,7 +14,7 @@
         {%- if s.text != blank -%}<div class="rte" style="color: var(--muted)">{{ s.text }}</div>{%- endif -%}
       </div>
       <div class="btn-row">
-        {%- if s.button_label != blank -%}<a class="btn btn--large" href="{{ s.button_link | default: settings.booking_page.url | default: '#reservation' }}">{{ s.button_label }}</a>{%- endif -%}
+        {%- if s.button_label != blank -%}<a class="btn btn--large" href="{{ s.button_link | default: settings.booking_page.url | default: booking_fallback }}">{{ s.button_label }}</a>{%- endif -%}
         {%- if s.show_phone and settings.company_phone != blank -%}<a class="btn btn--large btn--secondary" href="tel:{{ phone_href }}">{% render 'icon', name: 'phone' %}{{ settings.company_phone }}</a>{%- endif -%}
       </div>
     </div>

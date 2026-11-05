@@ -220,7 +220,7 @@
     passengers: 'Passagers supplémentaires ({n})', luggage: 'Bagages supplémentaires ({n})', tolls: 'Péages',
     serviceSurcharge: 'Supplément {name}', vehicleSurcharge: 'Supplément véhicule {name}', option: '{name}',
     optionQty: '{name} × {n}', waiting: 'Attente ({min} min)', roundTripDiscount: 'Remise aller-retour (−{value} %)',
-    outbound: 'Aller', returnLeg: 'Retour', rounding: 'Arrondi',
+    outbound: 'Aller', returnLeg: 'Retour', rounding: 'Arrondi', defaultVehicle: 'Taxi',
     err_ROUTE_REQUIRED: 'Indiquez une adresse de départ et une adresse d’arrivée valides.',
     err_PICKUP_REQUIRED: 'Indiquez une adresse de départ valide.',
     err_DISTANCE_UNAVAILABLE: 'La distance du trajet n’a pas pu être calculée.',
@@ -432,6 +432,19 @@
       });
     });
 
+    // Une même entrée (même code) déclarée deux fois : seule la première compte
+    ['vehicles', 'options', 'services', 'zones', 'routes', 'timeRules'].forEach(function (k) {
+      var seen = {};
+      cfg[k] = cfg[k].filter(function (x) { if (seen[x.id]) return false; seen[x.id] = true; return true; });
+    });
+    // Sans véhicule configuré, le calculateur reste utilisable au tarif général
+    if (!cfg.vehicles.length) {
+      cfg.vehicles.push({
+        id: 'standard', name: cfg.labels.defaultVehicle, description: '', image: '', imageAlt: '', badge: '', equipment: [],
+        passengers: cfg.booking.maxPassengers, luggage: cfg.booking.maxLuggage, mode: 'multiplier', multiplier: 1,
+        base: null, perKm: null, perMin: null, minimum: null, hourlyRate: null, surcharge: 0, isDefault: true
+      });
+    }
     return cfg;
   }
 

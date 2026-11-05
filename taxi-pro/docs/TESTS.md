@@ -6,11 +6,11 @@ Prérequis : Node.js 18.17 ou plus récent ; pour les tests navigateur, Playwrig
 
 ```bash
 cd taxi-pro
-node --test tests/*.test.mjs                 # moteur de tarification : 32 tests
+node --test tests/*.test.mjs                 # moteur de tarification : 33 tests
 cd backend && npm test && cd ..              # service de réservation : 17 tests
 cd tools && npm install && cd ..             # une fois : Theme Check, LiquidJS, axe-core
 node tools/check-theme.mjs                   # Theme Check officiel + validation des modèles, traductions, icônes
-node tools/e2e.mjs                           # navigateur : 90 contrôles ; --shots enregistre les captures dans docs/apercus
+node tools/e2e.mjs                           # navigateur : 98 contrôles ; --shots enregistre les captures dans docs/apercus
 node tools/build-zip.mjs                     # archive du thème dans dist/
 ```
 
@@ -19,7 +19,7 @@ node tools/build-zip.mjs                     # archive du thème dans dist/
 | `tests/pricing.test.mjs` | Tarif km, minute, minimum, nuit après minuit, dimanche, fériés fixes et Pâques, combinaisons (plus forte, cumul, priorité), plages personnalisées, forfaits (sens inverse, prix par véhicule, coefficient, priorité, majorations), aéroport, gare, péages, zone tarifaire, zone interdite, hors zone, distance maximale, capacités, options (fixe, unité, %, restrictions, quantités), aller-retour, attente, délais, horaires (plages passant minuit), réservation immédiate au fuseau de l'entreprise, mise à disposition, prix fixe, sur devis, arrondi, acompte, TVA, détection aéroport. |
 | `backend/test/backend.test.mjs` | Devis serveur, CORS, demande de réservation et e-mails, **prix falsifié refusé (409)**, validations, adresse sans coordonnées, mode de paiement non autorisé, Stripe (session, signature invalide refusée, montant insuffisant refusé, confirmation, webhook rejoué), acompte, Shopify (commande provisoire, HMAC), administration (accès, confirmation, modification avec recalcul, rappels, agenda, annulation), fichier .ics, limitation de débit, lecture de la configuration **réellement produite par le thème**, polyligne, fuseaux horaires. |
 | `tools/check-theme.mjs` | Theme Check de Shopify (85 règles) ; chaque valeur des modèles, groupes et préréglages contrôlée contre le schéma de sa section (options, bornes, types, valeurs vides refusées à l'import) ; curseurs d'au moins 4 positions ; clés de traduction présentes dans les 4 langues ; snippets et icônes existants ; absence de clé secrète. |
-| `tools/e2e.mjs` | 11 pages × ordinateur et mobile (erreurs console, un seul h1, débordement horizontal, alt, boutons nommés) ; audit **axe-core WCAG 2.1 AA** ; parcours complet sans backend (formulaire Shopify) ; formulaire rapide → réservation préremplie ; parcours avec backend (prix revalidé, demande, paiement Stripe simulé, retour, confirmation par webhook, prix falsifié) ; mobile ; contraste des 5 préréglages. |
+| `tools/e2e.mjs` | 12 pages (dont la réservation intégrée `/?view=reservation`) × ordinateur et mobile (erreurs console, un seul h1, débordement horizontal, alt, boutons nommés) ; audit **axe-core WCAG 2.1 AA** ; parcours complet sans backend (formulaire Shopify) ; formulaire rapide → réservation préremplie ; parcours avec backend (prix revalidé, demande, paiement Stripe simulé, retour, confirmation par webhook, prix falsifié) ; diagnostic dans l'éditeur et configuration rendue dans le pied de page ; mobile ; contraste des 5 préréglages. |
 
 Les services cartographiques (Photon, OSRM, tuiles) sont simulés dans les tests navigateur avec des réponses au
 format documenté. Les vrais services doivent être vérifiés sur la boutique (section 2).
@@ -30,6 +30,7 @@ Cochez chaque point sur ordinateur **et** sur téléphone.
 
 ### Affichage
 - [ ] Accueil : héros, calculateur rapide, toutes les sections ; en-tête transparent sur l'image puis opaque au défilement.
+- [ ] Dans l'éditeur, `/?view=reservation` (Page d'accueil › reservation) : le bandeau « Diagnostic » indique le bon nombre de véhicules, prestations, zones et forfaits.
 - [ ] Menu mobile : ouverture, fermeture (bouton, touche Échap), liens.
 - [ ] Pages Services, Véhicules, Tarifs (montants = réglages), À propos, Contact, FAQ, pages légales.
 - [ ] Barre « Appeler / Réserver » en bas de l'écran mobile ; le bouton d'appel compose le bon numéro.

@@ -49,10 +49,439 @@
         "show_whatsapp_float": false,
         "color_scheme": "default"
       }
+    },
+    "services": {
+      "type": "tp-config-services",
+      "blocks": {
+        "service_1": {
+          "type": "service",
+          "settings": {
+            "name": "Taxi classique",
+            "code": "taxi",
+            "icon": "car",
+            "description": "Vos trajets du quotidien, en ville comme en périphérie.",
+            "mode": "meter",
+            "multiplier": "1",
+            "enabled": true
+          }
+        },
+        "service_2": {
+          "type": "service",
+          "settings": {
+            "name": "Transfert aéroport",
+            "code": "aeroport",
+            "icon": "plane",
+            "description": "Suivi de vol, accueil et prix fixes vers les aéroports.",
+            "mode": "meter",
+            "airport": true,
+            "multiplier": "1",
+            "enabled": true
+          }
+        },
+        "service_3": {
+          "type": "service",
+          "settings": {
+            "name": "Transport professionnel",
+            "code": "affaires",
+            "icon": "briefcase",
+            "description": "Rendez-vous d'affaires, facturation au nom de votre société.",
+            "mode": "meter",
+            "multiplier": "1",
+            "enabled": true
+          }
+        },
+        "service_4": {
+          "type": "service",
+          "settings": {
+            "name": "Longue distance",
+            "code": "longue-distance",
+            "icon": "route",
+            "description": "Trajets interurbains et vers l'étranger.",
+            "mode": "meter",
+            "multiplier": "1",
+            "enabled": true
+          }
+        },
+        "service_5": {
+          "type": "service",
+          "settings": {
+            "name": "Événement",
+            "code": "evenement",
+            "icon": "party",
+            "description": "Mariages, galas, concerts : un chauffeur à votre service.",
+            "mode": "meter",
+            "multiplier": "1,2",
+            "enabled": true
+          }
+        },
+        "service_6": {
+          "type": "service",
+          "settings": {
+            "name": "Mise à disposition",
+            "code": "mise-a-disposition",
+            "icon": "clock",
+            "description": "Un chauffeur et son véhicule à l'heure.",
+            "mode": "hourly",
+            "min_hours": "2",
+            "round_trip": false,
+            "multiplier": "1",
+            "enabled": true
+          }
+        },
+        "service_7": {
+          "type": "service",
+          "settings": {
+            "name": "Transport privé",
+            "code": "prive",
+            "icon": "shield",
+            "description": "Chauffeur privé discret, véhicule haut de gamme.",
+            "mode": "meter",
+            "multiplier": "1,3",
+            "enabled": true
+          }
+        }
+      },
+      "block_order": [
+        "service_1",
+        "service_2",
+        "service_3",
+        "service_4",
+        "service_5",
+        "service_6",
+        "service_7"
+      ],
+      "settings": {}
+    },
+    "vehicles": {
+      "type": "tp-config-vehicles",
+      "blocks": {
+        "vehicle_1": {
+          "type": "vehicle",
+          "settings": {
+            "name": "Berline",
+            "code": "berline",
+            "description": "Confortable et discrète, idéale pour vos trajets en ville et vers l'aéroport.",
+            "badge": "Le plus demandé",
+            "passengers": 4,
+            "luggage": 3,
+            "equipment": "Climatisation, Chargeurs USB, Eau offerte",
+            "pricing_mode": "multiplier",
+            "multiplier": "1",
+            "enabled": true
+          }
+        },
+        "vehicle_2": {
+          "type": "vehicle",
+          "settings": {
+            "name": "Break",
+            "code": "break",
+            "description": "Plus de place pour les bagages, parfait pour les départs en vacances.",
+            "passengers": 4,
+            "luggage": 5,
+            "equipment": "Climatisation, Grand coffre",
+            "pricing_mode": "multiplier",
+            "multiplier": "1,1",
+            "enabled": true
+          }
+        },
+        "vehicle_3": {
+          "type": "vehicle",
+          "settings": {
+            "name": "Van 8 places",
+            "code": "van",
+            "description": "Pour les familles et les groupes, avec de l'espace pour tous les bagages.",
+            "passengers": 8,
+            "luggage": 8,
+            "equipment": "Climatisation, Wi-Fi, Portes coulissantes",
+            "pricing_mode": "multiplier",
+            "multiplier": "1,4",
+            "hourly_rate": "60",
+            "enabled": true
+          }
+        },
+        "vehicle_4": {
+          "type": "vehicle",
+          "settings": {
+            "name": "Classe affaires",
+            "code": "affaires",
+            "description": "Berline premium, chauffeur en tenue, presse et Wi-Fi à bord.",
+            "badge": "Premium",
+            "passengers": 3,
+            "luggage": 3,
+            "equipment": "Wi-Fi, Cuir, Presse, Eau",
+            "pricing_mode": "custom",
+            "multiplier": "1",
+            "base": "10",
+            "per_km": "2,80",
+            "minimum": "25",
+            "hourly_rate": "75",
+            "enabled": true
+          }
+        }
+      },
+      "block_order": [
+        "vehicle_1",
+        "vehicle_2",
+        "vehicle_3",
+        "vehicle_4"
+      ],
+      "settings": {}
+    },
+    "options": {
+      "type": "tp-config-options",
+      "blocks": {
+        "option_1": {
+          "type": "option",
+          "settings": {
+            "name": "Siège bébé",
+            "code": "siege-bebe",
+            "icon": "baby",
+            "description": "0 à 13 kg, dos à la route.",
+            "type": "fixed",
+            "price": "10",
+            "max_qty": 1,
+            "enabled": true
+          }
+        },
+        "option_2": {
+          "type": "option",
+          "settings": {
+            "name": "Siège enfant",
+            "code": "siege-enfant",
+            "icon": "baby",
+            "description": "9 à 18 kg.",
+            "type": "fixed",
+            "price": "10",
+            "max_qty": 1,
+            "enabled": true
+          }
+        },
+        "option_3": {
+          "type": "option",
+          "settings": {
+            "name": "Rehausseur",
+            "code": "rehausseur",
+            "icon": "booster",
+            "description": "15 à 36 kg.",
+            "type": "per_unit",
+            "price": "5",
+            "max_qty": 2,
+            "enabled": true
+          }
+        },
+        "option_4": {
+          "type": "option",
+          "settings": {
+            "name": "Bagage volumineux",
+            "code": "bagage-volumineux",
+            "icon": "luggage",
+            "description": "Vélo, ski, poussette, instrument.",
+            "type": "per_unit",
+            "price": "8",
+            "max_qty": 3,
+            "enabled": true
+          }
+        },
+        "option_5": {
+          "type": "option",
+          "settings": {
+            "name": "Accueil avec pancarte",
+            "code": "pancarte",
+            "icon": "sign",
+            "description": "Votre chauffeur vous attend dans le hall des arrivées.",
+            "type": "fixed",
+            "price": "15",
+            "max_qty": 1,
+            "services": "aeroport",
+            "enabled": true
+          }
+        },
+        "option_6": {
+          "type": "option",
+          "settings": {
+            "name": "Facture société",
+            "code": "facture",
+            "icon": "briefcase",
+            "description": "Facture au nom de votre entreprise.",
+            "type": "fixed",
+            "price": "0",
+            "max_qty": 1,
+            "enabled": true
+          }
+        }
+      },
+      "block_order": [
+        "option_1",
+        "option_2",
+        "option_3",
+        "option_4",
+        "option_5",
+        "option_6"
+      ],
+      "settings": {}
+    },
+    "zones": {
+      "type": "tp-config-zones",
+      "blocks": {
+        "zone_1": {
+          "type": "zone",
+          "settings": {
+            "name": "Brussels Airport",
+            "code": "bru",
+            "type": "airport",
+            "lat": "50.9010",
+            "lng": "4.4844",
+            "radius_km": "3",
+            "applies_on": "either",
+            "priority": 10,
+            "enabled": true,
+            "show_public": true
+          }
+        },
+        "zone_2": {
+          "type": "zone",
+          "settings": {
+            "name": "Charleroi Airport",
+            "code": "crl",
+            "type": "airport",
+            "lat": "50.4592",
+            "lng": "4.4538",
+            "radius_km": "3",
+            "surcharge": "12",
+            "applies_on": "either",
+            "priority": 10,
+            "enabled": true,
+            "show_public": true
+          }
+        },
+        "zone_3": {
+          "type": "zone",
+          "settings": {
+            "name": "Bruxelles-Capitale",
+            "code": "bxl",
+            "type": "area",
+            "lat": "50.8467",
+            "lng": "4.3525",
+            "radius_km": "8",
+            "applies_on": "either",
+            "priority": 10,
+            "enabled": true,
+            "show_public": true
+          }
+        },
+        "zone_4": {
+          "type": "zone",
+          "settings": {
+            "name": "Gare du Midi",
+            "code": "midi",
+            "type": "station",
+            "lat": "50.8357",
+            "lng": "4.3360",
+            "radius_km": "0,4",
+            "surcharge": "3",
+            "applies_on": "pickup",
+            "priority": 10,
+            "enabled": true,
+            "show_public": true
+          }
+        },
+        "zone_5": {
+          "type": "zone",
+          "settings": {
+            "name": "Gare du Nord",
+            "code": "nord",
+            "type": "station",
+            "lat": "50.8605",
+            "lng": "4.3612",
+            "radius_km": "0,4",
+            "surcharge": "3",
+            "applies_on": "pickup",
+            "priority": 10,
+            "enabled": true,
+            "show_public": true
+          }
+        }
+      },
+      "block_order": [
+        "zone_1",
+        "zone_2",
+        "zone_3",
+        "zone_4",
+        "zone_5"
+      ],
+      "settings": {}
+    },
+    "routes": {
+      "type": "tp-config-routes",
+      "blocks": {
+        "route_1": {
+          "type": "route",
+          "settings": {
+            "name": "Bruxelles ↔ Brussels Airport",
+            "from": "bxl",
+            "to": "bru",
+            "bidirectional": true,
+            "price": "45",
+            "vehicle_prices": "van:65, affaires:70",
+            "priority": 50,
+            "apply_surcharges": false,
+            "enabled": true,
+            "show_public": true
+          }
+        },
+        "route_2": {
+          "type": "route",
+          "settings": {
+            "name": "Bruxelles ↔ Charleroi Airport",
+            "from": "bxl",
+            "to": "crl",
+            "bidirectional": true,
+            "price": "85",
+            "vehicle_prices": "van:115, affaires:120",
+            "priority": 50,
+            "apply_surcharges": false,
+            "enabled": true,
+            "show_public": true
+          }
+        }
+      },
+      "block_order": [
+        "route_1",
+        "route_2"
+      ],
+      "settings": {}
+    },
+    "time_rules": {
+      "type": "tp-config-time-rules",
+      "blocks": {
+        "time_rule_1": {
+          "type": "time_rule",
+          "settings": {
+            "name": "Réveillon",
+            "start": "20:00",
+            "end": "00:00",
+            "dates": "12-31",
+            "type": "percent",
+            "value": "50",
+            "priority": 90,
+            "enabled": true
+          }
+        }
+      },
+      "block_order": [
+        "time_rule_1"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "footer",
-    "mobile_actions"
+    "mobile_actions",
+    "services",
+    "vehicles",
+    "options",
+    "zones",
+    "routes",
+    "time_rules"
   ]
 }

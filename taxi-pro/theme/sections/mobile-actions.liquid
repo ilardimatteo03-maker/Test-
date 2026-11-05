@@ -1,3 +1,4 @@
+{%- assign booking_fallback = routes.root_url | append: '?view=reservation' | replace: '//?', '/?' -%}
 {%- comment -%}
   Barre d'actions mobile (appeler, réserver, WhatsApp) et bouton WhatsApp flottant.
   Masquée automatiquement sur les pages qui contiennent le module de réservation.
@@ -6,7 +7,7 @@
   assign s = section.settings
   assign phone_href = settings.company_phone | remove: ' ' | remove: '.' | remove: '-' | remove: '(' | remove: ')' | remove: '/'
   assign wa = settings.company_whatsapp | remove: '+' | remove: ' '
-  assign cta_url = s.book_link | default: settings.booking_page.url | default: '#reservation'
+  assign cta_url = s.book_link | default: settings.booking_page.url | default: booking_fallback
 -%}
 {%- if s.show_bar -%}
   <div class="mobile-bar scheme-{{ s.color_scheme }}" data-mobile-bar>

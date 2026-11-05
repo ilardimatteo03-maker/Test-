@@ -210,10 +210,13 @@ test('paiement en ligne Stripe : lien de paiement, confirmation uniquement par w
 test('acompte : montant dû = pourcentage du total', async () => {
   external = [];
   const exp = expectedTotal(baseReq());
-  const r = await call('/api/bookings', { method: 'POST', body: { shop: 'taxi-stripe.myshopify.com', request: baseReq(), customer, payment: 'deposit', clientTotal: exp.total, returnUrl: `${ORIGIN}/pages/reservation` } });
+  const r = await call('/api/bookings', { method: 'POST', body: { shop: 'taxi-stripe.myshopify.com', request: baseReq(), customer, payment: 'deposit', clientTotal: exp.total, returnUrl: `${ORIGIN}/?view=reservation&autre=1` } });
   assert.equal(r.status, 201);
+  const d = await r.json();
   const form = new URLSearchParams(external.find((x) => x.url.includes('api.stripe.com')).init.body);
   assert.equal(form.get('line_items[0][price_data][unit_amount]'), String(Math.round(exp.deposit * 100)));
+  // La page de réservation intégrée (/?view=reservation) est conservée au retour du paiement
+  assert.equal(form.get('success_url'), `${ORIGIN}/?view=reservation&tp_booking=${d.booking.id}&tp_token=${d.booking.token}`);
 });
 
 test('paiement Shopify : commande provisoire au prix serveur, confirmation par webhook orders/paid', async () => {

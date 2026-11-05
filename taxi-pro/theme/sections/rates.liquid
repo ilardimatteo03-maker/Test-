@@ -1,6 +1,6 @@
 {%- comment -%}
   Grille tarifaire publique, générée à partir des réglages du thème (Tarifs, Majorations)
-  et des forfaits de « Configuration Taxi Pro ». Rien n'est saisi deux fois.
+  et des forfaits des sections « Tarifs » du pied de page. Rien n'est saisi deux fois.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
@@ -96,7 +96,7 @@
   "class": "section-rates",
   "max_blocks": 12,
   "settings": [
-    { "type": "paragraph", "content": "Les montants sont lus dans Paramètres du thème › Tarifs et Majorations, et dans les forfaits de « Configuration Taxi Pro ». Seuls les libellés se modifient ici." },
+    { "type": "paragraph", "content": "Les montants sont lus dans Paramètres du thème › Tarifs et Majorations, et dans les forfaits des sections « Tarifs » du pied de page. Seuls les libellés se modifient ici." },
     { "type": "text", "id": "eyebrow", "label": "Surtitre" },
     { "type": "text", "id": "heading", "label": "Titre", "default": "Nos tarifs, en toute transparence" },
     { "type": "richtext", "id": "text", "label": "Texte" },

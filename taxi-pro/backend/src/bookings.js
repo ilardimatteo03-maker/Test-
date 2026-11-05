@@ -355,7 +355,11 @@ export function createService({ config, store, fetchImpl = fetch, clock = () => 
   function safeReturnUrl(tenant, url) {
     try {
       const u = new URL(String(url || ''));
-      if (tenant.allowedOrigins.includes(u.origin)) return `${u.origin}${u.pathname}`;
+      if (tenant.allowedOrigins.includes(u.origin)) {
+        // Seul le paramètre « view » est conservé (page de réservation intégrée /?view=reservation)
+        const view = u.searchParams.get('view');
+        return `${u.origin}${u.pathname}${view && /^[a-z0-9-]{1,40}$/.test(view) ? `?view=${view}` : ''}`;
+      }
     } catch (e) { /* URL invalide */ }
     const cfgPage = tenant.storefrontUrl ? `${tenant.storefrontUrl}/pages/reservation` : '';
     return cfgPage || 'about:blank';

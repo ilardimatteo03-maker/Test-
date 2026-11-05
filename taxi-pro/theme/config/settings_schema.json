@@ -2,7 +2,7 @@
   {
     "name": "theme_info",
     "theme_name": "TAXI PRO",
-    "theme_version": "1.0.0",
+    "theme_version": "1.0.1",
     "theme_author": "TAXI PRO",
     "theme_documentation_url": "https://github.com/ilardimatteo03-maker/test-/tree/main/taxi-pro/docs",
     "theme_support_url": "https://github.com/ilardimatteo03-maker/test-/issues"
@@ -216,7 +216,7 @@
   {
     "name": "Tarifs",
     "settings": [
-      { "type": "paragraph", "content": "Ces valeurs alimentent le calculateur. Les montants acceptent la virgule (2,15) ou le point (2.15). Les véhicules, forfaits, zones et options se règlent dans le groupe « Configuration Taxi Pro », en bas de la liste des sections de chaque page." },
+      { "type": "paragraph", "content": "Ces valeurs alimentent le calculateur. Les montants acceptent la virgule (2,15) ou le point (2.15). Les véhicules, prestations, options, zones, forfaits et plages horaires se règlent dans les sections « … (tarifs) » du groupe « Pied de page », en bas de la liste des sections de chaque page." },
       { "type": "text", "id": "currency", "label": "Devise (code ISO)", "default": "EUR", "info": "EUR, CHF, GBP, USD, CAD, MAD…" },
       { "type": "text", "id": "number_locale", "label": "Format des montants (code régional)", "info": "Ex. : fr-BE, fr-FR, nl-BE, de-LU. Laissez vide pour suivre la langue du visiteur." },
       { "type": "text", "id": "price_suffix", "label": "Mention après les prix", "default": "TVAC", "info": "Ex. : TVAC, TTC, HT." },
@@ -367,7 +367,7 @@
   {
     "name": "Réservation",
     "settings": [
-      { "type": "page", "id": "booking_page", "label": "Page de réservation", "info": "Page qui utilise le modèle « reservation ». Le formulaire rapide de l'accueil y envoie le visiteur." },
+      { "type": "page", "id": "booking_page", "label": "Page de réservation", "info": "Page associée au modèle « reservation » (possible une fois le thème publié). Vide : page intégrée /?view=reservation, qui fonctionne sans créer de page." },
       { "type": "header", "content": "Types de réservation" },
       { "type": "checkbox", "id": "booking_immediate", "label": "Réservation immédiate (dès que possible)", "default": true },
       { "type": "checkbox", "id": "booking_scheduled", "label": "Réservation programmée", "default": true },

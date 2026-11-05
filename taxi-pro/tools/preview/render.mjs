@@ -249,7 +249,7 @@ export function createRenderer({ themeDir, overrides = {}, preset = null, design
       routes: { root_url: '/', search_url: '/search', cart_url: '/cart', account_url: '/account', account_register_url: '/account/register', account_logout_url: '/account/logout', account_addresses_url: '/account/addresses' },
       canonical_url: `http://localhost${path}`, page_title: page ? page.title : 'Taxi Exemple, taxi et chauffeur privé',
       page_description: 'Réservez votre taxi en ligne : prix calculé immédiatement, transferts aéroport, chauffeurs professionnels.',
-      content_for_header: '', current_page: 1, current_tags: null, shopify_attributes: ''
+      content_for_header: designMode ? '<script>window.Shopify = { designMode: true };</script>' : '', current_page: 1, current_tags: null, shopify_attributes: ''
     };
     engine.options.globals = scope; // objets globaux Shopify, visibles aussi dans les snippets (balise render)
     let content = '';

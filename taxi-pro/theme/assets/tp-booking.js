@@ -5,7 +5,7 @@
  * - TaxiProQuick   : formulaire rapide (héros) qui estime le prix puis ouvre la réservation.
  *
  * Les tarifs ne sont jamais écrits ici : ils viennent des blocs JSON publiés par le thème
- * (snippets/tp-config-settings.liquid et le groupe de sections « Configuration Taxi Pro »)
+ * (snippets/tp-config-settings.liquid et les sections « Tarifs » du groupe « Pied de page »)
  * et sont calculés par assets/tp-pricing.js, le même moteur que celui du backend.
  *
  * Envoi :
@@ -79,6 +79,13 @@
   }
   function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(v || '').trim()); }
   function isPhone(v) { return String(v || '').replace(/[^\d]/g, '').length >= 8; }
+  /** Adresse de la page sans les paramètres techniques (tp_*, contact_posted), « ?view=… » conservé. */
+  function cleanUrl() {
+    var p = new URLSearchParams(location.search);
+    Array.from(p.keys()).forEach(function (k) { if (/^tp_|^contact_posted$/.test(k)) p.delete(k); });
+    var q = p.toString();
+    return location.pathname + (q ? '?' + q : '');
+  }
   function makeRef() {
     var d = new Date();
     return 'TP-' + String(d.getFullYear()).slice(2) + pad(d.getMonth() + 1) + pad(d.getDate()) + '-' +
@@ -311,6 +318,7 @@
   Booking.prototype.init = function () {
     var root = this.root, self = this, S = this.S;
     root.classList.add('is-ready');
+    this.diagnose();
     if (!this.cfg.vehicles.length) {
       $(root, '[data-tp-unavailable]').hidden = false;
       $(root, '[data-tp-form]').hidden = true;
@@ -350,6 +358,24 @@
     this.syncInputs();
     this.render();
     if (this.state.pickup && this.state.dropoff && !this.state.route) this.computeRoute();
+  };
+
+  /** Éditeur de thème uniquement : ce que le module a réellement lu dans la configuration. */
+  Booking.prototype.diagnose = function () {
+    if (!(window.Shopify && Shopify.designMode)) return;
+    var raw = this.raw, cfg = this.cfg, box = document.createElement('div');
+    var count = function (a) { return (a || []).filter(function (x) { return x && x.enabled !== false; }).length; };
+    var lines = [
+      'Véhicules : ' + count(raw.vehicles) + ' · prestations : ' + count(raw.services) + ' · options : ' + count(raw.options) +
+      ' · zones : ' + count(raw.zones) + ' · forfaits : ' + count(raw.routes) + ' · plages horaires : ' + count(raw.timeRules)
+    ];
+    if (!raw.settings || !raw.settings.tariff) lines.push('⚠ Réglages du thème introuvables : vérifiez que layout/theme.liquid contient {% render \'tp-config-settings\' %}.');
+    if (!count(raw.vehicles)) lines.push('⚠ Aucun véhicule configuré : un véhicule « ' + cfg.vehicles[0].name + ' » au tarif général est proposé. Ajoutez vos véhicules dans Pied de page › Véhicules (tarifs).');
+    if (!count(raw.services)) lines.push('⚠ Aucune prestation configurée : tarif kilométrique général utilisé. Ajoutez-les dans Pied de page › Prestations (tarifs).');
+    this.geo.warnings.forEach(function (w) { lines.push('⚠ ' + w); });
+    box.className = 'tp-config-panel';
+    box.innerHTML = '<strong>Diagnostic (visible uniquement dans l’éditeur)</strong><ul>' + lines.map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul>';
+    this.root.insertBefore(box, this.root.firstChild);
   };
 
   /* ---------- Étape 1 : trajet ---------- */
@@ -914,7 +940,7 @@
       asap: p.get('tp_asap') === '1', passengers: p.get('tp_pax'), luggage: p.get('tp_bags'), vehicle: p.get('tp_vehicle'), silent: true
     });
     this.autoAdvance = true;
-    try { history.replaceState(null, '', location.pathname + location.hash); } catch (e) { /* sans effet */ }
+    try { history.replaceState(null, '', cleanUrl()); } catch (e) { /* sans effet */ }
   };
   Booking.prototype.prefill = function (d) {
     var st = this.state;
@@ -967,7 +993,7 @@
       customer: st.customer, payment: st.payment,
       clientTotal: q.onRequest ? null : q.total,
       acceptTotal: st.serverQuote ? st.serverQuote.total : undefined,
-      returnUrl: location.origin + location.pathname,
+      returnUrl: location.origin + cleanUrl(),
       website: ($(this.root, '[name="tp_website"]') || {}).value || ''
     };
   };
@@ -1068,7 +1094,7 @@
     box.scrollIntoView({ behavior: 'smooth', block: 'center' });
     $(box, '[data-tp-new]').addEventListener('click', function () {
       store(STORE_KEY, null);
-      try { history.replaceState(null, '', location.pathname); } catch (e) { /* sans effet */ }
+      try { history.replaceState(null, '', cleanUrl()); } catch (e) { /* sans effet */ }
       box.hidden = true; $(root, '[data-tp-form]').hidden = false;
       if (aside) aside.hidden = false; if (bar) bar.hidden = false;
       self.state = self.defaults(); self.syncInputs(); self.render();
@@ -1145,7 +1171,8 @@
     });
     var booking = document.querySelector('[data-tp-booking]');
     var params = this.params(route, null);
-    var href = (this.s.booking && this.s.booking.pageUrl || '/pages/reservation') + '?' + params.toString();
+    var page = (this.s.booking && this.s.booking.pageUrl) || '/?view=reservation';
+    var href = page + (page.indexOf('?') > -1 ? '&' : '?') + params.toString();
     var dateErr = best && best.quote.errors.filter(function (e) { return ['LEAD_TIME', 'TOO_FAR', 'CLOSED', 'DATETIME_INVALID', 'FORBIDDEN_ZONE', 'OUT_OF_AREA'].indexOf(e.code) > -1; })[0];
     out.hidden = false;
     out.innerHTML = (best
@@ -1168,8 +1195,23 @@
   /* ------------------------------------------------------------------ */
   /* Démarrage                                                           */
   /* ------------------------------------------------------------------ */
+  function contactBanner() {
+    if (!/[?&]contact_posted=true/.test(location.search) || document.querySelector('[data-tp-booking]')) return;
+    var sent = store('tp-contact-sent');
+    if (!sent) return;
+    store('tp-contact-sent', null); store(STORE_KEY, null);
+    var S = readConfig().S;
+    var box = document.createElement('div');
+    box.className = 'tp-banner scheme-inverse';
+    box.setAttribute('role', 'status');
+    box.innerHTML = '<div class="container"><strong>' + esc(S.contact_form_sent_title) + (sent.ref ? ' · ' + esc(sent.ref) : '') + '</strong><p>' + esc(S.contact_form_sent_text) + '</p></div>';
+    var main = document.querySelector('main') || document.body;
+    main.insertBefore(box, main.firstChild);
+  }
+
   function start() {
     if (!P || !G) { console.error('[TAXI PRO] tp-pricing.js et tp-geo.js doivent être chargés avant tp-booking.js'); return; }
+    try { contactBanner(); } catch (e) { /* sans effet */ }
     document.querySelectorAll('[data-tp-booking]:not(.is-ready)').forEach(function (el) {
       try { el.__tpBooking = new Booking(el); } catch (e) { console.error('[TAXI PRO] Réservation', e); }
     });

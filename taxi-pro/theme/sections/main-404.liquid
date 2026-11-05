@@ -5,7 +5,8 @@
     <p class="lead" style="margin-inline:auto">{{ 'pages.not_found_text' | t }}</p>
     <div class="btn-row" style="justify-content:center; margin-top: 2rem">
       <a class="btn" href="{{ routes.root_url }}">{{ 'general.back_home' | t }}</a>
-      {%- if settings.booking_page != blank -%}<a class="btn btn--secondary" href="{{ settings.booking_page.url }}">{{ 'general.book_now' | t }}</a>{%- endif -%}
+      {%- assign booking_fallback = routes.root_url | append: '?view=reservation' | replace: '//?', '/?' -%}
+      <a class="btn btn--secondary" href="{{ settings.booking_page.url | default: booking_fallback }}">{{ 'general.book_now' | t }}</a>
     </div>
   </div>
 </section>

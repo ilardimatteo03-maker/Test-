@@ -162,7 +162,8 @@
       "round_trip_discount": "Rabatt Hin- und Rückfahrt (−{value} %)",
       "outbound": "Hinfahrt",
       "return_leg": "Rückfahrt",
-      "rounding": "Rundung"
+      "rounding": "Rundung",
+      "default_vehicle": "Taxi"
     },
     "errors": {
       "route_required": "Bitte geben Sie eine gültige Abhol- und Zieladresse ein.",

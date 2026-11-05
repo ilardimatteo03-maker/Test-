@@ -1,11 +1,12 @@
+{%- assign booking_fallback = routes.root_url | append: '?view=reservation' | replace: '//?', '/?' -%}
 {%- comment -%}
   Nos véhicules : vitrine (cartes) ou présentation détaillée avec galerie, capacités et équipements.
-  Le « code véhicule » relie la vitrine au véhicule réservable (Configuration Taxi Pro › Véhicules)
+  Le « code véhicule » relie la vitrine au véhicule réservable (Pied de page › Véhicules (tarifs))
   pour le présélectionner dans le module de réservation.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
-  assign booking_url = settings.booking_page.url | default: '/pages/reservation'
+  assign booking_url = settings.booking_page.url | default: booking_fallback
 -%}
 <section class="section scheme-{{ s.color_scheme }}" style="--pad-top: {{ s.padding_top }}px; --pad-bottom: {{ s.padding_bottom }}px;">
   <div class="container">
@@ -102,7 +103,7 @@
   "class": "section-fleet",
   "max_blocks": 12,
   "settings": [
-    { "type": "paragraph", "content": "Vitrine de vos véhicules. Les prix et capacités utilisés pour la réservation se règlent dans « Configuration Taxi Pro › Véhicules »." },
+    { "type": "paragraph", "content": "Vitrine de vos véhicules. Les prix et capacités utilisés pour la réservation se règlent dans « Pied de page › Véhicules (tarifs) »." },
     { "type": "text", "id": "eyebrow", "label": "Surtitre" },
     { "type": "text", "id": "heading", "label": "Titre" },
     { "type": "richtext", "id": "text", "label": "Texte" },
@@ -123,7 +124,7 @@
       "name": "Véhicule",
       "settings": [
         { "type": "text", "id": "name", "label": "Nom", "default": "Berline" },
-        { "type": "text", "id": "code", "label": "Code véhicule (réservation)", "info": "Code du véhicule dans « Configuration Taxi Pro › Véhicules » pour le présélectionner." },
+        { "type": "text", "id": "code", "label": "Code véhicule (réservation)", "info": "Code du véhicule dans « Pied de page › Véhicules (tarifs) » pour le présélectionner." },
         { "type": "text", "id": "models", "label": "Modèles", "info": "Ex. : Mercedes Classe E ou similaire." },
         { "type": "image_picker", "id": "image", "label": "Photo principale" },
         { "type": "image_picker", "id": "gallery_1", "label": "Galerie : photo 1" },

@@ -14,6 +14,7 @@
   if settings.logo != blank
     assign logo_url = settings.logo | image_url: width: 480 | prepend: 'https:'
   endif
+  assign booking_fallback = routes.root_url | append: '?view=reservation' | replace: '//?', '/?'
   assign phone_href = settings.company_phone | remove: ' ' | remove: '.' | remove: '-' | remove: '(' | remove: ')' | remove: '/'
 -%}
 <script type="application/json" data-tp-config="settings">
@@ -74,7 +75,7 @@
     "maxDistanceAction": {{ settings.geo_max_distance_action | json }}
   },
   "booking": {
-    "pageUrl": {{ settings.booking_page.url | default: '' | json }},
+    "pageUrl": {{ settings.booking_page.url | default: booking_fallback | json }},
     "immediate": {{ settings.booking_immediate | json }},
     "scheduled": {{ settings.booking_scheduled | json }},
     "leadMin": {{ settings.booking_lead_min | json }},
@@ -142,6 +143,7 @@
     "outbound": {{ 'taxi.pricing.outbound' | t | json }},
     "returnLeg": {{ 'taxi.pricing.return_leg' | t | json }},
     "rounding": {{ 'taxi.pricing.rounding' | t | json }},
+    "defaultVehicle": {{ 'taxi.pricing.default_vehicle' | t | json }},
     "err_ROUTE_REQUIRED": {{ 'taxi.errors.route_required' | t | json }},
     "err_PICKUP_REQUIRED": {{ 'taxi.errors.pickup_required' | t | json }},
     "err_DISTANCE_UNAVAILABLE": {{ 'taxi.errors.distance_unavailable' | t | json }},

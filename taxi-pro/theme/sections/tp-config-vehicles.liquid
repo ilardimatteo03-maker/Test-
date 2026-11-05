@@ -1,5 +1,5 @@
 {%- comment -%}
-  Configuration Taxi Pro — Véhicules réservables (étape « Véhicule » du formulaire).
+  Tarifs Taxi Pro (groupe « Pied de page ») — Véhicules réservables (étape « Véhicule » du formulaire).
   Chaque véhicule : capacité, photo, description, équipements et règle de prix.
 {%- endcomment -%}
 <script type="application/json" data-tp-config="vehicles">
@@ -41,7 +41,7 @@
 </script>
 {%- if request.design_mode -%}
   <div class="tp-config-panel" {{ section.shopify_attributes }}>
-    <strong>Configuration Taxi Pro · Véhicules</strong> : {{ section.blocks.size }} véhicule(s)
+    <strong>Tarifs Taxi Pro · Véhicules</strong> : {{ section.blocks.size }} véhicule(s)
     {%- if section.blocks.size > 0 %} :
       {% for block in section.blocks %}{{ block.settings.name }} ({{ block.settings.passengers }} pl.){% unless block.settings.enabled %} — masqué{% endunless %}{% unless forloop.last %}, {% endunless %}{% endfor %}.
     {%- else %} <span class="tp-warn">Ajoutez au moins un véhicule pour activer la réservation.</span>{% endif %}
@@ -54,7 +54,7 @@
   "tag": "div",
   "class": "tp-config",
   "max_blocks": 20,
-  "enabled_on": { "groups": ["custom.taxi-config"] },
+  "enabled_on": { "groups": ["footer"] },
   "settings": [
     { "type": "paragraph", "content": "Véhicules proposés à l'étape « Véhicule ». Le prix de chacun est calculé à partir du tarif général, multiplié par son coefficient, ou avec son propre tarif." }
   ],

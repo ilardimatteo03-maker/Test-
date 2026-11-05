@@ -1,5 +1,5 @@
 {%- comment -%}
-  Configuration Taxi Pro — Zones géographiques.
+  Tarifs Taxi Pro (groupe « Pied de page ») — Zones géographiques.
   Types : aéroport, gare, zone tarifaire, zone de référence (forfaits), zone d'intervention, zone interdite.
   Forme : cercle (centre + rayon) ou polygone (une ligne « latitude, longitude » par sommet).
 {%- endcomment -%}
@@ -31,7 +31,7 @@
 </script>
 {%- if request.design_mode -%}
   <div class="tp-config-panel" {{ section.shopify_attributes }}>
-    <strong>Configuration Taxi Pro · Zones</strong> : {{ section.blocks.size }} zone(s)
+    <strong>Tarifs Taxi Pro · Zones</strong> : {{ section.blocks.size }} zone(s)
     {%- if section.blocks.size > 0 %} :
       {% for block in section.blocks %}{{ block.settings.name }} [{{ block.settings.code | default: block.settings.name | handleize }}]{% if block.settings.polygon == blank and block.settings.lat == blank %} <span class="tp-warn">(coordonnées manquantes)</span>{% endif %}{% unless forloop.last %}, {% endunless %}{% endfor %}.
     {%- endif %}
@@ -44,7 +44,7 @@
   "tag": "div",
   "class": "tp-config",
   "max_blocks": 50,
-  "enabled_on": { "groups": ["custom.taxi-config"] },
+  "enabled_on": { "groups": ["footer"] },
   "settings": [
     { "type": "paragraph", "content": "Coordonnées : dans Google Maps, clic droit sur un lieu puis cliquez sur les chiffres pour les copier (latitude, longitude). En cas de règles concurrentes, la zone tarifaire de plus haute priorité s'applique." }
   ],

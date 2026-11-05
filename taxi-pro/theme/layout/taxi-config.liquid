@@ -1,7 +1,7 @@
 {%- comment -%}
   Mise en page technique, sans habillage, utilisée par templates/index.taxi-config.liquid.
   Le service de réservation (backend) lit cette page (https://boutique/?view=taxi-config)
-  pour récupérer la configuration tarifaire publiée et recalculer les prix côté serveur.
+  pour récupérer la configuration tarifaire publiée (réglages + sections « Tarifs Taxi Pro » du pied de page).
   Aucun visiteur n'y est envoyé ; elle ne contient que des données déjà publiques.
 {%- endcomment -%}
 <!doctype html>
@@ -15,6 +15,6 @@
   <body>
     {{ content_for_layout }}
     {% render 'tp-config-settings' %}
-    {% sections 'taxi-config' %}
+    {% sections 'footer-group' %}
   </body>
 </html>

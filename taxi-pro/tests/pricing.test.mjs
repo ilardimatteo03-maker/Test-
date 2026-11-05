@@ -296,3 +296,14 @@ test('détection des trajets aéroport, même sous forfait (affichage du numéro
   assert.equal(r.airport, true);
   assert.equal(q().airport, false);
 });
+
+test('sans véhicule configuré : véhicule standard au tarif général ; doublons ignorés', () => {
+  const raw = clone(); raw.vehicles = [];
+  const cfg = P.normalizeConfig(raw);
+  assert.equal(cfg.vehicles.length, 1);
+  assert.equal(cfg.vehicles[0].id, 'standard');
+  assert.equal(cfg.vehicles[0].passengers, 8);
+  assert.equal(P.quote(raw, { serviceId: 'taxi', vehicleId: 'standard', pickup: PTS.ixelles, dropoff: PTS.uccle, route: { distanceKm: 10 }, datetime: '2026-11-10T14:00', passengers: 1 }, { now: NOW }).total, 25);
+  const dup = clone(); dup.vehicles = dup.vehicles.concat(dup.vehicles);
+  assert.equal(P.normalizeConfig(dup).vehicles.length, 4);
+});

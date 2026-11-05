@@ -18,7 +18,7 @@ export function parseConfigHtml(html) {
     else raw[key] = value;
     found++;
   }
-  if (!found || !raw.settings) throw new Error('Configuration Taxi Pro introuvable dans la page de la boutique');
+  if (!found || !raw.settings) throw new Error('Configuration TAXI PRO introuvable dans la page de la boutique');
   raw.labels = raw.settings.labels || {};
   return raw;
 }

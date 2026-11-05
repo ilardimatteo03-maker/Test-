@@ -1,3 +1,4 @@
+{%- assign booking_fallback = routes.root_url | append: '?view=reservation' | replace: '//?', '/?' -%}
 {%- comment -%}
   En-tête : logo (réglages du thème), menu, téléphone, bouton de réservation, menu mobile.
   Option : transparent au-dessus du héros de la page d'accueil.
@@ -10,7 +11,7 @@
   if s.transparent_home and template.name == 'index'
     assign transparent = true
   endif
-  assign cta_url = s.cta_link | default: settings.booking_page.url | default: '#reservation'
+  assign cta_url = s.cta_link | default: settings.booking_page.url | default: booking_fallback
 -%}
 <style>:root { --header-h: {{ s.height }}px; }</style>
 

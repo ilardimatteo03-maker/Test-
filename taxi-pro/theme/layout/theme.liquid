@@ -69,8 +69,10 @@
 
     {% sections 'footer-group' %}
 
-    {%- comment -%} Configuration tarifaire : réglages globaux + groupe « Configuration Taxi Pro » {%- endcomment -%}
+    {%- comment -%}
+      Configuration tarifaire : réglages globaux du thème. Les véhicules, options, zones, forfaits et plages
+      horaires sont des sections du groupe « Pied de page » (Tarifs Taxi Pro), rendues avec le pied de page.
+    {%- endcomment -%}
     {% render 'tp-config-settings' %}
-    {% sections 'taxi-config' %}
   </body>
 </html>

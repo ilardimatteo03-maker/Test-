@@ -162,7 +162,8 @@
       "round_trip_discount": "Remise aller-retour (−{value} %)",
       "outbound": "Aller",
       "return_leg": "Retour",
-      "rounding": "Arrondi"
+      "rounding": "Arrondi",
+      "default_vehicle": "Taxi"
     },
     "errors": {
       "route_required": "Indiquez une adresse de départ et une adresse d'arrivée valides.",

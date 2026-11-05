@@ -9,7 +9,7 @@ moyens de paiement et textes se règlent dans l'éditeur de thème. Le même th�
 
 | | |
 | --- | --- |
-| **Thème à importer** | `dist/taxi-pro-theme-1.0.0.zip` (108 fichiers) |
+| **Thème à importer** | `dist/taxi-pro-theme-1.0.1.zip` (108 fichiers) |
 | **Sources du thème** | `theme/` |
 | **Service de réservation** | `backend/` (Node.js 18+, sans dépendance) |
 | **Documentation** | `docs/INSTALLATION.md` · `docs/TARIFICATION.md` · `docs/BACKEND.md` · `docs/TESTS.md` |
@@ -38,7 +38,7 @@ moyens de paiement et textes se règlent dans l'éditeur de thème. Le même th�
 
 ```
 Navigateur ──► thème Shopify (Liquid, CSS, JavaScript sans dépendance)
-   │            ├─ snippets/tp-config-settings.liquid + groupe « Configuration Taxi Pro » → configuration JSON publique
+   │            ├─ snippets/tp-config-settings.liquid + sections « … (tarifs) » du pied de page → configuration JSON publique
    │            ├─ assets/tp-pricing.js   moteur de tarification (navigateur ET serveur)
    │            ├─ assets/tp-geo.js       autocomplétion, itinéraire, carte (Google, Mapbox, Photon, OSRM, backend)
    │            └─ assets/tp-booking.js   parcours de réservation, formulaire rapide
@@ -59,7 +59,8 @@ n'est pas reçu.
 
 ## Démarrage rapide
 
-1. Importer `dist/taxi-pro-theme-1.0.0.zip` comme **nouveau thème non publié** (Boutique en ligne › Thèmes).
+1. Importer `dist/taxi-pro-theme-1.0.1.zip` comme **nouveau thème non publié** (Boutique en ligne › Thèmes).
+   La réservation est tout de suite disponible à l'adresse `/?view=reservation`, sans créer de page.
 2. Créer les pages et leur associer les modèles, régler l'identité, les tarifs et la configuration Taxi Pro :
    `docs/INSTALLATION.md`.
 3. (Recommandé) Déployer le service de réservation : `docs/BACKEND.md`.

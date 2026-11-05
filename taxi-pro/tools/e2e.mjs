@@ -125,7 +125,7 @@ Object.assign(bOverrides, { backend_url: BACKEND, geo_routing: 'backend', paymen
 const browser = await chromium.launch();
 try {
   /* 1. Pages : ordinateur et mobile */
-  const PAGES = ['/', '/pages/reservation', '/pages/services', '/pages/vehicules', '/pages/a-propos', '/pages/contact', '/pages/faq', '/pages/tarifs', '/pages/mentions-legales', '/search', '/nope'];
+  const PAGES = ['/', '/?view=reservation', '/pages/reservation', '/pages/services', '/pages/vehicules', '/pages/a-propos', '/pages/contact', '/pages/faq', '/pages/tarifs', '/pages/mentions-legales', '/search', '/nope'];
   for (const vp of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
     const page = await newPage(browser, vp, { mobile: vp.width < 500 });
     for (const path of PAGES) {
@@ -236,6 +236,29 @@ try {
     await page.waitForSelector('[data-tp-step="2"]:not([hidden]) .tp-vehicle', { timeout: 8000 });
     const pick = await page.inputValue('[data-tp-booking] [data-tp-address="pickup"] input');
     ok(pick.includes('Bruxelles-Midi'), 'réservation préremplie depuis le formulaire rapide, ouverte à l’étape « Véhicule »', pick);
+    await page.context().close();
+  }
+
+  /* 3 bis. Sans page créée : le formulaire rapide ouvre la réservation intégrée /?view=reservation ;
+     dans l'éditeur, le diagnostic indique ce que le module a lu */
+  {
+    const page = await newPage(browser, { width: 1440, height: 900 });
+    await page.goto(`${PREVIEW}/`, { waitUntil: 'networkidle' });
+    const Q = '[data-tp-quick]';
+    await chooseAddress(page, Q, 'pickup', 'Avenue Louise');
+    await chooseAddress(page, Q, 'dropoff', 'Brussels Airport');
+    await page.click(`${Q} [type="submit"]`);
+    await page.waitForSelector(`${Q} [data-tp-quick-book]`);
+    const href = await page.getAttribute(`${Q} [data-tp-quick-book]`, 'href');
+    ok(href.startsWith('/?view=reservation&tp_from='), 'sans page de réservation : lien vers la réservation intégrée /?view=reservation', href.slice(0, 60));
+    await page.click(`${Q} [data-tp-quick-book]`);
+    await page.waitForSelector('[data-tp-step="2"]:not([hidden]) .tp-vehicle', { timeout: 8000 });
+    ok(/[?&]view=reservation/.test(page.url()) && !/tp_from/.test(page.url()), 'réservation intégrée ouverte à l’étape « Véhicule », adresse nettoyée mais ?view conservé', page.url());
+    await page.goto(`${PREVIEW}/?view=reservation&design=1`, { waitUntil: 'networkidle' });
+    const diag = await page.locator('[data-tp-booking] > .tp-config-panel', { hasText: 'Diagnostic' }).textContent();
+    ok(/Véhicules : 4 · prestations : 7 · options : 6 · zones : 5 · forfaits : 2/.test(diag), 'éditeur : diagnostic de la configuration lue (pied de page)', diag);
+    await page.goto(`${PREVIEW}/?design=1`, { waitUntil: 'networkidle' });
+    ok(await page.locator('.shopify-section-group-footer-group.tp-config').count() === 6, 'configuration tarifaire rendue dans le groupe « Pied de page »');
     await page.context().close();
   }
 

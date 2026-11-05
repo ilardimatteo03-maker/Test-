@@ -2,7 +2,7 @@
 
 Le calcul est fait par un seul fichier, `theme/assets/tp-pricing.js`, utilisé à l'identique par le navigateur
 (prix instantané) et par le service de réservation (prix revalidé avant confirmation ou paiement).
-Aucun montant n'est écrit dans le code : tout vient des réglages du thème et du groupe « Configuration Taxi Pro ».
+Aucun montant n'est écrit dans le code : tout vient des réglages du thème et des sections « … (tarifs) » du groupe « Pied de page ».
 
 ## Où se règle quoi
 
@@ -12,15 +12,19 @@ Aucun montant n'est écrit dans le code : tout vient des réglages du thème et 
 | Nuit, week-end, jours fériés, aéroport, passagers, bagages, attente, péages, aller-retour, tarif horaire | Paramètres du thème › **Majorations et suppléments** |
 | Rayon d'intervention, hors zone, distance maximale, fuseau horaire | Paramètres du thème › **Zone géographique** |
 | Délais, horaires, passagers max., modes de paiement, acompte | Paramètres du thème › **Réservation** |
-| Prestations (taxi, aéroport, mise à disposition…) | Groupe **Configuration Taxi Pro** › Prestations (tarifs) |
-| Véhicules et leur règle de prix | Configuration Taxi Pro › Véhicules (tarifs) |
-| Options (siège bébé, pancarte…) | Configuration Taxi Pro › Options (tarifs) |
-| Aéroports, gares, zones tarifaires, zones interdites | Configuration Taxi Pro › Zones (tarifs) |
-| Prix fixes entre deux zones | Configuration Taxi Pro › Forfaits (tarifs) |
-| Heures de pointe, réveillon, événements | Configuration Taxi Pro › Plages horaires (tarifs) |
+| Prestations (taxi, aéroport, mise à disposition…) | Groupe **Pied de page** › Prestations (tarifs) |
+| Véhicules et leur règle de prix | Pied de page › Véhicules (tarifs) |
+| Options (siège bébé, pancarte…) | Pied de page › Options (tarifs) |
+| Aéroports, gares, zones tarifaires, zones interdites | Pied de page › Zones (tarifs) |
+| Prix fixes entre deux zones | Pied de page › Forfaits (tarifs) |
+| Heures de pointe, réveillon, événements | Pied de page › Plages horaires (tarifs) |
 
-Le groupe « Configuration Taxi Pro » apparaît en bas de la liste des sections de **chaque page** dans l'éditeur.
-Ses sections sont invisibles pour les visiteurs ; dans l'éditeur, un bandeau jaune résume leur contenu.
+Ces six sections font partie du groupe « Pied de page » : elles apparaissent en bas de la liste des sections de
+**chaque page** dans l'éditeur, sous « Pied de page » et « Actions rapides mobile ». Elles sont invisibles pour les
+visiteurs ; dans l'éditeur, un bandeau jaune résume leur contenu, et le module de réservation affiche un diagnostic
+de ce qu'il a lu (nombre de véhicules, prestations, options, zones, forfaits, plages horaires).
+
+Sans aucun véhicule configuré, le calculateur propose un véhicule « Taxi » au tarif général.
 
 Les montants acceptent la virgule ou le point : `2,15`, `2.15`, `1 234,50`.
 
@@ -105,4 +109,4 @@ Configuration de test : prise en charge 5 €, 2 €/km, minimum 12 €, nuit 20
 | Aller 14 h + retour 23 h, 10 km, remise 10 % | (25 + 30) − 5,50 = **49,50 €** |
 | Mise à disposition 1 h (minimum 2 h, 45 €/h) | **90 €** |
 
-L'ensemble des règles est couvert par 32 tests automatisés : `node --test taxi-pro/tests/*.test.mjs`.
+L'ensemble des règles est couvert par 33 tests automatisés : `node --test taxi-pro/tests/*.test.mjs`.

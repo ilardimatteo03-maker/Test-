@@ -162,7 +162,8 @@
       "round_trip_discount": "Return trip discount (−{value} %)",
       "outbound": "Outbound",
       "return_leg": "Return",
-      "rounding": "Rounding"
+      "rounding": "Rounding",
+      "default_vehicle": "Taxi"
     },
     "errors": {
       "route_required": "Please enter a valid pickup and drop-off address.",

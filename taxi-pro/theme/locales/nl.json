@@ -162,7 +162,8 @@
       "round_trip_discount": "Korting heen en terug (−{value} %)",
       "outbound": "Heenrit",
       "return_leg": "Terugrit",
-      "rounding": "Afronding"
+      "rounding": "Afronding",
+      "default_vehicle": "Taxi"
     },
     "errors": {
       "route_required": "Geef een geldig vertrek- en aankomstadres op.",
