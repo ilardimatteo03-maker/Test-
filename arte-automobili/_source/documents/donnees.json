@@ -40,6 +40,12 @@
     "offre": "Tarifs professionnels hors TVA. Planning et fréquence des passages définis d'un commun accord.",
     "retard": "Toute facture impayée à l'échéance peut entraîner des intérêts de retard au taux légal."
   },
+  "affiliation": {
+    "nom": "Programme partenaires",
+    "public": "Professionnels",
+    "commission_pct": 5,
+    "base": "Chiffre d'affaires hors TVA des clients apportés par le partenaire."
+  },
   "numerotation": {
     "devis": "D-{annee}-{n:03d}",
     "offre": "OP-{annee}-{n:03d}",
