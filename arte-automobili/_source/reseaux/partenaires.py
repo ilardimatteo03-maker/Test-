@@ -1,6 +1,7 @@
 """Stories Instagram du programme partenaires (affiliation réservée aux professionnels), 1080 × 1920 px.
 
-Quatre stories qui se suivent, dans le style de la série tarifs : fond Nero, titres Bodoni, chiffres DM Mono.
+Quatre stories qui se suivent, dans le style de la série tarifs : fond Nero, titres et textes en Archivo (la police
+lisible de la marque, celle du « AUTOMOBILI » du logo), chiffres en DM Mono.
 Taux et base de commission, coordonnées et site viennent de _source/documents/donnees.json. Le contenu reste hors
 des zones couvertes par l'interface d'Instagram (250 px en haut, 340 px en bas).
 Sorties : 20_programme-partenaires/story-partenaires-<n>-<nom>.png
@@ -35,17 +36,18 @@ main{{position:absolute;inset:{HAUT}px 96px {BAS}px;display:flex;flex-direction:
 .logo svg{{display:block}}
 .contenu{{margin:auto 0}}
 .eyebrow{{font:600 19px/1 Archivo,sans-serif;font-stretch:125%;letter-spacing:.24em;text-transform:uppercase;color:#8E9592;margin-bottom:40px}}
-h1{{font:400 128px/1.02 'Bodoni Moda',Didot,serif}}
-h1 i,.chiffre i{{font-style:italic}}
-.texte{{margin-top:44px;font:400 46px/1.3 'Bodoni Moda',serif}}
-.chiffre{{font:400 440px/.9 'Bodoni Moda',serif;letter-spacing:-.02em;margin-left:-12px}}
+h1{{font:500 108px/1.05 Archivo,sans-serif;font-stretch:112%;letter-spacing:-.015em}}
+h1 i,.chiffre i{{font-style:normal}}
+.texte{{margin-top:44px;font:400 44px/1.36 Archivo,sans-serif}}
+.texte strong{{font-weight:600}}
+.chiffre{{font:500 400px/.92 Archivo,sans-serif;font-stretch:112%;letter-spacing:-.03em;margin-left:-14px}}
 .exemple{{margin-top:56px;padding-top:30px;border-top:1.5px solid #EEEDE7;display:flex;justify-content:space-between;
          font:300 34px/1 'DM Mono',monospace;letter-spacing:.02em}}
 .exemple span:first-child{{color:#8E9592}}
 ol{{list-style:none;margin-top:48px;border-top:1.5px solid #EEEDE7}}
 li{{display:flex;gap:44px;align-items:baseline;padding:40px 0 38px;border-bottom:1px solid rgba(238,237,231,.16)}}
 li .n{{flex:none;font:300 34px/1 'DM Mono',monospace;color:#8E9592}}
-li .t{{font:400 46px/1.22 'Bodoni Moda',serif}}
+li .t{{font:400 44px/1.3 Archivo,sans-serif}}
 .contact{{margin-top:56px;border-top:1.5px solid #EEEDE7}}
 .contact p{{padding:34px 0 32px;border-bottom:1px solid rgba(238,237,231,.16);font:300 40px/1 'DM Mono',monospace;letter-spacing:.02em}}
 footer{{text-align:center;font:400 26px/1 'DM Mono',monospace;letter-spacing:.06em;color:#8E9592}}
@@ -64,7 +66,7 @@ STORIES = [
     ("2-commission", page(f"""
     <p class="eyebrow">Votre commission</p>
     <p class="chiffre">{PCT}<i>&#8239;%</i></p>
-    <p class="texte">sur le chiffre d'affaires hors&nbsp;TVA des clients que vous nous apportez.</p>
+    <p class="texte">sur le chiffre d'affaires hors&nbsp;TVA des clients que vous nous apportez. <strong>Réglée {A['versement']}.</strong></p>
     <p class="exemple"><span>Exemple</span><span>1&#8239;000&nbsp;€ HTVA → {10 * A['commission_pct']:g}&nbsp;€</span></p>""")),
     ("3-fonctionnement", page(f"""
     <p class="eyebrow">Comment ça marche</p>
@@ -72,12 +74,13 @@ STORIES = [
     <ol>
       <li><span class="n">01</span><span class="t">Vous nous recommandez à un client.</span></li>
       <li><span class="n">02</span><span class="t">Nous réalisons la prestation.</span></li>
-      <li><span class="n">03</span><span class="t">Vous touchez {PCT}&nbsp;% du montant hors&nbsp;TVA.</span></li>
+      <li><span class="n">03</span><span class="t">Vous touchez {PCT}&nbsp;% du montant hors&nbsp;TVA, {A['versement']}.</span></li>
     </ol>""")),
     ("4-contact", page(f"""
     <p class="eyebrow">Réservé aux professionnels</p>
     <h1>Devenez<br>partenaire<i>.</i></h1>
-    <div class="contact"><p>{X['telephone']}</p><p>{X['email']}</p><p>{X['site']}</p></div>""", pied=False)),
+    <p class="texte">Pour plus d'informations, contactez-nous par e-mail ou par téléphone.</p>
+    <div class="contact"><p>{X['email']}</p><p>{X['telephone']}</p></div>""")),
 ]
 
 if __name__ == "__main__":

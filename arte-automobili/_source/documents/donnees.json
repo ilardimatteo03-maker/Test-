@@ -44,7 +44,8 @@
     "nom": "Programme partenaires",
     "public": "Professionnels",
     "commission_pct": 5,
-    "base": "Chiffre d'affaires hors TVA des clients apportés par le partenaire."
+    "base": "Chiffre d'affaires hors TVA des clients apportés par le partenaire.",
+    "versement": "chaque trimestre"
   },
   "numerotation": {
     "devis": "D-{annee}-{n:03d}",
