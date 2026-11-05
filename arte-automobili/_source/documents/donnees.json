@@ -43,7 +43,7 @@
   "affiliation": {
     "nom": "Programme partenaires",
     "public": "Professionnels",
-    "commission_pct": 5,
+    "commission_pct": 10,
     "base": "Chiffre d'affaires hors TVA des clients apportés par le partenaire.",
     "versement": "chaque trimestre"
   },

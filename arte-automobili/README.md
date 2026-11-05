@@ -43,7 +43,7 @@ arte-automobili/
 ├── 17_tarifs/                 Grille tarifaire A4 (particuliers TVAC, professionnels HTVA)
 ├── 18_documents/              Devis, offres de prix, factures, listes de prix — voir son README
 ├── 19_carte-de-visite/        Carte de visite 85 × 55 mm (ton design), prête pour l'imprimeur
-├── 20_programme-partenaires/  Stories Instagram du programme d'affiliation pour les professionnels (5 %)
+├── 20_programme-partenaires/  Stories Instagram du programme d'affiliation pour les professionnels (10 %)
 └── _source/                   Scripts qui régénèrent l'ensemble
 ```
 

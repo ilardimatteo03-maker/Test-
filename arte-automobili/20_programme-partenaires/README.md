@@ -5,8 +5,8 @@ Quatre stories Instagram (1080 × 1920 px) à publier dans l'ordre, dans le styl
 | Story | Contenu |
 |---|---|
 | `story-partenaires-1-couverture.png` | « Recommandez. Gagnez. » Le programme d'affiliation réservé aux professionnels. |
-| `story-partenaires-2-commission.png` | 5 % sur le chiffre d'affaires hors TVA des clients apportés, réglée chaque trimestre. Exemple : 1 000 € HTVA → 50 €. |
-| `story-partenaires-3-fonctionnement.png` | En trois temps : vous recommandez, nous réalisons la prestation, vous touchez 5 % du montant hors TVA, chaque trimestre. |
+| `story-partenaires-2-commission.png` | 10 % sur le chiffre d'affaires hors TVA des clients apportés, réglée chaque trimestre. Exemple : 1 000 € HTVA → 100 €. |
+| `story-partenaires-3-fonctionnement.png` | En trois temps : vous recommandez, nous réalisons la prestation, vous touchez 10 % du montant hors TVA, chaque trimestre. |
 | `story-partenaires-4-contact.png` | « Devenez partenaire. » Pour plus d'informations : par e-mail ou par téléphone. |
 
 Le contenu évite les zones couvertes par l'interface d'Instagram (250 px en haut, 340 px en bas).
@@ -19,7 +19,7 @@ python3 _source/reseaux/partenaires.py
 
 ## À fixer avant de lancer le programme
 
-Les stories ne disent que ce que tu m'as donné : 5 % du chiffre d'affaires hors TVA apporté, réglés chaque trimestre. Avant les premières demandes, décide :
+Les stories ne disent que ce que tu m'as donné : 10 % du chiffre d'affaires hors TVA apporté, réglés chaque trimestre. Avant les premières demandes, décide :
 
 - **Comment un client est rattaché à un partenaire** : nom du partenaire donné à la réservation, code partenaire, lien dédié…
 - **La durée** : seulement la première prestation du client, ou toutes ses prestations pendant une période ?

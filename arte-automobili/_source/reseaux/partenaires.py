@@ -40,7 +40,7 @@ h1{{font:500 108px/1.05 Archivo,sans-serif;font-stretch:112%;letter-spacing:-.01
 h1 i,.chiffre i{{font-style:normal}}
 .texte{{margin-top:44px;font:400 44px/1.36 Archivo,sans-serif}}
 .texte strong{{font-weight:600}}
-.chiffre{{font:500 400px/.92 Archivo,sans-serif;font-stretch:112%;letter-spacing:-.03em;margin-left:-14px}}
+.chiffre{{font:500 {400 if len(PCT) < 2 else 350}px/.92 Archivo,sans-serif;font-stretch:112%;letter-spacing:-.03em;margin-left:-14px}}
 .exemple{{margin-top:56px;padding-top:30px;border-top:1.5px solid #EEEDE7;display:flex;justify-content:space-between;
          font:300 34px/1 'DM Mono',monospace;letter-spacing:.02em}}
 .exemple span:first-child{{color:#8E9592}}
