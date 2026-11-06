@@ -32,6 +32,16 @@
     "share": "Share",
     "price_suffix_note": "Prices {{ suffix }}"
   },
+  "nav": {
+    "home": "Home",
+    "booking": "Booking",
+    "services": "Services",
+    "vehicles": "Vehicles",
+    "rates": "Rates",
+    "about": "About",
+    "faq": "FAQ",
+    "contact": "Contact"
+  },
   "days": {
     "mon": "Monday",
     "tue": "Tuesday",
@@ -103,7 +113,18 @@
     "quantity": "Quantity",
     "gift_card_title": "Your gift card",
     "gift_card_code": "Code",
-    "gift_card_balance": "Balance: {{ balance }}"
+    "gift_card_balance": "Balance: {{ balance }}",
+    "view_titles": {
+      "reservation": "Booking",
+      "services": "Our services",
+      "vehicules": "Our vehicles",
+      "tarifs": "Rates",
+      "a_propos": "About us",
+      "contact": "Contact",
+      "faq": "Frequently asked questions"
+    },
+    "view_description": "{{ title }} – {{ company }}. Book your taxi online: price calculated before the ride.",
+    "contact_sent": "Thank you, your message has been sent."
   },
   "customer": {
     "login_title": "Log in",

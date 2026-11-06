@@ -1,0 +1,45 @@
+{
+  "sections": {
+    "header": {
+      "type": "page-header",
+      "settings": {
+        "eyebrow": "Contact",
+        "text": "<p>Nous répondons 24 h/24 par téléphone, et rapidement par e-mail.</p>",
+        "color_scheme": "inverse",
+        "breadcrumbs": true,
+        "padding_top": 96,
+        "padding_bottom": 72,
+        "title": "Contact"
+      }
+    },
+    "contact": {
+      "type": "contact",
+      "settings": {
+        "heading": "Parlons de votre trajet",
+        "form_heading": "Envoyez-nous un message",
+        "show_hours": true,
+        "show_social": true,
+        "color_scheme": "default",
+        "padding_top": 96,
+        "padding_bottom": 72
+      }
+    },
+    "map": {
+      "type": "map",
+      "settings": {
+        "provider": "google",
+        "zoom": 14,
+        "ratio": "21 / 9",
+        "consent": true,
+        "color_scheme": "default",
+        "padding_top": 0,
+        "padding_bottom": 96
+      }
+    }
+  },
+  "order": [
+    "header",
+    "contact",
+    "map"
+  ]
+}

@@ -3,7 +3,7 @@
     "hero": {
       "type": "hero",
       "settings": {
-        "eyebrow": "Taxi & chauffeur privé · 24 h/24",
+        "eyebrow": "Taxi & chauffeur privé",
         "heading": "Votre taxi, réservé en un instant.",
         "subheading": "<p>Prix affiché avant de réserver, chauffeurs professionnels, transferts aéroport et longues distances.</p>",
         "button_label": "Réserver un taxi",
@@ -29,8 +29,8 @@
         "trust_2": {
           "type": "trust",
           "settings": {
-            "icon": "clock",
-            "text": "Disponible 24 h/24"
+            "icon": "check",
+            "text": "Réservation en ligne"
           }
         },
         "trust_3": {
@@ -54,7 +54,6 @@
         "heading": "Un trajet pour chaque besoin",
         "align": "left",
         "link_label": "Tous nos services",
-        "link_url": "/pages/services",
         "layout": "cards",
         "columns": "3",
         "card_media": "icon",
@@ -181,7 +180,6 @@
         "heading": "Des véhicules récents et entretenus",
         "align": "left",
         "link_label": "Voir la flotte",
-        "link_url": "/pages/vehicules",
         "layout": "cards",
         "columns": "4",
         "show_book": true,
@@ -298,8 +296,8 @@
           "type": "feature",
           "settings": {
             "icon": "headset",
-            "title": "Joignables 24 h/24",
-            "text": "<p>Une question, un changement ? Nous répondons à toute heure.</p>"
+            "title": "À votre écoute",
+            "text": "<p>Une question, un changement ? Contactez-nous par téléphone ou par e-mail.</p>"
           }
         },
         "feature_6": {
@@ -369,7 +367,8 @@
         "stat_2",
         "stat_3",
         "stat_4"
-      ]
+      ],
+      "disabled": true
     },
     "testimonials": {
       "type": "testimonials",
@@ -427,7 +426,8 @@
         "review_2",
         "review_3",
         "review_4"
-      ]
+      ],
+      "disabled": true
     },
     "zones": {
       "type": "zones",
@@ -536,7 +536,6 @@
         "eyebrow": "Questions fréquentes",
         "heading": "Tout savoir avant de réserver",
         "button_label": "Nous contacter",
-        "button_link": "/pages/contact",
         "layout": "split",
         "open_first": true,
         "structured_data": true,
@@ -600,7 +599,7 @@
     "cta": {
       "type": "cta-banner",
       "settings": {
-        "eyebrow": "24 h/24, 7 j/7",
+        "eyebrow": "Réservation en ligne",
         "heading": "Besoin d'un taxi maintenant ?",
         "text": "<p>Réservez en ligne en deux minutes ou appelez-nous directement.</p>",
         "button_label": "Réserver en ligne",

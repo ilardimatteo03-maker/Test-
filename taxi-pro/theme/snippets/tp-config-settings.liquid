@@ -1,3 +1,11 @@
+{%- liquid
+  assign co_phone = settings.company_phone | default: shop.phone
+  assign co_email = settings.company_email | default: shop.email
+  assign co_street = settings.company_street | default: shop.address.address1
+  assign co_postcode = settings.company_postcode | default: shop.address.zip
+  assign co_city = settings.company_city | default: shop.address.city
+  assign co_country_code = settings.company_country_code | default: shop.address.country_code | default: 'BE'
+-%}
 {%- comment -%}
   Configuration globale du calculateur, publiée en JSON dans chaque page.
   - Lue par assets/tp-booking.js (prix instantanés) ;
@@ -8,14 +16,16 @@
   assign company = settings.company_name | default: shop.name
   assign number_locale = settings.number_locale
   if number_locale == blank
-    assign number_locale = request.locale.iso_code | append: '-' | append: settings.company_country_code
+    assign number_locale = request.locale.iso_code | append: '-' | append: co_country_code
   endif
   assign logo_url = ''
   if settings.logo != blank
     assign logo_url = settings.logo | image_url: width: 480 | prepend: 'https:'
   endif
-  assign booking_fallback = routes.root_url | append: '?view=reservation' | replace: '//?', '/?'
-  assign phone_href = settings.company_phone | remove: ' ' | remove: '.' | remove: '-' | remove: '(' | remove: ')' | remove: '/'
+  capture booking_url
+    render 'page-url', key: 'booking'
+  endcapture
+  assign phone_href = co_phone | remove: ' ' | remove: '.' | remove: '-' | remove: '(' | remove: ')' | remove: '/'
 -%}
 <script type="application/json" data-tp-config="settings">
 {
@@ -31,11 +41,11 @@
   "company": {
     "name": {{ company | json }},
     "legalName": {{ settings.company_legal_name | json }},
-    "phone": {{ settings.company_phone | json }},
+    "phone": {{ co_phone | json }},
     "phoneHref": {{ phone_href | json }},
-    "email": {{ settings.company_email | json }},
-    "address": {{ settings.company_street | append: ', ' | append: settings.company_postcode | append: ' ' | append: settings.company_city | json }},
-    "country": {{ settings.company_country_code | json }},
+    "email": {{ co_email | json }},
+    "address": {{ co_street | append: ', ' | append: co_postcode | append: ' ' | append: co_city | json }},
+    "country": {{ co_country_code | json }},
     "vat": {{ settings.company_vat | json }},
     "number": {{ settings.company_number | json }},
     "logo": {{ logo_url | json }},
@@ -75,7 +85,7 @@
     "maxDistanceAction": {{ settings.geo_max_distance_action | json }}
   },
   "booking": {
-    "pageUrl": {{ settings.booking_page.url | default: booking_fallback | json }},
+    "pageUrl": {{ booking_url | strip | json }},
     "immediate": {{ settings.booking_immediate | json }},
     "scheduled": {{ settings.booking_scheduled | json }},
     "leadMin": {{ settings.booking_lead_min | json }},

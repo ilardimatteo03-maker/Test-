@@ -1,0 +1,43 @@
+{
+  "sections": {
+    "header": {
+      "type": "page-header",
+      "settings": {
+        "eyebrow": "Tarifs",
+        "text": "<p>Nos tarifs sont publics : le prix exact de votre trajet est calculé avant la réservation.</p>",
+        "color_scheme": "inverse",
+        "breadcrumbs": true,
+        "padding_top": 96,
+        "padding_bottom": 72,
+        "title": "Tarifs"
+      }
+    },
+    "rates": {
+      "type": "rates",
+      "settings": {
+        "heading": "Nos tarifs, en toute transparence",
+        "show_routes": true,
+        "color_scheme": "default",
+        "padding_top": 96,
+        "padding_bottom": 72
+      }
+    },
+    "cta": {
+      "type": "cta-banner",
+      "settings": {
+        "heading": "Calculez le prix de votre trajet",
+        "text": "<p>Indiquez votre départ et votre arrivée : le prix s'affiche immédiatement.</p>",
+        "button_label": "Calculer mon prix",
+        "show_phone": false,
+        "color_scheme": "accent",
+        "padding_top": 0,
+        "padding_bottom": 96
+      }
+    }
+  },
+  "order": [
+    "header",
+    "rates",
+    "cta"
+  ]
+}

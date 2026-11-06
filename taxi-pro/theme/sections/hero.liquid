@@ -1,4 +1,7 @@
-{%- assign booking_fallback = routes.root_url | append: '?view=reservation' | replace: '//?', '/?' -%}
+{%- liquid
+  assign co_phone = settings.company_phone | default: shop.phone
+-%}
+{%- capture booking_url -%}{% render 'page-url', key: 'booking' %}{%- endcapture -%}
 {%- comment -%}
   Héros : grande image ou vidéo, titre, sous-titre, boutons, arguments et calculateur rapide.
   Le calculateur rapide estime le prix réel (itinéraire + tarifs) puis ouvre la page de réservation
@@ -7,7 +10,7 @@
 {%- liquid
   assign s = section.settings
   assign uid = 'tpq-' | append: section.id
-  assign phone_href = settings.company_phone | remove: ' ' | remove: '.' | remove: '-' | remove: '(' | remove: ')' | remove: '/'
+  assign phone_href = co_phone | remove: ' ' | remove: '.' | remove: '-' | remove: '(' | remove: ')' | remove: '/'
   assign l_pickup = 'taxi.booking.pickup_label' | t
   assign p_pickup = 'taxi.booking.pickup_placeholder' | t
   assign l_dropoff = 'taxi.booking.dropoff_label' | t
@@ -64,10 +67,10 @@
         {%- if s.subheading != blank -%}<div class="hero__subtitle rte reveal" style="--i: 2">{{ s.subheading }}</div>{%- endif -%}
         <div class="btn-row reveal" style="--i: 3">
           {%- if s.button_label != blank -%}
-            <a class="btn btn--large" href="{{ s.button_link | default: settings.booking_page.url | default: booking_fallback }}">{{ s.button_label }}{% render 'icon', name: 'arrow-right' %}</a>
+            <a class="btn btn--large" href="{{ s.button_link | default: booking_url }}">{{ s.button_label }}{% render 'icon', name: 'arrow-right' %}</a>
           {%- endif -%}
-          {%- if s.show_call and settings.company_phone != blank -%}
-            <a class="btn btn--large btn--secondary" href="tel:{{ phone_href }}" aria-label="{{ 'accessibility.phone_link' | t: phone: settings.company_phone }}">{% render 'icon', name: 'phone' %}{{ settings.company_phone }}</a>
+          {%- if s.show_call and co_phone != blank -%}
+            <a class="btn btn--large btn--secondary" href="tel:{{ phone_href }}" aria-label="{{ 'accessibility.phone_link' | t: phone: co_phone }}">{% render 'icon', name: 'phone' %}{{ co_phone }}</a>
           {%- elsif s.button2_label != blank -%}
             <a class="btn btn--large btn--secondary" href="{{ s.button2_link }}">{{ s.button2_label }}</a>
           {%- endif -%}

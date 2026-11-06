@@ -32,6 +32,16 @@
     "share": "Partager",
     "price_suffix_note": "Prix {{ suffix }}"
   },
+  "nav": {
+    "home": "Accueil",
+    "booking": "Réservation",
+    "services": "Services",
+    "vehicles": "Véhicules",
+    "rates": "Tarifs",
+    "about": "À propos",
+    "faq": "FAQ",
+    "contact": "Contact"
+  },
   "days": {
     "mon": "Lundi",
     "tue": "Mardi",
@@ -103,7 +113,18 @@
     "quantity": "Quantité",
     "gift_card_title": "Votre carte cadeau",
     "gift_card_code": "Code",
-    "gift_card_balance": "Solde : {{ balance }}"
+    "gift_card_balance": "Solde : {{ balance }}",
+    "view_titles": {
+      "reservation": "Réservation",
+      "services": "Nos services",
+      "vehicules": "Nos véhicules",
+      "tarifs": "Tarifs",
+      "a_propos": "À propos",
+      "contact": "Contact",
+      "faq": "Questions fréquentes"
+    },
+    "view_description": "{{ title }} – {{ company }}. Réservez votre taxi en ligne : prix calculé avant la course.",
+    "contact_sent": "Merci, votre message a bien été envoyé."
   },
   "customer": {
     "login_title": "Connexion",

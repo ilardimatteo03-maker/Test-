@@ -110,7 +110,6 @@
         "heading": "Un besoin particulier ?",
         "text": "<p>Groupes, événements, contrats d'entreprise : demandez un devis personnalisé.</p>",
         "button_label": "Nous contacter",
-        "button_link": "/pages/contact",
         "show_phone": true,
         "color_scheme": "inverse",
         "padding_top": 0,

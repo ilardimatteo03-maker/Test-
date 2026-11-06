@@ -19,7 +19,6 @@
         "open_first": true,
         "structured_data": true,
         "button_label": "Une autre question ?",
-        "button_link": "/pages/contact",
         "color_scheme": "default",
         "padding_top": 96,
         "padding_bottom": 96

@@ -35,10 +35,22 @@ export function startPreview({ port = 8791, host = '127.0.0.1', overrides: baseO
         for await (const chunk of req) body += chunk;
         const fields = Object.fromEntries(new URLSearchParams(body));
         contacts.push(fields);
+        // Comme Shopify : retour sur « return_to » s'il est fourni, sinon sur la page d'origine
+        if (fields.return_to && fields.return_to.startsWith('/')) {
+          res.writeHead(302, { Location: fields.return_to });
+          res.end();
+          return;
+        }
         const back = new URL(req.headers.referer || `http://${host}:${port}/`);
         back.search = 'contact_posted=true';
         res.writeHead(302, { Location: back.pathname + back.search + '#contact_form' });
         res.end();
+        return;
+      }
+      // Routes natives de Shopify : politiques (Paramètres › Politiques)
+      if (url.pathname.startsWith('/policies/')) {
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.end(`<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Politique</title></head><body><h1>${url.pathname.slice(10)}</h1></body></html>`);
         return;
       }
       let template = 'index';

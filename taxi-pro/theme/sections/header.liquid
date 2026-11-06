@@ -1,17 +1,47 @@
-{%- assign booking_fallback = routes.root_url | append: '?view=reservation' | replace: '//?', '/?' -%}
 {%- comment -%}
-  En-tête : logo (réglages du thème), menu, téléphone, bouton de réservation, menu mobile.
+  En-tête : logo (réglages du thème), navigation, téléphone, bouton de réservation, menu mobile.
+  Navigation intégrée par défaut (rien à créer) ; un menu Shopify peut la remplacer.
   Option : transparent au-dessus du héros de la page d'accueil.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
   assign company = settings.company_name | default: shop.name
-  assign phone_href = settings.company_phone | remove: ' ' | remove: '.' | remove: '-' | remove: '(' | remove: ')' | remove: '/'
+  assign co_phone = settings.company_phone | default: shop.phone
+  assign phone_href = co_phone | remove: ' ' | remove: '.' | remove: '-' | remove: '(' | remove: ')' | remove: '/'
   assign transparent = false
   if s.transparent_home and template.name == 'index'
     assign transparent = true
   endif
-  assign cta_url = s.cta_link | default: settings.booking_page.url | default: booking_fallback
+  capture booking_url
+    render 'page-url', key: 'booking'
+  endcapture
+  assign cta_url = s.cta_link | default: booking_url
+  assign nav_items = ''
+  if s.nav_home
+    assign nav_items = nav_items | append: 'home,'
+  endif
+  if s.nav_services
+    assign nav_items = nav_items | append: 'services,'
+  endif
+  if s.nav_vehicles
+    assign nav_items = nav_items | append: 'vehicles,'
+  endif
+  if s.nav_rates
+    assign nav_items = nav_items | append: 'rates,'
+  endif
+  if s.nav_about
+    assign nav_items = nav_items | append: 'about,'
+  endif
+  if s.nav_faq
+    assign nav_items = nav_items | append: 'faq,'
+  endif
+  if s.nav_contact
+    assign nav_items = nav_items | append: 'contact,'
+  endif
+  assign use_menu = false
+  if s.nav_source == 'menu' and s.menu != blank
+    assign use_menu = true
+  endif
 -%}
 <style>:root { --header-h: {{ s.height }}px; }</style>
 
@@ -33,9 +63,9 @@
       {%- endif -%}
     </a>
 
-    {%- if s.menu != blank -%}
-      <nav class="site-nav" aria-label="{{ 'general.menu' | t }}">
-        <ul>
+    <nav class="site-nav" aria-label="{{ 'general.menu' | t }}">
+      <ul>
+        {%- if use_menu -%}
           {%- for link in s.menu.links -%}
             <li>
               <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
@@ -48,13 +78,15 @@
               {%- endif -%}
             </li>
           {%- endfor -%}
-        </ul>
-      </nav>
-    {%- endif -%}
+        {%- else -%}
+          {% render 'site-nav-links', items: nav_items %}
+        {%- endif -%}
+      </ul>
+    </nav>
 
     <div class="site-header__actions">
-      {%- if s.show_phone and settings.company_phone != blank -%}
-        <a class="header-phone" href="tel:{{ phone_href }}" aria-label="{{ 'accessibility.phone_link' | t: phone: settings.company_phone }}">{% render 'icon', name: 'phone' %}<span>{{ settings.company_phone }}</span></a>
+      {%- if s.show_phone and co_phone != blank -%}
+        <a class="header-phone" href="tel:{{ phone_href }}" aria-label="{{ 'accessibility.phone_link' | t: phone: co_phone }}">{% render 'icon', name: 'phone' %}<span>{{ co_phone }}</span></a>
       {%- endif -%}
       {%- if s.cta_label != blank -%}
         <a class="btn btn--small header-cta" href="{{ cta_url }}">{{ s.cta_label }}</a>
@@ -71,9 +103,9 @@
     <span class="logo-text">{{ company }}</span>
     <button type="button" class="menu-toggle" data-menu-close aria-label="{{ 'general.close_menu' | t }}">{% render 'icon', name: 'close' %}</button>
   </div>
-  {%- if s.menu != blank -%}
-    <nav aria-label="{{ 'general.menu' | t }}">
-      <ul>
+  <nav aria-label="{{ 'general.menu' | t }}">
+    <ul>
+      {%- if use_menu -%}
         {%- for link in s.menu.links -%}
           <li>
             <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
@@ -84,13 +116,15 @@
             {%- endif -%}
           </li>
         {%- endfor -%}
-      </ul>
-    </nav>
-  {%- endif -%}
+      {%- else -%}
+        {% render 'site-nav-links', items: nav_items %}
+      {%- endif -%}
+    </ul>
+  </nav>
   <div class="mobile-menu__footer">
     {%- if s.cta_label != blank -%}<a class="btn btn--large btn--block" href="{{ cta_url }}">{{ s.cta_label }}</a>{%- endif -%}
-    {%- if settings.company_phone != blank -%}
-      <a class="btn btn--large btn--block btn--secondary" href="tel:{{ phone_href }}">{% render 'icon', name: 'phone' %}{{ settings.company_phone }}</a>
+    {%- if co_phone != blank -%}
+      <a class="btn btn--large btn--block btn--secondary" href="tel:{{ phone_href }}">{% render 'icon', name: 'phone' %}{{ co_phone }}</a>
     {%- endif -%}
   </div>
 </div>
@@ -103,12 +137,30 @@
   "enabled_on": { "groups": ["header"] },
   "settings": [
     { "type": "paragraph", "content": "Le logo se règle dans Paramètres du thème › Identité de l'entreprise." },
-    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "header", "content": "Navigation" },
+    {
+      "type": "select", "id": "nav_source", "label": "Liens du menu",
+      "options": [
+        { "value": "builtin", "label": "Menu intégré au thème (rien à créer)" },
+        { "value": "menu", "label": "Menu Shopify choisi ci-dessous" }
+      ],
+      "default": "builtin",
+      "info": "Le menu intégré mène aux pages du thème, traduites automatiquement."
+    },
+    { "type": "checkbox", "id": "nav_home", "label": "Menu intégré : Accueil", "default": true },
+    { "type": "checkbox", "id": "nav_services", "label": "Menu intégré : Services", "default": true },
+    { "type": "checkbox", "id": "nav_vehicles", "label": "Menu intégré : Véhicules", "default": true },
+    { "type": "checkbox", "id": "nav_rates", "label": "Menu intégré : Tarifs", "default": true },
+    { "type": "checkbox", "id": "nav_about", "label": "Menu intégré : À propos", "default": true },
+    { "type": "checkbox", "id": "nav_faq", "label": "Menu intégré : FAQ", "default": false },
+    { "type": "checkbox", "id": "nav_contact", "label": "Menu intégré : Contact", "default": true },
+    { "type": "link_list", "id": "menu", "label": "Menu Shopify", "info": "Utilisé si « Liens du menu » vaut « Menu Shopify »." },
+    { "type": "header", "content": "Affichage" },
     { "type": "checkbox", "id": "sticky", "label": "En-tête fixe au défilement", "default": true },
     { "type": "checkbox", "id": "transparent_home", "label": "Transparent au-dessus du héros de l'accueil", "default": true },
-    { "type": "checkbox", "id": "show_phone", "label": "Afficher le téléphone", "default": true },
+    { "type": "checkbox", "id": "show_phone", "label": "Afficher le téléphone", "default": true, "info": "Numéro des réglages du thème, sinon celui de Paramètres › Détails de la boutique." },
     { "type": "text", "id": "cta_label", "label": "Bouton de réservation", "default": "Réserver" },
-    { "type": "url", "id": "cta_link", "label": "Lien du bouton", "info": "Vide : page de réservation des réglages du thème." },
+    { "type": "url", "id": "cta_link", "label": "Lien du bouton", "info": "Vide : page de réservation." },
     { "type": "range", "id": "height", "label": "Hauteur", "min": 60, "max": 120, "step": 4, "unit": "px", "default": 84 },
     { "type": "select", "id": "color_scheme", "label": "Couleurs", "options": [ { "value": "default", "label": "Principal" }, { "value": "alt", "label": "Secondaire" }, { "value": "inverse", "label": "Contrasté" } ], "default": "default" }
   ]

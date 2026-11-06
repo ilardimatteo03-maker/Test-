@@ -32,6 +32,16 @@
     "share": "Delen",
     "price_suffix_note": "Prijzen {{ suffix }}"
   },
+  "nav": {
+    "home": "Home",
+    "booking": "Reserveren",
+    "services": "Diensten",
+    "vehicles": "Voertuigen",
+    "rates": "Tarieven",
+    "about": "Over ons",
+    "faq": "FAQ",
+    "contact": "Contact"
+  },
   "days": {
     "mon": "Maandag",
     "tue": "Dinsdag",
@@ -103,7 +113,18 @@
     "quantity": "Aantal",
     "gift_card_title": "Uw cadeaubon",
     "gift_card_code": "Code",
-    "gift_card_balance": "Saldo: {{ balance }}"
+    "gift_card_balance": "Saldo: {{ balance }}",
+    "view_titles": {
+      "reservation": "Reserveren",
+      "services": "Onze diensten",
+      "vehicules": "Onze voertuigen",
+      "tarifs": "Tarieven",
+      "a_propos": "Over ons",
+      "contact": "Contact",
+      "faq": "Veelgestelde vragen"
+    },
+    "view_description": "{{ title }} – {{ company }}. Reserveer uw taxi online: prijs berekend vóór de rit.",
+    "contact_sent": "Bedankt, uw bericht is verzonden."
   },
   "customer": {
     "login_title": "Aanmelden",

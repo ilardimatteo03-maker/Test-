@@ -1,103 +1,87 @@
-# Installation et configuration
+# Installation et personnalisation
 
-Durée : environ une heure pour une première entreprise, sans écrire de code.
+Le thème est **prêt à l'emploi** : toutes les pages, les menus, les liens et la réservation fonctionnent dès l'import,
+sans créer de page ni de menu. Il reste à mettre votre logo et à adapter les contenus.
 Le thème s'importe **sans être publié** : le site en ligne n'est pas modifié tant que vous ne cliquez pas sur « Publier ».
 
-## 1. Importer le thème
+## 1. Importer le thème (2 minutes)
 
 1. Admin Shopify › Boutique en ligne › **Thèmes** › Ajouter un thème › **Importer un fichier zip**.
-2. Choisissez `dist/taxi-pro-theme-1.0.1.zip` (ou recréez-le : `node taxi-pro/tools/build-zip.mjs`).
+2. Choisissez `dist/taxi-pro-theme-1.1.0.zip` (ou recréez-le : `node taxi-pro/tools/build-zip.mjs`).
 3. Le thème apparaît dans la bibliothèque, **non publié**. Cliquez sur « Personnaliser ».
 
-## 2. Page de réservation : tout de suite, sans créer de page
+Tout est déjà en place :
 
-La réservation complète est disponible dès l'import à l'adresse **`/?view=reservation`**
-(dans l'éditeur : menu déroulant du haut › Page d'accueil › **reservation**). Tous les boutons « Réserver » du thème
-y mènent tant que le réglage « Page de réservation » est vide. Le calculateur rapide du héros de l'accueil y envoie
-aussi le visiteur, avec le trajet prérempli.
-
-## 2 bis. Créer les pages et les associer aux modèles
-
-> **Important :** dans Shopify, le menu « Modèle de thème » d'une page ne propose que les modèles du **thème publié**.
-> Tant que TAXI PRO n'est pas publié, vous ne verrez pas « reservation », « services », etc. dans ce menu.
-> Pour vérifier une page avant publication, ouvrez son modèle dans l'éditeur (menu déroulant du haut › Pages › modèle) :
-> l'éditeur l'affiche avec une page existante, quel que soit son titre. Une fois le thème publié, associez les modèles :
-
-Boutique en ligne › Pages › Ajouter une page. Pour chaque page, choisissez le **modèle** dans la colonne de droite :
-
-| Page (titre conseillé) | Modèle | Adresse |
+| Page | Adresse | Où la modifier dans l'éditeur (menu déroulant du haut) |
 | --- | --- | --- |
-| Réservation (facultative : `/?view=reservation` existe déjà) | `reservation` | /pages/reservation |
-| Nos services | `services` | /pages/services |
-| Nos véhicules | `vehicules` | /pages/vehicules |
-| Tarifs | `tarifs` | /pages/tarifs |
-| À propos | `a-propos` | /pages/a-propos |
-| Contact | `contact` | /pages/contact |
-| Questions fréquentes | `faq` | /pages/faq |
-| Conditions générales, Politique de confidentialité, Politique de cookies, Mentions légales | `legal` | au choix |
+| Accueil (calculateur de prix) | `/` | Page d'accueil › Par défaut |
+| Réservation | `/?view=reservation` | Page d'accueil › reservation |
+| Nos services | `/?view=services` | Page d'accueil › services |
+| Nos véhicules | `/?view=vehicules` | Page d'accueil › vehicules |
+| Tarifs (générés depuis vos réglages) | `/?view=tarifs` | Page d'accueil › tarifs |
+| À propos | `/?view=a-propos` | Page d'accueil › a-propos |
+| Contact (formulaire Shopify) | `/?view=contact` | Page d'accueil › contact |
+| Questions fréquentes | `/?view=faq` | Page d'accueil › faq |
+| Conditions, confidentialité, mentions légales | `/policies/…` | Paramètres › **Politiques** (Shopify) |
 
-Si vous créez la page « Réservation », indiquez-la ensuite dans Paramètres du thème › Réservation › **Page de réservation**.
-Le contenu des pages légales se saisit dans l'éditeur de pages Shopify (texte juridique validé par votre conseil).
-Le modèle `legal` ajoute automatiquement l'identification de l'entreprise (raison sociale, siège, numéros).
-Pour le RGPD, Shopify propose aussi ses propres pages de politiques (Paramètres › Politiques).
+Le menu de l'en-tête et du pied de page est **intégré au thème** et traduit automatiquement (FR, EN, NL, DE) :
+aucun menu Shopify à créer. Chaque page a son propre titre et sa propre adresse canonique pour Google.
 
-## 3. Menus
+## 2. Personnaliser (l'essentiel)
 
-Boutique en ligne › Navigation :
-- **Menu principal** (`main-menu`) : Accueil, Services, Véhicules, Tarifs, À propos, Contact.
-- **Pied de page** (`footer`) : Conditions générales, Confidentialité, Cookies, Mentions légales.
+1. **Logo** : Paramètres du thème (roue dentée) › Identité de l'entreprise › Logo (fonds clairs) et Logo (fonds foncés),
+   favicon. Sans logo, le nom de la boutique s'affiche en texte.
+2. **Coordonnées** : rien à saisir dans le thème. Le téléphone, l'e-mail et l'adresse sont repris automatiquement de
+   Paramètres Shopify › **Détails de la boutique**. Pour afficher d'autres valeurs, remplissez Identité de l'entreprise
+   (un champ rempli remplace la valeur de la boutique). Ajoutez-y WhatsApp, numéro d'entreprise, TVA, licence et réseaux sociaux.
+3. **Politiques** : Paramètres Shopify › Politiques (conditions d'utilisation, confidentialité, mentions légales…).
+   Elles apparaissent automatiquement dans le pied de page et la case « J'accepte les conditions » du formulaire de réservation y renvoie.
+4. **Style** : Paramètres du thème › Style et préréglages : Premium Black, Corporate, Modern Taxi, Luxury Chauffeur ou Minimal,
+   puis couleurs, polices, arrondis, boutons, animations (une couleur laissée vide = celle du préréglage).
+5. **Tarifs** : Paramètres du thème › Tarifs et Majorations (prise en charge, prix au km, nuit, dimanche, aéroport…),
+   puis, en bas de la liste des sections de n'importe quelle page, groupe « Pied de page » : **Véhicules (tarifs)**,
+   Prestations, Options, Zones, Forfaits, Plages horaires. Détail des règles : `TARIFICATION.md`.
+6. **Zone** : Paramètres du thème › Zone géographique : coordonnées de votre base (clic droit dans Google Maps), rayon,
+   pays proposés dans la recherche d'adresse.
+7. **Photos et textes** : image ou vidéo du héros, photos des véhicules (section « Véhicules (vitrine) » et « Véhicules (tarifs) »),
+   textes des sections. Chaque section se modifie, se masque (icône œil), se déplace ou s'ajoute.
 
-## 4. Paramètres du thème (roue dentée de l'éditeur)
+### Sections masquées à l'import (contenus à fournir)
 
-| Catégorie | À faire |
-| --- | --- |
-| Style et préréglages | Choisir Premium Black, Corporate, Modern Taxi, Luxury Chauffeur ou Minimal ; ajuster les couleurs si besoin (une couleur vide = celle du préréglage). La lisibilité est vérifiée automatiquement : si l'accent est trop clair sur le fond, les liens passent dans la couleur du texte. |
-| Typographie, formes, animations | Polices, tailles, arrondis, ombres, style des boutons et des champs, animations. |
-| Identité de l'entreprise | Nom, logos (fonds clairs et foncés), favicon, téléphone, WhatsApp, e-mail, adresse, raison sociale, numéro d'entreprise, TVA, licence, réseaux sociaux, fiche Google. |
-| Tarifs, Majorations et suppléments | Vos tarifs (voir `TARIFICATION.md`). Chaque supplément se désactive individuellement. |
-| Zone géographique | Coordonnées de votre base (clic droit dans Google Maps), rayon, pays proposés, fuseau horaire. |
-| Réservation | **Page de réservation** : vide pour `/?view=reservation`, ou la page créée à l'étape 2 bis ; délais, horaires, passagers max., modes de paiement, conditions générales. |
-| Cartes et intégrations | Fournisseur d'autocomplétion et d'itinéraire, clés **publiques**, carte, URL du service de réservation. |
-| Référencement et partage | Image de partage, données structurées TaxiService. |
+Pour ne jamais publier de contenu inventé, trois sections sont **masquées** au départ. Remplissez-les puis réaffichez-les
+avec l'icône œil :
+- **Avis clients** (accueil) : vos vrais avis, avec la note de votre fiche Google ;
+- **Chiffres clés** (accueil et À propos) : vos vrais chiffres ;
+- **Équipe** (À propos) : vos chauffeurs.
 
-## 5. Tarifs Taxi Pro (véhicules, forfaits, zones…)
+Les véhicules, zones, forfaits et prix livrés sont des **exemples** (une société fictive à Bruxelles) à remplacer.
 
-Dans l'éditeur, en bas de la liste des sections, groupe **« Pied de page »**, six sections suivies de « (tarifs) » :
+## 3. Envoi des réservations
 
-1. **Prestations** : gardez, renommez ou désactivez les 7 prestations d'exemple ; le **code** relie les boutons
-   « Réserver ce service » au formulaire.
-2. **Véhicules** : photo, capacité, équipements, règle de prix (coefficient ou tarif propre).
-3. **Options** : prix fixe, à l'unité ou en pourcentage, restriction éventuelle à certaines prestations.
-4. **Zones** : vos aéroports, gares et zones de référence (coordonnées + rayon ou polygone).
-5. **Forfaits** : prix fixes entre zones (ex. centre-ville ↔ aéroport).
-6. **Plages horaires** : majorations ponctuelles (heures de pointe, réveillon…).
+**Dès l'import** : les demandes partent par le formulaire de contact natif de Shopify vers l'e-mail de la boutique
+(Paramètres › Notifications). Le message contient le trajet, les coordonnées GPS, le véhicule, les options, le client et le
+détail du prix. Le client voit « Demande envoyée, pas encore confirmée ». Pas de paiement en ligne ni d'e-mail automatique au client.
 
-Les données livrées sont **des exemples** (une société fictive à Bruxelles) : remplacez-les par les vôtres.
+**Avec le service de réservation** (`BACKEND.md`) : prix revalidé côté serveur, paiement en ligne ou acompte, e-mails
+automatiques au client (confirmation, rappel, modification, annulation), fichier agenda, tableau de bord.
 
-## 6. Contenus
+**Recherche d'adresses** : réglée par défaut sur des services gratuits de démonstration (Photon, OSRM). Pour un usage réel,
+ajoutez une clé Google Maps ou un jeton Mapbox (Paramètres du thème › Cartes et intégrations).
 
-Chaque section se modifie, se masque, se déplace ou s'ajoute depuis l'éditeur : héros (image ou vidéo, calculateur
-rapide), services, étapes, véhicules, avantages, chiffres clés, avis clients, zones desservies, FAQ, appel à l'action,
-image et texte, équipe, logos, carte, contact, grille tarifaire, texte, Liquid personnalisé.
-Remplacez les avis, chiffres et membres d'équipe d'exemple par des informations réelles.
+## 4. Vérifier puis publier
 
-## 7. Envoi des réservations : deux niveaux
+Suivez `TESTS.md` dans l'aperçu du thème (⋯ › Aperçu), sur ordinateur et sur téléphone, puis publiez (⋯ › Publier).
+L'ancien thème reste dans la bibliothèque et peut être republié en un clic.
 
-**Sans service de réservation (immédiat, gratuit)** : les demandes partent par le formulaire de contact natif de
-Shopify vers l'e-mail de la boutique (Paramètres › Notifications › e-mail de l'expéditeur). Le message contient le
-trajet, les coordonnées GPS, le véhicule, les options, le client et le détail du prix indicatif. Pas de paiement en
-ligne, pas d'e-mail automatique au client : la confirmation se fait par vos soins.
+## 5. Facultatif : pages Shopify classiques
 
-**Avec le service de réservation** (`docs/BACKEND.md`) : prix revalidé côté serveur, paiement en ligne ou acompte,
-e-mails automatiques au client (confirmation, rappel, modification, annulation), fichier agenda, tableau de bord.
-
-## 8. Vérifier puis publier
-
-Suivez la procédure de `TESTS.md` dans l'aperçu du thème (⋯ › Aperçu), sur ordinateur et sur téléphone.
-Publiez ensuite (⋯ › Publier). L'ancien thème reste dans la bibliothèque et peut être republié en un clic.
+Une fois le thème publié, vous pouvez créer de vraies pages (Boutique en ligne › Pages) et leur associer les modèles
+`reservation`, `services`, `vehicules`, `tarifs`, `a-propos`, `contact`, `faq` ou `legal`.
+Shopify ne propose dans ce menu que les modèles du **thème publié**. Sélectionnez ensuite ces pages dans
+Paramètres du thème › Réservation (Page de réservation) et **Pages du site** : menus et boutons y mèneront.
+Pour utiliser vos propres menus Shopify : en-tête › « Liens du menu » et pied de page › bloc Menu › « Liens ».
 
 ## Réutiliser le thème pour une autre entreprise
 
-Importez le même ZIP dans la boutique de l'autre entreprise et refaites les étapes 2 bis à 7 : aucune donnée d'une
-entreprise n'est écrite dans le code. Un même service de réservation peut servir plusieurs entreprises
-(`TENANTS_FILE`, voir `backend/tenants.example.json`).
+Importez le même ZIP dans la boutique de l'autre entreprise et refaites l'étape 2 : aucune donnée d'une entreprise n'est
+écrite dans le code. Un même service de réservation peut servir plusieurs entreprises (`backend/tenants.example.json`).

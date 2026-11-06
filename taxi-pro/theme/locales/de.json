@@ -32,6 +32,16 @@
     "share": "Teilen",
     "price_suffix_note": "Preise {{ suffix }}"
   },
+  "nav": {
+    "home": "Startseite",
+    "booking": "Buchung",
+    "services": "Leistungen",
+    "vehicles": "Fahrzeuge",
+    "rates": "Preise",
+    "about": "Über uns",
+    "faq": "FAQ",
+    "contact": "Kontakt"
+  },
   "days": {
     "mon": "Montag",
     "tue": "Dienstag",
@@ -103,7 +113,18 @@
     "quantity": "Menge",
     "gift_card_title": "Ihr Geschenkgutschein",
     "gift_card_code": "Code",
-    "gift_card_balance": "Guthaben: {{ balance }}"
+    "gift_card_balance": "Guthaben: {{ balance }}",
+    "view_titles": {
+      "reservation": "Buchung",
+      "services": "Unsere Leistungen",
+      "vehicules": "Unsere Fahrzeuge",
+      "tarifs": "Preise",
+      "a_propos": "Über uns",
+      "contact": "Kontakt",
+      "faq": "Häufige Fragen"
+    },
+    "view_description": "{{ title }} – {{ company }}. Buchen Sie Ihr Taxi online: Preis vor der Fahrt berechnet.",
+    "contact_sent": "Vielen Dank, Ihre Nachricht wurde gesendet."
   },
   "customer": {
     "login_title": "Anmelden",

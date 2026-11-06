@@ -5,7 +5,7 @@
     "announcement": {
       "type": "announcement-bar",
       "settings": {
-        "text": "Disponible 24 h/24, 7 j/7 · Transferts aéroport à prix fixe",
+        "text": "Réservez en ligne : prix calculé et affiché avant la course",
         "show_contact": true,
         "color_scheme": "accent"
       }
@@ -13,13 +13,20 @@
     "header": {
       "type": "header",
       "settings": {
-        "menu": "main-menu",
         "sticky": true,
         "transparent_home": true,
         "show_phone": true,
         "cta_label": "Réserver",
         "height": 84,
-        "color_scheme": "default"
+        "color_scheme": "default",
+        "nav_source": "builtin",
+        "nav_home": true,
+        "nav_services": true,
+        "nav_vehicles": true,
+        "nav_rates": true,
+        "nav_about": true,
+        "nav_faq": false,
+        "nav_contact": true
       }
     }
   },

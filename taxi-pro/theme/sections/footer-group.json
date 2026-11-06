@@ -6,16 +6,17 @@
       "type": "footer",
       "settings": {
         "show_social": true,
-        "legal_menu": "footer",
         "color_scheme": "alt",
-        "padding_top": 72
+        "padding_top": 72,
+        "legal_source": "policies",
+        "text": "<p>Taxi, transferts aéroport et chauffeur privé. Prix calculé et affiché avant de réserver.</p>"
       },
       "blocks": {
         "menu_1": {
           "type": "menu",
           "settings": {
             "title": "Navigation",
-            "menu": "main-menu"
+            "source": "builtin"
           }
         },
         "contact_2": {

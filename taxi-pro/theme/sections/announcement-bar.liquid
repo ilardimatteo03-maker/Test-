@@ -1,6 +1,10 @@
 {%- liquid
+  assign co_phone = settings.company_phone | default: shop.phone
+  assign co_email = settings.company_email | default: shop.email
+-%}
+{%- liquid
   assign s = section.settings
-  assign phone_href = settings.company_phone | remove: ' ' | remove: '.' | remove: '-' | remove: '(' | remove: ')' | remove: '/'
+  assign phone_href = co_phone | remove: ' ' | remove: '.' | remove: '-' | remove: '(' | remove: ')' | remove: '/'
 -%}
 {%- if s.text != blank -%}
   <div class="announcement scheme-{{ s.color_scheme }}">
@@ -10,8 +14,8 @@
       </p>
       {%- if s.show_contact -%}
         <div class="announcement__extra">
-          {%- if settings.company_phone != blank -%}<a href="tel:{{ phone_href }}">{{ settings.company_phone }}</a>{%- endif -%}
-          {%- if settings.company_email != blank -%}<a href="mailto:{{ settings.company_email }}">{{ settings.company_email }}</a>{%- endif -%}
+          {%- if co_phone != blank -%}<a href="tel:{{ phone_href }}">{{ co_phone }}</a>{%- endif -%}
+          {%- if co_email != blank -%}<a href="mailto:{{ co_email }}">{{ co_email }}</a>{%- endif -%}
         </div>
       {%- endif -%}
     </div>

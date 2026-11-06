@@ -492,3 +492,6 @@ body.anim-rich .hero__media img { animation: hero-zoom 18s ease-out both; }
   .site-header, .site-footer, .mobile-bar, .floating-whatsapp, .announcement { display: none !important; }
   body { background: #fff; color: #000; }
 }
+
+/* Confirmation d'envoi du formulaire de contact */
+.contact-banner { padding: 1rem 0; font-weight: var(--font-body-weight-medium); }

@@ -1,0 +1,143 @@
+{
+  "sections": {
+    "header": {
+      "type": "page-header",
+      "settings": {
+        "eyebrow": "Nos véhicules",
+        "text": "<p>Une flotte récente, propre et confortable, adaptée à chaque trajet.</p>",
+        "color_scheme": "inverse",
+        "breadcrumbs": true,
+        "padding_top": 96,
+        "padding_bottom": 72,
+        "title": "Nos véhicules"
+      }
+    },
+    "fleet": {
+      "type": "fleet",
+      "settings": {
+        "layout": "detailed",
+        "show_book": true,
+        "book_label": "Réserver ce véhicule",
+        "color_scheme": "default",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "vehicle_1": {
+          "type": "vehicle",
+          "settings": {
+            "name": "Berline",
+            "code": "berline",
+            "models": "Toyota Camry hybride ou similaire",
+            "passengers": 4,
+            "luggage": 3,
+            "badge": "Le plus demandé",
+            "text": "<p>Confortable et discrète, idéale en ville et vers l'aéroport.</p>",
+            "equipment": "Climatisation\nChargeurs USB\nEau offerte"
+          }
+        },
+        "vehicle_2": {
+          "type": "vehicle",
+          "settings": {
+            "name": "Break",
+            "code": "break",
+            "models": "Skoda Superb Combi ou similaire",
+            "passengers": 4,
+            "luggage": 5,
+            "text": "<p>Plus de place pour les bagages, parfait pour les départs en vacances.</p>",
+            "equipment": "Climatisation\nGrand coffre"
+          }
+        },
+        "vehicle_3": {
+          "type": "vehicle",
+          "settings": {
+            "name": "Van 8 places",
+            "code": "van",
+            "models": "Mercedes Classe V ou similaire",
+            "passengers": 8,
+            "luggage": 8,
+            "text": "<p>Pour les familles et les groupes, avec de la place pour tous les bagages.</p>",
+            "equipment": "Climatisation\nWi-Fi\nPortes coulissantes"
+          }
+        },
+        "vehicle_4": {
+          "type": "vehicle",
+          "settings": {
+            "name": "Classe affaires",
+            "code": "affaires",
+            "models": "Mercedes Classe E ou similaire",
+            "passengers": 3,
+            "luggage": 3,
+            "badge": "Premium",
+            "text": "<p>Berline premium, chauffeur en tenue, presse et Wi-Fi à bord.</p>",
+            "equipment": "Wi-Fi\nSièges cuir\nPresse du jour"
+          }
+        }
+      },
+      "block_order": [
+        "vehicle_1",
+        "vehicle_2",
+        "vehicle_3",
+        "vehicle_4"
+      ]
+    },
+    "features": {
+      "type": "features",
+      "settings": {
+        "eyebrow": "À bord",
+        "heading": "Le confort, à chaque trajet",
+        "align": "center",
+        "style": "plain",
+        "columns": "4",
+        "color_scheme": "alt",
+        "padding_top": 88,
+        "padding_bottom": 88
+      },
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "snow",
+            "title": "Climatisation",
+            "text": "<p>Dans tous nos véhicules.</p>"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "wifi",
+            "title": "Wi-Fi",
+            "text": "<p>Sur les vans et la classe affaires.</p>"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "baby",
+            "title": "Sièges enfants",
+            "text": "<p>Sur demande, à la réservation.</p>"
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "plug",
+            "title": "Chargeurs",
+            "text": "<p>USB et USB-C à bord.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4"
+      ]
+    }
+  },
+  "order": [
+    "header",
+    "fleet",
+    "features"
+  ]
+}

@@ -1,5 +1,6 @@
 {%- comment -%} Questions fréquentes en accordéon, avec données structurées FAQPage. {%- endcomment -%}
 {%- assign s = section.settings -%}
+{%- capture contact_url -%}{% render 'page-url', key: 'contact' %}{%- endcapture -%}
 <section class="section scheme-{{ s.color_scheme }}" style="--pad-top: {{ s.padding_top }}px; --pad-bottom: {{ s.padding_bottom }}px;">
   <div class="container{% if s.layout == 'stacked' %} container--narrow{% endif %}">
     <div class="faq-layout{% if s.layout == 'split' %} faq-layout--split{% endif %}">
@@ -7,7 +8,7 @@
         {%- if s.eyebrow != blank -%}<p class="eyebrow reveal">{{ s.eyebrow }}</p>{%- endif -%}
         {%- if s.heading != blank -%}<h2 class="h2 reveal" style="--i: 1">{{ s.heading }}</h2>{%- endif -%}
         {%- if s.text != blank -%}<div class="lead rte reveal" style="--i: 2">{{ s.text }}</div>{%- endif -%}
-        {%- if s.button_label != blank -%}<a class="btn btn--secondary reveal" style="margin-top: 1.4rem; --i: 3" href="{{ s.button_link | default: '/pages/contact' }}">{{ s.button_label }}</a>{%- endif -%}
+        {%- if s.button_label != blank -%}<a class="btn btn--secondary reveal" style="margin-top: 1.4rem; --i: 3" href="{{ s.button_link | default: contact_url }}">{{ s.button_label }}</a>{%- endif -%}
       </div>
       <div class="accordion reveal" style="--i: 1">
         {%- for block in section.blocks -%}
@@ -45,7 +46,7 @@
     { "type": "text", "id": "heading", "label": "Titre", "default": "Tout savoir avant de réserver" },
     { "type": "richtext", "id": "text", "label": "Texte" },
     { "type": "text", "id": "button_label", "label": "Bouton", "default": "Nous contacter" },
-    { "type": "url", "id": "button_link", "label": "Lien du bouton" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton", "info": "Vide : page Contact." },
     { "type": "select", "id": "layout", "label": "Mise en page", "options": [ { "value": "split", "label": "Titre à gauche" }, { "value": "stacked", "label": "Centrée" } ], "default": "split" },
     { "type": "checkbox", "id": "open_first", "label": "Ouvrir la première question", "default": true },
     { "type": "checkbox", "id": "structured_data", "label": "Données structurées FAQ pour Google", "default": true, "info": "N'activez qu'une seule section FAQ par page." },

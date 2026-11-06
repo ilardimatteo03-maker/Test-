@@ -1,4 +1,4 @@
-{%- assign booking_fallback = routes.root_url | append: '?view=reservation' | replace: '//?', '/?' -%}
+{%- capture booking_url -%}{% render 'page-url', key: 'booking' %}{%- endcapture -%}
 {%- comment -%}
   Nos véhicules : vitrine (cartes) ou présentation détaillée avec galerie, capacités et équipements.
   Le « code véhicule » relie la vitrine au véhicule réservable (Pied de page › Véhicules (tarifs))
@@ -6,11 +6,20 @@
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
-  assign booking_url = settings.booking_page.url | default: booking_fallback
+  assign booking_url = booking_url | strip
+  if booking_url contains '?'
+    assign booking_sep = booking_url | append: '&'
+  else
+    assign booking_sep = booking_url | append: '?'
+  endif
+  capture section_link
+    render 'page-url', key: 'vehicles'
+  endcapture
+  assign section_link = s.link_url | default: section_link
 -%}
 <section class="section scheme-{{ s.color_scheme }}" style="--pad-top: {{ s.padding_top }}px; --pad-bottom: {{ s.padding_bottom }}px;">
   <div class="container">
-    {% render 'section-head', eyebrow: s.eyebrow, heading: s.heading, text: s.text, align: s.align, link_label: s.link_label, link_url: s.link_url %}
+    {% render 'section-head', eyebrow: s.eyebrow, heading: s.heading, text: s.text, align: s.align, link_label: s.link_label, link_url: section_link %}
 
     {%- if s.layout == 'detailed' -%}
       <div class="stack" style="--stack: clamp(3rem, 2rem + 4vw, 6rem)">
@@ -54,7 +63,7 @@
               {%- endif -%}
               {%- if b.price_text != blank -%}<p class="h4" style="color: var(--link)">{{ b.price_text }}</p>{%- endif -%}
               {%- if s.show_book -%}
-                <a class="btn" href="{{ booking_url }}{% if code != blank %}?tp_vehicle={{ code }}{% endif %}">{{ s.book_label }}{% render 'icon', name: 'arrow-right' %}</a>
+                <a class="btn" href="{% if code != blank %}{{ booking_sep }}tp_vehicle={{ code }}{% else %}{{ booking_url }}{% endif %}">{{ s.book_label }}{% render 'icon', name: 'arrow-right' %}</a>
               {%- endif -%}
             </div>
           </article>
@@ -85,7 +94,7 @@
               <div class="card__footer">
                 {%- if b.price_text != blank -%}<p style="margin: 0 0 .6rem; font-weight: var(--font-body-weight-medium); color: var(--link)">{{ b.price_text }}</p>{%- endif -%}
                 {%- if s.show_book -%}
-                  <a class="link-arrow" href="{{ booking_url }}{% if code != blank %}?tp_vehicle={{ code }}{% endif %}">{{ s.book_label }}{% render 'icon', name: 'arrow-right' %}<span class="visually-hidden"> : {{ b.name }}</span></a>
+                  <a class="link-arrow" href="{% if code != blank %}{{ booking_sep }}tp_vehicle={{ code }}{% else %}{{ booking_url }}{% endif %}">{{ s.book_label }}{% render 'icon', name: 'arrow-right' %}<span class="visually-hidden"> : {{ b.name }}</span></a>
                 {%- endif -%}
               </div>
             </div>
@@ -109,7 +118,7 @@
     { "type": "richtext", "id": "text", "label": "Texte" },
     { "type": "select", "id": "align", "label": "Alignement du titre", "options": [ { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centré" } ], "default": "left" },
     { "type": "text", "id": "link_label", "label": "Lien de l'en-tête", "default": "Voir la flotte" },
-    { "type": "url", "id": "link_url", "label": "Destination du lien" },
+    { "type": "url", "id": "link_url", "label": "Destination du lien", "info": "Vide : page Véhicules." },
     { "type": "select", "id": "layout", "label": "Mise en page", "options": [ { "value": "cards", "label": "Cartes" }, { "value": "detailed", "label": "Détaillée avec galerie" } ], "default": "cards" },
     { "type": "select", "id": "columns", "label": "Colonnes (cartes, ordinateur)", "options": [ { "value": "2", "label": "2" }, { "value": "3", "label": "3" }, { "value": "4", "label": "4" } ], "default": "3" },
     { "type": "checkbox", "id": "show_book", "label": "Bouton de réservation", "default": true },

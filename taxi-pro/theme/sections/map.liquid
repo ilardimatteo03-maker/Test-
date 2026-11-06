@@ -1,8 +1,13 @@
+{%- liquid
+  assign co_street = settings.company_street | default: shop.address.address1
+  assign co_postcode = settings.company_postcode | default: shop.address.zip
+  assign co_city = settings.company_city | default: shop.address.city
+-%}
 {%- comment -%} Carte : adresse de l'entreprise ou lieu au choix (Google Maps ou OpenStreetMap). {%- endcomment -%}
 {%- liquid
   assign s = section.settings
   capture default_query
-    echo settings.company_street | append: ', ' | append: settings.company_postcode | append: ' ' | append: settings.company_city
+    echo co_street | append: ', ' | append: co_postcode | append: ' ' | append: co_city
   endcapture
   assign query = s.query | default: default_query
 -%}

@@ -1,0 +1,41 @@
+{%- comment -%}
+  Adresse d'une page du site. Paramètre : key — home, booking, services, vehicles, rates, about, contact, faq.
+  Si une page Shopify est choisie dans Paramètres du thème (Réservation › Page de réservation, Pages du site),
+  son adresse est utilisée. Sinon : la page intégrée /?view=… (modèle templates/index.<vue>.json), qui fonctionne
+  dès l'import du thème, sans créer de page ni de menu.
+{%- endcomment -%}
+{%- liquid
+  assign chosen = ''
+  case key
+    when 'booking'
+      assign chosen = settings.booking_page
+      assign view = 'reservation'
+    when 'services'
+      assign chosen = settings.page_services
+      assign view = 'services'
+    when 'vehicles'
+      assign chosen = settings.page_vehicles
+      assign view = 'vehicules'
+    when 'rates'
+      assign chosen = settings.page_rates
+      assign view = 'tarifs'
+    when 'about'
+      assign chosen = settings.page_about
+      assign view = 'a-propos'
+    when 'contact'
+      assign chosen = settings.page_contact
+      assign view = 'contact'
+    when 'faq'
+      assign chosen = settings.page_faq
+      assign view = 'faq'
+    else
+      assign view = ''
+  endcase
+  if chosen != blank
+    echo chosen.url
+  elsif view == ''
+    echo routes.root_url
+  else
+    echo routes.root_url | append: '?view=' | append: view | replace: '//?', '/?'
+  endif
+-%}

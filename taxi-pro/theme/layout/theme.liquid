@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="format-detection" content="telephone=no">
-    <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
     {%- unless settings.type_heading_font.system? and settings.type_body_font.system? -%}
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
@@ -17,6 +16,19 @@
 
     {%- liquid
       assign company = settings.company_name | default: shop.name
+      comment
+        Pages intégrées (/?view=services…) : titre, description et adresse canonique propres,
+        pour qu'elles ne soient pas vues comme des doublons de l'accueil.
+      endcomment
+      assign doc_title = page_title
+      assign doc_description = page_description
+      assign doc_canonical = canonical_url
+      if template.name == 'index' and template.suffix != blank
+        assign view_key = 'pages.view_titles.' | append: template.suffix | replace: '-', '_'
+        assign doc_title = view_key | t
+        assign doc_description = 'pages.view_description' | t: title: doc_title, company: company
+        assign doc_canonical = canonical_url | split: '?' | first | append: '?view=' | append: template.suffix
+      endif
       assign title_suffix = ''
       if current_tags
         assign tags_joined = current_tags | join: ', '
@@ -26,15 +38,16 @@
         assign title_suffix = title_suffix | append: ' – Page ' | append: current_page
       endif
     -%}
+    <link rel="canonical" href="{{ doc_canonical }}">
     <title>
-      {{- page_title -}}{{ title_suffix }}
-      {%- unless page_title contains company %} – {{ company }}{% endunless -%}
+      {{- doc_title -}}{{ title_suffix }}
+      {%- unless doc_title contains company %} – {{ company }}{% endunless -%}
     </title>
-    {%- if page_description -%}
-      <meta name="description" content="{{ page_description | escape }}">
+    {%- if doc_description != blank -%}
+      <meta name="description" content="{{ doc_description | escape }}">
     {%- endif -%}
 
-    {% render 'meta-tags', company: company %}
+    {% render 'meta-tags', company: company, title: doc_title, description: doc_description, url: doc_canonical %}
     {% render 'css-variables' %}
     {{ 'theme.css' | asset_url | stylesheet_tag }}
     <script>document.documentElement.classList.replace('no-js', 'js');</script>
@@ -58,7 +71,7 @@
     assign body_classes = body_classes | append: ' anim-' | append: settings.animations
     assign body_classes = body_classes | append: ' preset-' | append: settings.style_preset
   -%}
-  <body class="{{ body_classes }}">
+  <body class="{{ body_classes }}" data-contact-sent="{{ 'pages.contact_sent' | t | escape }}">
     <a class="skip-link" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
 
     {% sections 'header-group' %}

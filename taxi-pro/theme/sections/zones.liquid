@@ -1,4 +1,7 @@
-{%- assign booking_fallback = routes.root_url | append: '?view=reservation' | replace: '//?', '/?' -%}
+{%- liquid
+  assign co_city = settings.company_city | default: shop.address.city
+-%}
+{%- capture booking_url -%}{% render 'page-url', key: 'booking' %}{%- endcapture -%}
 {%- comment -%} Zones desservies : liste de villes, aéroports et gares, avec carte facultative. {%- endcomment -%}
 {%- assign s = section.settings -%}
 <section class="section scheme-{{ s.color_scheme }}" style="--pad-top: {{ s.padding_top }}px; --pad-bottom: {{ s.padding_bottom }}px;">
@@ -19,7 +22,7 @@
         </ul>
         {%- if s.note != blank -%}<div class="rte text-muted reveal" style="margin-top: 1.6rem; --i: 3">{{ s.note }}</div>{%- endif -%}
         {%- if s.button_label != blank -%}
-          <div class="btn-row" style="margin-top: 2rem"><a class="btn" href="{{ s.button_link | default: settings.booking_page.url | default: booking_fallback }}">{{ s.button_label }}</a></div>
+          <div class="btn-row" style="margin-top: 2rem"><a class="btn" href="{{ s.button_link | default: booking_url }}">{{ s.button_label }}</a></div>
         {%- endif -%}
       </div>
       {%- if s.show_map -%}
@@ -27,7 +30,7 @@
           {%- if s.image != blank -%}
             <div class="media-text__media" style="--ratio: 4 / 3">{{ s.image | image_url: width: 1200 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 55vw, 100vw', widths: '600, 900, 1200', alt: s.image.alt | default: s.heading }}</div>
           {%- else -%}
-            {%- assign map_query = s.map_query | default: settings.company_city -%}
+            {%- assign map_query = s.map_query | default: co_city -%}
             {% render 'map-embed', provider: s.map_provider, query: map_query, lat: settings.geo_lat, lng: settings.geo_lng, zoom: s.map_zoom, title: s.heading, consent: s.map_consent %}
           {%- endif -%}
         </div>

@@ -9,7 +9,7 @@ moyens de paiement et textes se règlent dans l'éditeur de thème. Le même th�
 
 | | |
 | --- | --- |
-| **Thème à importer** | `dist/taxi-pro-theme-1.0.1.zip` (108 fichiers) |
+| **Thème à importer** | `dist/taxi-pro-theme-1.1.0.zip` |
 | **Sources du thème** | `theme/` |
 | **Service de réservation** | `backend/` (Node.js 18+, sans dépendance) |
 | **Documentation** | `docs/INSTALLATION.md` · `docs/TARIFICATION.md` · `docs/BACKEND.md` · `docs/TESTS.md` |
@@ -31,7 +31,7 @@ moyens de paiement et textes se règlent dans l'éditeur de thème. Le même th�
 | E-mails au client (demande reçue, paiement en attente, confirmation + agenda, modification, annulation, rappel) et à l'entreprise | **Nécessite le service de réservation** et un fournisseur d'e-mails (Resend, Postmark, SendGrid ou Brevo). |
 | Tableau de bord des réservations, flux d'agenda, webhook sortant (Zapier, Make, dispatch) | **Nécessite le service de réservation**. |
 | 5 préréglages de style, couleurs, polices, tailles, arrondis, ombres, espacements, animations, boutons, champs | **Opérationnel** (réglages et préréglages Shopify). |
-| Pages : accueil, réservation, services, véhicules, tarifs, à propos, contact, FAQ, pages légales, recherche, 404, blog, mot de passe, comptes clients | **Opérationnel**. |
+| Pages : accueil, réservation, services, véhicules, tarifs, à propos, contact, FAQ, recherche, 404, blog, mot de passe, comptes clients | **Opérationnel dès l'import** : pages intégrées (`/?view=…`), menus intégrés et traduits, coordonnées reprises des Détails de la boutique, politiques Shopify dans le pied de page. Pages Shopify classiques possibles après publication. |
 | Langues | Français (par défaut), anglais, néerlandais, allemand pour les textes du site ; e-mails dans les 4 langues. Les libellés de l'éditeur de thème sont en français. |
 
 ## Architecture
@@ -59,10 +59,10 @@ n'est pas reçu.
 
 ## Démarrage rapide
 
-1. Importer `dist/taxi-pro-theme-1.0.1.zip` comme **nouveau thème non publié** (Boutique en ligne › Thèmes).
-   La réservation est tout de suite disponible à l'adresse `/?view=reservation`, sans créer de page.
-2. Créer les pages et leur associer les modèles, régler l'identité, les tarifs et la configuration Taxi Pro :
-   `docs/INSTALLATION.md`.
+1. Importer `dist/taxi-pro-theme-1.1.0.zip` comme **nouveau thème non publié** (Boutique en ligne › Thèmes).
+   Toutes les pages, les menus et la réservation fonctionnent tout de suite, sans créer de page ni de menu ;
+   téléphone, e-mail et adresse sont repris des Détails de la boutique Shopify.
+2. Mettre son logo, choisir un style, régler ses tarifs et véhicules : `docs/INSTALLATION.md`.
 3. (Recommandé) Déployer le service de réservation : `docs/BACKEND.md`.
 4. Recette complète : `docs/TESTS.md`. Puis publier.
 
@@ -75,6 +75,7 @@ node --test taxi-pro/tests/*.test.mjs            # moteur de tarification
 node taxi-pro/tools/check-theme.mjs              # Theme Check + validation des modèles et traductions
 node taxi-pro/tools/preview/server.mjs 8791      # aperçu local : http://127.0.0.1:8791 (?preset=Corporate…)
 node taxi-pro/tools/e2e.mjs --shots              # tests navigateur + captures
+node taxi-pro/tools/audit.mjs                     # chaque lien et chaque bouton, ordinateur et mobile
 node taxi-pro/tools/gen-strings.mjs              # après ajout d'un texte « taxi.booking » dans fr.default.json
 node taxi-pro/tools/build-zip.mjs                # archive du thème
 (cd taxi-pro/backend && npm run sync-engine)     # après modification du moteur de tarification
@@ -101,4 +102,9 @@ Il sert aux tests et aux captures ; la référence reste l'aperçu Shopify.
 - La politique de l'OpenStreetMap Foundation interdit l'usage intensif de ses serveurs de tuiles et de Photon/OSRM
   publics : configurez un fournisseur commercial en production.
 - Les libellés de l'éditeur de thème sont en français (pas de fichier de traduction des schémas).
+- Les pages intégrées utilisent l'adresse `/?view=…`. Pour un référencement optimal, créez ensuite de vraies pages
+  Shopify (possible une fois le thème publié) et sélectionnez-les dans Paramètres du thème › Pages du site.
+- Après l'envoi du formulaire de contact, le thème demande à Shopify de revenir sur la même page (`return_to`).
+  Si Shopify revient sur l'accueil, un bandeau de confirmation s'y affiche : le visiteur voit toujours la confirmation.
+- Avis clients, chiffres clés et équipe sont masqués à l'import : renseignez vos vraies informations avant de les afficher.
 - Le thème n'est pas conçu pour vendre des produits : les pages produit, collection et panier sont fonctionnelles mais minimales.

@@ -1,3 +1,6 @@
+{%- liquid
+  assign co_phone = settings.company_phone | default: shop.phone
+-%}
 {%- comment -%}
   Module de réservation complet en 5 étapes.
   Le balisage est rendu par Liquid (accessible, traduisible) ; assets/tp-booking.js gère le parcours,
@@ -12,8 +15,10 @@
 {%- liquid
   assign uid = 'tpb-' | append: section.id
   assign company = settings.company_name | default: shop.name
-  assign phone_href = settings.company_phone | remove: ' ' | remove: '.' | remove: '-' | remove: '(' | remove: ')' | remove: '/'
+  assign phone_href = co_phone | remove: ' ' | remove: '.' | remove: '-' | remove: '(' | remove: ')' | remove: '/'
   assign hour_options = '1,2,3,4,5,6,7,8,9,10,12,24' | split: ','
+  assign terms_url = settings.terms_page.url | default: shop.terms_of_service.url
+  assign privacy_url = settings.privacy_page.url | default: shop.privacy_policy.url
   assign l_pickup = 'taxi.booking.pickup_label' | t
   assign p_pickup = 'taxi.booking.pickup_placeholder' | t
   assign l_dropoff = 'taxi.booking.dropoff_label' | t
@@ -40,13 +45,13 @@
       <noscript>
         <div class="form-status form-status--error">
           {{ 'taxi.booking.nojs' | t }}
-          {%- if settings.company_phone != blank %} <a href="tel:{{ phone_href }}">{{ settings.company_phone }}</a>{% endif -%}
+          {%- if co_phone != blank %} <a href="tel:{{ phone_href }}">{{ co_phone }}</a>{% endif -%}
         </div>
       </noscript>
 
       <div class="form-status form-status--error" data-tp-unavailable hidden>
         {{ 'taxi.booking.unavailable_config' | t }}
-        {%- if settings.company_phone != blank %} <a href="tel:{{ phone_href }}">{{ settings.company_phone }}</a>{% endif -%}
+        {%- if co_phone != blank %} <a href="tel:{{ phone_href }}">{{ co_phone }}</a>{% endif -%}
       </div>
 
       {%- if request.design_mode -%}
@@ -228,12 +233,12 @@
                 <span>
                   {%- if section.settings.terms_text != blank -%}
                     {{ section.settings.terms_text | remove: '<p>' | remove: '</p>' }}
-                  {%- elsif settings.terms_page != blank -%}
-                    {{ 'taxi.terms.accept_html' | t: url: settings.terms_page.url }}
+                  {%- elsif terms_url != blank -%}
+                    {{ 'taxi.terms.accept_html' | t: url: terms_url }}
                   {%- else -%}
                     {{ 'taxi.terms.accept' | t }}
                   {%- endif -%}
-                  {%- if settings.privacy_page != blank %} {{ 'taxi.terms.privacy_html' | t: url: settings.privacy_page.url }}{% endif -%}
+                  {%- if privacy_url != blank %} {{ 'taxi.terms.privacy_html' | t: url: privacy_url }}{% endif -%}
                 </span>
               </label>
             {%- endif -%}
@@ -273,8 +278,8 @@
                   {%- endfor -%}
                 </ul>
               {%- endif -%}
-              {%- if settings.company_phone != blank and section.settings.show_help -%}
-                <p class="tp-aside__help">{{ section.settings.help_text }}<br><a href="tel:{{ phone_href }}">{% render 'icon', name: 'phone' %}{{ settings.company_phone }}</a></p>
+              {%- if co_phone != blank and section.settings.show_help -%}
+                <p class="tp-aside__help">{{ section.settings.help_text }}<br><a href="tel:{{ phone_href }}">{% render 'icon', name: 'phone' %}{{ co_phone }}</a></p>
               {%- endif -%}
             </div>
           </aside>
@@ -293,6 +298,8 @@
 
       {%- comment -%} Repli sans backend : formulaire de contact natif (e-mail à la boutique). {%- endcomment -%}
       {%- form 'contact', class: 'tp-contact-fallback' -%}
+        {%- capture contact_return -%}{{ request.path }}?{% if template.name == 'index' and template.suffix != blank %}view={{ template.suffix }}&{% endif %}contact_posted=true{%- endcapture -%}
+<input type="hidden" name="return_to" value="{{ contact_return }}">
         {%- if form.posted_successfully? -%}<span data-tp-contact-posted hidden></span>{%- endif -%}
         <input type="hidden" name="contact[name]" data-tp-contact-field="name">
         <input type="hidden" name="contact[email]" data-tp-contact-field="email">

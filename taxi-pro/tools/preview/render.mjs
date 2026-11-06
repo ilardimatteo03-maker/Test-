@@ -23,6 +23,12 @@ function fontObject(handle) {
   return obj;
 }
 
+export const POLICIES = [
+  { title: "Conditions d'utilisation", url: '/policies/terms-of-service', handle: 'terms-of-service' },
+  { title: 'Politique de confidentialité', url: '/policies/privacy-policy', handle: 'privacy-policy' },
+  { title: 'Mentions légales', url: '/policies/legal-notice', handle: 'legal-notice' }
+];
+
 export function createRenderer({ themeDir, overrides = {}, preset = null, designMode = false }) {
   const read = (p) => readFileSync(join(themeDir, p), 'utf8');
   const locale = JSON.parse(read('locales/fr.default.json'));
@@ -244,7 +250,13 @@ export function createRenderer({ themeDir, overrides = {}, preset = null, design
     const page = name === 'page' ? pageObject(handle) : null;
     const scope = {
       settings, page, template: { name, suffix: suffix || null },
-      shop: { name: 'Taxi Exemple', permanent_domain: 'taxi-exemple.myshopify.com', url: 'http://localhost', currency: 'EUR', description: 'Taxi et chauffeur privé' },
+      shop: {
+        name: 'Taxi Exemple', permanent_domain: 'taxi-exemple.myshopify.com', url: 'http://localhost', currency: 'EUR', description: 'Taxi et chauffeur privé',
+        // Paramètres › Détails de la boutique : repris automatiquement quand les réglages du thème sont vides
+        phone: '+32 2 000 00 00', email: 'contact@exemple.be',
+        address: { address1: "Rue de l'Exemple 1", zip: '1000', city: 'Bruxelles', country: 'Belgique', country_code: 'BE' },
+        policies: POLICIES, terms_of_service: POLICIES[0], privacy_policy: POLICIES[1]
+      },
       request: { locale: { iso_code: 'fr' }, design_mode: designMode, page_type: name, contact_posted: query.contact_posted === 'true', path },
       routes: { root_url: '/', search_url: '/search', cart_url: '/cart', account_url: '/account', account_register_url: '/account/register', account_logout_url: '/account/logout', account_addresses_url: '/account/addresses' },
       canonical_url: `http://localhost${path}`, page_title: page ? page.title : 'Taxi Exemple, taxi et chauffeur privé',
@@ -257,7 +269,7 @@ export function createRenderer({ themeDir, overrides = {}, preset = null, design
     if (existsSync(join(themeDir, 'templates', `${template}.json`))) {
       const t = JSON.parse(read(`templates/${template}.json`));
       if (t.layout) layout = t.layout;
-      for (const id of t.order) if (!t.sections[id].disabled) content += await renderSection(`template--${template}__${id}`, t.sections[id], scope);
+      for (const id of t.order) if (!t.sections[id].disabled || query.enable_all === '1') content += await renderSection(`template--${template}__${id}`, t.sections[id], scope);
     } else {
       const env = Object.assign({}, scope);
       const tplText = read(`templates/${template}.liquid`);

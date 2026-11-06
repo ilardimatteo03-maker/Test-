@@ -1,0 +1,39 @@
+{%- comment -%}
+  Liens de navigation intégrés (aucun menu Shopify à créer), traduits dans la langue du visiteur.
+  Paramètre : items — clés séparées par des virgules (home, booking, services, vehicles, rates, about, faq, contact).
+{%- endcomment -%}
+{%- assign keys = items | split: ',' -%}
+{%- for raw_key in keys -%}
+  {%- liquid
+    assign k = raw_key | strip
+    case k
+      when 'booking'
+        assign view = 'reservation'
+      when 'vehicles'
+        assign view = 'vehicules'
+      when 'rates'
+        assign view = 'tarifs'
+      when 'about'
+        assign view = 'a-propos'
+      when 'home'
+        assign view = ''
+      else
+        assign view = k
+    endcase
+    capture url
+      render 'page-url', key: k
+    endcapture
+    assign url = url | strip
+    assign current = false
+    if template.name == 'index'
+      assign suffix = template.suffix | default: ''
+      if suffix == view
+        assign current = true
+      endif
+    elsif request.path == url
+      assign current = true
+    endif
+    assign label_key = 'nav.' | append: k
+  -%}
+  <li><a href="{{ url }}"{% if current %} aria-current="page"{% endif %}>{{ label_key | t }}</a></li>
+{%- endfor -%}

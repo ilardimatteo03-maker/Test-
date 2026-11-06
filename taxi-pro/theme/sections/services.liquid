@@ -1,4 +1,4 @@
-{%- assign booking_fallback = routes.root_url | append: '?view=reservation' | replace: '//?', '/?' -%}
+{%- capture booking_url -%}{% render 'page-url', key: 'booking' %}{%- endcapture -%}
 {%- comment -%}
   Présentation des services : cartes (accueil) ou présentation détaillée (page Nos services).
   Chaque service est un bloc activable ; le « code de réservation » pré-sélectionne la prestation
@@ -6,7 +6,16 @@
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
-  assign booking_url = settings.booking_page.url | default: booking_fallback
+  assign booking_url = booking_url | strip
+  if booking_url contains '?'
+    assign booking_sep = booking_url | append: '&'
+  else
+    assign booking_sep = booking_url | append: '?'
+  endif
+  capture section_link
+    render 'page-url', key: 'services'
+  endcapture
+  assign section_link = s.link_url | default: section_link
   assign visible = 0
   for block in section.blocks
     if block.settings.enabled
@@ -16,7 +25,7 @@
 -%}
 <section class="section scheme-{{ s.color_scheme }}" style="--pad-top: {{ s.padding_top }}px; --pad-bottom: {{ s.padding_bottom }}px;">
   <div class="container">
-    {% render 'section-head', eyebrow: s.eyebrow, heading: s.heading, text: s.text, align: s.align, link_label: s.link_label, link_url: s.link_url %}
+    {% render 'section-head', eyebrow: s.eyebrow, heading: s.heading, text: s.text, align: s.align, link_label: s.link_label, link_url: section_link %}
 
     {%- if s.layout == 'detailed' -%}
       <div class="stack" style="--stack: clamp(3rem, 2rem + 4vw, 6rem)">
@@ -42,7 +51,7 @@
               {%- endif -%}
               <div class="btn-row">
                 {%- if s.show_book and block.settings.code != blank -%}
-                  <a class="btn" href="{{ booking_url }}?tp_service={{ block.settings.code | handleize }}">{{ s.book_label }}{% render 'icon', name: 'arrow-right' %}</a>
+                  <a class="btn" href="{{ booking_sep }}tp_service={{ block.settings.code | handleize }}">{{ s.book_label }}{% render 'icon', name: 'arrow-right' %}</a>
                 {%- endif -%}
                 {%- if block.settings.link_label != blank and block.settings.link != blank -%}
                   <a class="btn btn--secondary" href="{{ block.settings.link }}">{{ block.settings.link_label }}</a>
@@ -60,7 +69,7 @@
             assign href = block.settings.link
             if href == blank and s.show_book and block.settings.code != blank
               assign code = block.settings.code | handleize
-              assign href = booking_url | append: '?tp_service=' | append: code
+              assign href = booking_sep | append: 'tp_service=' | append: code
             endif
           -%}
           <article class="card card--hover reveal" style="--i: {{ forloop.index0 | modulo: 4 }}" {{ block.shopify_attributes }}>
@@ -97,7 +106,7 @@
     { "type": "richtext", "id": "text", "label": "Texte" },
     { "type": "select", "id": "align", "label": "Alignement du titre", "options": [ { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centré" } ], "default": "left" },
     { "type": "text", "id": "link_label", "label": "Lien de l'en-tête", "default": "Tous nos services" },
-    { "type": "url", "id": "link_url", "label": "Destination du lien" },
+    { "type": "url", "id": "link_url", "label": "Destination du lien", "info": "Vide : page Services." },
     { "type": "header", "content": "Présentation" },
     { "type": "select", "id": "layout", "label": "Mise en page", "options": [ { "value": "cards", "label": "Cartes" }, { "value": "detailed", "label": "Détaillée (image et texte alternés)" } ], "default": "cards" },
     { "type": "select", "id": "columns", "label": "Colonnes (cartes, ordinateur)", "options": [ { "value": "2", "label": "2" }, { "value": "3", "label": "3" }, { "value": "4", "label": "4" } ], "default": "3" },

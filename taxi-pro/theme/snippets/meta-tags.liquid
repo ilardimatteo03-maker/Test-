@@ -1,8 +1,8 @@
-{%- comment -%} Balises Open Graph et Twitter. Paramètre : company {%- endcomment -%}
+{%- comment -%} Balises Open Graph et Twitter. Paramètres : company, title, description, url {%- endcomment -%}
 {%- liquid
-  assign og_title = page_title | default: company
+  assign og_title = title | default: page_title | default: company
   assign og_type = 'website'
-  assign og_description = page_description | default: shop.description | default: company
+  assign og_description = description | default: page_description | default: shop.description | default: company
   if request.page_type == 'article'
     assign og_type = 'article'
   endif
@@ -12,7 +12,7 @@
   endif
 -%}
 <meta property="og:site_name" content="{{ company | escape }}">
-<meta property="og:url" content="{{ canonical_url }}">
+<meta property="og:url" content="{{ url | default: canonical_url }}">
 <meta property="og:title" content="{{ og_title | escape }}">
 <meta property="og:type" content="{{ og_type }}">
 <meta property="og:description" content="{{ og_description | escape }}">

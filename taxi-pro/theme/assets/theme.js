@@ -158,11 +158,39 @@
     (scope || document).querySelectorAll('[data-hours-day="' + day + '"]').forEach(function (row) { row.classList.add('is-today'); });
   }
 
+  /* ---------- Formulaire de contact : confirmation toujours visible ---------- */
+  function initContactNotice() {
+    if (!/[?&]contact_posted=true/.test(location.search)) return;
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        // Le formulaire, le module de réservation ou son bandeau affichent déjà la confirmation
+        if (document.querySelector('[data-contact-success], .tp-result, .tp-banner')) return;
+        var text = document.body.getAttribute('data-contact-sent');
+        if (!text) return;
+        var box = document.createElement('div');
+        box.className = 'tp-banner contact-banner scheme-inverse';
+        box.setAttribute('role', 'status');
+        box.innerHTML = '<div class="container"></div>';
+        box.firstChild.textContent = text;
+        var main = document.querySelector('main') || document.body;
+        main.insertBefore(box, main.firstChild);
+      }, 50);
+    });
+  }
+
+  /* ---------- Barre d'actions mobile (Appeler / Réserver) ---------- */
+  function initMobileBar(scope) {
+    (scope || document).querySelectorAll('[data-mobile-bar]').forEach(function (bar) {
+      requestAnimationFrame(function () { bar.classList.add('is-visible'); });
+    });
+  }
+
   function init(scope) {
-    initHeader(scope); initMenu(); initReveal(scope); initSliders(scope); initCounters(scope); initMaps(scope); initHours(scope);
+    initHeader(scope); initMenu(); initReveal(scope); initSliders(scope); initCounters(scope); initMaps(scope); initHours(scope); initMobileBar(scope);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { init(); });
   else init();
+  initContactNotice();
 
   // Éditeur de thème : réinitialiser les sections rechargées
   document.addEventListener('shopify:section:load', function (e) { init(e.target); });

@@ -14,9 +14,9 @@
     "story": {
       "type": "image-text",
       "settings": {
-        "eyebrow": "Notre histoire",
-        "heading": "Une entreprise familiale au service de vos trajets",
-        "text": "<p>Présentez ici votre histoire : la création de l'entreprise, son évolution, ce qui vous rend fiers. Racontez ce qui fait la différence pour vos clients.</p>",
+        "eyebrow": "Qui sommes-nous",
+        "heading": "Votre trajet, notre métier",
+        "text": "<p>Nous assurons vos déplacements en taxi et en voiture avec chauffeur, en ville, vers les aéroports et sur longue distance. Le prix est calculé selon nos tarifs et affiché avant la réservation.</p>",
         "image_position": "left",
         "ratio": "4 / 5",
         "color_scheme": "default",
@@ -141,7 +141,8 @@
         "stat_2",
         "stat_3",
         "stat_4"
-      ]
+      ],
+      "disabled": true
     },
     "team": {
       "type": "team",
@@ -192,7 +193,8 @@
         "member_2",
         "member_3",
         "member_4"
-      ]
+      ],
+      "disabled": true
     }
   },
   "order": [

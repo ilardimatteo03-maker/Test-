@@ -1,3 +1,11 @@
+{%- liquid
+  assign co_phone = settings.company_phone | default: shop.phone
+  assign co_email = settings.company_email | default: shop.email
+  assign co_street = settings.company_street | default: shop.address.address1
+  assign co_postcode = settings.company_postcode | default: shop.address.zip
+  assign co_city = settings.company_city | default: shop.address.city
+  assign co_country_code = settings.company_country_code | default: shop.address.country_code | default: 'BE'
+-%}
 {%- comment -%}
   Données structurées schema.org « TaxiService » + « LocalBusiness » à partir de l'identité de l'entreprise.
   Paramètre : company
@@ -22,8 +30,8 @@
   "url": {{ shop.url | json }},
   {%- if settings.logo != blank %}"logo": {{ settings.logo | image_url: width: 600 | prepend: 'https:' | json }},
   "image": {{ settings.logo | image_url: width: 1200 | prepend: 'https:' | json }},{% endif %}
-  {%- if settings.company_phone != blank %}"telephone": {{ settings.company_phone | json }},{% endif %}
-  {%- if settings.company_email != blank %}"email": {{ settings.company_email | json }},{% endif %}
+  {%- if co_phone != blank %}"telephone": {{ co_phone | json }},{% endif %}
+  {%- if co_email != blank %}"email": {{ co_email | json }},{% endif %}
   "priceRange": {{ settings.seo_price_range | json }},
   "areaServed": {{ settings.seo_area_served | json }},
   "provider": { "@type": "LocalBusiness", "name": {{ settings.company_legal_name | default: company | json }} },
@@ -36,10 +44,10 @@
   {%- if same_as.size > 0 %}"sameAs": {{ same_as | json }},{% endif %}
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": {{ settings.company_street | json }},
-    "postalCode": {{ settings.company_postcode | json }},
-    "addressLocality": {{ settings.company_city | json }},
-    "addressCountry": {{ settings.company_country_code | json }}
+    "streetAddress": {{ co_street | json }},
+    "postalCode": {{ co_postcode | json }},
+    "addressLocality": {{ co_city | json }},
+    "addressCountry": {{ co_country_code | json }}
   }
 }
 </script>

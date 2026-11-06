@@ -353,7 +353,7 @@
       return;
     }
     var saved = store(STORE_KEY);
-    if (params.get('tp_from') || params.get('tp_service')) this.prefillFromUrl(params);
+    if (params.get('tp_from') || params.get('tp_service') || params.get('tp_vehicle')) this.prefillFromUrl(params);
     else if (saved && saved.state) this.restore(saved.state);
     this.syncInputs();
     this.render();
@@ -951,7 +951,7 @@
     else if (d.date && d.time) { st.when = 'schedule'; st.date = d.date; st.time = d.time; }
     if (d.passengers) st.passengers = Math.max(1, parseInt(d.passengers, 10) || 1);
     if (d.luggage) st.luggage = Math.max(0, parseInt(d.luggage, 10) || 0);
-    if (d.vehicle) st.vehicleId = d.vehicle;
+    if (d.vehicle && this.cfg.vehicles.some(function (v) { return v.id === d.vehicle; })) st.vehicleId = d.vehicle;
     st.route = d.route || null; st.routeStatus = d.route ? 'ok' : 'idle';
     st.step = 1;
     if (!d.silent) {

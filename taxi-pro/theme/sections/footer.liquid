@@ -1,11 +1,17 @@
 {%- comment -%}
-  Pied de page : identité, coordonnées, menus, réseaux sociaux, informations légales.
-  Coordonnées et mentions proviennent des réglages du thème (Identité de l'entreprise).
+  Pied de page : identité, coordonnées, navigation, réseaux sociaux, informations légales.
+  Coordonnées : réglages du thème (Identité de l'entreprise), sinon Paramètres › Détails de la boutique.
+  Liens légaux : politiques Shopify (Paramètres › Politiques) par défaut, ou un menu Shopify.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
   assign company = settings.company_name | default: shop.name
-  assign phone_href = settings.company_phone | remove: ' ' | remove: '.' | remove: '-' | remove: '(' | remove: ')' | remove: '/'
+  assign co_phone = settings.company_phone | default: shop.phone
+  assign co_email = settings.company_email | default: shop.email
+  assign co_street = settings.company_street | default: shop.address.address1
+  assign co_postcode = settings.company_postcode | default: shop.address.zip
+  assign co_city = settings.company_city | default: shop.address.city
+  assign phone_href = co_phone | remove: ' ' | remove: '.' | remove: '-' | remove: '(' | remove: ')' | remove: '/'
   assign cols = section.blocks.size | plus: 1
 -%}
 <footer class="site-footer section scheme-{{ s.color_scheme }}" style="--pad-top: {{ s.padding_top }}px; --pad-bottom: 32px; --footer-cols: {{ cols }};">
@@ -28,17 +34,21 @@
           {%- case block.type -%}
             {%- when 'menu' -%}
               {%- if block.settings.title != blank -%}<h2>{{ block.settings.title }}</h2>{%- endif -%}
-              {%- if block.settings.menu != blank -%}
-                <ul>{%- for link in block.settings.menu.links -%}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{%- endfor -%}</ul>
-              {%- endif -%}
+              <ul>
+                {%- if block.settings.source == 'menu' and block.settings.menu != blank -%}
+                  {%- for link in block.settings.menu.links -%}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{%- endfor -%}
+                {%- else -%}
+                  {% render 'site-nav-links', items: 'home,booking,services,vehicles,rates,about,faq,contact' %}
+                {%- endif -%}
+              </ul>
             {%- when 'contact' -%}
               {%- assign contact_title = 'footer.contact' | t -%}
               <h2>{{ block.settings.title | default: contact_title }}</h2>
               <div class="contact-lines">
-                {%- if settings.company_phone != blank -%}<a href="tel:{{ phone_href }}">{% render 'icon', name: 'phone' %}{{ settings.company_phone }}</a>{%- endif -%}
+                {%- if co_phone != blank -%}<a href="tel:{{ phone_href }}">{% render 'icon', name: 'phone' %}{{ co_phone }}</a>{%- endif -%}
                 {%- if settings.company_whatsapp != blank -%}<a href="https://wa.me/{{ settings.company_whatsapp | remove: '+' | remove: ' ' }}" target="_blank" rel="noopener">{% render 'icon', name: 'whatsapp' %}{{ 'general.whatsapp' | t }}</a>{%- endif -%}
-                {%- if settings.company_email != blank -%}<a href="mailto:{{ settings.company_email }}">{% render 'icon', name: 'mail' %}{{ settings.company_email }}</a>{%- endif -%}
-                {%- if settings.company_street != blank -%}<span>{% render 'icon', name: 'pin' %}<span>{{ settings.company_street }}<br>{{ settings.company_postcode }} {{ settings.company_city }}</span></span>{%- endif -%}
+                {%- if co_email != blank -%}<a href="mailto:{{ co_email }}">{% render 'icon', name: 'mail' %}{{ co_email }}</a>{%- endif -%}
+                {%- if co_street != blank -%}<span>{% render 'icon', name: 'pin' %}<span>{{ co_street }}<br>{{ co_postcode }} {{ co_city }}</span></span>{%- endif -%}
                 {%- if block.settings.show_hours -%}
                   <span>{% render 'icon', name: 'clock' %}<span>{% if settings.hours_always %}{{ 'general.available_24_7' | t }}{% else %}{{ block.settings.hours_text }}{% endif %}</span></span>
                 {%- endif -%}
@@ -57,8 +67,10 @@
         {%- if settings.company_number != blank -%}<span>{{ settings.company_number_label }} {{ settings.company_number }}</span>{%- endif -%}
         {%- if settings.company_vat != blank -%}<span>{{ 'footer.vat' | t }} {{ settings.company_vat }}</span>{%- endif -%}
         {%- if settings.company_license != blank -%}<span>{{ 'footer.license' | t }} {{ settings.company_license }}</span>{%- endif -%}
-        {%- if s.legal_menu != blank -%}
+        {%- if s.legal_source == 'menu' and s.legal_menu != blank -%}
           {%- for link in s.legal_menu.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+        {%- elsif s.legal_source == 'policies' -%}
+          {%- for policy in shop.policies -%}<a href="{{ policy.url }}">{{ policy.title }}</a>{%- endfor -%}
         {%- endif -%}
       </div>
     </div>
@@ -73,9 +85,19 @@
   "enabled_on": { "groups": ["footer"] },
   "max_blocks": 4,
   "settings": [
-    { "type": "richtext", "id": "text", "label": "Présentation", "default": "<p>Taxi, transferts aéroport et chauffeur privé. Ponctualité, discrétion et prix annoncé à l'avance.</p>" },
-    { "type": "checkbox", "id": "show_social", "label": "Afficher les réseaux sociaux", "default": true, "info": "Liens dans Paramètres du thème › Identité de l'entreprise." },
-    { "type": "link_list", "id": "legal_menu", "label": "Menu légal (bas de page)", "default": "footer" },
+    { "type": "richtext", "id": "text", "label": "Présentation", "default": "<p>Taxi, transferts aéroport et chauffeur privé. Prix calculé et affiché avant de réserver.</p>" },
+    { "type": "checkbox", "id": "show_social", "label": "Afficher les réseaux sociaux", "default": true, "info": "Liens dans Paramètres du thème › Identité de l'entreprise. Rien ne s'affiche tant qu'aucun lien n'est renseigné." },
+    {
+      "type": "select", "id": "legal_source", "label": "Liens légaux (bas de page)",
+      "options": [
+        { "value": "policies", "label": "Politiques Shopify (Paramètres › Politiques)" },
+        { "value": "menu", "label": "Menu Shopify choisi ci-dessous" },
+        { "value": "none", "label": "Aucun" }
+      ],
+      "default": "policies",
+      "info": "Les politiques remplies dans Shopify (conditions, confidentialité, mentions légales…) s'affichent automatiquement."
+    },
+    { "type": "link_list", "id": "legal_menu", "label": "Menu légal" },
     { "type": "select", "id": "color_scheme", "label": "Couleurs", "options": [ { "value": "default", "label": "Principal" }, { "value": "alt", "label": "Secondaire" }, { "value": "inverse", "label": "Contrasté" } ], "default": "alt" },
     { "type": "range", "id": "padding_top", "label": "Marge haute", "min": 24, "max": 120, "step": 8, "unit": "px", "default": 72 }
   ],
@@ -84,7 +106,12 @@
       "type": "menu", "name": "Menu",
       "settings": [
         { "type": "text", "id": "title", "label": "Titre", "default": "Navigation" },
-        { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" }
+        {
+          "type": "select", "id": "source", "label": "Liens",
+          "options": [ { "value": "builtin", "label": "Pages du thème (rien à créer)" }, { "value": "menu", "label": "Menu Shopify choisi ci-dessous" } ],
+          "default": "builtin"
+        },
+        { "type": "link_list", "id": "menu", "label": "Menu Shopify" }
       ]
     },
     {

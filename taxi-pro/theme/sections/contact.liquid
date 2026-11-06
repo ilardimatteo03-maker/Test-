@@ -1,9 +1,17 @@
+{%- liquid
+  assign co_phone = settings.company_phone | default: shop.phone
+  assign co_email = settings.company_email | default: shop.email
+  assign co_street = settings.company_street | default: shop.address.address1
+  assign co_postcode = settings.company_postcode | default: shop.address.zip
+  assign co_city = settings.company_city | default: shop.address.city
+  assign co_country = settings.company_country | default: shop.address.country
+-%}
 {%- comment -%}
   Contact : coordonnées, horaires, réseaux et formulaire natif Shopify (message envoyé à l'e-mail de la boutique).
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
-  assign phone_href = settings.company_phone | remove: ' ' | remove: '.' | remove: '-' | remove: '(' | remove: ')' | remove: '/'
+  assign phone_href = co_phone | remove: ' ' | remove: '.' | remove: '-' | remove: '(' | remove: ')' | remove: '/'
   assign wa = settings.company_whatsapp | remove: '+' | remove: ' '
 -%}
 <section class="section scheme-{{ s.color_scheme }}" style="--pad-top: {{ s.padding_top }}px; --pad-bottom: {{ s.padding_bottom }}px;">
@@ -12,12 +20,12 @@
     <div class="contact-layout">
       <div class="contact-card reveal">
         <div class="contact-lines" style="font-size: 1.05rem">
-          {%- if settings.company_phone != blank -%}<a href="tel:{{ phone_href }}">{% render 'icon', name: 'phone' %}<span><strong>{{ settings.company_phone }}</strong><br><span class="text-muted" style="font-size: .85rem">{{ 'general.phone' | t }}</span></span></a>{%- endif -%}
+          {%- if co_phone != blank -%}<a href="tel:{{ phone_href }}">{% render 'icon', name: 'phone' %}<span><strong>{{ co_phone }}</strong><br><span class="text-muted" style="font-size: .85rem">{{ 'general.phone' | t }}</span></span></a>{%- endif -%}
           {%- if wa != blank -%}<a href="https://wa.me/{{ wa }}" target="_blank" rel="noopener">{% render 'icon', name: 'whatsapp' %}<span>{{ 'general.whatsapp' | t }}</span></a>{%- endif -%}
-          {%- if settings.company_email != blank -%}<a href="mailto:{{ settings.company_email }}">{% render 'icon', name: 'mail' %}<span>{{ settings.company_email }}</span></a>{%- endif -%}
-          {%- if settings.company_street != blank -%}
-            {%- capture addr -%}{{ settings.company_street }}, {{ settings.company_postcode }} {{ settings.company_city }}, {{ settings.company_country }}{%- endcapture -%}
-            <a href="https://www.google.com/maps/search/?api=1&query={{ addr | url_encode }}" target="_blank" rel="noopener">{% render 'icon', name: 'pin' %}<span>{{ settings.company_street }}<br>{{ settings.company_postcode }} {{ settings.company_city }}</span></a>
+          {%- if co_email != blank -%}<a href="mailto:{{ co_email }}">{% render 'icon', name: 'mail' %}<span>{{ co_email }}</span></a>{%- endif -%}
+          {%- if co_street != blank -%}
+            {%- capture addr -%}{{ co_street }}, {{ co_postcode }} {{ co_city }}, {{ co_country }}{%- endcapture -%}
+            <a href="https://www.google.com/maps/search/?api=1&query={{ addr | url_encode }}" target="_blank" rel="noopener">{% render 'icon', name: 'pin' %}<span>{{ co_street }}<br>{{ co_postcode }} {{ co_city }}</span></a>
           {%- endif -%}
         </div>
         {%- if s.show_hours -%}
@@ -30,8 +38,10 @@
       <div class="reveal" style="--i: 1">
         {%- if s.form_heading != blank -%}<h3 class="h3">{{ s.form_heading }}</h3>{%- endif -%}
         {%- form 'contact', id: 'ContactForm', class: 'form-grid form-grid--2' -%}
+          {%- capture contact_return -%}{{ request.path }}?{% if template.name == 'index' and template.suffix != blank %}view={{ template.suffix }}&{% endif %}contact_posted=true{%- endcapture -%}
+        <input type="hidden" name="return_to" value="{{ contact_return }}">
           {%- if form.posted_successfully? -%}
-            <p class="form-status form-status--success span-2" role="status" tabindex="-1">{% render 'icon', name: 'check' %} {{ 'contact.success' | t }}</p>
+            <p class="form-status form-status--success span-2" role="status" tabindex="-1" data-contact-success>{% render 'icon', name: 'check' %} {{ 'contact.success' | t }}</p>
           {%- elsif form.errors -%}
             <div class="form-status form-status--error span-2" role="alert">{{ 'contact.error' | t }} {{ form.errors | default_errors }}</div>
           {%- endif -%}
@@ -60,8 +70,9 @@
             <label class="field__label" for="ContactForm-body">{{ 'contact.message' | t }}</label>
             <textarea class="textarea" id="ContactForm-body" name="contact[body]" rows="6" required>{{ form.body }}</textarea>
           </div>
-          {%- if settings.privacy_page != blank -%}
-            <p class="text-muted span-2" style="font-size: .85rem; margin: 0">{{ 'contact.consent_html' | t: url: settings.privacy_page.url }}</p>
+          {%- assign privacy_url = settings.privacy_page.url | default: shop.privacy_policy.url -%}
+          {%- if privacy_url != blank -%}
+            <p class="text-muted span-2" style="font-size: .85rem; margin: 0">{{ 'contact.consent_html' | t: url: privacy_url }}</p>
           {%- endif -%}
           <div class="span-2"><button type="submit" class="btn btn--large">{{ 'contact.send' | t }}</button></div>
         {%- endform -%}
