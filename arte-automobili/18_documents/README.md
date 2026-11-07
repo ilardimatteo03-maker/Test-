@@ -72,6 +72,7 @@ Tout est dans un seul fichier : [`_source/documents/donnees.json`](../_source/do
 **Déplacement** : prestation à domicile, frais à partir de 20 km, 0,35 € TVAC par km (code `deplacement`, quantité = km facturés).
 
 **Entreprise** :
+- titulaire : Simon Duray (indépendant), nom commercial Arte Automobili ;
 - adresse : Rue Lait Beurré 79, 7100 La Louvière ;
 - numéro d'entreprise : BE 1044.577.261 (BCE, en attente d'activation au 7 novembre 2026) ;
 - téléphone : +32 492 53 42 30 ;
@@ -91,7 +92,6 @@ Tout est dans un seul fichier : [`_source/documents/donnees.json`](../_source/do
 
 Ces valeurs figurent entre crochets sur les documents tant que tu ne me les as pas données :
 
-- dénomination légale et forme juridique, par exemple « Arte Automobili SRL » ;
 - IBAN et BIC.
 
 ## Règles belges intégrées

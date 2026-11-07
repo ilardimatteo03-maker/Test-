@@ -233,8 +233,10 @@ def pied():
 
 
 def bloc_entreprise():
+    """Nom commercial, puis le titulaire légal (l'indépendant qui émet le document), puis les coordonnées."""
     x = D["entreprise"]
-    return (f"<p><strong>{e(x['nom'])}</strong><br>{e(x['rue'])}<br>{e(x['code_postal'])} {e(x['ville'])}<br>"
+    titulaire = "" if x["denomination_legale"].startswith("[") else f"{e(x['denomination_legale'])}<br>"
+    return (f"<p><strong>{e(x['nom'])}</strong><br>{titulaire}{e(x['rue'])}<br>{e(x['code_postal'])} {e(x['ville'])}<br>"
             f"{e(x['telephone'])}<br>{e(x['email'])}</p>")
 
 
