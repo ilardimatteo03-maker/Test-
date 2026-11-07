@@ -75,6 +75,7 @@ Tout est dans un seul fichier : [`_source/documents/donnees.json`](../_source/do
 - titulaire : Simon Duray (indépendant), nom commercial Arte Automobili ;
 - adresse : Rue Lait Beurré 79, 7100 La Louvière ;
 - numéro d'entreprise : BE 1044.577.261 (BCE, en attente d'activation au 7 novembre 2026) ;
+- compte : IBAN BE50 7320 9015 8218, BIC CREGBEBB (CBC Banque, déduit du code banque 732) ;
 - téléphone : +32 492 53 42 30 ;
 - e-mail : arteautomobili@gmail.com ;
 - horaires : tous les jours, de 9 h à 18 h, uniquement sur rendez-vous ;
@@ -87,12 +88,6 @@ Tout est dans un seul fichier : [`_source/documents/donnees.json`](../_source/do
 - frais de déplacement au-delà de 20 km ;
 - échéance de 15 jours pour une facture non réglée ;
 - TVA 21 %.
-
-### À compléter ou confirmer
-
-Ces valeurs figurent entre crochets sur les documents tant que tu ne me les as pas données :
-
-- IBAN et BIC.
 
 ## Règles belges intégrées
 
