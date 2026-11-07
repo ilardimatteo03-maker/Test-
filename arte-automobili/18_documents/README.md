@@ -73,6 +73,7 @@ Tout est dans un seul fichier : [`_source/documents/donnees.json`](../_source/do
 
 **Entreprise** :
 - adresse : Rue Lait Beurré, 7100 La Louvière ;
+- numéro d'entreprise : BE 1044.577.261 (BCE, en attente d'activation au 7 novembre 2026) ;
 - téléphone : +32 492 53 42 30 ;
 - e-mail : arteautomobili@gmail.com ;
 - horaires : tous les jours, de 9 h à 18 h, uniquement sur rendez-vous ;
@@ -92,7 +93,6 @@ Ces valeurs figurent entre crochets sur les documents tant que tu ne me les as p
 
 - dénomination légale et forme juridique, par exemple « Arte Automobili SRL » ;
 - numéro de la rue ;
-- numéro d'entreprise ou de TVA (BE 0…) ;
 - IBAN et BIC.
 
 ## Règles belges intégrées
