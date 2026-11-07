@@ -210,7 +210,6 @@ td .desc{{display:block;margin-top:.8mm;font-size:8pt;line-height:1.45;color:#5E
 footer{{margin-top:auto;padding-top:6mm}}
 footer p{{margin:0;padding-top:3mm;border-top:.5pt solid #D6D3CA;font:400 6.6pt/1.7 'DM Mono',monospace;letter-spacing:.03em;color:#5E6461}}
 footer span{{white-space:nowrap}}
-footer i{{font-family:'Bodoni Moda',serif;font-size:8.5pt;letter-spacing:0;color:#0D0F0E}}
 .liste td{{padding:3.6mm 0}}
 .liste th.n,.liste td.n{{width:40mm}}
 .liste td.n{{font-size:10.5pt}}
@@ -229,7 +228,7 @@ def pied():
     l1 = [x["denomination_legale"], f"{x['rue']}, {x['code_postal']} {x['ville']}", f"TVA {x['numero_entreprise']}", x.get("rpm")]
     l2 = [f"IBAN {x['iban']}", f"BIC {x['bic']}", x["telephone"], x["email"], x["site"]]
     ligne = lambda l: " · ".join(f"<span>{e(m)}</span>" for m in l if m)
-    return f"<footer><p>{ligne(l1)}<br>{ligne(l2)}<br><i>{e(x['signature'])}</i></p></footer>"
+    return f"<footer><p>{ligne(l1)}<br>{ligne(l2)}</p></footer>"
 
 
 def bloc_entreprise():

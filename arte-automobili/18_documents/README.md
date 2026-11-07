@@ -79,8 +79,7 @@ Tout est dans un seul fichier : [`_source/documents/donnees.json`](../_source/do
 - téléphone : +32 492 53 42 30 ;
 - e-mail : arteautomobili@gmail.com ;
 - horaires : tous les jours, de 9 h à 18 h, uniquement sur rendez-vous ;
-- site : arteautomobili.be ;
-- signature : « L'arte del riflesso. ».
+- site : arteautomobili.be.
 
 **Conditions** :
 - validité de 30 jours pour les devis et les offres ;
