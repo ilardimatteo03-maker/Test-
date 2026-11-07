@@ -8,7 +8,7 @@ from pathlib import Path
 
 from build_icons import LINEA, SERVICES
 from kit import A, B, G, N, ROOT, TR, V, font_css, logo_svg
-from textes import AVIS, METHODE, PITCH_COURT, PITCH_LONG, PRESTATIONS, SIGNATURE
+from textes import AVIS, METHODE, PITCH_COURT, PITCH_LONG, PRESTATIONS
 
 OUT = ROOT / "08_papeterie"
 DOCS = OUT / "documents"
@@ -164,7 +164,6 @@ def email_signature():
   <tr><td style="padding:14px 0 0 0">
     <img src="../../02_logo/png/aa-logo-principal-nero-1200px.png" width="150" alt="Arte Automobili" style="display:block;border:0;width:150px;height:auto">
   </td></tr>
-  <tr><td style="padding:10px 0 0 0;font-family:'Bodoni Moda',Didot,Georgia,serif;font-style:italic;font-size:13px;color:#555">{SIGNATURE}</td></tr>
 </table>
 </body></html>"""
 
@@ -218,7 +217,7 @@ def brochure():
 <section class="page p1"><div class="img"></div><div class="lin"></div>
  <div class="logo">{logo_svg("logo-principal", B, height=46)}</div>
  <div class="txt"><p class="eyebrow" style="color:{A};margin:0 0 4mm">Carte des prestations · 2026</p>
- <h1>L'arte del <i>riflesso.</i></h1><p class="lead">{PITCH_COURT}</p><ol>{meth}</ol></div></section>
+ <h1>L'art du <i>détail</i> automobile.</h1><p class="lead">{PITCH_COURT}</p><ol>{meth}</ol></div></section>
 <section class="page p2"><header><h2>Prestations</h2><span class="mono" style="font-size:8pt">TARIFS INDICATIFS TTC · DEVIS APRÈS INSPECTION</span></header>
  <div class="grid">{svc}</div><div class="form">{form}</div>
  <p class="note">Les tarifs dépendent du gabarit et de l'état du véhicule. Durées données à titre indicatif.</p></section>
@@ -267,7 +266,7 @@ cite{{font-style:normal;font-size:20px}} cite span{{display:block;color:var(--ar
 .op .card .t{{font:italic 400 64px 'Bodoni Moda',serif}} .op .card .t span{{font:400 34px 'DM Mono',monospace;font-style:normal;margin-left:18px}}
 .op .card dl{{display:grid;grid-template-columns:200px 1fr;gap:14px 0;margin:40px 0 0;font-size:20px}} .op .card dt{{font:400 14px 'DM Mono',monospace;text-transform:uppercase;color:#666;padding-top:5px}} .op .card dd{{margin:0}}
 </style></head><body>
-<{S} class="cover"><div class="in">{logo_svg("logo-principal", B, height=96)}<h1>L'arte del<br><i>riflesso.</i></h1><p>PRÉSENTATION · 2026</p></div></{S}>
+<{S} class="cover"><div class="in">{logo_svg("logo-principal", B, height=96)}<h1>L'art du <i>détail</i><br>automobile.</h1><p>PRÉSENTATION · 2026</p></div></{S}>
 <{S} class="split"><div class="img" style="background-image:url('{IMG_REL}rendu-07-capot-lames-de-lumiere-1080x1350.jpg')"></div>
  <div class="tx"><p class="eyebrow" style="color:{A};font-size:16px">L'atelier</p><h2 style="margin-top:28px">Une automobile se juge<br><i>à son reflet.</i></h2><p class="l">{PITCH_LONG[0]}</p><p class="l">{PITCH_LONG[1]}</p></div><span class="pg">02</span></{S}>
 <{S}><p class="eyebrow ey">La méthode</p><span class="pg">03</span><div class="ttl"><h2>Quatre temps,<br><i>aucun raccourci.</i></h2></div><div class="lin"></div><div class="ms">{meth}</div></{S}>

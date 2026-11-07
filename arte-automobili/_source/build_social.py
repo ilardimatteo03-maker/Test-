@@ -59,7 +59,7 @@ LY = round(H * 0.618)  # 834
 def t01_presentation():
     b = [image("verde", 0, 0, W, LY, "xMidYMid"), linea(0, LY, W, A, 1.5),
          eyebrow(M, LY + 74, "Arte Automobili — atelier de detailing"),
-         text(M, LY + 178, [[("L'arte del ", False), ("riflesso.", True)]], 80, "bodoni", 400, B),
+         text(M, LY + 178, [[("L'art du ", False), ("détail", True), (" automobile.", False)]], 80, "bodoni", 400, B),
          text(M, LY + 252, ["Correction de vernis, protection céramique, soin de l'habitacle.",
                             "Chaque automobile traitée comme une pièce unique."], 25, "archivo", 400, B, lh=1.5, opacity=0.82),
          mono(M, H - M, "Sur rendez-vous · atelier privé"), signature(W, H)]
@@ -241,7 +241,6 @@ def t15_facebook():
     w, h = 1640, 624
     b = [image("profil", 0, 0, w, h, "xMaxYMid"), rect(0, 0, w, h, "url(#fade-l)"),
          logo_g("logo-principal", 120, h / 2 - 10, height=118, fill=B, anchor="cl"),
-         text(122, h / 2 + 108, [[("L'arte del riflesso.", True)]], 34, "bodoni", 400, B, opacity=0.85),
          linea(0, h - 1, w, A, 2)]
     defs = ('<linearGradient id="fade-l" x1="0" y1="0" x2="1" y2="0"><stop offset=".3" stop-color="#0D0F0E" stop-opacity=".92"/>'
             '<stop offset=".62" stop-color="#0D0F0E" stop-opacity="0"/></linearGradient>')

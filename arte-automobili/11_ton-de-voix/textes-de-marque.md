@@ -5,9 +5,9 @@ Les tarifs sont indicatifs et restent à fixer par l'entreprise.
 
 ## Signature principale
 
-**L'arte del riflesso.**
+**L'art du détail automobile.**
 
-Trois mots d'italien que tout francophone comprend. « Riflesso » nomme ce que le client voit en premier en récupérant sa voiture, et ce que le monogramme dessine. La phrase relie le métier (le reflet est la preuve d'un vernis parfait) à l'idée d'art, sans promesse chiffrée.
+L'accroche de la page d'accueil du site. Elle dit le métier simplement, avec l'idée d'art que porte le nom Arte Automobili, sans promesse chiffrée.
 
 ## Cinq alternatives
 
@@ -37,9 +37,9 @@ Arte Automobili reçoit sur rendez-vous, avec un devis établi après inspection
 Atelier de detailing automobile
 Correction de vernis · Céramique · Habitacle
 Sur rendez-vous · [Ville]
-L'arte del riflesso. ↓
+Prendre rendez-vous ↓
 ```
-(125 caractères sur 150)
+(124 caractères sur 150)
 
 ## Texte de lancement
 

@@ -6,7 +6,6 @@
 # ─────────────────────────────────────────────────────────────────────────────
 
 nom: "Arte Automobili"
-signature: "L'arte del riflesso."
 
 # Adresse publique du site, sans barre finale (ex. "https://www.arte-automobili.fr").
 # Sur Netlify, laissée vide, elle est renseignée automatiquement.

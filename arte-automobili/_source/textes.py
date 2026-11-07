@@ -1,10 +1,9 @@
 """Textes de marque — source unique pour le guide, le site, les documents et 12_ton-de-voix.
 Tarifs : indicatifs, à fixer par l'entreprise."""
 
-SIGNATURE = "L'arte del riflesso."
-SIGNATURE_NOTE = ("Trois mots d'italien que tout francophone comprend. « Riflesso » nomme ce que le client "
-                  "voit en premier en récupérant sa voiture, et ce que le monogramme dessine. La phrase relie "
-                  "le métier (le reflet est la preuve d'un vernis parfait) à l'idée d'art, sans promesse chiffrée.")
+SIGNATURE = "L'art du détail automobile."
+SIGNATURE_NOTE = ("L'accroche de la page d'accueil du site. Elle dit le métier simplement, avec l'idée d'art "
+                  "que porte le nom Arte Automobili, sans promesse chiffrée.")
 
 SLOGANS = [
     ("Révéler la ligne.", "FR", "Le reflet révèle le dessin de la carrosserie : nous rendons visible le travail du designer."),
@@ -35,7 +34,7 @@ PITCH_LONG = [
 BIO_INSTAGRAM = ("Atelier de detailing automobile\n"
                  "Correction de vernis · Céramique · Habitacle\n"
                  "Sur rendez-vous · [Ville]\n"
-                 "L'arte del riflesso. ↓")
+                 "Prendre rendez-vous ↓")
 
 LANCEMENT = [
     "Apertura.",

@@ -8,7 +8,7 @@
       <a href="/" aria-label="Arte Automobili, retour à l'accueil">
         <img src="/assets/logo/logo-vertical-bianco.svg" alt="" width="289" height="407" loading="lazy" eleventy:ignore>
       </a>
-      <p>{{ site.signature }}</p>
+      {%- if site.signature %}<p>{{ site.signature }}</p>{% endif %}
     </div>
     <nav class="footer__col" aria-label="Pages du site">
       <p class="label">Pages</p>

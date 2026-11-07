@@ -1,7 +1,5 @@
 # Arte Automobili — identité visuelle
 
-*L'arte del riflesso.*
-
 Identité complète d'un atelier de detailing automobile haut de gamme, conçue autour d'une idée :
 **une automobile se juge à son reflet**. Le monogramme montre un A et son reflet de part et d'autre
 de la Linea, la surface du vernis : A + reflet = AA, Arte Automobili.
