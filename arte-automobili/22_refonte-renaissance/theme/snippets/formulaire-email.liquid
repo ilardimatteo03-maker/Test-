@@ -1,0 +1,24 @@
+{%- comment -%}
+  Inscription par e-mail (newsletter, liste d'attente) avec le formulaire client natif de Shopify :
+  l'adresse est réellement enregistrée dans Clients, avec l'accord marketing et les tags indiqués.
+  Paramètres : id (unique), bouton, confirmation, mention, tags, placeholder, style_bouton.
+{%- endcomment -%}
+{%- assign form_id = 'email-' | append: id -%}
+{%- form 'customer', id: form_id, class: 'form-email' -%}
+  <input type="hidden" name="contact[tags]" value="{{ tags | default: 'newsletter' }}">
+  {%- if form.posted_successfully? -%}
+    <p class="form-email__ok" role="status" tabindex="-1">{{ confirmation | default: 'Merci, votre inscription est enregistrée.' }}</p>
+  {%- else -%}
+    <div class="form-email__ligne">
+      <label class="visually-hidden" for="{{ form_id }}-champ">Adresse e-mail</label>
+      <input id="{{ form_id }}-champ" type="email" name="contact[email]" required autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="{{ placeholder | default: 'Adresse e-mail' | escape }}" value="{{ form.email }}"{% if form.errors %} aria-invalid="true" aria-describedby="{{ form_id }}-erreur"{% endif %}>
+      <button class="btn btn--{{ style_bouton | default: 'secondary' }}" type="submit">{{ bouton | default: "S'inscrire" }}</button>
+    </div>
+    {%- if form.errors -%}
+      <p class="field__erreur" id="{{ form_id }}-erreur" role="alert">
+        {%- if form.errors contains 'email' %}Cette adresse e-mail ne semble pas valide ou est déjà inscrite.{% else %}{{ form.errors | default_errors }}{% endif -%}
+      </p>
+    {%- endif -%}
+    {%- if mention != blank %}<p class="form-email__mention">{{ mention }}</p>{% endif -%}
+  {%- endif -%}
+{%- endform -%}

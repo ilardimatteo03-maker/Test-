@@ -43,6 +43,7 @@ arte-automobili/
 ├── 19_carte-de-visite/        Carte de visite 85 × 55 mm (ton design), prête pour l'imprimeur
 ├── 20_programme-partenaires/  Stories Instagram du programme d'affiliation pour les professionnels (10 %)
 ├── 21_instagram-a-la-une/    Couvertures des stories à la une : Affiliation, Tarifs, Horaires
+├── 22_refonte-renaissance/   Refonte « Rinascimento » du thème Shopify (beige et noir, Renaissance italienne)
 └── _source/                   Scripts qui régénèrent l'ensemble
 ```
 

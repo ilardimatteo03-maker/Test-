@@ -1,0 +1,11 @@
+<section class="section section--tight"><div class="wrap" style="max-width:560px">
+  <div class="page-head" style="padding-top:0"><h1 class="h2">Créer un compte</h1></div>
+  {%- form 'create_customer', novalidate: 'novalidate' -%}
+    {%- if form.errors -%}<p class="notice notice--error">{{ form.errors | default_errors }}</p>{%- endif -%}
+    <div class="field" style="margin-bottom:22px"><label for="first">Prénom</label><input id="first" type="text" name="customer[first_name]" autocomplete="given-name"></div>
+    <div class="field" style="margin-bottom:22px"><label for="last">Nom</label><input id="last" type="text" name="customer[last_name]" autocomplete="family-name"></div>
+    <div class="field" style="margin-bottom:22px"><label for="email">E-mail</label><input id="email" type="email" name="customer[email]" autocomplete="email" required></div>
+    <div class="field" style="margin-bottom:28px"><label for="password">Mot de passe</label><input id="password" type="password" name="customer[password]" autocomplete="new-password" required></div>
+    <button class="btn btn--primary" type="submit">Créer le compte</button>
+  {%- endform -%}
+</div></section>

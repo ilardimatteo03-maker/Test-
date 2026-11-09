@@ -1,0 +1,224 @@
+{
+  "sections": {
+    "banniere": {
+      "type": "hero",
+      "settings": {
+        "titre": "Le programme <em>Arte Club</em>.",
+        "texte": "Des points à chaque prestation, des avantages réservés aux membres.",
+        "bouton_1": "Rejoindre le club",
+        "lien_1": "/pages/espace-client",
+        "bouton_2": "",
+        "hauteur": "moyen",
+        "afficher_lame": false
+      }
+    },
+    "etapes": {
+      "type": "etapes",
+      "settings": {
+        "surtitre": "Comment ça marche",
+        "titre": "Trois étapes, sans <em>application</em>."
+      },
+      "blocks": {
+        "e1": {
+          "type": "etape",
+          "settings": {
+            "titre": "Créez votre compte",
+            "texte": "En quelques secondes, avec votre adresse e-mail.",
+            "icone": "devis"
+          }
+        },
+        "e2": {
+          "type": "etape",
+          "settings": {
+            "titre": "Profitez de vos prestations",
+            "texte": "Chaque prestation vous rapporte des points, ajoutés à votre carte.",
+            "icone": "etoile"
+          }
+        },
+        "e3": {
+          "type": "etape",
+          "settings": {
+            "titre": "Échangez vos points",
+            "texte": "Présentez votre carte à l'atelier pour profiter de vos récompenses.",
+            "icone": "coche"
+          }
+        }
+      },
+      "block_order": [
+        "e1",
+        "e2",
+        "e3"
+      ]
+    },
+    "niveaux": {
+      "type": "fid-niveaux",
+      "settings": {},
+      "blocks": {
+        "niveaux_1": {
+          "type": "avantage",
+          "settings": {
+            "niveau": "1",
+            "texte": "Carte de fidélité digitale"
+          }
+        },
+        "niveaux_2": {
+          "type": "avantage",
+          "settings": {
+            "niveau": "1",
+            "texte": "Points sur chaque prestation"
+          }
+        },
+        "niveaux_3": {
+          "type": "avantage",
+          "settings": {
+            "niveau": "2",
+            "texte": "Tous les avantages Bianco"
+          }
+        },
+        "niveaux_4": {
+          "type": "avantage",
+          "settings": {
+            "niveau": "2",
+            "texte": "Bonus de points à chaque visite"
+          }
+        },
+        "niveaux_5": {
+          "type": "avantage",
+          "settings": {
+            "niveau": "3",
+            "texte": "Tous les avantages Argento"
+          }
+        },
+        "niveaux_6": {
+          "type": "avantage",
+          "settings": {
+            "niveau": "3",
+            "texte": "Créneaux prioritaires"
+          }
+        },
+        "niveaux_7": {
+          "type": "avantage",
+          "settings": {
+            "niveau": "4",
+            "texte": "Tous les avantages Verde"
+          }
+        },
+        "niveaux_8": {
+          "type": "avantage",
+          "settings": {
+            "niveau": "4",
+            "texte": "Attention personnalisée à chaque visite"
+          }
+        }
+      },
+      "block_order": [
+        "niveaux_1",
+        "niveaux_2",
+        "niveaux_3",
+        "niveaux_4",
+        "niveaux_5",
+        "niveaux_6",
+        "niveaux_7",
+        "niveaux_8"
+      ]
+    },
+    "recompenses": {
+      "type": "ec-recompenses",
+      "settings": {},
+      "blocks": {
+        "recompenses_1": {
+          "type": "recompense",
+          "settings": {
+            "points": 100,
+            "titre": "Avantage fidélité",
+            "texte": "Désodorisation de l'habitacle offerte lors de votre prochaine prestation.",
+            "icone": "cadeau"
+          }
+        },
+        "recompenses_2": {
+          "type": "recompense",
+          "settings": {
+            "points": 250,
+            "titre": "Réduction sur une prestation",
+            "texte": "15 € de réduction sur la prestation de votre choix.",
+            "icone": "etoile"
+          }
+        },
+        "recompenses_3": {
+          "type": "recompense",
+          "settings": {
+            "points": 500,
+            "titre": "Avantage premium",
+            "texte": "Un lavage intérieur offert.",
+            "condition": "Sur rendez-vous.",
+            "icone": "eclat"
+          }
+        }
+      },
+      "block_order": [
+        "recompenses_1",
+        "recompenses_2",
+        "recompenses_3"
+      ]
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "surtitre": "Questions fréquentes",
+        "titre": "Le programme en <em>détail</em>."
+      },
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "Comment gagner des points ?",
+            "reponse": "<p>Après chaque prestation, les points correspondants sont ajoutés à votre carte. Le détail de chaque opération apparaît dans votre espace client.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "Comment utiliser une récompense ?",
+            "reponse": "<p>Présentez votre carte lors de votre prochaine visite : nous déduisons les points de votre solde et appliquons l'avantage.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Mes points expirent-ils ?",
+            "reponse": "<p>Précisez ici votre politique d'expiration des points.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "Faut-il télécharger une application ?",
+            "reponse": "<p>Non. Votre carte est accessible depuis votre espace client, sur ordinateur comme sur téléphone.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4"
+      ]
+    },
+    "bandeau": {
+      "type": "bandeau",
+      "settings": {
+        "titre": "Rejoignez le club.",
+        "bouton": "Accéder à mon espace",
+        "bouton_lien": "/pages/espace-client"
+      }
+    }
+  },
+  "order": [
+    "banniere",
+    "etapes",
+    "niveaux",
+    "recompenses",
+    "faq",
+    "bandeau"
+  ]
+}

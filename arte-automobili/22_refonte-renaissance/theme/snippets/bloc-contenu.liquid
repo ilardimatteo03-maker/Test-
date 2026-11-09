@@ -1,0 +1,36 @@
+{%- comment -%}
+  Bloc de contenu réutilisable (surtitre, titre, texte, liste, bouton, espace).
+  Paramètre : block. Les boutons consécutifs s'alignent sur une même ligne.
+{%- endcomment -%}
+{%- assign b = block.settings -%}
+{%- case block.type -%}
+  {%- when 'surtitre' -%}
+    {%- if b.texte != blank %}<p class="label bloc-surtitre" {{ block.shopify_attributes }}>{{ b.texte }}</p>{% endif -%}
+  {%- when 'titre' -%}
+    {%- assign balise = b.balise | default: 'h2' -%}
+    {%- if b.texte != blank %}<{{ balise }} class="bloc-titre bloc-titre--{{ b.taille | default: 'h2' }}" {{ block.shopify_attributes }}>{{ b.texte }}</{{ balise }}>{% endif -%}
+  {%- when 'texte' -%}
+    {%- if b.texte != blank %}<div class="rte bloc-texte bloc-texte--{{ b.taille | default: 'normal' }}" {{ block.shopify_attributes }}>{{ b.texte }}</div>{% endif -%}
+  {%- when 'liste' -%}
+    {%- assign lignes = b.elements | newline_to_br | split: '<br />' -%}
+    <ul class="bloc-liste bloc-liste--{{ b.puce | default: 'coche' }}" {{ block.shopify_attributes }}>
+      {%- for l in lignes -%}
+        {%- assign l_net = l | strip -%}
+        {%- if l_net != blank -%}
+          <li>
+            {%- case b.puce -%}
+              {%- when 'numero' %}<span class="bloc-liste__num">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+              {%- when 'tiret' %}<span class="bloc-liste__tiret" aria-hidden="true"></span>
+              {%- else %}{% render 'icone', nom: 'coche', taille: 18 %}
+            {%- endcase -%}
+            <span>{{ l_net }}</span>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  {%- when 'bouton' -%}
+    {%- capture btn -%}{% render 'bouton', texte: b.texte, lien: b.lien, style: b.style, taille: b.taille, icone: b.icone, pleine_largeur: b.pleine_largeur, nouvel_onglet: b.nouvel_onglet, fond: b.fond, couleur: b.couleur, bordure: b.bordure, rayon: b.rayon %}{%- endcapture -%}
+    {%- if btn != blank %}<div class="bloc-bouton{% if b.pleine_largeur %} bloc-bouton--plein{% endif %}" {{ block.shopify_attributes }}>{{ btn }}</div>{% endif -%}
+  {%- when 'espace' -%}
+    <div class="bloc-espace" style="height: {{ b.hauteur }}px;" aria-hidden="true" {{ block.shopify_attributes }}></div>
+{%- endcase -%}

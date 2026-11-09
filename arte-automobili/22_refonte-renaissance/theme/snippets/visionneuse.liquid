@@ -1,0 +1,8 @@
+{%- comment -%} Visionneuse plein écran (agrandissement des réalisations). Pilotée par l'élément <visionneuse-images>. {%- endcomment -%}
+<visionneuse-images>
+  <dialog class="visionneuse" aria-label="Image agrandie">
+    <button class="visionneuse__fermer" type="button" data-fermer aria-label="Fermer">{% render 'icone', nom: 'fermer', taille: 28 %}</button>
+    <div class="visionneuse__cadre"></div>
+    <p class="visionneuse__legende" aria-live="polite"></p>
+  </dialog>
+</visionneuse-images>

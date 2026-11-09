@@ -1,0 +1,46 @@
+{%- comment -%}
+  Liens du menu. Sans menu choisi dans l'éditeur, les quatre pages du site.
+  Paramètres : menu (linklist, facultatif), numeros (true : 01, 02… devant chaque lien),
+  prefixe (identifiant unique des sous-menus, ex. « d » pour l'en-tête, « m » pour le menu mobile).
+  Les sous-menus de la navigation Shopify (deux niveaux) s'affichent en menus déroulants.
+{%- endcomment -%}
+{%- liquid
+  assign u_services = pages['services'].url | default: '/pages/services'
+  assign u_presentation = pages['presentation'].url | default: '/pages/presentation'
+  assign u_contact = pages['contact'].url | default: '/pages/contact'
+  assign urls = routes.root_url | append: '|' | append: u_services | append: '|' | append: u_presentation | append: '|' | append: u_contact | split: '|'
+  assign titres = 'Accueil|Services|Présentation|Contact' | split: '|'
+-%}
+{%- if menu != blank and menu.links.size > 0 -%}
+  {%- for link in menu.links -%}
+    {%- if link.links.size > 0 -%}
+      {%- assign sm = 'sous-menu-' | append: prefixe | append: '-' | append: forloop.index -%}
+      <li class="nav__parent" data-sous-menu>
+        <a href="{{ link.url }}"{% if link.current or link.child_active %} aria-current="page"{% endif %}>{% if numeros %}<span class="mono">0{{ forloop.index }}</span>{% endif %}{{ link.title | escape }}</a>
+        <button class="nav__ouvrir" type="button" aria-expanded="false" aria-controls="{{ sm }}">
+          <span class="visually-hidden">Sous-menu {{ link.title | escape }}</span>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <ul class="sous-menu" id="{{ sm }}">
+          {%- for enfant in link.links -%}
+            <li>
+              <a href="{{ enfant.url }}"{% if enfant.current %} aria-current="page"{% endif %}>{{ enfant.title | escape }}</a>
+              {%- if enfant.links.size > 0 -%}
+                <ul class="sous-menu__niveau3">
+                  {%- for petit in enfant.links -%}<li><a href="{{ petit.url }}"{% if petit.current %} aria-current="page"{% endif %}>{{ petit.title | escape }}</a></li>{%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </li>
+    {%- else -%}
+      <li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{% if numeros %}<span class="mono">0{{ forloop.index }}</span>{% endif %}{{ link.title | escape }}</a></li>
+    {%- endif -%}
+  {%- endfor -%}
+{%- else -%}
+  {%- for titre in titres -%}
+    {%- assign u = urls[forloop.index0] -%}
+    <li><a href="{{ u }}"{% if request.path == u %} aria-current="page"{% endif %}>{% if numeros %}<span class="mono">0{{ forloop.index }}</span>{% endif %}{{ titre }}</a></li>
+  {%- endfor -%}
+{%- endif -%}

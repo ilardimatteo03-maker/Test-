@@ -17,3 +17,8 @@ Quand l'utilisateur donne un client et des prestations, procède ainsi :
 
 - La carte officielle est le design de l'utilisateur (`19_carte-de-visite/design-original/`), recomposé en 85 × 55 mm par `arte-automobili/_source/carte_visite/carte_arte.py`.
 - La proposition blanche est générée par `arte-automobili/_source/carte_visite/carte.py`, une carte par personne de `equipe` dans `donnees.json`, dans `19_carte-de-visite/proposition-blanche/`.
+
+## Refonte « Rinascimento »
+
+- Le thème refait est dans `arte-automobili/22_refonte-renaissance/` : ZIP à importer, sources, sauvegarde de l'export d'origine. La couche graphique est `theme/assets/renaissance.css`.
+- Règle de la refonte : aucun texte, prix, lien ni fonctionnalité ne change. Seules les couleurs, polices et mises en page évoluent.

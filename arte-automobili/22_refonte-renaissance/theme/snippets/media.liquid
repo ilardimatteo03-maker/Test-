@@ -1,0 +1,13 @@
+{%- comment -%}
+  Image responsive téléversée dans Shopify. Sans image : un repère gris dans l'éditeur, rien sur le site.
+  Paramètres : image, alt, sizes, eager, classe, placeholder (nom de repère Shopify).
+{%- endcomment -%}
+{%- if image != blank -%}
+  {%- if eager -%}
+    {{ image | image_url: width: 2400 | image_tag: widths: '400, 600, 800, 1200, 1600, 2000, 2400', sizes: sizes, alt: alt | default: image.alt, loading: 'eager', fetchpriority: 'high', class: classe }}
+  {%- else -%}
+    {{ image | image_url: width: 2400 | image_tag: widths: '400, 600, 800, 1200, 1600, 2000, 2400', sizes: sizes, alt: alt | default: image.alt, loading: 'lazy', class: classe }}
+  {%- endif -%}
+{%- elsif request.design_mode -%}
+  {{ placeholder | default: 'image' | placeholder_svg_tag: 'repere' }}
+{%- endif -%}

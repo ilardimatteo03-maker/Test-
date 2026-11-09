@@ -1,0 +1,14 @@
+{%- assign u_services = pages['services'].url | default: '/pages/services' -%}
+<section class="entete entete--seule wrap">
+  <p class="label">Erreur 404</p>
+  <h1>Cette page est <em>introuvable</em>.</h1>
+  <p class="entete__texte">Elle n'existe pas ou a été déplacée.</p>
+  <div class="actions">
+    <a class="btn btn--primary" href="{{ routes.root_url }}">Retour à l'accueil</a>
+    <a class="btn btn--secondary" href="{{ u_services }}">Nos services</a>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Page 404", "settings": [] }
+{% endschema %}

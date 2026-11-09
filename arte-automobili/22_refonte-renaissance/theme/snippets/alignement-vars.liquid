@@ -1,0 +1,6 @@
+{%- comment -%} Variables d'alignement (justification et marges automatiques). Paramètre : a (left, center, right). {%- endcomment -%}
+{%- case a -%}
+  {%- when 'center' %} --sec-justify: center; --sec-mg: auto; --sec-md: auto;
+  {%- when 'right' %} --sec-justify: flex-end; --sec-mg: auto; --sec-md: 0px;
+  {%- else %} --sec-justify: flex-start; --sec-mg: 0px; --sec-md: 0px;
+{%- endcase -%}

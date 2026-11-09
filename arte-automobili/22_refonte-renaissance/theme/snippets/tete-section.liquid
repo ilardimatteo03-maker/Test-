@@ -1,0 +1,8 @@
+{%- comment -%} En-tête standard d'une section (surtitre, titre, texte). Paramètres : s (réglages), id. {%- endcomment -%}
+{%- if s.surtitre != blank or s.titre != blank or s.texte != blank -%}
+  <div class="tete-section">
+    {%- if s.surtitre != blank %}<p class="label">{{ s.surtitre }}</p>{% endif -%}
+    {%- if s.titre != blank %}<h2 id="titre-{{ id }}">{{ s.titre }}</h2>{% endif -%}
+    {%- if s.texte != blank %}<div class="tete-section__texte rte">{{ s.texte }}</div>{% endif -%}
+  </div>
+{%- endif -%}

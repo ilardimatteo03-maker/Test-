@@ -1,0 +1,31 @@
+1. Fichiers de contenu (22) : 9 différences, toutes des couleurs ou palettes attendues
+    config/settings_data.json current.color_argento : #8E9592 → #C9B99E
+    config/settings_data.json current.color_bianco : #EEEDE7 → #E8DDC8
+    config/settings_data.json current.color_nero : #0D0F0E → #171512
+    config/settings_data.json current.color_verdaccio : #262B29 → #24211D
+    config/settings_data.json current.color_verde : #1F3D35 → #24211D
+    sections/footer-group.json sections.footer.settings.palette : defaut → nero
+    sections/header-group.json sections.header.settings.couleur_fond : #0d0f0e → #e8ddc8
+    sections/header-group.json sections.header.settings.couleur_texte : #eeede7 → #171512
+    templates/password.json sections.main.settings.degrade : linear-gradient(160deg, #1F3D35 0%, #0D0F0E 72%) → linear-gradient(160deg, #24211D 0%, #171512 72%)
+2. 404.html               identique  (35 textes, 22 liens, 1 champs)
+2. cart.html              identique  (31 textes, 21 liens, 1 champs)
+2. contact-ok.html        identique  (47 textes, 26 liens, 1 champs)
+2. contact.html           identique  (55 textes, 26 liens, 9 champs)
+2. ec-client.html         identique  (308 textes, 54 liens, 21 champs)
+2. ec-visiteur.html       identique  (66 textes, 22 liens, 1 champs)
+2. fidelite-client.html   identique  (114 textes, 22 liens, 1 champs)
+2. fidelite.html          identique  (110 textes, 22 liens, 1 champs)
+2. histoire.html          identique  (53 textes, 22 liens, 1 champs)
+2. index.html             identique  (116 textes, 31 liens, 2 champs)
+2. lancement.html         identique  (15 textes, 3 liens, 3 champs)
+2. page.html              identique  (30 textes, 20 liens, 1 champs)
+2. password.html          identique  (15 textes, 0 liens, 3 champs)
+2. presentation.html      identique  (43 textes, 21 liens, 1 champs)
+2. search.html            identique  (31 textes, 21 liens, 2 champs)
+2. services.html          identique  (54 textes, 24 liens, 1 champs)
+3. Couleurs calculées hors beige/noir : aucune
+   teintes les plus utilisées : ['rgb(23, 21, 18)', 'rgb(0, 0, 0)', 'rgb(232, 221, 200)', 'rgba(232, 221, 200, 0.82)', 'rgb(82, 77, 69)', 'rgb(201, 185, 158)', 'rgba(23, 21, 18, 0.84)', 'rgba(23, 21, 18, 0.86)']
+4. Anciennes couleurs (dont le vert) dans le code : aucune
+
+RÉSULTAT : TOUT EST CONFORME
