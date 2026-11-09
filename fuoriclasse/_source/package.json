@@ -1,0 +1,8 @@
+{
+  "name": "fuoriclasse-build",
+  "private": true,
+  "description": "Outils de génération de l'identité FUORICLASSE (rendus 3D three.js)",
+  "dependencies": {
+    "three": "0.169.0"
+  }
+}

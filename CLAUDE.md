@@ -17,3 +17,9 @@ Quand l'utilisateur donne un client et des prestations, procède ainsi :
 
 - La carte officielle est le design de l'utilisateur (`19_carte-de-visite/design-original/`), recomposé en 85 × 55 mm par `arte-automobili/_source/carte_visite/carte_arte.py`.
 - La proposition blanche est générée par `arte-automobili/_source/carte_visite/carte.py`, une carte par personne de `equipe` dans `donnees.json`, dans `19_carte-de-visite/proposition-blanche/`.
+
+## FUORICLASSE (marque de vêtements, projet séparé)
+
+- Tout est dans `fuoriclasse/` ; lis d'abord `fuoriclasse/README.md`. Ne mélange jamais ses fichiers avec ceux d'Arte Automobili.
+- Sources uniques : `fuoriclasse/_source/brand.py` (palette, logos, motif Gessato), `collection.py` (les 17 pièces Series A, prix, matières), `textes.py` (tous les textes). Modifie-les, puis régénère avec `python3 fuoriclasse/_source/build_all.py` (ou le script de l'étape concernée).
+- Les visuels produits sont des illustrations et les lieux des rendus 3D d'intention : ne les présente jamais comme des photographies.

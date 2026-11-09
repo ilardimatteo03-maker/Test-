@@ -1,0 +1,15 @@
+
+/* FUORICLASSE — système typographique (polices OFL du dossier polices/) */
+:root{
+  --fc-serif:'Playfair',Georgia,'Times New Roman',serif;
+  --fc-sans:'Mona Sans','Helvetica Neue',Arial,sans-serif;
+  --fc-mono:'Geist Mono',ui-monospace,Menlo,monospace;
+}
+.fc-display{font-family:var(--fc-serif);font-variation-settings:'opsz' 900;font-weight:400;font-size:clamp(48px,7vw,112px);line-height:.98;letter-spacing:-.01em}
+.fc-display em{font-style:italic}
+.fc-titre{font-family:var(--fc-serif);font-variation-settings:'opsz' 600;font-weight:400;font-size:clamp(32px,4vw,56px);line-height:1.05}
+.fc-capitales{font-family:var(--fc-serif);font-stretch:112.5%;font-variation-settings:'opsz' 30;font-weight:420;letter-spacing:.14em;text-transform:uppercase}
+.fc-surtitre{font-family:var(--fc-sans);font-stretch:125%;font-weight:500;font-size:11px;letter-spacing:.32em;text-transform:uppercase}
+.fc-texte{font-family:var(--fc-sans);font-weight:400;font-size:16px;line-height:1.6}
+.fc-legende{font-family:var(--fc-sans);font-weight:400;font-size:13px;line-height:1.5}
+.fc-code{font-family:var(--fc-mono);font-weight:400;font-size:12px;letter-spacing:.04em;text-transform:uppercase}

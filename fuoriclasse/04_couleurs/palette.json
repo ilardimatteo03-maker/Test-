@@ -1,0 +1,166 @@
+{
+  "marque": [
+    {
+      "nom": "Nero Assoluto",
+      "hex": "#0E0D0C",
+      "rvb": [
+        14,
+        13,
+        12
+      ],
+      "cmjn_indicatif": [
+        0,
+        10,
+        15,
+        97
+      ],
+      "role": "Noir profond — fond principal, texte",
+      "part_conseillee_pct": 30
+    },
+    {
+      "nom": "Crema",
+      "hex": "#EFE9DE",
+      "rvb": [
+        239,
+        233,
+        222
+      ],
+      "cmjn_indicatif": [
+        0,
+        2,
+        7,
+        6
+      ],
+      "role": "Blanc crème — fond principal, texte inversé",
+      "part_conseillee_pct": 38
+    },
+    {
+      "nom": "Grafite",
+      "hex": "#3A3B3D",
+      "rvb": [
+        58,
+        59,
+        61
+      ],
+      "cmjn_indicatif": [
+        5,
+        0,
+        0,
+        82
+      ],
+      "role": "Gris graphite — textes secondaires, textile",
+      "part_conseillee_pct": 8
+    },
+    {
+      "nom": "Talpa",
+      "hex": "#8B7F72",
+      "rvb": [
+        139,
+        127,
+        114
+      ],
+      "cmjn_indicatif": [
+        0,
+        9,
+        18,
+        45
+      ],
+      "role": "Taupe — matières, fonds doux, textile",
+      "part_conseillee_pct": 9
+    },
+    {
+      "nom": "Cioccolato",
+      "hex": "#3D2A21",
+      "rvb": [
+        61,
+        42,
+        33
+      ],
+      "cmjn_indicatif": [
+        0,
+        31,
+        46,
+        76
+      ],
+      "role": "Chocolat — textile, cuir, packaging",
+      "part_conseillee_pct": 5
+    },
+    {
+      "nom": "Blu Notte",
+      "hex": "#141B2A",
+      "rvb": [
+        20,
+        27,
+        42
+      ],
+      "cmjn_indicatif": [
+        52,
+        36,
+        0,
+        84
+      ],
+      "role": "Bleu nuit — textile, soirée, digital",
+      "part_conseillee_pct": 7
+    },
+    {
+      "nom": "Barolo",
+      "hex": "#5E1B27",
+      "rvb": [
+        94,
+        27,
+        39
+      ],
+      "cmjn_indicatif": [
+        0,
+        71,
+        59,
+        63
+      ],
+      "role": "Couleur signature — détails, doublures, rubans",
+      "part_conseillee_pct": 3
+    }
+  ],
+  "support": [
+    {
+      "nom": "Ottone",
+      "hex": "#A8916A",
+      "rvb": [
+        168,
+        145,
+        106
+      ],
+      "role": "Laiton brossé — accessoires métal, dorure à chaud, jamais en aplat"
+    },
+    {
+      "nom": "Pietra",
+      "hex": "#D9D1C3",
+      "rvb": [
+        217,
+        209,
+        195
+      ],
+      "role": "Travertin — fonds photo, intérieur des boîtes"
+    },
+    {
+      "nom": "Crema ombrée",
+      "hex": "#E4DCCD",
+      "rvb": [
+        228,
+        220,
+        205
+      ],
+      "role": "Filets et séparateurs sur fond Crema"
+    },
+    {
+      "nom": "Nero levé",
+      "hex": "#1A1917",
+      "rvb": [
+        26,
+        25,
+        23
+      ],
+      "role": "Cartes et encarts sur fond Nero"
+    }
+  ],
+  "note": "CMJN indicatifs pour papier couché : à valider sur épreuve chez l'imprimeur. Pour le textile, faire teindre d'après les références TCX/TPX choisies sur nuancier physique, à partir des HEX."
+}
